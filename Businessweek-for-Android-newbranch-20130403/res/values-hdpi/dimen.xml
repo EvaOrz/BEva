@@ -13,6 +13,7 @@
     <dimen name="index_titlebar_height">44.5dp</dimen>
     <dimen name="index_titlebar_column_marginLeft">5.5dp</dimen>
     <dimen name="index_titlebar_title_textSize">24.5dp</dimen>
+    <dimen name="index_child_titlebar_height">30dp</dimen>
 
     <!-- index_gallery -->
     <dimen name="index_gallery_height">160dp</dimen>
@@ -32,12 +33,15 @@
     <dimen name="index_item_title_textSize">15.5dp</dimen>
     <dimen name="index_rightRow_size">15.5dp</dimen>
     <dimen name="index_desc_textSize">11.5dp</dimen>
+    <dimen name="index_more_cat_textSize">10dp</dimen>
     <dimen name="index_desc_marginLeft">23.5dp</dimen>
+    <dimen name="index_more_padding_right">5dp</dimen>
     <dimen name="cat_index_marginTop">15dp</dimen>
+    <dimen name="index_more_height">24dp</dimen>
 
     <!-- fav -->
     <dimen name="fav_titlebar_height">45dp</dimen>
-    <dimen name="fav_textsize">8pt</dimen>
+    <dimen name="fav_textsize">20dp</dimen>
 
     <!-- about -->
     <dimen name="about_bar_height">44.5dp</dimen>

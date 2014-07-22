@@ -47,44 +47,65 @@
             android:layout_height="@dimen/index_rightRow_size"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true" />
-
-        <LinearLayout
-            android:id="@+id/index_item_ll"
+        
+        <TextView
+            android:id="@+id/index_item_title"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/index_desc_marginLeft"
             android:layout_marginRight="20dp"
             android:layout_toLeftOf="@+id/index_item_rightRow"
             android:layout_toRightOf="@id/index_item_img"
-            android:orientation="vertical" >
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="@color/black_bg"
+            android:textSize="@dimen/index_item_title_textSize" />
 
-            <TextView
-                android:id="@+id/index_item_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:singleLine="true"
-                android:textColor="@color/black_bg"
-                android:textSize="@dimen/index_item_title_textSize" />
+        <TextView
+            android:id="@+id/index_item_desc"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/index_item_title"
+            android:layout_alignRight="@+id/index_item_title"
+            android:layout_below="@+id/index_item_title"
+            android:ellipsize="end"
+            android:lines="2"
+            android:textColor="@color/index_item_desc"
+            android:textSize="@dimen/index_desc_textSize" />
 
-            <TextView
-                android:id="@+id/index_item_desc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="2"
-                android:textColor="@color/index_item_desc"
-                android:textSize="@dimen/index_desc_textSize" />
-        </LinearLayout>
-
-        <ImageView
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/index_item_img"
             android:layout_marginTop="@dimen/index_marginTop"
-            android:src="@drawable/line"
-            android:visibility="invisible" />
+            android:background="@drawable/line" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/index_item_more_rl"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/index_more_height"
+        android:layout_marginTop="@dimen/index_marginTop"
+        android:visibility="visible" >
+
+        <ImageView
+            android:id="@+id/index_item_more_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/index_marginRight"
+            android:src="@drawable/moreinstant" />
+
+        <TextView
+            android:id="@+id/index_item_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/index_item_more_img"
+            android:paddingRight="@dimen/index_more_padding_right"
+            android:textColor="@color/index_item_desc"
+            android:textSize="@dimen/index_more_cat_textSize" />
     </RelativeLayout>
 
 </LinearLayout>

@@ -36,16 +36,12 @@
             android:background="@drawable/nav_fav" />
     </RelativeLayout>
 
-    <!-- 以防listview不能填充满整个屏幕导致滑动时listview下面出现透明的区域，用 RelativeLayout布局 -->
-
-    <ListView
-        android:id="@+id/index_listview"
+    <FrameLayout
+        android:id="@+id/index_main"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@+id/index_titleBar"
-        android:cacheColorHint="@android:color/transparent"
-        android:divider="@drawable/line"
-        android:fadingEdge="none" />
+        android:background="@color/full_transparent" />
 
     <!-- 覆盖在listview上面 -->
 
@@ -67,6 +63,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@+id/index_titleBar"
+        android:orientation="horizontal"
         android:visibility="gone" />
 
 </RelativeLayout>

@@ -107,6 +107,7 @@ public class ArticleList extends Entry {
 	 */
 	public static class Property {
 		private String type = "";// 1 html 2 gallery 3 video
+		private int scrollHidden = 0;// 滑动时是否隐藏该文章。0.否。1.是
 
 		public String getType() {
 			return type;
@@ -114,6 +115,14 @@ public class ArticleList extends Entry {
 
 		public void setType(String type) {
 			this.type = type;
+		}
+
+		public int getScrollHidden() {
+			return scrollHidden;
+		}
+
+		public void setScrollHidden(int scrollHidden) {
+			this.scrollHidden = scrollHidden;
 		}
 
 	}

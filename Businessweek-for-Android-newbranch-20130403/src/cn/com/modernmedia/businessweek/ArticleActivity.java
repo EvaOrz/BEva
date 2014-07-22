@@ -16,7 +16,8 @@ import cn.com.modernmedia.widget.CommonViewPager;
  * @author ZhuQiao
  * 
  */
-public class ArticleActivity extends CommonArticleActivity implements OnClickListener {
+public class ArticleActivity extends CommonArticleActivity implements
+		OnClickListener {
 	private Button backBtn, favBtn, fontBtn, shareBtn;
 	/**
 	 * 在ViewPager中，它除了加载当前页，还会加载当前页的左右页（无论它们实际可不可见）。除了当前页的View算是可见的，
@@ -33,7 +34,7 @@ public class ArticleActivity extends CommonArticleActivity implements OnClickLis
 		shareBtn = (Button) findViewById(R.id.article_share_btn);
 		viewPager = (CommonViewPager) findViewById(R.id.article_viewpager);
 		viewPager.setOffscreenPageLimit(1);// 限制预加载，只加载下一页
-		
+
 		backBtn.setOnClickListener(this);
 		favBtn.setOnClickListener(this);
 		fontBtn.setOnClickListener(this);
@@ -102,4 +103,5 @@ public class ArticleActivity extends CommonArticleActivity implements OnClickLis
 			break;
 		}
 	}
+
 }

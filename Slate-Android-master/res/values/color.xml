@@ -9,5 +9,7 @@
     <color name="index_item_desc">#ff787878</color>
     <color name="fav_bg">#1d1d1d</color>
     <color name="control_back">#AA000000</color>
+    <color name="process_loading_ring_bg">#ff292929</color>
+    <color name="process_loading_red_ring">#ffb83126</color>
 
 </resources>

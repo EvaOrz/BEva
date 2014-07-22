@@ -5,20 +5,22 @@ import java.util.List;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import cn.com.modernmedia.VideoPlayerActivity;
+import cn.com.modernmedia.adapter.MyPagerAdapter;
 import cn.com.modernmedia.businessweek.MainActivity;
+import cn.com.modernmedia.businessweek.MyApplication;
 import cn.com.modernmedia.businessweek.R;
-import cn.com.modernmedia.businessweek.adapter.PageGalleryAdapter;
 import cn.com.modernmedia.listener.FetchEntryListener;
+import cn.com.modernmedia.listener.NotifyArticleDesListener;
 import cn.com.modernmedia.listener.SlateListener;
 import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.model.CatIndexArticle;
@@ -26,7 +28,6 @@ import cn.com.modernmedia.model.Entry;
 import cn.com.modernmedia.model.IndexArticle;
 import cn.com.modernmedia.util.LogHelper;
 import cn.com.modernmedia.widget.BaseView;
-import cn.com.modernmedia.widget.PageGallery;
 
 /**
  * 首页滚屏view(作为首页listview的headview)
@@ -35,19 +36,23 @@ import cn.com.modernmedia.widget.PageGallery;
  * 
  */
 public class IndexHeadView extends BaseView implements FetchEntryListener {
+	private static final int CHANGE = 1;
+	private static final int CHANGE_DELAY = 5000;
 	private Context mContext;
-	private PageGallery gallery;
-	private PageGalleryAdapter galleryAdapter;
+	private MyCircularViewPager viewPager;
 	private LinearLayout dotLl;
 	private TextView title;
 	private List<ImageView> dots = new ArrayList<ImageView>();
+	private List<ArticleItem> list;
+	private boolean isSetting = true;
+	private boolean isAuto;
 	private SlateListener listener = new SlateListener() {
 
 		@Override
 		public void linkNull(ArticleItem item) {
 			if (item.getAdv().getAdvProperty().getIsadv() == 0) {
 				((MainActivity) mContext).gotoArticleActivity(
-						item.getArticleId(), true);
+						item.getArticleId(), item.getCatId(), true);
 			}
 		}
 
@@ -59,7 +64,8 @@ public class IndexHeadView extends BaseView implements FetchEntryListener {
 
 		@Override
 		public void articleLink(ArticleItem item, int articleId) {
-			((MainActivity) mContext).gotoArticleActivity(articleId, true);
+			((MainActivity) mContext).gotoArticleActivity(articleId,
+					item.getCatId(), true);
 		}
 
 		@Override
@@ -85,6 +91,50 @@ public class IndexHeadView extends BaseView implements FetchEntryListener {
 		}
 	};
 
+	private NotifyArticleDesListener pagerListener = new NotifyArticleDesListener() {
+
+		@Override
+		public void updatePage(int state) {
+			isSetting = state == ViewPager.SCROLL_STATE_SETTLING;// 加载完毕
+			startChange();
+		}
+
+		@Override
+		public void updateDes(int position) {
+			if (list != null && list.size() > position && list.size() > 1) {
+				title.setText(list.get(position).getTitle());
+				if (position == 0) {
+					position = dots.size() - 1;
+				} else if (position == list.size() - 1) {
+					position = 0;
+				} else {
+					position--;
+				}
+				for (int i = 0; i < dots.size(); i++) {
+					if (i == position) {
+						dots.get(i)
+								.setBackgroundResource(R.drawable.dot_active);
+					} else {
+						dots.get(i).setBackgroundResource(R.drawable.dot);
+					}
+				}
+			}
+
+		}
+	};
+
+	private Handler handler = new Handler() {
+
+		@Override
+		public void handleMessage(Message msg) {
+			if (msg.what == CHANGE) {
+				viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true);
+				startChange();
+			}
+		}
+
+	};
+
 	public IndexHeadView(Context context) {
 		super(context);
 		mContext = context;
@@ -94,10 +144,12 @@ public class IndexHeadView extends BaseView implements FetchEntryListener {
 	private void init() {
 		this.addView(LayoutInflater.from(mContext).inflate(
 				R.layout.page_gallery, null));
-		gallery = (PageGallery) findViewById(R.id.index_gallery);
+		viewPager = (MyCircularViewPager) findViewById(R.id.index_gallery);
+		viewPager.getLayoutParams().height = MyApplication.width / 2;
 		dotLl = (LinearLayout) findViewById(R.id.index_gallery_dot);
 		title = (TextView) findViewById(R.id.index_head_title);
 		setListener(listener);
+		viewPager.setListener(pagerListener);
 	}
 
 	@Override
@@ -113,60 +165,44 @@ public class IndexHeadView extends BaseView implements FetchEntryListener {
 	}
 
 	private void setDataToGallery(final List<ArticleItem> list) {
-		if (list == null || list.isEmpty())
+		if (list == null || list.isEmpty()) {
 			return;
-		galleryAdapter = new PageGalleryAdapter(mContext);
-		gallery.setAdapter(galleryAdapter);
-		galleryAdapter.setArticlelist(list);
-		initDot(list);
-		// 改变title的值
-		// title.setText(list.get(0).getTitle());
-		gallery.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				if (mContext instanceof MainActivity) {
-					ArticleItem item = list.get(position % list.size());
-					LogHelper.logOpenArticleFromColumnPage(mContext,
-							item.getArticleId() + "", item.getCatId() + "");
-					clickSlate(item);
-				}
+		}
+		this.list = list;
+		if (mContext instanceof MainActivity) {
+			if (list.size() == 1) {
+				((MainActivity) mContext).setScrollView(2, null);
+			} else {
+				((MainActivity) mContext).setScrollView(0, viewPager);
+				startRefresh();
 			}
-		});
-		gallery.setOnItemSelectedListener(new OnItemSelectedListener() {
+		}
+		title.setText(list.get(0).getTitle());
+		viewPager.setDataForPager(list);
+		initDot(list);
 
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view,
-					final int position, long id) {
-				postDelayed(new Runnable() {
+		PagerAdapter adapter = viewPager.getAdapter();
+		if (adapter != null && adapter instanceof MyPagerAdapter) {
+			((MyPagerAdapter) adapter)
+					.setOnItemClickListener(new MyPagerAdapter.OnItemClickListener() {
 
-					@Override
-					public void run() {
-						int index = position % list.size();
-						title.setText(list.get(index).getTitle());
-						for (int i = 0; i < dots.size(); i++) {
-							if (i == index) {
-								dots.get(i).setBackgroundResource(
-										R.drawable.dot_active);
-							} else {
-								dots.get(i).setBackgroundResource(
-										R.drawable.dot);
+						@Override
+						public void onItemClick(View v, int position) {
+							if (mContext instanceof MainActivity) {
+								ArticleItem item = list.get(position
+										% list.size());
+								LogHelper.logOpenArticleFromColumnPage(
+										mContext, item.getArticleId() + "",
+										item.getCatId() + "");
+								clickSlate(item);
 							}
 						}
-					}
-
-				}, 200);
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-			}
-		});
+					});
+		}
 	}
 
-	public Gallery getGallery() {
-		return gallery;
+	public ViewPager getViewPager() {
+		return viewPager;
 	}
 
 	/**
@@ -184,9 +220,9 @@ public class IndexHeadView extends BaseView implements FetchEntryListener {
 				LinearLayout.LayoutParams.WRAP_CONTENT,
 				LinearLayout.LayoutParams.WRAP_CONTENT);
 		lp.leftMargin = 5;
-		for (int i = 0; i < itemList.size(); i++) {
+		for (int i = 1; i < itemList.size() - 1; i++) {
 			iv = new ImageView(mContext);
-			if (i == 0) {
+			if (i == 1) {
 				iv.setBackgroundResource(R.drawable.dot_active);
 			} else {
 				iv.setBackgroundResource(R.drawable.dot);
@@ -194,6 +230,37 @@ public class IndexHeadView extends BaseView implements FetchEntryListener {
 			dotLl.addView(iv, lp);
 			dots.add(iv);
 		}
+	}
+
+	private void startChange() {
+		if (list == null || list.size() < 2 || !isSetting || !isAuto) {
+			return;
+		}
+		Message msg = handler.obtainMessage();
+		if (handler.hasMessages(CHANGE)) {
+			handler.removeMessages(CHANGE);
+		}
+		msg.what = 1;
+		handler.sendMessageDelayed(msg, CHANGE_DELAY);
+	}
+
+	/**
+	 * 开始自动切换
+	 */
+	public void startRefresh() {
+		isAuto = true;
+		isSetting = true;
+		startChange();
+	}
+
+	/**
+	 * 停止后台自动切换
+	 */
+	public void stopRefresh() {
+		if (handler.hasMessages(1)) {
+			handler.removeMessages(1);
+		}
+		isAuto = false;
 	}
 
 	@Override

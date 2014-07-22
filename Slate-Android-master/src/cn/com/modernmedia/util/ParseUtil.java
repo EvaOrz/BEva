@@ -108,4 +108,8 @@ public class ParseUtil {
 		}
 		return l;
 	}
+
+	public static String parseString(String res, Object... args) {
+		return String.format(res, args);
+	}
 }

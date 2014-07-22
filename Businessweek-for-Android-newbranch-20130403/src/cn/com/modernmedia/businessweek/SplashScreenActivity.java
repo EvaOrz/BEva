@@ -21,6 +21,7 @@ public class SplashScreenActivity extends CommonSplashActivity {
 	protected void setContentViewById() {
 		setContentView(R.layout.splash_screen);
 		findViewById(R.id.splash_view).setBackgroundColor(Color.BLACK);
+		System.out.println("SplashScreenActivity");
 	}
 
 	/**
@@ -32,7 +33,8 @@ public class SplashScreenActivity extends CommonSplashActivity {
 
 			@Override
 			public void run() {
-				Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);
+				Intent intent = new Intent(SplashScreenActivity.this,
+						MainActivity.class);
 				intent.putExtra("FROM_ACTIVITY", "SPLASH");
 				startActivity(intent);
 				finish();
@@ -50,7 +52,8 @@ public class SplashScreenActivity extends CommonSplashActivity {
 
 			@Override
 			public void run() {
-				Intent intent = new Intent(SplashScreenActivity.this, AdvActivity.class);
+				Intent intent = new Intent(SplashScreenActivity.this,
+						AdvActivity.class);
 				intent.putExtra("FROM_ACTIVITY", "SPLASH");
 				startActivity(intent);
 				finish();
@@ -58,4 +61,5 @@ public class SplashScreenActivity extends CommonSplashActivity {
 			}
 		}, ConstData.SPLASH_DELAY_TIME);
 	}
+	
 }

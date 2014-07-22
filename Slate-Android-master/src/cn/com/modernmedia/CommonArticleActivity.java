@@ -19,6 +19,7 @@ import cn.com.modernmedia.db.ReadDb;
 import cn.com.modernmedia.listener.FetchEntryListener;
 import cn.com.modernmedia.model.ArticleList;
 import cn.com.modernmedia.model.ArticleList.ArticleDetail;
+import cn.com.modernmedia.model.Atlas;
 import cn.com.modernmedia.model.Entry;
 import cn.com.modernmedia.model.Issue;
 import cn.com.modernmedia.util.ConstData;
@@ -40,9 +41,10 @@ public abstract class CommonArticleActivity extends BaseActivity {
 	private boolean isIndex;
 	private Issue issue;
 	private int articleId;
+	private int catId;
 	private Handler handler = new Handler();
 	private List<ArticleDetail> list;
-	private boolean hasFetchApi = false;
+	// private boolean hasFetchApi = false;
 	private ViewPageAdapter adapter;
 	private FavDb db;
 	private ReadDb readDb;
@@ -50,6 +52,7 @@ public abstract class CommonArticleActivity extends BaseActivity {
 	private ShareManager shareManager;
 	private String currentUrl = "";// 当前view的URL
 	private List<String> loadOkUrl = new ArrayList<String>();
+	private int needDeleteHidden = -1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +75,6 @@ public abstract class CommonArticleActivity extends BaseActivity {
 		shareManager = new ShareManager(this);
 		lastClickTime = System.currentTimeMillis() / 1000;
 		getViewPager().setOnPageChangeListener(new OnPageChangeListener() {
-
 			/**
 			 * 当一个页面即将被加载时，调用此方法 Position index of the new selected page
 			 */
@@ -80,6 +82,28 @@ public abstract class CommonArticleActivity extends BaseActivity {
 			public void onPageSelected(int position) {
 				if (list.size() <= position)
 					return;
+
+				if (needDeleteHidden != -1) {
+					if (Math.abs(position - needDeleteHidden) > 1) {
+						// pos = i == 0 ? length - 2 : i;
+						if (needDeleteHidden == list.size() - 2
+								|| needDeleteHidden == 0) {
+							list.remove(list.size() - 2);
+							list.remove(0);
+						} else if (needDeleteHidden == 1
+								|| needDeleteHidden == list.size() - 1) {
+							list.remove(list.size() - 1);
+							list.remove(1);
+						} else {
+							list.remove(list.get(needDeleteHidden));
+						}
+						adapter.destroyItem(getViewPager(), position,
+								getViewPager().findViewWithTag(1));
+						needDeleteHidden = -1;
+						return;
+					}
+				}
+
 				if (list.size() != 1) {
 					if (position == 0) {
 						getViewPager().setCurrentItem(list.size() - 2, false);// 其实是最后一个view
@@ -123,6 +147,7 @@ public abstract class CommonArticleActivity extends BaseActivity {
 		if (getIntent() != null && getIntent().getExtras() != null) {
 			issue = (Issue) getIntent().getSerializableExtra("ISSUE");
 			articleId = getIntent().getIntExtra("ARTICLE_ID", -1);
+			catId = getIntent().getIntExtra("CAT_ID", -1);
 			isIndex = getIntent().getBooleanExtra("IS_INDEX", true);
 		}
 	}
@@ -132,7 +157,6 @@ public abstract class CommonArticleActivity extends BaseActivity {
 	 */
 	private void getFavList() {
 		disProcess();
-		hasFetchApi = true;
 		list = db.getAllFav().getList();
 		getPosition(list, true);
 	}
@@ -165,6 +189,57 @@ public abstract class CommonArticleActivity extends BaseActivity {
 		});
 	}
 
+	private void getArticleById() {
+		showLoading();
+		controller.getArticleById(issue, catId + "", articleId + "",
+				new FetchEntryListener() {
+
+					@Override
+					public void setData(final Entry entry) {
+						handler.post(new Runnable() {
+
+							@Override
+							public void run() {
+								if (entry != null && entry instanceof Atlas) {
+									Atlas atlas = (Atlas) entry;
+									ArticleDetail detail = new ArticleDetail();
+									detail.setArticleId(atlas.getId());
+									detail.setCatId(catId);
+									detail.setLink(atlas.getLink());
+									// 把这个文章添在列表末尾
+									list.add(detail);
+									List<ArticleDetail> newList1 = new ArrayList<ArticleDetail>();
+									newList1.add(detail);
+									newList1.addAll(list);
+									newList1.add(list.get(0));
+									list.clear();
+									list.addAll(newList1);
+									newList1 = null;
+									setDataForAdapter(list, list.size() - 2,
+											false);
+									checkHidden();
+									disProcess();
+								} else {
+									showError();
+								}
+							}
+						});
+					}
+				});
+	}
+
+	private void checkHidden() {
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i).getArticleId() == articleId) {
+				// 当前文章为需要隐藏的文章
+				if (list.get(i).getProperty().getScrollHidden() == 1) {
+					needDeleteHidden = i;
+				}
+				break;
+			}
+		}
+	}
+
 	/**
 	 * 获取当前文章所在索引
 	 * 
@@ -176,44 +251,65 @@ public abstract class CommonArticleActivity extends BaseActivity {
 		if (list == null || list.isEmpty()) {
 			return;
 		}
+
+		int length = list.size();
+		if (length == 1) {
+			setDataForAdapter(list, 1, true);
+			return;
+		}
+
+		// 去掉滑动时需要隐藏的文章
+		List<ArticleDetail> newList = new ArrayList<ArticleDetail>();
+		for (int i = 0; i < length; i++) {
+			ArticleDetail detail = list.get(i);
+			if (detail.getProperty().getScrollHidden() == 0
+					|| detail.getArticleId() == articleId) {
+				newList.add(detail);
+			}
+		}
+		list.clear();
+		list.addAll(newList);
+		newList = null;
+		// ------------
+
+		int pos = -1;
+		length = list.size();
+		for (int i = 0; i < length; i++) {
+			if (list.get(i).getArticleId() == articleId) {
+				// pos = i == 0 ? length - 2 : i;
+				pos = i;
+				break;
+			}
+		}
+
+		if (pos == -1) {// 运营配错了
+			getArticleById();
+			return;
+		}
+
 		/**
 		 * 创建一个新的list,循环滑动：头部添加一个和原尾部相同的view，尾部添加一个和原头部相同的view
 		 * 当滑动到第一个的时候，其实显示的是本来的最后一个view，这时把显示位置移到最后第二个，即本来的最后一个view
 		 * 同理，当滑到最后一个的时候，其实现实的是本来的第一个view，这时把位置移到第一个，即本来的第一个view
 		 */
 		if (changeList && list.size() != 1) {
-			List<ArticleDetail> newList = new ArrayList<ArticleDetail>();
-			newList.add(list.get(list.size() - 1));
-			newList.addAll(list);
-			newList.add(list.get(0));
+			List<ArticleDetail> newList1 = new ArrayList<ArticleDetail>();
+			newList1.add(list.get(list.size() - 1));
+			newList1.addAll(list);
+			newList1.add(list.get(0));
 			list.clear();
-			list.addAll(newList);
+			list.addAll(newList1);
+			newList1 = null;
+			if (pos == 0) {
+				pos = 1;
+			} else if (pos == length - 1) {
+				pos = list.size() - 2;
+			} else {
+				pos++;
+			}
+			checkHidden();
 		}
 
-		int pos = -1;
-		int length = list.size();
-		if (length == 1) {
-			setDataForAdapter(list, 1, true);
-			return;
-		}
-		for (int i = 0; i < length; i++) {
-			if (list.get(i).getArticleId() == articleId) {
-				pos = i == 0 ? length - 2 : i;
-				break;
-			}
-		}
-		if (pos == -1 && !hasFetchApi) {
-			// 如果本地文件和服务器不一致，重新获取
-			CommonApplication.articleUpdateTimeSame = false;
-			hasFetchApi = true;
-			getArticleList();
-			return;
-		}
-		if (pos == -1) {
-			Toast.makeText(this, R.string.can_not_find_article,
-					ConstData.TOAST_LENGTH).show();
-			return;
-		}
 		setDataForAdapter(list, pos, true);
 	}
 
@@ -234,7 +330,7 @@ public abstract class CommonArticleActivity extends BaseActivity {
 	 * @param pos
 	 */
 	protected void changeFav(int pos) {
-		if (list.size() <= pos)
+		if (list == null || list.size() <= pos)
 			return;
 		ArticleDetail detail = list.get(pos);
 		if (db.containThisFav(detail)) {
@@ -250,8 +346,10 @@ public abstract class CommonArticleActivity extends BaseActivity {
 	 * 添加收藏
 	 */
 	protected void addFav() {
+		if (list == null)
+			return;
 		int position = getViewPager().getCurrentItem();
-		if (list != null && list.size() > position) {
+		if (list.size() > position) {
 			ArticleDetail fav = list.get(position);
 			if (db.containThisFav(fav)) {
 				db.deleteFav(fav);
@@ -264,7 +362,8 @@ public abstract class CommonArticleActivity extends BaseActivity {
 			}
 		}
 		changeFav(position);
-		CommonApplication.favListener.refreshFav();
+		if (CommonApplication.favListener != null)// 刷新favView
+			CommonApplication.favListener.refreshFav();
 	}
 
 	/**
@@ -276,6 +375,48 @@ public abstract class CommonArticleActivity extends BaseActivity {
 		} else {
 			DataHelper.setFontSize(this, 1);
 		}
+		loadViewAfterFont();
+	}
+
+	protected void clickFont(boolean plus) {
+		if (plus) {// 放大
+			if (DataHelper.getFontSize(this) == 2) {
+				return;
+			}
+		} else {
+			if (DataHelper.getFontSize(this) == 1) {
+				return;
+			}
+		}
+		DataHelper.setFontSize(this, plus ? 2 : 1);
+		loadViewAfterFont();
+	}
+
+	/**
+	 * 改变行间距
+	 * 
+	 * @param plus
+	 */
+	protected void changeLineHeight(boolean plus) {
+		int now = DataHelper.getLineHeight(this);
+		if (plus) {// 放大
+			if (now == 5) {
+				return;
+			}
+			now++;
+		} else {
+			if (now == 1) {
+				return;
+			}
+			now--;
+		}
+		DataHelper.setLineHeight(this, now);
+		loadViewAfterFont();
+	}
+
+	private void loadViewAfterFont() {
+		if (list == null)
+			return;
 		int position = getViewPager().getCurrentItem();
 		if (list.size() <= position) {
 			return;
@@ -321,6 +462,11 @@ public abstract class CommonArticleActivity extends BaseActivity {
 		}
 
 		@Override
+		public void notifyDataSetChanged() {
+			super.notifyDataSetChanged();
+		}
+
+		@Override
 		public int getCount() {
 			return list.size();
 		}
@@ -339,6 +485,7 @@ public abstract class CommonArticleActivity extends BaseActivity {
 		public Object instantiateItem(ViewGroup container, int position) {
 			ArticleDetail detail = list.get(position);
 			View view = fetchView(detail);
+			view.setTag(detail.getProperty().getScrollHidden());
 			container.addView(view);
 			return view;
 		}

@@ -14,12 +14,14 @@ import com.parse.PushService;
  */
 public class MyApplication extends CommonApplication {
 	public static final int APPID = 1;
-	public static int DEBUG = 0;
+	public static int DEBUG = 1;
 
 	@Override
 	public void onCreate() {
-		super.onCreate();
+		initChannel();
+		System.out.println(CHANNEL);
 		ConstData.setAppId(APPID, DEBUG);
+		super.onCreate();
 		if (DEBUG != 0) {
 			Parse.initialize(this, "5kqOEMzkZ7OOdCkAwF6y6EIQg8qbLrCd15uTGqxj",
 					"cudO599rrcn92vhCVYZUvf4SycfCh71XeaNIZXu5");
@@ -33,7 +35,7 @@ public class MyApplication extends CommonApplication {
 		// £º
 		// com.parse.Channel:null
 		// com.parse.Data:{"alert":"test","push_hash":"098f6bcd4621d373cade4e832627b4f6"}
-		PushService.subscribe(this, "businessweek", MainActivity.class);
+		PushService.subscribe(this, "businessweek_test", MainActivity.class);
 		PushService.setDefaultPushCallback(this, MainActivity.class);
 		mContext = this.getApplicationContext();
 	}

@@ -14,6 +14,10 @@ import android.view.MotionEvent;
 public class CommonViewPager extends ViewPager {
 	private AtlasViewPager pager;
 
+	public CommonViewPager(Context context) {
+		super(context);
+	}
+
 	public CommonViewPager(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}

@@ -3646,6 +3646,7 @@ cn.com.modernmedia.BaseActivity: android.os.Handler handler
 cn.com.modernmedia.BaseActivity: android.app.Dialog dialog
 cn.com.modernmedia.BaseActivity: BaseActivity()
 cn.com.modernmedia.BaseActivity: void onCreate(android.os.Bundle)
+cn.com.modernmedia.BaseActivity: void initScreenInfo()
 cn.com.modernmedia.BaseActivity: void initProcess()
 cn.com.modernmedia.BaseActivity: void showLoading()
 cn.com.modernmedia.BaseActivity: void showError()
@@ -3671,6 +3672,41 @@ cn.com.modernmedia.BaseActivity$3: cn.com.modernmedia.BaseActivity this$0
 cn.com.modernmedia.BaseActivity$3: java.lang.String val$res
 cn.com.modernmedia.BaseActivity$3: BaseActivity$3(cn.com.modernmedia.BaseActivity,java.lang.String)
 cn.com.modernmedia.BaseActivity$3: void run()
+cn.com.modernmedia.BaseFragmentActivity
+cn.com.modernmedia.BaseFragmentActivity: android.widget.RelativeLayout process_layout
+cn.com.modernmedia.BaseFragmentActivity: android.widget.ProgressBar loading
+cn.com.modernmedia.BaseFragmentActivity: android.widget.ImageView error
+cn.com.modernmedia.BaseFragmentActivity: java.lang.String flurryApiKey
+cn.com.modernmedia.BaseFragmentActivity: android.os.Handler handler
+cn.com.modernmedia.BaseFragmentActivity: android.app.Dialog dialog
+cn.com.modernmedia.BaseFragmentActivity: BaseFragmentActivity()
+cn.com.modernmedia.BaseFragmentActivity: void onCreate(android.os.Bundle)
+cn.com.modernmedia.BaseFragmentActivity: void initScreenInfo()
+cn.com.modernmedia.BaseFragmentActivity: void initProcess()
+cn.com.modernmedia.BaseFragmentActivity: void showLoading()
+cn.com.modernmedia.BaseFragmentActivity: void showError()
+cn.com.modernmedia.BaseFragmentActivity: void disProcess()
+cn.com.modernmedia.BaseFragmentActivity: void showToast(int)
+cn.com.modernmedia.BaseFragmentActivity: void showToast(java.lang.String)
+cn.com.modernmedia.BaseFragmentActivity: void showLoadingDialog(boolean)
+cn.com.modernmedia.BaseFragmentActivity: void onStart()
+cn.com.modernmedia.BaseFragmentActivity: void onStop()
+cn.com.modernmedia.BaseFragmentActivity: void reLoadData()
+cn.com.modernmedia.BaseFragmentActivity: android.widget.ImageView access$0(cn.com.modernmedia.BaseFragmentActivity)
+cn.com.modernmedia.BaseFragmentActivity$1
+cn.com.modernmedia.BaseFragmentActivity$1: cn.com.modernmedia.BaseFragmentActivity this$0
+cn.com.modernmedia.BaseFragmentActivity$1: BaseFragmentActivity$1(cn.com.modernmedia.BaseFragmentActivity)
+cn.com.modernmedia.BaseFragmentActivity$1: void onClick(android.view.View)
+cn.com.modernmedia.BaseFragmentActivity$2
+cn.com.modernmedia.BaseFragmentActivity$2: cn.com.modernmedia.BaseFragmentActivity this$0
+cn.com.modernmedia.BaseFragmentActivity$2: int val$resId
+cn.com.modernmedia.BaseFragmentActivity$2: BaseFragmentActivity$2(cn.com.modernmedia.BaseFragmentActivity,int)
+cn.com.modernmedia.BaseFragmentActivity$2: void run()
+cn.com.modernmedia.BaseFragmentActivity$3
+cn.com.modernmedia.BaseFragmentActivity$3: cn.com.modernmedia.BaseFragmentActivity this$0
+cn.com.modernmedia.BaseFragmentActivity$3: java.lang.String val$res
+cn.com.modernmedia.BaseFragmentActivity$3: BaseFragmentActivity$3(cn.com.modernmedia.BaseFragmentActivity,java.lang.String)
+cn.com.modernmedia.BaseFragmentActivity$3: void run()
 cn.com.modernmedia.CommonAdvActivity
 cn.com.modernmedia.CommonAdvActivity: CommonAdvActivity()
 cn.com.modernmedia.CommonAdvActivity: void onCreate(android.os.Bundle)
@@ -3679,6 +3715,7 @@ cn.com.modernmedia.CommonAdvActivity: void reLoadData()
 cn.com.modernmedia.CommonApplication
 cn.com.modernmedia.CommonApplication: int width
 cn.com.modernmedia.CommonApplication: int height
+cn.com.modernmedia.CommonApplication: float density
 cn.com.modernmedia.CommonApplication: android.content.Context mContext
 cn.com.modernmedia.CommonApplication: boolean issueIdSame
 cn.com.modernmedia.CommonApplication: boolean columnUpdateTimeSame
@@ -3693,19 +3730,21 @@ cn.com.modernmedia.CommonApplication: void <clinit>()
 cn.com.modernmedia.CommonApplication: CommonApplication()
 cn.com.modernmedia.CommonApplication: void onCreate()
 cn.com.modernmedia.CommonApplication: void onTerminate()
+cn.com.modernmedia.CommonApplication: cn.com.modernmedia.api.ImageDownloader getImageDownloader()
 cn.com.modernmedia.CommonApplication: void clear()
 cn.com.modernmedia.CommonApplication: void setFavListener(cn.com.modernmedia.listener.FavNotifykListener)
 cn.com.modernmedia.CommonApplication: void notifyFav()
 cn.com.modernmedia.CommonApplication: java.lang.String getMyUUID()
+cn.com.modernmedia.CommonApplication: void callGc()
 cn.com.modernmedia.CommonArticleActivity
 cn.com.modernmedia.CommonArticleActivity: android.content.Context mContext
 cn.com.modernmedia.CommonArticleActivity: cn.com.modernmedia.api.OperateController controller
 cn.com.modernmedia.CommonArticleActivity: boolean isIndex
 cn.com.modernmedia.CommonArticleActivity: cn.com.modernmedia.model.Issue issue
 cn.com.modernmedia.CommonArticleActivity: int articleId
+cn.com.modernmedia.CommonArticleActivity: int catId
 cn.com.modernmedia.CommonArticleActivity: android.os.Handler handler
 cn.com.modernmedia.CommonArticleActivity: java.util.List list
-cn.com.modernmedia.CommonArticleActivity: boolean hasFetchApi
 cn.com.modernmedia.CommonArticleActivity: cn.com.modernmedia.CommonArticleActivity$ViewPageAdapter adapter
 cn.com.modernmedia.CommonArticleActivity: cn.com.modernmedia.db.FavDb db
 cn.com.modernmedia.CommonArticleActivity: cn.com.modernmedia.db.ReadDb readDb
@@ -3713,6 +3752,7 @@ cn.com.modernmedia.CommonArticleActivity: long lastClickTime
 cn.com.modernmedia.CommonArticleActivity: cn.com.modernmedia.common.ShareManager shareManager
 cn.com.modernmedia.CommonArticleActivity: java.lang.String currentUrl
 cn.com.modernmedia.CommonArticleActivity: java.util.List loadOkUrl
+cn.com.modernmedia.CommonArticleActivity: int needDeleteHidden
 cn.com.modernmedia.CommonArticleActivity: CommonArticleActivity()
 cn.com.modernmedia.CommonArticleActivity: void onCreate(android.os.Bundle)
 cn.com.modernmedia.CommonArticleActivity: void initViewpager()
@@ -3720,11 +3760,16 @@ cn.com.modernmedia.CommonArticleActivity: void addLoadOkUrl(java.lang.String)
 cn.com.modernmedia.CommonArticleActivity: void initDataFromBundle()
 cn.com.modernmedia.CommonArticleActivity: void getFavList()
 cn.com.modernmedia.CommonArticleActivity: void getArticleList()
+cn.com.modernmedia.CommonArticleActivity: void getArticleById()
+cn.com.modernmedia.CommonArticleActivity: void checkHidden()
 cn.com.modernmedia.CommonArticleActivity: void getPosition(java.util.List,boolean)
 cn.com.modernmedia.CommonArticleActivity: void setDataForAdapter(java.util.List,int,boolean)
 cn.com.modernmedia.CommonArticleActivity: void changeFav(int)
 cn.com.modernmedia.CommonArticleActivity: void addFav()
 cn.com.modernmedia.CommonArticleActivity: void clickFont()
+cn.com.modernmedia.CommonArticleActivity: void clickFont(boolean)
+cn.com.modernmedia.CommonArticleActivity: void changeLineHeight(boolean)
+cn.com.modernmedia.CommonArticleActivity: void loadViewAfterFont()
 cn.com.modernmedia.CommonArticleActivity: void showShare()
 cn.com.modernmedia.CommonArticleActivity: void moveToArticle(int)
 cn.com.modernmedia.CommonArticleActivity: void init()
@@ -3740,15 +3785,21 @@ cn.com.modernmedia.CommonArticleActivity: void finishAndAnim()
 cn.com.modernmedia.CommonArticleActivity: boolean checkTime()
 cn.com.modernmedia.CommonArticleActivity: java.lang.String getCurrentUrl()
 cn.com.modernmedia.CommonArticleActivity: java.util.List access$0(cn.com.modernmedia.CommonArticleActivity)
-cn.com.modernmedia.CommonArticleActivity: void access$1(cn.com.modernmedia.CommonArticleActivity,java.lang.String)
-cn.com.modernmedia.CommonArticleActivity: java.util.List access$2(cn.com.modernmedia.CommonArticleActivity)
-cn.com.modernmedia.CommonArticleActivity: java.lang.String access$3(cn.com.modernmedia.CommonArticleActivity)
-cn.com.modernmedia.CommonArticleActivity: cn.com.modernmedia.db.ReadDb access$4(cn.com.modernmedia.CommonArticleActivity)
-cn.com.modernmedia.CommonArticleActivity: android.os.Handler access$5(cn.com.modernmedia.CommonArticleActivity)
-cn.com.modernmedia.CommonArticleActivity: void access$6(cn.com.modernmedia.CommonArticleActivity,java.util.List)
-cn.com.modernmedia.CommonArticleActivity: void access$7(cn.com.modernmedia.CommonArticleActivity,java.util.List,boolean)
-cn.com.modernmedia.CommonArticleActivity: android.content.Context access$8(cn.com.modernmedia.CommonArticleActivity)
-cn.com.modernmedia.CommonArticleActivity: cn.com.modernmedia.model.Issue access$9(cn.com.modernmedia.CommonArticleActivity)
+cn.com.modernmedia.CommonArticleActivity: int access$1(cn.com.modernmedia.CommonArticleActivity)
+cn.com.modernmedia.CommonArticleActivity: cn.com.modernmedia.CommonArticleActivity$ViewPageAdapter access$2(cn.com.modernmedia.CommonArticleActivity)
+cn.com.modernmedia.CommonArticleActivity: void access$3(cn.com.modernmedia.CommonArticleActivity,int)
+cn.com.modernmedia.CommonArticleActivity: void access$4(cn.com.modernmedia.CommonArticleActivity,java.lang.String)
+cn.com.modernmedia.CommonArticleActivity: java.util.List access$5(cn.com.modernmedia.CommonArticleActivity)
+cn.com.modernmedia.CommonArticleActivity: java.lang.String access$6(cn.com.modernmedia.CommonArticleActivity)
+cn.com.modernmedia.CommonArticleActivity: cn.com.modernmedia.db.ReadDb access$7(cn.com.modernmedia.CommonArticleActivity)
+cn.com.modernmedia.CommonArticleActivity: android.os.Handler access$8(cn.com.modernmedia.CommonArticleActivity)
+cn.com.modernmedia.CommonArticleActivity: void access$9(cn.com.modernmedia.CommonArticleActivity,java.util.List)
+cn.com.modernmedia.CommonArticleActivity: void access$10(cn.com.modernmedia.CommonArticleActivity,java.util.List,boolean)
+cn.com.modernmedia.CommonArticleActivity: android.content.Context access$11(cn.com.modernmedia.CommonArticleActivity)
+cn.com.modernmedia.CommonArticleActivity: cn.com.modernmedia.model.Issue access$12(cn.com.modernmedia.CommonArticleActivity)
+cn.com.modernmedia.CommonArticleActivity: int access$13(cn.com.modernmedia.CommonArticleActivity)
+cn.com.modernmedia.CommonArticleActivity: void access$14(cn.com.modernmedia.CommonArticleActivity,java.util.List,int,boolean)
+cn.com.modernmedia.CommonArticleActivity: void access$15(cn.com.modernmedia.CommonArticleActivity)
 cn.com.modernmedia.CommonArticleActivity$1
 cn.com.modernmedia.CommonArticleActivity$1: cn.com.modernmedia.CommonArticleActivity this$0
 cn.com.modernmedia.CommonArticleActivity$1: CommonArticleActivity$1(cn.com.modernmedia.CommonArticleActivity)
@@ -3765,11 +3816,22 @@ cn.com.modernmedia.CommonArticleActivity$2$1: cn.com.modernmedia.CommonArticleAc
 cn.com.modernmedia.CommonArticleActivity$2$1: cn.com.modernmedia.model.Entry val$entry
 cn.com.modernmedia.CommonArticleActivity$2$1: CommonArticleActivity$2$1(cn.com.modernmedia.CommonArticleActivity$2,cn.com.modernmedia.model.Entry)
 cn.com.modernmedia.CommonArticleActivity$2$1: void run()
+cn.com.modernmedia.CommonArticleActivity$3
+cn.com.modernmedia.CommonArticleActivity$3: cn.com.modernmedia.CommonArticleActivity this$0
+cn.com.modernmedia.CommonArticleActivity$3: CommonArticleActivity$3(cn.com.modernmedia.CommonArticleActivity)
+cn.com.modernmedia.CommonArticleActivity$3: void setData(cn.com.modernmedia.model.Entry)
+cn.com.modernmedia.CommonArticleActivity$3: cn.com.modernmedia.CommonArticleActivity access$0(cn.com.modernmedia.CommonArticleActivity$3)
+cn.com.modernmedia.CommonArticleActivity$3$1
+cn.com.modernmedia.CommonArticleActivity$3$1: cn.com.modernmedia.CommonArticleActivity$3 this$1
+cn.com.modernmedia.CommonArticleActivity$3$1: cn.com.modernmedia.model.Entry val$entry
+cn.com.modernmedia.CommonArticleActivity$3$1: CommonArticleActivity$3$1(cn.com.modernmedia.CommonArticleActivity$3,cn.com.modernmedia.model.Entry)
+cn.com.modernmedia.CommonArticleActivity$3$1: void run()
 cn.com.modernmedia.CommonArticleActivity$ViewPageAdapter
 cn.com.modernmedia.CommonArticleActivity$ViewPageAdapter: java.util.List list
 cn.com.modernmedia.CommonArticleActivity$ViewPageAdapter: cn.com.modernmedia.CommonArticleActivity this$0
 cn.com.modernmedia.CommonArticleActivity$ViewPageAdapter: CommonArticleActivity$ViewPageAdapter(cn.com.modernmedia.CommonArticleActivity)
 cn.com.modernmedia.CommonArticleActivity$ViewPageAdapter: void setData(java.util.List)
+cn.com.modernmedia.CommonArticleActivity$ViewPageAdapter: void notifyDataSetChanged()
 cn.com.modernmedia.CommonArticleActivity$ViewPageAdapter: int getCount()
 cn.com.modernmedia.CommonArticleActivity$ViewPageAdapter: boolean isViewFromObject(android.view.View,java.lang.Object)
 cn.com.modernmedia.CommonArticleActivity$ViewPageAdapter: void destroyItem(android.view.ViewGroup,int,java.lang.Object)
@@ -3786,25 +3848,27 @@ cn.com.modernmedia.CommonMainActivity: cn.com.modernmedia.model.Cat cat
 cn.com.modernmedia.CommonMainActivity: java.lang.String columnId
 cn.com.modernmedia.CommonMainActivity: int errorType
 cn.com.modernmedia.CommonMainActivity: int pushArticleId
+cn.com.modernmedia.CommonMainActivity: int pushCatId
 cn.com.modernmedia.CommonMainActivity: boolean isFirstIn
 cn.com.modernmedia.CommonMainActivity: android.os.Handler handler
 cn.com.modernmedia.CommonMainActivity: CommonMainActivity()
 cn.com.modernmedia.CommonMainActivity: void onCreate(android.os.Bundle)
 cn.com.modernmedia.CommonMainActivity: void onNewIntent(android.content.Intent)
 cn.com.modernmedia.CommonMainActivity: void parsePushMsg(android.content.Intent)
-cn.com.modernmedia.CommonMainActivity: void checkPushIssue(boolean,int,int)
+cn.com.modernmedia.CommonMainActivity: void checkPushIssue(int,int,int)
 cn.com.modernmedia.CommonMainActivity: void checkVersion()
 cn.com.modernmedia.CommonMainActivity: void getIssue(boolean)
 cn.com.modernmedia.CommonMainActivity: void getCatList()
 cn.com.modernmedia.CommonMainActivity: void getIndex()
 cn.com.modernmedia.CommonMainActivity: void getCatIndex(java.lang.String)
+cn.com.modernmedia.CommonMainActivity: void moveToLeft()
 cn.com.modernmedia.CommonMainActivity: void moveToIndex()
 cn.com.modernmedia.CommonMainActivity: android.app.Dialog onCreateDialog(int)
 cn.com.modernmedia.CommonMainActivity: void init()
 cn.com.modernmedia.CommonMainActivity: void setDataForColumn(cn.com.modernmedia.model.Entry)
 cn.com.modernmedia.CommonMainActivity: void setDataForIndex(cn.com.modernmedia.model.Entry)
 cn.com.modernmedia.CommonMainActivity: cn.com.modernmedia.widget.MainHorizontalScrollView getScrollView()
-cn.com.modernmedia.CommonMainActivity: void gotoArticleActivity(int,boolean)
+cn.com.modernmedia.CommonMainActivity: void gotoArticleActivity(int,int,boolean)
 cn.com.modernmedia.CommonMainActivity: void indexShowLoading(int)
 cn.com.modernmedia.CommonMainActivity: void setIndexTitle(java.lang.String)
 cn.com.modernmedia.CommonMainActivity: void notifyRead()
@@ -3815,18 +3879,22 @@ cn.com.modernmedia.CommonMainActivity: boolean onKeyDown(int,android.view.KeyEve
 cn.com.modernmedia.CommonMainActivity: void reLoadData()
 cn.com.modernmedia.CommonMainActivity: void onDestroy()
 cn.com.modernmedia.CommonMainActivity: void onActivityResult(int,int,android.content.Intent)
+cn.com.modernmedia.CommonMainActivity: void setColumnId(java.lang.String)
+cn.com.modernmedia.CommonMainActivity: java.lang.String getColumnId()
 cn.com.modernmedia.CommonMainActivity: void access$0(cn.com.modernmedia.CommonMainActivity,boolean)
 cn.com.modernmedia.CommonMainActivity: android.os.Handler access$1(cn.com.modernmedia.CommonMainActivity)
 cn.com.modernmedia.CommonMainActivity: void access$2(cn.com.modernmedia.CommonMainActivity,cn.com.modernmedia.model.Issue)
 cn.com.modernmedia.CommonMainActivity: int access$3(cn.com.modernmedia.CommonMainActivity)
-cn.com.modernmedia.CommonMainActivity: android.content.Context access$4(cn.com.modernmedia.CommonMainActivity)
-cn.com.modernmedia.CommonMainActivity: cn.com.modernmedia.model.Issue access$5(cn.com.modernmedia.CommonMainActivity)
-cn.com.modernmedia.CommonMainActivity: void access$6(cn.com.modernmedia.CommonMainActivity)
-cn.com.modernmedia.CommonMainActivity: void access$7(cn.com.modernmedia.CommonMainActivity,cn.com.modernmedia.model.Cat)
-cn.com.modernmedia.CommonMainActivity: cn.com.modernmedia.model.Cat access$8(cn.com.modernmedia.CommonMainActivity)
-cn.com.modernmedia.CommonMainActivity: boolean access$9(cn.com.modernmedia.CommonMainActivity)
-cn.com.modernmedia.CommonMainActivity: void access$10(cn.com.modernmedia.CommonMainActivity)
-cn.com.modernmedia.CommonMainActivity: void access$11(cn.com.modernmedia.CommonMainActivity,boolean)
+cn.com.modernmedia.CommonMainActivity: int access$4(cn.com.modernmedia.CommonMainActivity)
+cn.com.modernmedia.CommonMainActivity: android.content.Context access$5(cn.com.modernmedia.CommonMainActivity)
+cn.com.modernmedia.CommonMainActivity: cn.com.modernmedia.model.Issue access$6(cn.com.modernmedia.CommonMainActivity)
+cn.com.modernmedia.CommonMainActivity: void access$7(cn.com.modernmedia.CommonMainActivity)
+cn.com.modernmedia.CommonMainActivity: void access$8(cn.com.modernmedia.CommonMainActivity,cn.com.modernmedia.model.Cat)
+cn.com.modernmedia.CommonMainActivity: cn.com.modernmedia.model.Cat access$9(cn.com.modernmedia.CommonMainActivity)
+cn.com.modernmedia.CommonMainActivity: boolean access$10(cn.com.modernmedia.CommonMainActivity)
+cn.com.modernmedia.CommonMainActivity: void access$11(cn.com.modernmedia.CommonMainActivity)
+cn.com.modernmedia.CommonMainActivity: void access$12(cn.com.modernmedia.CommonMainActivity)
+cn.com.modernmedia.CommonMainActivity: void access$13(cn.com.modernmedia.CommonMainActivity,boolean)
 cn.com.modernmedia.CommonMainActivity$1
 cn.com.modernmedia.CommonMainActivity$1: cn.com.modernmedia.CommonMainActivity this$0
 cn.com.modernmedia.CommonMainActivity$1: CommonMainActivity$1(cn.com.modernmedia.CommonMainActivity)
@@ -3879,14 +3947,18 @@ cn.com.modernmedia.CommonMainActivity$6: CommonMainActivity$6(cn.com.modernmedia
 cn.com.modernmedia.CommonMainActivity$6: void run()
 cn.com.modernmedia.CommonMainActivity$7
 cn.com.modernmedia.CommonMainActivity$7: cn.com.modernmedia.CommonMainActivity this$0
-cn.com.modernmedia.CommonMainActivity$7: int val$id
-cn.com.modernmedia.CommonMainActivity$7: CommonMainActivity$7(cn.com.modernmedia.CommonMainActivity,int)
-cn.com.modernmedia.CommonMainActivity$7: void onClick(android.content.DialogInterface,int)
+cn.com.modernmedia.CommonMainActivity$7: CommonMainActivity$7(cn.com.modernmedia.CommonMainActivity)
+cn.com.modernmedia.CommonMainActivity$7: void run()
 cn.com.modernmedia.CommonMainActivity$8
 cn.com.modernmedia.CommonMainActivity$8: cn.com.modernmedia.CommonMainActivity this$0
 cn.com.modernmedia.CommonMainActivity$8: int val$id
 cn.com.modernmedia.CommonMainActivity$8: CommonMainActivity$8(cn.com.modernmedia.CommonMainActivity,int)
 cn.com.modernmedia.CommonMainActivity$8: void onClick(android.content.DialogInterface,int)
+cn.com.modernmedia.CommonMainActivity$9
+cn.com.modernmedia.CommonMainActivity$9: cn.com.modernmedia.CommonMainActivity this$0
+cn.com.modernmedia.CommonMainActivity$9: int val$id
+cn.com.modernmedia.CommonMainActivity$9: CommonMainActivity$9(cn.com.modernmedia.CommonMainActivity,int)
+cn.com.modernmedia.CommonMainActivity$9: void onClick(android.content.DialogInterface,int)
 cn.com.modernmedia.CommonSplashActivity
 cn.com.modernmedia.CommonSplashActivity: android.content.Context mContext
 cn.com.modernmedia.CommonSplashActivity: CommonSplashActivity()
@@ -3894,7 +3966,6 @@ cn.com.modernmedia.CommonSplashActivity: void onCreate(android.os.Bundle)
 cn.com.modernmedia.CommonSplashActivity: void setContentViewById()
 cn.com.modernmedia.CommonSplashActivity: void gotoMainActivity()
 cn.com.modernmedia.CommonSplashActivity: void gotoAdvActivity()
-cn.com.modernmedia.CommonSplashActivity: void initScreenInfo()
 cn.com.modernmedia.CommonSplashActivity: void down()
 cn.com.modernmedia.CommonSplashActivity: void init()
 cn.com.modernmedia.CommonSplashActivity: void reLoadData()
@@ -3903,164 +3974,181 @@ cn.com.modernmedia.CommonSplashActivity$1
 cn.com.modernmedia.CommonSplashActivity$1: cn.com.modernmedia.CommonSplashActivity this$0
 cn.com.modernmedia.CommonSplashActivity$1: CommonSplashActivity$1(cn.com.modernmedia.CommonSplashActivity)
 cn.com.modernmedia.CommonSplashActivity$1: void setData(cn.com.modernmedia.model.Entry)
+cn.com.modernmedia.Fragment.BaseFragment
+cn.com.modernmedia.Fragment.BaseFragment: BaseFragment()
+cn.com.modernmedia.Fragment.BaseFragment: void setData(cn.com.modernmedia.model.Entry)
+cn.com.modernmedia.Fragment.BaseFragment: void refresh()
+cn.com.modernmedia.Fragment.BaseFragment: void showView(boolean)
 cn.com.modernmedia.R
 cn.com.modernmedia.R: R()
 cn.com.modernmedia.R$anim
-cn.com.modernmedia.R$anim: int down_out
-cn.com.modernmedia.R$anim: int down_in
 cn.com.modernmedia.R$anim: int alpha_out
-cn.com.modernmedia.R$anim: int zoom_out
-cn.com.modernmedia.R$anim: int webview_loading_progressbar_anim
+cn.com.modernmedia.R$anim: int down_in
+cn.com.modernmedia.R$anim: int down_out
 cn.com.modernmedia.R$anim: int hold
-cn.com.modernmedia.R$anim: int right_out
-cn.com.modernmedia.R$anim: int zoom_in
 cn.com.modernmedia.R$anim: int right_in
+cn.com.modernmedia.R$anim: int right_out
+cn.com.modernmedia.R$anim: int webview_loading_progressbar_anim
+cn.com.modernmedia.R$anim: int zoom_in
+cn.com.modernmedia.R$anim: int zoom_out
 cn.com.modernmedia.R$anim: R$anim()
 cn.com.modernmedia.R$array
 cn.com.modernmedia.R$array: int app_share_items
 cn.com.modernmedia.R$array: R$array()
 cn.com.modernmedia.R$color
+cn.com.modernmedia.R$color: int black_bg
 cn.com.modernmedia.R$color: int column_bg
-cn.com.modernmedia.R$color: int white_bg
 cn.com.modernmedia.R$color: int control_back
 cn.com.modernmedia.R$color: int fav_bg
-cn.com.modernmedia.R$color: int index_item_desc
-cn.com.modernmedia.R$color: int black_bg
 cn.com.modernmedia.R$color: int full_transparent
+cn.com.modernmedia.R$color: int index_item_desc
+cn.com.modernmedia.R$color: int process_loading_red_ring
+cn.com.modernmedia.R$color: int process_loading_ring_bg
+cn.com.modernmedia.R$color: int white_bg
 cn.com.modernmedia.R$color: R$color()
 cn.com.modernmedia.R$dimen
-cn.com.modernmedia.R$dimen: int weibosdk_dialog_top_margin
-cn.com.modernmedia.R$dimen: int weibosdk_dialog_right_margin
-cn.com.modernmedia.R$dimen: int dialog_right_margin
-cn.com.modernmedia.R$dimen: int weibosdk_dialog_left_margin
-cn.com.modernmedia.R$dimen: int weibosdk_dialog_bottom_margin
 cn.com.modernmedia.R$dimen: int dialog_bottom_margin
 cn.com.modernmedia.R$dimen: int dialog_left_margin
+cn.com.modernmedia.R$dimen: int dialog_right_margin
 cn.com.modernmedia.R$dimen: int dialog_top_margin
+cn.com.modernmedia.R$dimen: int red_ring_size_large
+cn.com.modernmedia.R$dimen: int red_ring_size_medium
+cn.com.modernmedia.R$dimen: int red_ring_size_small
+cn.com.modernmedia.R$dimen: int weibosdk_dialog_bottom_margin
+cn.com.modernmedia.R$dimen: int weibosdk_dialog_left_margin
+cn.com.modernmedia.R$dimen: int weibosdk_dialog_right_margin
+cn.com.modernmedia.R$dimen: int weibosdk_dialog_top_margin
 cn.com.modernmedia.R$dimen: R$dimen()
 cn.com.modernmedia.R$drawable
-cn.com.modernmedia.R$drawable: int pause
-cn.com.modernmedia.R$drawable: int stepforward
-cn.com.modernmedia.R$drawable: int stepbackward
 cn.com.modernmedia.R$drawable: int dialog_bg
-cn.com.modernmedia.R$drawable: int ic_launcher
-cn.com.modernmedia.R$drawable: int play
 cn.com.modernmedia.R$drawable: int general_placeholder
-cn.com.modernmedia.R$drawable: int webview_loading
+cn.com.modernmedia.R$drawable: int ic_launcher
 cn.com.modernmedia.R$drawable: int network_error
+cn.com.modernmedia.R$drawable: int pause
+cn.com.modernmedia.R$drawable: int play
+cn.com.modernmedia.R$drawable: int red_dialog_style
+cn.com.modernmedia.R$drawable: int stepbackward
+cn.com.modernmedia.R$drawable: int stepforward
+cn.com.modernmedia.R$drawable: int webview_loading
 cn.com.modernmedia.R$drawable: R$drawable()
 cn.com.modernmedia.R$id
-cn.com.modernmedia.R$id: int video_player_view
-cn.com.modernmedia.R$id: int update_process
-cn.com.modernmedia.R$id: int seekbar
-cn.com.modernmedia.R$id: int error
-cn.com.modernmedia.R$id: int button4
-cn.com.modernmedia.R$id: int button2
-cn.com.modernmedia.R$id: int loading
-cn.com.modernmedia.R$id: int button3
-cn.com.modernmedia.R$id: int process_layout_activity
-cn.com.modernmedia.R$id: int vv
-cn.com.modernmedia.R$id: int duration
-cn.com.modernmedia.R$id: int error_activity
-cn.com.modernmedia.R$id: int loading_activity
 cn.com.modernmedia.R$id: int adv_image
-cn.com.modernmedia.R$id: int process_layout
+cn.com.modernmedia.R$id: int button2
+cn.com.modernmedia.R$id: int button3
+cn.com.modernmedia.R$id: int button4
+cn.com.modernmedia.R$id: int duration
+cn.com.modernmedia.R$id: int error
+cn.com.modernmedia.R$id: int error_activity
 cn.com.modernmedia.R$id: int has_played
+cn.com.modernmedia.R$id: int loading
+cn.com.modernmedia.R$id: int loading_activity
+cn.com.modernmedia.R$id: int loading_image
+cn.com.modernmedia.R$id: int loading_red_process
 cn.com.modernmedia.R$id: int processBar
+cn.com.modernmedia.R$id: int process_layout
+cn.com.modernmedia.R$id: int process_layout_activity
+cn.com.modernmedia.R$id: int scale_type
+cn.com.modernmedia.R$id: int seekbar
+cn.com.modernmedia.R$id: int update_process
+cn.com.modernmedia.R$id: int video_player_view
+cn.com.modernmedia.R$id: int vv
 cn.com.modernmedia.R$id: R$id()
 cn.com.modernmedia.R$layout
+cn.com.modernmedia.R$layout: int adv
+cn.com.modernmedia.R$layout: int controler
+cn.com.modernmedia.R$layout: int extral
+cn.com.modernmedia.R$layout: int loading_image
 cn.com.modernmedia.R$layout: int processbar
 cn.com.modernmedia.R$layout: int progress
-cn.com.modernmedia.R$layout: int update_progress
-cn.com.modernmedia.R$layout: int extral
-cn.com.modernmedia.R$layout: int controler
-cn.com.modernmedia.R$layout: int video
 cn.com.modernmedia.R$layout: int progress_activity
-cn.com.modernmedia.R$layout: int adv
+cn.com.modernmedia.R$layout: int update_progress
+cn.com.modernmedia.R$layout: int video
 cn.com.modernmedia.R$layout: R$layout()
 cn.com.modernmedia.R$string
-cn.com.modernmedia.R$string: int msg_read_detail_fail
-cn.com.modernmedia.R$string: int msg_login_fail
-cn.com.modernmedia.R$string: int clearwords
-cn.com.modernmedia.R$string: int app_menu_surelogout
-cn.com.modernmedia.R$string: int load_error
-cn.com.modernmedia.R$string: int cancel
-cn.com.modernmedia.R$string: int download
-cn.com.modernmedia.R$string: int delete_fav
-cn.com.modernmedia.R$string: int video_complete
-cn.com.modernmedia.R$string: int xml_parser_failed
-cn.com.modernmedia.R$string: int json_error
-cn.com.modernmedia.R$string: int new_data_toast_none
-cn.com.modernmedia.R$string: int Weibo_Share_Repeat
-cn.com.modernmedia.R$string: int download_error
-cn.com.modernmedia.R$string: int load_more
-cn.com.modernmedia.R$string: int msg_login_email_error
-cn.com.modernmedia.R$string: int Weibo_Share_Success
-cn.com.modernmedia.R$string: int sure
-cn.com.modernmedia.R$string: int OAUTH_RequestToken_ERROR
-cn.com.modernmedia.R$string: int OAUTH_AccessToken_SXPIRED
-cn.com.modernmedia.R$string: int msg_load_is_null
-cn.com.modernmedia.R$string: int fav
-cn.com.modernmedia.R$string: int io_exception_error
-cn.com.modernmedia.R$string: int select
-cn.com.modernmedia.R$string: int msg_login_pwd_null
-cn.com.modernmedia.R$string: int add_fav
-cn.com.modernmedia.R$string: int http_exception_error
-cn.com.modernmedia.R$string: int msg_login_error
-cn.com.modernmedia.R$string: int new_issue
-cn.com.modernmedia.R$string: int view_now
-cn.com.modernmedia.R$string: int republish_tweet
-cn.com.modernmedia.R$string: int app_error
-cn.com.modernmedia.R$string: int msg_login_email_null
-cn.com.modernmedia.R$string: int vew_later
-cn.com.modernmedia.R$string: int sinalogin_check_pass
-cn.com.modernmedia.R$string: int update
-cn.com.modernmedia.R$string: int exit_app
-cn.com.modernmedia.R$string: int app_run_code_error
-cn.com.modernmedia.R$string: int Weibo_Message_NULL
-cn.com.modernmedia.R$string: int fav_error
-cn.com.modernmedia.R$string: int delete_tweet
-cn.com.modernmedia.R$string: int OAUTH_RequestToken_ACCESS
-cn.com.modernmedia.R$string: int about
-cn.com.modernmedia.R$string: int sinalogin_check_server
-cn.com.modernmedia.R$string: int OAUTH_ERROR
-cn.com.modernmedia.R$string: int msg_load_image_fail
-cn.com.modernmedia.R$string: int app_name
-cn.com.modernmedia.R$string: int app_error_message
-cn.com.modernmedia.R$string: int submit_report
-cn.com.modernmedia.R$string: int share
 cn.com.modernmedia.R$string: int OAUTH_AccessToken_ACCESS
-cn.com.modernmedia.R$string: int sharing
-cn.com.modernmedia.R$string: int msg_noaccess_delete
-cn.com.modernmedia.R$string: int network_not_connected
 cn.com.modernmedia.R$string: int OAUTH_AccessToken_ERROR
-cn.com.modernmedia.R$string: int msg_login_success
-cn.com.modernmedia.R$string: int load_ing
-cn.com.modernmedia.R$string: int Weibo_Share_Error
-cn.com.modernmedia.R$string: int load_empty
-cn.com.modernmedia.R$string: int download_later
-cn.com.modernmedia.R$string: int delete_blog
-cn.com.modernmedia.R$string: int delete_image
-cn.com.modernmedia.R$string: int http_status_code_error
-cn.com.modernmedia.R$string: int can_not_find_article
-cn.com.modernmedia.R$string: int hello
-cn.com.modernmedia.R$string: int video_error
-cn.com.modernmedia.R$string: int sinalogin_check_account
-cn.com.modernmedia.R$string: int load_full
-cn.com.modernmedia.R$string: int new_data_toast_message
-cn.com.modernmedia.R$string: int msg_load_userface_fail
-cn.com.modernmedia.R$string: int net_error
-cn.com.modernmedia.R$string: int sorry
+cn.com.modernmedia.R$string: int OAUTH_AccessToken_SXPIRED
+cn.com.modernmedia.R$string: int OAUTH_ERROR
+cn.com.modernmedia.R$string: int OAUTH_RequestToken_ACCESS
+cn.com.modernmedia.R$string: int OAUTH_RequestToken_ERROR
 cn.com.modernmedia.R$string: int Weibo_Message_LONG
-cn.com.modernmedia.R$string: int socket_exception_error
-cn.com.modernmedia.R$string: int publishing
+cn.com.modernmedia.R$string: int Weibo_Message_NULL
+cn.com.modernmedia.R$string: int Weibo_Share_Error
+cn.com.modernmedia.R$string: int Weibo_Share_Repeat
+cn.com.modernmedia.R$string: int Weibo_Share_Success
+cn.com.modernmedia.R$string: int about
+cn.com.modernmedia.R$string: int add_fav
+cn.com.modernmedia.R$string: int app_error
+cn.com.modernmedia.R$string: int app_error_message
+cn.com.modernmedia.R$string: int app_menu_surelogout
+cn.com.modernmedia.R$string: int app_name
+cn.com.modernmedia.R$string: int app_run_code_error
+cn.com.modernmedia.R$string: int can_not_find_article
+cn.com.modernmedia.R$string: int cancel
 cn.com.modernmedia.R$string: int choose_image
+cn.com.modernmedia.R$string: int clearwords
+cn.com.modernmedia.R$string: int delete_blog
+cn.com.modernmedia.R$string: int delete_fav
+cn.com.modernmedia.R$string: int delete_image
+cn.com.modernmedia.R$string: int delete_tweet
+cn.com.modernmedia.R$string: int download
+cn.com.modernmedia.R$string: int download_error
+cn.com.modernmedia.R$string: int download_later
+cn.com.modernmedia.R$string: int exit_app
+cn.com.modernmedia.R$string: int fav
+cn.com.modernmedia.R$string: int fav_error
+cn.com.modernmedia.R$string: int hello
+cn.com.modernmedia.R$string: int http_exception_error
+cn.com.modernmedia.R$string: int http_status_code_error
+cn.com.modernmedia.R$string: int io_exception_error
+cn.com.modernmedia.R$string: int json_error
+cn.com.modernmedia.R$string: int load_empty
+cn.com.modernmedia.R$string: int load_error
+cn.com.modernmedia.R$string: int load_full
+cn.com.modernmedia.R$string: int load_ing
+cn.com.modernmedia.R$string: int load_more
+cn.com.modernmedia.R$string: int loading_more
+cn.com.modernmedia.R$string: int loading_pre
+cn.com.modernmedia.R$string: int msg_load_image_fail
+cn.com.modernmedia.R$string: int msg_load_is_null
+cn.com.modernmedia.R$string: int msg_load_userface_fail
+cn.com.modernmedia.R$string: int msg_login_email_error
+cn.com.modernmedia.R$string: int msg_login_email_null
+cn.com.modernmedia.R$string: int msg_login_error
+cn.com.modernmedia.R$string: int msg_login_fail
+cn.com.modernmedia.R$string: int msg_login_pwd_null
+cn.com.modernmedia.R$string: int msg_login_success
+cn.com.modernmedia.R$string: int msg_noaccess_delete
+cn.com.modernmedia.R$string: int msg_read_detail_fail
+cn.com.modernmedia.R$string: int net_error
+cn.com.modernmedia.R$string: int network_not_connected
+cn.com.modernmedia.R$string: int new_data_toast_message
+cn.com.modernmedia.R$string: int new_data_toast_none
+cn.com.modernmedia.R$string: int new_issue
+cn.com.modernmedia.R$string: int publishing
+cn.com.modernmedia.R$string: int republish_tweet
+cn.com.modernmedia.R$string: int select
+cn.com.modernmedia.R$string: int share
+cn.com.modernmedia.R$string: int sharing
+cn.com.modernmedia.R$string: int sinalogin_check_account
+cn.com.modernmedia.R$string: int sinalogin_check_pass
+cn.com.modernmedia.R$string: int sinalogin_check_server
+cn.com.modernmedia.R$string: int socket_exception_error
+cn.com.modernmedia.R$string: int sorry
+cn.com.modernmedia.R$string: int submit_report
+cn.com.modernmedia.R$string: int sure
+cn.com.modernmedia.R$string: int update
+cn.com.modernmedia.R$string: int vew_later
+cn.com.modernmedia.R$string: int video_complete
+cn.com.modernmedia.R$string: int video_error
+cn.com.modernmedia.R$string: int view_now
+cn.com.modernmedia.R$string: int xml_parser_failed
 cn.com.modernmedia.R$string: R$string()
 cn.com.modernmedia.R$style
 cn.com.modernmedia.R$style: int AppBaseTheme
-cn.com.modernmedia.R$style: int NobackDialog
-cn.com.modernmedia.R$style: int ContentOverlay
 cn.com.modernmedia.R$style: int AppTheme
+cn.com.modernmedia.R$style: int ContentOverlay
+cn.com.modernmedia.R$style: int NobackDialog
 cn.com.modernmedia.R$style: R$style()
 cn.com.modernmedia.VideoPlayerActivity
 cn.com.modernmedia.VideoPlayerActivity: java.lang.String TAG
@@ -4188,6 +4276,26 @@ cn.com.modernmedia.VideoPlayerActivity$MovieInfo: java.lang.String displayName
 cn.com.modernmedia.VideoPlayerActivity$MovieInfo: java.lang.String path
 cn.com.modernmedia.VideoPlayerActivity$MovieInfo: cn.com.modernmedia.VideoPlayerActivity this$0
 cn.com.modernmedia.VideoPlayerActivity$MovieInfo: VideoPlayerActivity$MovieInfo(cn.com.modernmedia.VideoPlayerActivity)
+cn.com.modernmedia.adapter.MyPagerAdapter
+cn.com.modernmedia.adapter.MyPagerAdapter: java.util.List list
+cn.com.modernmedia.adapter.MyPagerAdapter: cn.com.modernmedia.adapter.MyPagerAdapter$OnItemClickListener onItemClickListener
+cn.com.modernmedia.adapter.MyPagerAdapter: MyPagerAdapter(android.content.Context,java.util.List)
+cn.com.modernmedia.adapter.MyPagerAdapter: cn.com.modernmedia.adapter.MyPagerAdapter$OnItemClickListener getOnItemClickListener()
+cn.com.modernmedia.adapter.MyPagerAdapter: void setOnItemClickListener(cn.com.modernmedia.adapter.MyPagerAdapter$OnItemClickListener)
+cn.com.modernmedia.adapter.MyPagerAdapter: int getCount()
+cn.com.modernmedia.adapter.MyPagerAdapter: boolean isViewFromObject(android.view.View,java.lang.Object)
+cn.com.modernmedia.adapter.MyPagerAdapter: void destroyItem(android.view.ViewGroup,int,java.lang.Object)
+cn.com.modernmedia.adapter.MyPagerAdapter: java.lang.Object instantiateItem(android.view.ViewGroup,int)
+cn.com.modernmedia.adapter.MyPagerAdapter: android.view.View fetchView(cn.com.modernmedia.model.ArticleItem)
+cn.com.modernmedia.adapter.MyPagerAdapter: cn.com.modernmedia.adapter.MyPagerAdapter$OnItemClickListener access$0(cn.com.modernmedia.adapter.MyPagerAdapter)
+cn.com.modernmedia.adapter.MyPagerAdapter$1
+cn.com.modernmedia.adapter.MyPagerAdapter$1: cn.com.modernmedia.adapter.MyPagerAdapter this$0
+cn.com.modernmedia.adapter.MyPagerAdapter$1: android.view.View val$view
+cn.com.modernmedia.adapter.MyPagerAdapter$1: int val$position
+cn.com.modernmedia.adapter.MyPagerAdapter$1: MyPagerAdapter$1(cn.com.modernmedia.adapter.MyPagerAdapter,android.view.View,int)
+cn.com.modernmedia.adapter.MyPagerAdapter$1: void onClick(android.view.View)
+cn.com.modernmedia.adapter.MyPagerAdapter$OnItemClickListener
+cn.com.modernmedia.adapter.MyPagerAdapter$OnItemClickListener: void onItemClick(android.view.View,int)
 cn.com.modernmedia.anim.SinkAnimation
 cn.com.modernmedia.anim.SinkAnimation: android.graphics.Camera mCamera
 cn.com.modernmedia.anim.SinkAnimation: float mCenterX
@@ -4212,7 +4320,7 @@ cn.com.modernmedia.api.BaseOperate: void showToast(int)
 cn.com.modernmedia.api.BaseOperate: android.content.Context getmContext()
 cn.com.modernmedia.api.BaseOperate: boolean isNull(org.json.JSONObject)
 cn.com.modernmedia.api.BaseOperate: boolean isNull(org.json.JSONArray)
-cn.com.modernmedia.api.BaseOperate: cn.com.modernmedia.common.Adv parseAdv(org.json.JSONObject)
+cn.com.modernmedia.api.BaseOperate: cn.com.modernmedia.model.Adv parseAdv(org.json.JSONObject)
 cn.com.modernmedia.api.BaseOperate: void access$0(cn.com.modernmedia.api.BaseOperate,int)
 cn.com.modernmedia.api.BaseOperate: void access$1(cn.com.modernmedia.api.BaseOperate,boolean)
 cn.com.modernmedia.api.BaseOperate: boolean access$2(cn.com.modernmedia.api.BaseOperate)
@@ -4310,13 +4418,22 @@ cn.com.modernmedia.api.GetIssueOperate: cn.com.modernmedia.model.Issue getIssue(
 cn.com.modernmedia.api.GetIssueOperate: java.lang.String getUrl()
 cn.com.modernmedia.api.GetIssueOperate: void handler(org.json.JSONObject)
 cn.com.modernmedia.api.GetIssueOperate: void parseIssueAdv(org.json.JSONObject)
-cn.com.modernmedia.api.GetIssueOperate: void setAd(cn.com.modernmedia.common.Adv,boolean)
+cn.com.modernmedia.api.GetIssueOperate: void setAd(cn.com.modernmedia.model.Adv,boolean)
 cn.com.modernmedia.api.GetIssueOperate: void compareData(cn.com.modernmedia.model.Issue)
 cn.com.modernmedia.api.GetIssueOperate: void updateIssue(cn.com.modernmedia.model.Issue)
 cn.com.modernmedia.api.GetIssueOperate: void updateColumn(cn.com.modernmedia.model.Issue)
 cn.com.modernmedia.api.GetIssueOperate: void updateArticle(cn.com.modernmedia.model.Issue)
 cn.com.modernmedia.api.GetIssueOperate: void saveData(java.lang.String)
 cn.com.modernmedia.api.GetIssueOperate: java.lang.String getDefaultFileName()
+cn.com.modernmedia.api.GetWeatherOperate
+cn.com.modernmedia.api.GetWeatherOperate: java.lang.String url
+cn.com.modernmedia.api.GetWeatherOperate: cn.com.modernmedia.model.Weather weather
+cn.com.modernmedia.api.GetWeatherOperate: GetWeatherOperate(double,double)
+cn.com.modernmedia.api.GetWeatherOperate: cn.com.modernmedia.model.Weather getWeather()
+cn.com.modernmedia.api.GetWeatherOperate: java.lang.String getUrl()
+cn.com.modernmedia.api.GetWeatherOperate: void handler(org.json.JSONObject)
+cn.com.modernmedia.api.GetWeatherOperate: void saveData(java.lang.String)
+cn.com.modernmedia.api.GetWeatherOperate: java.lang.String getDefaultFileName()
 cn.com.modernmedia.api.HttpRequestController
 cn.com.modernmedia.api.HttpRequestController: cn.com.modernmedia.api.HttpRequestController instance
 cn.com.modernmedia.api.HttpRequestController: void <clinit>()
@@ -4347,7 +4464,8 @@ cn.com.modernmedia.api.ImageDownloader: cn.com.modernmedia.api.ImageDownloader i
 cn.com.modernmedia.api.ImageDownloader: java.util.concurrent.BlockingQueue mUrlQueue
 cn.com.modernmedia.api.ImageDownloader: java.util.concurrent.ConcurrentHashMap imgViewMap
 cn.com.modernmedia.api.ImageDownloader: java.util.concurrent.ConcurrentHashMap imgMap
-cn.com.modernmedia.api.ImageDownloader: java.util.HashMap imageCache
+cn.com.modernmedia.api.ImageDownloader: android.support.v4.util.LruCache mLruCache
+cn.com.modernmedia.api.ImageDownloader: java.util.HashMap listenerMap
 cn.com.modernmedia.api.ImageDownloader: cn.com.modernmedia.api.ImageDownloader$ImgHandlerThread mTask
 cn.com.modernmedia.api.ImageDownloader: android.os.Handler taskHandler
 cn.com.modernmedia.api.ImageDownloader: boolean allowLoad
@@ -4356,22 +4474,32 @@ cn.com.modernmedia.api.ImageDownloader: void <clinit>()
 cn.com.modernmedia.api.ImageDownloader: void lock()
 cn.com.modernmedia.api.ImageDownloader: void unlock()
 cn.com.modernmedia.api.ImageDownloader: void initImg(java.lang.String,android.graphics.Bitmap)
-cn.com.modernmedia.api.ImageDownloader: ImageDownloader()
-cn.com.modernmedia.api.ImageDownloader: cn.com.modernmedia.api.ImageDownloader getInstance()
+cn.com.modernmedia.api.ImageDownloader: ImageDownloader(android.content.Context)
+cn.com.modernmedia.api.ImageDownloader: cn.com.modernmedia.api.ImageDownloader getInstance(android.content.Context)
 cn.com.modernmedia.api.ImageDownloader: void destroy()
 cn.com.modernmedia.api.ImageDownloader: void addBitmapToCache(java.lang.String,android.graphics.Bitmap)
+cn.com.modernmedia.api.ImageDownloader: android.graphics.Bitmap getBitmapFromCache(java.lang.String,int,int)
 cn.com.modernmedia.api.ImageDownloader: android.graphics.Bitmap getBitmapFromCache(java.lang.String)
+cn.com.modernmedia.api.ImageDownloader: void askListener(java.lang.String,int,android.graphics.Bitmap)
+cn.com.modernmedia.api.ImageDownloader: void setScaleType(android.widget.ImageView)
 cn.com.modernmedia.api.ImageDownloader: boolean checkDupliUrl(java.lang.String)
 cn.com.modernmedia.api.ImageDownloader: void download(java.lang.String,android.widget.ImageView)
+cn.com.modernmedia.api.ImageDownloader: void downloadLoadingImage(java.lang.String,android.widget.ImageView,cn.com.modernmedia.listener.ImageDownloadStateListener)
+cn.com.modernmedia.api.ImageDownloader: void downloadLoadingImage(java.lang.String,android.widget.ImageView,int,int,cn.com.modernmedia.listener.ImageDownloadStateListener)
+cn.com.modernmedia.api.ImageDownloader: void fetchImage(android.graphics.Bitmap,java.lang.String,android.widget.ImageView,cn.com.modernmedia.listener.ImageDownloadStateListener)
+cn.com.modernmedia.api.ImageDownloader: void fetchImage(java.lang.String,cn.com.modernmedia.listener.ImageDownloadStateListener,int,int)
 cn.com.modernmedia.api.ImageDownloader: void download(java.lang.String)
 cn.com.modernmedia.api.ImageDownloader: android.graphics.Bitmap downLoadBitmap(java.lang.String)
+cn.com.modernmedia.api.ImageDownloader: int getCacheSize(android.content.Context)
 cn.com.modernmedia.api.ImageDownloader: java.util.concurrent.ConcurrentHashMap access$0(cn.com.modernmedia.api.ImageDownloader)
 cn.com.modernmedia.api.ImageDownloader: boolean access$1()
 cn.com.modernmedia.api.ImageDownloader: java.lang.Object access$2(cn.com.modernmedia.api.ImageDownloader)
 cn.com.modernmedia.api.ImageDownloader: android.graphics.Bitmap access$3(cn.com.modernmedia.api.ImageDownloader,java.lang.String)
 cn.com.modernmedia.api.ImageDownloader: void access$4(cn.com.modernmedia.api.ImageDownloader,java.lang.String,android.graphics.Bitmap)
 cn.com.modernmedia.api.ImageDownloader: void access$5(cn.com.modernmedia.api.ImageDownloader,java.lang.String,android.graphics.Bitmap)
-cn.com.modernmedia.api.ImageDownloader: java.util.concurrent.BlockingQueue access$6(cn.com.modernmedia.api.ImageDownloader)
+cn.com.modernmedia.api.ImageDownloader: void access$6(cn.com.modernmedia.api.ImageDownloader,java.lang.String,int,android.graphics.Bitmap)
+cn.com.modernmedia.api.ImageDownloader: void access$7(cn.com.modernmedia.api.ImageDownloader,android.widget.ImageView)
+cn.com.modernmedia.api.ImageDownloader: java.util.concurrent.BlockingQueue access$8(cn.com.modernmedia.api.ImageDownloader)
 cn.com.modernmedia.api.ImageDownloader$1
 cn.com.modernmedia.api.ImageDownloader$1: cn.com.modernmedia.api.ImageDownloader this$0
 cn.com.modernmedia.api.ImageDownloader$1: android.graphics.Bitmap val$bitmap
@@ -4381,9 +4509,27 @@ cn.com.modernmedia.api.ImageDownloader$1: ImageDownloader$1(cn.com.modernmedia.a
 cn.com.modernmedia.api.ImageDownloader$1: void run()
 cn.com.modernmedia.api.ImageDownloader$2
 cn.com.modernmedia.api.ImageDownloader$2: cn.com.modernmedia.api.ImageDownloader this$0
-cn.com.modernmedia.api.ImageDownloader$2: java.lang.String val$url
-cn.com.modernmedia.api.ImageDownloader$2: ImageDownloader$2(cn.com.modernmedia.api.ImageDownloader,java.lang.String)
-cn.com.modernmedia.api.ImageDownloader$2: void run()
+cn.com.modernmedia.api.ImageDownloader$2: ImageDownloader$2(cn.com.modernmedia.api.ImageDownloader,int)
+cn.com.modernmedia.api.ImageDownloader$2: android.graphics.Bitmap create(java.lang.String)
+cn.com.modernmedia.api.ImageDownloader$2: void entryRemoved(boolean,java.lang.String,android.graphics.Bitmap,android.graphics.Bitmap)
+cn.com.modernmedia.api.ImageDownloader$2: int sizeOf(java.lang.String,android.graphics.Bitmap)
+cn.com.modernmedia.api.ImageDownloader$2: int sizeOf(java.lang.Object,java.lang.Object)
+cn.com.modernmedia.api.ImageDownloader$2: void entryRemoved(boolean,java.lang.Object,java.lang.Object,java.lang.Object)
+cn.com.modernmedia.api.ImageDownloader$2: java.lang.Object create(java.lang.Object)
+cn.com.modernmedia.api.ImageDownloader$3
+cn.com.modernmedia.api.ImageDownloader$3: cn.com.modernmedia.api.ImageDownloader this$0
+cn.com.modernmedia.api.ImageDownloader$3: java.lang.String val$url
+cn.com.modernmedia.api.ImageDownloader$3: ImageDownloader$3(cn.com.modernmedia.api.ImageDownloader,java.lang.String)
+cn.com.modernmedia.api.ImageDownloader$3: void run()
+cn.com.modernmedia.api.ImageDownloader$FetchImageTask
+cn.com.modernmedia.api.ImageDownloader$FetchImageTask: java.lang.String url
+cn.com.modernmedia.api.ImageDownloader$FetchImageTask: cn.com.modernmedia.api.ImageDownloader this$0
+cn.com.modernmedia.api.ImageDownloader$FetchImageTask: ImageDownloader$FetchImageTask(cn.com.modernmedia.api.ImageDownloader)
+cn.com.modernmedia.api.ImageDownloader$FetchImageTask: android.graphics.Bitmap doInBackground(java.lang.String[])
+cn.com.modernmedia.api.ImageDownloader$FetchImageTask: void onPostExecute(android.graphics.Bitmap)
+cn.com.modernmedia.api.ImageDownloader$FetchImageTask: void onPostExecute(java.lang.Object)
+cn.com.modernmedia.api.ImageDownloader$FetchImageTask: java.lang.Object doInBackground(java.lang.Object[])
+cn.com.modernmedia.api.ImageDownloader$FetchImageTask: ImageDownloader$FetchImageTask(cn.com.modernmedia.api.ImageDownloader,cn.com.modernmedia.api.ImageDownloader$FetchImageTask)
 cn.com.modernmedia.api.ImageDownloader$FetchImgThread
 cn.com.modernmedia.api.ImageDownloader$FetchImgThread: java.lang.String url
 cn.com.modernmedia.api.ImageDownloader$FetchImgThread: cn.com.modernmedia.api.ImageDownloader this$0
@@ -4409,12 +4555,19 @@ cn.com.modernmedia.api.OperateController: void getArticleById(cn.com.modernmedia
 cn.com.modernmedia.api.OperateController: void getDown(cn.com.modernmedia.listener.FetchEntryListener)
 cn.com.modernmedia.api.OperateController: void checkVersion(cn.com.modernmedia.listener.FetchEntryListener)
 cn.com.modernmedia.api.OperateController: void share(cn.com.modernmedia.model.Issue,java.lang.String,java.lang.String,java.lang.String,cn.com.modernmedia.listener.FetchEntryListener)
+cn.com.modernmedia.api.OperateController: void getWeather(double,double,cn.com.modernmedia.listener.FetchEntryListener)
 cn.com.modernmedia.api.OperateController$1
 cn.com.modernmedia.api.OperateController$1: cn.com.modernmedia.api.OperateController this$0
 cn.com.modernmedia.api.OperateController$1: cn.com.modernmedia.listener.FetchEntryListener val$listener
 cn.com.modernmedia.api.OperateController$1: cn.com.modernmedia.api.GetIssueOperate val$operate
 cn.com.modernmedia.api.OperateController$1: OperateController$1(cn.com.modernmedia.api.OperateController,cn.com.modernmedia.listener.FetchEntryListener,cn.com.modernmedia.api.GetIssueOperate)
 cn.com.modernmedia.api.OperateController$1: void callback(boolean)
+cn.com.modernmedia.api.OperateController$10
+cn.com.modernmedia.api.OperateController$10: cn.com.modernmedia.api.OperateController this$0
+cn.com.modernmedia.api.OperateController$10: cn.com.modernmedia.listener.FetchEntryListener val$listener
+cn.com.modernmedia.api.OperateController$10: cn.com.modernmedia.api.GetWeatherOperate val$operate
+cn.com.modernmedia.api.OperateController$10: OperateController$10(cn.com.modernmedia.api.OperateController,cn.com.modernmedia.listener.FetchEntryListener,cn.com.modernmedia.api.GetWeatherOperate)
+cn.com.modernmedia.api.OperateController$10: void callback(boolean)
 cn.com.modernmedia.api.OperateController$2
 cn.com.modernmedia.api.OperateController$2: cn.com.modernmedia.api.OperateController this$0
 cn.com.modernmedia.api.OperateController$2: cn.com.modernmedia.listener.FetchEntryListener val$listener
@@ -4553,6 +4706,7 @@ cn.com.modernmedia.api.UrlMaker: java.lang.String getArticleById(java.lang.Strin
 cn.com.modernmedia.api.UrlMaker: java.lang.String download(android.content.Context)
 cn.com.modernmedia.api.UrlMaker: java.lang.String checkVersion()
 cn.com.modernmedia.api.UrlMaker: java.lang.String share(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)
+cn.com.modernmedia.api.UrlMaker: java.lang.String getWeather(double,double)
 cn.com.modernmedia.businessweek.AboutActivity
 cn.com.modernmedia.businessweek.AboutActivity: android.widget.Button back
 cn.com.modernmedia.businessweek.AboutActivity: AboutActivity()
@@ -4595,16 +4749,22 @@ cn.com.modernmedia.businessweek.MainActivity: android.widget.Button columnButton
 cn.com.modernmedia.businessweek.MainActivity: android.widget.Button favButton
 cn.com.modernmedia.businessweek.MainActivity: cn.com.modernmedia.businessweek.widget.IndexView indexView
 cn.com.modernmedia.businessweek.MainActivity: cn.com.modernmedia.businessweek.widget.FavView favView
+cn.com.modernmedia.businessweek.MainActivity: java.util.List listenerList
 cn.com.modernmedia.businessweek.MainActivity: MainActivity()
-cn.com.modernmedia.businessweek.MainActivity: void onCreate(android.os.Bundle)
+cn.com.modernmedia.businessweek.MainActivity: void onResume()
+cn.com.modernmedia.businessweek.MainActivity: void onPause()
 cn.com.modernmedia.businessweek.MainActivity: void init()
 cn.com.modernmedia.businessweek.MainActivity: void setDataForColumn(cn.com.modernmedia.model.Entry)
 cn.com.modernmedia.businessweek.MainActivity: void setDataForIndex(cn.com.modernmedia.model.Entry)
 cn.com.modernmedia.businessweek.MainActivity: cn.com.modernmedia.widget.MainHorizontalScrollView getScrollView()
-cn.com.modernmedia.businessweek.MainActivity: void gotoArticleActivity(int,boolean)
+cn.com.modernmedia.businessweek.MainActivity: void gotoArticleActivity(int,int,boolean)
 cn.com.modernmedia.businessweek.MainActivity: void indexShowLoading(int)
 cn.com.modernmedia.businessweek.MainActivity: void setIndexTitle(java.lang.String)
 cn.com.modernmedia.businessweek.MainActivity: void notifyRead()
+cn.com.modernmedia.businessweek.MainActivity: void showChildCat(int)
+cn.com.modernmedia.businessweek.MainActivity: void setScrollView(int,android.view.View)
+cn.com.modernmedia.businessweek.MainActivity: void addListener(cn.com.modernmedia.listener.NotifyAdapterListener)
+cn.com.modernmedia.businessweek.MainActivity: void notifyColumnAdapter(int)
 cn.com.modernmedia.businessweek.MainActivity: cn.com.modernmedia.businessweek.widget.IndexView access$0(cn.com.modernmedia.businessweek.MainActivity)
 cn.com.modernmedia.businessweek.MainActivity: cn.com.modernmedia.widget.MainHorizontalScrollView access$1(cn.com.modernmedia.businessweek.MainActivity)
 cn.com.modernmedia.businessweek.MainActivity$1
@@ -4622,6 +4782,7 @@ cn.com.modernmedia.businessweek.MainActivity$3: void onClick(android.view.View)
 cn.com.modernmedia.businessweek.MyApplication
 cn.com.modernmedia.businessweek.MyApplication: int APPID
 cn.com.modernmedia.businessweek.MyApplication: int DEBUG
+cn.com.modernmedia.businessweek.MyApplication: java.lang.String CHANNEL
 cn.com.modernmedia.businessweek.MyApplication: void <clinit>()
 cn.com.modernmedia.businessweek.MyApplication: MyApplication()
 cn.com.modernmedia.businessweek.MyApplication: void onCreate()
@@ -4646,11 +4807,14 @@ cn.com.modernmedia.businessweek.R$attr
 cn.com.modernmedia.businessweek.R$attr: R$attr()
 cn.com.modernmedia.businessweek.R$color
 cn.com.modernmedia.businessweek.R$color: int black_bg
+cn.com.modernmedia.businessweek.R$color: int child_cat_bg
 cn.com.modernmedia.businessweek.R$color: int column_bg
 cn.com.modernmedia.businessweek.R$color: int control_back
 cn.com.modernmedia.businessweek.R$color: int fav_bg
 cn.com.modernmedia.businessweek.R$color: int full_transparent
 cn.com.modernmedia.businessweek.R$color: int index_item_desc
+cn.com.modernmedia.businessweek.R$color: int process_loading_red_ring
+cn.com.modernmedia.businessweek.R$color: int process_loading_ring_bg
 cn.com.modernmedia.businessweek.R$color: int white_bg
 cn.com.modernmedia.businessweek.R$color: R$color()
 cn.com.modernmedia.businessweek.R$dimen
@@ -4682,6 +4846,7 @@ cn.com.modernmedia.businessweek.R$dimen: int dialog_top_margin
 cn.com.modernmedia.businessweek.R$dimen: int dot_marginright
 cn.com.modernmedia.businessweek.R$dimen: int fav_textsize
 cn.com.modernmedia.businessweek.R$dimen: int fav_titlebar_height
+cn.com.modernmedia.businessweek.R$dimen: int index_child_titlebar_height
 cn.com.modernmedia.businessweek.R$dimen: int index_column_title_paddingLeft
 cn.com.modernmedia.businessweek.R$dimen: int index_column_title_testSize
 cn.com.modernmedia.businessweek.R$dimen: int index_desc_marginLeft
@@ -4696,10 +4861,16 @@ cn.com.modernmedia.businessweek.R$dimen: int index_item_title_textSize
 cn.com.modernmedia.businessweek.R$dimen: int index_marginLeft
 cn.com.modernmedia.businessweek.R$dimen: int index_marginRight
 cn.com.modernmedia.businessweek.R$dimen: int index_marginTop
+cn.com.modernmedia.businessweek.R$dimen: int index_more_cat_textSize
+cn.com.modernmedia.businessweek.R$dimen: int index_more_height
+cn.com.modernmedia.businessweek.R$dimen: int index_more_padding_right
 cn.com.modernmedia.businessweek.R$dimen: int index_rightRow_size
 cn.com.modernmedia.businessweek.R$dimen: int index_titlebar_column_marginLeft
 cn.com.modernmedia.businessweek.R$dimen: int index_titlebar_height
 cn.com.modernmedia.businessweek.R$dimen: int index_titlebar_title_textSize
+cn.com.modernmedia.businessweek.R$dimen: int red_ring_size_large
+cn.com.modernmedia.businessweek.R$dimen: int red_ring_size_medium
+cn.com.modernmedia.businessweek.R$dimen: int red_ring_size_small
 cn.com.modernmedia.businessweek.R$dimen: int weibosdk_dialog_bottom_margin
 cn.com.modernmedia.businessweek.R$dimen: int weibosdk_dialog_left_margin
 cn.com.modernmedia.businessweek.R$dimen: int weibosdk_dialog_right_margin
@@ -4719,6 +4890,9 @@ cn.com.modernmedia.businessweek.R$drawable: int arrow_21
 cn.com.modernmedia.businessweek.R$drawable: int arrow_32
 cn.com.modernmedia.businessweek.R$drawable: int arrow_37
 cn.com.modernmedia.businessweek.R$drawable: int arrow_xx
+cn.com.modernmedia.businessweek.R$drawable: int child_cat_bg
+cn.com.modernmedia.businessweek.R$drawable: int child_tool_bg
+cn.com.modernmedia.businessweek.R$drawable: int child_tool_cell
 cn.com.modernmedia.businessweek.R$drawable: int column_selector
 cn.com.modernmedia.businessweek.R$drawable: int dialog_bg
 cn.com.modernmedia.businessweek.R$drawable: int dot
@@ -4732,6 +4906,7 @@ cn.com.modernmedia.businessweek.R$drawable: int iphone_placeholder_shadow
 cn.com.modernmedia.businessweek.R$drawable: int left_cell
 cn.com.modernmedia.businessweek.R$drawable: int left_cell_tapped
 cn.com.modernmedia.businessweek.R$drawable: int line
+cn.com.modernmedia.businessweek.R$drawable: int moreinstant
 cn.com.modernmedia.businessweek.R$drawable: int nav_actionsheet
 cn.com.modernmedia.businessweek.R$drawable: int nav_back
 cn.com.modernmedia.businessweek.R$drawable: int nav_columns
@@ -4745,6 +4920,7 @@ cn.com.modernmedia.businessweek.R$drawable: int network_error
 cn.com.modernmedia.businessweek.R$drawable: int pause
 cn.com.modernmedia.businessweek.R$drawable: int placeholder
 cn.com.modernmedia.businessweek.R$drawable: int play
+cn.com.modernmedia.businessweek.R$drawable: int red_dialog_style
 cn.com.modernmedia.businessweek.R$drawable: int splash
 cn.com.modernmedia.businessweek.R$drawable: int stepbackward
 cn.com.modernmedia.businessweek.R$drawable: int stepforward
@@ -4774,6 +4950,11 @@ cn.com.modernmedia.businessweek.R$id: int atlas_trans
 cn.com.modernmedia.businessweek.R$id: int button2
 cn.com.modernmedia.businessweek.R$id: int button3
 cn.com.modernmedia.businessweek.R$id: int button4
+cn.com.modernmedia.businessweek.R$id: int child_cat_listview
+cn.com.modernmedia.businessweek.R$id: int child_img_ll
+cn.com.modernmedia.businessweek.R$id: int child_tag_bg
+cn.com.modernmedia.businessweek.R$id: int child_toolbar
+cn.com.modernmedia.businessweek.R$id: int child_viewpager
 cn.com.modernmedia.businessweek.R$id: int cloumn_item_color
 cn.com.modernmedia.businessweek.R$id: int cloumn_item_name
 cn.com.modernmedia.businessweek.R$id: int cloumn_margin
@@ -4800,11 +4981,13 @@ cn.com.modernmedia.businessweek.R$id: int index_item_column_title
 cn.com.modernmedia.businessweek.R$id: int index_item_content
 cn.com.modernmedia.businessweek.R$id: int index_item_desc
 cn.com.modernmedia.businessweek.R$id: int index_item_img
-cn.com.modernmedia.businessweek.R$id: int index_item_ll
+cn.com.modernmedia.businessweek.R$id: int index_item_more
+cn.com.modernmedia.businessweek.R$id: int index_item_more_img
+cn.com.modernmedia.businessweek.R$id: int index_item_more_rl
 cn.com.modernmedia.businessweek.R$id: int index_item_rightRow
 cn.com.modernmedia.businessweek.R$id: int index_item_title
 cn.com.modernmedia.businessweek.R$id: int index_item_titlebar
-cn.com.modernmedia.businessweek.R$id: int index_listview
+cn.com.modernmedia.businessweek.R$id: int index_main
 cn.com.modernmedia.businessweek.R$id: int index_titleBar
 cn.com.modernmedia.businessweek.R$id: int index_titleBar_column
 cn.com.modernmedia.businessweek.R$id: int index_titleBar_fav
@@ -4812,12 +4995,15 @@ cn.com.modernmedia.businessweek.R$id: int index_titleBar_title
 cn.com.modernmedia.businessweek.R$id: int issue_et
 cn.com.modernmedia.businessweek.R$id: int loading
 cn.com.modernmedia.businessweek.R$id: int loading_activity
+cn.com.modernmedia.businessweek.R$id: int loading_image
+cn.com.modernmedia.businessweek.R$id: int loading_red_process
 cn.com.modernmedia.businessweek.R$id: int mScrollView
 cn.com.modernmedia.businessweek.R$id: int main_column
 cn.com.modernmedia.businessweek.R$id: int main_fav
 cn.com.modernmedia.businessweek.R$id: int processBar
 cn.com.modernmedia.businessweek.R$id: int process_layout
 cn.com.modernmedia.businessweek.R$id: int process_layout_activity
+cn.com.modernmedia.businessweek.R$id: int scale_type
 cn.com.modernmedia.businessweek.R$id: int seekbar
 cn.com.modernmedia.businessweek.R$id: int splash_image
 cn.com.modernmedia.businessweek.R$id: int splash_view
@@ -4834,6 +5020,9 @@ cn.com.modernmedia.businessweek.R$layout: int article_activity
 cn.com.modernmedia.businessweek.R$layout: int article_detail
 cn.com.modernmedia.businessweek.R$layout: int atlas
 cn.com.modernmedia.businessweek.R$layout: int atlas_picture
+cn.com.modernmedia.businessweek.R$layout: int child_cat_tag
+cn.com.modernmedia.businessweek.R$layout: int child_item
+cn.com.modernmedia.businessweek.R$layout: int child_view
 cn.com.modernmedia.businessweek.R$layout: int column
 cn.com.modernmedia.businessweek.R$layout: int column_item
 cn.com.modernmedia.businessweek.R$layout: int controler
@@ -4842,6 +5031,7 @@ cn.com.modernmedia.businessweek.R$layout: int fav
 cn.com.modernmedia.businessweek.R$layout: int fav_item
 cn.com.modernmedia.businessweek.R$layout: int index
 cn.com.modernmedia.businessweek.R$layout: int index_item
+cn.com.modernmedia.businessweek.R$layout: int loading_image
 cn.com.modernmedia.businessweek.R$layout: int main
 cn.com.modernmedia.businessweek.R$layout: int page_gallery
 cn.com.modernmedia.businessweek.R$layout: int page_gallery_item
@@ -4896,6 +5086,9 @@ cn.com.modernmedia.businessweek.R$string: int load_error
 cn.com.modernmedia.businessweek.R$string: int load_full
 cn.com.modernmedia.businessweek.R$string: int load_ing
 cn.com.modernmedia.businessweek.R$string: int load_more
+cn.com.modernmedia.businessweek.R$string: int loading_more
+cn.com.modernmedia.businessweek.R$string: int loading_pre
+cn.com.modernmedia.businessweek.R$string: int more_cat
 cn.com.modernmedia.businessweek.R$string: int msg_load_image_fail
 cn.com.modernmedia.businessweek.R$string: int msg_load_is_null
 cn.com.modernmedia.businessweek.R$string: int msg_load_userface_fail
@@ -4990,27 +5183,36 @@ cn.com.modernmedia.businessweek.adapter.ColumnListAdapter
 cn.com.modernmedia.businessweek.adapter.ColumnListAdapter: android.content.Context mContext
 cn.com.modernmedia.businessweek.adapter.ColumnListAdapter: android.view.LayoutInflater inflater
 cn.com.modernmedia.businessweek.adapter.ColumnListAdapter: int selectPosition
-cn.com.modernmedia.businessweek.adapter.ColumnListAdapter: cn.com.modernmedia.businessweek.adapter.ColumnListAdapter$NotifyAdapterDataChange listener
-cn.com.modernmedia.businessweek.adapter.ColumnListAdapter: ColumnListAdapter(android.content.Context,cn.com.modernmedia.businessweek.adapter.ColumnListAdapter$NotifyAdapterDataChange)
+cn.com.modernmedia.businessweek.adapter.ColumnListAdapter: cn.com.modernmedia.listener.NotifyAdapterListener listener
+cn.com.modernmedia.businessweek.adapter.ColumnListAdapter: cn.com.modernmedia.listener.NotifyAdapterListener adapterListener
+cn.com.modernmedia.businessweek.adapter.ColumnListAdapter: ColumnListAdapter(android.content.Context,cn.com.modernmedia.listener.NotifyAdapterListener)
 cn.com.modernmedia.businessweek.adapter.ColumnListAdapter: void setData(java.util.List)
+cn.com.modernmedia.businessweek.adapter.ColumnListAdapter: void setSelectPosition(int)
 cn.com.modernmedia.businessweek.adapter.ColumnListAdapter: android.view.View getView(int,android.view.View,android.view.ViewGroup)
 cn.com.modernmedia.businessweek.adapter.ColumnListAdapter: void click(cn.com.modernmedia.model.Cat$CatItem,int)
-cn.com.modernmedia.businessweek.adapter.ColumnListAdapter: void access$0(cn.com.modernmedia.businessweek.adapter.ColumnListAdapter,cn.com.modernmedia.model.Cat$CatItem,int)
-cn.com.modernmedia.businessweek.adapter.ColumnListAdapter: android.content.Context access$1(cn.com.modernmedia.businessweek.adapter.ColumnListAdapter)
+cn.com.modernmedia.businessweek.adapter.ColumnListAdapter: void access$0(cn.com.modernmedia.businessweek.adapter.ColumnListAdapter,int)
+cn.com.modernmedia.businessweek.adapter.ColumnListAdapter: cn.com.modernmedia.listener.NotifyAdapterListener access$1(cn.com.modernmedia.businessweek.adapter.ColumnListAdapter)
+cn.com.modernmedia.businessweek.adapter.ColumnListAdapter: void access$2(cn.com.modernmedia.businessweek.adapter.ColumnListAdapter,cn.com.modernmedia.model.Cat$CatItem,int)
+cn.com.modernmedia.businessweek.adapter.ColumnListAdapter: android.content.Context access$3(cn.com.modernmedia.businessweek.adapter.ColumnListAdapter)
 cn.com.modernmedia.businessweek.adapter.ColumnListAdapter$1
 cn.com.modernmedia.businessweek.adapter.ColumnListAdapter$1: cn.com.modernmedia.businessweek.adapter.ColumnListAdapter this$0
-cn.com.modernmedia.businessweek.adapter.ColumnListAdapter$1: cn.com.modernmedia.model.Cat$CatItem val$item
-cn.com.modernmedia.businessweek.adapter.ColumnListAdapter$1: int val$position
-cn.com.modernmedia.businessweek.adapter.ColumnListAdapter$1: ColumnListAdapter$1(cn.com.modernmedia.businessweek.adapter.ColumnListAdapter,cn.com.modernmedia.model.Cat$CatItem,int)
-cn.com.modernmedia.businessweek.adapter.ColumnListAdapter$1: void onClick(android.view.View)
+cn.com.modernmedia.businessweek.adapter.ColumnListAdapter$1: ColumnListAdapter$1(cn.com.modernmedia.businessweek.adapter.ColumnListAdapter)
+cn.com.modernmedia.businessweek.adapter.ColumnListAdapter$1: void notifyReaded()
+cn.com.modernmedia.businessweek.adapter.ColumnListAdapter$1: void nofitySelectItem(java.lang.Object)
+cn.com.modernmedia.businessweek.adapter.ColumnListAdapter$1: void notifyChanged()
 cn.com.modernmedia.businessweek.adapter.ColumnListAdapter$2
 cn.com.modernmedia.businessweek.adapter.ColumnListAdapter$2: cn.com.modernmedia.businessweek.adapter.ColumnListAdapter this$0
-cn.com.modernmedia.businessweek.adapter.ColumnListAdapter$2: int val$position
 cn.com.modernmedia.businessweek.adapter.ColumnListAdapter$2: cn.com.modernmedia.model.Cat$CatItem val$item
-cn.com.modernmedia.businessweek.adapter.ColumnListAdapter$2: ColumnListAdapter$2(cn.com.modernmedia.businessweek.adapter.ColumnListAdapter,int,cn.com.modernmedia.model.Cat$CatItem)
-cn.com.modernmedia.businessweek.adapter.ColumnListAdapter$2: void run()
-cn.com.modernmedia.businessweek.adapter.ColumnListAdapter$NotifyAdapterDataChange
-cn.com.modernmedia.businessweek.adapter.ColumnListAdapter$NotifyAdapterDataChange: void dataChange()
+cn.com.modernmedia.businessweek.adapter.ColumnListAdapter$2: int val$position
+cn.com.modernmedia.businessweek.adapter.ColumnListAdapter$2: ColumnListAdapter$2(cn.com.modernmedia.businessweek.adapter.ColumnListAdapter,cn.com.modernmedia.model.Cat$CatItem,int)
+cn.com.modernmedia.businessweek.adapter.ColumnListAdapter$2: void onClick(android.view.View)
+cn.com.modernmedia.businessweek.adapter.ColumnListAdapter$3
+cn.com.modernmedia.businessweek.adapter.ColumnListAdapter$3: cn.com.modernmedia.businessweek.adapter.ColumnListAdapter this$0
+cn.com.modernmedia.businessweek.adapter.ColumnListAdapter$3: cn.com.modernmedia.model.Cat$CatItem val$item
+cn.com.modernmedia.businessweek.adapter.ColumnListAdapter$3: java.lang.String val$id
+cn.com.modernmedia.businessweek.adapter.ColumnListAdapter$3: int val$position
+cn.com.modernmedia.businessweek.adapter.ColumnListAdapter$3: ColumnListAdapter$3(cn.com.modernmedia.businessweek.adapter.ColumnListAdapter,cn.com.modernmedia.model.Cat$CatItem,java.lang.String,int)
+cn.com.modernmedia.businessweek.adapter.ColumnListAdapter$3: void run()
 cn.com.modernmedia.businessweek.adapter.ColumnListAdapter$ViewHolder
 cn.com.modernmedia.businessweek.adapter.ColumnListAdapter$ViewHolder: android.widget.Button button
 cn.com.modernmedia.businessweek.adapter.ColumnListAdapter$ViewHolder: android.widget.TextView name
@@ -5038,39 +5240,148 @@ cn.com.modernmedia.businessweek.adapter.FavAdadper$ViewHolder: cn.com.modernmedi
 cn.com.modernmedia.businessweek.adapter.FavAdadper$ViewHolder: FavAdadper$ViewHolder(cn.com.modernmedia.businessweek.adapter.FavAdadper)
 cn.com.modernmedia.businessweek.adapter.FavAdadper$ViewHolder: FavAdadper$ViewHolder(cn.com.modernmedia.businessweek.adapter.FavAdadper,cn.com.modernmedia.businessweek.adapter.FavAdadper$ViewHolder)
 cn.com.modernmedia.businessweek.adapter.IndexAdapter
+cn.com.modernmedia.businessweek.adapter.IndexAdapter: cn.com.modernmedia.businessweek.adapter.IndexAdapter me
 cn.com.modernmedia.businessweek.adapter.IndexAdapter: android.content.Context mContext
 cn.com.modernmedia.businessweek.adapter.IndexAdapter: android.view.LayoutInflater inflater
 cn.com.modernmedia.businessweek.adapter.IndexAdapter: cn.com.modernmedia.api.ImageDownloader downloader
+cn.com.modernmedia.businessweek.adapter.IndexAdapter: java.lang.String moreCat
+cn.com.modernmedia.businessweek.adapter.IndexAdapter: java.util.List descList
+cn.com.modernmedia.businessweek.adapter.IndexAdapter: boolean isScroll
+cn.com.modernmedia.businessweek.adapter.IndexAdapter: cn.com.modernmedia.listener.ListScrollStateListener listener
+cn.com.modernmedia.businessweek.adapter.IndexAdapter: cn.com.modernmedia.listener.NotifyAdapterListener adapterListener
 cn.com.modernmedia.businessweek.adapter.IndexAdapter: IndexAdapter(android.content.Context)
 cn.com.modernmedia.businessweek.adapter.IndexAdapter: void setData(java.util.List)
+cn.com.modernmedia.businessweek.adapter.IndexAdapter: cn.com.modernmedia.listener.ListScrollStateListener getListener()
 cn.com.modernmedia.businessweek.adapter.IndexAdapter: android.view.View getView(int,android.view.View,android.view.ViewGroup)
 cn.com.modernmedia.businessweek.adapter.IndexAdapter: void setButtonImg(android.widget.ImageView,cn.com.modernmedia.model.ArticleItem)
+cn.com.modernmedia.businessweek.adapter.IndexAdapter: void access$0(cn.com.modernmedia.businessweek.adapter.IndexAdapter,boolean)
+cn.com.modernmedia.businessweek.adapter.IndexAdapter: cn.com.modernmedia.businessweek.adapter.IndexAdapter access$1(cn.com.modernmedia.businessweek.adapter.IndexAdapter)
+cn.com.modernmedia.businessweek.adapter.IndexAdapter: android.content.Context access$2(cn.com.modernmedia.businessweek.adapter.IndexAdapter)
 cn.com.modernmedia.businessweek.adapter.IndexAdapter$1
 cn.com.modernmedia.businessweek.adapter.IndexAdapter$1: cn.com.modernmedia.businessweek.adapter.IndexAdapter this$0
-cn.com.modernmedia.businessweek.adapter.IndexAdapter$1: cn.com.modernmedia.businessweek.adapter.IndexAdapter$ViewHolder val$viewHolder
-cn.com.modernmedia.businessweek.adapter.IndexAdapter$1: cn.com.modernmedia.model.ArticleItem val$item
-cn.com.modernmedia.businessweek.adapter.IndexAdapter$1: IndexAdapter$1(cn.com.modernmedia.businessweek.adapter.IndexAdapter,cn.com.modernmedia.businessweek.adapter.IndexAdapter$ViewHolder,cn.com.modernmedia.model.ArticleItem)
-cn.com.modernmedia.businessweek.adapter.IndexAdapter$1: void run()
+cn.com.modernmedia.businessweek.adapter.IndexAdapter$1: IndexAdapter$1(cn.com.modernmedia.businessweek.adapter.IndexAdapter)
+cn.com.modernmedia.businessweek.adapter.IndexAdapter$1: void scrolling()
+cn.com.modernmedia.businessweek.adapter.IndexAdapter$1: void scrollIdle()
+cn.com.modernmedia.businessweek.adapter.IndexAdapter$2
+cn.com.modernmedia.businessweek.adapter.IndexAdapter$2: cn.com.modernmedia.businessweek.adapter.IndexAdapter this$0
+cn.com.modernmedia.businessweek.adapter.IndexAdapter$2: IndexAdapter$2(cn.com.modernmedia.businessweek.adapter.IndexAdapter)
+cn.com.modernmedia.businessweek.adapter.IndexAdapter$2: void notifyReaded()
+cn.com.modernmedia.businessweek.adapter.IndexAdapter$2: void nofitySelectItem(java.lang.Object)
+cn.com.modernmedia.businessweek.adapter.IndexAdapter$2: void notifyChanged()
+cn.com.modernmedia.businessweek.adapter.IndexAdapter$3
+cn.com.modernmedia.businessweek.adapter.IndexAdapter$3: cn.com.modernmedia.businessweek.adapter.IndexAdapter this$0
+cn.com.modernmedia.businessweek.adapter.IndexAdapter$3: cn.com.modernmedia.model.ArticleItem val$item
+cn.com.modernmedia.businessweek.adapter.IndexAdapter$3: IndexAdapter$3(cn.com.modernmedia.businessweek.adapter.IndexAdapter,cn.com.modernmedia.model.ArticleItem)
+cn.com.modernmedia.businessweek.adapter.IndexAdapter$3: void onClick(android.view.View)
 cn.com.modernmedia.businessweek.adapter.IndexAdapter$ViewHolder
 cn.com.modernmedia.businessweek.adapter.IndexAdapter$ViewHolder: android.widget.RelativeLayout titleBar
+cn.com.modernmedia.businessweek.adapter.IndexAdapter$ViewHolder: android.widget.RelativeLayout moreRl
 cn.com.modernmedia.businessweek.adapter.IndexAdapter$ViewHolder: android.widget.TextView column
 cn.com.modernmedia.businessweek.adapter.IndexAdapter$ViewHolder: android.widget.TextView title
 cn.com.modernmedia.businessweek.adapter.IndexAdapter$ViewHolder: android.widget.TextView desc
+cn.com.modernmedia.businessweek.adapter.IndexAdapter$ViewHolder: android.widget.TextView more
 cn.com.modernmedia.businessweek.adapter.IndexAdapter$ViewHolder: android.widget.ImageView image
 cn.com.modernmedia.businessweek.adapter.IndexAdapter$ViewHolder: android.widget.ImageView right
 cn.com.modernmedia.businessweek.adapter.IndexAdapter$ViewHolder: cn.com.modernmedia.businessweek.adapter.IndexAdapter this$0
 cn.com.modernmedia.businessweek.adapter.IndexAdapter$ViewHolder: IndexAdapter$ViewHolder(cn.com.modernmedia.businessweek.adapter.IndexAdapter)
 cn.com.modernmedia.businessweek.adapter.IndexAdapter$ViewHolder: IndexAdapter$ViewHolder(cn.com.modernmedia.businessweek.adapter.IndexAdapter,cn.com.modernmedia.businessweek.adapter.IndexAdapter$ViewHolder)
-cn.com.modernmedia.businessweek.adapter.PageGalleryAdapter
-cn.com.modernmedia.businessweek.adapter.PageGalleryAdapter: android.content.Context mContext
-cn.com.modernmedia.businessweek.adapter.PageGalleryAdapter: cn.com.modernmedia.api.ImageDownloader downloader
-cn.com.modernmedia.businessweek.adapter.PageGalleryAdapter: java.util.List list
-cn.com.modernmedia.businessweek.adapter.PageGalleryAdapter: PageGalleryAdapter(android.content.Context)
-cn.com.modernmedia.businessweek.adapter.PageGalleryAdapter: void setArticlelist(java.util.List)
-cn.com.modernmedia.businessweek.adapter.PageGalleryAdapter: int getCount()
-cn.com.modernmedia.businessweek.adapter.PageGalleryAdapter: java.lang.Object getItem(int)
-cn.com.modernmedia.businessweek.adapter.PageGalleryAdapter: long getItemId(int)
-cn.com.modernmedia.businessweek.adapter.PageGalleryAdapter: android.view.View getView(int,android.view.View,android.view.ViewGroup)
+cn.com.modernmedia.businessweek.adapter.MyCircularPagerAdapter
+cn.com.modernmedia.businessweek.adapter.MyCircularPagerAdapter: android.content.Context mContext
+cn.com.modernmedia.businessweek.adapter.MyCircularPagerAdapter: MyCircularPagerAdapter(android.content.Context,java.util.List)
+cn.com.modernmedia.businessweek.adapter.MyCircularPagerAdapter: android.view.View fetchView(cn.com.modernmedia.model.ArticleItem)
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment: int DURATION
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment: android.content.Context mContext
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment: cn.com.modernmedia.widget.AtlasViewPager viewPager
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment: android.widget.LinearLayout toolbar
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment: android.widget.ImageView tag
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment: java.util.List list
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment: cn.com.modernmedia.model.Issue issue
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment: int parentId
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment: float startX
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment: int bg_width
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment: boolean isClick
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment: cn.com.modernmedia.businessweek.widget.IndexHeadView currentHeadView
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment: int currentHeadSize
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment: ChildCatFragment()
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment: void onCreate(android.os.Bundle)
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment: android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle)
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment: void setData(cn.com.modernmedia.model.Issue,int)
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment: void onDestroy()
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment: void refresh()
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment: void updateDes(int)
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment: void updatePage(int)
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment: void initToolBar()
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment: void startAnim(int)
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment: cn.com.modernmedia.businessweek.widget.IndexHeadView getHeadView()
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment: int getChildSize()
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment: void setIntercept(boolean)
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment: java.util.List access$0(cn.com.modernmedia.businessweek.fragment.ChildCatFragment)
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment: android.content.Context access$1(cn.com.modernmedia.businessweek.fragment.ChildCatFragment)
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment: cn.com.modernmedia.model.Issue access$2(cn.com.modernmedia.businessweek.fragment.ChildCatFragment)
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment: void access$3(cn.com.modernmedia.businessweek.fragment.ChildCatFragment,boolean)
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment: void access$4(cn.com.modernmedia.businessweek.fragment.ChildCatFragment,int)
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment: cn.com.modernmedia.widget.AtlasViewPager access$5(cn.com.modernmedia.businessweek.fragment.ChildCatFragment)
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment: android.widget.ImageView access$6(cn.com.modernmedia.businessweek.fragment.ChildCatFragment)
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment: android.widget.LinearLayout access$7(cn.com.modernmedia.businessweek.fragment.ChildCatFragment)
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment$1
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment$1: cn.com.modernmedia.businessweek.fragment.ChildCatFragment this$0
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment$1: ChildCatFragment$1(cn.com.modernmedia.businessweek.fragment.ChildCatFragment)
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment$1: void onClick(android.view.View)
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment$1: cn.com.modernmedia.businessweek.fragment.ChildCatFragment access$0(cn.com.modernmedia.businessweek.fragment.ChildCatFragment$1)
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment$1$1
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment$1$1: cn.com.modernmedia.businessweek.fragment.ChildCatFragment$1 this$1
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment$1$1: int val$position
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment$1$1: ChildCatFragment$1$1(cn.com.modernmedia.businessweek.fragment.ChildCatFragment$1,int)
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment$1$1: void run()
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment$2
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment$2: cn.com.modernmedia.businessweek.fragment.ChildCatFragment this$0
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment$2: int val$index
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment$2: ChildCatFragment$2(cn.com.modernmedia.businessweek.fragment.ChildCatFragment,int)
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment$2: void onAnimationStart(android.view.animation.Animation)
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment$2: void onAnimationRepeat(android.view.animation.Animation)
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment$2: void onAnimationEnd(android.view.animation.Animation)
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment$ChildPagerAdapter
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment$ChildPagerAdapter: cn.com.modernmedia.businessweek.fragment.ChildCatFragment this$0
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment$ChildPagerAdapter: ChildCatFragment$ChildPagerAdapter(cn.com.modernmedia.businessweek.fragment.ChildCatFragment)
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment$ChildPagerAdapter: int getCount()
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment$ChildPagerAdapter: boolean isViewFromObject(android.view.View,java.lang.Object)
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment$ChildPagerAdapter: void destroyItem(android.view.ViewGroup,int,java.lang.Object)
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment$ChildPagerAdapter: java.lang.Object instantiateItem(android.view.ViewGroup,int)
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment$ChildPagerAdapter: void setPrimaryItem(android.view.ViewGroup,int,java.lang.Object)
+cn.com.modernmedia.businessweek.fragment.ChildCatFragment$ChildPagerAdapter: ChildCatFragment$ChildPagerAdapter(cn.com.modernmedia.businessweek.fragment.ChildCatFragment,cn.com.modernmedia.businessweek.fragment.ChildCatFragment$ChildPagerAdapter)
+cn.com.modernmedia.businessweek.fragment.IndexListFragment
+cn.com.modernmedia.businessweek.fragment.IndexListFragment: android.content.Context mContext
+cn.com.modernmedia.businessweek.fragment.IndexListFragment: cn.com.modernmedia.widget.HeadPagerListView listView
+cn.com.modernmedia.businessweek.fragment.IndexListFragment: cn.com.modernmedia.businessweek.adapter.IndexAdapter adapter
+cn.com.modernmedia.businessweek.fragment.IndexListFragment: cn.com.modernmedia.businessweek.widget.IndexHeadView headView
+cn.com.modernmedia.businessweek.fragment.IndexListFragment: cn.com.modernmedia.listener.ListScrollStateListener scrollListener
+cn.com.modernmedia.businessweek.fragment.IndexListFragment: cn.com.modernmedia.adapter.MyPagerAdapter$OnItemClickListener clickListener
+cn.com.modernmedia.businessweek.fragment.IndexListFragment: cn.com.modernmedia.model.Entry entry
+cn.com.modernmedia.businessweek.fragment.IndexListFragment: IndexListFragment()
+cn.com.modernmedia.businessweek.fragment.IndexListFragment: void onCreate(android.os.Bundle)
+cn.com.modernmedia.businessweek.fragment.IndexListFragment: android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle)
+cn.com.modernmedia.businessweek.fragment.IndexListFragment: void onDestroy()
+cn.com.modernmedia.businessweek.fragment.IndexListFragment: void setData(cn.com.modernmedia.model.Entry)
+cn.com.modernmedia.businessweek.fragment.IndexListFragment: void refresh()
+cn.com.modernmedia.businessweek.fragment.IndexListFragment: void setValuesForWidget(cn.com.modernmedia.model.IndexArticle)
+cn.com.modernmedia.businessweek.fragment.IndexListFragment: void setValuesForWidget(cn.com.modernmedia.model.CatIndexArticle)
+cn.com.modernmedia.businessweek.fragment.IndexListFragment: void setClickListener(cn.com.modernmedia.adapter.MyPagerAdapter$OnItemClickListener)
+cn.com.modernmedia.businessweek.fragment.IndexListFragment: cn.com.modernmedia.businessweek.adapter.IndexAdapter getAdapter()
+cn.com.modernmedia.businessweek.fragment.IndexListFragment: cn.com.modernmedia.businessweek.widget.IndexHeadView getHeadView()
+cn.com.modernmedia.businessweek.fragment.IndexListFragment: cn.com.modernmedia.listener.ListScrollStateListener access$0(cn.com.modernmedia.businessweek.fragment.IndexListFragment)
+cn.com.modernmedia.businessweek.fragment.IndexListFragment: android.content.Context access$1(cn.com.modernmedia.businessweek.fragment.IndexListFragment)
+cn.com.modernmedia.businessweek.fragment.IndexListFragment: cn.com.modernmedia.widget.HeadPagerListView access$2(cn.com.modernmedia.businessweek.fragment.IndexListFragment)
+cn.com.modernmedia.businessweek.fragment.IndexListFragment: cn.com.modernmedia.adapter.MyPagerAdapter$OnItemClickListener access$3(cn.com.modernmedia.businessweek.fragment.IndexListFragment)
+cn.com.modernmedia.businessweek.fragment.IndexListFragment$1
+cn.com.modernmedia.businessweek.fragment.IndexListFragment$1: cn.com.modernmedia.businessweek.fragment.IndexListFragment this$0
+cn.com.modernmedia.businessweek.fragment.IndexListFragment$1: IndexListFragment$1(cn.com.modernmedia.businessweek.fragment.IndexListFragment)
+cn.com.modernmedia.businessweek.fragment.IndexListFragment$1: void onScrollStateChanged(android.widget.AbsListView,int)
+cn.com.modernmedia.businessweek.fragment.IndexListFragment$1: void onScroll(android.widget.AbsListView,int,int,int)
+cn.com.modernmedia.businessweek.fragment.IndexListFragment$2
+cn.com.modernmedia.businessweek.fragment.IndexListFragment$2: cn.com.modernmedia.businessweek.fragment.IndexListFragment this$0
+cn.com.modernmedia.businessweek.fragment.IndexListFragment$2: IndexListFragment$2(cn.com.modernmedia.businessweek.fragment.IndexListFragment)
+cn.com.modernmedia.businessweek.fragment.IndexListFragment$2: void onItemClick(android.widget.AdapterView,android.view.View,int,long)
 cn.com.modernmedia.businessweek.listener.FontSizeListener
 cn.com.modernmedia.businessweek.listener.FontSizeListener: void fontSize()
 cn.com.modernmedia.businessweek.widget.ArticleDetailItem
@@ -5116,6 +5427,7 @@ cn.com.modernmedia.businessweek.widget.AtlasView$1
 cn.com.modernmedia.businessweek.widget.AtlasView$1: cn.com.modernmedia.businessweek.widget.AtlasView this$0
 cn.com.modernmedia.businessweek.widget.AtlasView$1: AtlasView$1(cn.com.modernmedia.businessweek.widget.AtlasView)
 cn.com.modernmedia.businessweek.widget.AtlasView$1: void updateDes(int)
+cn.com.modernmedia.businessweek.widget.AtlasView$1: void updatePage(int)
 cn.com.modernmedia.businessweek.widget.AtlasView$2
 cn.com.modernmedia.businessweek.widget.AtlasView$2: cn.com.modernmedia.businessweek.widget.AtlasView this$0
 cn.com.modernmedia.businessweek.widget.AtlasView$2: AtlasView$2(cn.com.modernmedia.businessweek.widget.AtlasView)
@@ -5126,6 +5438,63 @@ cn.com.modernmedia.businessweek.widget.AtlasView$2$1: cn.com.modernmedia.busines
 cn.com.modernmedia.businessweek.widget.AtlasView$2$1: cn.com.modernmedia.model.Entry val$entry
 cn.com.modernmedia.businessweek.widget.AtlasView$2$1: AtlasView$2$1(cn.com.modernmedia.businessweek.widget.AtlasView$2,cn.com.modernmedia.model.Entry)
 cn.com.modernmedia.businessweek.widget.AtlasView$2$1: void run()
+cn.com.modernmedia.businessweek.widget.ChildCatItem
+cn.com.modernmedia.businessweek.widget.ChildCatItem: android.content.Context mContext
+cn.com.modernmedia.businessweek.widget.ChildCatItem: cn.com.modernmedia.widget.HeadPagerListView listView
+cn.com.modernmedia.businessweek.widget.ChildCatItem: cn.com.modernmedia.businessweek.widget.IndexHeadView headView
+cn.com.modernmedia.businessweek.widget.ChildCatItem: cn.com.modernmedia.businessweek.adapter.IndexAdapter adapter
+cn.com.modernmedia.businessweek.widget.ChildCatItem: cn.com.modernmedia.listener.ListScrollStateListener scrollListener
+cn.com.modernmedia.businessweek.widget.ChildCatItem: cn.com.modernmedia.api.OperateController controller
+cn.com.modernmedia.businessweek.widget.ChildCatItem: cn.com.modernmedia.model.Issue issue
+cn.com.modernmedia.businessweek.widget.ChildCatItem: java.lang.String columnId
+cn.com.modernmedia.businessweek.widget.ChildCatItem: int childSize
+cn.com.modernmedia.businessweek.widget.ChildCatItem: android.os.Handler handler
+cn.com.modernmedia.businessweek.widget.ChildCatItem: cn.com.modernmedia.listener.SlateListener listener
+cn.com.modernmedia.businessweek.widget.ChildCatItem: ChildCatItem(android.content.Context)
+cn.com.modernmedia.businessweek.widget.ChildCatItem: ChildCatItem(android.content.Context,android.util.AttributeSet)
+cn.com.modernmedia.businessweek.widget.ChildCatItem: void init()
+cn.com.modernmedia.businessweek.widget.ChildCatItem: void getCatIndex(cn.com.modernmedia.model.Issue,java.lang.String)
+cn.com.modernmedia.businessweek.widget.ChildCatItem: void reLoad()
+cn.com.modernmedia.businessweek.widget.ChildCatItem: void setData(cn.com.modernmedia.model.Issue,java.lang.String)
+cn.com.modernmedia.businessweek.widget.ChildCatItem: void setDataForList(cn.com.modernmedia.model.CatIndexArticle)
+cn.com.modernmedia.businessweek.widget.ChildCatItem: cn.com.modernmedia.businessweek.widget.IndexHeadView getHeadView()
+cn.com.modernmedia.businessweek.widget.ChildCatItem: int getChildSize()
+cn.com.modernmedia.businessweek.widget.ChildCatItem: android.content.Context access$0(cn.com.modernmedia.businessweek.widget.ChildCatItem)
+cn.com.modernmedia.businessweek.widget.ChildCatItem: cn.com.modernmedia.widget.HeadPagerListView access$1(cn.com.modernmedia.businessweek.widget.ChildCatItem)
+cn.com.modernmedia.businessweek.widget.ChildCatItem: cn.com.modernmedia.businessweek.adapter.IndexAdapter access$2(cn.com.modernmedia.businessweek.widget.ChildCatItem)
+cn.com.modernmedia.businessweek.widget.ChildCatItem: void access$3(cn.com.modernmedia.businessweek.widget.ChildCatItem,cn.com.modernmedia.model.ArticleItem)
+cn.com.modernmedia.businessweek.widget.ChildCatItem: cn.com.modernmedia.listener.ListScrollStateListener access$4(cn.com.modernmedia.businessweek.widget.ChildCatItem)
+cn.com.modernmedia.businessweek.widget.ChildCatItem: android.os.Handler access$5(cn.com.modernmedia.businessweek.widget.ChildCatItem)
+cn.com.modernmedia.businessweek.widget.ChildCatItem: void access$6(cn.com.modernmedia.businessweek.widget.ChildCatItem,cn.com.modernmedia.model.CatIndexArticle)
+cn.com.modernmedia.businessweek.widget.ChildCatItem$1
+cn.com.modernmedia.businessweek.widget.ChildCatItem$1: cn.com.modernmedia.businessweek.widget.ChildCatItem this$0
+cn.com.modernmedia.businessweek.widget.ChildCatItem$1: ChildCatItem$1(cn.com.modernmedia.businessweek.widget.ChildCatItem)
+cn.com.modernmedia.businessweek.widget.ChildCatItem$1: void video(cn.com.modernmedia.model.ArticleItem,java.lang.String)
+cn.com.modernmedia.businessweek.widget.ChildCatItem$1: void linkNull(cn.com.modernmedia.model.ArticleItem)
+cn.com.modernmedia.businessweek.widget.ChildCatItem$1: void image(java.lang.String)
+cn.com.modernmedia.businessweek.widget.ChildCatItem$1: void httpLink(cn.com.modernmedia.model.ArticleItem,android.content.Intent)
+cn.com.modernmedia.businessweek.widget.ChildCatItem$1: void gallery(java.lang.String)
+cn.com.modernmedia.businessweek.widget.ChildCatItem$1: void column(java.lang.String)
+cn.com.modernmedia.businessweek.widget.ChildCatItem$1: void articleLink(cn.com.modernmedia.model.ArticleItem,int)
+cn.com.modernmedia.businessweek.widget.ChildCatItem$2
+cn.com.modernmedia.businessweek.widget.ChildCatItem$2: cn.com.modernmedia.businessweek.widget.ChildCatItem this$0
+cn.com.modernmedia.businessweek.widget.ChildCatItem$2: ChildCatItem$2(cn.com.modernmedia.businessweek.widget.ChildCatItem)
+cn.com.modernmedia.businessweek.widget.ChildCatItem$2: void onItemClick(android.widget.AdapterView,android.view.View,int,long)
+cn.com.modernmedia.businessweek.widget.ChildCatItem$3
+cn.com.modernmedia.businessweek.widget.ChildCatItem$3: cn.com.modernmedia.businessweek.widget.ChildCatItem this$0
+cn.com.modernmedia.businessweek.widget.ChildCatItem$3: ChildCatItem$3(cn.com.modernmedia.businessweek.widget.ChildCatItem)
+cn.com.modernmedia.businessweek.widget.ChildCatItem$3: void onScrollStateChanged(android.widget.AbsListView,int)
+cn.com.modernmedia.businessweek.widget.ChildCatItem$3: void onScroll(android.widget.AbsListView,int,int,int)
+cn.com.modernmedia.businessweek.widget.ChildCatItem$4
+cn.com.modernmedia.businessweek.widget.ChildCatItem$4: cn.com.modernmedia.businessweek.widget.ChildCatItem this$0
+cn.com.modernmedia.businessweek.widget.ChildCatItem$4: ChildCatItem$4(cn.com.modernmedia.businessweek.widget.ChildCatItem)
+cn.com.modernmedia.businessweek.widget.ChildCatItem$4: void setData(cn.com.modernmedia.model.Entry)
+cn.com.modernmedia.businessweek.widget.ChildCatItem$4: cn.com.modernmedia.businessweek.widget.ChildCatItem access$0(cn.com.modernmedia.businessweek.widget.ChildCatItem$4)
+cn.com.modernmedia.businessweek.widget.ChildCatItem$4$1
+cn.com.modernmedia.businessweek.widget.ChildCatItem$4$1: cn.com.modernmedia.businessweek.widget.ChildCatItem$4 this$1
+cn.com.modernmedia.businessweek.widget.ChildCatItem$4$1: cn.com.modernmedia.model.Entry val$entry
+cn.com.modernmedia.businessweek.widget.ChildCatItem$4$1: ChildCatItem$4$1(cn.com.modernmedia.businessweek.widget.ChildCatItem$4,cn.com.modernmedia.model.Entry)
+cn.com.modernmedia.businessweek.widget.ChildCatItem$4$1: void run()
 cn.com.modernmedia.businessweek.widget.ColumnView
 cn.com.modernmedia.businessweek.widget.ColumnView: android.content.Context mContext
 cn.com.modernmedia.businessweek.widget.ColumnView: android.widget.LinearLayout layout
@@ -5140,7 +5509,9 @@ cn.com.modernmedia.businessweek.widget.ColumnView: android.content.Context acces
 cn.com.modernmedia.businessweek.widget.ColumnView$1
 cn.com.modernmedia.businessweek.widget.ColumnView$1: cn.com.modernmedia.businessweek.widget.ColumnView this$0
 cn.com.modernmedia.businessweek.widget.ColumnView$1: ColumnView$1(cn.com.modernmedia.businessweek.widget.ColumnView)
-cn.com.modernmedia.businessweek.widget.ColumnView$1: void dataChange()
+cn.com.modernmedia.businessweek.widget.ColumnView$1: void notifyReaded()
+cn.com.modernmedia.businessweek.widget.ColumnView$1: void notifyChanged()
+cn.com.modernmedia.businessweek.widget.ColumnView$1: void nofitySelectItem(java.lang.Object)
 cn.com.modernmedia.businessweek.widget.ColumnView$2
 cn.com.modernmedia.businessweek.widget.ColumnView$2: cn.com.modernmedia.businessweek.widget.ColumnView this$0
 cn.com.modernmedia.businessweek.widget.ColumnView$2: ColumnView$2(cn.com.modernmedia.businessweek.widget.ColumnView)
@@ -5158,24 +5529,37 @@ cn.com.modernmedia.businessweek.widget.FavView$1: cn.com.modernmedia.businesswee
 cn.com.modernmedia.businessweek.widget.FavView$1: FavView$1(cn.com.modernmedia.businessweek.widget.FavView)
 cn.com.modernmedia.businessweek.widget.FavView$1: void refreshFav()
 cn.com.modernmedia.businessweek.widget.IndexHeadView
+cn.com.modernmedia.businessweek.widget.IndexHeadView: int CHANGE
+cn.com.modernmedia.businessweek.widget.IndexHeadView: int CHANGE_DELAY
 cn.com.modernmedia.businessweek.widget.IndexHeadView: android.content.Context mContext
-cn.com.modernmedia.businessweek.widget.IndexHeadView: cn.com.modernmedia.widget.PageGallery gallery
-cn.com.modernmedia.businessweek.widget.IndexHeadView: cn.com.modernmedia.businessweek.adapter.PageGalleryAdapter galleryAdapter
+cn.com.modernmedia.businessweek.widget.IndexHeadView: cn.com.modernmedia.businessweek.widget.MyCircularViewPager viewPager
 cn.com.modernmedia.businessweek.widget.IndexHeadView: android.widget.LinearLayout dotLl
 cn.com.modernmedia.businessweek.widget.IndexHeadView: android.widget.TextView title
 cn.com.modernmedia.businessweek.widget.IndexHeadView: java.util.List dots
+cn.com.modernmedia.businessweek.widget.IndexHeadView: java.util.List list
+cn.com.modernmedia.businessweek.widget.IndexHeadView: boolean isSetting
+cn.com.modernmedia.businessweek.widget.IndexHeadView: boolean isAuto
 cn.com.modernmedia.businessweek.widget.IndexHeadView: cn.com.modernmedia.listener.SlateListener listener
+cn.com.modernmedia.businessweek.widget.IndexHeadView: cn.com.modernmedia.listener.NotifyArticleDesListener pagerListener
+cn.com.modernmedia.businessweek.widget.IndexHeadView: android.os.Handler handler
 cn.com.modernmedia.businessweek.widget.IndexHeadView: IndexHeadView(android.content.Context)
 cn.com.modernmedia.businessweek.widget.IndexHeadView: void init()
 cn.com.modernmedia.businessweek.widget.IndexHeadView: void setData(cn.com.modernmedia.model.Entry)
 cn.com.modernmedia.businessweek.widget.IndexHeadView: void setDataToGallery(java.util.List)
-cn.com.modernmedia.businessweek.widget.IndexHeadView: android.widget.Gallery getGallery()
+cn.com.modernmedia.businessweek.widget.IndexHeadView: android.support.v4.view.ViewPager getViewPager()
 cn.com.modernmedia.businessweek.widget.IndexHeadView: void initDot(java.util.List)
+cn.com.modernmedia.businessweek.widget.IndexHeadView: void startChange()
+cn.com.modernmedia.businessweek.widget.IndexHeadView: void startRefresh()
+cn.com.modernmedia.businessweek.widget.IndexHeadView: void stopRefresh()
 cn.com.modernmedia.businessweek.widget.IndexHeadView: void reLoad()
 cn.com.modernmedia.businessweek.widget.IndexHeadView: android.content.Context access$0(cn.com.modernmedia.businessweek.widget.IndexHeadView)
-cn.com.modernmedia.businessweek.widget.IndexHeadView: void access$1(cn.com.modernmedia.businessweek.widget.IndexHeadView,cn.com.modernmedia.model.ArticleItem)
-cn.com.modernmedia.businessweek.widget.IndexHeadView: android.widget.TextView access$2(cn.com.modernmedia.businessweek.widget.IndexHeadView)
+cn.com.modernmedia.businessweek.widget.IndexHeadView: void access$1(cn.com.modernmedia.businessweek.widget.IndexHeadView,boolean)
+cn.com.modernmedia.businessweek.widget.IndexHeadView: void access$2(cn.com.modernmedia.businessweek.widget.IndexHeadView)
 cn.com.modernmedia.businessweek.widget.IndexHeadView: java.util.List access$3(cn.com.modernmedia.businessweek.widget.IndexHeadView)
+cn.com.modernmedia.businessweek.widget.IndexHeadView: android.widget.TextView access$4(cn.com.modernmedia.businessweek.widget.IndexHeadView)
+cn.com.modernmedia.businessweek.widget.IndexHeadView: java.util.List access$5(cn.com.modernmedia.businessweek.widget.IndexHeadView)
+cn.com.modernmedia.businessweek.widget.IndexHeadView: cn.com.modernmedia.businessweek.widget.MyCircularViewPager access$6(cn.com.modernmedia.businessweek.widget.IndexHeadView)
+cn.com.modernmedia.businessweek.widget.IndexHeadView: void access$7(cn.com.modernmedia.businessweek.widget.IndexHeadView,cn.com.modernmedia.model.ArticleItem)
 cn.com.modernmedia.businessweek.widget.IndexHeadView$1
 cn.com.modernmedia.businessweek.widget.IndexHeadView$1: cn.com.modernmedia.businessweek.widget.IndexHeadView this$0
 cn.com.modernmedia.businessweek.widget.IndexHeadView$1: IndexHeadView$1(cn.com.modernmedia.businessweek.widget.IndexHeadView)
@@ -5188,48 +5572,47 @@ cn.com.modernmedia.businessweek.widget.IndexHeadView$1: void image(java.lang.Str
 cn.com.modernmedia.businessweek.widget.IndexHeadView$1: void gallery(java.lang.String)
 cn.com.modernmedia.businessweek.widget.IndexHeadView$2
 cn.com.modernmedia.businessweek.widget.IndexHeadView$2: cn.com.modernmedia.businessweek.widget.IndexHeadView this$0
-cn.com.modernmedia.businessweek.widget.IndexHeadView$2: java.util.List val$list
-cn.com.modernmedia.businessweek.widget.IndexHeadView$2: IndexHeadView$2(cn.com.modernmedia.businessweek.widget.IndexHeadView,java.util.List)
-cn.com.modernmedia.businessweek.widget.IndexHeadView$2: void onItemClick(android.widget.AdapterView,android.view.View,int,long)
+cn.com.modernmedia.businessweek.widget.IndexHeadView$2: IndexHeadView$2(cn.com.modernmedia.businessweek.widget.IndexHeadView)
+cn.com.modernmedia.businessweek.widget.IndexHeadView$2: void updatePage(int)
+cn.com.modernmedia.businessweek.widget.IndexHeadView$2: void updateDes(int)
 cn.com.modernmedia.businessweek.widget.IndexHeadView$3
 cn.com.modernmedia.businessweek.widget.IndexHeadView$3: cn.com.modernmedia.businessweek.widget.IndexHeadView this$0
-cn.com.modernmedia.businessweek.widget.IndexHeadView$3: java.util.List val$list
-cn.com.modernmedia.businessweek.widget.IndexHeadView$3: IndexHeadView$3(cn.com.modernmedia.businessweek.widget.IndexHeadView,java.util.List)
-cn.com.modernmedia.businessweek.widget.IndexHeadView$3: void onItemSelected(android.widget.AdapterView,android.view.View,int,long)
-cn.com.modernmedia.businessweek.widget.IndexHeadView$3: void onNothingSelected(android.widget.AdapterView)
-cn.com.modernmedia.businessweek.widget.IndexHeadView$3: cn.com.modernmedia.businessweek.widget.IndexHeadView access$0(cn.com.modernmedia.businessweek.widget.IndexHeadView$3)
-cn.com.modernmedia.businessweek.widget.IndexHeadView$3$1
-cn.com.modernmedia.businessweek.widget.IndexHeadView$3$1: cn.com.modernmedia.businessweek.widget.IndexHeadView$3 this$1
-cn.com.modernmedia.businessweek.widget.IndexHeadView$3$1: int val$position
-cn.com.modernmedia.businessweek.widget.IndexHeadView$3$1: java.util.List val$list
-cn.com.modernmedia.businessweek.widget.IndexHeadView$3$1: IndexHeadView$3$1(cn.com.modernmedia.businessweek.widget.IndexHeadView$3,int,java.util.List)
-cn.com.modernmedia.businessweek.widget.IndexHeadView$3$1: void run()
+cn.com.modernmedia.businessweek.widget.IndexHeadView$3: IndexHeadView$3(cn.com.modernmedia.businessweek.widget.IndexHeadView)
+cn.com.modernmedia.businessweek.widget.IndexHeadView$3: void handleMessage(android.os.Message)
+cn.com.modernmedia.businessweek.widget.IndexHeadView$4
+cn.com.modernmedia.businessweek.widget.IndexHeadView$4: cn.com.modernmedia.businessweek.widget.IndexHeadView this$0
+cn.com.modernmedia.businessweek.widget.IndexHeadView$4: java.util.List val$list
+cn.com.modernmedia.businessweek.widget.IndexHeadView$4: IndexHeadView$4(cn.com.modernmedia.businessweek.widget.IndexHeadView,java.util.List)
+cn.com.modernmedia.businessweek.widget.IndexHeadView$4: void onItemClick(android.view.View,int)
 cn.com.modernmedia.businessweek.widget.IndexView
+cn.com.modernmedia.businessweek.widget.IndexView: java.lang.String LIST_TAG
+cn.com.modernmedia.businessweek.widget.IndexView: java.lang.String CHILD_TAG
+cn.com.modernmedia.businessweek.widget.IndexView: java.lang.String[] TAGS
+cn.com.modernmedia.businessweek.widget.IndexView: java.lang.String current_tag
 cn.com.modernmedia.businessweek.widget.IndexView: android.content.Context mContext
 cn.com.modernmedia.businessweek.widget.IndexView: android.widget.Button column
 cn.com.modernmedia.businessweek.widget.IndexView: android.widget.Button fav
 cn.com.modernmedia.businessweek.widget.IndexView: android.widget.TextView title
-cn.com.modernmedia.businessweek.widget.IndexView: android.widget.ListView listView
-cn.com.modernmedia.businessweek.widget.IndexView: cn.com.modernmedia.businessweek.adapter.IndexAdapter adapter
-cn.com.modernmedia.businessweek.widget.IndexView: cn.com.modernmedia.businessweek.widget.IndexHeadView headView
+cn.com.modernmedia.businessweek.widget.IndexView: cn.com.modernmedia.businessweek.fragment.ChildCatFragment childFragment
+cn.com.modernmedia.businessweek.widget.IndexView: cn.com.modernmedia.businessweek.fragment.IndexListFragment listFragment
 cn.com.modernmedia.businessweek.widget.IndexView: android.widget.LinearLayout cover
 cn.com.modernmedia.businessweek.widget.IndexView: cn.com.modernmedia.listener.SlateListener listener
+cn.com.modernmedia.businessweek.widget.IndexView: void <clinit>()
 cn.com.modernmedia.businessweek.widget.IndexView: IndexView(android.content.Context)
 cn.com.modernmedia.businessweek.widget.IndexView: IndexView(android.content.Context,android.util.AttributeSet)
 cn.com.modernmedia.businessweek.widget.IndexView: void init()
-cn.com.modernmedia.businessweek.widget.IndexView: android.widget.Gallery getGallery()
 cn.com.modernmedia.businessweek.widget.IndexView: android.widget.Button getColumn()
 cn.com.modernmedia.businessweek.widget.IndexView: android.widget.Button getFav()
 cn.com.modernmedia.businessweek.widget.IndexView: void setTitle(java.lang.String)
 cn.com.modernmedia.businessweek.widget.IndexView: void showCover(boolean)
 cn.com.modernmedia.businessweek.widget.IndexView: boolean dispatchTouchEvent(android.view.MotionEvent)
 cn.com.modernmedia.businessweek.widget.IndexView: void setData(cn.com.modernmedia.model.Entry)
-cn.com.modernmedia.businessweek.widget.IndexView: void setValuesForWidget(cn.com.modernmedia.model.IndexArticle)
-cn.com.modernmedia.businessweek.widget.IndexView: void setValuesForWidget(cn.com.modernmedia.model.CatIndexArticle)
+cn.com.modernmedia.businessweek.widget.IndexView: void setDataForChild(cn.com.modernmedia.model.Issue,int)
 cn.com.modernmedia.businessweek.widget.IndexView: void reLoad()
-cn.com.modernmedia.businessweek.widget.IndexView: void notifyAdapter()
+cn.com.modernmedia.businessweek.widget.IndexView: void setAuto(boolean)
+cn.com.modernmedia.businessweek.widget.IndexView: boolean onInterceptTouchEvent(android.view.MotionEvent)
 cn.com.modernmedia.businessweek.widget.IndexView: android.content.Context access$0(cn.com.modernmedia.businessweek.widget.IndexView)
-cn.com.modernmedia.businessweek.widget.IndexView: cn.com.modernmedia.businessweek.adapter.IndexAdapter access$1(cn.com.modernmedia.businessweek.widget.IndexView)
+cn.com.modernmedia.businessweek.widget.IndexView: cn.com.modernmedia.businessweek.fragment.IndexListFragment access$1(cn.com.modernmedia.businessweek.widget.IndexView)
 cn.com.modernmedia.businessweek.widget.IndexView: void access$2(cn.com.modernmedia.businessweek.widget.IndexView,cn.com.modernmedia.model.ArticleItem)
 cn.com.modernmedia.businessweek.widget.IndexView$1
 cn.com.modernmedia.businessweek.widget.IndexView$1: cn.com.modernmedia.businessweek.widget.IndexView this$0
@@ -5248,12 +5631,10 @@ cn.com.modernmedia.businessweek.widget.IndexView$2: void onClick(android.view.Vi
 cn.com.modernmedia.businessweek.widget.IndexView$3
 cn.com.modernmedia.businessweek.widget.IndexView$3: cn.com.modernmedia.businessweek.widget.IndexView this$0
 cn.com.modernmedia.businessweek.widget.IndexView$3: IndexView$3(cn.com.modernmedia.businessweek.widget.IndexView)
-cn.com.modernmedia.businessweek.widget.IndexView$3: void onItemClick(android.widget.AdapterView,android.view.View,int,long)
-cn.com.modernmedia.businessweek.widget.IndexView$4
-cn.com.modernmedia.businessweek.widget.IndexView$4: cn.com.modernmedia.businessweek.widget.IndexView this$0
-cn.com.modernmedia.businessweek.widget.IndexView$4: IndexView$4(cn.com.modernmedia.businessweek.widget.IndexView)
-cn.com.modernmedia.businessweek.widget.IndexView$4: void onScrollStateChanged(android.widget.AbsListView,int)
-cn.com.modernmedia.businessweek.widget.IndexView$4: void onScroll(android.widget.AbsListView,int,int,int)
+cn.com.modernmedia.businessweek.widget.IndexView$3: void onItemClick(android.view.View,int)
+cn.com.modernmedia.businessweek.widget.MyCircularViewPager
+cn.com.modernmedia.businessweek.widget.MyCircularViewPager: MyCircularViewPager(android.content.Context,android.util.AttributeSet)
+cn.com.modernmedia.businessweek.widget.MyCircularViewPager: cn.com.modernmedia.adapter.MyPagerAdapter fetchAdapter(android.content.Context,java.util.List)
 cn.com.modernmedia.businessweek.widget.MyWebView
 cn.com.modernmedia.businessweek.widget.MyWebView: android.content.Context mContext
 cn.com.modernmedia.businessweek.widget.MyWebView: MyWebView(android.content.Context,android.util.AttributeSet)
@@ -5272,42 +5653,6 @@ cn.com.modernmedia.common.AccessInfo: java.lang.String getAccessSecret()
 cn.com.modernmedia.common.AccessInfo: void setAccessSecret(java.lang.String)
 cn.com.modernmedia.common.AccessInfo: long getExpiresIn()
 cn.com.modernmedia.common.AccessInfo: void setExpiresIn(long)
-cn.com.modernmedia.common.Adv
-cn.com.modernmedia.common.Adv: long serialVersionUID
-cn.com.modernmedia.common.Adv: cn.com.modernmedia.common.Adv$AdvProperty advProperty
-cn.com.modernmedia.common.Adv: cn.com.modernmedia.common.Adv$ColumnAdv columnAdv
-cn.com.modernmedia.common.Adv: boolean isExpired
-cn.com.modernmedia.common.Adv: Adv()
-cn.com.modernmedia.common.Adv: cn.com.modernmedia.common.Adv$AdvProperty getAdvProperty()
-cn.com.modernmedia.common.Adv: void setAdvProperty(cn.com.modernmedia.common.Adv$AdvProperty)
-cn.com.modernmedia.common.Adv: cn.com.modernmedia.common.Adv$ColumnAdv getColumnAdv()
-cn.com.modernmedia.common.Adv: void setColumnAdv(cn.com.modernmedia.common.Adv$ColumnAdv)
-cn.com.modernmedia.common.Adv: boolean isExpired()
-cn.com.modernmedia.common.Adv: void setExpired(boolean)
-cn.com.modernmedia.common.Adv$AdvProperty
-cn.com.modernmedia.common.Adv$AdvProperty: long serialVersionUID
-cn.com.modernmedia.common.Adv$AdvProperty: int isadv
-cn.com.modernmedia.common.Adv$AdvProperty: Adv$AdvProperty()
-cn.com.modernmedia.common.Adv$AdvProperty: int getIsadv()
-cn.com.modernmedia.common.Adv$AdvProperty: void setIsadv(int)
-cn.com.modernmedia.common.Adv$ColumnAdv
-cn.com.modernmedia.common.Adv$ColumnAdv: long serialVersionUID
-cn.com.modernmedia.common.Adv$ColumnAdv: int id
-cn.com.modernmedia.common.Adv$ColumnAdv: java.lang.String url
-cn.com.modernmedia.common.Adv$ColumnAdv: java.lang.String link
-cn.com.modernmedia.common.Adv$ColumnAdv: java.lang.String startTime
-cn.com.modernmedia.common.Adv$ColumnAdv: java.lang.String endTime
-cn.com.modernmedia.common.Adv$ColumnAdv: Adv$ColumnAdv()
-cn.com.modernmedia.common.Adv$ColumnAdv: int getId()
-cn.com.modernmedia.common.Adv$ColumnAdv: void setId(int)
-cn.com.modernmedia.common.Adv$ColumnAdv: java.lang.String getUrl()
-cn.com.modernmedia.common.Adv$ColumnAdv: void setUrl(java.lang.String)
-cn.com.modernmedia.common.Adv$ColumnAdv: java.lang.String getLink()
-cn.com.modernmedia.common.Adv$ColumnAdv: void setLink(java.lang.String)
-cn.com.modernmedia.common.Adv$ColumnAdv: java.lang.String getStartTime()
-cn.com.modernmedia.common.Adv$ColumnAdv: void setStartTime(java.lang.String)
-cn.com.modernmedia.common.Adv$ColumnAdv: java.lang.String getEndTime()
-cn.com.modernmedia.common.Adv$ColumnAdv: void setEndTime(java.lang.String)
 cn.com.modernmedia.common.AppConfig
 cn.com.modernmedia.common.AppConfig: java.lang.String APP_CONFIG
 cn.com.modernmedia.common.AppConfig: java.lang.String TEMP_TWEET
@@ -5586,8 +5931,20 @@ cn.com.modernmedia.listener.FetchDataListener
 cn.com.modernmedia.listener.FetchDataListener: void fetchData(boolean,java.lang.String)
 cn.com.modernmedia.listener.FetchEntryListener
 cn.com.modernmedia.listener.FetchEntryListener: void setData(cn.com.modernmedia.model.Entry)
+cn.com.modernmedia.listener.ImageDownloadStateListener
+cn.com.modernmedia.listener.ImageDownloadStateListener: void loading()
+cn.com.modernmedia.listener.ImageDownloadStateListener: void loadOk(android.graphics.Bitmap)
+cn.com.modernmedia.listener.ImageDownloadStateListener: void loadError()
+cn.com.modernmedia.listener.ListScrollStateListener
+cn.com.modernmedia.listener.ListScrollStateListener: void scrolling()
+cn.com.modernmedia.listener.ListScrollStateListener: void scrollIdle()
+cn.com.modernmedia.listener.NotifyAdapterListener
+cn.com.modernmedia.listener.NotifyAdapterListener: void notifyReaded()
+cn.com.modernmedia.listener.NotifyAdapterListener: void nofitySelectItem(java.lang.Object)
+cn.com.modernmedia.listener.NotifyAdapterListener: void notifyChanged()
 cn.com.modernmedia.listener.NotifyArticleDesListener
 cn.com.modernmedia.listener.NotifyArticleDesListener: void updateDes(int)
+cn.com.modernmedia.listener.NotifyArticleDesListener: void updatePage(int)
 cn.com.modernmedia.listener.ScrollCallBackListener
 cn.com.modernmedia.listener.ScrollCallBackListener: void isShowIndex(boolean)
 cn.com.modernmedia.listener.ScrollStateListener
@@ -5611,6 +5968,42 @@ cn.com.modernmedia.listener.SlateListener: void image(java.lang.String)
 cn.com.modernmedia.listener.SlateListener: void gallery(java.lang.String)
 cn.com.modernmedia.listener.WebProcessListener
 cn.com.modernmedia.listener.WebProcessListener: void showStyle(int)
+cn.com.modernmedia.model.Adv
+cn.com.modernmedia.model.Adv: long serialVersionUID
+cn.com.modernmedia.model.Adv: cn.com.modernmedia.model.Adv$AdvProperty advProperty
+cn.com.modernmedia.model.Adv: cn.com.modernmedia.model.Adv$ColumnAdv columnAdv
+cn.com.modernmedia.model.Adv: boolean isExpired
+cn.com.modernmedia.model.Adv: Adv()
+cn.com.modernmedia.model.Adv: cn.com.modernmedia.model.Adv$AdvProperty getAdvProperty()
+cn.com.modernmedia.model.Adv: void setAdvProperty(cn.com.modernmedia.model.Adv$AdvProperty)
+cn.com.modernmedia.model.Adv: cn.com.modernmedia.model.Adv$ColumnAdv getColumnAdv()
+cn.com.modernmedia.model.Adv: void setColumnAdv(cn.com.modernmedia.model.Adv$ColumnAdv)
+cn.com.modernmedia.model.Adv: boolean isExpired()
+cn.com.modernmedia.model.Adv: void setExpired(boolean)
+cn.com.modernmedia.model.Adv$AdvProperty
+cn.com.modernmedia.model.Adv$AdvProperty: long serialVersionUID
+cn.com.modernmedia.model.Adv$AdvProperty: int isadv
+cn.com.modernmedia.model.Adv$AdvProperty: Adv$AdvProperty()
+cn.com.modernmedia.model.Adv$AdvProperty: int getIsadv()
+cn.com.modernmedia.model.Adv$AdvProperty: void setIsadv(int)
+cn.com.modernmedia.model.Adv$ColumnAdv
+cn.com.modernmedia.model.Adv$ColumnAdv: long serialVersionUID
+cn.com.modernmedia.model.Adv$ColumnAdv: int id
+cn.com.modernmedia.model.Adv$ColumnAdv: java.lang.String url
+cn.com.modernmedia.model.Adv$ColumnAdv: java.lang.String link
+cn.com.modernmedia.model.Adv$ColumnAdv: java.lang.String startTime
+cn.com.modernmedia.model.Adv$ColumnAdv: java.lang.String endTime
+cn.com.modernmedia.model.Adv$ColumnAdv: Adv$ColumnAdv()
+cn.com.modernmedia.model.Adv$ColumnAdv: int getId()
+cn.com.modernmedia.model.Adv$ColumnAdv: void setId(int)
+cn.com.modernmedia.model.Adv$ColumnAdv: java.lang.String getUrl()
+cn.com.modernmedia.model.Adv$ColumnAdv: void setUrl(java.lang.String)
+cn.com.modernmedia.model.Adv$ColumnAdv: java.lang.String getLink()
+cn.com.modernmedia.model.Adv$ColumnAdv: void setLink(java.lang.String)
+cn.com.modernmedia.model.Adv$ColumnAdv: java.lang.String getStartTime()
+cn.com.modernmedia.model.Adv$ColumnAdv: void setStartTime(java.lang.String)
+cn.com.modernmedia.model.Adv$ColumnAdv: java.lang.String getEndTime()
+cn.com.modernmedia.model.Adv$ColumnAdv: void setEndTime(java.lang.String)
 cn.com.modernmedia.model.ArticleItem
 cn.com.modernmedia.model.ArticleItem: long serialVersionUID
 cn.com.modernmedia.model.ArticleItem: int articleId
@@ -5620,8 +6013,9 @@ cn.com.modernmedia.model.ArticleItem: java.lang.String desc
 cn.com.modernmedia.model.ArticleItem: java.util.List pictureList
 cn.com.modernmedia.model.ArticleItem: cn.com.modernmedia.model.IndexArticle$Position position
 cn.com.modernmedia.model.ArticleItem: boolean showTitleBar
+cn.com.modernmedia.model.ArticleItem: boolean showMoreCat
 cn.com.modernmedia.model.ArticleItem: java.lang.String slateLink
-cn.com.modernmedia.model.ArticleItem: cn.com.modernmedia.common.Adv adv
+cn.com.modernmedia.model.ArticleItem: cn.com.modernmedia.model.Adv adv
 cn.com.modernmedia.model.ArticleItem: ArticleItem()
 cn.com.modernmedia.model.ArticleItem: int getArticleId()
 cn.com.modernmedia.model.ArticleItem: void setArticleId(int)
@@ -5639,8 +6033,10 @@ cn.com.modernmedia.model.ArticleItem: boolean isShowTitleBar()
 cn.com.modernmedia.model.ArticleItem: void setShowTitleBar(boolean)
 cn.com.modernmedia.model.ArticleItem: java.lang.String getSlateLink()
 cn.com.modernmedia.model.ArticleItem: void setSlateLink(java.lang.String)
-cn.com.modernmedia.model.ArticleItem: cn.com.modernmedia.common.Adv getAdv()
-cn.com.modernmedia.model.ArticleItem: void setAdv(cn.com.modernmedia.common.Adv)
+cn.com.modernmedia.model.ArticleItem: cn.com.modernmedia.model.Adv getAdv()
+cn.com.modernmedia.model.ArticleItem: void setAdv(cn.com.modernmedia.model.Adv)
+cn.com.modernmedia.model.ArticleItem: boolean isShowMoreCat()
+cn.com.modernmedia.model.ArticleItem: void setShowMoreCat(boolean)
 cn.com.modernmedia.model.ArticleList
 cn.com.modernmedia.model.ArticleList: long serialVersionUID
 cn.com.modernmedia.model.ArticleList: java.util.List list
@@ -5675,9 +6071,12 @@ cn.com.modernmedia.model.ArticleList$ArticleDetail: cn.com.modernmedia.model.Art
 cn.com.modernmedia.model.ArticleList$ArticleDetail: void setProperty(cn.com.modernmedia.model.ArticleList$Property)
 cn.com.modernmedia.model.ArticleList$Property
 cn.com.modernmedia.model.ArticleList$Property: java.lang.String type
+cn.com.modernmedia.model.ArticleList$Property: int scrollHidden
 cn.com.modernmedia.model.ArticleList$Property: ArticleList$Property()
 cn.com.modernmedia.model.ArticleList$Property: java.lang.String getType()
 cn.com.modernmedia.model.ArticleList$Property: void setType(java.lang.String)
+cn.com.modernmedia.model.ArticleList$Property: int getScrollHidden()
+cn.com.modernmedia.model.ArticleList$Property: void setScrollHidden(int)
 cn.com.modernmedia.model.Atlas
 cn.com.modernmedia.model.Atlas: long serialVersionUID
 cn.com.modernmedia.model.Atlas: int id
@@ -5714,6 +6113,7 @@ cn.com.modernmedia.model.Cat: Cat()
 cn.com.modernmedia.model.Cat: java.util.List getList()
 cn.com.modernmedia.model.Cat: void setList(java.util.List)
 cn.com.modernmedia.model.Cat$CatItem
+cn.com.modernmedia.model.Cat$CatItem: long serialVersionUID
 cn.com.modernmedia.model.Cat$CatItem: int id
 cn.com.modernmedia.model.Cat$CatItem: int issueId
 cn.com.modernmedia.model.Cat$CatItem: java.lang.String name
@@ -5723,6 +6123,9 @@ cn.com.modernmedia.model.Cat$CatItem: int color
 cn.com.modernmedia.model.Cat$CatItem: int displayType
 cn.com.modernmedia.model.Cat$CatItem: int complete
 cn.com.modernmedia.model.Cat$CatItem: java.lang.String arrow
+cn.com.modernmedia.model.Cat$CatItem: int parentId
+cn.com.modernmedia.model.Cat$CatItem: int haveChildren
+cn.com.modernmedia.model.Cat$CatItem: java.lang.String tagname
 cn.com.modernmedia.model.Cat$CatItem: Cat$CatItem()
 cn.com.modernmedia.model.Cat$CatItem: int getId()
 cn.com.modernmedia.model.Cat$CatItem: void setId(int)
@@ -5742,6 +6145,12 @@ cn.com.modernmedia.model.Cat$CatItem: int getComplete()
 cn.com.modernmedia.model.Cat$CatItem: void setComplete(int)
 cn.com.modernmedia.model.Cat$CatItem: java.lang.String getArrow()
 cn.com.modernmedia.model.Cat$CatItem: void setArrow(java.lang.String)
+cn.com.modernmedia.model.Cat$CatItem: int getParentId()
+cn.com.modernmedia.model.Cat$CatItem: void setParentId(int)
+cn.com.modernmedia.model.Cat$CatItem: int getHaveChildren()
+cn.com.modernmedia.model.Cat$CatItem: void setHaveChildren(int)
+cn.com.modernmedia.model.Cat$CatItem: java.lang.String getTagname()
+cn.com.modernmedia.model.Cat$CatItem: void setTagname(java.lang.String)
 cn.com.modernmedia.model.CatIndexArticle
 cn.com.modernmedia.model.CatIndexArticle: long serialVersionUID
 cn.com.modernmedia.model.CatIndexArticle: int id
@@ -5772,10 +6181,13 @@ cn.com.modernmedia.model.Favorite: void setList(java.util.List)
 cn.com.modernmedia.model.IndexArticle
 cn.com.modernmedia.model.IndexArticle: long serialVersionUID
 cn.com.modernmedia.model.IndexArticle: java.util.List titleArticleList
+cn.com.modernmedia.model.IndexArticle: java.util.List articleItemList
 cn.com.modernmedia.model.IndexArticle: java.util.List todayList
 cn.com.modernmedia.model.IndexArticle: IndexArticle()
 cn.com.modernmedia.model.IndexArticle: java.util.List getTitleArticleList()
 cn.com.modernmedia.model.IndexArticle: void setTitleArticleList(java.util.List)
+cn.com.modernmedia.model.IndexArticle: java.util.List getArticleItemList()
+cn.com.modernmedia.model.IndexArticle: void setArticleItemList(java.util.List)
 cn.com.modernmedia.model.IndexArticle: java.util.List getTodayList()
 cn.com.modernmedia.model.IndexArticle: void setTodayList(java.util.List)
 cn.com.modernmedia.model.IndexArticle$Position
@@ -5800,7 +6212,7 @@ cn.com.modernmedia.model.Issue: int id
 cn.com.modernmedia.model.Issue: java.lang.String coverpic
 cn.com.modernmedia.model.Issue: long columnUpdateTime
 cn.com.modernmedia.model.Issue: long articleUpdateTime
-cn.com.modernmedia.model.Issue: cn.com.modernmedia.common.Adv adv
+cn.com.modernmedia.model.Issue: cn.com.modernmedia.model.Adv adv
 cn.com.modernmedia.model.Issue: Issue()
 cn.com.modernmedia.model.Issue: Issue(int,long,long)
 cn.com.modernmedia.model.Issue: int getId()
@@ -5811,8 +6223,8 @@ cn.com.modernmedia.model.Issue: long getColumnUpdateTime()
 cn.com.modernmedia.model.Issue: void setColumnUpdateTime(long)
 cn.com.modernmedia.model.Issue: long getArticleUpdateTime()
 cn.com.modernmedia.model.Issue: void setArticleUpdateTime(long)
-cn.com.modernmedia.model.Issue: cn.com.modernmedia.common.Adv getAdv()
-cn.com.modernmedia.model.Issue: void setAdv(cn.com.modernmedia.common.Adv)
+cn.com.modernmedia.model.Issue: cn.com.modernmedia.model.Adv getAdv()
+cn.com.modernmedia.model.Issue: void setAdv(cn.com.modernmedia.model.Adv)
 cn.com.modernmedia.model.Share
 cn.com.modernmedia.model.Share: long serialVersionUID
 cn.com.modernmedia.model.Share: int id
@@ -5843,6 +6255,39 @@ cn.com.modernmedia.model.Version: java.lang.String getChangelog()
 cn.com.modernmedia.model.Version: void setChangelog(java.lang.String)
 cn.com.modernmedia.model.Version: java.lang.String getDownload_url()
 cn.com.modernmedia.model.Version: void setDownload_url(java.lang.String)
+cn.com.modernmedia.model.Weather
+cn.com.modernmedia.model.Weather: long serialVersionUID
+cn.com.modernmedia.model.Weather: java.lang.String cityid
+cn.com.modernmedia.model.Weather: java.lang.String city
+cn.com.modernmedia.model.Weather: java.lang.String city_en
+cn.com.modernmedia.model.Weather: java.util.List forecastList
+cn.com.modernmedia.model.Weather: Weather()
+cn.com.modernmedia.model.Weather: java.lang.String getCityid()
+cn.com.modernmedia.model.Weather: void setCityid(java.lang.String)
+cn.com.modernmedia.model.Weather: java.lang.String getCity()
+cn.com.modernmedia.model.Weather: void setCity(java.lang.String)
+cn.com.modernmedia.model.Weather: java.lang.String getCity_en()
+cn.com.modernmedia.model.Weather: void setCity_en(java.lang.String)
+cn.com.modernmedia.model.Weather: java.util.List getForecastList()
+cn.com.modernmedia.model.Weather: void setForecastList(java.util.List)
+cn.com.modernmedia.model.Weather$Forecast
+cn.com.modernmedia.model.Weather$Forecast: long serialVersionUID
+cn.com.modernmedia.model.Weather$Forecast: java.lang.String high
+cn.com.modernmedia.model.Weather$Forecast: java.lang.String low
+cn.com.modernmedia.model.Weather$Forecast: java.lang.String condition
+cn.com.modernmedia.model.Weather$Forecast: java.lang.String day_of_week
+cn.com.modernmedia.model.Weather$Forecast: java.lang.String icon
+cn.com.modernmedia.model.Weather$Forecast: Weather$Forecast()
+cn.com.modernmedia.model.Weather$Forecast: java.lang.String getHigh()
+cn.com.modernmedia.model.Weather$Forecast: void setHigh(java.lang.String)
+cn.com.modernmedia.model.Weather$Forecast: java.lang.String getLow()
+cn.com.modernmedia.model.Weather$Forecast: void setLow(java.lang.String)
+cn.com.modernmedia.model.Weather$Forecast: java.lang.String getCondition()
+cn.com.modernmedia.model.Weather$Forecast: void setCondition(java.lang.String)
+cn.com.modernmedia.model.Weather$Forecast: java.lang.String getDay_of_week()
+cn.com.modernmedia.model.Weather$Forecast: void setDay_of_week(java.lang.String)
+cn.com.modernmedia.model.Weather$Forecast: java.lang.String getIcon()
+cn.com.modernmedia.model.Weather$Forecast: void setIcon(java.lang.String)
 cn.com.modernmedia.util.Base64
 cn.com.modernmedia.util.Base64: int DEFAULT
 cn.com.modernmedia.util.Base64: int NO_PADDING
@@ -5932,7 +6377,7 @@ cn.com.modernmedia.util.ConstData: java.lang.String FLURRYAGENT_KEY
 cn.com.modernmedia.util.ConstData: java.lang.String CRASH_NAME
 cn.com.modernmedia.util.ConstData: void <clinit>()
 cn.com.modernmedia.util.ConstData: ConstData()
-cn.com.modernmedia.util.ConstData: void setAppId(int,int)
+cn.com.modernmedia.util.ConstData: void setAppId(int,int,java.lang.String)
 cn.com.modernmedia.util.ConstData: java.lang.String getFlurryApiKey()
 cn.com.modernmedia.util.ConstData: java.lang.String getAppName()
 cn.com.modernmedia.util.ConstData: void initDefaultValue()
@@ -5957,11 +6402,14 @@ cn.com.modernmedia.util.DataHelper: java.lang.String UPDATE
 cn.com.modernmedia.util.DataHelper: java.lang.String START_TIME
 cn.com.modernmedia.util.DataHelper: java.lang.String END_TIME
 cn.com.modernmedia.util.DataHelper: java.lang.String ADV_PIC
+cn.com.modernmedia.util.DataHelper: java.lang.String LINE_HEIGHT
 cn.com.modernmedia.util.DataHelper: java.util.Map columnTitleMap
 cn.com.modernmedia.util.DataHelper: java.util.Map columnColorMap
 cn.com.modernmedia.util.DataHelper: java.util.Map columnRowMap
+cn.com.modernmedia.util.DataHelper: java.util.Map childMap
 cn.com.modernmedia.util.DataHelper: void <clinit>()
 cn.com.modernmedia.util.DataHelper: DataHelper()
+cn.com.modernmedia.util.DataHelper: void clear()
 cn.com.modernmedia.util.DataHelper: android.content.SharedPreferences getPref(android.content.Context)
 cn.com.modernmedia.util.DataHelper: boolean getFirstStartApp(android.content.Context)
 cn.com.modernmedia.util.DataHelper: void setFirstStartApp(android.content.Context)
@@ -5985,6 +6433,8 @@ cn.com.modernmedia.util.DataHelper: java.lang.String getEndTime(android.content.
 cn.com.modernmedia.util.DataHelper: void setEndTime(android.content.Context,java.lang.String)
 cn.com.modernmedia.util.DataHelper: java.lang.String getAdvPic(android.content.Context)
 cn.com.modernmedia.util.DataHelper: void setAdvPic(android.content.Context,java.lang.String)
+cn.com.modernmedia.util.DataHelper: int getLineHeight(android.content.Context)
+cn.com.modernmedia.util.DataHelper: void setLineHeight(android.content.Context,int)
 cn.com.modernmedia.util.EncrptUtil
 cn.com.modernmedia.util.EncrptUtil: java.lang.String KEY
 cn.com.modernmedia.util.EncrptUtil: EncrptUtil()
@@ -6001,7 +6451,9 @@ cn.com.modernmedia.util.FileManager: void <clinit>()
 cn.com.modernmedia.util.FileManager: FileManager()
 cn.com.modernmedia.util.FileManager: java.lang.String getDefaultPath()
 cn.com.modernmedia.util.FileManager: void saveImageToFile(android.graphics.Bitmap,java.lang.String)
+cn.com.modernmedia.util.FileManager: void saveImage(android.graphics.Bitmap,java.lang.String,boolean)
 cn.com.modernmedia.util.FileManager: android.graphics.Bitmap getImageFromFile(java.lang.String)
+cn.com.modernmedia.util.FileManager: android.graphics.Bitmap getImageFromFile(java.lang.String,int,int)
 cn.com.modernmedia.util.FileManager: void saveApiData(java.lang.String,java.lang.String)
 cn.com.modernmedia.util.FileManager: java.lang.String getApiData(java.lang.String)
 cn.com.modernmedia.util.FileManager: void deleteFile(java.lang.String)
@@ -6015,6 +6467,11 @@ cn.com.modernmedia.util.FileManager: java.lang.String isArticle(java.lang.String
 cn.com.modernmedia.util.FileManager: java.lang.String isShareArticle(java.lang.String)
 cn.com.modernmedia.util.FileManager: java.lang.String getexpandFolder(java.lang.String)
 cn.com.modernmedia.util.FileManager: java.io.File getApkByName(java.lang.String)
+cn.com.modernmedia.util.ImageScaleType
+cn.com.modernmedia.util.ImageScaleType: java.lang.String Type
+cn.com.modernmedia.util.ImageScaleType: java.lang.String CENTER_CROP
+cn.com.modernmedia.util.ImageScaleType: void <clinit>()
+cn.com.modernmedia.util.ImageScaleType: ImageScaleType()
 cn.com.modernmedia.util.LogHelper
 cn.com.modernmedia.util.LogHelper: java.lang.String OPEN_COLUMN_LIST
 cn.com.modernmedia.util.LogHelper: java.lang.String OPEN_FAVORITE_ARTICLE_LIST
@@ -6054,6 +6511,7 @@ cn.com.modernmedia.util.ParseUtil: double stod(java.lang.String)
 cn.com.modernmedia.util.ParseUtil: double stod(java.lang.String,double)
 cn.com.modernmedia.util.ParseUtil: long stol(java.lang.String)
 cn.com.modernmedia.util.ParseUtil: long stol(java.lang.String,long)
+cn.com.modernmedia.util.ParseUtil: java.lang.String parseString(java.lang.String,java.lang.Object[])
 cn.com.modernmedia.util.PrintHelper
 cn.com.modernmedia.util.PrintHelper: PrintHelper()
 cn.com.modernmedia.util.PrintHelper: void print(java.lang.String)
@@ -6419,10 +6877,13 @@ cn.com.modernmedia.weibo.net.XAuthHeader: void addAdditionalParams(cn.com.modern
 cn.com.modernmedia.widget.AtlasViewPager
 cn.com.modernmedia.widget.AtlasViewPager: int totalNum
 cn.com.modernmedia.widget.AtlasViewPager: cn.com.modernmedia.listener.NotifyArticleDesListener listener
+cn.com.modernmedia.widget.AtlasViewPager: boolean intercept
 cn.com.modernmedia.widget.AtlasViewPager: AtlasViewPager(android.content.Context,android.util.AttributeSet)
-cn.com.modernmedia.widget.AtlasViewPager: void setValue(java.util.List)
+cn.com.modernmedia.widget.AtlasViewPager: void setValue(int)
 cn.com.modernmedia.widget.AtlasViewPager: void setListener(cn.com.modernmedia.listener.NotifyArticleDesListener)
 cn.com.modernmedia.widget.AtlasViewPager: int getTotalNum()
+cn.com.modernmedia.widget.AtlasViewPager: void setIntercept(boolean)
+cn.com.modernmedia.widget.AtlasViewPager: boolean onInterceptTouchEvent(android.view.MotionEvent)
 cn.com.modernmedia.widget.AtlasViewPager: cn.com.modernmedia.listener.NotifyArticleDesListener access$0(cn.com.modernmedia.widget.AtlasViewPager)
 cn.com.modernmedia.widget.AtlasViewPager$1
 cn.com.modernmedia.widget.AtlasViewPager$1: cn.com.modernmedia.widget.AtlasViewPager this$0
@@ -6445,11 +6906,38 @@ cn.com.modernmedia.widget.BaseView: void disProcess()
 cn.com.modernmedia.widget.BaseView: void reLoad()
 cn.com.modernmedia.widget.BaseView: void setListener(cn.com.modernmedia.listener.SlateListener)
 cn.com.modernmedia.widget.BaseView: void clickSlate(cn.com.modernmedia.model.ArticleItem)
+cn.com.modernmedia.widget.BaseView: void showFragmentIfNeeded(android.support.v4.app.Fragment,java.lang.String,int,java.lang.String[])
+cn.com.modernmedia.widget.BaseView: void showFragment(android.support.v4.app.Fragment,boolean)
 cn.com.modernmedia.widget.BaseView: android.widget.ImageView access$0(cn.com.modernmedia.widget.BaseView)
 cn.com.modernmedia.widget.BaseView$1
 cn.com.modernmedia.widget.BaseView$1: cn.com.modernmedia.widget.BaseView this$0
 cn.com.modernmedia.widget.BaseView$1: BaseView$1(cn.com.modernmedia.widget.BaseView)
 cn.com.modernmedia.widget.BaseView$1: void onClick(android.view.View)
+cn.com.modernmedia.widget.CircularViewPager
+cn.com.modernmedia.widget.CircularViewPager: cn.com.modernmedia.widget.CircularViewPager me
+cn.com.modernmedia.widget.CircularViewPager: cn.com.modernmedia.adapter.MyPagerAdapter adapter
+cn.com.modernmedia.widget.CircularViewPager: android.content.Context mContext
+cn.com.modernmedia.widget.CircularViewPager: cn.com.modernmedia.listener.NotifyArticleDesListener listener
+cn.com.modernmedia.widget.CircularViewPager: java.util.List list
+cn.com.modernmedia.widget.CircularViewPager: int dirPosition
+cn.com.modernmedia.widget.CircularViewPager: CircularViewPager(android.content.Context)
+cn.com.modernmedia.widget.CircularViewPager: CircularViewPager(android.content.Context,android.util.AttributeSet)
+cn.com.modernmedia.widget.CircularViewPager: void init()
+cn.com.modernmedia.widget.CircularViewPager: void setDataForPager(java.util.List)
+cn.com.modernmedia.widget.CircularViewPager: void setListener(cn.com.modernmedia.listener.NotifyArticleDesListener)
+cn.com.modernmedia.widget.CircularViewPager: void clickItem()
+cn.com.modernmedia.widget.CircularViewPager: cn.com.modernmedia.adapter.MyPagerAdapter fetchAdapter(android.content.Context,java.util.List)
+cn.com.modernmedia.widget.CircularViewPager: java.util.List access$0(cn.com.modernmedia.widget.CircularViewPager)
+cn.com.modernmedia.widget.CircularViewPager: void access$1(cn.com.modernmedia.widget.CircularViewPager,int)
+cn.com.modernmedia.widget.CircularViewPager: cn.com.modernmedia.listener.NotifyArticleDesListener access$2(cn.com.modernmedia.widget.CircularViewPager)
+cn.com.modernmedia.widget.CircularViewPager: int access$3(cn.com.modernmedia.widget.CircularViewPager)
+cn.com.modernmedia.widget.CircularViewPager: cn.com.modernmedia.widget.CircularViewPager access$4(cn.com.modernmedia.widget.CircularViewPager)
+cn.com.modernmedia.widget.CircularViewPager$1
+cn.com.modernmedia.widget.CircularViewPager$1: cn.com.modernmedia.widget.CircularViewPager this$0
+cn.com.modernmedia.widget.CircularViewPager$1: CircularViewPager$1(cn.com.modernmedia.widget.CircularViewPager)
+cn.com.modernmedia.widget.CircularViewPager$1: void onPageSelected(int)
+cn.com.modernmedia.widget.CircularViewPager$1: void onPageScrolled(int,float,int)
+cn.com.modernmedia.widget.CircularViewPager$1: void onPageScrollStateChanged(int)
 cn.com.modernmedia.widget.CommonAtlasView
 cn.com.modernmedia.widget.CommonAtlasView: android.content.Context mContext
 cn.com.modernmedia.widget.CommonAtlasView: CommonAtlasView(android.content.Context)
@@ -6461,6 +6949,7 @@ cn.com.modernmedia.widget.CommonAtlasView: void addLoadok(cn.com.modernmedia.mod
 cn.com.modernmedia.widget.CommonViewPager
 cn.com.modernmedia.widget.CommonViewPager: cn.com.modernmedia.widget.AtlasViewPager pager
 cn.com.modernmedia.widget.CommonViewPager: float lastX
+cn.com.modernmedia.widget.CommonViewPager: CommonViewPager(android.content.Context)
 cn.com.modernmedia.widget.CommonViewPager: CommonViewPager(android.content.Context,android.util.AttributeSet)
 cn.com.modernmedia.widget.CommonViewPager: void setPager(cn.com.modernmedia.widget.AtlasViewPager)
 cn.com.modernmedia.widget.CommonViewPager: boolean onInterceptTouchEvent(android.view.MotionEvent)
@@ -6474,6 +6963,7 @@ cn.com.modernmedia.widget.CommonWebView: boolean loadOk
 cn.com.modernmedia.widget.CommonWebView: cn.com.modernmedia.model.ArticleList$ArticleDetail detail
 cn.com.modernmedia.widget.CommonWebView: android.content.Context mContext
 cn.com.modernmedia.widget.CommonWebView: android.os.Handler handler
+cn.com.modernmedia.widget.CommonWebView: CommonWebView(android.content.Context)
 cn.com.modernmedia.widget.CommonWebView: CommonWebView(android.content.Context,android.util.AttributeSet)
 cn.com.modernmedia.widget.CommonWebView: void init()
 cn.com.modernmedia.widget.CommonWebView: void startLoad(cn.com.modernmedia.model.ArticleList$ArticleDetail)
@@ -6509,6 +6999,25 @@ cn.com.modernmedia.widget.CommonWebView$3
 cn.com.modernmedia.widget.CommonWebView$3: cn.com.modernmedia.widget.CommonWebView this$0
 cn.com.modernmedia.widget.CommonWebView$3: CommonWebView$3(cn.com.modernmedia.widget.CommonWebView)
 cn.com.modernmedia.widget.CommonWebView$3: void run()
+cn.com.modernmedia.widget.HeadPagerListView
+cn.com.modernmedia.widget.HeadPagerListView: android.view.View scrollView
+cn.com.modernmedia.widget.HeadPagerListView: HeadPagerListView(android.content.Context)
+cn.com.modernmedia.widget.HeadPagerListView: HeadPagerListView(android.content.Context,android.util.AttributeSet)
+cn.com.modernmedia.widget.HeadPagerListView: void setScrollView(android.view.View)
+cn.com.modernmedia.widget.HeadPagerListView: boolean onInterceptTouchEvent(android.view.MotionEvent)
+cn.com.modernmedia.widget.LoadingImage
+cn.com.modernmedia.widget.LoadingImage: android.content.Context mContext
+cn.com.modernmedia.widget.LoadingImage: android.widget.ImageView imageView
+cn.com.modernmedia.widget.LoadingImage: cn.com.modernmedia.widget.RedProcess process
+cn.com.modernmedia.widget.LoadingImage: cn.com.modernmedia.api.ImageDownloader downloader
+cn.com.modernmedia.widget.LoadingImage: java.lang.String tag
+cn.com.modernmedia.widget.LoadingImage: LoadingImage(android.content.Context,java.lang.String)
+cn.com.modernmedia.widget.LoadingImage: LoadingImage(android.content.Context,android.util.AttributeSet)
+cn.com.modernmedia.widget.LoadingImage: void init()
+cn.com.modernmedia.widget.LoadingImage: void setUrl(java.lang.String)
+cn.com.modernmedia.widget.LoadingImage: void loading()
+cn.com.modernmedia.widget.LoadingImage: void loadOk(android.graphics.Bitmap)
+cn.com.modernmedia.widget.LoadingImage: void loadError()
 cn.com.modernmedia.widget.MainHorizontalScrollView
 cn.com.modernmedia.widget.MainHorizontalScrollView: cn.com.modernmedia.widget.MainHorizontalScrollView me
 cn.com.modernmedia.widget.MainHorizontalScrollView: android.content.Context mContext
@@ -6525,7 +7034,8 @@ cn.com.modernmedia.widget.MainHorizontalScrollView: int current
 cn.com.modernmedia.widget.MainHorizontalScrollView: int left_max_width
 cn.com.modernmedia.widget.MainHorizontalScrollView: int right_max_width
 cn.com.modernmedia.widget.MainHorizontalScrollView: int mid_right
-cn.com.modernmedia.widget.MainHorizontalScrollView: android.widget.Gallery gallery
+cn.com.modernmedia.widget.MainHorizontalScrollView: android.view.View needsScrollView
+cn.com.modernmedia.widget.MainHorizontalScrollView: cn.com.modernmedia.widget.AtlasViewPager atlasViewPager
 cn.com.modernmedia.widget.MainHorizontalScrollView: cn.com.modernmedia.listener.ScrollCallBackListener listener
 cn.com.modernmedia.widget.MainHorizontalScrollView: long MIN_TIME
 cn.com.modernmedia.widget.MainHorizontalScrollView: int CHECK_TIME
@@ -6533,7 +7043,9 @@ cn.com.modernmedia.widget.MainHorizontalScrollView: int lastPosition
 cn.com.modernmedia.widget.MainHorizontalScrollView: java.lang.Runnable scrollTask
 cn.com.modernmedia.widget.MainHorizontalScrollView: android.view.VelocityTracker velocityTracker
 cn.com.modernmedia.widget.MainHorizontalScrollView: int SNAP_VELOCITY
+cn.com.modernmedia.widget.MainHorizontalScrollView: cn.com.modernmedia.widget.MainHorizontalScrollView$FecthViewSizeListener viewListener
 cn.com.modernmedia.widget.MainHorizontalScrollView: cn.com.modernmedia.listener.ScrollStateListener stateListener
+cn.com.modernmedia.widget.MainHorizontalScrollView: float lastX
 cn.com.modernmedia.widget.MainHorizontalScrollView: long time
 cn.com.modernmedia.widget.MainHorizontalScrollView: float startX
 cn.com.modernmedia.widget.MainHorizontalScrollView: float angleX
@@ -6541,6 +7053,7 @@ cn.com.modernmedia.widget.MainHorizontalScrollView: float angleY
 cn.com.modernmedia.widget.MainHorizontalScrollView: double angle
 cn.com.modernmedia.widget.MainHorizontalScrollView: double MIN_ANGLE
 cn.com.modernmedia.widget.MainHorizontalScrollView: int moveDir
+cn.com.modernmedia.widget.MainHorizontalScrollView: void <clinit>()
 cn.com.modernmedia.widget.MainHorizontalScrollView: MainHorizontalScrollView(android.content.Context)
 cn.com.modernmedia.widget.MainHorizontalScrollView: MainHorizontalScrollView(android.content.Context,android.util.AttributeSet)
 cn.com.modernmedia.widget.MainHorizontalScrollView: void init()
@@ -6548,7 +7061,9 @@ cn.com.modernmedia.widget.MainHorizontalScrollView: void startScrollerTask()
 cn.com.modernmedia.widget.MainHorizontalScrollView: void initViews(android.view.View[],cn.com.modernmedia.listener.SizeCallBack,android.view.View,android.view.View)
 cn.com.modernmedia.widget.MainHorizontalScrollView: void setButtons(android.widget.Button,android.widget.Button)
 cn.com.modernmedia.widget.MainHorizontalScrollView: void setListener(cn.com.modernmedia.listener.ScrollCallBackListener)
-cn.com.modernmedia.widget.MainHorizontalScrollView: void setGallery(android.widget.Gallery)
+cn.com.modernmedia.widget.MainHorizontalScrollView: void setNeedsScrollView(android.view.View)
+cn.com.modernmedia.widget.MainHorizontalScrollView: void setAtlasViewPager(cn.com.modernmedia.widget.AtlasViewPager)
+cn.com.modernmedia.widget.MainHorizontalScrollView: void setViewListener(cn.com.modernmedia.widget.MainHorizontalScrollView$FecthViewSizeListener)
 cn.com.modernmedia.widget.MainHorizontalScrollView: void clickButton(boolean)
 cn.com.modernmedia.widget.MainHorizontalScrollView: void viewSlide(int,boolean)
 cn.com.modernmedia.widget.MainHorizontalScrollView: void scrollToDestination(int,boolean)
@@ -6557,6 +7072,8 @@ cn.com.modernmedia.widget.MainHorizontalScrollView: void checkCurrent(boolean,bo
 cn.com.modernmedia.widget.MainHorizontalScrollView: void checkShowView()
 cn.com.modernmedia.widget.MainHorizontalScrollView: void quicklyMove()
 cn.com.modernmedia.widget.MainHorizontalScrollView: boolean onInterceptTouchEvent(android.view.MotionEvent)
+cn.com.modernmedia.widget.MainHorizontalScrollView: boolean adjustAngle(android.view.MotionEvent)
+cn.com.modernmedia.widget.MainHorizontalScrollView: boolean lockScroll(cn.com.modernmedia.widget.AtlasViewPager,android.view.MotionEvent)
 cn.com.modernmedia.widget.MainHorizontalScrollView: boolean onTouchEvent(android.view.MotionEvent)
 cn.com.modernmedia.widget.MainHorizontalScrollView: void showView()
 cn.com.modernmedia.widget.MainHorizontalScrollView: void initWidgetWidth()
@@ -6575,6 +7092,8 @@ cn.com.modernmedia.widget.MainHorizontalScrollView$2
 cn.com.modernmedia.widget.MainHorizontalScrollView$2: cn.com.modernmedia.widget.MainHorizontalScrollView this$0
 cn.com.modernmedia.widget.MainHorizontalScrollView$2: MainHorizontalScrollView$2(cn.com.modernmedia.widget.MainHorizontalScrollView)
 cn.com.modernmedia.widget.MainHorizontalScrollView$2: void run()
+cn.com.modernmedia.widget.MainHorizontalScrollView$FecthViewSizeListener
+cn.com.modernmedia.widget.MainHorizontalScrollView$FecthViewSizeListener: void fetchViewWidth(int)
 cn.com.modernmedia.widget.MainHorizontalScrollView$MenuOnGlobalLayoutListener
 cn.com.modernmedia.widget.MainHorizontalScrollView$MenuOnGlobalLayoutListener: android.view.ViewGroup parent
 cn.com.modernmedia.widget.MainHorizontalScrollView$MenuOnGlobalLayoutListener: android.view.View[] children
@@ -6596,6 +7115,39 @@ cn.com.modernmedia.widget.PageGallery: boolean isScroll()
 cn.com.modernmedia.widget.PageGallery: void setScroll(boolean)
 cn.com.modernmedia.widget.PageGallery: boolean onFling(android.view.MotionEvent,android.view.MotionEvent,float,float)
 cn.com.modernmedia.widget.PageGallery: boolean onTouchEvent(android.view.MotionEvent)
+cn.com.modernmedia.widget.RedProcess
+cn.com.modernmedia.widget.RedProcess: int MAX_FONT_SIZE
+cn.com.modernmedia.widget.RedProcess: int MIN_FONT_SIZE
+cn.com.modernmedia.widget.RedProcess: android.content.Context mContext
+cn.com.modernmedia.widget.RedProcess: int mProgress
+cn.com.modernmedia.widget.RedProcess: boolean mInAnimation
+cn.com.modernmedia.widget.RedProcess: long mAnimationDuration
+cn.com.modernmedia.widget.RedProcess: android.graphics.Paint mCirclePaint
+cn.com.modernmedia.widget.RedProcess: android.graphics.Paint mProgressPaint
+cn.com.modernmedia.widget.RedProcess: android.text.TextPaint mTextPaint
+cn.com.modernmedia.widget.RedProcess: float mDensity
+cn.com.modernmedia.widget.RedProcess: int mOvalWidth
+cn.com.modernmedia.widget.RedProcess: int mOvalHeight
+cn.com.modernmedia.widget.RedProcess: java.lang.String mText
+cn.com.modernmedia.widget.RedProcess: float mTextCenterY
+cn.com.modernmedia.widget.RedProcess: RedProcess(android.content.Context)
+cn.com.modernmedia.widget.RedProcess: RedProcess(android.content.Context,android.util.AttributeSet)
+cn.com.modernmedia.widget.RedProcess: void init()
+cn.com.modernmedia.widget.RedProcess: void setText(java.lang.String)
+cn.com.modernmedia.widget.RedProcess: void setOvalSize(int,int)
+cn.com.modernmedia.widget.RedProcess: void setStrokeWidth(float,float)
+cn.com.modernmedia.widget.RedProcess: void setCirclePaintColor(int)
+cn.com.modernmedia.widget.RedProcess: void setProgressPaintColor(int)
+cn.com.modernmedia.widget.RedProcess: void onDraw(android.graphics.Canvas)
+cn.com.modernmedia.widget.RedProcess: void drawProgress(android.graphics.Canvas)
+cn.com.modernmedia.widget.RedProcess: void onLayout(boolean,int,int,int,int)
+cn.com.modernmedia.widget.RedProcess: void calcTextProperty()
+cn.com.modernmedia.widget.RedProcess: void calcTextFontSize()
+cn.com.modernmedia.widget.RedProcess: void calcTextCenterY()
+cn.com.modernmedia.widget.RedProcess: void setProgress(int)
+cn.com.modernmedia.widget.RedProcess: void start()
+cn.com.modernmedia.widget.RedProcess: void start(long)
+cn.com.modernmedia.widget.RedProcess: void stop()
 cn.com.modernmedia.widget.VideoView
 cn.com.modernmedia.widget.VideoView: java.lang.String TAG
 cn.com.modernmedia.widget.VideoView: android.content.Context mContext

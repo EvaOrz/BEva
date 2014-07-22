@@ -1,8 +1,10 @@
 package cn.com.modernmedia.businessweek;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -10,9 +12,11 @@ import cn.com.modernmedia.CommonMainActivity;
 import cn.com.modernmedia.businessweek.widget.ColumnView;
 import cn.com.modernmedia.businessweek.widget.FavView;
 import cn.com.modernmedia.businessweek.widget.IndexView;
+import cn.com.modernmedia.listener.NotifyAdapterListener;
 import cn.com.modernmedia.listener.ScrollCallBackListener;
 import cn.com.modernmedia.listener.SizeCallBackForButton;
 import cn.com.modernmedia.model.Entry;
+import cn.com.modernmedia.widget.AtlasViewPager;
 import cn.com.modernmedia.widget.MainHorizontalScrollView;
 
 /**
@@ -27,10 +31,22 @@ public class MainActivity extends CommonMainActivity {
 	private Button columnButton, favButton;
 	private IndexView indexView;
 	private FavView favView;
+	private List<NotifyAdapterListener> listenerList = new ArrayList<NotifyAdapterListener>();
 
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+	protected void onResume() {
+		super.onResume();
+		if (indexView != null) {
+			indexView.setAuto(true);
+		}
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		if (indexView != null) {
+			indexView.setAuto(false);
+		}
 	}
 
 	@Override
@@ -51,7 +67,6 @@ public class MainActivity extends CommonMainActivity {
 		scrollView.initViews(children, new SizeCallBackForButton(columnButton),
 				columnView, favView);
 		scrollView.setButtons(columnButton, favButton);
-		scrollView.setGallery(indexView.getGallery());
 		scrollView.setListener(new ScrollCallBackListener() {
 
 			@Override
@@ -91,12 +106,13 @@ public class MainActivity extends CommonMainActivity {
 	}
 
 	@Override
-	public void gotoArticleActivity(int artcleId, boolean isIndex) {
+	public void gotoArticleActivity(int artcleId, int catId, boolean isIndex) {
 		if (artcleId == -1)
 			return;
 		Intent intent = new Intent(this, ArticleActivity.class);
 		intent.putExtra("ISSUE", getIssue());
 		intent.putExtra("ARTICLE_ID", artcleId);
+		intent.putExtra("CAT_ID", catId);
 		intent.putExtra("IS_INDEX", isIndex);
 		startActivityForResult(intent, REQUEST_CODE);
 		overridePendingTransition(R.anim.right_in, R.anim.zoom_out);
@@ -119,7 +135,54 @@ public class MainActivity extends CommonMainActivity {
 
 	@Override
 	protected void notifyRead() {
-		indexView.notifyAdapter();
+		for (NotifyAdapterListener listener : listenerList) {
+			listener.notifyReaded();
+		}
+	}
+
+	public void showChildCat(int parentId) {
+		setColumnId(parentId + "");
+		indexView.setDataForChild(getIssue(), parentId);
+	}
+
+	/**
+	 * 给scrollview设置需要拦截的子scrollview
+	 * 
+	 * @param flag
+	 *            0.只执行子scrollview;1.当子scrollview滑到头时，执行父scrollview；2。
+	 *            清空子scrollview
+	 * @param view
+	 */
+	public void setScrollView(int flag, View view) {
+		if (flag == 0) {
+			scrollView.setNeedsScrollView(view);
+		} else if (flag == 1 && view instanceof AtlasViewPager) {
+			scrollView.setAtlasViewPager((AtlasViewPager) view);
+		} else if (flag == 2) {
+			scrollView.setNeedsScrollView(null);
+		} else {
+			scrollView.setAtlasViewPager(null);
+		}
+	}
+
+	public void addListener(NotifyAdapterListener listener) {
+		listenerList.add(listener);
+	}
+
+	/**
+	 * 通知更新栏目列表选中状态
+	 * 
+	 * @param catId
+	 */
+	public void notifyColumnAdapter(int catId) {
+		for (NotifyAdapterListener listener : listenerList) {
+			listener.nofitySelectItem(catId);
+		}
+	}
+
+	@Override
+	public String[] getFragmentTags() {
+		return IndexView.TAGS;
 	}
 
 }

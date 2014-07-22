@@ -1,5 +1,7 @@
 package cn.com.modernmedia.api;
 
+import java.util.ArrayList;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -49,9 +51,7 @@ public class GetCatListOperate extends BaseOperate {
 		int length = array.length();
 		CatItem item;
 		JSONObject obj;
-		DataHelper.columnColorMap.clear();
-		DataHelper.columnTitleMap.clear();
-		DataHelper.columnRowMap.clear();
+		DataHelper.clear();
 		for (int i = 0; i < length; i++) {
 			obj = array.optJSONObject(i);
 			if (isNull(obj))
@@ -63,8 +63,18 @@ public class GetCatListOperate extends BaseOperate {
 			item.setCname(obj.optString("cname", ""));
 			item.setColor(transformColor(obj.optString("color", "")));
 			item.setDisplayType(obj.optInt("displayType", -1));
+			item.setHaveChildren(obj.optInt("haveChildren", 0));
+			item.setTagname(obj.optString("tagname", ""));
+			int parentId = obj.optInt("parentId", -1);
+			item.setParentId(parentId);
 			if (item.getDisplayType() == 1 || item.getDisplayType() == 3) {
 				cat.getList().add(item);
+			}
+			if (parentId != -1) {
+				if (!DataHelper.childMap.containsKey(parentId)) {
+					DataHelper.childMap.put(parentId, new ArrayList<CatItem>());
+				}
+				DataHelper.childMap.get(parentId).add(item);
 			}
 			DataHelper.columnTitleMap.put(item.getId(), item.getCname());
 			if (item.getColor() != 0)
@@ -123,7 +133,7 @@ public class GetCatListOperate extends BaseOperate {
 	@Override
 	protected void saveData(String data) {
 		String fileName = ConstData.getCatListFileName();
-		if (!CommonApplication.issueIdSame
+		if (!CommonApplication.columnUpdateTimeSame
 				|| !FileManager.containFile(fileName)) {
 			FileManager.saveApiData(fileName, data);
 		}

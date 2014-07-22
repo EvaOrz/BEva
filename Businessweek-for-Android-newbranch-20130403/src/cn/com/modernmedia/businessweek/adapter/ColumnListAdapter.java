@@ -15,7 +15,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import cn.com.modernmedia.businessweek.MainActivity;
 import cn.com.modernmedia.businessweek.R;
+import cn.com.modernmedia.listener.NotifyAdapterListener;
 import cn.com.modernmedia.model.Cat.CatItem;
+import cn.com.modernmedia.util.DataHelper;
 import cn.com.modernmedia.util.LogHelper;
 
 /**
@@ -28,17 +30,47 @@ public class ColumnListAdapter extends ArrayAdapter<CatItem> {
 	private Context mContext;
 	private LayoutInflater inflater;
 	private int selectPosition = 0;
-	private NotifyAdapterDataChange listener;
+	private NotifyAdapterListener listener;
+	private NotifyAdapterListener adapterListener = new NotifyAdapterListener() {
 
-	public interface NotifyAdapterDataChange {
-		public void dataChange();
-	}
+		@Override
+		public void notifyReaded() {
+		}
 
-	public ColumnListAdapter(Context context, NotifyAdapterDataChange listener) {
+		@Override
+		public void nofitySelectItem(Object args) {
+			try {
+				int catId = (Integer) args;
+				for (int i = 0; i < getCount(); i++) {
+					if (getItem(i).getId() == catId) {
+						selectPosition = i;
+						break;
+					}
+				}
+				notifyDataSetChanged();
+				listener.notifyChanged();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		@Override
+		public void notifyChanged() {
+		}
+	};
+
+	// public interface NotifyAdapterDataChange {
+	// public void dataChange();
+	// }
+
+	public ColumnListAdapter(Context context, NotifyAdapterListener listener) {
 		super(context, 0);
 		mContext = context;
 		inflater = LayoutInflater.from(context);
 		this.listener = listener;
+		if (context instanceof MainActivity) {
+			((MainActivity) context).addListener(adapterListener);
+		}
 	}
 
 	public void setData(List<CatItem> list) {
@@ -47,6 +79,9 @@ public class ColumnListAdapter extends ArrayAdapter<CatItem> {
 				add(item);
 			}
 		}
+	}
+
+	public void setSelectPosition(int catId) {
 	}
 
 	@Override
@@ -74,11 +109,7 @@ public class ColumnListAdapter extends ArrayAdapter<CatItem> {
 				holder.button.setBackgroundColor(item.getColor());
 			holder.name.setText(item.getCname());
 		}
-		if (position == selectPosition) {
-			holder.ll.setBackgroundResource(R.drawable.left_cell_tapped);
-		} else {
-			holder.ll.setBackgroundResource(R.drawable.column_selector);
-		}
+		holder.ll.setSelected(position == selectPosition);
 		convertView.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -99,22 +130,36 @@ public class ColumnListAdapter extends ArrayAdapter<CatItem> {
 	private void click(final CatItem item, final int position) {
 		selectPosition = position;
 		notifyDataSetChanged();
-		listener.dataChange();
+		listener.notifyChanged();
 		LogHelper.logOpenColumn(mContext, item.getId() + "");
 		if (mContext instanceof MainActivity) {
 			((MainActivity) mContext).setIndexTitle(item.getCname());
 			((MainActivity) mContext).getScrollView().IndexClick();
+			final String id = item.getId() + "";
+			final String columnId = ((MainActivity) mContext).getColumnId();
+			if (id.equals("0") && columnId.equals("-1"))
+				return;
+			if (columnId.equals(item.getId() + ""))
+				return;
 			new Handler().postDelayed(new Runnable() {
 
 				@Override
 				public void run() {
+					if (item.getHaveChildren() == 1) {
+						if (DataHelper.childMap.containsKey(item.getParentId())) {
+							((MainActivity) mContext).showChildCat(item
+									.getParentId());
+							((MainActivity) mContext).setColumnId(id);
+							return;
+						}
+					}
 					if (position == 0) {// Ê×Ò³
 						((MainActivity) mContext).getIndex();
 					} else {// À¸Ä¿Ê×Ò³
-						((MainActivity) mContext).getCatIndex(item.getId() + "");
+						((MainActivity) mContext).getCatIndex(id);
 					}
 				}
-			}, 100);
+			}, 200);
 		}
 	}
 }

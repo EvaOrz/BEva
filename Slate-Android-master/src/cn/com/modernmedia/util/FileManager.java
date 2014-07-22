@@ -9,13 +9,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 
-import cn.com.modernmedia.CommonApplication;
-
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.text.TextUtils;
+import cn.com.modernmedia.CommonApplication;
 
 /**
  * 文件存储
@@ -28,7 +27,7 @@ public class FileManager {
 	private static final String ARTICLE_FOLDER = "article";
 	private static final String SHARE_FOLDER = "share";
 
-	private static final int DEFAULT_COMPRESS_QUALITY = 80;// 图片报错质量
+	private static final int DEFAULT_COMPRESS_QUALITY = 100;// 图片报错质量
 	private static final String CHARSET = "utf-8";
 	private static String defaultPath = "";
 
@@ -49,13 +48,20 @@ public class FileManager {
 	public static void saveImageToFile(Bitmap bitmap, String name) {
 		if (TextUtils.isEmpty(name) || bitmap == null)
 			return;
-		String file_name = MD5.MD5Encode(name);
+		saveImage(bitmap, name, true);
+	}
+
+	private static void saveImage(Bitmap bitmap, String name, boolean showMd5) {
+		String file_name = name;
+		if (showMd5) {
+			file_name = MD5.MD5Encode(name) + ".img";
+		}
 		String imagePath = getDefaultPath() + ConstData.DEFAULT_IMAGE_PATH;
 		File file = new File(imagePath);
 		if (!file.exists()) {
 			file.mkdirs();
 		}
-		File picPath = new File(imagePath + file_name + ".img");
+		File picPath = new File(imagePath + file_name);
 		BufferedOutputStream bos = null;
 		try {
 			bos = new BufferedOutputStream(new FileOutputStream(picPath), 1024);
@@ -97,9 +103,25 @@ public class FileManager {
 		if (!file.exists()) {
 			return null;
 		}
-		if (file.length() > 51200) {// 图片大于50K
+		if (file.length() > 102400) {// 图片大于50K
 			return BitmapUtil.getBitmapByPath(img_path,
 					CommonApplication.width, CommonApplication.height);
+		}
+		return BitmapFactory.decodeFile(img_path);
+	}
+
+	public static Bitmap getImageFromFile(String name, int width, int height) {
+		if (TextUtils.isEmpty(name))
+			return null;
+		String file_name = MD5.MD5Encode(name);
+		String img_path = getDefaultPath() + ConstData.DEFAULT_IMAGE_PATH
+				+ file_name + ".img";
+		File file = new File(img_path);
+		if (!file.exists()) {
+			return null;
+		}
+		if (file.length() > 102400) {// 图片大于50K
+			return BitmapUtil.getBitmapByPath(img_path, width, height);
 		}
 		return BitmapFactory.decodeFile(img_path);
 	}

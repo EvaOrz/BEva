@@ -5,11 +5,10 @@
     android:background="@color/white_bg"
     android:orientation="vertical" >
 
-    <cn.com.modernmedia.widget.PageGallery
+    <cn.com.modernmedia.businessweek.widget.MyCircularViewPager
         android:id="@+id/index_gallery"
         android:layout_width="fill_parent"
-        android:layout_height="@dimen/index_gallery_height"
-        android:fadingEdge="none" />
+        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:id="@+id/index_gallery_dot"

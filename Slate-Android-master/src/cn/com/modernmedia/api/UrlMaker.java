@@ -24,13 +24,23 @@ public class UrlMaker {
 			HOST = "http://content.test.bbwc.cn";
 		} else if (ConstData.IS_DEBUG == 2) {
 			HOST = "http://10.0.7.184/dev";
+		} else if (ConstData.IS_DEBUG == 4) {
+			HOST = "http://10.0.7.184/zhanglei";
+		} else if (ConstData.IS_DEBUG == 5) {
+			HOST = "http://cms.bbwc.cn/dev";
+		} else if (ConstData.IS_DEBUG == 6) {
+			HOST = "http://cms.bbwc.cn/editor";
+		} else if (ConstData.IS_DEBUG == 7) {
+			HOST = "http://content.test.bbwc.cn/zhanglei";
 		}
 		MODEL_URL = HOST + "/v" + ConstData.API_VERSION + "/app"
 				+ ConstData.APP_ID;
 	}
 
 	private static String getEnd() {
-		return ConstData.IS_DEBUG == 2 ? ".html" : ".api";
+		return ConstData.IS_DEBUG == 2 || ConstData.IS_DEBUG == 4
+				|| ConstData.IS_DEBUG == 6 || ConstData.IS_DEBUG == 7 ? ".html"
+				: ".api";
 	}
 
 	/**
@@ -209,9 +219,10 @@ public class UrlMaker {
 	protected static String download(Context context) {
 		CommonApplication app = (CommonApplication) context
 				.getApplicationContext();
-		return HOST + "/interface/index.php?m=down&res=" + ConstData.CHANNEL
-				+ "&uuid=" + app.getMyUUID() + "&appid=" + ConstData.APP_ID
-				+ "&version=" + ConstData.VERSION;
+		return HOST + "/interface/index.php?m=down&res="
+				+ CommonApplication.CHANNEL + "&uuid=" + app.getMyUUID()
+				+ "&appid=" + ConstData.APP_ID + "&version="
+				+ ConstData.VERSION;
 	}
 
 	/**
@@ -222,7 +233,7 @@ public class UrlMaker {
 	protected static String checkVersion() {
 		String host = ConstData.IS_DEBUG != 0 ? "http://cms.bbwc.cn/mmuser/checkversion.php?src="
 				: "http://android.bbwc.cn/checkversion.php?src=";
-		return host + ConstData.CHANNEL + "&appid=" + ConstData.APP_ID;
+		return host + CommonApplication.CHANNEL + "&appid=" + ConstData.APP_ID;
 	}
 
 	/**
@@ -244,5 +255,10 @@ public class UrlMaker {
 				+ "/share-" + ConstData.DEVICE_TYPE + "-" + ConstData.DATA_TYPE
 				+ "-" + issueId + "-" + catid + "-" + articleid + "-1-"
 				+ shareType + "_" + articleUpdateTime + ".html";
+	}
+
+	protected static String getWeather(double longitude, double latitude) {
+		return "http://weather.iweek.ly/get_weather?longitude=" + longitude
+				+ "&latitude=" + latitude;
 	}
 }

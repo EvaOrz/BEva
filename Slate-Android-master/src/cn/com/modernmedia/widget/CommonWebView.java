@@ -45,7 +45,8 @@ public abstract class CommonWebView extends WebView {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case TIME_OUT_MSG:
-				listener.showStyle(2);
+				if (listener != null)
+					listener.showStyle(2);
 				break;
 			default:
 				break;
@@ -53,6 +54,12 @@ public abstract class CommonWebView extends WebView {
 		}
 
 	};
+
+	public CommonWebView(Context context) {
+		super(context);
+		mContext = context;
+		init();
+	}
 
 	public CommonWebView(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -103,7 +110,8 @@ public abstract class CommonWebView extends WebView {
 									detail.getArticleId());
 						}
 					}
-					listener.showStyle(0);
+					if (listener != null)
+						listener.showStyle(0);
 				}
 			}
 
@@ -157,7 +165,8 @@ public abstract class CommonWebView extends WebView {
 					SslErrorHandler handler, SslError error) {
 				loadOk = false;
 				cancelTimer();
-				listener.showStyle(2);
+				if (listener != null)
+					listener.showStyle(2);
 				handler.cancel();// ²»Ö§³Össl
 				// PrintHelper.print("onReceivedSslError");
 				super.onReceivedSslError(view, handler, error);
@@ -167,7 +176,8 @@ public abstract class CommonWebView extends WebView {
 			public void onReceivedError(WebView view, int errorCode,
 					String description, String failingUrl) {
 				loadOk = false;
-				listener.showStyle(2);
+				if (listener != null)
+					listener.showStyle(2);
 				cancelTimer();
 				// PrintHelper.print("onReceivedError");
 				super.onReceivedError(view, errorCode, description, failingUrl);
@@ -192,14 +202,16 @@ public abstract class CommonWebView extends WebView {
 	@Override
 	public void loadUrl(String url) {
 		super.loadUrl(url);
-		listener.showStyle(1);
+		if (listener != null)
+			listener.showStyle(1);
 		// startTimer();
 	}
 
 	@Override
 	public void reload() {
 		super.reload();
-		listener.showStyle(1);
+		if (listener != null)
+			listener.showStyle(1);
 		// startTimer();
 	}
 

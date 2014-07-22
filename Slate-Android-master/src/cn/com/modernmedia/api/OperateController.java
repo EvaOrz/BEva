@@ -212,4 +212,25 @@ public class OperateController {
 			}
 		});
 	}
+
+	/**
+	 * 获取天气预报
+	 * 
+	 * @param longitude
+	 *            经度
+	 * @param latitude
+	 *            纬度
+	 */
+	public void getWeather(double longitude, double latitude,
+			final FetchEntryListener listener) {
+		final GetWeatherOperate operate = new GetWeatherOperate(longitude,
+				latitude);
+		operate.asyncRequest(mContext, false, new DataCallBack() {
+
+			@Override
+			public void callback(boolean success) {
+				listener.setData(success ? operate.getWeather() : null);
+			}
+		});
+	}
 }

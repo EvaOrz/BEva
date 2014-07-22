@@ -1,6 +1,7 @@
 package cn.com.modernmedia.util;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import android.annotation.SuppressLint;
@@ -8,6 +9,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
+import cn.com.modernmedia.model.Cat.CatItem;
 
 /**
  * 保存数据
@@ -29,10 +31,19 @@ public class DataHelper {
 	private static final String START_TIME = "start_time";
 	private static final String END_TIME = "end_time";
 	private static final String ADV_PIC = "adv_pic";
+	private static final String LINE_HEIGHT = "line_height";// webview行间距
 
 	public static Map<Integer, String> columnTitleMap = new HashMap<Integer, String>();// catid对于的cat名称
 	public static Map<Integer, Integer> columnColorMap = new HashMap<Integer, Integer>();// catid对应的cat颜色
 	public static Map<Integer, String> columnRowMap = new HashMap<Integer, String>();// catid对应的箭头图片
+	public static Map<Integer, List<CatItem>> childMap = new HashMap<Integer, List<CatItem>>();// key:parent_cat_id,value:子栏目列表
+
+	public static void clear() {
+		columnTitleMap.clear();
+		columnColorMap.clear();
+		columnRowMap.clear();
+		childMap.clear();
+	}
 
 	private static SharedPreferences getPref(Context context) {
 		if (mPref == null) {
@@ -263,6 +274,16 @@ public class DataHelper {
 	public static void setAdvPic(Context context, String url) {
 		Editor editor = getPref(context).edit();
 		editor.putString(ADV_PIC, url);
+		editor.commit();
+	}
+
+	public static int getLineHeight(Context context) {
+		return getPref(context).getInt(LINE_HEIGHT, 1);
+	}
+
+	public static void setLineHeight(Context context, int lineHeight) {
+		Editor editor = getPref(context).edit();
+		editor.putInt(LINE_HEIGHT, lineHeight);
 		editor.commit();
 	}
 }

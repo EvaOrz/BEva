@@ -4,7 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import cn.com.modernmedia.CommonApplication;
-import cn.com.modernmedia.common.Adv;
+import cn.com.modernmedia.model.Adv;
 import cn.com.modernmedia.model.Issue;
 import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmedia.util.DataHelper;

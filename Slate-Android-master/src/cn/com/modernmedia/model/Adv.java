@@ -1,6 +1,5 @@
-package cn.com.modernmedia.common;
+package cn.com.modernmedia.model;
 
-import cn.com.modernmedia.model.Entry;
 
 /**
  * ¹ã¸æ

@@ -52,7 +52,7 @@ public class FavDb extends SQLiteOpenHelper {
 		helper.addColumn(FavDb.UPDATETIME, "TEXT");// 5
 		helper.addColumn(FavDb.ISSUEID, "INTEGER");// 6
 		helper.addColumn(FavDb.TYPE, "TEXT");// 7
-		helper.addColumn(FavDb.DATE, "TEXT");
+		helper.addColumn(FavDb.DATE, "TEXT");// 8
 		db.execSQL(helper.getSql());
 	}
 
@@ -229,6 +229,9 @@ public class FavDb extends SQLiteOpenHelper {
 	 */
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+		if (oldVersion > newVersion) {
+			return;
+		}
 		db.execSQL("drop table if exists " + TABLE_NAME);
 		onCreate(db);
 	}

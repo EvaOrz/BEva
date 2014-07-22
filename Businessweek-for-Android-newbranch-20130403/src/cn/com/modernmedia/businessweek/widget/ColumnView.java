@@ -13,8 +13,8 @@ import android.widget.TextView;
 import cn.com.modernmedia.businessweek.AboutActivity;
 import cn.com.modernmedia.businessweek.R;
 import cn.com.modernmedia.businessweek.adapter.ColumnListAdapter;
-import cn.com.modernmedia.businessweek.adapter.ColumnListAdapter.NotifyAdapterDataChange;
 import cn.com.modernmedia.listener.FetchEntryListener;
+import cn.com.modernmedia.listener.NotifyAdapterListener;
 import cn.com.modernmedia.model.Cat;
 import cn.com.modernmedia.model.Entry;
 
@@ -42,14 +42,21 @@ public class ColumnView extends LinearLayout implements FetchEntryListener {
 		this.setBackgroundColor(Color.BLACK);
 		initFooter();
 		layout = (LinearLayout) findViewById(R.id.column_list);
-		adapter = new ColumnListAdapter(mContext,
-				new NotifyAdapterDataChange() {
+		adapter = new ColumnListAdapter(mContext, new NotifyAdapterListener() {
 
-					@Override
-					public void dataChange() {
-						setValuesForWidget();
-					}
-				});
+			@Override
+			public void notifyReaded() {
+			}
+
+			@Override
+			public void notifyChanged() {
+				setValuesForWidget();
+			}
+
+			@Override
+			public void nofitySelectItem(Object args) {
+			}
+		});
 	}
 
 	private void initFooter() {

@@ -12,7 +12,6 @@ import android.os.Handler;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.widget.Toast;
-import cn.com.modernmedia.api.ImageDownloader;
 import cn.com.modernmedia.api.OperateController;
 import cn.com.modernmedia.listener.FetchEntryListener;
 import cn.com.modernmedia.model.Cat;
@@ -36,7 +35,7 @@ import com.parse.ParseAnalytics;
  * @author ZhuQiao
  * 
  */
-public abstract class CommonMainActivity extends BaseActivity {
+public abstract class CommonMainActivity extends BaseFragmentActivity {
 	public static final int REQUEST_CODE = 100;// 从文章页返回，刷新，设置已阅读文章
 	private Context mContext;
 	private OperateController controller;// 接口控制器
@@ -47,6 +46,7 @@ public abstract class CommonMainActivity extends BaseActivity {
 	private int errorType = 0;// 1--getissue;2--getcatlist;3--getindex;4--getcatindex
 	// private boolean isPushIssue = false;
 	private int pushArticleId = -1;
+	private int pushCatId = -1;
 	private boolean isFirstIn = true;// 显示切换动画
 
 	private Handler handler = new Handler();
@@ -63,14 +63,19 @@ public abstract class CommonMainActivity extends BaseActivity {
 			String from = getIntent().getExtras().getString("FROM_ACTIVITY");
 			if (!TextUtils.isEmpty(from) && from.equals("SPLASH")) {
 				// 从首页进来
-				checkVersion();
+				if (CommonApplication.CHANNEL.equals("googleplay")
+						|| CommonApplication.CHANNEL.equals("blackberry")) {
+					getIssue(true);
+				} else {
+					checkVersion();
+				}
 			} else {
 				// 从push消息进来
 				parsePushMsg(getIntent());
 			}
 		}
 	}
-	
+
 	@Override
 	protected void onNewIntent(Intent intent) {
 		super.onNewIntent(intent);
@@ -89,16 +94,35 @@ public abstract class CommonMainActivity extends BaseActivity {
 			String msg = intent.getExtras().getString("com.parse.Data");
 			if (!TextUtils.isEmpty(msg)) {
 				JSONObject json = new JSONObject(msg);
-				String str = json.optString("na", "");
-				if (TextUtils.isEmpty(str)) {
-					checkPushIssue(true, -1, -1);
-				} else {
-					// 跳转至push文章页
-					String[] arr = UriParse.parsePush(str);
-					if (arr != null && arr.length == 3) {
-						checkPushIssue(false, ParseUtil.stoi(arr[0], -1),
-								ParseUtil.stoi(arr[2], -1));
+				String na = json.optString("na", "");// 新文章
+				JSONObject newissue = json.optJSONObject("newissue");// 新一期
+				if (TextUtils.isEmpty(na)
+						&& (JSONObject.NULL.equals(newissue) || newissue == null)) {
+					if (issue != null)
+						return;
+					// 不提示任何信息
+					if (CommonApplication.CHANNEL.equals("googleplay")
+							|| CommonApplication.CHANNEL.equals("blackberry")) {
+						getIssue(true);
+					} else {
+						checkVersion();
 					}
+					return;
+				}
+
+				if (!TextUtils.isEmpty(na)) {
+					// 进入文章
+					// 跳转至push文章页
+					String[] arr = UriParse.parsePush(na);
+					if (arr != null && arr.length == 3) {
+						checkPushIssue(ParseUtil.stoi(arr[0], -1),
+								ParseUtil.stoi(arr[2], -1),
+								ParseUtil.stoi(arr[1], -1));
+					}
+				} else {
+					int newIssueId = newissue.optInt("issueid", -1);
+					// 提示新一期
+					checkPushIssue(newIssueId, -1, -1);
 				}
 			}
 		} catch (Exception e) {
@@ -109,24 +133,27 @@ public abstract class CommonMainActivity extends BaseActivity {
 	/**
 	 * 比较本地锁存的issue和push消息里的issue
 	 */
-	private void checkPushIssue(boolean isTOIndex, int id, int articleId) {
+	private void checkPushIssue(int id, int articleId, int catId) {
 		getScrollView().IndexClick();
 		// (如果用户本地没有旧一期的id，那么直接给他获取最新一期)
 		if (DataHelper.getIssueId(mContext) == -1) {
 			CommonApplication.isFetchPush = true;
 			getIssue(true);
-		} else if (id != DataHelper.getIssueId(mContext) || isTOIndex) {
+		} else if (id != DataHelper.getIssueId(mContext)) {
 			// (如果用户本地的缓存id与服务器推送消息的不一致，那么提示他是否查看最新一期)
 			pushArticleId = articleId;
+			pushCatId = catId;
 			showDialog(1);
 		} else {
 			// (如果用户本地的缓存id与服务器推送消息的一致，那么获取相关推送数据)
 			pushArticleId = articleId;
+			pushCatId = catId;
 			// 如果该文章在当前所看的这期中，直接调至文章页
 			if (issue == null) {
 				getIssue(true);
 			} else {
-				gotoArticleActivity(pushArticleId, true);
+				if (articleId != -1)
+					gotoArticleActivity(pushArticleId, pushCatId, true);
 			}
 		}
 	}
@@ -170,7 +197,8 @@ public abstract class CommonMainActivity extends BaseActivity {
 							if (pushArticleId != -1) {
 								// 调至至文章页
 								if (fetchNew) {
-									gotoArticleActivity(pushArticleId, true);
+									gotoArticleActivity(pushArticleId,
+											pushCatId, true);
 									DataHelper.setIssueId(mContext,
 											issue.getId());
 								}
@@ -209,7 +237,7 @@ public abstract class CommonMainActivity extends BaseActivity {
 		errorType = 2;
 		if (issue != null)
 			// 下载进版广告
-			ImageDownloader.getInstance().download(
+			CommonApplication.getImageDownloader().download(
 					issue.getAdv().getColumnAdv().getUrl());
 		controller.getCatList(issue, new FetchEntryListener() {
 
@@ -243,6 +271,7 @@ public abstract class CommonMainActivity extends BaseActivity {
 		errorType = 3;
 		if (!isFirstIn)
 			indexShowLoading(1);
+		columnId = "-1";
 		controller.getIndex(issue, new FetchEntryListener() {
 
 			@Override
@@ -257,14 +286,18 @@ public abstract class CommonMainActivity extends BaseActivity {
 							}
 							DataHelper.setColumnUpdateTime(mContext,
 									issue.getColumnUpdateTime());
-							// indexView.disProcess();
 							if (!isFirstIn) {
 								indexShowLoading(0);
+								disProcess();
 							} else {
-								getScrollView().clickButton(true);
+								if (ConstData.APP_ID == 2) {
+									moveToLeft();
+								} else {
+									getScrollView().clickButton(true);
+									disProcess();
+								}
 								moveToIndex();
 							}
-							disProcess();
 						} else {
 							if (isFirstIn) {
 								showError();
@@ -306,6 +339,20 @@ public abstract class CommonMainActivity extends BaseActivity {
 				});
 			}
 		});
+	}
+
+	/**
+	 * 优家效果有点卡，延迟20毫秒执行
+	 */
+	private void moveToLeft() {
+		handler.postDelayed(new Runnable() {
+
+			@Override
+			public void run() {
+				getScrollView().clickButton(true);
+				disProcess();
+			}
+		}, 20);
 	}
 
 	private void moveToIndex() {
@@ -395,7 +442,8 @@ public abstract class CommonMainActivity extends BaseActivity {
 	 * @param isIndex
 	 *            true:首页；false:收藏
 	 */
-	protected abstract void gotoArticleActivity(int artcleId, boolean isIndex);
+	protected abstract void gotoArticleActivity(int artcleId, int catId,
+			boolean isIndex);
 
 	/**
 	 * indexview 显示loading
@@ -467,7 +515,8 @@ public abstract class CommonMainActivity extends BaseActivity {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		ImageDownloader.getInstance().destroy();
+		CommonApplication.getImageDownloader().destroy();
+		
 	}
 
 	@Override
@@ -478,6 +527,7 @@ public abstract class CommonMainActivity extends BaseActivity {
 				notifyRead();
 				if (pushArticleId != -1) {
 					pushArticleId = -1;
+					pushCatId = -1;
 					// if (indexView != null)
 					// indexView.showLoading();
 					showLoading();
@@ -487,4 +537,13 @@ public abstract class CommonMainActivity extends BaseActivity {
 		}
 		super.onActivityResult(requestCode, resultCode, data);
 	}
+
+	public void setColumnId(String columnId) {
+		this.columnId = columnId;
+	}
+
+	public String getColumnId() {
+		return columnId;
+	}
+
 }

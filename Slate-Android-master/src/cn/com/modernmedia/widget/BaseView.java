@@ -5,6 +5,9 @@ import java.util.List;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
@@ -12,7 +15,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+import cn.com.modernmedia.BaseFragmentActivity;
 import cn.com.modernmedia.R;
+import cn.com.modernmedia.Fragment.BaseFragment;
 import cn.com.modernmedia.listener.SlateListener;
 import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.util.ConstData;
@@ -136,6 +141,70 @@ public abstract class BaseView extends RelativeLayout {
 					}
 				}
 			}
+		}
+	}
+
+	protected void showFragmentIfNeeded(Fragment fragment, String tag,
+			int fragmentRes, String[] tags) {
+		if (!(mContext instanceof BaseFragmentActivity))
+			return;
+		showFragment(fragment, true);
+		FragmentManager fragmentManager = ((BaseFragmentActivity) mContext)
+				.getSupportFragmentManager();
+		FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+		if (fragmentManager.findFragmentByTag(tag) == null) {
+			transaction.add(fragmentRes, fragment, tag);
+		} else {
+			transaction.show(fragment);
+			if (fragment instanceof BaseFragment) {
+				((BaseFragment) fragment).refresh();
+			}
+		}
+
+		for (String hideTag : tags) {
+			if (!hideTag.equals(tag)) {
+				Fragment fragmentNeedHide = fragmentManager
+						.findFragmentByTag(hideTag);
+				if (fragmentNeedHide != null) {
+					showFragment(fragmentNeedHide, false);
+					transaction.remove(fragmentNeedHide);
+				}
+			}
+		}
+		try {
+			// TODO catch Activity has been destroyed error
+			transaction.commitAllowingStateLoss();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	protected void showFragment(Fragment fragment, boolean show) {
+		if (fragment instanceof BaseFragment) {
+			((BaseFragment) fragment).showView(show);
+		}
+	}
+
+	protected void deleteAllFragments(String[] tags) {
+		if (!(mContext instanceof BaseFragmentActivity))
+			return;
+		FragmentManager fragmentManager = ((BaseFragmentActivity) mContext)
+				.getSupportFragmentManager();
+		FragmentTransaction transaction = fragmentManager.beginTransaction();
+		for (String hideTag : tags) {
+			Fragment fragmentNeedHide = fragmentManager
+					.findFragmentByTag(hideTag);
+			if (fragmentNeedHide != null) {
+				showFragment(fragmentNeedHide, false);
+				transaction.remove(fragmentNeedHide);
+			}
+		}
+		try {
+			// TODO catch Activity has been destroyed error
+			transaction.commitAllowingStateLoss();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 }

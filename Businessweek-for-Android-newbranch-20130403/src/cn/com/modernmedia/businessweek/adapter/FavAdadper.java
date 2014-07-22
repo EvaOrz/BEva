@@ -67,7 +67,7 @@ public class FavAdadper extends ArrayAdapter<ArticleDetail> {
 					LogHelper.logOpenArticleFromFavoriteArticleList(mContext,
 							detail.getArticleId() + "", detail.getCatId() + "");
 					((MainActivity) mContext).gotoArticleActivity(
-							detail.getArticleId(), false);
+							detail.getArticleId(), detail.getCatId(), false);
 				}
 			}
 		});

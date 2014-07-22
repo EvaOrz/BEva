@@ -1,12 +1,10 @@
 package cn.com.modernmedia.widget;
 
-import java.util.List;
-
 import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import cn.com.modernmedia.listener.NotifyArticleDesListener;
-import cn.com.modernmedia.model.Atlas.AtlasPicture;
 
 /**
  * Í¼¼¯
@@ -17,6 +15,7 @@ import cn.com.modernmedia.model.Atlas.AtlasPicture;
 public class AtlasViewPager extends ViewPager {
 	private int totalNum = 0;// view×ÜÊý
 	private NotifyArticleDesListener listener;
+	private boolean intercept = false;
 
 	public AtlasViewPager(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -43,12 +42,14 @@ public class AtlasViewPager extends ViewPager {
 			 */
 			@Override
 			public void onPageScrollStateChanged(int state) {
+				if (listener != null)
+					listener.updatePage(state);
 			}
 		});
 	}
 
-	public void setValue(List<AtlasPicture> list) {
-		totalNum = list.size();
+	public void setValue(int totalNum) {
+		this.totalNum = totalNum;
 	}
 
 	public void setListener(NotifyArticleDesListener listener) {
@@ -58,6 +59,18 @@ public class AtlasViewPager extends ViewPager {
 
 	public int getTotalNum() {
 		return totalNum;
+	}
+
+	public void setIntercept(boolean intercept) {
+		this.intercept = intercept;
+	}
+
+	@Override
+	public boolean onInterceptTouchEvent(MotionEvent ev) {
+		if (intercept) {
+			return false;
+		}
+		return super.onInterceptTouchEvent(ev);
 	}
 
 }

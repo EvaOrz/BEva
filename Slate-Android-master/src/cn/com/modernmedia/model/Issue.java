@@ -1,6 +1,5 @@
 package cn.com.modernmedia.model;
 
-import cn.com.modernmedia.common.Adv;
 
 /**
  * ÆÚÊý¾Ý

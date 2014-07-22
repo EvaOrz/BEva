@@ -9,4 +9,8 @@
 	<dimen name="dialog_top_margin">30dp</dimen>
 	<dimen name="dialog_right_margin">10dp</dimen>
 	<dimen name="dialog_bottom_margin">10dp</dimen>		
+	
+	<dimen name="red_ring_size_small">20dp</dimen>
+	<dimen name="red_ring_size_medium">35dp</dimen>
+    <dimen name="red_ring_size_large">40dp</dimen>
 </resources>

@@ -8,4 +8,6 @@ package cn.com.modernmedia.listener;
  */
 public interface NotifyArticleDesListener {
 	public void updateDes(int position);
+	
+	public void updatePage(int state);
 }

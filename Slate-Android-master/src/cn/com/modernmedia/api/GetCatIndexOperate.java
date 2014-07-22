@@ -7,7 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import cn.com.modernmedia.CommonApplication;
-import cn.com.modernmedia.common.Adv;
+import cn.com.modernmedia.model.Adv;
 import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.model.CatIndexArticle;
 import cn.com.modernmedia.model.IndexArticle.Position;

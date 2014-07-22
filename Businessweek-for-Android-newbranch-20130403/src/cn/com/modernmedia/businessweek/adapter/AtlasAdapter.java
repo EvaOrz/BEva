@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import cn.com.modernmedia.api.ImageDownloader;
+import cn.com.modernmedia.businessweek.MyApplication;
 import cn.com.modernmedia.businessweek.R;
 import cn.com.modernmedia.model.Atlas.AtlasPicture;
 
@@ -26,7 +27,7 @@ public class AtlasAdapter extends PagerAdapter {
 	private LayoutInflater inflater;
 	private List<AtlasPicture> list = new ArrayList<AtlasPicture>();
 	private Map<String, View> map = new HashMap<String, View>();
-	private ImageDownloader downloader = ImageDownloader.getInstance();
+	private ImageDownloader downloader = MyApplication.getImageDownloader();
 
 	public AtlasAdapter(Context context) {
 		mContext = context;

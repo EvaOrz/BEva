@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.Button;
-import android.widget.Gallery;
 import android.widget.HorizontalScrollView;
 import cn.com.modernmedia.listener.ScrollCallBackListener;
 import cn.com.modernmedia.listener.ScrollStateListener;
@@ -32,13 +31,13 @@ public class MainHorizontalScrollView extends HorizontalScrollView {
 	 * 移动中显示的view;0.无。1.左。2.右
 	 */
 	private int moveOut = 0;
-	public static final int ENLARGE_WIDTH = 0;// 扩展宽度
+	public static int ENLARGE_WIDTH = 0;// 扩展宽度
 	private int scrollWidth;// 需要滑动的宽度
 	private Button leftButton, rightButton;// 切换至左边view的button
 	private int current;// 当前滑动的位置
-	// private int moveCurrent;// 滑动中的当前位置（如果速率太快，可能会直接从左边滑到右边，这个时候做判断）
 	private int left_max_width, right_max_width, mid_right;// 显示左边最大滑动距离
-	private Gallery gallery;// 横向滑动中的gallery需要单独处理事件
+	private View needsScrollView;// 需要自己单独滑动的view
+	private AtlasViewPager atlasViewPager;// 需要自己滑动的view(第2页至最后第2页)
 	private ScrollCallBackListener listener;
 	private static final long MIN_TIME = 500;
 	private static final int CHECK_TIME = 100;
@@ -46,6 +45,17 @@ public class MainHorizontalScrollView extends HorizontalScrollView {
 	private Runnable scrollTask;
 	private VelocityTracker velocityTracker;// 判断滑动速率
 	private static final int SNAP_VELOCITY = 2000;// 最低滑动速率
+	private FecthViewSizeListener viewListener;
+
+	/**
+	 * 扩展过后左右view的宽度
+	 * 
+	 * @author ZhuQiao
+	 * 
+	 */
+	public interface FecthViewSizeListener {
+		public void fetchViewWidth(int width);
+	}
 
 	private ScrollStateListener stateListener = new ScrollStateListener() {
 
@@ -111,7 +121,8 @@ public class MainHorizontalScrollView extends HorizontalScrollView {
 		ViewGroup parent = (ViewGroup) getChildAt(0);
 
 		for (int i = 0; i < children.length; i++) {
-			children[i].setVisibility(View.INVISIBLE);
+			if (children[i].getVisibility() != View.GONE)
+				children[i].setVisibility(View.INVISIBLE);
 			parent.addView(children[i]);
 		}
 		OnGlobalLayoutListener listener = new MenuOnGlobalLayoutListener(
@@ -133,13 +144,16 @@ public class MainHorizontalScrollView extends HorizontalScrollView {
 		this.listener = listener;
 	}
 
-	/**
-	 * 设置gallery
-	 * 
-	 * @param gallery
-	 */
-	public void setGallery(Gallery gallery) {
-		this.gallery = gallery;
+	public void setNeedsScrollView(View needsScrollView) {
+		this.needsScrollView = needsScrollView;
+	}
+
+	public void setAtlasViewPager(AtlasViewPager atlasViewPager) {
+		this.atlasViewPager = atlasViewPager;
+	}
+
+	public void setViewListener(FecthViewSizeListener viewListener) {
+		this.viewListener = viewListener;
 	}
 
 	/**
@@ -168,20 +182,23 @@ public class MainHorizontalScrollView extends HorizontalScrollView {
 			rightOut = false;
 			scrollWidth = left_max_width;
 			scrollToDestination(left_max_width, smooth);
-			listener.isShowIndex(true);
+			if (listener != null)
+				listener.isShowIndex(true);
 		} else if (flag == 1) {
 			leftOut = true;
 			rightOut = false;
 			scrollWidth = 0;
 			scrollToDestination(0, smooth);
-			listener.isShowIndex(false);
+			if (listener != null)
+				listener.isShowIndex(false);
 			LogHelper.logOpenColumnList(mContext);
 		} else {
 			leftOut = false;
 			rightOut = true;
 			scrollWidth = right_max_width;
 			scrollToDestination(right_max_width, smooth);
-			listener.isShowIndex(false);
+			if (listener != null)
+				listener.isShowIndex(false);
 			LogHelper.logOpenFavoriteArticleList();
 		}
 		moveOut = 0;
@@ -201,10 +218,6 @@ public class MainHorizontalScrollView extends HorizontalScrollView {
 	protected void onScrollChanged(int l, int t, int oldl, int oldt) {
 		super.onScrollChanged(l, t, oldl, oldt);
 		current = l;
-		// 判断瞬间位移来确定速度
-		// if (Math.abs(moveCurrent - current) < 100 || moveCurrent == 0) {
-		// moveCurrent = current;
-		// }
 		checkCurrent(false, true);
 		showView();
 	}
@@ -294,12 +307,36 @@ public class MainHorizontalScrollView extends HorizontalScrollView {
 	 */
 	@Override
 	public boolean onInterceptTouchEvent(MotionEvent ev) {
-		if (gallery != null && gallery instanceof PageGallery) {
-			if (((PageGallery) gallery).isScroll()) {
-				((PageGallery) gallery).setScroll(false);
+		if (needsScrollView != null) {
+			Rect rect = new Rect();
+			// 获取该gallery相对于全局的坐标点
+			needsScrollView.getGlobalVisibleRect(rect);
+			if (rect.contains((int) ev.getX(), (int) ev.getY())) {
 				return false;
 			}
 		}
+		if (atlasViewPager != null) {
+			Rect rect = new Rect();
+			// 获取该gallery相对于全局的坐标点
+			atlasViewPager.getGlobalVisibleRect(rect);
+			if (rect.contains((int) ev.getX(), (int) ev.getY())) {
+				if (!lockScroll(atlasViewPager, ev))
+					return false;
+			}
+		}
+		if (adjustAngle(ev)) {
+			return false;
+		}
+		return super.onInterceptTouchEvent(ev);
+	}
+
+	/**
+	 * 滑动的角度是否大于最小值
+	 * 
+	 * @param ev
+	 * @return
+	 */
+	private boolean adjustAngle(MotionEvent ev) {
 		float y = ev.getRawY();
 		float x = ev.getRawX();
 		if (ev.getAction() == MotionEvent.ACTION_DOWN) {
@@ -313,10 +350,28 @@ public class MainHorizontalScrollView extends HorizontalScrollView {
 			angleX = x;
 			angleY = y;
 			if (angle > MIN_ANGLE) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private float lastX;
+
+	private boolean lockScroll(AtlasViewPager pager, MotionEvent event) {
+		if (event.getAction() == MotionEvent.ACTION_DOWN) {
+			lastX = event.getX();
+		} else if (event.getAction() == MotionEvent.ACTION_MOVE) {
+			if (pager.getCurrentItem() == 0 && lastX <= event.getX()) {
+				// TODO
+			} else if (pager.getCurrentItem() == pager.getTotalNum() - 1
+					&& lastX >= event.getX()) {
+				// TODO
+			} else {
 				return false;
 			}
 		}
-		return super.onInterceptTouchEvent(ev);
+		return true;
 	}
 
 	private long time = 0;
@@ -331,13 +386,7 @@ public class MainHorizontalScrollView extends HorizontalScrollView {
 
 	@Override
 	public boolean onTouchEvent(MotionEvent ev) {
-		if (current == left_max_width && gallery != null) {
-			Rect rect = new Rect();
-			// 获取该gallery相对于全局的坐标点
-			gallery.getGlobalVisibleRect(rect);
-			if (rect.contains((int) ev.getX(), (int) ev.getY())) {
-				return gallery.dispatchTouchEvent(ev);
-			}
+		if (current == left_max_width) {
 		}
 
 		// TODO 注册velocityTracker
@@ -405,21 +454,21 @@ public class MainHorizontalScrollView extends HorizontalScrollView {
 			if (leftView.getVisibility() != View.VISIBLE) {
 				leftView.setVisibility(View.VISIBLE);
 			}
-			if (rightView.getVisibility() != View.GONE) {
+			if (rightView != null && rightView.getVisibility() != View.GONE) {
 				rightView.setVisibility(View.GONE);
 			}
 		} else if (current > left_max_width) {
 			if (leftView.getVisibility() != View.GONE) {
 				leftView.setVisibility(View.GONE);
 			}
-			if (rightView.getVisibility() != View.VISIBLE) {
+			if (rightView != null && rightView.getVisibility() != View.VISIBLE) {
 				rightView.setVisibility(View.VISIBLE);
 			}
 		} else {
 			if (leftView.getVisibility() != View.GONE) {
 				leftView.setVisibility(View.GONE);
 			}
-			if (rightView.getVisibility() != View.GONE) {
+			if (rightView != null && rightView.getVisibility() != View.GONE) {
 				rightView.setVisibility(View.GONE);
 			}
 		}
@@ -439,9 +488,12 @@ public class MainHorizontalScrollView extends HorizontalScrollView {
 		}
 		mid_right = right_max_width - left_max_width / 2;
 		leftView.getLayoutParams().width = left_max_width;
-		rightView.setPadding(rightButton.getMeasuredWidth() + ENLARGE_WIDTH, 0,
-				0, 0);
+		if (rightView != null)
+			rightView.setPadding(
+					rightButton.getMeasuredWidth() + ENLARGE_WIDTH, 0, 0, 0);
 		scrollWidth = left_max_width;
+		if (viewListener != null)
+			viewListener.fetchViewWidth(left_max_width);
 	}
 
 	/**
@@ -492,7 +544,8 @@ public class MainHorizontalScrollView extends HorizontalScrollView {
 
 			for (int i = 0; i < children.length; i++) {
 				leftCallBack.getViewSize(i, width, height, dims);
-				children[i].setVisibility(View.VISIBLE);
+				if (children[i].getVisibility() != View.GONE)
+					children[i].setVisibility(View.VISIBLE);
 
 				parent.addView(children[i], dims[0], dims[1]);
 				if (i == 0) {

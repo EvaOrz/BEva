@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import cn.com.modernmedia.api.OperateController;
+import cn.com.modernmedia.businessweek.MyApplication;
 import cn.com.modernmedia.businessweek.R;
 import cn.com.modernmedia.businessweek.adapter.AtlasAdapter;
 import cn.com.modernmedia.listener.FetchEntryListener;
@@ -56,6 +57,10 @@ public class AtlasView extends CommonAtlasView {
 				}
 			}
 		}
+
+		@Override
+		public void updatePage(int state) {
+		}
 	};
 
 	public AtlasView(Context context) {
@@ -79,6 +84,7 @@ public class AtlasView extends CommonAtlasView {
 		this.setBackgroundColor(Color.WHITE);
 		initProcess();
 		pager = (AtlasViewPager) findViewById(R.id.atlas_gallery);
+		pager.getLayoutParams().height = MyApplication.width * 234 / 320;
 		dotLl = (LinearLayout) findViewById(R.id.atlas_gallery_dot);
 	}
 
@@ -116,7 +122,7 @@ public class AtlasView extends CommonAtlasView {
 		adapter = new AtlasAdapter(mContext);
 		adapter.setData(list);
 		pager.setAdapter(adapter);
-		pager.setValue(list);
+		pager.setValue(list.size());
 		pager.setListener(listener);
 		initDot(list);
 	}

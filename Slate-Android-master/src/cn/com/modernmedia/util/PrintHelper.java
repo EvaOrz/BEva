@@ -10,9 +10,9 @@ import android.util.Log;
  */
 public class PrintHelper {
 	public static void print(String msg) {
-//		if (ConstData.IS_DEBUG != 0) {
+		if (ConstData.IS_DEBUG != 0) {
 			System.out.println(msg);
-//		}
+		}
 	}
 
 	public static void logE(String tag, String msg) {

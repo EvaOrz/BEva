@@ -6,5 +6,5 @@
     <dimen name="index_gallery_height">240dp</dimen>
     <dimen name="atlas_gallery_height">351dp</dimen>
     <dimen name="atlas_text_paddingtop">361dp</dimen>
-
+    
 </resources>

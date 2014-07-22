@@ -35,6 +35,13 @@ public abstract class BaseActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		flurryApiKey = ConstData.getFlurryApiKey();
+		CommonApplication app = (CommonApplication) getApplication();
+		if (CommonApplication.width == 0) {
+			app.initScreenInfo();
+		}
+		if (TextUtils.isEmpty(CommonApplication.CHANNEL)) {
+			app.initChannel();
+		}
 	}
 
 	/**
@@ -157,6 +164,11 @@ public abstract class BaseActivity extends Activity {
 		super.onStop();
 		if (this != null && !TextUtils.isEmpty(flurryApiKey))
 			FlurryAgent.onEndSession(this);
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
 	}
 
 	/**

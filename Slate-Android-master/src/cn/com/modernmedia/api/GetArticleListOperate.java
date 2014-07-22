@@ -107,6 +107,7 @@ public class GetArticleListOperate extends BaseOperate {
 		if (isNull(obj))
 			return property;
 		property.setType(obj.optString("type", ""));
+		property.setScrollHidden(obj.optInt("scrollHidden", 0));
 		return property;
 	}
 

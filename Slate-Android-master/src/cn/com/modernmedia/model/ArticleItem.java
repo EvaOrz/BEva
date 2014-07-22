@@ -3,7 +3,6 @@ package cn.com.modernmedia.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.com.modernmedia.common.Adv;
 import cn.com.modernmedia.model.IndexArticle.Position;
 
 /**
@@ -21,6 +20,7 @@ public class ArticleItem extends Entry {
 	private List<String> pictureList = new ArrayList<String>();// 文章图片url
 	private Position position = new Position();// 图片位置,1:title,2:列表缩略图
 	private boolean showTitleBar = false;// 首页文章titlebar
+	private boolean showMoreCat = false;// 显示更多子栏目
 	private String slateLink = "";// 首页跳转文章
 	private Adv adv = new Adv();
 
@@ -94,6 +94,14 @@ public class ArticleItem extends Entry {
 
 	public void setAdv(Adv adv) {
 		this.adv = adv;
+	}
+
+	public boolean isShowMoreCat() {
+		return showMoreCat;
+	}
+
+	public void setShowMoreCat(boolean showMoreCat) {
+		this.showMoreCat = showMoreCat;
 	}
 
 }

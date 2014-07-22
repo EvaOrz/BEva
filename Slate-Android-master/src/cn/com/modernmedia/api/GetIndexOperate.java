@@ -7,12 +7,13 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import cn.com.modernmedia.CommonApplication;
-import cn.com.modernmedia.common.Adv;
+import cn.com.modernmedia.model.Adv;
 import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.model.IndexArticle;
 import cn.com.modernmedia.model.IndexArticle.Position;
 import cn.com.modernmedia.model.IndexArticle.Today;
 import cn.com.modernmedia.util.ConstData;
+import cn.com.modernmedia.util.DataHelper;
 import cn.com.modernmedia.util.FileManager;
 
 /**
@@ -45,7 +46,7 @@ public class GetIndexOperate extends BaseOperate {
 		if (!isNull(articleArray))
 			parseTitleArticle(articleArray);
 		JSONArray todayArr = jsonObject.optJSONArray("today");
-		if (!isNull(todayArr))
+		if (!isNull(todayArr) && ConstData.APP_ID == 1)// 只有商周有
 			parseToday(todayArr);
 	}
 
@@ -57,7 +58,9 @@ public class GetIndexOperate extends BaseOperate {
 	private void parseTitleArticle(JSONArray array) {
 		int length = array.length();
 		JSONObject obj;
-		List<ArticleItem> list = new ArrayList<ArticleItem>();
+		// List<ArticleItem> list = new ArrayList<ArticleItem>();
+		List<ArticleItem> articleItemList = new ArrayList<ArticleItem>();
+		List<ArticleItem> titleActicleList = new ArrayList<ArticleItem>();
 		ArticleItem titleArticle;
 		for (int i = 0; i < length; i++) {
 			obj = array.optJSONObject(i);
@@ -81,9 +84,18 @@ public class GetIndexOperate extends BaseOperate {
 				// 如果广告过期就不显示
 				continue;
 			}
-			list.add(titleArticle);
+			if (ConstData.APP_ID == 1) {// 商周
+				titleActicleList.add(titleArticle);
+			} else {
+				if (titleArticle.getPosition().getId() == 1) {
+					titleActicleList.add(titleArticle);
+				} else {
+					articleItemList.add(titleArticle);
+				}
+			}
 		}
-		indexArticle.setTitleArticleList(list);
+		indexArticle.setTitleArticleList(titleActicleList);
+		indexArticle.setArticleItemList(articleItemList);
 	}
 
 	/**
@@ -163,6 +175,8 @@ public class GetIndexOperate extends BaseOperate {
 			articleItem.setDesc(obj.optString("desc", ""));
 			if (i == 0)
 				articleItem.setShowTitleBar(true);
+			if (i == length - 1 && DataHelper.childMap.containsKey(catId))
+				articleItem.setShowMoreCat(true);
 			JSONArray thumbArr = obj.optJSONArray("thumb");
 			if (!isNull(thumbArr))
 				articleItem.setPictureList(parseThumb(thumbArr));

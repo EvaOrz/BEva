@@ -23,7 +23,7 @@ public class BitmapUtil {
 
 		Options options = new Options();
 
-		options.inJustDecodeBounds = true;// 只描边，不读取数�?
+		options.inJustDecodeBounds = true;// 只描边，不读取数�?
 
 		BitmapFactory.decodeFile(path, options);
 
@@ -62,13 +62,12 @@ public class BitmapUtil {
 				int maxSize = w > h ? w : h;
 				int inSimpleSize = computeSampleSize(options, maxSize, w * h);
 				options.inSampleSize = inSimpleSize; // 设置缩放比例
+				PrintHelper.print("inSampleSize:" + inSimpleSize);
 				options.inJustDecodeBounds = false;
 			}
 			b = BitmapFactory.decodeStream(in, null, options);
-		} catch (FileNotFoundException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-		} catch (IOException e1) {
-			e1.printStackTrace();
 		} finally {
 			if (in != null) {
 				try {
@@ -89,7 +88,7 @@ public class BitmapUtil {
 
 	/**
 	 * 
-	 * 获取�?��进行缩放的比例，即options.inSampleSize
+	 * 获取�?��进行缩放的比例，即options.inSampleSize
 	 * 
 	 * @param options
 	 * 

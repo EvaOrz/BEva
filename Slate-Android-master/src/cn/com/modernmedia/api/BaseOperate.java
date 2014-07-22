@@ -7,11 +7,12 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.text.TextUtils;
 import cn.com.modernmedia.BaseActivity;
+import cn.com.modernmedia.BaseFragmentActivity;
 import cn.com.modernmedia.R;
 import cn.com.modernmedia.api.HttpRequestController.RequestThread;
-import cn.com.modernmedia.common.Adv;
 import cn.com.modernmedia.listener.DataCallBack;
 import cn.com.modernmedia.listener.FetchDataListener;
+import cn.com.modernmedia.model.Adv;
 import cn.com.modernmedia.util.ParseUtil;
 import cn.com.modernmedia.util.PrintHelper;
 
@@ -121,8 +122,12 @@ public abstract class BaseOperate {
 		// 升级提示和统计部提示错误信息
 		if (TextUtils.isEmpty(getDefaultFileName()))
 			return;
-		if (mContext != null && mContext instanceof BaseActivity) {
-			((BaseActivity) mContext).showToast(resId);
+		if (mContext != null) {
+			if (mContext instanceof BaseActivity) {
+				((BaseActivity) mContext).showToast(resId);
+			} else if (mContext instanceof BaseFragmentActivity) {
+				((BaseFragmentActivity) mContext).showToast(resId);
+			}
 		}
 	}
 
@@ -150,7 +155,7 @@ public abstract class BaseOperate {
 		return JSONObject.NULL.equals(array) || array == null
 				|| array.length() == 0;
 	}
-	
+
 	/**
 	 * 解析广告
 	 * 

@@ -3,12 +3,15 @@ package cn.com.modernmedia.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.annotation.SuppressLint;
+
 /**
  * 栏目
  * 
  * @author ZhuQiao
  * 
  */
+@SuppressLint("UseSparseArrays")
 public class Cat extends Entry {
 	private static final long serialVersionUID = 1L;
 	private List<CatItem> list = new ArrayList<CatItem>();
@@ -21,7 +24,8 @@ public class Cat extends Entry {
 		this.list = list;
 	}
 
-	public static class CatItem {
+	public static class CatItem extends Entry {
+		private static final long serialVersionUID = 1L;
 		private int id;// 栏目id
 		private int issueId;
 		private String name = "";// 栏目名称
@@ -31,6 +35,9 @@ public class Cat extends Entry {
 		private int displayType;// 只显示1,3
 		private int complete;
 		private String arrow;
+		private int parentId = -1;// 父catid
+		private int haveChildren = 0;// 是否有子栏目。0.无。1.有
+		private String tagname = "";// 子栏目显示在tag上的名字
 
 		public int getId() {
 			return id;
@@ -103,6 +110,31 @@ public class Cat extends Entry {
 		public void setArrow(String arrow) {
 			this.arrow = arrow;
 		}
+
+		public int getParentId() {
+			return parentId;
+		}
+
+		public void setParentId(int parentId) {
+			this.parentId = parentId;
+		}
+
+		public int getHaveChildren() {
+			return haveChildren;
+		}
+
+		public void setHaveChildren(int haveChildren) {
+			this.haveChildren = haveChildren;
+		}
+
+		public String getTagname() {
+			return tagname;
+		}
+
+		public void setTagname(String tagname) {
+			this.tagname = tagname;
+		}
+
 	}
 
 }

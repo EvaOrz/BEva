@@ -11,8 +11,9 @@ import java.util.List;
  */
 public class IndexArticle extends Entry {
 	private static final long serialVersionUID = 1L;
-	private List<ArticleItem> titleArticleList;// 首页焦点图文章数据
-	private List<Today> todayList;
+	private List<ArticleItem> titleArticleList;// 首页焦点图文章数据(如果是商周，就取article节点里的数据，其他的因为只有article节点，所以要判断position.1焦点，2列表)
+	private List<ArticleItem> articleItemList = new ArrayList<ArticleItem>();// 文章列表(除了商周以外的用)
+	private List<Today> todayList;// 只在商周里面有today
 
 	public List<ArticleItem> getTitleArticleList() {
 		return titleArticleList;
@@ -20,6 +21,14 @@ public class IndexArticle extends Entry {
 
 	public void setTitleArticleList(List<ArticleItem> titleArticleList) {
 		this.titleArticleList = titleArticleList;
+	}
+
+	public List<ArticleItem> getArticleItemList() {
+		return articleItemList;
+	}
+
+	public void setArticleItemList(List<ArticleItem> articleItemList) {
+		this.articleItemList = articleItemList;
 	}
 
 	public List<Today> getTodayList() {

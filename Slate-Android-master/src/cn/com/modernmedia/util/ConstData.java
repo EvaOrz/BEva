@@ -30,10 +30,8 @@ public class ConstData {
 	public static final int BUFFERSIZE = 1024;
 	/** toast显示时间 **/
 	public static final int TOAST_LENGTH = 1000;
-	/** 渠道 **/
-	public static final String CHANNEL = "youthapp";
 	/** 版本号 **/
-	public static final int VERSION = 110;
+	public static final int VERSION = 120;
 	/** 客户端名称 **/
 	public static String APP_NAME = "";
 	/** splash停留时间 **/
@@ -52,12 +50,13 @@ public class ConstData {
 	 * @param appId
 	 *            1.商周；2.优家
 	 * @param mode
+	 *            当前环境 0:线上，1：测试，2：开发
 	 */
 	public static void setAppId(int appId, int mode) {
 		APP_ID = appId;
 		IS_DEBUG = mode;
-		if (APP_ID == 2)
-			DEVICE_TYPE = "7";
+		if (APP_ID == 20)
+			DEVICE_TYPE = "20";
 		initDefaultValue();
 		UrlMaker.setMODEL_URL();
 	}
@@ -72,6 +71,8 @@ public class ConstData {
 			return "";
 		if (APP_ID == 1) {
 			return "KHSTGVVGP7422NSW4TM4";
+		} else if (APP_ID == 2) {
+			return "6T4YCHYM8PK6RVS858F4";
 		}
 		return "";
 	}
@@ -87,7 +88,13 @@ public class ConstData {
 			APP_NAME = "彭博商业周刊";
 			return "BussinessWeek";
 		} else if (APP_ID == 2) {
+			APP_NAME = "优家画报";
 			return "ModernLady";
+		} else if (APP_ID == 20) {
+			return "iWeekly";
+		} else if (APP_ID == 16) {
+			APP_NAME = "乐活";
+			return "lohas";
 		}
 		return "";
 	}

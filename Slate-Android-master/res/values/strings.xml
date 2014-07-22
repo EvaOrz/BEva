@@ -23,5 +23,11 @@
     <string name="download_later">以后再说</string>
     <string name="cancel">取消</string>
     <string name="download_error">下载遇到了错误，已停止</string>
+    
+    <item type="id" name="scale_type"/>
+    
+    <!-- red_process -->
+    <string name="loading_pre">上一篇</string>
+    <string name="loading_more">下一篇</string>
 
 </resources>

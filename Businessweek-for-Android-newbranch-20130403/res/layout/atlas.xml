@@ -38,7 +38,7 @@
     <cn.com.modernmedia.widget.AtlasViewPager
         android:id="@+id/atlas_gallery"
         android:layout_width="fill_parent"
-        android:layout_height="@dimen/atlas_gallery_height"
+        android:layout_height="wrap_content"
         android:fadingEdge="none" />
 
     <include
