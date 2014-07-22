@@ -24,6 +24,12 @@
             android:textSize="@dimen/index_column_title_testSize" />
     </RelativeLayout>
 
+    <ImageView
+        android:id="@+id/index_item_adv_img"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@null" />
+
     <RelativeLayout
         android:id="@+id/index_item_content"
         android:layout_width="fill_parent"
@@ -37,6 +43,7 @@
             android:layout_width="@dimen/index_img_frame_size"
             android:layout_height="@dimen/index_img_frame_size"
             android:background="@drawable/iphone_placeholder_shadow"
+            android:contentDescription="@null"
             android:paddingBottom="@dimen/index_img_padding"
             android:paddingRight="@dimen/index_img_padding"
             android:src="@drawable/general_placeholder" />
@@ -46,8 +53,9 @@
             android:layout_width="@dimen/index_rightRow_size"
             android:layout_height="@dimen/index_rightRow_size"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true" />
-        
+            android:layout_centerVertical="true"
+            android:contentDescription="@null" />
+
         <TextView
             android:id="@+id/index_item_title"
             android:layout_width="fill_parent"
@@ -95,6 +103,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/index_marginRight"
+            android:contentDescription="@null"
             android:src="@drawable/moreinstant" />
 
         <TextView

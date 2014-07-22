@@ -13,9 +13,9 @@ import cn.com.modernmediaslate.model.Entry;
  */
 public class IndexArticle extends Entry {
 	private static final long serialVersionUID = 1L;
-	private List<ArticleItem> titleArticleList;// 首页焦点图文章数据(如果是商周，就取article节点里的数据，其他的因为只有article节点，所以要判断position.1焦点，2列表)
+	private List<ArticleItem> titleArticleList = new ArrayList<ArticleItem>();// 首页焦点图文章数据(如果是商周，就取article节点里的数据，其他的因为只有article节点，所以要判断position.1焦点，2列表)
 	private List<ArticleItem> articleItemList = new ArrayList<ArticleItem>();// 文章列表(除了商周以外的用)
-	private List<Today> todayList;// 只在商周里面有today
+	private List<Today> todayList = new ArrayList<Today>();// 只在商周里面有today
 	// 当列表里面有广告时，统计显示
 	private List<String> impressionUrlList = new ArrayList<String>();
 

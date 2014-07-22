@@ -241,6 +241,9 @@ public class Favorite extends Entry {
 		private String url = "";
 		private String title = "";
 		private String desc = "";
+		private String link = "";
+		private int width;
+		private int height;
 
 		public String getUrl() {
 			return url;
@@ -266,6 +269,30 @@ public class Favorite extends Entry {
 			this.desc = desc;
 		}
 
+		public String getLink() {
+			return link;
+		}
+
+		public void setLink(String link) {
+			this.link = link;
+		}
+
+		public int getWidth() {
+			return width;
+		}
+
+		public void setWidth(int width) {
+			this.width = width;
+		}
+
+		public int getHeight() {
+			return height;
+		}
+
+		public void setHeight(int height) {
+			this.height = height;
+		}
+
 	}
 
 	/**
@@ -277,7 +304,7 @@ public class Favorite extends Entry {
 	public static class Property extends Entry {
 		private static final long serialVersionUID = 1L;
 		@Expose
-		private int type = 1;// 1 html 2 gallery 3 video
+		private int type = 1;// 1 html 2 gallery 3 video 4 只有一张图片
 		private int scrollHidden = 0;// 滑动时是否隐藏该文章。0.否。1.是
 
 		public int getType() {

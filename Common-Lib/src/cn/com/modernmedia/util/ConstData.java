@@ -35,7 +35,7 @@ public class ConstData {
 	/** toast显示时间 **/
 	public static final int TOAST_LENGTH = 1000;
 	/** 版本号 **/
-	public static final int VERSION = 140;
+	public static final int VERSION = 150;
 	/** 客户端名称 **/
 	public static String APP_NAME = "";
 	/** splash停留时间 **/
@@ -58,7 +58,7 @@ public class ConstData {
 	 * @return
 	 */
 	public static int getAppId() {
-		return APP_ID;
+		return APP_ID == 18 ? 1 : APP_ID;
 	}
 
 	/**
@@ -275,5 +275,13 @@ public class ConstData {
 	 */
 	public static String getAdvList() {
 		return "adv_list";
+	}
+	
+	/**
+	 * iWeekly入版广告
+	 * @return
+	 */
+	public static String getWeeklyInApp(){
+		return "iweekly_in_app";
 	}
 }

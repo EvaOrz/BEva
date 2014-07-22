@@ -3,7 +3,6 @@ package cn.com.modernmediasolo.api;
 import android.content.Context;
 import android.os.Handler;
 import cn.com.modernmedia.listener.FetchEntryListener;
-import cn.com.modernmedia.model.SoloColumn;
 import cn.com.modernmediaslate.listener.DataCallBack;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.model.Favorite.FavoriteItem;
@@ -45,17 +44,16 @@ public class SoloOperateController {
 	 *            (from_0)取from前的所有数据(最新数据)
 	 * @param toOffset
 	 *            (0_to)取to后的所有数据(旧数据) ......0_0代表取全部数据
-	 * @param soloColumn
 	 * @param fecthNew
 	 *            是否获取新数据
 	 * @param listener
 	 * @return
 	 */
 	public void getSoloCatIndex(String catId, String fromOffset,
-			String toOffset, SoloColumn soloColumn, boolean fecthNew,
-			int position, final FetchEntryListener listener) {
+			String toOffset, boolean fecthNew, int position,
+			final FetchEntryListener listener) {
 		final GetSoloCatIndexOperate operate = new GetSoloCatIndexOperate(
-				mContext, catId, fromOffset, toOffset, soloColumn, position);
+				mContext, catId, fromOffset, toOffset, position);
 		operate.asyncRequest(mContext, false, new DataCallBack() {
 
 			@Override

@@ -15,6 +15,7 @@ import cn.com.modernmedia.VideoPlayerActivity;
 import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.model.Issue;
 import cn.com.modernmedia.util.PageTransfer.TransferArticle;
+import cn.com.modernmedia.widget.CommonAtlasView;
 import cn.com.modernmedia.widget.CommonWebView;
 import cn.com.modernmedia.widget.WebViewPop;
 import cn.com.modernmediaslate.model.Entry;
@@ -230,24 +231,21 @@ public class UriParse {
 			Class<?>... cls) {
 		if (entries != null && entries[0] instanceof ArticleItem) {
 			String link = "";
-			boolean isAdv;
 			ArticleItem item = (ArticleItem) entries[0];
-			int type = item.getAdv().getAdvProperty().getIsadv();
-			if (type == 1) {// 广告
-				link = item.getAdv().getColumnAdv().getLink();
-				isAdv = true;
+			if (item.getAdvSource() != null) {// 广告
+				link = item.getAdvSource().getLink();
+				AdvUriParse.clickSlate(context, link, entries, view, cls);
 			} else {
 				link = item.getSlateLink();
-				isAdv = false;
+				clickSlate(context, link, entries, view, cls);
 			}
-			clickSlate(context, link, entries, view, isAdv, cls);
 		}
 	}
 
 	public static void clickSlate(Context context, String link,
-			Entry[] entries, View view, boolean isAdv, Class<?>... cls) {
+			Entry[] entries, View view, Class<?>... cls) {
 		if (TextUtils.isEmpty(link)) {
-			doLinkNull(context, entries, isAdv, cls);
+			doLinkNull(context, entries, cls);
 		} else if (link.toLowerCase().startsWith("http://")
 				|| link.toLowerCase().startsWith("https://")) {
 			doLinkHttp(context, link);
@@ -282,9 +280,7 @@ public class UriParse {
 	 * @param transferArticle
 	 */
 	private static void doLinkNull(Context context, Entry[] entries,
-			boolean isAdv, Class<?>... cls) {
-		if (isAdv)
-			return;
+			Class<?>... cls) {
 		ArticleItem item = (ArticleItem) entries[0];
 		TransferArticle transferArticle = entries.length > 1 ? (TransferArticle) entries[1]
 				: null;
@@ -340,6 +336,9 @@ public class UriParse {
 			Entry[] entries, View view, Class<?>... cls) {
 		if (view instanceof CommonWebView) {
 			((CommonWebView) view).gotoArticle(ParseUtil.stoi(list.get(3), -1));
+		} else if (view instanceof CommonAtlasView) {
+			((CommonAtlasView) view)
+					.gotoArticle(ParseUtil.stoi(list.get(3), -1));
 		} else {
 			int issueId = 0;
 			if (list.size() > 1)

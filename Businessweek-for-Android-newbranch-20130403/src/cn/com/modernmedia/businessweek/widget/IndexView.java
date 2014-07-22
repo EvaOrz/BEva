@@ -27,6 +27,7 @@ import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.model.IndexArticle;
 import cn.com.modernmedia.model.IndexArticle.Today;
 import cn.com.modernmedia.model.Issue;
+import cn.com.modernmedia.util.AdvTools;
 import cn.com.modernmedia.util.LogHelper;
 import cn.com.modernmedia.util.ParseUtil;
 import cn.com.modernmedia.widget.BaseView;
@@ -105,6 +106,7 @@ public class IndexView extends BaseView implements FetchEntryListener {
 						findCatPosition(item.getCatId(), item.getArticleId(),
 								(IndexArticle) entry);
 					}
+					AdvTools.requestClick(item);
 				}
 			}
 		});

@@ -194,7 +194,13 @@ public class BreakPointUtil {
 					// current_complete = 0;
 					// }
 					// handler.sendEmptyMessage(DB_ADD_MSG);
-					startDownload();
+					handler.post(new Runnable() {
+						
+						@Override
+						public void run() {
+							startDownload();
+						}
+					});
 				} catch (Exception e) {
 					e.printStackTrace();
 					// TODO init error show toast

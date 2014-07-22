@@ -17,6 +17,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
 import cn.com.modernmedia.CommonApplication;
+import cn.com.modernmedia.CommonArticleActivity;
 import cn.com.modernmedia.R;
 import cn.com.modernmedia.adapter.ShareAdapter;
 import cn.com.modernmedia.api.OperateController;
@@ -97,11 +98,13 @@ public abstract class ShareDialog {
 		String title;
 		String desc;
 		String url;
+		int bottomResId;// 文章页截屏底部资源
 
-		public WeeklyArgs(String title, String desc, String url) {
+		public WeeklyArgs(String title, String desc, String url, int bottomResId) {
 			this.title = title;
 			this.desc = desc;
 			this.url = url;
+			this.bottomResId = bottomResId;
 		}
 
 	}
@@ -154,8 +157,9 @@ public abstract class ShareDialog {
 	 * @param desc
 	 * @param url
 	 */
-	public void startShareWeekly(String title, String desc, String url) {
-		weeklyArgs = new WeeklyArgs(title, desc, url);
+	public void startShareWeekly(String title, String desc, String url,
+			int bottomResId) {
+		weeklyArgs = new WeeklyArgs(title, desc, url, bottomResId);
 		prepareShareAfterFetchBitmap(true);
 	}
 
@@ -331,9 +335,17 @@ public abstract class ShareDialog {
 
 				if (shareType.equals("01")) {
 					showShareByMail(intent, weeklyArgs.title, emailBody);
-				} else {
+				} else if (shareType.equals("02") || shareType.equals("03")) {
 					if (shareType.equals("02"))
 						logAndroidShareToSinaCount("", "");
+					if (mContext instanceof CommonArticleActivity) {
+						// iweekly文章分享，新浪微博，微信分享文章截图
+						showShareWithScreen(intent, extraText,
+								weeklyArgs.bottomResId);
+					} else {
+						showShareOther(intent, extraText);
+					}
+				} else {
 					showShareOther(intent, extraText);
 				}
 			}
@@ -430,6 +442,17 @@ public abstract class ShareDialog {
 	 */
 	private void showShareOther(Intent intent, String content) {
 		tool.shareWithoutMail(intent, content, mBitmap);
+	}
+
+	/**
+	 * 
+	 * @param intent
+	 * @param content
+	 * @param bottomResId
+	 */
+	private void showShareWithScreen(Intent intent, String content,
+			int bottomResId) {
+		tool.shareWithScreen(intent, content, bottomResId);
 	}
 
 	/**

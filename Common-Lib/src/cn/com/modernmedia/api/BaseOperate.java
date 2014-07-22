@@ -1,15 +1,12 @@
 package cn.com.modernmedia.api;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.text.TextUtils;
 import cn.com.modernmedia.CommonApplication;
-import cn.com.modernmedia.model.Adv;
 import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmedia.util.FileManager;
-import cn.com.modernmedia.util.ParseUtil;
 import cn.com.modernmedia.util.PrintHelper;
 import cn.com.modernmediaslate.api.SlateBaseOperate;
 import cn.com.modernmediaslate.listener.FetchDataListener;
@@ -71,46 +68,16 @@ public abstract class BaseOperate extends SlateBaseOperate {
 	}
 
 	/**
-	 * 解析广告
+	 * 判断是否为广告（过滤老版本广告）
 	 * 
 	 * @param object
 	 * @return
 	 */
-	protected Adv parseAdv(JSONObject obj) {
-		Adv adv = new Adv();
+	protected boolean isAdv(JSONObject obj) {
 		JSONObject property = obj.optJSONObject("property");
 		if (isNull(property))
-			return adv;
-		int isadv = property.optInt("isadv", 0);
-		if (isadv != 1)
-			return adv;
-		adv.getAdvProperty().setIsadv(isadv);
-		JSONArray columnadv = obj.optJSONArray("columnadv");
-		if (isNull(columnadv))
-			return adv;
-		JSONObject columnadvObj = columnadv.optJSONObject(0);
-		if (isNull(columnadvObj))
-			return adv;
-		String starttime = columnadvObj.optString("starttime", "0");
-		String endtime = columnadvObj.optString("endtime", "0");
-		long currentTime = System.currentTimeMillis() / 1000;
-		if (currentTime > ParseUtil.stol(starttime)
-				&& currentTime < ParseUtil.stol(endtime)) {
-			adv.getColumnAdv().setId(columnadvObj.optInt("id", 0));
-			adv.getColumnAdv().setLink(columnadvObj.optString("link", ""));
-			adv.getColumnAdv().setStartTime(starttime);
-			adv.getColumnAdv().setEndTime(endtime);
-			JSONArray picture_h = columnadvObj.optJSONArray("picture_h");
-			if (isNull(picture_h))
-				return adv;
-			JSONObject picture_h_json = picture_h.optJSONObject(0);
-			if (isNull(picture_h_json))
-				return adv;
-			adv.getColumnAdv().setUrl(picture_h_json.optString("url", ""));
-		} else {
-			adv.setExpired(true);
-		}
-		return adv;
+			return false;
+		return property.optInt("isadv", 0) == 1;
 	}
 
 	protected void parseTemplate(Entry entry, JSONObject jsonObject) {

@@ -8,7 +8,6 @@ import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import cn.com.modernmedia.CommonApplication;
-import cn.com.modernmedia.model.Adv;
 import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.model.IndexArticle;
 import cn.com.modernmedia.model.IndexArticle.Position;
@@ -25,13 +24,15 @@ import cn.com.modernmedia.util.ModernMediaTools;
  * 
  */
 @SuppressLint("UseSparseArrays")
-public class GetIndexOperate extends BaseOperate {
+public class GetIndexOperate extends BaseIndexAdvOperate {
 	private String url = "";
 	private IndexArticle indexArticle;
 
 	protected GetIndexOperate(String issueId, String columnUpdateTime) {
+		reSetPosition();
 		indexArticle = new IndexArticle();
 		url = UrlMaker.getIndex(issueId, columnUpdateTime);
+		initAdv(issueId, "0", 0);
 	}
 
 	protected IndexArticle getIndexArticle() {
@@ -51,6 +52,7 @@ public class GetIndexOperate extends BaseOperate {
 		JSONArray todayArr = jsonObject.optJSONArray("today");
 		if (!isNull(todayArr) && ConstData.getAppId() == 1)// 只有商周有
 			parseToday(todayArr);
+		indexArticle.setImpressionUrlList(impressionUrlList);
 	}
 
 	/**
@@ -66,7 +68,8 @@ public class GetIndexOperate extends BaseOperate {
 		ArticleItem titleArticle;
 		for (int i = 0; i < length; i++) {
 			obj = array.optJSONObject(i);
-			if (isNull(obj))
+			// TODO 过滤老版本广告
+			if (isNull(obj) || isAdv(obj))
 				continue;
 			titleArticle = new ArticleItem();
 			titleArticle.setArticleId(obj.optInt("id", -1));
@@ -81,21 +84,35 @@ public class GetIndexOperate extends BaseOperate {
 			if (!isNull(positionObj))
 				titleArticle.setPosition(parseTitlePosition(positionObj));
 			titleArticle.setSlateLink(obj.optString("link", ""));
-			Adv adv = parseAdv(obj);
-			titleArticle.setAdv(adv);
-			if (adv.getAdvProperty().getIsadv() == 1 && adv.isExpired()) {
-				// 如果广告过期就不显示
-				continue;
-			}
 			if (ConstData.getAppId() == 1) {// 商周
+				// TODO 填添加该位置存在的广告
+				titleActicleList
+						.addAll(getTitleAdvsByPosition(currentTitlePosition));
 				titleActicleList.add(titleArticle);
+				currentTitlePosition++;
 			} else {
 				if (titleArticle.getPosition().getId() == 1) {
+					titleActicleList
+							.addAll(getTitleAdvsByPosition(currentTitlePosition));
 					titleActicleList.add(titleArticle);
+					currentTitlePosition++;
 				} else {
+					articleItemList
+							.addAll(getListAdvsByPosition(currentListPosition));
 					articleItemList.add(titleArticle);
+					currentListPosition++;
 				}
 			}
+		}
+		// TODO 添加可能在列表末尾的广告
+		if (ConstData.getAppId() == 1) {
+			titleActicleList
+					.addAll(getTitleAdvsByEndPosition(currentTitlePosition));
+		} else {
+			titleActicleList
+					.addAll(getTitleAdvsByEndPosition(currentTitlePosition));
+			articleItemList
+					.addAll(getListAdvsByEndPosition(currentListPosition));
 		}
 
 		indexArticle.setTitleArticleList(titleActicleList);
@@ -171,7 +188,7 @@ public class GetIndexOperate extends BaseOperate {
 		ArticleItem articleItem;
 		for (int i = 0; i < length; i++) {
 			obj = array.optJSONObject(i);
-			if (isNull(obj))
+			if (isNull(obj) || isAdv(obj))
 				continue;
 			articleItem = new ArticleItem();
 			articleItem.setArticleId(obj.optInt("id", -1));
@@ -179,27 +196,25 @@ public class GetIndexOperate extends BaseOperate {
 			articleItem.setCatId(catId);
 			articleItem.setDesc(obj.optString("desc", ""));
 			articleItem.setOutline(obj.optString("outline", ""));
-			if (i == 0)
-				articleItem.setShowTitleBar(true);
-			if (i == length - 1) {
-				if (DataHelper.childMap.containsKey(catId)
-						|| DataHelper.soloCatMap.containsKey(catId)) {
-					articleItem.setShowMoreCat(true);
-				}
-			}
 			JSONArray thumbArr = obj.optJSONArray("thumb");
 			if (!isNull(thumbArr))
 				articleItem.setPictureList(parseThumb(thumbArr));
 			articleItem.setSlateLink(obj.optString("link", ""));
-			Adv adv = parseAdv(obj);
-			articleItem.setAdv(adv);
-			if (adv.getAdvProperty().getIsadv() == 1) {
-				if (adv.isExpired()) {
-					// 如果广告过期就不显示
-					continue;
+
+			articleItemList.addAll(getBBIndexListAdv(pos, i));
+			articleItemList.add(articleItem);
+			if (i == 0) {
+				// TODO 设置catid主要为了显示titlebar的标题和颜色
+				articleItemList.get(0).setCatId(articleItem.getCatId());
+				articleItemList.get(0).setShowTitleBar(true);
+			}
+			if (i == length - 1) {
+				if (DataHelper.childMap.containsKey(catId)
+						|| DataHelper.soloCatMap.containsKey(catId)) {
+					articleItemList.get(articleItemList.size() - 1)
+							.setShowMoreCat(true);
 				}
 			}
-			articleItemList.add(articleItem);
 		}
 		return articleItemList;
 	}

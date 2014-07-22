@@ -30,6 +30,7 @@ import cn.com.modernmedia.listener.FetchEntryListener;
 import cn.com.modernmedia.listener.WebProcessListener;
 import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.model.Atlas;
+import cn.com.modernmedia.util.AdvTools;
 import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmedia.util.DataHelper;
 import cn.com.modernmedia.util.LogHelper;
@@ -182,6 +183,7 @@ public abstract class CommonWebView extends WebView {
 									detail.getId());
 							LogHelper.logAndroidShowArticle(mContext,
 									detail.getCatid() + "", detail.getId() + "");
+							AdvTools.requestImpression(detail);
 						}
 					}
 					changeFont();
@@ -198,7 +200,7 @@ public abstract class CommonWebView extends WebView {
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
 				UriParse.clickSlate(mContext, url,
-						new Entry[] { new ArticleItem() }, me, false);
+						new Entry[] { new ArticleItem() }, me);
 				return true;
 			}
 

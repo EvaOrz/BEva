@@ -9,9 +9,11 @@ import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
+import cn.com.modernmedia.adapter.MyPagerAdapter.OnItemClickListener;
 import cn.com.modernmedia.api.ImageDownloader;
 import cn.com.modernmedia.businessweek.MyApplication;
 import cn.com.modernmedia.businessweek.R;
@@ -29,6 +31,7 @@ public class AtlasAdapter extends PagerAdapter {
 	private List<AtlasPicture> list = new ArrayList<AtlasPicture>();
 	private Map<String, View> map = new HashMap<String, View>();
 	private ImageDownloader downloader = MyApplication.getImageDownloader();
+	private OnItemClickListener onItemClickListener;
 
 	public AtlasAdapter(Context context) {
 		mContext = context;
@@ -38,6 +41,10 @@ public class AtlasAdapter extends PagerAdapter {
 	public void setData(List<AtlasPicture> list) {
 		this.list = list;
 		notifyDataSetChanged();
+	}
+
+	public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+		this.onItemClickListener = onItemClickListener;
 	}
 
 	@Override
@@ -51,7 +58,7 @@ public class AtlasAdapter extends PagerAdapter {
 	}
 
 	@Override
-	public Object instantiateItem(ViewGroup container, int position) {
+	public Object instantiateItem(ViewGroup container, final int position) {
 		AtlasPicture picture = list.get(position);
 		View view;
 		String url = picture.getUrl();
@@ -67,6 +74,14 @@ public class AtlasAdapter extends PagerAdapter {
 			map.put(url, view);
 			container.addView(view);
 		}
+		view.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				if (onItemClickListener != null)
+					onItemClickListener.onItemClick(v, position);
+			}
+		});
 		return view;
 	}
 

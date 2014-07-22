@@ -9,7 +9,6 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.text.TextUtils;
 import cn.com.modernmedia.CommonApplication;
-import cn.com.modernmedia.model.Adv;
 import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.model.CatIndexArticle;
 import cn.com.modernmedia.model.CatIndexArticle.SoloColumnIndexItem;
@@ -29,7 +28,7 @@ import cn.com.modernmedia.util.ParseUtil;
  * @author ZhuQiao
  * 
  */
-public class GetCatIndexOperate extends BaseOperate {
+public class GetCatIndexOperate extends BaseIndexAdvOperate {
 	private String url = "";
 	private CatIndexArticle catIndexArticle;
 	private String columnId = "";
@@ -60,10 +59,12 @@ public class GetCatIndexOperate extends BaseOperate {
 	 */
 	protected GetCatIndexOperate(String issueId, String columnUpdateTime,
 			String columnId, int position) {
+		reSetPosition();
 		catIndexArticle = new CatIndexArticle();
 		this.columnId = columnId;
 		isSolo = false;
 		url = UrlMaker.getCatIndex(issueId, columnUpdateTime, columnId);
+		initAdv(issueId, columnId, position);
 	}
 
 	/**
@@ -79,10 +80,11 @@ public class GetCatIndexOperate extends BaseOperate {
 	 */
 	public GetCatIndexOperate(Context context, String catId, String fromOffset,
 			String toOffset, SoloColumn soloColumn, int position) {
+		reSetPosition();
 		isSolo = true;
 		catIndexArticle = new CatIndexArticle();
 		SoloColumnItem mColumnItem = null;
-		if (ParseUtil.listNotNull(soloColumn.getList())) {
+		if (soloColumn != null && ParseUtil.listNotNull(soloColumn.getList())) {
 			for (SoloColumnItem it : soloColumn.getList()) {
 				if (String.valueOf(it.getId()).equals(catId)) {
 					mColumnItem = it;
@@ -103,7 +105,11 @@ public class GetCatIndexOperate extends BaseOperate {
 				}
 			}
 		}
-		url = UrlMaker.getSoloCatIndex(catId, fromOffset, toOffset);
+		String columnUpdateTime = mColumnItem != null ? mColumnItem
+				.getColumnUpdateTime() : "0";
+		url = UrlMaker.getSoloCatIndex(catId, fromOffset, toOffset,
+				columnUpdateTime);
+		initAdv("0", catId, position);
 	}
 
 	public CatIndexArticle getCatIndexArticle() {
@@ -133,7 +139,8 @@ public class GetCatIndexOperate extends BaseOperate {
 		int length = articleArr.length();
 		for (int i = 0; i < length; i++) {
 			articleObj = articleArr.optJSONObject(i);
-			if (isNull(articleObj))
+			// TODO 过滤老版本广告
+			if (isNull(articleObj) || isAdv(articleObj))
 				continue;
 			parseArticle(articleObj);
 		}
@@ -143,7 +150,14 @@ public class GetCatIndexOperate extends BaseOperate {
 				addSoloDb(catIndexArticle.getId(), itemList);
 				addSoloFoucsDb(catIndexArticle.getId(), headItemList);
 			}
+		} else {
+			// TODO 添加可能在列表末尾的广告(独立栏目不考虑，因为有分页)
+			catIndexArticle.getTitleActicleList().addAll(
+					getTitleAdvsByEndPosition(currentTitlePosition));
+			catIndexArticle.getArticleItemList().addAll(
+					getListAdvsByEndPosition(currentListPosition));
 		}
+		catIndexArticle.setImpressionUrlList(impressionUrlList);
 	}
 
 	/**
@@ -159,12 +173,6 @@ public class GetCatIndexOperate extends BaseOperate {
 		} else {
 			item.setCatId(catIndexArticle.getId());
 		}
-
-		// 广告
-		Adv adv = parseAdv(obj);
-		if (adv.getAdvProperty().getIsadv() == 1 && adv.isExpired())
-			return;
-		item.setAdv(adv);
 
 		item.setArticleId(obj.optInt("id", -1));
 		item.setDesc(obj.optString("desc", ""));
@@ -212,9 +220,16 @@ public class GetCatIndexOperate extends BaseOperate {
 	private void addDataToList(ArticleItem item) {
 		if (item.getPosition().getId() == 1) {
 			// 焦点图
+			catIndexArticle.getTitleActicleList().addAll(
+					getTitleAdvsByPosition(currentTitlePosition));
 			catIndexArticle.getTitleActicleList().add(item);
+			currentTitlePosition++;
 		} else {
+			// 列表
+			catIndexArticle.getArticleItemList().addAll(
+					getListAdvsByPosition(currentListPosition));
 			catIndexArticle.getArticleItemList().add(item);
+			currentListPosition++;
 		}
 	}
 
@@ -233,10 +248,22 @@ public class GetCatIndexOperate extends BaseOperate {
 		for (String full_key : fullKey) {
 			if (item.getPosition().getId() == 1) {
 				// 焦点图
+				catIndexArticle
+						.getHeadMap()
+						.get(full_key)
+						.addAll(getTitleAdvsByPosition(currentTitlePosition
+								- DataHelper.solo_head_count));
 				catIndexArticle.getHeadMap().get(full_key).add(item);
+				currentTitlePosition++;
 			} else {
 				// 列表
+				catIndexArticle
+						.getListMap()
+						.get(full_key)
+						.addAll(getListAdvsByPosition(currentListPosition
+								- DataHelper.solo_list_count));
 				catIndexArticle.getListMap().get(full_key).add(item);
+				currentListPosition++;
 			}
 		}
 

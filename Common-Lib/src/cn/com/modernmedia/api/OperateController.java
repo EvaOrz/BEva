@@ -304,4 +304,37 @@ public class OperateController {
 		});
 	}
 
+	/**
+	 * 获取广告列表
+	 * 
+	 * @param useLocal
+	 * @param listener
+	 */
+	public void getAdvList(boolean useLocal, final FetchEntryListener listener) {
+		final GetAdvListOperate operate = new GetAdvListOperate();
+		operate.asyncRequest(mContext, useLocal, new DataCallBack() {
+
+			@Override
+			public void callback(boolean success) {
+				sendMessage(success ? operate.getAdvList() : null, listener);
+			}
+		});
+	}
+	
+	/**
+	 * 获取iWeekly入版广告
+	 * 
+	 * @param listener
+	 */
+	public void getWeeklyInApp(boolean useLocalData,
+			final FetchEntryListener listener) {
+		final GetInAppAdvOperate operate = new GetInAppAdvOperate();
+		operate.asyncRequest(mContext, useLocalData, new DataCallBack() {
+
+			@Override
+			public void callback(boolean success) {
+				sendMessage(success ? operate.getInAppAdv() : null, listener);
+			}
+		});
+	}
 }

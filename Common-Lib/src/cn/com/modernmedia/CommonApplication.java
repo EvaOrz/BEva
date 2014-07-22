@@ -19,6 +19,7 @@ import cn.com.modernmedia.breakpoint.DownloadPackageCallBack;
 import cn.com.modernmedia.db.FavDb;
 import cn.com.modernmedia.db.ReadDb;
 import cn.com.modernmedia.listener.FavNotifykListener;
+import cn.com.modernmedia.model.AdvList;
 import cn.com.modernmedia.util.CommonCrashHandler;
 import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmedia.util.MD5;
@@ -49,6 +50,7 @@ public class CommonApplication extends SlateApplication {
 	private static Map<Integer, BreakPointUtil> breakMap = new HashMap<Integer, BreakPointUtil>();
 	public static DownloadPackageCallBack downBack;
 	public static boolean hasSolo = false;// 是否有独立栏目
+	public static AdvList advList;
 	public static List<String> issueIdList;
 
 	/**
@@ -96,6 +98,7 @@ public class CommonApplication extends SlateApplication {
 		// currentIssue = null;
 		currentIssueId = -1;
 		isFetchPush = false;
+		advList = null;
 		issueIdList = null;
 	}
 

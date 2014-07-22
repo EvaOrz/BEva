@@ -30,7 +30,7 @@ import cn.com.modernmediasolo.db.SoloDb;
  */
 public abstract class CommonSoloActivity extends CommonMainActivity {
 	private SoloOperateController mController;
-	protected SoloColumn soloColumn;
+	// protected SoloColumn soloColumn;
 	/**
 	 * 是否正在获取独立栏目信息，因为所有独立栏目列表都是同一个接口获取，所以当在读取接口的时候，在其他地方下拉获取数据时都不做处理
 	 */
@@ -73,7 +73,8 @@ public abstract class CommonSoloActivity extends CommonMainActivity {
 					@Override
 					public void setData(final Entry entry) {
 						if (entry instanceof SoloColumn) {
-							soloColumn = (SoloColumn) entry;
+							// soloColumn = (SoloColumn) entry;
+							SoloApplication.soloColumn = (SoloColumn) entry;
 							checkFetchCatIndex();
 						} else {
 							// onRefreshComplete(isPull, false);
@@ -171,8 +172,7 @@ public abstract class CommonSoloActivity extends CommonMainActivity {
 			final String fromOffset, final String toOffset,
 			final boolean newData) {
 		currentCatId = String.valueOf(catId);
-		mController.getSoloCatIndex(catId + "", fromOffset, toOffset,
-				soloColumn, newData,
+		mController.getSoloCatIndex(catId + "", fromOffset, toOffset, newData,
 				mProcess.getCatPosition(String.valueOf(catId)),
 				new FetchEntryListener() {
 
@@ -214,8 +214,7 @@ public abstract class CommonSoloActivity extends CommonMainActivity {
 			// TODO 如果没有网络，那么取数据库数据
 			if (!ModernMediaTools.checkNetWork(this)) {
 				catIndex = SoloDb.getInstance(this).getSoloIndexByOffset(catId,
-						fromOffset, toOffset, soloColumn, true,
-						getCatPosition());
+						fromOffset, toOffset, true, getCatPosition());
 				if (catIndex instanceof CatIndexArticle) {
 					checkSoloColumnIndex(catId, catIndex, isPull, fromOffset,
 							toOffset, true, newData);
@@ -310,6 +309,7 @@ public abstract class CommonSoloActivity extends CommonMainActivity {
 	 * @return
 	 */
 	public List<SoloColumnChild> getChild(int parentId) {
+		SoloColumn soloColumn = SoloApplication.soloColumn;
 		if (soloColumn == null || !ParseUtil.listNotNull(soloColumn.getList()))
 			return new ArrayList<SoloColumnChild>();
 		SoloColumnItem item = null;
@@ -390,8 +390,8 @@ public abstract class CommonSoloActivity extends CommonMainActivity {
 		CatIndexArticle catIndexArticle = SoloDb.getInstance(this)
 				.getSoloIndexByOffset(ParseUtil.stoi(getColumnId(), -1),
 						DataHelper.fromOffset.get(getColumnId()),
-						DataHelper.toOffset.get(getColumnId()), soloColumn,
-						false, getCatPosition());
+						DataHelper.toOffset.get(getColumnId()), false,
+						getCatPosition());
 		if (catIndexArticle != null) {
 			listenerCallBack(catIndexArticle, true, false);
 			checkIndexLoading(0);

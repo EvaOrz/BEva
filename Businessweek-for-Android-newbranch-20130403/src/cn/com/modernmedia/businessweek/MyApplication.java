@@ -33,7 +33,7 @@ public class MyApplication extends SoloApplication {
 		// com.parse.Channel:null
 		// com.parse.Data:{"alert":"test","push_hash":"098f6bcd4621d373cade4e832627b4f6"}
 		PushService.subscribe(this, "businessweek_" + ConstData.VERSION,
-				MainActivity.class, R.drawable.icon);
+				MainActivity.class, R.drawable.icon_36);
 		PushService.setDefaultPushCallback(this, MainActivity.class);
 		mContext = this.getApplicationContext();
 	}

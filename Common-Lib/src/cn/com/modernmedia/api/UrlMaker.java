@@ -178,12 +178,15 @@ public class UrlMaker {
 	 * 
 	 * @param toOffset
 	 *            (0_to)取to后的所有数据(旧数据) ......0_0代表取全部数据
+	 * @param columnUpdateTime
+	 *            上次更新时间（从独立栏目getCatList里面获取）
 	 * 
 	 * @return
 	 */
 	protected static String getSoloCatIndex(String catId, String fromOffset,
-			String toOffset) {
-		return getCatIndex("0", fromOffset + "-" + toOffset, catId);
+			String toOffset, String columnUpdateTime) {
+		return getCatIndex("0", fromOffset + "-" + toOffset + "_"
+				+ columnUpdateTime, catId);
 	}
 
 	/**
@@ -238,12 +241,14 @@ public class UrlMaker {
 	 * 
 	 * @param toOffset
 	 *            (0_to)取to后的所有数据(旧数据) ......0_0代表取全部数据
-	 * 
+	 * @param articleUpdateTime
+	 *            上次更新时间（从独立栏目getCatList里面获取）
 	 * @return
 	 */
 	protected static String getSoloArticleList(String catId, String fromOffset,
-			String toOffset) {
-		return getArticleList("0", catId + "-" + fromOffset + "-" + toOffset);
+			String toOffset, String articleUpdateTime) {
+		return getArticleList("0", catId + "-" + fromOffset + "-" + toOffset
+				+ "_" + articleUpdateTime);
 	}
 
 	/**
@@ -302,7 +307,7 @@ public class UrlMaker {
 	protected static String download(Context context) {
 		CommonApplication app = (CommonApplication) context
 				.getApplicationContext();
-		return "http://android.bbwc.cn/interface/index.php?m=down&res="
+		return HOST + "/interface/index.php?m=down&res="
 				+ CommonApplication.CHANNEL + "&uuid=" + app.getMyUUID()
 				+ "&appid=" + ConstData.getInitialAppId() + "&version="
 				+ ConstData.VERSION;
@@ -354,14 +359,17 @@ public class UrlMaker {
 	}
 
 	protected static String getAdvList() {
-		// return HOST + "/interface/index.php?m=adver&a=getadvlist&datatype="
-		// + ConstData.DATA_TYPE + "&appid=" + ConstData.getInitialAppId()
-		// + "&deviceType=" + ConstData.DEVICE_TYPE;
+		return "http://adver.cdn.bbwc.cn/adv/list/"
+				+ ConstData.getInitialAppId() + "-" + ConstData.DEVICE_TYPE
+				+ "-" + ConstData.DATA_TYPE + ".html";
+	}
 
-		// test
-		return "http://develop.cname.bbwc.cn/mmuser/interface/index.php?"
-				+ "m=adver&a=getadvlist&dataType=" + ConstData.DATA_TYPE
-				+ "&appId=" + ConstData.getInitialAppId() + "&deviceType="
-				+ ConstData.DEVICE_TYPE;
+	/**
+	 * iWeekly入版广告
+	 * 
+	 * @return
+	 */
+	protected static String getWeeklyInApp() {
+		return "http://beta.iweek.ly/api/json/intro";
 	}
 }

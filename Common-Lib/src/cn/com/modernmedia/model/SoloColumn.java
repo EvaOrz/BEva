@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.com.modernmedia.model.Cat.CatItem;
+import cn.com.modernmedia.model.Cat.CatProperty;
 import cn.com.modernmediaslate.model.Entry;
 
 /**
@@ -27,6 +28,9 @@ public class SoloColumn extends Entry {
 	public static class SoloColumnItem extends CatItem {
 		private static final long serialVersionUID = 1L;
 		private List<SoloColumnChild> list = new ArrayList<SoloColumnChild>();
+		private String columnUpdateTime = "0";
+		private String articleUpdateTime = "0";
+		private CatProperty property = new CatProperty();
 
 		public List<SoloColumnChild> getList() {
 			return list;
@@ -35,13 +39,38 @@ public class SoloColumn extends Entry {
 		public void setList(List<SoloColumnChild> list) {
 			this.list = list;
 		}
+
+		public String getColumnUpdateTime() {
+			return columnUpdateTime;
+		}
+
+		public void setColumnUpdateTime(String columnUpdateTime) {
+			this.columnUpdateTime = columnUpdateTime;
+		}
+
+		public String getArticleUpdateTime() {
+			return articleUpdateTime;
+		}
+
+		public void setArticleUpdateTime(String articleUpdateTime) {
+			this.articleUpdateTime = articleUpdateTime;
+		}
+
+		public CatProperty getProperty() {
+			return property;
+		}
+
+		public void setProperty(CatProperty property) {
+			this.property = property;
+		}
+
 	}
 
 	public static class SoloColumnChild extends Entry {
 		private static final long serialVersionUID = 1L;
 		public static String FULL_TYPE = "full";
 		public static String SELF_TYPE = "self";
-		
+
 		private String name = "";
 		private String color = "";// eg:25,67,171;转成16进制rgb
 		private String type = "";// full显示所有数据；self显示自己的数据

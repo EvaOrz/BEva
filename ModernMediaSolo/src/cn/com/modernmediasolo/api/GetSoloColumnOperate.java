@@ -60,6 +60,13 @@ public class GetSoloColumnOperate extends BaseOperate {
 		item.setCname(jsonObject.optString("cname", ""));
 		item.setColor(transformColor(jsonObject.optString("color", "")));
 		item.setDisplayType(jsonObject.optInt("displayType", -1));
+		item.setColumnUpdateTime(jsonObject.optString("columnUpdateTime", "0"));
+		item.setArticleUpdateTime(jsonObject
+				.optString("articleUpdateTime", "0"));
+		parseProperty(jsonObject.optJSONObject("property"), item);
+		if (item.getProperty().getNoColumn() != 0) {
+			return;
+		}
 		JSONArray tagArr = jsonObject.optJSONArray("taglist");
 		if (!isNull(tagArr)) {
 			JSONObject tagObj;
@@ -75,8 +82,19 @@ public class GetSoloColumnOperate extends BaseOperate {
 				child.setType(tagObj.optString("type", "self"));
 				item.getList().add(child);
 			}
+		} else {
+			// TODO 如果当前独立栏目没有子栏目，那么默认添加一个type为full的子栏目，并且把toolbar去掉，即为跟普通栏目一样显示
+			SoloColumnChild child = new SoloColumnChild();
+			child.setType("full");
+			item.getList().add(child);
 		}
 		column.getList().add(item);
+	}
+
+	private void parseProperty(JSONObject obj, SoloColumnItem item) {
+		if (!isAdv(obj)) {
+			item.getProperty().setNoColumn(obj.optInt("noColumn"));
+		}
 	}
 
 	/**

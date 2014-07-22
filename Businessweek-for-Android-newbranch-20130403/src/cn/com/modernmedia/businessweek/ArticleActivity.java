@@ -59,6 +59,19 @@ public class ArticleActivity extends CommonSoloArticleActivity {
 	}
 
 	@Override
+	protected void hideIfAdv(boolean hide) {
+		if (hide) {
+			favBtn.setVisibility(View.GONE);
+			shareBtn.setVisibility(View.GONE);
+			fontBtn.setVisibility(View.GONE);
+		} else {
+			favBtn.setVisibility(View.VISIBLE);
+			shareBtn.setVisibility(View.VISIBLE);
+			fontBtn.setVisibility(View.VISIBLE);
+		}
+	}
+
+	@Override
 	protected View fetchView(FavoriteItem detail) {
 		View view;
 		int type = detail.getProperty().getType();
@@ -68,11 +81,11 @@ public class ArticleActivity extends CommonSoloArticleActivity {
 					mBundle.getArticleType() == ArticleType.Solo);
 		} else {
 			view = new ArticleDetailItem(this) {
-				
+
 				@Override
 				public void showGallery(List<String> urlList) {
 				}
-				
+
 				@Override
 				public int getBackGroundRes() {
 					return R.drawable.webview_bg;

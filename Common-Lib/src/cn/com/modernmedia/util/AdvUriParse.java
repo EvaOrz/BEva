@@ -44,7 +44,19 @@ public class AdvUriParse {
 		ArrayList<String> list = new ArrayList<String>();
 		if (TextUtils.isEmpty(uri))
 			return list;
-		String[] array = uri.split("slate://adv/");
+		if (uri.startsWith("slate://adv/")) {
+			String[] array = uri.split("slate://adv/");
+			parseArray(uri, array, list);
+		} else if (uri.startsWith("slate://")) {
+			// TODO 兼容老版本slate
+			String[] array = uri.split("slate://");
+			parseArray(uri, array, list);
+		}
+		return list;
+	}
+
+	private static void parseArray(String uri, String[] array,
+			ArrayList<String> list) {
 		if (array.length > 1) {
 			String[] param = array[1].split("/");
 			if (param.length == 1) {
@@ -53,10 +65,10 @@ public class AdvUriParse {
 			} else if (param.length > 1) {
 				if (param[0].equals("video")) {
 					// TODO 跳转到视频
+					// slate://adv/video/http://v.cdn.bb.bbwc.cn/bloomberg/2013/09/24/20130924175709349/20130924175709349.mp4
 					String[] videoPa = uri.split("video/");
 					if (videoPa.length == 2 && videoPa[1] != "") {
-						String path = array[1].split("/")[1].replace(".m3u8",
-								".mp4");//
+						String path = videoPa[1].replace(".m3u8", ".mp4");//
 						list.add(GOTO_VIDEO);
 						list.add(path);
 					}
@@ -83,7 +95,6 @@ public class AdvUriParse {
 				}
 			}
 		}
-		return list;
 	}
 
 	/**

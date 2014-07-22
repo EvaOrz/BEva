@@ -10,6 +10,7 @@ import cn.com.modernmedia.listener.FetchEntryListener;
 import cn.com.modernmedia.model.Atlas;
 import cn.com.modernmedia.model.Atlas.AtlasPicture;
 import cn.com.modernmedia.model.Issue;
+import cn.com.modernmedia.util.AdvTools;
 import cn.com.modernmedia.util.LogHelper;
 import cn.com.modernmedia.util.ParseUtil;
 import cn.com.modernmediaslate.model.Entry;
@@ -98,6 +99,7 @@ public abstract class CommonAtlasView extends BaseView {
 				ReadDb.getInstance(mContext).addReadArticle(detail.getId());
 				LogHelper.logAndroidShowArticle(mContext, detail.getCatid()
 						+ "", detail.getId() + "");
+				AdvTools.requestImpression(detail);
 			}
 		}
 	}
@@ -110,9 +112,23 @@ public abstract class CommonAtlasView extends BaseView {
 				pic.setUrl(thumb.getUrl());
 				pic.setTitle(pic.getTitle());
 				pic.setDesc(thumb.getDesc());
+				pic.setLink(thumb.getLink());
+				pic.setWidth(thumb.getWidth());
+				pic.setHeight(thumb.getHeight());
 				atlas.getList().add(pic);
 			}
 		}
 		return atlas;
 	}
+
+	public boolean ismIsSolo() {
+		return mIsSolo;
+	}
+
+	public void gotoArticle(int articleId) {
+		if (mContext instanceof CommonArticleActivity && articleId != -1) {
+			((CommonArticleActivity) mContext).moveToArticle(articleId);
+		}
+	}
+
 }

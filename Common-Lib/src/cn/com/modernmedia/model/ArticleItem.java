@@ -3,6 +3,8 @@ package cn.com.modernmedia.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.com.modernmedia.model.AdvList.AdvSource;
+import cn.com.modernmedia.model.AdvList.AdvTracker;
 import cn.com.modernmedia.model.CatIndexArticle.SoloColumnIndexItem;
 import cn.com.modernmedia.model.IndexArticle.Position;
 import cn.com.modernmediaslate.model.Entry;
@@ -30,7 +32,9 @@ public class ArticleItem extends Entry {
 	private String author = "";
 	private String outline = "";
 	private SoloColumnIndexItem soloItem = null;// 独立栏目
-	private Adv adv = new Adv();
+	private AdvSource advSource = null;// 广告
+	private boolean isAdv = false;
+	private AdvTracker advTracker = null;// 广告统计
 
 	public int getArticleId() {
 		return articleId;
@@ -136,12 +140,28 @@ public class ArticleItem extends Entry {
 		this.soloItem = soloItem;
 	}
 
-	public Adv getAdv() {
-		return adv;
+	public AdvSource getAdvSource() {
+		return advSource;
 	}
 
-	public void setAdv(Adv adv) {
-		this.adv = adv;
+	public void setAdvSource(AdvSource advSource) {
+		this.advSource = advSource;
+	}
+
+	public boolean isAdv() {
+		return isAdv;
+	}
+
+	public void setAdv(boolean isAdv) {
+		this.isAdv = isAdv;
+	}
+
+	public AdvTracker getAdvTracker() {
+		return advTracker;
+	}
+
+	public void setAdvTracker(AdvTracker advTracker) {
+		this.advTracker = advTracker;
 	}
 
 	/**

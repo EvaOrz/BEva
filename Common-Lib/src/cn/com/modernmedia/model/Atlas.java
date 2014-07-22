@@ -39,6 +39,9 @@ public class Atlas extends FavoriteItem {
 		private String url = "";
 		private String desc = "";
 		private String title = "";
+		private String link = "";
+		private int width;
+		private int height;
 
 		public int getArticleId() {
 			return articleId;
@@ -70,6 +73,30 @@ public class Atlas extends FavoriteItem {
 
 		public void setTitle(String title) {
 			this.title = title;
+		}
+
+		public String getLink() {
+			return link;
+		}
+
+		public void setLink(String link) {
+			this.link = link;
+		}
+
+		public int getWidth() {
+			return width;
+		}
+
+		public void setWidth(int width) {
+			this.width = width;
+		}
+
+		public int getHeight() {
+			return height;
+		}
+
+		public void setHeight(int height) {
+			this.height = height;
 		}
 
 	}

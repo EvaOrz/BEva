@@ -1,10 +1,8 @@
 package cn.com.modernmedia.api;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import cn.com.modernmedia.CommonApplication;
-import cn.com.modernmedia.model.Adv;
 import cn.com.modernmedia.model.Issue;
 import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmedia.util.DataHelper;
@@ -42,57 +40,8 @@ public class GetIssueOperate extends BaseOperate {
 		issue.setArticleUpdateTime(jsonObject.optLong("articleUpdateTime", -1));
 		issue.setFullPackage(jsonObject.optString("fullpackage", ""));
 		// CommonApplication.currentIssue = issue;
-		parseIssueAdv(jsonObject);
 		CommonApplication.currentIssueId = issue.getId();
 		compareData(issue);
-	}
-
-	/**
-	 * 解析广告
-	 * 
-	 * @param obj
-	 */
-	private void parseIssueAdv(JSONObject obj) {
-		JSONArray appadv = obj.optJSONArray("appadv");
-		if (isNull(appadv)) {
-			// 如果没有appadv，清空appadv广告
-			setAd(null, true);
-			return;
-		}
-		JSONObject advappObj = appadv.optJSONObject(0);
-		if (isNull(advappObj)) {
-			// 如果没有advappObj，清空appadv广告
-			setAd(null, true);
-			return;
-		}
-		Adv adv = issue.getAdv();
-		adv.getColumnAdv().setId(advappObj.optInt("id", 0));
-		adv.getColumnAdv().setStartTime(advappObj.optString("starttime", ""));
-		adv.getColumnAdv().setEndTime(advappObj.optString("endtime", ""));
-		JSONArray picture_h = advappObj.optJSONArray("picture_h");
-		if (!isNull(picture_h)) {
-			JSONObject pictureObj = picture_h.optJSONObject(0);
-			if (!isNull(pictureObj))
-				adv.getColumnAdv().setUrl(pictureObj.optString("url", ""));
-		}
-		setAd(adv, false);
-	}
-
-	private void setAd(Adv adv, boolean clear) {
-		if (getmContext() != null) {
-			if (clear || adv == null) {
-				DataHelper.setStartTime(getmContext(), "");
-				DataHelper.setEndTime(getmContext(), "");
-				DataHelper.setAdvPic(getmContext(), "");
-			} else {
-				DataHelper.setStartTime(getmContext(), adv.getColumnAdv()
-						.getStartTime());
-				DataHelper.setEndTime(getmContext(), adv.getColumnAdv()
-						.getEndTime());
-				DataHelper
-						.setAdvPic(getmContext(), adv.getColumnAdv().getUrl());
-			}
-		}
 	}
 
 	/**

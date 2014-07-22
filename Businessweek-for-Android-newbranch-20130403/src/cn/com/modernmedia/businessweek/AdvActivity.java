@@ -34,5 +34,4 @@ public class AdvActivity extends CommonAdvActivity {
 		return MainActivity.class;
 	}
 
-
 }

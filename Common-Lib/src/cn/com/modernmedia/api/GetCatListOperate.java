@@ -69,12 +69,13 @@ public class GetCatListOperate extends BaseOperate {
 			int parentId = obj.optInt("parentId", -1);
 			item.setParentId(parentId);
 			item.setLink(obj.optString("link", ""));
+			parseProperty(obj.optJSONObject("property"), item);
 			int soloCatId = ModernMediaTools.isSoloCat(item.getLink());
 			item.setSoloCat(soloCatId != -1);
 			if (soloCatId != -1) {
 				DataHelper.soloCatMap.put(item.getId(), soloCatId);
 			}
-			if (item.getDisplayType() == 1 || item.getDisplayType() == 3) {
+			if (item.getProperty().getNoColumn() == 0) {
 				cat.getList().add(item);
 				cat.getIdList().add(String.valueOf(item.getId()));
 				if (ConstData.getAppId() == 1
@@ -99,6 +100,12 @@ public class GetCatListOperate extends BaseOperate {
 		}
 	}
 
+	private void parseProperty(JSONObject obj, CatItem item) {
+		if (!isNull(obj)) {
+			item.getProperty().setNoColumn(obj.optInt("noColumn"));
+		}
+	}
+
 	/**
 	 * 解析column对应的箭头
 	 * 
@@ -112,8 +119,10 @@ public class GetCatListOperate extends BaseOperate {
 			object = array.optJSONObject(i);
 			if (isNull(object))
 				continue;
-			url = object.optString("url", "");
-			break;
+			url += object.optString("url", "") + Cat.SPLITE;
+		}
+		if (url.length() > Cat.SPLITE.length()) {
+			url = url.substring(0, url.length() - Cat.SPLITE.length());
 		}
 		return url;
 	}

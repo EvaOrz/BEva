@@ -1,6 +1,7 @@
 package cn.com.modernmedia;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import android.annotation.SuppressLint;
@@ -11,6 +12,9 @@ import cn.com.modernmedia.CommonMainActivity.UseCacheCallBack;
 import cn.com.modernmedia.api.OperateController;
 import cn.com.modernmedia.listener.FetchEntryListener;
 import cn.com.modernmedia.listener.LoadIssueType;
+import cn.com.modernmedia.model.AdvList;
+import cn.com.modernmedia.model.AdvList.AdvItem;
+import cn.com.modernmedia.model.AdvList.AdvSource;
 import cn.com.modernmedia.model.Cat;
 import cn.com.modernmedia.model.IndexArticle;
 import cn.com.modernmedia.model.Issue;
@@ -19,6 +23,7 @@ import cn.com.modernmedia.util.DataHelper;
 import cn.com.modernmedia.util.ModernMediaTools;
 import cn.com.modernmedia.util.PageTransfer.TransferArticle;
 import cn.com.modernmedia.util.ParseUtil;
+import cn.com.modernmedia.util.PrintHelper;
 import cn.com.modernmedia.util.UpdateManager;
 import cn.com.modernmedia.util.UpdateManager.CheckVersionListener;
 import cn.com.modernmedia.util.ViewPreviousIssue.FetchPreviousIssueCallBack;
@@ -62,7 +67,7 @@ public class MainProcess {
 		}
 		// 从首页进来
 		if (CommonApplication.CHANNEL.equals("googleplay") || isFirst) {
-//			ModernMediaTools.showLoading(mContext, true);
+			ModernMediaTools.showLoading(mContext, true);
 			((CommonMainActivity) mContext).getIssue(!isFirst);
 		} else {
 			checkVersion();
@@ -133,29 +138,25 @@ public class MainProcess {
 				CommonApplication.isFetchPush = false;
 				CommonApplication.hasNewIssue = false;
 				((CommonMainActivity) mContext).setCurrentViewIssueId(-1);
-				getCatList();
+				getAdvList();
 			} else {
 				if (CommonApplication.hasNewIssue) {
 					if (mContext != null) {
-						try {
-							if (getIssueType() == LoadIssueType.NORMAL)
-								((CommonMainActivity) mContext).showDialog(0);
-							else if (getIssueType() == LoadIssueType.PULL)
-								((CommonMainActivity) mContext).showDialog(2);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
+						if (getIssueType() == LoadIssueType.NORMAL)
+							((CommonMainActivity) mContext).showDialog(0);
+						else if (getIssueType() == LoadIssueType.PULL)
+							((CommonMainActivity) mContext).showDialog(2);
 					}
 				} else {
 					if (getIssueType() == LoadIssueType.PULL) {
 						if (!CommonApplication.columnUpdateTimeSame) {
-							getCatList();
+							getAdvList();
 						} else {
 							((CommonMainActivity) mContext)
 									.onRefreshComplete(true);
 						}
 					} else {
-						getCatList();
+						getAdvList();
 					}
 				}
 			}
@@ -170,6 +171,29 @@ public class MainProcess {
 	}
 
 	/**
+	 * 获取广告资源
+	 */
+	public void getAdvList() {
+		errorType = 7;
+		mController.getAdvList(((CommonMainActivity) mContext).isUsingCache(),
+				new FetchEntryListener() {
+
+					@Override
+					public void setData(Entry entry) {
+						if (entry instanceof AdvList) {
+							AdvList advList = (AdvList) entry;
+							CommonApplication.advList = advList;
+							// 下载进版广告
+							downloadRuBan(advList);
+							getCatList();
+						} else {
+							fecthError();
+						}
+					}
+				});
+	}
+
+	/**
 	 * 获取最新一期的栏目列表
 	 * 
 	 * @param isPull
@@ -178,10 +202,6 @@ public class MainProcess {
 	 */
 	public void getCatList() {
 		errorType = 2;
-		if (issue != null)
-			// 下载进版广告
-			CommonApplication.getImageDownloader().download(
-					issue.getAdv().getColumnAdv().getUrl());
 		mController.getCatList(issue, new FetchEntryListener() {
 
 			@Override
@@ -347,6 +367,26 @@ public class MainProcess {
 		return ModernMediaTools.getCatPosition(catId, cat);
 	}
 
+	/**
+	 * 下载入版广告
+	 * 
+	 * @param advList
+	 */
+	private void downloadRuBan(AdvList advList) {
+		Map<Integer, List<AdvItem>> advMap = advList.getAdvMap();
+		if (!advMap.isEmpty() && advMap.containsKey(AdvList.RU_BAN)) {
+			if (ParseUtil.listNotNull(advMap.get(AdvList.RU_BAN))) {
+				for (AdvItem item : advMap.get(AdvList.RU_BAN)) {
+					for (AdvSource pic : item.getSourceList()) {
+						PrintHelper.print("down_ruban===" + pic.getUrl());
+						CommonApplication.getImageDownloader().download(
+								pic.getUrl());
+					}
+				}
+			}
+		}
+	}
+
 	public int reLoadData() {
 		if (isFirstIn())
 			showMainProcess(1);
@@ -367,6 +407,9 @@ public class MainProcess {
 			return 5;
 		case 6:
 			return 6;
+		case 7:
+			getAdvList();
+			break;
 		default:
 			break;
 		}

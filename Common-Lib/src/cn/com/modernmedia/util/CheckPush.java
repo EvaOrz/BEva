@@ -86,11 +86,7 @@ public class CheckPush {
 			pushCatId = catId;
 			setPushIds(pushArticleId, pushCatId);
 			if (isInstanceofMain())
-				try {
-					((CommonMainActivity) mContext).showDialog(1);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+				((CommonMainActivity) mContext).showDialog(1);
 		} else {
 			// (如果用户本地的缓存id与服务器推送消息的一致，那么获取相关推送数据)
 			pushArticleId = articleId;

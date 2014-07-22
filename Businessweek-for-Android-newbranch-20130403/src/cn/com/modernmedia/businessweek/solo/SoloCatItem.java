@@ -18,6 +18,7 @@ import cn.com.modernmedia.businessweek.widget.IndexHeadView;
 import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.model.CatIndexArticle;
 import cn.com.modernmedia.model.SoloColumn.SoloColumnChild;
+import cn.com.modernmedia.util.AdvTools;
 import cn.com.modernmedia.util.DataHelper;
 import cn.com.modernmedia.util.LogHelper;
 import cn.com.modernmedia.util.ParseUtil;
@@ -80,6 +81,7 @@ public class SoloCatItem extends BaseView implements FetchSoloListener {
 								item.getArticleId() + "", item.getCatId() + "");
 						BusinessweekTools.clickSlate(SoloCatItem.this,
 								mContext, item, ArticleType.Solo);
+						AdvTools.requestClick(item);
 					}
 				}
 			}
@@ -169,13 +171,13 @@ public class SoloCatItem extends BaseView implements FetchSoloListener {
 			headView.setPadding(0, 0, 0, 0);
 			headView.invalidate();
 			headView.setSoloData(mSoloHeadIndex);
-			childSize = mSoloHeadIndex.size();
 		} else {
 			if (!ParseUtil.listNotNull(headView.getDataList())) {
 				headView.setPadding(0, -MyApplication.width / 2, 0, 0);
 				headView.invalidate();
 			}
 		}
+		childSize = mSoloHeadIndex.size();
 		listView.setItemCount(adapter.getCount());
 	}
 

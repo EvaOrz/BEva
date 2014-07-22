@@ -16,6 +16,7 @@ import cn.com.modernmedia.businessweek.MyApplication;
 import cn.com.modernmedia.businessweek.R;
 import cn.com.modernmedia.businessweek.unit.BusinessweekTools;
 import cn.com.modernmedia.db.ReadDb;
+import cn.com.modernmedia.model.AdvList.AdvSource;
 import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.util.DataHelper;
 import cn.com.modernmedia.util.LogHelper;
@@ -61,6 +62,10 @@ public class IndexAdapter extends BaseIndexAdapter {
 					.findViewById(R.id.index_item_more);
 			holder.moreRl = (RelativeLayout) convertView
 					.findViewById(R.id.index_item_more_rl);
+			holder.content = (RelativeLayout) convertView
+					.findViewById(R.id.index_item_content);
+			holder.advImg = (ImageView) convertView
+					.findViewById(R.id.index_item_adv_img);
 			convertView.setBackgroundColor(Color.WHITE);
 			convertView.setTag(holder);
 		} else {
@@ -76,6 +81,18 @@ public class IndexAdapter extends BaseIndexAdapter {
 					DataHelper.columnTitleMap.get(item.getCatId())));
 		} else {
 			holder.moreRl.setVisibility(View.GONE);
+		}
+		// is adv?
+		holder.content.setVisibility(item.isAdv() ? View.GONE : View.VISIBLE);
+		holder.advImg.setVisibility(item.isAdv() ? View.VISIBLE : View.GONE);
+		if (item.isAdv()) {
+			holder.advImg.getLayoutParams().width = MyApplication.width;
+			AdvSource advPic = item.getAdvSource();
+			if (advPic != null && advPic.getWidth() > 0) {
+				holder.advImg.getLayoutParams().height = advPic.getHeight()
+						* MyApplication.width / advPic.getWidth();
+				downloader.download(advPic.getUrl(), holder.advImg);
+			}
 		}
 		if (hasInitDesc(position)) {
 			holder.desc.setText(item.getDesc());
@@ -134,9 +151,9 @@ public class IndexAdapter extends BaseIndexAdapter {
 	}
 
 	private class ViewHolder {
-		RelativeLayout titleBar, moreRl;
+		RelativeLayout titleBar, moreRl, content;
 		TextView column, title, desc, more;
-		ImageView image, right;
+		ImageView image, right, advImg;
 	}
 
 }

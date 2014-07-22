@@ -7,17 +7,22 @@ import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import cn.com.modernmedia.adapter.MyPagerAdapter.OnItemClickListener;
 import cn.com.modernmedia.businessweek.MyApplication;
 import cn.com.modernmedia.businessweek.R;
 import cn.com.modernmedia.businessweek.adapter.AtlasAdapter;
 import cn.com.modernmedia.listener.NotifyArticleDesListener;
+import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.model.Atlas;
 import cn.com.modernmedia.model.Atlas.AtlasPicture;
 import cn.com.modernmedia.util.ParseUtil;
+import cn.com.modernmedia.util.UriParse;
 import cn.com.modernmedia.widget.AtlasViewPager;
+import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediasolo.widget.SoloAltasView;
 
 /**
@@ -85,6 +90,14 @@ public class AtlasView extends SoloAltasView {
 		if (ParseUtil.listNotNull(list)) {
 			adapter = new AtlasAdapter(mContext);
 			adapter.setData(list);
+			adapter.setOnItemClickListener(new OnItemClickListener() {
+
+				@Override
+				public void onItemClick(View view, int position) {
+					UriParse.clickSlate(mContext, list.get(position).getLink(),
+							new Entry[] { new ArticleItem() }, AtlasView.this);
+				}
+			});
 			pager.setAdapter(adapter);
 			pager.setValue(list.size());
 			pager.setListener(listener);

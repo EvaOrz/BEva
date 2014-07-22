@@ -15,7 +15,6 @@ public class Issue extends Entry {
 	private long columnUpdateTime;// 列表页最新更新时间
 	private long articleUpdateTime;// 最近更新的文章的更新时间
 	private String fullPackage = "";// 完全包地址
-	private Adv adv = new Adv();
 
 	public Issue() {
 	}
@@ -64,14 +63,6 @@ public class Issue extends Entry {
 
 	public void setFullPackage(String fullPackage) {
 		this.fullPackage = fullPackage;
-	}
-
-	public Adv getAdv() {
-		return adv;
-	}
-
-	public void setAdv(Adv adv) {
-		this.adv = adv;
 	}
 
 }

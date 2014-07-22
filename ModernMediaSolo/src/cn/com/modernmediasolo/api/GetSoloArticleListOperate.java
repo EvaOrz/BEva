@@ -5,6 +5,7 @@ import java.util.List;
 import android.content.Context;
 import cn.com.modernmedia.api.GetArticleListOperate;
 import cn.com.modernmediaslate.model.Favorite.FavoriteItem;
+import cn.com.modernmediasolo.SoloApplication;
 import cn.com.modernmediasolo.db.SoloArticleListDb;
 
 /**
@@ -20,7 +21,8 @@ public class GetSoloArticleListOperate extends GetArticleListOperate {
 	public GetSoloArticleListOperate(Context context, String catId,
 			String fromOffset, String toOffset, boolean fromNet,
 			boolean fetchNew) {
-		super(context, catId, fromOffset, toOffset, fetchNew);
+		super(context, catId, fromOffset, toOffset, SoloApplication.soloColumn,
+				fetchNew);
 		db = SoloArticleListDb.getInstance(context);
 		// 是否是网络请求(false：读取数据库数据，不执行addToDb操作)
 		mFromNet = true;

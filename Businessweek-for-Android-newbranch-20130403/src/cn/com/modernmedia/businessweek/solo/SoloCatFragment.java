@@ -41,7 +41,7 @@ public class SoloCatFragment extends BaseFragment implements
 	private static final int DURATION = 250;
 	private Context mContext;
 	private AtlasViewPager viewPager;
-	private LinearLayout toolbar;
+	private LinearLayout toolbar, childImgLl, childToolBg;
 	private ImageView tag;
 	private List<SoloColumnChild> childColumnList;// 子栏目列表
 	private int parentId = -1;
@@ -65,7 +65,9 @@ public class SoloCatFragment extends BaseFragment implements
 		viewPager = (AtlasViewPager) view.findViewById(R.id.child_viewpager);
 		viewPager.setListener(this);
 		viewPager.setOffscreenPageLimit(10);
+		childImgLl = (LinearLayout) view.findViewById(R.id.child_img_ll);
 		toolbar = (LinearLayout) view.findViewById(R.id.child_toolbar);
+		childToolBg = (LinearLayout) view.findViewById(R.id.child_tool_bg_ll);
 		tag = (ImageView) view.findViewById(R.id.child_tag_bg);
 		if (mContext instanceof MainActivity) {
 			((MainActivity) mContext).setScrollView(1, viewPager);
@@ -85,10 +87,16 @@ public class SoloCatFragment extends BaseFragment implements
 		toolbar.removeAllViews();
 		tag.setVisibility(View.GONE);
 		childColumnList = ((MainActivity) mContext).getChild(parentId);
-		if (ParseUtil.listNotNull(childColumnList))
+		if (ParseUtil.listNotNull(childColumnList)
+				&& childColumnList.size() > 1) {
+			childImgLl.setVisibility(View.VISIBLE);
+			childToolBg.setVisibility(View.VISIBLE);
 			initToolBar();
-		else
+		} else {
 			toolbar.setVisibility(View.GONE);
+			childImgLl.setVisibility(View.GONE);
+			childToolBg.setVisibility(View.GONE);
+		}
 		ChildPagerAdapter adapter = new ChildPagerAdapter();
 		viewPager.setAdapter(adapter);
 		viewPager.setValue(childColumnList.size());

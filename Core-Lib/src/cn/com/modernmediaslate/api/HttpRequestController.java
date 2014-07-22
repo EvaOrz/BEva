@@ -171,6 +171,7 @@ public class HttpRequestController {
 						fetchLocalDataInBadNet();
 					}
 				} catch (Exception e) {
+					System.out.println(url);
 					e.printStackTrace();
 					fetchLocalDataInBadNet();
 				} finally {

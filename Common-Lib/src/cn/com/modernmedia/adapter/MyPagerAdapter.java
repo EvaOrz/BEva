@@ -94,9 +94,9 @@ public class MyPagerAdapter extends PagerAdapter {
 	public View fetchView(ArticleItem item) {
 		String url = "";
 		if (item != null) {
-			if (item.getAdv().getAdvProperty().getIsadv() == 1) {
+			if (item.getAdvSource() != null) {
 				// 广告
-				url = item.getAdv().getColumnAdv().getUrl();
+				url = item.getAdvSource().getUrl();
 			}
 			if (TextUtils.isEmpty(url)) {
 				List<String> list = item.getPictureList();

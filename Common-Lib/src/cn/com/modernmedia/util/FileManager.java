@@ -57,7 +57,7 @@ public class FileManager {
 		String imagePath = getDefaultPath() + ConstData.DEFAULT_IMAGE_PATH;
 		File file = new File(imagePath);
 		if (!file.exists()) {
-			file.mkdirs();
+			file.mkdir();
 		}
 		File picPath = new File(imagePath + file_name);
 		BufferedOutputStream bos = null;
@@ -95,7 +95,7 @@ public class FileManager {
 		String imagePath = getDefaultPath() + ConstData.DEFAULT_IMAGE_PATH;
 		File file = new File(imagePath);
 		if (!file.exists()) {
-			file.mkdir();
+			file.mkdirs();
 		}
 		File picPath = new File(imagePath + file_name);
 		BufferedOutputStream bos = null;

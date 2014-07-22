@@ -15,6 +15,10 @@ import cn.com.modernmediaslate.model.Entry;
 @SuppressLint("UseSparseArrays")
 public class Cat extends Entry {
 	private static final long serialVersionUID = 1L;
+	/**
+	 * 栏目中父栏目和子栏目有两张图，根据SPLITE分隔(第一个元素为子栏目，第二个元素为父栏目)
+	 */
+	public static final String SPLITE = "###";
 	private List<CatItem> list = new ArrayList<CatItem>();
 	/**
 	 * 栏目id列表(用来判断是否需要显示广告)
@@ -53,6 +57,7 @@ public class Cat extends Entry {
 		private String tagname = "";// 子栏目显示在tag上的名字
 		private String link = "";// slate
 		private boolean isSoloCat;// 是否是独立栏目
+		private CatProperty property = new CatProperty();// 弃用displayType
 
 		public int getId() {
 			return id;
@@ -166,6 +171,45 @@ public class Cat extends Entry {
 			this.isSoloCat = isSoloCat;
 		}
 
+		public CatProperty getProperty() {
+			return property;
+		}
+
+		public void setProperty(CatProperty property) {
+			this.property = property;
+		}
+
 	}
 
+	public static class CatProperty extends Entry {
+		private static final long serialVersionUID = 1L;
+		private int noColumn;// 0.显示。1.不显示
+		private int noMenuBar;
+		private int noLeftMenu;
+
+		public int getNoColumn() {
+			return noColumn;
+		}
+
+		public void setNoColumn(int noColumn) {
+			this.noColumn = noColumn;
+		}
+
+		public int getNoMenuBar() {
+			return noMenuBar;
+		}
+
+		public void setNoMenuBar(int noMenuBar) {
+			this.noMenuBar = noMenuBar;
+		}
+
+		public int getNoLeftMenu() {
+			return noLeftMenu;
+		}
+
+		public void setNoLeftMenu(int noLeftMenu) {
+			this.noLeftMenu = noLeftMenu;
+		}
+
+	}
 }

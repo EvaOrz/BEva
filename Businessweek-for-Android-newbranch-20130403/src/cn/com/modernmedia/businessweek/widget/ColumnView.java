@@ -72,7 +72,6 @@ public class ColumnView extends LinearLayout implements FetchEntryListener {
 			}
 		});
 
-		// 关于
 		View aboutView = footerView.findViewById(R.id.column_footview_about);
 		((Button) aboutView.findViewById(R.id.cloumn_item_color))
 				.setBackgroundColor(Color.BLUE);
@@ -92,7 +91,6 @@ public class ColumnView extends LinearLayout implements FetchEntryListener {
 						R.anim.hold);
 			}
 		});
-
 		// 应用推荐
 		View recommendView = footerView
 				.findViewById(R.id.column_footview_recommend);

@@ -33,6 +33,7 @@ import cn.com.modernmedia.util.LogHelper;
 import cn.com.modernmedia.util.ModernMediaTools;
 import cn.com.modernmedia.util.PageTransfer.TransferArticle;
 import cn.com.modernmedia.util.ParseUtil;
+import cn.com.modernmedia.widget.ArticleDetailItem;
 import cn.com.modernmedia.widget.AtlasViewPager;
 import cn.com.modernmedia.widget.CommonAtlasView;
 import cn.com.modernmedia.widget.CommonViewPager;
@@ -66,6 +67,7 @@ public abstract class CommonArticleActivity extends BaseActivity implements
 	private BindFavToUserListener bindFavToUserListener;
 	protected Button backBtn, favBtn, fontBtn, shareBtn;
 	private boolean isHide = false;
+	private ArticleDetailItem currentDetailItem;
 	private HideTitleBarListener hideListener = new HideTitleBarListener() {
 
 		@Override
@@ -195,15 +197,16 @@ public abstract class CommonArticleActivity extends BaseActivity implements
 						viewPager.setCurrentItem(1, false);// 其实是第一个view
 					}
 				}
-				int type = list.get(position).getProperty().getType();
+				FavoriteItem item = list.get(position);
+				int type = item.getProperty().getType();
 				hideFont(type == 2);
+				hideIfAdv(item.isAdv());
 				changeFav(position);
-				currentUrl = list.get(position).getLink();
+				currentUrl = item.getLink();
 				if (loadOkUrl.contains(currentUrl)) {
-					readDb.addReadArticle(list.get(position).getId());
-					LogHelper.logAndroidShowArticle(mContext, list
-							.get(position).getCatid() + "", list.get(position)
-							.getId() + "");
+					readDb.addReadArticle(item.getId());
+					LogHelper.logAndroidShowArticle(mContext, item.getCatid()
+							+ "", item.getId() + "");
 				}
 			}
 
@@ -671,6 +674,8 @@ public abstract class CommonArticleActivity extends BaseActivity implements
 				viewPager.setPager(null);
 			}
 			currentPosition = position;
+			if (object instanceof ArticleDetailItem)
+				currentDetailItem = (ArticleDetailItem) object;
 		}
 
 	}
@@ -683,11 +688,18 @@ public abstract class CommonArticleActivity extends BaseActivity implements
 	protected abstract void changeFavBtn(boolean isFavEd);
 
 	/**
-	 * 是否隐藏字体按钮(图集隐藏)
+	 * 是否隐藏字体按钮(图集)
 	 * 
 	 * @param hide
 	 */
 	protected abstract void hideFont(boolean hide);
+
+	/**
+	 * 是否隐藏titleBar按钮(广告文章隐藏)
+	 * 
+	 * @param hide
+	 */
+	protected abstract void hideIfAdv(boolean hide);
 
 	/**
 	 * 获取文章view
@@ -734,6 +746,10 @@ public abstract class CommonArticleActivity extends BaseActivity implements
 
 	public HideTitleBarListener getHideListener() {
 		return hideListener;
+	}
+
+	public ArticleDetailItem getCurrentDetailItem() {
+		return currentDetailItem;
 	}
 
 	@Override

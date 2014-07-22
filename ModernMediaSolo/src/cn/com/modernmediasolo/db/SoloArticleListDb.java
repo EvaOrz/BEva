@@ -16,6 +16,7 @@ import cn.com.modernmedia.db.MyDBHelper;
 import cn.com.modernmedia.model.ArticleList;
 import cn.com.modernmedia.model.ArticleList.ArticleColumnList;
 import cn.com.modernmediaslate.model.Favorite.FavoriteItem;
+import cn.com.modernmediasolo.SoloApplication;
 import cn.com.modernmediasolo.unit.SoloHelper;
 
 /**
@@ -76,10 +77,11 @@ public class SoloArticleListDb extends SQLiteOpenHelper {
 			String toOffset, boolean containFL, boolean limit) {
 		SQLiteDatabase db = this.getReadableDatabase();
 		GetArticleListOperate operate = new GetArticleListOperate(mContext,
-				"0", fromOffset, toOffset, true);
+				"0", fromOffset, toOffset, SoloApplication.soloColumn, true);
 		ArticleList articleList = operate.getArticleList();
 		List<String> catIds = new ArrayList<String>();
 		catIds.add(String.valueOf(parentId));
+		operate.initAdv("0", catIds);
 		Cursor cursor = null;
 		try {
 			cursor = db.query(
@@ -140,9 +142,9 @@ public class SoloArticleListDb extends SQLiteOpenHelper {
 							+ SoloHelper.checkSelection(fromOffset, toOffset,
 									OFFSET, true), null);
 			for (FavoriteItem item : list) {
-				db.delete(TABLE_NAME, ID + "=? and " + PARENTID + "=?",
-						new String[] { item.getId() + "", parentId + "" });
-				db.insert(TABLE_NAME, null, createContentValues(parentId, item));
+				if (!item.isAdv())
+					db.insert(TABLE_NAME, null,
+							createContentValues(parentId, item));
 			}
 			db.setTransactionSuccessful();
 			db.endTransaction();

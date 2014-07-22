@@ -14,7 +14,7 @@ import cn.com.modernmedia.api.GetCatIndexOperate;
 import cn.com.modernmedia.db.MyDBHelper;
 import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.model.CatIndexArticle;
-import cn.com.modernmedia.model.SoloColumn;
+import cn.com.modernmediasolo.SoloApplication;
 import cn.com.modernmediasolo.unit.SoloHelper;
 
 /**
@@ -69,11 +69,11 @@ public class SoloDb extends SQLiteOpenHelper {
 	 * @return
 	 */
 	public CatIndexArticle getSoloIndexByOffset(int parentId,
-			String fromOffset, String toOffset, SoloColumn soloColumn,
-			boolean limit, int position) {
+			String fromOffset, String toOffset, boolean limit, int position) {
 		SQLiteDatabase db = this.getReadableDatabase();
 		GetCatIndexOperate operate = new GetCatIndexOperate(mContext, parentId
-				+ "", fromOffset, toOffset, soloColumn, position);
+				+ "", fromOffset, toOffset, SoloApplication.soloColumn,
+				position);
 		CatIndexArticle index = operate.getCatIndexArticle();
 		index.setId(parentId);
 		Cursor cursor = null;
@@ -103,7 +103,7 @@ public class SoloDb extends SQLiteOpenHelper {
 				}
 			}
 			index.setHeadMap(SoloFocusDb.getInstance(mContext).getArticleItem(
-					parentId, soloColumn, position));
+					parentId, position));
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

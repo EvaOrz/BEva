@@ -28,9 +28,6 @@ public class DataHelper {
 	private static final String ARTICLE_UPDATE_TIME = "articleUpdateTime_";
 	private static final String DOWN = "down";
 	private static final String UPDATE = "update";
-	private static final String START_TIME = "start_time";
-	private static final String END_TIME = "end_time";
-	private static final String ADV_PIC = "adv_pic";
 	private static final String LINE_HEIGHT = "line_height";// webview行间距
 	private static final String INDEX_UPDATE_TIME = "index_update_time_";// 首页、栏目首页更新时间
 	private static final String PUSH = "push";
@@ -330,67 +327,4 @@ public class DataHelper {
 		editor.commit();
 	}
 
-	/**
-	 * 进版首页广告图开始时间
-	 * 
-	 * @return
-	 */
-	public static String getStartTime(Context context) {
-		return getPref(context).getString(START_TIME, "");
-	}
-
-	/**
-	 * 设置进版首页广告图开始时间
-	 * 
-	 * @param context
-	 * @param time
-	 */
-	public static void setStartTime(Context context, String time) {
-		Editor editor = getPref(context).edit();
-		editor.putString(START_TIME, time);
-		editor.commit();
-	}
-
-	/**
-	 * 进版首页广告图结束时间
-	 * 
-	 * @return
-	 */
-	public static String getEndTime(Context context) {
-		return getPref(context).getString(END_TIME, "");
-	}
-
-	/**
-	 * 设置进版首页广告图结束时间
-	 * 
-	 * @param context
-	 * @param time
-	 */
-	public static void setEndTime(Context context, String time) {
-		Editor editor = getPref(context).edit();
-		editor.putString(END_TIME, time);
-		editor.commit();
-	}
-
-	/**
-	 * 获取进版广告图
-	 * 
-	 * @param context
-	 * @return
-	 */
-	public static String getAdvPic(Context context) {
-		return getPref(context).getString(ADV_PIC, "");
-	}
-
-	/**
-	 * 设置进版广告图
-	 * 
-	 * @param context
-	 * @param time
-	 */
-	public static void setAdvPic(Context context, String url) {
-		Editor editor = getPref(context).edit();
-		editor.putString(ADV_PIC, url);
-		editor.commit();
-	}
 }

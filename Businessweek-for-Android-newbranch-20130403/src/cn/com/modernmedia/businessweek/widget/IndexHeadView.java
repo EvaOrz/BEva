@@ -24,6 +24,7 @@ import cn.com.modernmedia.listener.NotifyArticleDesListener;
 import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.model.CatIndexArticle;
 import cn.com.modernmedia.model.IndexArticle;
+import cn.com.modernmedia.util.AdvTools;
 import cn.com.modernmedia.util.LogHelper;
 import cn.com.modernmedia.util.ParseUtil;
 import cn.com.modernmedia.widget.BaseView;
@@ -78,6 +79,7 @@ public class IndexHeadView extends BaseView implements FetchEntryListener {
 					}
 				}
 				LogHelper.lodAndroidShowHeadline(position);
+				AdvTools.requestImpression(item);
 			}
 
 		}
@@ -191,6 +193,7 @@ public class IndexHeadView extends BaseView implements FetchEntryListener {
 										position--;
 									}
 									LogHelper.logAndroidTouchHeadline(position);
+									AdvTools.requestClick(item);
 								}
 								BusinessweekTools.clickSlate(
 										IndexHeadView.this, mContext, item,

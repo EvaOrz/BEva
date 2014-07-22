@@ -16,7 +16,7 @@ import cn.com.modernmedia.api.GetCatIndexOperate;
 import cn.com.modernmedia.db.MyDBHelper;
 import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.model.CatIndexArticle;
-import cn.com.modernmedia.model.SoloColumn;
+import cn.com.modernmediasolo.SoloApplication;
 
 /**
  * 独立栏目焦点图db
@@ -69,10 +69,10 @@ public class SoloFocusDb extends SQLiteOpenHelper {
 	 * @return
 	 */
 	public HashMap<String, List<ArticleItem>> getArticleItem(int parentId,
-			SoloColumn soloColumn, int position) {
+			int position) {
 		SQLiteDatabase db = this.getReadableDatabase();
 		GetCatIndexOperate operate = new GetCatIndexOperate(mContext, parentId
-				+ "", "0", "0", soloColumn, position);
+				+ "", "0", "0", SoloApplication.soloColumn, position);
 		CatIndexArticle index = operate.getCatIndexArticle();
 		index.setId(parentId);
 		Cursor cursor = null;

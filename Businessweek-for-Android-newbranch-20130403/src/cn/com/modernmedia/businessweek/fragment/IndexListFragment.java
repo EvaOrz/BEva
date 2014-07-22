@@ -19,6 +19,7 @@ import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.model.CatIndexArticle;
 import cn.com.modernmedia.model.IndexArticle;
 import cn.com.modernmedia.model.IndexArticle.Today;
+import cn.com.modernmedia.util.AdvTools;
 import cn.com.modernmedia.util.LogHelper;
 import cn.com.modernmedia.util.ParseUtil;
 import cn.com.modernmedia.widget.PullToRefreshListView;
@@ -134,6 +135,7 @@ public class IndexListFragment extends BaseFragment implements
 				setValuesForWidget(indexArticle);
 				LogHelper.logAndroidShowHighlights();
 				listView.setCatId(0);
+				impressAdv(indexArticle.getImpressionUrlList());
 			} else if (entry instanceof CatIndexArticle) {
 				CatIndexArticle catIndexArticle = (CatIndexArticle) entry;
 				if (ParseUtil
@@ -149,6 +151,15 @@ public class IndexListFragment extends BaseFragment implements
 				LogHelper.logAndroidShowColumn(mContext,
 						catIndexArticle.getId() + "");
 				listView.setCatId(catIndexArticle.getId());
+				impressAdv(catIndexArticle.getImpressionUrlList());
+			}
+		}
+	}
+
+	private void impressAdv(List<String> impressionUrlList) {
+		if (ParseUtil.listNotNull(impressionUrlList)) {
+			for (String str : impressionUrlList) {
+				AdvTools.requestImpression(str);
 			}
 		}
 	}
