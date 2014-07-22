@@ -60,6 +60,7 @@ public class HttpRequestController {
 			this.url = url == null ? "" : url;
 			if (!TextUtils.isEmpty(url)) {
 				try {
+//					PrintHelper.logApi(url);
 					mUrl = new URL(url);
 				} catch (MalformedURLException e) {
 					e.printStackTrace();

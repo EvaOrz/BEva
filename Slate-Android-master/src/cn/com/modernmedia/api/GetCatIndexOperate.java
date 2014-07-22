@@ -53,6 +53,7 @@ public class GetCatIndexOperate extends BaseOperate {
 	@Override
 	protected void handler(JSONObject jsonObject) {
 		catIndexArticle.setId(jsonObject.optInt("id", -1));
+		parseTemplate(catIndexArticle, jsonObject);
 		JSONArray articleArr = jsonObject.optJSONArray("article");
 		if (!isNull(articleArr))
 			parseArticle(articleArr);
@@ -106,7 +107,7 @@ public class GetCatIndexOperate extends BaseOperate {
 					titleActicleList.add(item);
 				} else {
 					// 上周列表过滤掉广告
-					if (ConstData.APP_ID == 1
+					if (ConstData.getAppId() == 1
 							&& adv.getAdvProperty().getIsadv() == 1)
 						continue;
 					articleItemList.add(item);

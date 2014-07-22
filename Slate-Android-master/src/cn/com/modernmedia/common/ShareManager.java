@@ -150,7 +150,8 @@ public class ShareManager {
 		// });//收件人
 		i.putExtra(Intent.EXTRA_SUBJECT, share.getTitle());
 		i.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(shareMessage));
-		((Activity) mContext).startActivity(Intent.createChooser(i, "邮件分享"));
+		((Activity) mContext).startActivity(Intent.createChooser(i,
+				mContext.getString(R.string.share_by_email)));
 	}
 
 	private void showLoading(boolean flag) {

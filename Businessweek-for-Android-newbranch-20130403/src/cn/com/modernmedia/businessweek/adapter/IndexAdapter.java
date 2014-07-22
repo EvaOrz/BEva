@@ -22,6 +22,7 @@ import cn.com.modernmedia.listener.ListScrollStateListener;
 import cn.com.modernmedia.listener.NotifyAdapterListener;
 import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.util.DataHelper;
+import cn.com.modernmedia.util.LogHelper;
 import cn.com.modernmedia.util.ParseUtil;
 
 /**
@@ -83,11 +84,7 @@ public class IndexAdapter extends ArrayAdapter<ArticleItem> {
 		descList.clear();
 		synchronized (list) {
 			for (ArticleItem item : list) {
-				if (DataHelper.columnTitleMap != null
-						&& DataHelper.columnTitleMap.containsKey(item
-								.getCatId())) {
-					add(item);
-				}
+				add(item);
 			}
 		}
 	}
@@ -172,6 +169,7 @@ public class IndexAdapter extends ArrayAdapter<ArticleItem> {
 					((MainActivity) mContext).showChildCat(item.getCatId());
 					((MainActivity) mContext).notifyColumnAdapter(item
 							.getCatId());
+					LogHelper.logAndroidTouchMorenews();
 				}
 			}
 		});
@@ -227,4 +225,5 @@ public class IndexAdapter extends ArrayAdapter<ArticleItem> {
 						imageView);
 		}
 	}
+
 }

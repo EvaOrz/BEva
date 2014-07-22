@@ -3,14 +3,12 @@ package cn.com.modernmedia.widget;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.text.TextUtils;
-import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import cn.com.modernmedia.CommonApplication;
 import cn.com.modernmedia.R;
-import cn.com.modernmedia.api.ImageDownloader;
 import cn.com.modernmedia.listener.ImageDownloadStateListener;
 
 /**
@@ -24,21 +22,15 @@ public class LoadingImage extends RelativeLayout implements
 	private Context mContext;
 	private ImageView imageView;
 	private RedProcess process;
-	private ImageDownloader downloader;
 	private String tag = "";
+	private int width, height;
 
-	public LoadingImage(Context context, String tag) {
+	public LoadingImage(Context context, String tag, int width, int height) {
 		super(context);
 		mContext = context;
-		downloader = CommonApplication.getImageDownloader();
 		this.tag = tag;
-		init();
-	}
-
-	public LoadingImage(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		mContext = context;
-		downloader = CommonApplication.getImageDownloader();
+		this.width = width;
+		this.height = height;
 		init();
 	}
 
@@ -56,7 +48,8 @@ public class LoadingImage extends RelativeLayout implements
 		loading();
 		if (TextUtils.isEmpty(url))
 			return;
-		downloader.downloadLoadingImage(url, imageView, this);
+		CommonApplication.getImageDownloader().download(url, imageView, width,
+				height, this);
 	}
 
 	@Override

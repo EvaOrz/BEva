@@ -1,5 +1,7 @@
 package cn.com.modernmedia.businessweek.widget;
 
+import java.util.List;
+
 import android.content.Context;
 import android.util.AttributeSet;
 import cn.com.modernmedia.businessweek.ArticleActivity;
@@ -24,5 +26,9 @@ public class MyWebView extends CommonWebView {
 		if (mContext instanceof ArticleActivity && articleId != -1) {
 			((ArticleActivity) mContext).moveToArticle(articleId);
 		}
+	}
+
+	@Override
+	public void showGallery(List<String> urlList) {
 	}
 }

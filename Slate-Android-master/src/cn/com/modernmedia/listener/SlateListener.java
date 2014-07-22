@@ -1,5 +1,7 @@
 package cn.com.modernmedia.listener;
 
+import java.util.List;
+
 import android.content.Intent;
 import cn.com.modernmedia.model.ArticleItem;
 
@@ -57,5 +59,5 @@ public interface SlateListener {
 	 * 
 	 * @param url
 	 */
-	public void gallery(String url);
+	public void gallery(List<String> urlList);
 }

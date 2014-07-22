@@ -15,10 +15,9 @@ public abstract class BaseFragment extends Fragment implements
 	public abstract void refresh();
 
 	// public void showView(boolean show) {
-	// if (this.getView() != null) {
+	// if (this.getView() != null)
 	// this.getView().setVisibility(show ? View.VISIBLE : View.GONE);
 	// }
-	// }
-	
+
 	public abstract void showView(boolean show);
 }

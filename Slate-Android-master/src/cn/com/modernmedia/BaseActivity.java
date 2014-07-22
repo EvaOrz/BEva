@@ -33,6 +33,7 @@ public abstract class BaseActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		addActivityToList();
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		flurryApiKey = ConstData.getFlurryApiKey();
 		CommonApplication app = (CommonApplication) getApplication();
@@ -41,6 +42,9 @@ public abstract class BaseActivity extends Activity {
 		}
 		if (TextUtils.isEmpty(CommonApplication.CHANNEL)) {
 			app.initChannel();
+		}
+		if (ConstData.getAppId() == 1) {
+			CommonApplication.getLocalLanguage();
 		}
 	}
 
@@ -169,10 +173,23 @@ public abstract class BaseActivity extends Activity {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
+		removeActivityFromList();
 	}
 
 	/**
 	 * 当页面出错时重新获取数据
 	 */
 	public abstract void reLoadData();
+
+	public void addActivityToList() {
+		CommonApplication.addActivity(getActivityName(), getActivity());
+	};
+
+	public void removeActivityFromList() {
+		CommonApplication.removeActivity(getActivityName());
+	}
+
+	public abstract String getActivityName();
+
+	public abstract Activity getActivity();
 }

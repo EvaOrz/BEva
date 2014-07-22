@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import cn.com.modernmedia.api.ImageDownloader;
 import cn.com.modernmedia.businessweek.MyApplication;
 import cn.com.modernmedia.businessweek.R;
@@ -61,6 +62,7 @@ public class AtlasAdapter extends PagerAdapter {
 			ImageView imageView = (ImageView) view
 					.findViewById(R.id.atlas_picture);
 			imageView.setBackgroundResource(R.drawable.placeholder);
+			imageView.setScaleType(ScaleType.CENTER);
 			downloader.download(url, imageView);
 			map.put(url, view);
 			container.addView(view);

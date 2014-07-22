@@ -89,6 +89,16 @@ public class GetArticleListOperate extends BaseOperate {
 			detail.setPagenum(obj.optInt("pagenum", -1));
 			detail.setUpdateTime(obj.optString("updateTime"));
 			detail.setCatId(catId);
+			detail.setDesc(obj.optString("desc", ""));
+			JSONArray thumbArr = obj.optJSONArray("thumb");
+			if (!isNull(thumbArr)) {
+				for (int j = 0; j < thumbArr.length(); j++) {
+					JSONObject thumbObj = thumbArr.optJSONObject(j);
+					if (isNull(thumbObj))
+						continue;
+					detail.getPictureList().add(thumbObj.optString("url", ""));
+				}
+			}
 			detail.setProperty(parseProperty(obj.optJSONObject("property")));
 			list.add(detail);
 		}

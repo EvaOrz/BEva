@@ -75,7 +75,7 @@ public class ChildCatItem extends BaseView {
 		}
 
 		@Override
-		public void gallery(String url) {
+		public void gallery(List<String> urlList) {
 		}
 
 		@Override

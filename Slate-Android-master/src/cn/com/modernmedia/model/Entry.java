@@ -8,6 +8,16 @@ import java.io.Serializable;
  * @author ZhuQiao
  * 
  */
-public class Entry implements Serializable{
+public class Entry implements Serializable {
 	private static final long serialVersionUID = 1L;
+	private String template = "";// Ä£°å
+
+	public String getTemplate() {
+		return template;
+	}
+
+	public void setTemplate(String template) {
+		this.template = template;
+	}
+
 }

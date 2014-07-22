@@ -6,6 +6,7 @@ import android.view.MotionEvent;
 import cn.com.modernmedia.CommonArticleActivity;
 import cn.com.modernmedia.db.ReadDb;
 import cn.com.modernmedia.model.ArticleList.ArticleDetail;
+import cn.com.modernmedia.util.LogHelper;
 
 /**
  * Í¼¼¯
@@ -45,6 +46,8 @@ public abstract class CommonAtlasView extends BaseView {
 					detail.getLink())) {
 				ReadDb.getInstance(mContext).addReadArticle(
 						detail.getArticleId());
+				LogHelper.logAndroidShowArticle(mContext, detail.getCatId()
+						+ "", detail.getArticleId() + "");
 			}
 		}
 	}

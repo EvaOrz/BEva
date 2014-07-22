@@ -1,8 +1,10 @@
 package cn.com.modernmedia.businessweek;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
+import android.widget.ImageView;
 import cn.com.modernmedia.CommonSplashActivity;
 import cn.com.modernmedia.util.ConstData;
 
@@ -21,7 +23,10 @@ public class SplashScreenActivity extends CommonSplashActivity {
 	protected void setContentViewById() {
 		setContentView(R.layout.splash_screen);
 		findViewById(R.id.splash_view).setBackgroundColor(Color.BLACK);
-		System.out.println("SplashScreenActivity");
+		if (MyApplication.language.equals(MyApplication.ZH_TW)) {
+			((ImageView) findViewById(R.id.splash_image))
+					.setImageResource(R.drawable.splash_traditional);
+		}
 	}
 
 	/**
@@ -61,5 +66,14 @@ public class SplashScreenActivity extends CommonSplashActivity {
 			}
 		}, ConstData.SPLASH_DELAY_TIME);
 	}
-	
+
+	@Override
+	public String getActivityName() {
+		return SplashScreenActivity.class.getName();
+	}
+
+	@Override
+	public Activity getActivity() {
+		return this;
+	}
 }

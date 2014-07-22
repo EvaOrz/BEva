@@ -27,14 +27,14 @@ public class UrlMaker {
 		} else if (ConstData.IS_DEBUG == 4) {
 			HOST = "http://10.0.7.184/zhanglei";
 		} else if (ConstData.IS_DEBUG == 5) {
-			HOST = "http://cms.bbwc.cn/dev";
+			HOST = "http://cms.bbwc.cn/dev";// ‘§¿¿∞Ê
 		} else if (ConstData.IS_DEBUG == 6) {
-			HOST = "http://cms.bbwc.cn/editor";
+			HOST = "http://cms.bbwc.cn/editor";// ±‡º≠∞Ê
 		} else if (ConstData.IS_DEBUG == 7) {
 			HOST = "http://content.test.bbwc.cn/zhanglei";
 		}
 		MODEL_URL = HOST + "/v" + ConstData.API_VERSION + "/app"
-				+ ConstData.APP_ID;
+				+ ConstData.getInitialAppId();
 	}
 
 	private static String getEnd() {
@@ -221,7 +221,7 @@ public class UrlMaker {
 				.getApplicationContext();
 		return HOST + "/interface/index.php?m=down&res="
 				+ CommonApplication.CHANNEL + "&uuid=" + app.getMyUUID()
-				+ "&appid=" + ConstData.APP_ID + "&version="
+				+ "&appid=" + ConstData.getInitialAppId() + "&version="
 				+ ConstData.VERSION;
 	}
 
@@ -233,7 +233,8 @@ public class UrlMaker {
 	protected static String checkVersion() {
 		String host = ConstData.IS_DEBUG != 0 ? "http://cms.bbwc.cn/mmuser/checkversion.php?src="
 				: "http://android.bbwc.cn/checkversion.php?src=";
-		return host + CommonApplication.CHANNEL + "&appid=" + ConstData.APP_ID;
+		return host + CommonApplication.CHANNEL + "&appid="
+				+ ConstData.getInitialAppId();
 	}
 
 	/**
@@ -261,4 +262,12 @@ public class UrlMaker {
 		return "http://weather.iweek.ly/get_weather?longitude=" + longitude
 				+ "&latitude=" + latitude;
 	}
+
+	// http://10.0.7.184/zhanglei/v4/app20/issue_200/interface/content-latest_entry_id-20-2-200.html
+	protected static String getLastestArticleId(int issueId) {
+		return MODEL_URL + "/issue_" + issueId
+				+ "/interface/content-latest_entry_id-" + ConstData.getAppId()
+				+ "-" + ConstData.DATA_TYPE + "-" + issueId + getEnd();
+	}
+
 }

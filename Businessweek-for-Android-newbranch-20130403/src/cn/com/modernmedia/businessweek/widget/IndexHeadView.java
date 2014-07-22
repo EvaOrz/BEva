@@ -87,7 +87,7 @@ public class IndexHeadView extends BaseView implements FetchEntryListener {
 		}
 
 		@Override
-		public void gallery(String url) {
+		public void gallery(List<String> urlList) {
 		}
 	};
 
@@ -118,6 +118,7 @@ public class IndexHeadView extends BaseView implements FetchEntryListener {
 						dots.get(i).setBackgroundResource(R.drawable.dot);
 					}
 				}
+				LogHelper.lodAndroidShowHeadline(position);
 			}
 
 		}
@@ -194,6 +195,16 @@ public class IndexHeadView extends BaseView implements FetchEntryListener {
 								LogHelper.logOpenArticleFromColumnPage(
 										mContext, item.getArticleId() + "",
 										item.getCatId() + "");
+								if (dots != null && !dots.isEmpty()) {
+									if (position == 0) {
+										position = dots.size() - 1;
+									} else if (position == list.size() - 1) {
+										position = 0;
+									} else {
+										position--;
+									}
+									LogHelper.logAndroidTouchHeadline(position);
+								}
 								clickSlate(item);
 							}
 						}

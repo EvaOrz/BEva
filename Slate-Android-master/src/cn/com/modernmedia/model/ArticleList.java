@@ -11,6 +11,7 @@ import java.util.List;
  */
 public class ArticleList extends Entry {
 	private static final long serialVersionUID = 1L;
+	// 栏目下文章集合
 	private List<ArticleColumnList> list = new ArrayList<ArticleColumnList>();
 	// 所有文章列表
 	private List<ArticleDetail> allArticleList = new ArrayList<ArticleDetail>();

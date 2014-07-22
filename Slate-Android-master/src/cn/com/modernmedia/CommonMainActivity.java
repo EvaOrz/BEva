@@ -63,8 +63,7 @@ public abstract class CommonMainActivity extends BaseFragmentActivity {
 			String from = getIntent().getExtras().getString("FROM_ACTIVITY");
 			if (!TextUtils.isEmpty(from) && from.equals("SPLASH")) {
 				// 从首页进来
-				if (CommonApplication.CHANNEL.equals("googleplay")
-						|| CommonApplication.CHANNEL.equals("blackberry")) {
+				if (CommonApplication.CHANNEL.equals("googleplay")) {
 					getIssue(true);
 				} else {
 					checkVersion();
@@ -101,8 +100,7 @@ public abstract class CommonMainActivity extends BaseFragmentActivity {
 					if (issue != null)
 						return;
 					// 不提示任何信息
-					if (CommonApplication.CHANNEL.equals("googleplay")
-							|| CommonApplication.CHANNEL.equals("blackberry")) {
+					if (CommonApplication.CHANNEL.equals("googleplay")) {
 						getIssue(true);
 					} else {
 						checkVersion();
@@ -290,7 +288,7 @@ public abstract class CommonMainActivity extends BaseFragmentActivity {
 								indexShowLoading(0);
 								disProcess();
 							} else {
-								if (ConstData.APP_ID == 2) {
+								if (ConstData.getAppId() == 2) {
 									moveToLeft();
 								} else {
 									getScrollView().clickButton(true);
@@ -516,7 +514,7 @@ public abstract class CommonMainActivity extends BaseFragmentActivity {
 	protected void onDestroy() {
 		super.onDestroy();
 		CommonApplication.getImageDownloader().destroy();
-		
+		CommonApplication.activityMap.clear();
 	}
 
 	@Override

@@ -22,6 +22,7 @@ import cn.com.modernmedia.model.CatIndexArticle;
 import cn.com.modernmedia.model.Entry;
 import cn.com.modernmedia.model.IndexArticle;
 import cn.com.modernmedia.model.IndexArticle.Today;
+import cn.com.modernmedia.util.LogHelper;
 import cn.com.modernmedia.widget.HeadPagerListView;
 
 /**
@@ -43,11 +44,6 @@ public class IndexListFragment extends BaseFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mContext = getActivity();
-	}
-
-	@Override
-	public void onDestroyView() {
-		super.onDestroyView();
 	}
 
 	@Override
@@ -105,12 +101,6 @@ public class IndexListFragment extends BaseFragment {
 	}
 
 	@Override
-	public void onPause() {
-		super.onPause();
-
-	}
-
-	@Override
 	public void onDestroy() {
 		super.onDestroy();
 	}
@@ -140,6 +130,7 @@ public class IndexListFragment extends BaseFragment {
 					headView.setData(indexArticle);
 				}
 				setValuesForWidget(indexArticle);
+				LogHelper.logAndroidShowHighlights();
 			} else if (entry instanceof CatIndexArticle) {
 				CatIndexArticle catIndexArticle = (CatIndexArticle) entry;
 				if (catIndexArticle.getTitleActicleList() == null
@@ -153,6 +144,8 @@ public class IndexListFragment extends BaseFragment {
 					headView.setData(catIndexArticle);
 				}
 				setValuesForWidget(catIndexArticle);
+				LogHelper.logAndroidShowColumn(mContext,
+						catIndexArticle.getId() + "");
 			}
 		}
 	}

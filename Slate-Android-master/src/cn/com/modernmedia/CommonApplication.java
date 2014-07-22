@@ -1,7 +1,12 @@
 package cn.com.modernmedia;
 
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 import java.util.UUID;
 
+import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
@@ -44,10 +49,20 @@ public class CommonApplication extends Application {
 	public static boolean viewOldIssue = false;// 看上一期
 	public static boolean isFetchPush = false;
 	public static FavNotifykListener favListener;
+	private static int memorySize;
+	public static Map<String, Activity> activityMap = new HashMap<String, Activity>();
+
 	/**
 	 * 渠道
 	 */
 	public static String CHANNEL = "";
+
+	/**
+	 * 当前设置中选择的语言
+	 */
+	public static String language = "";
+	public static final String ZH_CN = "zh-CN";
+	public static final String ZH_TW = "zh-TW";
 
 	@Override
 	public void onCreate() {
@@ -60,16 +75,18 @@ public class CommonApplication extends Application {
 
 	@Override
 	public void onTerminate() {
-		PrintHelper.print("onTerminate");
 		super.onTerminate();
-		favListener = null;
-		ReadDb.getInstance(mContext).close();
-		FavDb.getInstance(mContext).close();
-		clear();
+	}
+
+	private void initMemorySize() {
+		final int memoryClass = ((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))
+				.getMemoryClass();
+		memorySize = memoryClass * 1024 * 1024 / 8;
+		PrintHelper.print("memorySize == " + memorySize);
 	}
 
 	public static ImageDownloader getImageDownloader() {
-		return ImageDownloader.getInstance(mContext);
+		return ImageDownloader.getInstance(mContext, memorySize);
 	}
 
 	public static void clear() {
@@ -113,6 +130,8 @@ public class CommonApplication extends Application {
 		PrintHelper.print("xdpi=" + xdpi + "; ydpi=" + ydpi);
 		PrintHelper.print("density=" + dm.density + "; densityDPI="
 				+ densityDPI);
+
+		initMemorySize();
 	}
 
 	/**
@@ -150,9 +169,62 @@ public class CommonApplication extends Application {
 			CHANNEL = "bbwc";
 		} else if (CHANNEL.equals("m91")) {// 91有点问题。。
 			CHANNEL = "91";
-		} else if (CHANNEL.equals("m360")) {
-			CHANNEL = "360";
 		}
+	}
+
+	/**
+	 * 判断当前语言是否为繁体
+	 * 
+	 */
+	public static void getLocalLanguage() {
+		Locale l = Locale.getDefault();
+		// 获取系统当前使用的语言(zn--中文)
+		String settingL = l.getLanguage();
+		// 获取系统当前地址(tw--台湾，代表繁体)
+		String country = l.getCountry().toLowerCase();
+		if ("zh".equals(settingL) && "tw".equals(country)) {
+			settingL = ZH_TW;
+		} else {
+			settingL = ZH_CN;
+		}
+		if (language.equals(settingL)) {
+			return;
+		}
+		language = settingL;
+		if (language.equals(ZH_CN)) {
+			ConstData.setAppId(1, -1);
+		} else {
+			ConstData.setAppId(18, -1);
+		}
+	}
+
+	public static void addActivity(String name, Activity activity) {
+		if (TextUtils.isEmpty(name) || activity == null)
+			return;
+		activityMap.put(name, activity);
+	}
+
+	public static void removeActivity(String name) {
+		if (TextUtils.isEmpty(name))
+			return;
+		if (!activityMap.isEmpty() && activityMap.containsKey(name))
+			activityMap.remove(name);
+	}
+
+	public static void exit() {
+		if (!activityMap.isEmpty()) {
+			for (String key : activityMap.keySet()) {
+				Activity activity = activityMap.get(key);
+				if (activity != null) {
+					activity.finish();
+				}
+			}
+		}
+		favListener = null;
+		ReadDb.getInstance(mContext).close();
+		FavDb.getInstance(mContext).close();
+		activityMap.clear();
+		clear();
 	}
 
 	public static void callGc() {

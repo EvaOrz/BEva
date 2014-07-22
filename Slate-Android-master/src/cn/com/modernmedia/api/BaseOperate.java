@@ -13,6 +13,7 @@ import cn.com.modernmedia.api.HttpRequestController.RequestThread;
 import cn.com.modernmedia.listener.DataCallBack;
 import cn.com.modernmedia.listener.FetchDataListener;
 import cn.com.modernmedia.model.Adv;
+import cn.com.modernmedia.model.Entry;
 import cn.com.modernmedia.util.ParseUtil;
 import cn.com.modernmedia.util.PrintHelper;
 
@@ -57,6 +58,12 @@ public abstract class BaseOperate {
 		request(useLocalFirst, callBack);
 	}
 
+	/**
+	 * 
+	 * @param useLocalFirst
+	 *            是否优先用本地数据
+	 * @param callBack
+	 */
 	private void request(boolean useLocalFirst, final DataCallBack callBack) {
 		String url = getUrl();
 		RequestThread thread = new RequestThread(mContext, url);
@@ -197,5 +204,11 @@ public abstract class BaseOperate {
 			adv.setExpired(true);
 		}
 		return adv;
+	}
+
+	protected void parseTemplate(Entry entry, JSONObject jsonObject) {
+		if (entry == null || isNull(jsonObject))
+			return;
+		entry.setTemplate(jsonObject.optString("template", ""));
 	}
 }

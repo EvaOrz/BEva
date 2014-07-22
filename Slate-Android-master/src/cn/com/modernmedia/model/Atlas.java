@@ -57,7 +57,8 @@ public class Atlas extends Entry {
 		this.weburl = weburl;
 	}
 
-	public static class AtlasPicture {
+	public static class AtlasPicture extends Entry {
+		private static final long serialVersionUID = 1L;
 		private String url = "";
 		private String desc = "";
 		private String title = "";

@@ -219,9 +219,9 @@ public class FavDb extends SQLiteOpenHelper {
 
 	public void close() {
 		if (null != instance) {
-			this.close();
 			instance = null;
 		}
+		super.close();
 	}
 
 	/**

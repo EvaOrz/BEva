@@ -9,6 +9,7 @@ import java.net.URL;
 
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -21,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ProgressBar;
 import cn.com.modernmedia.BaseActivity;
+import cn.com.modernmedia.BaseFragmentActivity;
 import cn.com.modernmedia.R;
 import cn.com.modernmedia.api.OperateController;
 import cn.com.modernmedia.listener.FetchEntryListener;
@@ -47,6 +49,7 @@ public class UpdateManager {
 	private boolean interceptFlag = false;
 	private String apkName = "";
 	private Version version;
+	private Dialog dialog;
 
 	private Handler mHandler = new Handler() {
 		public void handleMessage(Message msg) {
@@ -158,6 +161,18 @@ public class UpdateManager {
 		}
 	}
 
+	private void dissDialog() {
+		if (dialog != null && dialog.isShowing()) {
+			try {
+				dialog.cancel();
+				dialog.dismiss();
+				dialog = null;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 	private void downNow() {
 		AlertDialog.Builder builder = new Builder(mContext);
 		builder.setTitle(R.string.update);
@@ -174,7 +189,8 @@ public class UpdateManager {
 			}
 		});
 		try {
-			builder.create().show();
+			dialog = builder.create();
+			dialog.show();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -185,7 +201,7 @@ public class UpdateManager {
 	 * œ¬‘ÿapk
 	 */
 	private void downLoadApk() {
-		apkName = new String("businessweek_" + version.getVersion() + ".apk");
+		apkName = new String(ConstData.getAppName() + version.getVersion() + ".apk");
 		new DownApkThread(version.getDownload_url()).start();
 	}
 
@@ -230,6 +246,7 @@ public class UpdateManager {
 			} catch (Exception e) {
 				e.printStackTrace();
 				showToast();
+				dissDialog();
 				listener.checkEnd();
 			} finally {
 				try {
@@ -237,6 +254,7 @@ public class UpdateManager {
 						fos.close();
 					if (is != null)
 						is.close();
+					dissDialog();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -264,5 +282,7 @@ public class UpdateManager {
 	private void showToast() {
 		if (mContext instanceof BaseActivity)
 			((BaseActivity) mContext).showToast(R.string.download_error);
+		else if(mContext instanceof BaseFragmentActivity)
+			((BaseFragmentActivity) mContext).showToast(R.string.download_error);
 	}
 }

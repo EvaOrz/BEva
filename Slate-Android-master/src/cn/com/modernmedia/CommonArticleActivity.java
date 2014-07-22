@@ -1,8 +1,10 @@
 package cn.com.modernmedia;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,6 +18,7 @@ import cn.com.modernmedia.api.OperateController;
 import cn.com.modernmedia.common.ShareManager;
 import cn.com.modernmedia.db.FavDb;
 import cn.com.modernmedia.db.ReadDb;
+import cn.com.modernmedia.listener.CallWebStatusChangeListener;
 import cn.com.modernmedia.listener.FetchEntryListener;
 import cn.com.modernmedia.model.ArticleList;
 import cn.com.modernmedia.model.ArticleList.ArticleDetail;
@@ -53,6 +56,9 @@ public abstract class CommonArticleActivity extends BaseActivity {
 	private String currentUrl = "";// 当前view的URL
 	private List<String> loadOkUrl = new ArrayList<String>();
 	private int needDeleteHidden = -1;
+	@SuppressLint("UseSparseArrays")
+	private HashMap<Integer, CallWebStatusChangeListener> listenerMap = new HashMap<Integer, CallWebStatusChangeListener>();
+	protected int currentPosition;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -115,8 +121,12 @@ public abstract class CommonArticleActivity extends BaseActivity {
 				hideFont(type.equals("2"));
 				changeFav(position);
 				currentUrl = list.get(position).getLink();
-				if (loadOkUrl.contains(currentUrl))
+				if (loadOkUrl.contains(currentUrl)) {
 					readDb.addReadArticle(list.get(position).getArticleId());
+					LogHelper.logAndroidShowArticle(mContext, list
+							.get(position).getCatId() + "", list.get(position)
+							.getArticleId() + "");
+				}
 			}
 
 			/**
@@ -330,7 +340,7 @@ public abstract class CommonArticleActivity extends BaseActivity {
 	 * @param pos
 	 */
 	protected void changeFav(int pos) {
-		if (list == null || list.size() <= pos)
+		if (list.size() <= pos)
 			return;
 		ArticleDetail detail = list.get(pos);
 		if (db.containThisFav(detail)) {
@@ -338,8 +348,6 @@ public abstract class CommonArticleActivity extends BaseActivity {
 		} else {
 			changeFavBtn(false);
 		}
-		LogHelper.logAddFavoriteArticle(this, detail.getArticleId() + "",
-				detail.getCatId() + "");
 	}
 
 	/**
@@ -360,6 +368,8 @@ public abstract class CommonArticleActivity extends BaseActivity {
 				Toast.makeText(this, R.string.add_fav, ConstData.TOAST_LENGTH)
 						.show();
 			}
+			LogHelper.logAddFavoriteArticle(this, fav.getArticleId() + "",
+					fav.getCatId() + "");
 		}
 		changeFav(position);
 		if (CommonApplication.favListener != null)// 刷新favView
@@ -378,26 +388,45 @@ public abstract class CommonArticleActivity extends BaseActivity {
 		loadViewAfterFont();
 	}
 
+	/**
+	 * iweekly使用
+	 * 
+	 * @param plus
+	 */
 	protected void clickFont(boolean plus) {
+		int now = DataHelper.getFontSize(this);
 		if (plus) {// 放大
-			if (DataHelper.getFontSize(this) == 2) {
+			if (now == 5) {
 				return;
 			}
+			now++;
 		} else {
-			if (DataHelper.getFontSize(this) == 1) {
+			if (now == 1) {
 				return;
 			}
+			now--;
 		}
-		DataHelper.setFontSize(this, plus ? 2 : 1);
-		loadViewAfterFont();
+		DataHelper.setFontSize(this, now);
+		// loadViewAfterFont();
+		changeFont();
+	}
+
+	private void changeFont() {
+		if (listenerMap.isEmpty())
+			return;
+		for (int position : listenerMap.keySet()) {
+			listenerMap.get(position).changeFontSize();
+		}
 	}
 
 	/**
-	 * 改变行间距
+	 * 改变行间距,iweekly使用
 	 * 
 	 * @param plus
 	 */
 	protected void changeLineHeight(boolean plus) {
+		if (list == null)
+			return;
 		int now = DataHelper.getLineHeight(this);
 		if (plus) {// 放大
 			if (now == 5) {
@@ -411,7 +440,16 @@ public abstract class CommonArticleActivity extends BaseActivity {
 			now--;
 		}
 		DataHelper.setLineHeight(this, now);
-		loadViewAfterFont();
+		// loadViewAfterFont();
+		changeLineHeight();
+	}
+
+	private void changeLineHeight() {
+		if (listenerMap.isEmpty())
+			return;
+		for (int position : listenerMap.keySet()) {
+			listenerMap.get(position).changeLineHeight();
+		}
 	}
 
 	private void loadViewAfterFont() {
@@ -479,6 +517,8 @@ public abstract class CommonArticleActivity extends BaseActivity {
 		@Override
 		public void destroyItem(ViewGroup container, int position, Object object) {
 			container.removeView((View) object);
+			if (listenerMap.containsKey(position))
+				listenerMap.remove(position);
 		}
 
 		@Override
@@ -487,6 +527,9 @@ public abstract class CommonArticleActivity extends BaseActivity {
 			View view = fetchView(detail);
 			view.setTag(detail.getProperty().getScrollHidden());
 			container.addView(view);
+			if (view instanceof CallWebStatusChangeListener) {
+				listenerMap.put(position, (CallWebStatusChangeListener) view);
+			}
 			return view;
 		}
 
@@ -498,6 +541,7 @@ public abstract class CommonArticleActivity extends BaseActivity {
 			} else {
 				getViewPager().setPager(null);
 			}
+			currentPosition = position;
 		}
 
 	}
@@ -547,6 +591,13 @@ public abstract class CommonArticleActivity extends BaseActivity {
 		return issue;
 	}
 
+	protected ArticleDetail getCurrentArticleDetail() {
+		if (list != null && list.size() > currentPosition) {
+			return list.get(currentPosition);
+		}
+		return null;
+	}
+
 	@Override
 	public void reLoadData() {
 		getArticleList();
@@ -587,6 +638,14 @@ public abstract class CommonArticleActivity extends BaseActivity {
 
 	public String getCurrentUrl() {
 		return currentUrl;
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		if (!listenerMap.isEmpty()) {
+			listenerMap.clear();
+		}
 	}
 
 }

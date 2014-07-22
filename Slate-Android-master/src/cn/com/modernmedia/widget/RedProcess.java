@@ -120,10 +120,13 @@ public class RedProcess extends View {
 			startAngel = mProgress / 100.0F * 360.0F;
 			sweepAngel = 45.0F;
 		} else {
-			if (tag.toString()
-					.equals(mContext.getString(R.string.loading_more))) {
+			if (tag.toString().equals(mContext.getString(R.string.loading_pre))) {
 				startAngel = -mProgress / 100.0F * 180.0F;
 				sweepAngel = mProgress / 100.0F * 360.0F;
+			} else if (tag.toString().equals(
+					mContext.getString(R.string.loading_more))) {
+				startAngel = -this.mProgress / 100.0F * 180.0F + 180.0F;
+				sweepAngel = this.mProgress / 100.0F * 360.0F;
 			}
 		}
 		canvas.drawArc(oval, startAngel, sweepAngel, false, mProgressPaint);
@@ -168,6 +171,8 @@ public class RedProcess extends View {
 	}
 
 	public void setProgress(int progress) {
+		if (progress == mProgress)
+			return;
 		if ((progress < 0) || (progress > 100)) {
 			throw new IllegalArgumentException(
 					"progress should be between 0 and 100");

@@ -1,5 +1,6 @@
 package cn.com.modernmedia.businessweek;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import cn.com.modernmedia.CommonAdvActivity;
@@ -32,6 +33,21 @@ public class AdvActivity extends CommonAdvActivity {
 	@Override
 	public void reLoadData() {
 
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+	}
+
+	@Override
+	public String getActivityName() {
+		return AdvActivity.class.getName();
+	}
+
+	@Override
+	public Activity getActivity() {
+		return this;
 	}
 
 }

@@ -59,7 +59,7 @@ public class DataHelper {
 	 * @return
 	 */
 	public static boolean getFirstStartApp(Context context) {
-		return getPref(context).getBoolean(FIRST_USE + ConstData.VERSION, true);
+		return getPref(context).getBoolean(FIRST_USE, true);
 	}
 
 	/**
@@ -69,7 +69,7 @@ public class DataHelper {
 	 */
 	public static void setFirstStartApp(Context context) {
 		Editor editor = getPref(context).edit();
-		editor.putBoolean(FIRST_USE + ConstData.VERSION, false);
+		editor.putBoolean(FIRST_USE, false);
 		editor.commit();
 	}
 
@@ -102,7 +102,8 @@ public class DataHelper {
 	 * @return
 	 */
 	public static int getFontSize(Context context) {
-		return getPref(context).getInt(FONT_SIZE, 1);
+		return getPref(context).getInt(FONT_SIZE,
+				ConstData.getInitialAppId() == 20 ? 3 : 1);
 	}
 
 	/**
@@ -278,7 +279,7 @@ public class DataHelper {
 	}
 
 	public static int getLineHeight(Context context) {
-		return getPref(context).getInt(LINE_HEIGHT, 1);
+		return getPref(context).getInt(LINE_HEIGHT, 3);
 	}
 
 	public static void setLineHeight(Context context, int lineHeight) {

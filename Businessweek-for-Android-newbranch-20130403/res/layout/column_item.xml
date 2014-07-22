@@ -10,7 +10,8 @@
         android:id="@+id/cloumn_margin"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/column_item_marginTop"
-        android:background="#ff000000" />
+        android:background="#ff000000" 
+        android:orientation="horizontal"/>
 
     <RelativeLayout
         android:layout_width="match_parent"

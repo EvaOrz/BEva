@@ -1,8 +1,13 @@
 package cn.com.modernmedia.util;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.text.TextUtils;
+import cn.com.modernmedia.listener.SlateListener;
+import cn.com.modernmedia.model.ArticleItem;
 
 /*
  * uri转换类
@@ -45,11 +50,11 @@ public class UriParse {
 	}
 
 	private static ArrayList<String> gallery(String uri) {
-		// "issueId|columnId|articleId|from|page";
+		// gallery/url,url
 		ArrayList<String> list = new ArrayList<String>();
 		String[] Array = uri.split("gallery/");
 		if (Array.length == 2) {
-			String[] param = Array[1].split("/");
+			String[] param = Array[1].split(",");
 			for (int i = 0; i < param.length; i++) {
 				if (param[i] != null) {
 					list.add(param[i]);
@@ -155,5 +160,49 @@ public class UriParse {
 		if (TextUtils.isEmpty(uri))
 			return array;
 		return uri.split("-");
+	}
+
+	public static void clickSlate(SlateListener listener, ArticleItem item) {
+		if (listener == null)
+			return;
+		String link = "";
+		int type = item.getAdv().getAdvProperty().getIsadv();
+		if (type == 1) {// 广告
+			link = item.getAdv().getColumnAdv().getLink();
+		} else {
+			link = item.getSlateLink();
+		}
+		clickSlate(listener, link, item);
+	}
+
+	public static void clickSlate(SlateListener listener, String link,
+			ArticleItem item) {
+		if (listener == null)
+			return;
+		if (TextUtils.isEmpty(link)) {
+			listener.linkNull(item);
+		} else if (link.toLowerCase().startsWith("http://")) {
+			Uri uri = Uri.parse(link);
+			Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+			listener.httpLink(item, intent);
+		} else if (link.toLowerCase().startsWith("slate://")) {
+			List<String> list = UriParse.parser(link);
+			if (list.size() > 1) {
+				if (list.get(0).equalsIgnoreCase("video")) {
+					String path = list.get(1).replace(".m3u8", ".mp4");//
+					if (path.toLowerCase().endsWith(".mp4")) {
+						listener.video(item, path);
+					}
+				} else if (list.get(0).equalsIgnoreCase("article")) {
+					if (list.size() > 3) {
+						listener.articleLink(item,
+								ParseUtil.stoi(list.get(3), -1));
+					}
+				} else if (list.get(0).equalsIgnoreCase("gallery")) {
+					list.remove(0);
+					listener.gallery(list);
+				}
+			}
+		}
 	}
 }

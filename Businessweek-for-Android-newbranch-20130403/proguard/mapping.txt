@@ -3307,7 +3307,6 @@ cn.com.modernmedia.BaseActivity -> cn.com.modernmedia.BaseActivity:
     android.os.Handler handler -> handler
     android.app.Dialog dialog -> dialog
     void onCreate(android.os.Bundle) -> onCreate
-    void initScreenInfo() -> initScreenInfo
     void initProcess() -> initProcess
     void showLoading() -> showLoading
     void showError() -> showError
@@ -3317,7 +3316,12 @@ cn.com.modernmedia.BaseActivity -> cn.com.modernmedia.BaseActivity:
     void showLoadingDialog(boolean) -> showLoadingDialog
     void onStart() -> onStart
     void onStop() -> onStop
+    void onDestroy() -> onDestroy
     void reLoadData() -> reLoadData
+    void addActivityToList() -> addActivityToList
+    void removeActivityFromList() -> removeActivityFromList
+    java.lang.String getActivityName() -> getActivityName
+    android.app.Activity getActivity() -> getActivity
     android.widget.ImageView access$0(cn.com.modernmedia.BaseActivity) -> access$0
 cn.com.modernmedia.BaseActivity$1 -> cn.com.modernmedia.BaseActivity$1:
     cn.com.modernmedia.BaseActivity this$0 -> this$0
@@ -3331,6 +3335,7 @@ cn.com.modernmedia.BaseActivity$3 -> cn.com.modernmedia.BaseActivity$3:
     java.lang.String val$res -> val$res
     void run() -> run
 cn.com.modernmedia.BaseFragmentActivity -> cn.com.modernmedia.BaseFragmentActivity:
+    android.content.Context mContext -> mContext
     android.widget.RelativeLayout process_layout -> process_layout
     android.widget.ProgressBar loading -> loading
     android.widget.ImageView error -> error
@@ -3338,7 +3343,6 @@ cn.com.modernmedia.BaseFragmentActivity -> cn.com.modernmedia.BaseFragmentActivi
     android.os.Handler handler -> handler
     android.app.Dialog dialog -> dialog
     void onCreate(android.os.Bundle) -> onCreate
-    void initScreenInfo() -> initScreenInfo
     void initProcess() -> initProcess
     void showLoading() -> showLoading
     void showError() -> showError
@@ -3348,7 +3352,16 @@ cn.com.modernmedia.BaseFragmentActivity -> cn.com.modernmedia.BaseFragmentActivi
     void showLoadingDialog(boolean) -> showLoadingDialog
     void onStart() -> onStart
     void onStop() -> onStop
+    void onDestroy() -> onDestroy
     void reLoadData() -> reLoadData
+    void showFragmentIfNeeded(android.support.v4.app.Fragment,java.lang.String,int,java.lang.String[]) -> showFragmentIfNeeded
+    void showFragment(android.support.v4.app.Fragment,boolean) -> showFragment
+    java.lang.String[] getFragmentTags() -> getFragmentTags
+    void deleteAllFragments(java.lang.String[]) -> deleteAllFragments
+    void addActivityToList() -> addActivityToList
+    void removeActivityFromList() -> removeActivityFromList
+    java.lang.String getActivityName() -> getActivityName
+    android.app.Activity getActivity() -> getActivity
     android.widget.ImageView access$0(cn.com.modernmedia.BaseFragmentActivity) -> access$0
 cn.com.modernmedia.BaseFragmentActivity$1 -> cn.com.modernmedia.BaseFragmentActivity$1:
     cn.com.modernmedia.BaseFragmentActivity this$0 -> this$0
@@ -3379,13 +3392,26 @@ cn.com.modernmedia.CommonApplication -> cn.com.modernmedia.CommonApplication:
     boolean viewOldIssue -> viewOldIssue
     boolean isFetchPush -> isFetchPush
     cn.com.modernmedia.listener.FavNotifykListener favListener -> favListener
+    int memorySize -> memorySize
+    java.util.Map activityMap -> activityMap
+    java.lang.String CHANNEL -> CHANNEL
+    java.lang.String language -> language
+    java.lang.String ZH_CN -> ZH_CN
+    java.lang.String ZH_TW -> ZH_TW
     void onCreate() -> onCreate
     void onTerminate() -> onTerminate
+    void initMemorySize() -> initMemorySize
     cn.com.modernmedia.api.ImageDownloader getImageDownloader() -> getImageDownloader
     void clear() -> clear
     void setFavListener(cn.com.modernmedia.listener.FavNotifykListener) -> setFavListener
     void notifyFav() -> notifyFav
+    void initScreenInfo() -> initScreenInfo
     java.lang.String getMyUUID() -> getMyUUID
+    void initChannel() -> initChannel
+    void getLocalLanguage() -> getLocalLanguage
+    void addActivity(java.lang.String,android.app.Activity) -> addActivity
+    void removeActivity(java.lang.String) -> removeActivity
+    void exit() -> exit
     void callGc() -> callGc
 cn.com.modernmedia.CommonArticleActivity -> cn.com.modernmedia.CommonArticleActivity:
     android.content.Context mContext -> mContext
@@ -3404,6 +3430,8 @@ cn.com.modernmedia.CommonArticleActivity -> cn.com.modernmedia.CommonArticleActi
     java.lang.String currentUrl -> currentUrl
     java.util.List loadOkUrl -> loadOkUrl
     int needDeleteHidden -> needDeleteHidden
+    java.util.HashMap listenerMap -> listenerMap
+    int currentPosition -> currentPosition
     void onCreate(android.os.Bundle) -> onCreate
     void initViewpager() -> initViewpager
     void addLoadOkUrl(java.lang.String) -> addLoadOkUrl
@@ -3418,7 +3446,9 @@ cn.com.modernmedia.CommonArticleActivity -> cn.com.modernmedia.CommonArticleActi
     void addFav() -> addFav
     void clickFont() -> clickFont
     void clickFont(boolean) -> clickFont
+    void changeFont() -> changeFont
     void changeLineHeight(boolean) -> changeLineHeight
+    void changeLineHeight() -> changeLineHeight
     void loadViewAfterFont() -> loadViewAfterFont
     void showShare() -> showShare
     void moveToArticle(int) -> moveToArticle
@@ -3429,27 +3459,30 @@ cn.com.modernmedia.CommonArticleActivity -> cn.com.modernmedia.CommonArticleActi
     android.view.View fetchView(cn.com.modernmedia.model.ArticleList$ArticleDetail) -> fetchView
     cn.com.modernmedia.widget.AtlasViewPager getAtlasViewPager(java.lang.Object) -> getAtlasViewPager
     cn.com.modernmedia.model.Issue getIssue() -> getIssue
+    cn.com.modernmedia.model.ArticleList$ArticleDetail getCurrentArticleDetail() -> getCurrentArticleDetail
     void reLoadData() -> reLoadData
     boolean onKeyDown(int,android.view.KeyEvent) -> onKeyDown
     void finishAndAnim() -> finishAndAnim
     boolean checkTime() -> checkTime
     java.lang.String getCurrentUrl() -> getCurrentUrl
-    java.util.List access$0(cn.com.modernmedia.CommonArticleActivity) -> access$0
-    int access$1(cn.com.modernmedia.CommonArticleActivity) -> access$1
-    cn.com.modernmedia.CommonArticleActivity$ViewPageAdapter access$2(cn.com.modernmedia.CommonArticleActivity) -> access$2
-    void access$3(cn.com.modernmedia.CommonArticleActivity,int) -> access$3
-    void access$4(cn.com.modernmedia.CommonArticleActivity,java.lang.String) -> access$4
-    java.util.List access$5(cn.com.modernmedia.CommonArticleActivity) -> access$5
-    java.lang.String access$6(cn.com.modernmedia.CommonArticleActivity) -> access$6
-    cn.com.modernmedia.db.ReadDb access$7(cn.com.modernmedia.CommonArticleActivity) -> access$7
-    android.os.Handler access$8(cn.com.modernmedia.CommonArticleActivity) -> access$8
-    void access$9(cn.com.modernmedia.CommonArticleActivity,java.util.List) -> access$9
-    void access$10(cn.com.modernmedia.CommonArticleActivity,java.util.List,boolean) -> access$10
-    android.content.Context access$11(cn.com.modernmedia.CommonArticleActivity) -> access$11
-    cn.com.modernmedia.model.Issue access$12(cn.com.modernmedia.CommonArticleActivity) -> access$12
-    int access$13(cn.com.modernmedia.CommonArticleActivity) -> access$13
-    void access$14(cn.com.modernmedia.CommonArticleActivity,java.util.List,int,boolean) -> access$14
-    void access$15(cn.com.modernmedia.CommonArticleActivity) -> access$15
+    void onDestroy() -> onDestroy
+    java.util.HashMap access$0(cn.com.modernmedia.CommonArticleActivity) -> access$0
+    java.util.List access$1(cn.com.modernmedia.CommonArticleActivity) -> access$1
+    int access$2(cn.com.modernmedia.CommonArticleActivity) -> access$2
+    cn.com.modernmedia.CommonArticleActivity$ViewPageAdapter access$3(cn.com.modernmedia.CommonArticleActivity) -> access$3
+    void access$4(cn.com.modernmedia.CommonArticleActivity,int) -> access$4
+    void access$5(cn.com.modernmedia.CommonArticleActivity,java.lang.String) -> access$5
+    java.util.List access$6(cn.com.modernmedia.CommonArticleActivity) -> access$6
+    java.lang.String access$7(cn.com.modernmedia.CommonArticleActivity) -> access$7
+    cn.com.modernmedia.db.ReadDb access$8(cn.com.modernmedia.CommonArticleActivity) -> access$8
+    android.content.Context access$9(cn.com.modernmedia.CommonArticleActivity) -> access$9
+    android.os.Handler access$10(cn.com.modernmedia.CommonArticleActivity) -> access$10
+    void access$11(cn.com.modernmedia.CommonArticleActivity,java.util.List) -> access$11
+    void access$12(cn.com.modernmedia.CommonArticleActivity,java.util.List,boolean) -> access$12
+    cn.com.modernmedia.model.Issue access$13(cn.com.modernmedia.CommonArticleActivity) -> access$13
+    int access$14(cn.com.modernmedia.CommonArticleActivity) -> access$14
+    void access$15(cn.com.modernmedia.CommonArticleActivity,java.util.List,int,boolean) -> access$15
+    void access$16(cn.com.modernmedia.CommonArticleActivity) -> access$16
 cn.com.modernmedia.CommonArticleActivity$1 -> cn.com.modernmedia.CommonArticleActivity$1:
     cn.com.modernmedia.CommonArticleActivity this$0 -> this$0
     void onPageSelected(int) -> onPageSelected
@@ -3747,6 +3780,7 @@ cn.com.modernmedia.R$string -> cn.com.modernmedia.R$string:
     int republish_tweet -> republish_tweet
     int select -> select
     int share -> share
+    int share_by_email -> share_by_email
     int sharing -> sharing
     int sinalogin_check_account -> sinalogin_check_account
     int sinalogin_check_pass -> sinalogin_check_pass
@@ -3918,6 +3952,7 @@ cn.com.modernmedia.api.BaseOperate -> cn.com.modernmedia.api.BaseOperate:
     boolean isNull(org.json.JSONObject) -> isNull
     boolean isNull(org.json.JSONArray) -> isNull
     cn.com.modernmedia.model.Adv parseAdv(org.json.JSONObject) -> parseAdv
+    void parseTemplate(cn.com.modernmedia.model.Entry,org.json.JSONObject) -> parseTemplate
     void access$0(cn.com.modernmedia.api.BaseOperate,int) -> access$0
     void access$1(cn.com.modernmedia.api.BaseOperate,boolean) -> access$1
     boolean access$2(cn.com.modernmedia.api.BaseOperate) -> access$2
@@ -4013,6 +4048,19 @@ cn.com.modernmedia.api.GetIssueOperate -> cn.com.modernmedia.api.GetIssueOperate
     void updateArticle(cn.com.modernmedia.model.Issue) -> updateArticle
     void saveData(java.lang.String) -> saveData
     java.lang.String getDefaultFileName() -> getDefaultFileName
+cn.com.modernmedia.api.GetLastestArticleIdOperate -> cn.com.modernmedia.api.GetLastestArticleIdOperate:
+    java.lang.String FILE_NAME -> FILE_NAME
+    java.lang.String url -> url
+    cn.com.modernmedia.db.ReadDb readDb -> readDb
+    cn.com.modernmedia.model.LastestArticleId mLastestArticleId -> mLastestArticleId
+    cn.com.modernmedia.model.LastestArticleId getmLastestArticleId() -> getmLastestArticleId
+    java.lang.String getUrl() -> getUrl
+    void handler(org.json.JSONObject) -> handler
+    void addUnReadedArticleId(int,java.util.HashMap) -> addUnReadedArticleId
+    java.util.HashMap handlerMap(org.json.JSONObject,boolean) -> handlerMap
+    java.util.HashMap fecthLocalData() -> fecthLocalData
+    void saveData(java.lang.String) -> saveData
+    java.lang.String getDefaultFileName() -> getDefaultFileName
 cn.com.modernmedia.api.GetWeatherOperate -> cn.com.modernmedia.api.GetWeatherOperate:
     java.lang.String url -> url
     cn.com.modernmedia.model.Weather weather -> weather
@@ -4043,80 +4091,49 @@ cn.com.modernmedia.api.HttpRequestController$RequestThread -> cn.com.modernmedia
     void reSetUpdateTime() -> reSetUpdateTime
     void showToast(java.lang.String) -> showToast
 cn.com.modernmedia.api.ImageDownloader -> cn.com.modernmedia.api.ImageDownloader:
-    int POOL_SIZE -> POOL_SIZE
-    cn.com.modernmedia.api.ImageDownloader imageDownloader -> imageDownloader
-    java.util.concurrent.BlockingQueue mUrlQueue -> mUrlQueue
-    java.util.concurrent.ConcurrentHashMap imgViewMap -> imgViewMap
-    java.util.concurrent.ConcurrentHashMap imgMap -> imgMap
-    android.support.v4.util.LruCache mLruCache -> mLruCache
-    java.util.HashMap listenerMap -> listenerMap
-    cn.com.modernmedia.api.ImageDownloader$ImgHandlerThread mTask -> mTask
-    android.os.Handler taskHandler -> taskHandler
-    boolean allowLoad -> allowLoad
-    java.lang.Object lock -> lock
-    void lock() -> lock
-    void unlock() -> unlock
-    void initImg(java.lang.String,android.graphics.Bitmap) -> initImg
-    cn.com.modernmedia.api.ImageDownloader getInstance(android.content.Context) -> getInstance
-    void destroy() -> destroy
-    void addBitmapToCache(java.lang.String,android.graphics.Bitmap) -> addBitmapToCache
-    android.graphics.Bitmap getBitmapFromCache(java.lang.String,int,int) -> getBitmapFromCache
-    android.graphics.Bitmap getBitmapFromCache(java.lang.String) -> getBitmapFromCache
+    android.content.Context mContext -> mContext
+    cn.com.modernmedia.api.ImageDownloader instance -> instance
+    android.support.v4.util.LruCache mMemoryCache -> mMemoryCache
+    java.util.HashMap mTasksMap -> mTasksMap
+    java.util.HashMap mListenerMap -> mListenerMap
+    java.util.HashSet mReusableBitmaps -> mReusableBitmaps
+    cn.com.modernmedia.api.ImageDownloader getInstance(android.content.Context,int) -> getInstance
+    android.graphics.Bitmap getBitmapFromReusableSet(android.graphics.BitmapFactory$Options) -> getBitmapFromReusableSet
+    boolean canUseForInBitmap(android.graphics.Bitmap,android.graphics.BitmapFactory$Options) -> canUseForInBitmap
+    void download(java.lang.String) -> download
+    void download(java.lang.String,android.widget.ImageView) -> download
+    void download(java.lang.String,android.widget.ImageView,int,int) -> download
+    void download(java.lang.String,cn.com.modernmedia.listener.ImageDownloadStateListener) -> download
+    void download(java.lang.String,android.widget.ImageView,int,int,cn.com.modernmedia.listener.ImageDownloadStateListener) -> download
+    android.graphics.Bitmap fetchBitmapFromCache(java.lang.String,int,int) -> fetchBitmapFromCache
     void askListener(java.lang.String,int,android.graphics.Bitmap) -> askListener
     void setScaleType(android.widget.ImageView) -> setScaleType
-    boolean checkDupliUrl(java.lang.String) -> checkDupliUrl
-    void download(java.lang.String,android.widget.ImageView) -> download
-    void downloadLoadingImage(java.lang.String,android.widget.ImageView,cn.com.modernmedia.listener.ImageDownloadStateListener) -> downloadLoadingImage
-    void downloadLoadingImage(java.lang.String,android.widget.ImageView,int,int,cn.com.modernmedia.listener.ImageDownloadStateListener) -> downloadLoadingImage
-    void fetchImage(android.graphics.Bitmap,java.lang.String,android.widget.ImageView,cn.com.modernmedia.listener.ImageDownloadStateListener) -> fetchImage
-    void fetchImage(java.lang.String,cn.com.modernmedia.listener.ImageDownloadStateListener,int,int) -> fetchImage
-    void download(java.lang.String) -> download
-    android.graphics.Bitmap downLoadBitmap(java.lang.String) -> downLoadBitmap
-    int getCacheSize(android.content.Context) -> getCacheSize
-    java.util.concurrent.ConcurrentHashMap access$0(cn.com.modernmedia.api.ImageDownloader) -> access$0
-    boolean access$1() -> access$1
-    java.lang.Object access$2(cn.com.modernmedia.api.ImageDownloader) -> access$2
-    android.graphics.Bitmap access$3(cn.com.modernmedia.api.ImageDownloader,java.lang.String) -> access$3
-    void access$4(cn.com.modernmedia.api.ImageDownloader,java.lang.String,android.graphics.Bitmap) -> access$4
-    void access$5(cn.com.modernmedia.api.ImageDownloader,java.lang.String,android.graphics.Bitmap) -> access$5
-    void access$6(cn.com.modernmedia.api.ImageDownloader,java.lang.String,int,android.graphics.Bitmap) -> access$6
-    void access$7(cn.com.modernmedia.api.ImageDownloader,android.widget.ImageView) -> access$7
-    java.util.concurrent.BlockingQueue access$8(cn.com.modernmedia.api.ImageDownloader) -> access$8
+    void removeBitmapFromCache(java.lang.String,boolean) -> removeBitmapFromCache
+    android.graphics.Bitmap downLoadBitmap(java.lang.String,int,int) -> downLoadBitmap
+    void destroy() -> destroy
+    android.graphics.Bitmap access$0(cn.com.modernmedia.api.ImageDownloader,java.lang.String,int,int) -> access$0
+    java.util.HashMap access$1(cn.com.modernmedia.api.ImageDownloader) -> access$1
+    android.support.v4.util.LruCache access$2(cn.com.modernmedia.api.ImageDownloader) -> access$2
+    void access$3(cn.com.modernmedia.api.ImageDownloader,android.widget.ImageView) -> access$3
+    void access$4(cn.com.modernmedia.api.ImageDownloader,java.lang.String,int,android.graphics.Bitmap) -> access$4
+    java.util.HashSet access$5(cn.com.modernmedia.api.ImageDownloader) -> access$5
 cn.com.modernmedia.api.ImageDownloader$1 -> cn.com.modernmedia.api.ImageDownloader$1:
     cn.com.modernmedia.api.ImageDownloader this$0 -> this$0
-    android.graphics.Bitmap val$bitmap -> val$bitmap
-    android.widget.ImageView val$iv -> val$iv
-    java.lang.String val$url -> val$url
-    void run() -> run
-cn.com.modernmedia.api.ImageDownloader$2 -> cn.com.modernmedia.api.ImageDownloader$2:
-    cn.com.modernmedia.api.ImageDownloader this$0 -> this$0
-    android.graphics.Bitmap create(java.lang.String) -> create
-    void entryRemoved(boolean,java.lang.String,android.graphics.Bitmap,android.graphics.Bitmap) -> entryRemoved
     int sizeOf(java.lang.String,android.graphics.Bitmap) -> sizeOf
+    void entryRemoved(boolean,java.lang.String,android.graphics.Bitmap,android.graphics.Bitmap) -> entryRemoved
     int sizeOf(java.lang.Object,java.lang.Object) -> sizeOf
     void entryRemoved(boolean,java.lang.Object,java.lang.Object,java.lang.Object) -> entryRemoved
-    java.lang.Object create(java.lang.Object) -> create
-cn.com.modernmedia.api.ImageDownloader$3 -> cn.com.modernmedia.api.ImageDownloader$3:
-    cn.com.modernmedia.api.ImageDownloader this$0 -> this$0
-    java.lang.String val$url -> val$url
-    void run() -> run
-cn.com.modernmedia.api.ImageDownloader$FetchImageTask -> cn.com.modernmedia.api.ImageDownloader$FetchImageTask:
+cn.com.modernmedia.api.ImageDownloader$BitmapAsyncTask -> cn.com.modernmedia.api.ImageDownloader$BitmapAsyncTask:
     java.lang.String url -> url
+    int mWidth -> mWidth
+    int mHeight -> mHeight
+    android.widget.ImageView mImageView -> mImageView
     cn.com.modernmedia.api.ImageDownloader this$0 -> this$0
     android.graphics.Bitmap doInBackground(java.lang.String[]) -> doInBackground
     void onPostExecute(android.graphics.Bitmap) -> onPostExecute
+    void onCancelled() -> onCancelled
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-cn.com.modernmedia.api.ImageDownloader$FetchImgThread -> cn.com.modernmedia.api.ImageDownloader$FetchImgThread:
-    java.lang.String url -> url
-    cn.com.modernmedia.api.ImageDownloader this$0 -> this$0
-    void setUrl(java.lang.String) -> setUrl
-    void run() -> run
-cn.com.modernmedia.api.ImageDownloader$ImgHandlerThread -> cn.com.modernmedia.api.ImageDownloader$ImgHandlerThread:
-    cn.com.modernmedia.api.ImageDownloader this$0 -> this$0
-    boolean quit() -> quit
-    cn.com.modernmedia.api.ImageDownloader$FetchImgThread getWorker() -> getWorker
-    boolean handleMessage(android.os.Message) -> handleMessage
 cn.com.modernmedia.api.OperateController -> cn.com.modernmedia.api.OperateController:
     android.content.Context mContext -> mContext
     void getIssue(cn.com.modernmedia.listener.FetchEntryListener,boolean) -> getIssue
@@ -4129,6 +4146,7 @@ cn.com.modernmedia.api.OperateController -> cn.com.modernmedia.api.OperateContro
     void checkVersion(cn.com.modernmedia.listener.FetchEntryListener) -> checkVersion
     void share(cn.com.modernmedia.model.Issue,java.lang.String,java.lang.String,java.lang.String,cn.com.modernmedia.listener.FetchEntryListener) -> share
     void getWeather(double,double,cn.com.modernmedia.listener.FetchEntryListener) -> getWeather
+    void getLastestArticleIds(int,cn.com.modernmedia.listener.FetchEntryListener) -> getLastestArticleIds
 cn.com.modernmedia.api.OperateController$1 -> cn.com.modernmedia.api.OperateController$1:
     cn.com.modernmedia.api.OperateController this$0 -> this$0
     cn.com.modernmedia.listener.FetchEntryListener val$listener -> val$listener
@@ -4138,6 +4156,11 @@ cn.com.modernmedia.api.OperateController$10 -> cn.com.modernmedia.api.OperateCon
     cn.com.modernmedia.api.OperateController this$0 -> this$0
     cn.com.modernmedia.listener.FetchEntryListener val$listener -> val$listener
     cn.com.modernmedia.api.GetWeatherOperate val$operate -> val$operate
+    void callback(boolean) -> callback
+cn.com.modernmedia.api.OperateController$11 -> cn.com.modernmedia.api.OperateController$11:
+    cn.com.modernmedia.api.OperateController this$0 -> this$0
+    cn.com.modernmedia.listener.FetchEntryListener val$listener -> val$listener
+    cn.com.modernmedia.api.GetLastestArticleIdOperate val$operate -> val$operate
     void callback(boolean) -> callback
 cn.com.modernmedia.api.OperateController$2 -> cn.com.modernmedia.api.OperateController$2:
     cn.com.modernmedia.api.OperateController this$0 -> this$0
@@ -4191,57 +4214,6 @@ cn.com.modernmedia.api.ShareOperate -> cn.com.modernmedia.api.ShareOperate:
     void handler(org.json.JSONObject) -> handler
     void saveData(java.lang.String) -> saveData
     java.lang.String getDefaultFileName() -> getDefaultFileName
-cn.com.modernmedia.api.SyncImageLoader -> cn.com.modernmedia.api.SyncImageLoader:
-    java.lang.Object lock -> lock
-    boolean mAllowLoad -> mAllowLoad
-    boolean firstLoad -> firstLoad
-    int mStartLoadLimit -> mStartLoadLimit
-    int mStopLoadLimit -> mStopLoadLimit
-    android.os.Handler handler -> handler
-    java.util.HashMap imageCache -> imageCache
-    cn.com.modernmedia.api.SyncImageLoader instance -> instance
-    cn.com.modernmedia.api.SyncImageLoader getInstance() -> getInstance
-    void setLoadLimit(int,int) -> setLoadLimit
-    void restore() -> restore
-    void lock() -> lock
-    void unlock() -> unlock
-    void loadImage(java.lang.Integer,java.lang.String,cn.com.modernmedia.api.SyncImageLoader$OnImageLoadListener) -> loadImage
-    void loadImage(java.lang.String,java.lang.Integer,cn.com.modernmedia.api.SyncImageLoader$OnImageLoadListener) -> loadImage
-    android.graphics.Bitmap downLoadBitmap(java.lang.String) -> downLoadBitmap
-    void addBitmapToCache(java.lang.String,android.graphics.Bitmap) -> addBitmapToCache
-    android.graphics.Bitmap getBitmapFromCache(java.lang.String) -> getBitmapFromCache
-    boolean access$0(cn.com.modernmedia.api.SyncImageLoader) -> access$0
-    java.lang.Object access$1(cn.com.modernmedia.api.SyncImageLoader) -> access$1
-    boolean access$2(cn.com.modernmedia.api.SyncImageLoader) -> access$2
-    void access$3(cn.com.modernmedia.api.SyncImageLoader,java.lang.String,java.lang.Integer,cn.com.modernmedia.api.SyncImageLoader$OnImageLoadListener) -> access$3
-    int access$4(cn.com.modernmedia.api.SyncImageLoader) -> access$4
-    int access$5(cn.com.modernmedia.api.SyncImageLoader) -> access$5
-cn.com.modernmedia.api.SyncImageLoader$1 -> cn.com.modernmedia.api.SyncImageLoader$1:
-    cn.com.modernmedia.api.SyncImageLoader this$0 -> this$0
-    java.lang.String val$mImageUrl -> val$mImageUrl
-    java.lang.Integer val$mt -> val$mt
-    cn.com.modernmedia.api.SyncImageLoader$OnImageLoadListener val$mListener -> val$mListener
-    void run() -> run
-cn.com.modernmedia.api.SyncImageLoader$2 -> cn.com.modernmedia.api.SyncImageLoader$2:
-    cn.com.modernmedia.api.SyncImageLoader this$0 -> this$0
-    cn.com.modernmedia.api.SyncImageLoader$OnImageLoadListener val$mListener -> val$mListener
-    java.lang.Integer val$mt -> val$mt
-    android.graphics.Bitmap val$bitmap -> val$bitmap
-    void run() -> run
-cn.com.modernmedia.api.SyncImageLoader$3 -> cn.com.modernmedia.api.SyncImageLoader$3:
-    cn.com.modernmedia.api.SyncImageLoader this$0 -> this$0
-    cn.com.modernmedia.api.SyncImageLoader$OnImageLoadListener val$mListener -> val$mListener
-    java.lang.Integer val$mt -> val$mt
-    android.graphics.Bitmap val$urlBitmap -> val$urlBitmap
-    void run() -> run
-cn.com.modernmedia.api.SyncImageLoader$4 -> cn.com.modernmedia.api.SyncImageLoader$4:
-    cn.com.modernmedia.api.SyncImageLoader this$0 -> this$0
-    cn.com.modernmedia.api.SyncImageLoader$OnImageLoadListener val$mListener -> val$mListener
-    java.lang.Integer val$mt -> val$mt
-    void run() -> run
-cn.com.modernmedia.api.SyncImageLoader$OnImageLoadListener -> cn.com.modernmedia.api.SyncImageLoader$OnImageLoadListener:
-    void onImageLoad(java.lang.Integer,android.graphics.Bitmap) -> onImageLoad
-    void onError(java.lang.Integer) -> onError
 cn.com.modernmedia.api.UrlMaker -> cn.com.modernmedia.api.UrlMaker:
     java.lang.String HOST -> HOST
     java.lang.String MODEL_URL -> MODEL_URL
@@ -4261,17 +4233,23 @@ cn.com.modernmedia.api.UrlMaker -> cn.com.modernmedia.api.UrlMaker:
     java.lang.String checkVersion() -> checkVersion
     java.lang.String share(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String) -> share
     java.lang.String getWeather(double,double) -> getWeather
+    java.lang.String getLastestArticleId(int) -> getLastestArticleId
 cn.com.modernmedia.businessweek.AboutActivity -> cn.com.modernmedia.businessweek.AboutActivity:
     android.widget.Button back -> back
     void onCreate(android.os.Bundle) -> onCreate
     void reLoadData() -> reLoadData
     void onPause() -> onPause
+    java.lang.String getActivityName() -> getActivityName
+    android.app.Activity getActivity() -> getActivity
 cn.com.modernmedia.businessweek.AboutActivity$1 -> cn.com.modernmedia.businessweek.AboutActivity$1:
     cn.com.modernmedia.businessweek.AboutActivity this$0 -> this$0
     void onClick(android.view.View) -> onClick
 cn.com.modernmedia.businessweek.AdvActivity -> cn.com.modernmedia.businessweek.AdvActivity:
     void gotoMainActivity() -> gotoMainActivity
     void reLoadData() -> reLoadData
+    void onDestroy() -> onDestroy
+    java.lang.String getActivityName() -> getActivityName
+    android.app.Activity getActivity() -> getActivity
 cn.com.modernmedia.businessweek.AdvActivity$1 -> cn.com.modernmedia.businessweek.AdvActivity$1:
     cn.com.modernmedia.businessweek.AdvActivity this$0 -> this$0
     void run() -> run
@@ -4288,6 +4266,8 @@ cn.com.modernmedia.businessweek.ArticleActivity -> cn.com.modernmedia.businesswe
     android.view.View fetchView(cn.com.modernmedia.model.ArticleList$ArticleDetail) -> fetchView
     cn.com.modernmedia.widget.AtlasViewPager getAtlasViewPager(java.lang.Object) -> getAtlasViewPager
     void onClick(android.view.View) -> onClick
+    java.lang.String getActivityName() -> getActivityName
+    android.app.Activity getActivity() -> getActivity
 cn.com.modernmedia.businessweek.BuildConfig -> cn.com.modernmedia.businessweek.BuildConfig:
     boolean DEBUG -> DEBUG
 cn.com.modernmedia.businessweek.MainActivity -> cn.com.modernmedia.businessweek.MainActivity:
@@ -4312,6 +4292,9 @@ cn.com.modernmedia.businessweek.MainActivity -> cn.com.modernmedia.businessweek.
     void setScrollView(int,android.view.View) -> setScrollView
     void addListener(cn.com.modernmedia.listener.NotifyAdapterListener) -> addListener
     void notifyColumnAdapter(int) -> notifyColumnAdapter
+    java.lang.String[] getFragmentTags() -> getFragmentTags
+    java.lang.String getActivityName() -> getActivityName
+    android.app.Activity getActivity() -> getActivity
     cn.com.modernmedia.businessweek.widget.IndexView access$0(cn.com.modernmedia.businessweek.MainActivity) -> access$0
     cn.com.modernmedia.widget.MainHorizontalScrollView access$1(cn.com.modernmedia.businessweek.MainActivity) -> access$1
 cn.com.modernmedia.businessweek.MainActivity$1 -> cn.com.modernmedia.businessweek.MainActivity$1:
@@ -4326,9 +4309,7 @@ cn.com.modernmedia.businessweek.MainActivity$3 -> cn.com.modernmedia.businesswee
 cn.com.modernmedia.businessweek.MyApplication -> cn.com.modernmedia.businessweek.MyApplication:
     int APPID -> APPID
     int DEBUG -> DEBUG
-    java.lang.String CHANNEL -> CHANNEL
     void onCreate() -> onCreate
-    void onTerminate() -> onTerminate
 cn.com.modernmedia.businessweek.R -> cn.com.modernmedia.businessweek.R:
 cn.com.modernmedia.businessweek.R$anim -> cn.com.modernmedia.businessweek.R$anim:
     int alpha_out -> alpha_out
@@ -4642,6 +4623,7 @@ cn.com.modernmedia.businessweek.R$string -> cn.com.modernmedia.businessweek.R$st
     int republish_tweet -> republish_tweet
     int select -> select
     int share -> share
+    int share_by_email -> share_by_email
     int sharing -> sharing
     int sinalogin_check_account -> sinalogin_check_account
     int sinalogin_check_pass -> sinalogin_check_pass
@@ -4666,6 +4648,8 @@ cn.com.modernmedia.businessweek.SplashScreenActivity -> cn.com.modernmedia.busin
     void setContentViewById() -> setContentViewById
     void gotoMainActivity() -> gotoMainActivity
     void gotoAdvActivity() -> gotoAdvActivity
+    java.lang.String getActivityName() -> getActivityName
+    android.app.Activity getActivity() -> getActivity
 cn.com.modernmedia.businessweek.SplashScreenActivity$1 -> cn.com.modernmedia.businessweek.SplashScreenActivity$1:
     cn.com.modernmedia.businessweek.SplashScreenActivity this$0 -> this$0
     void run() -> run
@@ -4810,6 +4794,7 @@ cn.com.modernmedia.businessweek.fragment.ChildCatFragment -> cn.com.modernmedia.
     boolean isClick -> isClick
     cn.com.modernmedia.businessweek.widget.IndexHeadView currentHeadView -> currentHeadView
     int currentHeadSize -> currentHeadSize
+    android.view.View view -> view
     void onCreate(android.os.Bundle) -> onCreate
     android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
     void setData(cn.com.modernmedia.model.Issue,int) -> setData
@@ -4822,6 +4807,7 @@ cn.com.modernmedia.businessweek.fragment.ChildCatFragment -> cn.com.modernmedia.
     cn.com.modernmedia.businessweek.widget.IndexHeadView getHeadView() -> getHeadView
     int getChildSize() -> getChildSize
     void setIntercept(boolean) -> setIntercept
+    void showView(boolean) -> showView
     java.util.List access$0(cn.com.modernmedia.businessweek.fragment.ChildCatFragment) -> access$0
     android.content.Context access$1(cn.com.modernmedia.businessweek.fragment.ChildCatFragment) -> access$1
     cn.com.modernmedia.model.Issue access$2(cn.com.modernmedia.businessweek.fragment.ChildCatFragment) -> access$2
@@ -4869,6 +4855,7 @@ cn.com.modernmedia.businessweek.fragment.IndexListFragment -> cn.com.modernmedia
     void setClickListener(cn.com.modernmedia.adapter.MyPagerAdapter$OnItemClickListener) -> setClickListener
     cn.com.modernmedia.businessweek.adapter.IndexAdapter getAdapter() -> getAdapter
     cn.com.modernmedia.businessweek.widget.IndexHeadView getHeadView() -> getHeadView
+    void showView(boolean) -> showView
     cn.com.modernmedia.listener.ListScrollStateListener access$0(cn.com.modernmedia.businessweek.fragment.IndexListFragment) -> access$0
     android.content.Context access$1(cn.com.modernmedia.businessweek.fragment.IndexListFragment) -> access$1
     cn.com.modernmedia.widget.HeadPagerListView access$2(cn.com.modernmedia.businessweek.fragment.IndexListFragment) -> access$2
@@ -4882,6 +4869,8 @@ cn.com.modernmedia.businessweek.fragment.IndexListFragment$2 -> cn.com.modernmed
     void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
 cn.com.modernmedia.businessweek.listener.FontSizeListener -> cn.com.modernmedia.businessweek.listener.FontSizeListener:
     void fontSize() -> fontSize
+cn.com.modernmedia.businessweek.service.LocalChangeReceiver -> cn.com.modernmedia.businessweek.service.LocalChangeReceiver:
+    void onReceive(android.content.Context,android.content.Intent) -> onReceive
 cn.com.modernmedia.businessweek.widget.ArticleDetailItem -> cn.com.modernmedia.businessweek.widget.ArticleDetailItem:
     android.content.Context mContext -> mContext
     cn.com.modernmedia.businessweek.widget.MyWebView webView -> webView
@@ -4961,7 +4950,7 @@ cn.com.modernmedia.businessweek.widget.ChildCatItem$1 -> cn.com.modernmedia.busi
     void linkNull(cn.com.modernmedia.model.ArticleItem) -> linkNull
     void image(java.lang.String) -> image
     void httpLink(cn.com.modernmedia.model.ArticleItem,android.content.Intent) -> httpLink
-    void gallery(java.lang.String) -> gallery
+    void gallery(java.util.List) -> gallery
     void column(java.lang.String) -> column
     void articleLink(cn.com.modernmedia.model.ArticleItem,int) -> articleLink
 cn.com.modernmedia.businessweek.widget.ChildCatItem$2 -> cn.com.modernmedia.businessweek.widget.ChildCatItem$2:
@@ -5046,7 +5035,7 @@ cn.com.modernmedia.businessweek.widget.IndexHeadView$1 -> cn.com.modernmedia.bus
     void video(cn.com.modernmedia.model.ArticleItem,java.lang.String) -> video
     void column(java.lang.String) -> column
     void image(java.lang.String) -> image
-    void gallery(java.lang.String) -> gallery
+    void gallery(java.util.List) -> gallery
 cn.com.modernmedia.businessweek.widget.IndexHeadView$2 -> cn.com.modernmedia.businessweek.widget.IndexHeadView$2:
     cn.com.modernmedia.businessweek.widget.IndexHeadView this$0 -> this$0
     void updatePage(int) -> updatePage
@@ -5070,8 +5059,11 @@ cn.com.modernmedia.businessweek.widget.IndexView -> cn.com.modernmedia.businessw
     cn.com.modernmedia.businessweek.fragment.ChildCatFragment childFragment -> childFragment
     cn.com.modernmedia.businessweek.fragment.IndexListFragment listFragment -> listFragment
     android.widget.LinearLayout cover -> cover
+    boolean isIndex -> isIndex
+    cn.com.modernmedia.model.Entry entry -> entry
     cn.com.modernmedia.listener.SlateListener listener -> listener
     void init() -> init
+    void findCatPosition(int,int,cn.com.modernmedia.model.IndexArticle) -> findCatPosition
     android.widget.Button getColumn() -> getColumn
     android.widget.Button getFav() -> getFav
     void setTitle(java.lang.String) -> setTitle
@@ -5085,13 +5077,16 @@ cn.com.modernmedia.businessweek.widget.IndexView -> cn.com.modernmedia.businessw
     android.content.Context access$0(cn.com.modernmedia.businessweek.widget.IndexView) -> access$0
     cn.com.modernmedia.businessweek.fragment.IndexListFragment access$1(cn.com.modernmedia.businessweek.widget.IndexView) -> access$1
     void access$2(cn.com.modernmedia.businessweek.widget.IndexView,cn.com.modernmedia.model.ArticleItem) -> access$2
+    boolean access$3(cn.com.modernmedia.businessweek.widget.IndexView) -> access$3
+    cn.com.modernmedia.model.Entry access$4(cn.com.modernmedia.businessweek.widget.IndexView) -> access$4
+    void access$5(cn.com.modernmedia.businessweek.widget.IndexView,int,int,cn.com.modernmedia.model.IndexArticle) -> access$5
 cn.com.modernmedia.businessweek.widget.IndexView$1 -> cn.com.modernmedia.businessweek.widget.IndexView$1:
     cn.com.modernmedia.businessweek.widget.IndexView this$0 -> this$0
     void video(cn.com.modernmedia.model.ArticleItem,java.lang.String) -> video
     void linkNull(cn.com.modernmedia.model.ArticleItem) -> linkNull
     void image(java.lang.String) -> image
     void httpLink(cn.com.modernmedia.model.ArticleItem,android.content.Intent) -> httpLink
-    void gallery(java.lang.String) -> gallery
+    void gallery(java.util.List) -> gallery
     void column(java.lang.String) -> column
     void articleLink(cn.com.modernmedia.model.ArticleItem,int) -> articleLink
 cn.com.modernmedia.businessweek.widget.IndexView$2 -> cn.com.modernmedia.businessweek.widget.IndexView$2:
@@ -5105,6 +5100,7 @@ cn.com.modernmedia.businessweek.widget.MyCircularViewPager -> cn.com.modernmedia
 cn.com.modernmedia.businessweek.widget.MyWebView -> cn.com.modernmedia.businessweek.widget.MyWebView:
     android.content.Context mContext -> mContext
     void gotoArticle(int) -> gotoArticle
+    void showGallery(java.util.List) -> showGallery
 cn.com.modernmedia.common.AccessInfo -> cn.com.modernmedia.common.AccessInfo:
     java.lang.String userID -> userID
     java.lang.String accessToken -> accessToken
@@ -5362,8 +5358,12 @@ cn.com.modernmedia.db.ReadDb -> cn.com.modernmedia.db.ReadDb:
     java.util.List getAllReadArticle() -> getAllReadArticle
     void addReadArticle(int) -> addReadArticle
     boolean isReaded(int) -> isReaded
+    void deleteArticle(int) -> deleteArticle
     void close() -> close
     void onUpgrade(android.database.sqlite.SQLiteDatabase,int,int) -> onUpgrade
+cn.com.modernmedia.listener.CallWebStatusChangeListener -> cn.com.modernmedia.listener.CallWebStatusChangeListener:
+    void changeFontSize() -> changeFontSize
+    void changeLineHeight() -> changeLineHeight
 cn.com.modernmedia.listener.DataCallBack -> cn.com.modernmedia.listener.DataCallBack:
     void callback(boolean) -> callback
 cn.com.modernmedia.listener.FavNotifykListener -> cn.com.modernmedia.listener.FavNotifykListener:
@@ -5405,7 +5405,7 @@ cn.com.modernmedia.listener.SlateListener -> cn.com.modernmedia.listener.SlateLi
     void video(cn.com.modernmedia.model.ArticleItem,java.lang.String) -> video
     void column(java.lang.String) -> column
     void image(java.lang.String) -> image
-    void gallery(java.lang.String) -> gallery
+    void gallery(java.util.List) -> gallery
 cn.com.modernmedia.listener.WebProcessListener -> cn.com.modernmedia.listener.WebProcessListener:
     void showStyle(int) -> showStyle
 cn.com.modernmedia.model.Adv -> cn.com.modernmedia.model.Adv:
@@ -5527,6 +5527,7 @@ cn.com.modernmedia.model.Atlas -> cn.com.modernmedia.model.Atlas:
     java.lang.String getWeburl() -> getWeburl
     void setWeburl(java.lang.String) -> setWeburl
 cn.com.modernmedia.model.Atlas$AtlasPicture -> cn.com.modernmedia.model.Atlas$AtlasPicture:
+    long serialVersionUID -> serialVersionUID
     java.lang.String url -> url
     java.lang.String desc -> desc
     java.lang.String title -> title
@@ -5597,6 +5598,9 @@ cn.com.modernmedia.model.Down -> cn.com.modernmedia.model.Down:
     void setSuccess(boolean) -> setSuccess
 cn.com.modernmedia.model.Entry -> cn.com.modernmedia.model.Entry:
     long serialVersionUID -> serialVersionUID
+    java.lang.String template -> template
+    java.lang.String getTemplate() -> getTemplate
+    void setTemplate(java.lang.String) -> setTemplate
 cn.com.modernmedia.model.Favorite -> cn.com.modernmedia.model.Favorite:
     long serialVersionUID -> serialVersionUID
     java.util.List list -> list
@@ -5614,6 +5618,7 @@ cn.com.modernmedia.model.IndexArticle -> cn.com.modernmedia.model.IndexArticle:
     java.util.List getTodayList() -> getTodayList
     void setTodayList(java.util.List) -> setTodayList
 cn.com.modernmedia.model.IndexArticle$Position -> cn.com.modernmedia.model.IndexArticle$Position:
+    long serialVersionUID -> serialVersionUID
     int id -> id
     int style -> style
     int getId() -> getId
@@ -5621,6 +5626,7 @@ cn.com.modernmedia.model.IndexArticle$Position -> cn.com.modernmedia.model.Index
     int getStyle() -> getStyle
     void setStyle(int) -> setStyle
 cn.com.modernmedia.model.IndexArticle$Today -> cn.com.modernmedia.model.IndexArticle$Today:
+    long serialVersionUID -> serialVersionUID
     int todayCatId -> todayCatId
     java.util.List articleItemList -> articleItemList
     int getTodayCatId() -> getTodayCatId
@@ -5644,6 +5650,14 @@ cn.com.modernmedia.model.Issue -> cn.com.modernmedia.model.Issue:
     void setArticleUpdateTime(long) -> setArticleUpdateTime
     cn.com.modernmedia.model.Adv getAdv() -> getAdv
     void setAdv(cn.com.modernmedia.model.Adv) -> setAdv
+cn.com.modernmedia.model.LastestArticleId -> cn.com.modernmedia.model.LastestArticleId:
+    long serialVersionUID -> serialVersionUID
+    java.util.HashMap unReadedEntryIds -> unReadedEntryIds
+    java.util.HashMap unReadedId -> unReadedId
+    java.util.HashMap getUnReadedEntryIds() -> getUnReadedEntryIds
+    void setUnReadedEntryIds(java.util.HashMap) -> setUnReadedEntryIds
+    java.util.HashMap getUnReadedId() -> getUnReadedId
+    void setUnReadedId(java.util.HashMap) -> setUnReadedId
 cn.com.modernmedia.model.Share -> cn.com.modernmedia.model.Share:
     long serialVersionUID -> serialVersionUID
     int id -> id
@@ -5749,11 +5763,11 @@ cn.com.modernmedia.util.Base64$Encoder -> cn.com.modernmedia.util.Base64$Encoder
     boolean process(byte[],int,int,boolean) -> process
 cn.com.modernmedia.util.BitmapUtil -> cn.com.modernmedia.util.BitmapUtil:
     int UNCONSTRAINED -> UNCONSTRAINED
-    android.graphics.BitmapFactory$Options getOptions(java.lang.String) -> getOptions
-    android.graphics.Bitmap getBitmapByPath(java.lang.String,int,int) -> getBitmapByPath
-    android.graphics.Rect getScreenRegion(int,int) -> getScreenRegion
-    int computeSampleSize(android.graphics.BitmapFactory$Options,int,int) -> computeSampleSize
-    int computeInitialSampleSize(android.graphics.BitmapFactory$Options,int,int) -> computeInitialSampleSize
+    android.graphics.BitmapFactory$Options getOptions(java.lang.String,java.lang.String) -> getOptions
+    android.graphics.Bitmap getBitmapByPath(java.lang.String,java.lang.String,int,int) -> getBitmapByPath
+    android.graphics.Bitmap decodeStream(java.io.InputStream,int,int) -> decodeStream
+    byte[] read(java.io.InputStream) -> read
+    int calculateInSampleSize(android.graphics.BitmapFactory$Options,int,int) -> calculateInSampleSize
 cn.com.modernmedia.util.CommonCrashHandler -> cn.com.modernmedia.util.CommonCrashHandler:
     java.lang.Thread$UncaughtExceptionHandler mDefaultHandler -> mDefaultHandler
     cn.com.modernmedia.util.CommonCrashHandler INSTANCE -> INSTANCE
@@ -5771,7 +5785,6 @@ cn.com.modernmedia.util.ConstData -> cn.com.modernmedia.util.ConstData:
     int READ_TIMEOUT -> READ_TIMEOUT
     int BUFFERSIZE -> BUFFERSIZE
     int TOAST_LENGTH -> TOAST_LENGTH
-    java.lang.String CHANNEL -> CHANNEL
     int VERSION -> VERSION
     java.lang.String APP_NAME -> APP_NAME
     int SPLASH_DELAY_TIME -> SPLASH_DELAY_TIME
@@ -5781,7 +5794,11 @@ cn.com.modernmedia.util.ConstData -> cn.com.modernmedia.util.ConstData:
     java.lang.String PUSH_ACTION -> PUSH_ACTION
     java.lang.String FLURRYAGENT_KEY -> FLURRYAGENT_KEY
     java.lang.String CRASH_NAME -> CRASH_NAME
-    void setAppId(int,int,java.lang.String) -> setAppId
+    int getAppId() -> getAppId
+    int getInitialAppId() -> getInitialAppId
+    void setAppId(int,int) -> setAppId
+    void setAppId(int) -> setAppId
+    void setDebug(int) -> setDebug
     java.lang.String getFlurryApiKey() -> getFlurryApiKey
     java.lang.String getAppName() -> getAppName
     void initDefaultValue() -> initDefaultValue
@@ -5794,6 +5811,7 @@ cn.com.modernmedia.util.ConstData -> cn.com.modernmedia.util.ConstData:
     java.lang.String getShareFileName(java.lang.String,java.lang.String,java.lang.String,java.lang.String) -> getShareFileName
     java.lang.String getCurrentIssueFold() -> getCurrentIssueFold
     java.lang.String getCrashLogFilename() -> getCrashLogFilename
+    java.lang.String getLastestArticleIdFileName() -> getLastestArticleIdFileName
 cn.com.modernmedia.util.DataHelper -> cn.com.modernmedia.util.DataHelper:
     android.content.SharedPreferences mPref -> mPref
     java.lang.String FIRST_USE -> FIRST_USE
@@ -5845,12 +5863,11 @@ cn.com.modernmedia.util.FileManager -> cn.com.modernmedia.util.FileManager:
     java.lang.String CAT_INDEX_FOLDER -> CAT_INDEX_FOLDER
     java.lang.String ARTICLE_FOLDER -> ARTICLE_FOLDER
     java.lang.String SHARE_FOLDER -> SHARE_FOLDER
-    int DEFAULT_COMPRESS_QUALITY -> DEFAULT_COMPRESS_QUALITY
     java.lang.String CHARSET -> CHARSET
     java.lang.String defaultPath -> defaultPath
     java.lang.String getDefaultPath() -> getDefaultPath
-    void saveImageToFile(android.graphics.Bitmap,java.lang.String) -> saveImageToFile
-    void saveImage(android.graphics.Bitmap,java.lang.String,boolean) -> saveImage
+    void saveImageToFile(java.io.InputStream,java.lang.String) -> saveImageToFile
+    void saveImage(java.io.InputStream,java.lang.String,boolean) -> saveImage
     android.graphics.Bitmap getImageFromFile(java.lang.String) -> getImageFromFile
     android.graphics.Bitmap getImageFromFile(java.lang.String,int,int) -> getImageFromFile
     void saveApiData(java.lang.String,java.lang.String) -> saveApiData
@@ -5869,6 +5886,14 @@ cn.com.modernmedia.util.FileManager -> cn.com.modernmedia.util.FileManager:
 cn.com.modernmedia.util.ImageScaleType -> cn.com.modernmedia.util.ImageScaleType:
     java.lang.String Type -> Type
     java.lang.String CENTER_CROP -> CENTER_CROP
+    java.lang.String FIT_CENTER -> FIT_CENTER
+    java.lang.String CENTER -> CENTER
+    java.lang.String CENTER_INSIDE -> CENTER_INSIDE
+    java.lang.String FIT_END -> FIT_END
+    java.lang.String FIT_START -> FIT_START
+    java.lang.String FIT_XY -> FIT_XY
+    java.lang.String MATRIX -> MATRIX
+    void setScaleType(android.widget.ImageView,java.lang.String) -> setScaleType
 cn.com.modernmedia.util.LogHelper -> cn.com.modernmedia.util.LogHelper:
     java.lang.String OPEN_COLUMN_LIST -> OPEN_COLUMN_LIST
     java.lang.String OPEN_FAVORITE_ARTICLE_LIST -> OPEN_FAVORITE_ARTICLE_LIST
@@ -5881,6 +5906,13 @@ cn.com.modernmedia.util.LogHelper -> cn.com.modernmedia.util.LogHelper:
     java.lang.String SHARE_ARTICLE_BY_WEIBO -> SHARE_ARTICLE_BY_WEIBO
     java.lang.String ANDROID_ADV_ENTERAPP -> ANDROID_ADV_ENTERAPP
     java.lang.String ANDROID_ADV_HEADLINE -> ANDROID_ADV_HEADLINE
+    java.lang.String ANDROID_SHOW_HIGHLIGHTS -> ANDROID_SHOW_HIGHLIGHTS
+    java.lang.String ANDROID_SHOW_HEADLINE -> ANDROID_SHOW_HEADLINE
+    java.lang.String ANDROID_TOUCH_HEADLINE -> ANDROID_TOUCH_HEADLINE
+    java.lang.String ANDROID_TOUCH_HIGHLIGHTS_TABLE -> ANDROID_TOUCH_HIGHLIGHTS_TABLE
+    java.lang.String ANDROID_TOUCH_MORENEWS -> ANDROID_TOUCH_MORENEWS
+    java.lang.String ANDROID_SHOW_COLUMN -> ANDROID_SHOW_COLUMN
+    java.lang.String ANDROID_SHOW_ARTICLE -> ANDROID_SHOW_ARTICLE
     void logOpenColumnList(android.content.Context) -> logOpenColumnList
     void logOpenFavoriteArticleList() -> logOpenFavoriteArticleList
     void logOpenColumn(android.content.Context,java.lang.String) -> logOpenColumn
@@ -5892,6 +5924,13 @@ cn.com.modernmedia.util.LogHelper -> cn.com.modernmedia.util.LogHelper:
     void logShareArticleByWeibo(android.content.Context,java.lang.String,java.lang.String) -> logShareArticleByWeibo
     void logAndroidAdvEnterapp(java.lang.String) -> logAndroidAdvEnterapp
     void logAndroidAdvHeadline(java.lang.String) -> logAndroidAdvHeadline
+    void logAndroidShowHighlights() -> logAndroidShowHighlights
+    void lodAndroidShowHeadline(int) -> lodAndroidShowHeadline
+    void logAndroidTouchHeadline(int) -> logAndroidTouchHeadline
+    void logAndroidTouchHighlightsTable(int,int) -> logAndroidTouchHighlightsTable
+    void logAndroidTouchMorenews() -> logAndroidTouchMorenews
+    void logAndroidShowColumn(android.content.Context,java.lang.String) -> logAndroidShowColumn
+    void logAndroidShowArticle(android.content.Context,java.lang.String,java.lang.String) -> logAndroidShowArticle
 cn.com.modernmedia.util.MD5 -> cn.com.modernmedia.util.MD5:
     java.lang.String[] hexDigits -> hexDigits
     java.lang.String byteArrayToHexString(byte[]) -> byteArrayToHexString
@@ -5927,11 +5966,13 @@ cn.com.modernmedia.util.UpdateManager -> cn.com.modernmedia.util.UpdateManager:
     boolean interceptFlag -> interceptFlag
     java.lang.String apkName -> apkName
     cn.com.modernmedia.model.Version version -> version
+    android.app.Dialog dialog -> dialog
     android.os.Handler mHandler -> mHandler
     void checkVersion() -> checkVersion
     boolean compareTime() -> compareTime
     void compare() -> compare
     void update() -> update
+    void dissDialog() -> dissDialog
     void downNow() -> downNow
     void downLoadApk() -> downLoadApk
     void installApk() -> installApk
@@ -5940,17 +5981,18 @@ cn.com.modernmedia.util.UpdateManager -> cn.com.modernmedia.util.UpdateManager:
     int access$1(cn.com.modernmedia.util.UpdateManager) -> access$1
     void access$2(cn.com.modernmedia.util.UpdateManager) -> access$2
     void access$3(cn.com.modernmedia.util.UpdateManager) -> access$3
-    java.lang.String access$4(cn.com.modernmedia.util.UpdateManager) -> access$4
-    void access$5(cn.com.modernmedia.util.UpdateManager,int) -> access$5
-    android.os.Handler access$6(cn.com.modernmedia.util.UpdateManager) -> access$6
-    boolean access$7(cn.com.modernmedia.util.UpdateManager) -> access$7
-    void access$8(cn.com.modernmedia.util.UpdateManager) -> access$8
-    cn.com.modernmedia.util.UpdateManager$CheckVersionListener access$9(cn.com.modernmedia.util.UpdateManager) -> access$9
-    void access$10(cn.com.modernmedia.util.UpdateManager,cn.com.modernmedia.model.Version) -> access$10
-    void access$11(cn.com.modernmedia.util.UpdateManager) -> access$11
+    void access$4(cn.com.modernmedia.util.UpdateManager) -> access$4
+    java.lang.String access$5(cn.com.modernmedia.util.UpdateManager) -> access$5
+    void access$6(cn.com.modernmedia.util.UpdateManager,int) -> access$6
+    android.os.Handler access$7(cn.com.modernmedia.util.UpdateManager) -> access$7
+    boolean access$8(cn.com.modernmedia.util.UpdateManager) -> access$8
+    void access$9(cn.com.modernmedia.util.UpdateManager) -> access$9
+    cn.com.modernmedia.util.UpdateManager$CheckVersionListener access$10(cn.com.modernmedia.util.UpdateManager) -> access$10
+    void access$11(cn.com.modernmedia.util.UpdateManager,cn.com.modernmedia.model.Version) -> access$11
     void access$12(cn.com.modernmedia.util.UpdateManager) -> access$12
-    android.content.Context access$13(cn.com.modernmedia.util.UpdateManager) -> access$13
-    void access$14(cn.com.modernmedia.util.UpdateManager,boolean) -> access$14
+    void access$13(cn.com.modernmedia.util.UpdateManager) -> access$13
+    android.content.Context access$14(cn.com.modernmedia.util.UpdateManager) -> access$14
+    void access$15(cn.com.modernmedia.util.UpdateManager,boolean) -> access$15
 cn.com.modernmedia.util.UpdateManager$1 -> cn.com.modernmedia.util.UpdateManager$1:
     cn.com.modernmedia.util.UpdateManager this$0 -> this$0
     void handleMessage(android.os.Message) -> handleMessage
@@ -5981,6 +6023,8 @@ cn.com.modernmedia.util.UriParse -> cn.com.modernmedia.util.UriParse:
     java.util.ArrayList column(java.lang.String) -> column
     java.util.ArrayList parser(java.lang.String) -> parser
     java.lang.String[] parsePush(java.lang.String) -> parsePush
+    void clickSlate(cn.com.modernmedia.listener.SlateListener,cn.com.modernmedia.model.ArticleItem) -> clickSlate
+    void clickSlate(cn.com.modernmedia.listener.SlateListener,java.lang.String,cn.com.modernmedia.model.ArticleItem) -> clickSlate
 cn.com.modernmedia.weibo.net.AccessToken -> cn.com.modernmedia.weibo.net.AccessToken:
 cn.com.modernmedia.weibo.net.AccessTokenHeader -> cn.com.modernmedia.weibo.net.AccessTokenHeader:
     cn.com.modernmedia.weibo.net.WeiboParameters generateSignatureList(cn.com.modernmedia.weibo.net.WeiboParameters) -> generateSignatureList
@@ -6295,6 +6339,8 @@ cn.com.modernmedia.widget.CommonWebView -> cn.com.modernmedia.widget.CommonWebVi
     boolean loadOk -> loadOk
     cn.com.modernmedia.model.ArticleList$ArticleDetail detail -> detail
     android.content.Context mContext -> mContext
+    boolean isChangeStatus -> isChangeStatus
+    cn.com.modernmedia.listener.SlateListener slateListener -> slateListener
     android.os.Handler handler -> handler
     void init() -> init
     void startLoad(cn.com.modernmedia.model.ArticleList$ArticleDetail) -> startLoad
@@ -6305,18 +6351,31 @@ cn.com.modernmedia.widget.CommonWebView -> cn.com.modernmedia.widget.CommonWebVi
     void cancelTimer() -> cancelTimer
     void setListener(cn.com.modernmedia.listener.WebProcessListener) -> setListener
     void gotoArticle(int) -> gotoArticle
-    cn.com.modernmedia.listener.WebProcessListener access$0(cn.com.modernmedia.widget.CommonWebView) -> access$0
-    boolean access$1(cn.com.modernmedia.widget.CommonWebView) -> access$1
-    void access$2(cn.com.modernmedia.widget.CommonWebView) -> access$2
-    android.content.Context access$3(cn.com.modernmedia.widget.CommonWebView) -> access$3
+    void showGallery(java.util.List) -> showGallery
+    void changeFont() -> changeFont
+    void changeLineHeight() -> changeLineHeight
+    android.content.Context access$0(cn.com.modernmedia.widget.CommonWebView) -> access$0
+    cn.com.modernmedia.listener.WebProcessListener access$1(cn.com.modernmedia.widget.CommonWebView) -> access$1
+    boolean access$2(cn.com.modernmedia.widget.CommonWebView) -> access$2
+    void access$3(cn.com.modernmedia.widget.CommonWebView) -> access$3
     cn.com.modernmedia.model.ArticleList$ArticleDetail access$4(cn.com.modernmedia.widget.CommonWebView) -> access$4
-    void access$5(cn.com.modernmedia.widget.CommonWebView,boolean) -> access$5
-    cn.com.modernmedia.widget.CommonWebView access$6(cn.com.modernmedia.widget.CommonWebView) -> access$6
-    android.os.Handler access$7(cn.com.modernmedia.widget.CommonWebView) -> access$7
+    cn.com.modernmedia.listener.SlateListener access$5(cn.com.modernmedia.widget.CommonWebView) -> access$5
+    void access$6(cn.com.modernmedia.widget.CommonWebView,boolean) -> access$6
+    cn.com.modernmedia.widget.CommonWebView access$7(cn.com.modernmedia.widget.CommonWebView) -> access$7
+    android.os.Handler access$8(cn.com.modernmedia.widget.CommonWebView) -> access$8
 cn.com.modernmedia.widget.CommonWebView$1 -> cn.com.modernmedia.widget.CommonWebView$1:
     cn.com.modernmedia.widget.CommonWebView this$0 -> this$0
-    void handleMessage(android.os.Message) -> handleMessage
+    void video(cn.com.modernmedia.model.ArticleItem,java.lang.String) -> video
+    void linkNull(cn.com.modernmedia.model.ArticleItem) -> linkNull
+    void image(java.lang.String) -> image
+    void httpLink(cn.com.modernmedia.model.ArticleItem,android.content.Intent) -> httpLink
+    void gallery(java.util.List) -> gallery
+    void column(java.lang.String) -> column
+    void articleLink(cn.com.modernmedia.model.ArticleItem,int) -> articleLink
 cn.com.modernmedia.widget.CommonWebView$2 -> cn.com.modernmedia.widget.CommonWebView$2:
+    cn.com.modernmedia.widget.CommonWebView this$0 -> this$0
+    void handleMessage(android.os.Message) -> handleMessage
+cn.com.modernmedia.widget.CommonWebView$3 -> cn.com.modernmedia.widget.CommonWebView$3:
     cn.com.modernmedia.widget.CommonWebView this$0 -> this$0
     void onPageStarted(android.webkit.WebView,java.lang.String,android.graphics.Bitmap) -> onPageStarted
     void onPageFinished(android.webkit.WebView,java.lang.String) -> onPageFinished
@@ -6324,7 +6383,7 @@ cn.com.modernmedia.widget.CommonWebView$2 -> cn.com.modernmedia.widget.CommonWeb
     void onLoadResource(android.webkit.WebView,java.lang.String) -> onLoadResource
     void onReceivedSslError(android.webkit.WebView,android.webkit.SslErrorHandler,android.net.http.SslError) -> onReceivedSslError
     void onReceivedError(android.webkit.WebView,int,java.lang.String,java.lang.String) -> onReceivedError
-cn.com.modernmedia.widget.CommonWebView$3 -> cn.com.modernmedia.widget.CommonWebView$3:
+cn.com.modernmedia.widget.CommonWebView$4 -> cn.com.modernmedia.widget.CommonWebView$4:
     cn.com.modernmedia.widget.CommonWebView this$0 -> this$0
     void run() -> run
 cn.com.modernmedia.widget.HeadPagerListView -> cn.com.modernmedia.widget.HeadPagerListView:
@@ -6335,8 +6394,9 @@ cn.com.modernmedia.widget.LoadingImage -> cn.com.modernmedia.widget.LoadingImage
     android.content.Context mContext -> mContext
     android.widget.ImageView imageView -> imageView
     cn.com.modernmedia.widget.RedProcess process -> process
-    cn.com.modernmedia.api.ImageDownloader downloader -> downloader
     java.lang.String tag -> tag
+    int width -> width
+    int height -> height
     void init() -> init
     void setUrl(java.lang.String) -> setUrl
     void loading() -> loading

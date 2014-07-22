@@ -4,31 +4,37 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.view.View;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebSettings;
+import android.webkit.WebSettings.PluginState;
 import android.webkit.WebSettings.RenderPriority;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import cn.com.modernmedia.CommonArticleActivity;
 import cn.com.modernmedia.VideoPlayerActivity;
+import cn.com.modernmedia.api.OperateController;
 import cn.com.modernmedia.db.ReadDb;
+import cn.com.modernmedia.listener.FetchEntryListener;
+import cn.com.modernmedia.listener.SlateListener;
 import cn.com.modernmedia.listener.WebProcessListener;
+import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.model.ArticleList.ArticleDetail;
-import cn.com.modernmedia.util.ParseUtil;
+import cn.com.modernmedia.model.Atlas;
+import cn.com.modernmedia.model.Entry;
+import cn.com.modernmedia.util.DataHelper;
+import cn.com.modernmedia.util.LogHelper;
 import cn.com.modernmedia.util.UriParse;
 
-@SuppressLint("SetJavaScriptEnabled")
 public abstract class CommonWebView extends WebView {
 	private CommonWebView me;
 	private final static int TIME_OUT = 20 * 1000;// 设置超时时间
@@ -38,6 +44,45 @@ public abstract class CommonWebView extends WebView {
 	private boolean loadOk = true;
 	private ArticleDetail detail;
 	private Context mContext;
+
+	private SlateListener slateListener = new SlateListener() {
+
+		@Override
+		public void video(ArticleItem item, String path) {
+			Intent intent = new Intent(mContext, VideoPlayerActivity.class);
+			intent.putExtra("vpath", path);
+			mContext.startActivity(intent);
+		}
+
+		@Override
+		public void linkNull(ArticleItem item) {
+		}
+
+		@Override
+		public void image(String url) {
+		}
+
+		@Override
+		public void httpLink(ArticleItem item, Intent intent) {
+			if (mContext instanceof Activity) {
+				((Activity) mContext).startActivity(intent);
+			}
+		}
+
+		@Override
+		public void gallery(List<String> urlList) {
+			showGallery(urlList);
+		}
+
+		@Override
+		public void column(String columnId) {
+		}
+
+		@Override
+		public void articleLink(ArticleItem item, int articleId) {
+			gotoArticle(articleId);
+		}
+	};
 
 	private Handler handler = new Handler() {
 
@@ -82,6 +127,8 @@ public abstract class CommonWebView extends WebView {
 		s.setAllowFileAccess(true);
 		s.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
 		s.setJavaScriptCanOpenWindowsAutomatically(true);
+		s.setPluginState(PluginState.ON);
+		this.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);// 去掉白边
 		this.setWebViewClient(new WebViewClient() {
 
 			/**
@@ -108,8 +155,13 @@ public abstract class CommonWebView extends WebView {
 								.equals(url)) {
 							ReadDb.getInstance(mContext).addReadArticle(
 									detail.getArticleId());
+							LogHelper.logAndroidShowArticle(mContext,
+									detail.getCatId() + "",
+									detail.getArticleId() + "");
 						}
 					}
+					// changeFont();
+					// changeLineHeight();
 					if (listener != null)
 						listener.showStyle(0);
 				}
@@ -120,32 +172,7 @@ public abstract class CommonWebView extends WebView {
 			 */
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
-				if (!TextUtils.isEmpty(url) && url.startsWith("http://")) {
-					Uri uri = Uri.parse(url);
-					Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-					if (mContext instanceof Activity) {
-						((Activity) mContext).startActivity(intent);
-						return true;
-					}
-				}
-				List<String> list = UriParse.parser(url);
-				if (list.size() > 1) {
-					if (list.get(0).equalsIgnoreCase("video")) {
-						String path = list.get(1).replace(".m3u8", ".mp4");//
-						// "http://v.cdn.imlady.bbwc.cn/turningpoints/2012/12/20121218032816456/20121218032816456.mp4";
-						if (path.toLowerCase().endsWith(".mp4")) {
-							Intent intent = new Intent(view.getContext(),
-									VideoPlayerActivity.class);
-							intent.putExtra("vpath", path);
-							view.getContext().startActivity(intent);
-						}
-					} else if (list.get(0).equalsIgnoreCase("article")) {
-						// 跳转到该文章页
-						if (list.size() > 3) {
-							gotoArticle(ParseUtil.stoi(list.get(3), -1));
-						}
-					}
-				}
+				UriParse.clickSlate(slateListener, url, new ArticleItem());
 				return true;
 			}
 
@@ -192,8 +219,7 @@ public abstract class CommonWebView extends WebView {
 		this.detail = detail;
 		String url = detail.getLink();
 		if (TextUtils.isEmpty(url) || !url.startsWith("http")) {
-			loadData("没有url或者不已http开头" + url == null ? "" : ":" + url,
-					"text/html", "utf-8");
+			getArticleById(detail);
 			return;
 		}
 		loadUrl(url);
@@ -258,4 +284,59 @@ public abstract class CommonWebView extends WebView {
 	 */
 	public abstract void gotoArticle(int articleId);
 
+	/**
+	 * 跳转至文章相册
+	 * 
+	 * @param urlList
+	 */
+	public abstract void showGallery(List<String> urlList);
+
+	/**
+	 * 改变字体
+	 */
+	public void changeFont() {
+		if (!loadOk)
+			return;
+		String url = "javascript:setFontSize("
+				+ DataHelper.getFontSize(mContext) + ")";
+		// isChangeStatus = true;
+		this.loadUrl(url);
+	}
+
+	/**
+	 * 改变行间距
+	 */
+	public void changeLineHeight() {
+		if (!loadOk)
+			return;
+		String url = "javascript:setLineHeight("
+				+ DataHelper.getLineHeight(mContext) + ");";
+		// isChangeStatus = true;
+		this.loadUrl(url);
+	}
+
+	/**
+	 * 如果传进来的对象没有link，重新获取article
+	 * 
+	 * @param item
+	 */
+	private void getArticleById(ArticleDetail item) {
+		if (mContext instanceof CommonArticleActivity) {
+			new OperateController(mContext).getArticleById(
+					((CommonArticleActivity) mContext).getIssue(),
+					item.getCatId() + "", item.getArticleId() + "",
+					new FetchEntryListener() {
+
+						@Override
+						public void setData(Entry entry) {
+							if (entry instanceof Atlas) {
+								String link = ((Atlas) entry).getLink();
+								if (!TextUtils.isEmpty(link)) {
+									loadUrl(link);
+								}
+							}
+						}
+					});
+		}
+	}
 }

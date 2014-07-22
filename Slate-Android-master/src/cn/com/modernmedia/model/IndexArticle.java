@@ -45,7 +45,8 @@ public class IndexArticle extends Entry {
 	 * @author ZhuQiao
 	 * 
 	 */
-	public static class Position {
+	public static class Position extends Entry {
+		private static final long serialVersionUID = 1L;
 		private int id = -1;
 		private int style = -1;
 
@@ -73,7 +74,8 @@ public class IndexArticle extends Entry {
 	 * @author ZhuQiao
 	 * 
 	 */
-	public static class Today {
+	public static class Today extends Entry {
+		private static final long serialVersionUID = 1L;
 		private int todayCatId = -1;// 所属栏目id
 		private List<ArticleItem> articleItemList = new ArrayList<ArticleItem>();// 当前栏目下的文章列表
 

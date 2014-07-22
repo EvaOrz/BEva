@@ -46,7 +46,7 @@ public class GetIndexOperate extends BaseOperate {
 		if (!isNull(articleArray))
 			parseTitleArticle(articleArray);
 		JSONArray todayArr = jsonObject.optJSONArray("today");
-		if (!isNull(todayArr) && ConstData.APP_ID == 1)// 只有商周有
+		if (!isNull(todayArr) && ConstData.getAppId() == 1)// 只有商周有
 			parseToday(todayArr);
 	}
 
@@ -84,7 +84,7 @@ public class GetIndexOperate extends BaseOperate {
 				// 如果广告过期就不显示
 				continue;
 			}
-			if (ConstData.APP_ID == 1) {// 商周
+			if (ConstData.getAppId() == 1) {// 商周
 				titleActicleList.add(titleArticle);
 			} else {
 				if (titleArticle.getPosition().getId() == 1) {
@@ -184,7 +184,7 @@ public class GetIndexOperate extends BaseOperate {
 			Adv adv = parseAdv(obj);
 			articleItem.setAdv(adv);
 			if (adv.getAdvProperty().getIsadv() == 1) {// 商周列表过滤掉广告
-				if (adv.isExpired() || ConstData.APP_ID == 1) {
+				if (adv.isExpired() || ConstData.getAppId() == 1) {
 					// 如果广告过期就不显示
 					continue;
 				}

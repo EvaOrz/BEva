@@ -25,6 +25,13 @@ public class LogHelper {
 	public static final String SHARE_ARTICLE_BY_WEIBO = "ShareArticleByWeibo";
 	public static final String ANDROID_ADV_ENTERAPP = "android-adv-enterapp";
 	public static final String ANDROID_ADV_HEADLINE = "android-adv-headline";
+	public static final String ANDROID_SHOW_HIGHLIGHTS = "android-show-highlights";
+	public static final String ANDROID_SHOW_HEADLINE = "android-show-headline";
+	public static final String ANDROID_TOUCH_HEADLINE = "android-touch-headline";
+	public static final String ANDROID_TOUCH_HIGHLIGHTS_TABLE = "android-touch-highlights-table";
+	public static final String ANDROID_TOUCH_MORENEWS = "android-touch-morenews";
+	public static final String ANDROID_SHOW_COLUMN = "android-show-column";
+	public static final String ANDROID_SHOW_ARTICLE = "android-show-article";
 
 	/**
 	 * 呼出左侧栏目列表
@@ -173,5 +180,87 @@ public class LogHelper {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("advId", advId);
 		FlurryAgent.logEvent(ANDROID_ADV_HEADLINE, map);
+	}
+
+	/**
+	 * 焦点页展示(首页展示)
+	 */
+	public static void logAndroidShowHighlights() {
+		FlurryAgent.logEvent(ANDROID_SHOW_HIGHLIGHTS);
+	}
+
+	/**
+	 * 焦点页头条展示(首页焦点图)
+	 * 
+	 * @param position
+	 *            焦点图位置
+	 */
+	public static void lodAndroidShowHeadline(int position) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("index", position + "");
+		FlurryAgent.logEvent(ANDROID_SHOW_HEADLINE, map);
+	}
+
+	/**
+	 * 焦点页头条点击(首页点击焦点图)
+	 * 
+	 * @param position
+	 *            焦点图位置
+	 */
+	public static void logAndroidTouchHeadline(int position) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("index", position + "");
+		FlurryAgent.logEvent(ANDROID_TOUCH_HEADLINE, map);
+	}
+
+	/**
+	 * 焦点页表格点击(首页)
+	 * 
+	 * @param section
+	 *            第几个栏目
+	 * @param row
+	 *            栏目中第几个位置
+	 */
+	public static void logAndroidTouchHighlightsTable(int section, int row) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("section", section + "");
+		map.put("row", row + "");
+		FlurryAgent.logEvent(ANDROID_TOUCH_HIGHLIGHTS_TABLE, map);
+	}
+
+	/**
+	 * 更多即时头条按钮点击
+	 */
+	public static void logAndroidTouchMorenews() {
+		FlurryAgent.logEvent(ANDROID_TOUCH_MORENEWS);
+	}
+
+	/**
+	 * 栏目页展示
+	 * 
+	 * @param columnId
+	 *            栏目id
+	 */
+	public static void logAndroidShowColumn(Context context, String columnId) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("columnId", columnId);
+		map.put("issueId", DataHelper.getIssueId(context) + "");
+		FlurryAgent.logEvent(ANDROID_SHOW_COLUMN, map);
+	}
+
+	/**
+	 * 文章页展示
+	 * 
+	 * @param context
+	 * @param columnId
+	 * @param articleId
+	 */
+	public static void logAndroidShowArticle(Context context, String columnId,
+			String articleId) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("issueId", DataHelper.getIssueId(context) + "");
+		map.put("columnId", columnId);
+		map.put("articleId", articleId);
+		FlurryAgent.logEvent(ANDROID_SHOW_ARTICLE, map);
 	}
 }

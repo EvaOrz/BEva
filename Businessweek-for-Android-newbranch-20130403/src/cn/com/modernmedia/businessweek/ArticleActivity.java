@@ -1,5 +1,6 @@
 package cn.com.modernmedia.businessweek;
 
+import android.app.Activity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -104,4 +105,13 @@ public class ArticleActivity extends CommonArticleActivity implements
 		}
 	}
 
+	@Override
+	public String getActivityName() {
+		return ArticleActivity.class.getName();
+	}
+
+	@Override
+	public Activity getActivity() {
+		return this;
+	}
 }

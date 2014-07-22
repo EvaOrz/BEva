@@ -44,6 +44,13 @@ public abstract class MyPagerAdapter extends PagerAdapter {
 	@Override
 	public void destroyItem(ViewGroup container, int position, Object object) {
 		container.removeView((View) object);
+		if (list.size() > position) {
+			ArticleItem item = list.get(position);
+			if (item != null && item.getPictureList() != null
+					&& !item.getPictureList().isEmpty())
+				CommonApplication.getImageDownloader().removeBitmapFromCache(
+						item.getPictureList().get(0), false);
+		}
 		CommonApplication.callGc();
 	}
 
@@ -51,10 +58,10 @@ public abstract class MyPagerAdapter extends PagerAdapter {
 	public Object instantiateItem(ViewGroup container, final int position) {
 		final View view = fetchView(list.get(position));
 		view.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-				if(onItemClickListener!=null)
+				if (onItemClickListener != null)
 					onItemClickListener.onItemClick(view, position);
 			}
 		});

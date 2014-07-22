@@ -114,11 +114,28 @@ public class ReadDb extends SQLiteOpenHelper {
 		return false;
 	}
 
+	/**
+	 * и╬ЁЩря╤андуб
+	 * 
+	 * @param id
+	 */
+	public void deleteArticle(int id) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		try {
+			db.delete(TABLE_NAME, ID + "=?", new String[] { id + "" });
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (db.isOpen())
+				db.close();
+		}
+	}
+
 	public void close() {
 		if (null != instance) {
-			this.close();
 			instance = null;
 		}
+		super.close();
 	}
 
 	@Override

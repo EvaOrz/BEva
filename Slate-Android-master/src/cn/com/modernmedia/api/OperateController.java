@@ -233,4 +233,23 @@ public class OperateController {
 			}
 		});
 	}
+
+	/**
+	 * 获取最新未读文章id
+	 * 
+	 * @param listener
+	 */
+	public void getLastestArticleIds(int issueId,
+			final FetchEntryListener listener) {
+		final GetLastestArticleIdOperate operate = new GetLastestArticleIdOperate(
+				mContext, issueId);
+		operate.asyncRequest(mContext, false, new DataCallBack() {
+
+			@Override
+			public void callback(boolean success) {
+				listener.setData(success ? operate.getmLastestArticleId()
+						: null);
+			}
+		});
+	}
 }

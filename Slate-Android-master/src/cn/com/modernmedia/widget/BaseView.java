@@ -1,14 +1,9 @@
 package cn.com.modernmedia.widget;
 
-import java.util.List;
-
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
@@ -21,7 +16,6 @@ import cn.com.modernmedia.Fragment.BaseFragment;
 import cn.com.modernmedia.listener.SlateListener;
 import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.util.ConstData;
-import cn.com.modernmedia.util.ParseUtil;
 import cn.com.modernmedia.util.UriParse;
 
 /**
@@ -111,37 +105,7 @@ public abstract class BaseView extends RelativeLayout {
 	}
 
 	protected void clickSlate(ArticleItem item) {
-		if (listener == null)
-			return;
-		String link = "";
-		int type = item.getAdv().getAdvProperty().getIsadv();
-		if (type == 1) {// ¹ã¸æ
-			link = item.getAdv().getColumnAdv().getLink();
-		} else {
-			link = item.getSlateLink();
-		}
-		if (TextUtils.isEmpty(link)) {
-			listener.linkNull(item);
-		} else if (link.toLowerCase().startsWith("http://")) {
-			Uri uri = Uri.parse(link);
-			Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-			listener.httpLink(item, intent);
-		} else if (link.toLowerCase().startsWith("slate://")) {
-			List<String> list = UriParse.parser(link);
-			if (list.size() > 1) {
-				if (list.get(0).equalsIgnoreCase("video")) {
-					String path = list.get(1).replace(".m3u8", ".mp4");//
-					if (path.toLowerCase().endsWith(".mp4")) {
-						listener.video(item, path);
-					}
-				} else if (list.get(0).equalsIgnoreCase("article")) {
-					if (list.size() > 3) {
-						listener.articleLink(item,
-								ParseUtil.stoi(list.get(3), -1));
-					}
-				}
-			}
-		}
+		UriParse.clickSlate(listener, item);
 	}
 
 	protected void showFragmentIfNeeded(Fragment fragment, String tag,
@@ -183,28 +147,6 @@ public abstract class BaseView extends RelativeLayout {
 	protected void showFragment(Fragment fragment, boolean show) {
 		if (fragment instanceof BaseFragment) {
 			((BaseFragment) fragment).showView(show);
-		}
-	}
-
-	protected void deleteAllFragments(String[] tags) {
-		if (!(mContext instanceof BaseFragmentActivity))
-			return;
-		FragmentManager fragmentManager = ((BaseFragmentActivity) mContext)
-				.getSupportFragmentManager();
-		FragmentTransaction transaction = fragmentManager.beginTransaction();
-		for (String hideTag : tags) {
-			Fragment fragmentNeedHide = fragmentManager
-					.findFragmentByTag(hideTag);
-			if (fragmentNeedHide != null) {
-				showFragment(fragmentNeedHide, false);
-				transaction.remove(fragmentNeedHide);
-			}
-		}
-		try {
-			// TODO catch Activity has been destroyed error
-			transaction.commitAllowingStateLoss();
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 }

@@ -1,6 +1,8 @@
 package cn.com.modernmedia;
 
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -15,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+import cn.com.modernmedia.Fragment.BaseFragment;
 import cn.com.modernmedia.util.ConstData;
 
 import com.flurry.android.FlurryAgent;
@@ -26,6 +29,7 @@ import com.flurry.android.FlurryAgent;
  * 
  */
 public abstract class BaseFragmentActivity extends FragmentActivity {
+	private Context mContext;
 	private RelativeLayout process_layout;
 	private ProgressBar loading;
 	private ImageView error;
@@ -36,7 +40,9 @@ public abstract class BaseFragmentActivity extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		addActivityToList();
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		mContext = this;
 		flurryApiKey = ConstData.getFlurryApiKey();
 		CommonApplication app = (CommonApplication) getApplication();
 		if (CommonApplication.width == 0) {
@@ -44,6 +50,9 @@ public abstract class BaseFragmentActivity extends FragmentActivity {
 		}
 		if (TextUtils.isEmpty(CommonApplication.CHANNEL)) {
 			app.initChannel();
+		}
+		if (ConstData.getAppId() == 1) {
+			CommonApplication.getLocalLanguage();
 		}
 		deleteAllFragments(getFragmentTags());
 	}
@@ -173,12 +182,55 @@ public abstract class BaseFragmentActivity extends FragmentActivity {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
+		removeActivityFromList();
 	}
 
 	/**
 	 * 当页面出错时重新获取数据
 	 */
 	public abstract void reLoadData();
+
+	protected void showFragmentIfNeeded(Fragment fragment, String tag,
+			int fragmentRes, String[] tags) {
+		if (!(mContext instanceof BaseFragmentActivity))
+			return;
+		showFragment(fragment, true);
+		FragmentManager fragmentManager = ((BaseFragmentActivity) mContext)
+				.getSupportFragmentManager();
+		FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+		if (fragmentManager.findFragmentByTag(tag) == null) {
+			transaction.add(fragmentRes, fragment, tag);
+		} else {
+			transaction.show(fragment);
+			if (fragment instanceof BaseFragment) {
+				((BaseFragment) fragment).refresh();
+			}
+		}
+
+		for (String hideTag : tags) {
+			if (!hideTag.equals(tag)) {
+				Fragment fragmentNeedHide = fragmentManager
+						.findFragmentByTag(hideTag);
+				if (fragmentNeedHide != null) {
+					showFragment(fragmentNeedHide, false);
+					transaction.remove(fragmentNeedHide);
+				}
+			}
+		}
+		try {
+			// TODO catch Activity has been destroyed error
+			transaction.commitAllowingStateLoss();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	protected void showFragment(Fragment fragment, boolean show) {
+		if (fragment instanceof BaseFragment) {
+			((BaseFragment) fragment).showView(show);
+		}
+	}
 
 	public abstract String[] getFragmentTags();
 
@@ -189,6 +241,8 @@ public abstract class BaseFragmentActivity extends FragmentActivity {
 	 * @param tags
 	 */
 	protected void deleteAllFragments(String[] tags) {
+		if (tags == null)
+			return;
 		FragmentManager fragmentManager = getSupportFragmentManager();
 		FragmentTransaction transaction = fragmentManager.beginTransaction();
 		for (String hideTag : tags) {
@@ -205,4 +259,16 @@ public abstract class BaseFragmentActivity extends FragmentActivity {
 			e.printStackTrace();
 		}
 	}
+
+	public void addActivityToList() {
+		CommonApplication.addActivity(getActivityName(), getActivity());
+	};
+
+	public void removeActivityFromList() {
+		CommonApplication.removeActivity(getActivityName());
+	}
+
+	public abstract String getActivityName();
+
+	public abstract Activity getActivity();
 }

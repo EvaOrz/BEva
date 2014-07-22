@@ -41,7 +41,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@+id/index_titleBar"
-        android:background="@color/full_transparent" />
+        android:background="@color/white_bg" />
 
     <!-- 覆盖在listview上面 -->
 
@@ -63,7 +63,6 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@+id/index_titleBar"
-        android:orientation="horizontal"
         android:visibility="gone" />
 
 </RelativeLayout>

@@ -3,6 +3,7 @@ package cn.com.modernmedia.businessweek;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.view.View;
@@ -183,6 +184,16 @@ public class MainActivity extends CommonMainActivity {
 	@Override
 	public String[] getFragmentTags() {
 		return IndexView.TAGS;
+	}
+
+	@Override
+	public String getActivityName() {
+		return MainActivity.class.getName();
+	}
+
+	@Override
+	public Activity getActivity() {
+		return this;
 	}
 
 }

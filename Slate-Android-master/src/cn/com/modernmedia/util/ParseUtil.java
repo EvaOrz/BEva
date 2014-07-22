@@ -1,5 +1,7 @@
 package cn.com.modernmedia.util;
 
+import android.text.TextUtils;
+
 /**
  * 数据类型转换
  * 
@@ -13,6 +15,8 @@ public class ParseUtil {
 	 * @param str
 	 */
 	public static int stoi(String str) {
+		if (TextUtils.isEmpty(str))
+			return 0;
 		int i = 0;
 		try {
 			i = Integer.parseInt(str);
@@ -27,10 +31,12 @@ public class ParseUtil {
 	 * 
 	 * @param str
 	 * @param default_i
-	 *            出错时默认返�?
+	 *            出错时默认返�?
 	 * @return
 	 */
 	public static int stoi(String str, int default_i) {
+		if (TextUtils.isEmpty(str))
+			return default_i;
 		int i = 0;
 		try {
 			i = Integer.parseInt(str);
@@ -48,6 +54,8 @@ public class ParseUtil {
 	 * @return
 	 */
 	public static double stod(String str) {
+		if (TextUtils.isEmpty(str))
+			return 0.00;
 		double d = 0.00;
 		try {
 			d = Double.parseDouble(str);
@@ -62,10 +70,12 @@ public class ParseUtil {
 	 * 
 	 * @param str
 	 * @param defaule_d
-	 *            出错时默认返�?
+	 *            出错时默认返�?
 	 * @return
 	 */
 	public static double stod(String str, double defaule_d) {
+		if (TextUtils.isEmpty(str))
+			return defaule_d;
 		double d = 0.00;
 		try {
 			d = Double.parseDouble(str);
@@ -83,6 +93,8 @@ public class ParseUtil {
 	 * @return
 	 */
 	public static long stol(String str) {
+		if (TextUtils.isEmpty(str))
+			return 0;
 		long l = 0;
 		try {
 			l = Long.parseLong(str);
@@ -99,6 +111,8 @@ public class ParseUtil {
 	 * @return
 	 */
 	public static long stol(String str, long default_l) {
+		if (TextUtils.isEmpty(str))
+			return default_l;
 		long l = 0;
 		try {
 			l = Long.parseLong(str);

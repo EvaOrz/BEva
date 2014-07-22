@@ -3,7 +3,7 @@
     android:id="@+id/process_layout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@android:color/white" >
+    android:background="@color/white_bg" >
 
     <ProgressBar
         android:id="@+id/loading"

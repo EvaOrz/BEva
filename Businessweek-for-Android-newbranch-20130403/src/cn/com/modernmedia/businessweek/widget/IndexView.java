@@ -1,5 +1,7 @@
 package cn.com.modernmedia.businessweek.widget;
 
+import java.util.List;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -23,6 +25,8 @@ import cn.com.modernmedia.listener.FetchEntryListener;
 import cn.com.modernmedia.listener.SlateListener;
 import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.model.Entry;
+import cn.com.modernmedia.model.IndexArticle;
+import cn.com.modernmedia.model.IndexArticle.Today;
 import cn.com.modernmedia.model.Issue;
 import cn.com.modernmedia.util.LogHelper;
 import cn.com.modernmedia.widget.BaseView;
@@ -44,6 +48,8 @@ public class IndexView extends BaseView implements FetchEntryListener {
 	private ChildCatFragment childFragment;
 	private IndexListFragment listFragment;
 	private LinearLayout cover;
+	private boolean isIndex;
+	private Entry entry;
 	private SlateListener listener = new SlateListener() {
 
 		@Override
@@ -73,7 +79,7 @@ public class IndexView extends BaseView implements FetchEntryListener {
 		}
 
 		@Override
-		public void gallery(String url) {
+		public void gallery(List<String> urlList) {
 		}
 
 		@Override
@@ -136,9 +142,39 @@ public class IndexView extends BaseView implements FetchEntryListener {
 					}
 					LogHelper.logOpenArticleFromColumnPage(mContext,
 							item.getArticleId() + "", item.getCatId() + "");
+					if (isIndex && entry instanceof IndexArticle) {
+						findCatPosition(item.getCatId(), item.getArticleId(),
+								(IndexArticle) entry);
+					}
 				}
 			}
 		});
+	}
+
+	private void findCatPosition(int catId, int articleId,
+			IndexArticle indexArticle) {
+		int section = -1, row = -1;
+		List<Today> todatList = indexArticle.getTodayList();
+		List<ArticleItem> itemList = null;
+		for (int i = 0; i < todatList.size(); i++) {
+			Today t = todatList.get(i);
+			if (t.getTodayCatId() == catId) {
+				section = i;
+				itemList = t.getArticleItemList();
+				break;
+			}
+		}
+		if (itemList != null && !itemList.isEmpty()) {
+			for (int i = 0; i < itemList.size(); i++) {
+				if (itemList.get(i).getArticleId() == articleId) {
+					row = i;
+					break;
+				}
+			}
+		}
+		if (section != -1 && row != -1) {
+			LogHelper.logAndroidTouchHighlightsTable(section, row);
+		}
 	}
 
 	public Button getColumn() {
@@ -186,9 +222,11 @@ public class IndexView extends BaseView implements FetchEntryListener {
 	@Override
 	public void setData(Entry entry) {
 		if (entry != null) {
+			this.entry = entry;
 			current_tag = LIST_TAG;
 			listFragment.setData(entry);
 			showFragmentIfNeeded(listFragment, LIST_TAG, R.id.index_main, TAGS);
+			isIndex = entry instanceof IndexArticle;
 		}
 	}
 
@@ -240,9 +278,5 @@ public class IndexView extends BaseView implements FetchEntryListener {
 			childFragment.setIntercept(false);
 		}
 		return super.onInterceptTouchEvent(ev);
-	}
-
-	public void destory() {
-		deleteAllFragments(TAGS);
 	}
 }

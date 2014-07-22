@@ -483,14 +483,24 @@ public class MainHorizontalScrollView extends HorizontalScrollView {
 					- leftButton.getMeasuredWidth() - ENLARGE_WIDTH;
 		}
 		if (right_max_width == 0) {
-			right_max_width = left_max_width + leftView.getMeasuredWidth()
-					- rightButton.getWidth() - ENLARGE_WIDTH;
+			if (rightButton.getVisibility() == View.VISIBLE)
+				right_max_width = left_max_width + leftView.getMeasuredWidth()
+						- rightButton.getMeasuredWidth() - ENLARGE_WIDTH;
+			else
+				// iweekly右边按钮可能是隐藏的
+				right_max_width = left_max_width + leftView.getMeasuredWidth()
+						- leftButton.getMeasuredWidth() - ENLARGE_WIDTH;
 		}
 		mid_right = right_max_width - left_max_width / 2;
 		leftView.getLayoutParams().width = left_max_width;
 		if (rightView != null)
-			rightView.setPadding(
-					rightButton.getMeasuredWidth() + ENLARGE_WIDTH, 0, 0, 0);
+			if (rightButton.getVisibility() == View.VISIBLE)
+				rightView.setPadding(rightButton.getMeasuredWidth()
+						+ ENLARGE_WIDTH, 0, 0, 0);
+			else
+				// iweekly右边按钮可能是隐藏的
+				rightView.setPadding(leftButton.getMeasuredWidth()
+						+ ENLARGE_WIDTH, 0, 0, 0);
 		scrollWidth = left_max_width;
 		if (viewListener != null)
 			viewListener.fetchViewWidth(left_max_width);

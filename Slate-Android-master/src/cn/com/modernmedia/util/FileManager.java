@@ -7,14 +7,12 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStreamWriter;
 
 import android.graphics.Bitmap;
-import android.graphics.Bitmap.CompressFormat;
-import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.text.TextUtils;
-import cn.com.modernmedia.CommonApplication;
 
 /**
  * 文件存储
@@ -27,7 +25,6 @@ public class FileManager {
 	private static final String ARTICLE_FOLDER = "article";
 	private static final String SHARE_FOLDER = "share";
 
-	private static final int DEFAULT_COMPRESS_QUALITY = 100;// 图片报错质量
 	private static final String CHARSET = "utf-8";
 	private static String defaultPath = "";
 
@@ -45,13 +42,13 @@ public class FileManager {
 	 * @param name
 	 *            图片名称(MD5加密图片url)
 	 */
-	public static void saveImageToFile(Bitmap bitmap, String name) {
-		if (TextUtils.isEmpty(name) || bitmap == null)
+	public static void saveImageToFile(InputStream is, String name) {
+		if (TextUtils.isEmpty(name) || is == null)
 			return;
-		saveImage(bitmap, name, true);
+		saveImage(is, name, true);
 	}
 
-	private static void saveImage(Bitmap bitmap, String name, boolean showMd5) {
+	private static void saveImage(InputStream is, String name, boolean showMd5) {
 		String file_name = name;
 		if (showMd5) {
 			file_name = MD5.MD5Encode(name) + ".img";
@@ -65,21 +62,23 @@ public class FileManager {
 		BufferedOutputStream bos = null;
 		try {
 			bos = new BufferedOutputStream(new FileOutputStream(picPath), 1024);
-			if (name.contains(".jpg") || name.contains(".jpeg")
-					|| name.contains("JPG") || name.contains("JPEG")) {
-				bitmap.compress(CompressFormat.JPEG, DEFAULT_COMPRESS_QUALITY,
-						bos);
-			} else {
-				bitmap.compress(CompressFormat.PNG, DEFAULT_COMPRESS_QUALITY,
-						bos);
+			byte[] buffer = new byte[1024];
+			int size = -1;
+			while ((size = is.read(buffer)) != -1) {
+				bos.write(buffer, 0, size);
 			}
 		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
 				if (bos != null) {
 					bos.flush();
 					bos.close();
+				}
+				if (is != null) {
+					is.close();
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -94,20 +93,7 @@ public class FileManager {
 	 * @return
 	 */
 	public static Bitmap getImageFromFile(String name) {
-		if (TextUtils.isEmpty(name))
-			return null;
-		String file_name = MD5.MD5Encode(name);
-		String img_path = getDefaultPath() + ConstData.DEFAULT_IMAGE_PATH
-				+ file_name + ".img";
-		File file = new File(img_path);
-		if (!file.exists()) {
-			return null;
-		}
-		if (file.length() > 102400) {// 图片大于50K
-			return BitmapUtil.getBitmapByPath(img_path,
-					CommonApplication.width, CommonApplication.height);
-		}
-		return BitmapFactory.decodeFile(img_path);
+		return getImageFromFile(name, 0, 0);
 	}
 
 	public static Bitmap getImageFromFile(String name, int width, int height) {
@@ -120,10 +106,7 @@ public class FileManager {
 		if (!file.exists()) {
 			return null;
 		}
-		if (file.length() > 102400) {// 图片大于50K
-			return BitmapUtil.getBitmapByPath(img_path, width, height);
-		}
-		return BitmapFactory.decodeFile(img_path);
+		return BitmapUtil.getBitmapByPath(name, img_path, width, height);
 	}
 
 	/**
@@ -137,7 +120,8 @@ public class FileManager {
 			return;
 		if (data == null)
 			return;
-		boolean isCrash = name.equals(ConstData.CRASH_NAME);
+		boolean isCrash = name.equals(ConstData.CRASH_NAME)
+				|| name.equals(ConstData.API_LOG);
 		String expand = getexpandFolder(name);
 		String dataPath = "";
 		if (!isCrash) {

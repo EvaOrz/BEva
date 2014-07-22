@@ -1,10 +1,12 @@
 package cn.com.modernmedia.businessweek;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import cn.com.modernmedia.BaseActivity;
 import cn.com.modernmedia.util.ConstData;
 
@@ -21,6 +23,10 @@ public class AboutActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.about);
+		if (MyApplication.language.equals(MyApplication.ZH_TW)) {
+			((ImageView) findViewById(R.id.about_image))
+					.setImageResource(R.drawable.about_traditional);
+		}
 		back = (Button) findViewById(R.id.about_back);
 		back.setOnClickListener(new OnClickListener() {
 
@@ -45,6 +51,16 @@ public class AboutActivity extends BaseActivity {
 	protected void onPause() {
 		super.onPause();
 		overridePendingTransition(R.anim.hold, R.anim.down_out);
+	}
+
+	@Override
+	public String getActivityName() {
+		return AboutActivity.class.getName();
+	}
+
+	@Override
+	public Activity getActivity() {
+		return this;
 	}
 
 }
