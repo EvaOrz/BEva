@@ -36,6 +36,15 @@ public class FileManager {
 		return defaultPath;
 	}
 
+	public static void createNoMediaFile() {
+		String path = getDefaultPath() + "/" + ConstData.getAppName() + "/"
+				+ ".nomedia";
+		File file = new File(path);
+		if (!file.exists()) {
+			file.mkdirs();
+		}
+	}
+
 	/**
 	 * 保存图片至SD卡
 	 * 
@@ -152,6 +161,17 @@ public class FileManager {
 	}
 
 	/**
+	 * 获取图片在SD卡中的路径
+	 * 
+	 * @param name
+	 * @return
+	 */
+	public static String getBitmapPath(String name) {
+		return getDefaultPath() + ConstData.DEFAULT_IMAGE_PATH
+				+ MD5.MD5Encode(name) + ".img";
+	}
+
+	/**
 	 * 保存api返回的数据
 	 * 
 	 * @param name
@@ -163,6 +183,7 @@ public class FileManager {
 		if (data == null)
 			return;
 		boolean isCrash = name.equals(ConstData.CRASH_NAME);
+		boolean needEncrpyt = ConstData.needEncrpyt(name);
 		String expand = getexpandFolder(name);
 		String dataPath = "";
 		if (!isCrash) {
@@ -186,7 +207,7 @@ public class FileManager {
 			}
 			oStream = new FileOutputStream(saveFile, isCrash);// false:更新文件；true:追加文件
 			writer = new OutputStreamWriter(oStream, CHARSET);
-			if (isCrash) {
+			if (isCrash || !needEncrpyt) {
 				writer.write(data);
 			} else {
 				writer.write(EncrptUtil.encrpyt2(data));
@@ -216,6 +237,7 @@ public class FileManager {
 	 */
 	public static String getApiData(String name) {
 		String expand = getexpandFolder(name);
+		boolean needEncrpyt = ConstData.needEncrpyt(name);
 		name = MD5.MD5Encode(name);
 		String data_path = getDefaultPath() + ConstData.getCurrentIssueFold()
 				+ expand + name + ".txt";
@@ -232,7 +254,11 @@ public class FileManager {
 			byte[] result = baos.toByteArray();
 			if (result == null)
 				return null;
-			return EncrptUtil.decrypt2(new String(result));
+			if (needEncrpyt) {
+				return EncrptUtil.decrypt2(new String(result));
+			} else {
+				return new String(result);
+			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			return null;

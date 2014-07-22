@@ -10,7 +10,6 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import cn.com.modernmedia.CommonArticleActivity.ArticleType;
@@ -46,7 +45,7 @@ public class IndexView extends BaseView implements FetchEntryListener {
 	public static final String[] TAGS = { LIST_TAG, CHILD_TAG, SOLO_TAG };
 	private String current_tag = "";
 	private Context mContext;
-	private Button column, fav;
+	private View column, fav;
 	private TextView title;
 	private ChildCatFragment childFragment;
 	private IndexListFragment listFragment;
@@ -71,8 +70,8 @@ public class IndexView extends BaseView implements FetchEntryListener {
 		this.addView(LayoutInflater.from(mContext)
 				.inflate(R.layout.index, null));
 		initProcess();
-		column = (Button) findViewById(R.id.index_titleBar_column);
-		fav = (Button) findViewById(R.id.index_titleBar_fav);
+		column = findViewById(R.id.index_titleBar_column);
+		fav = findViewById(R.id.index_titleBar_fav);
 		title = (TextView) findViewById(R.id.index_titleBar_title);
 		cover = (LinearLayout) findViewById(R.id.index_cover);
 		cover.setBackgroundColor(Color.TRANSPARENT);
@@ -138,11 +137,11 @@ public class IndexView extends BaseView implements FetchEntryListener {
 		}
 	}
 
-	public Button getColumn() {
+	public View getColumn() {
 		return column;
 	}
 
-	public Button getFav() {
+	public View getFav() {
 		return fav;
 	}
 

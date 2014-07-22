@@ -66,7 +66,7 @@ public abstract class SlateBaseActivity extends Activity {
 			}
 		} else {
 			try {
-				if (dialog != null) {
+				if (dialog != null && dialog.isShowing()) {
 					dialog.cancel();
 					dialog = null;
 				}

@@ -1,5 +1,6 @@
 package cn.com.modernmediausermodel;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -10,7 +11,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import cn.com.modernmediaslate.SlateBaseActivity;
+import cn.com.modernmedia.BaseActivity;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediausermodel.api.UserModelInterface;
 import cn.com.modernmediausermodel.listener.RequestListener;
@@ -25,8 +26,8 @@ import cn.com.modernmediausermodel.util.UserTools;
  * @author ZhuQiao
  * 
  */
-public abstract class DefaultModifyPwdActivity extends SlateBaseActivity
-		implements OnClickListener {
+public class DefaultModifyPwdActivity extends BaseActivity implements
+		OnClickListener {
 	private Context mContext;
 	private EditText mOldPwdEdit;
 	private EditText mNewPwdEdit;
@@ -41,6 +42,7 @@ public abstract class DefaultModifyPwdActivity extends SlateBaseActivity
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mContext = this;
+		setContentView(-1);
 	}
 
 	@Override
@@ -169,5 +171,19 @@ public abstract class DefaultModifyPwdActivity extends SlateBaseActivity
 	protected void afterModifySuccess(User user) {
 		showToast(R.string.msg_modify_success);
 		finish();
+	}
+
+	@Override
+	public void reLoadData() {
+	}
+
+	@Override
+	public String getActivityName() {
+		return DefaultModifyPwdActivity.class.getName();
+	}
+
+	@Override
+	public Activity getActivity() {
+		return this;
 	}
 }

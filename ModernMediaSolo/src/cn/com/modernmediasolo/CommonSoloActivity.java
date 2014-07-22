@@ -104,6 +104,11 @@ public abstract class CommonSoloActivity extends CommonMainActivity {
 	public void getSoloArticleList(final int catId, final boolean isPull,
 			final String fromOffset, final String toOffset,
 			final boolean newData) {
+		if (TextUtils.isEmpty(fromOffset) || TextUtils.isEmpty(toOffset)) {
+			fecthDataError(null, true, newData, isPull);
+			showSoloIndexToast(true, newData);
+			return;
+		}
 		mProcess.setErrorType(6);
 		if (isFetchingSoloIndex)
 			return;

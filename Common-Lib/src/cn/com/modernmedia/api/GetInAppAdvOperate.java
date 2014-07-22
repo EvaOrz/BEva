@@ -1,5 +1,6 @@
 package cn.com.modernmedia.api;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import cn.com.modernmedia.model.InAppAdv;
@@ -29,6 +30,22 @@ public class GetInAppAdvOperate extends BaseOperate {
 		inAppAdv.setFile(jsonObject.optString("file", ""));
 		inAppAdv.setHtml_file(jsonObject.optString("html_file", ""));
 		inAppAdv.setHtml_duration(jsonObject.optInt("html_duration", 0));
+		JSONObject splash_ken_burns = jsonObject
+				.optJSONObject("splash_ken_burns");
+		if (!isNull(splash_ken_burns)) {
+			inAppAdv.setSplashFile(splash_ken_burns.optString("file"));
+			JSONArray splashImageArr = splash_ken_burns.optJSONArray("images");
+			if (!isNull(splashImageArr)) {
+				parseSpalshImgs(splashImageArr);
+			}
+		}
+	}
+
+	private void parseSpalshImgs(JSONArray arr) {
+		int length = arr.length();
+		for (int i = 0; i < length; i++) {
+			inAppAdv.getSplashFileNameList().add(arr.optString(i));
+		}
 	}
 
 	@Override

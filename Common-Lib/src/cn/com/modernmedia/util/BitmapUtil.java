@@ -84,7 +84,8 @@ public class BitmapUtil {
 					ratio = calculateInSampleSize(options, width, height);
 				}
 
-				if (ratio == 1 && file.length() > 100 * 1024) {
+				if (ratio == 1 && file.length() > 100 * 1024
+						&& ConstData.getInitialAppId() == 20) {
 					ratio = 2;
 				}
 

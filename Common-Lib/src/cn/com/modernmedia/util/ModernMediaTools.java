@@ -1,5 +1,7 @@
 package cn.com.modernmedia.util;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +23,8 @@ import cn.com.modernmedia.model.Issue;
 import cn.com.modernmediaslate.model.Favorite.FavoriteItem;
 
 public class ModernMediaTools {
+	private static String makeCard = "";
+
 	/**
 	 * 检测网络状态
 	 * 
@@ -323,5 +327,32 @@ public class ModernMediaTools {
 			return cat.getIdList().indexOf(catId);
 		}
 		return -1;
+	}
+
+	/**
+	 * 获取makecard的js代码
+	 * 
+	 * @param context
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	public static String getMakeCard(Context context, int x, int y) {
+		if (TextUtils.isEmpty(makeCard)) {
+			InputStreamReader is = null;
+			BufferedReader br = null;
+			try {
+				is = new InputStreamReader(context.getAssets()
+						.open("make_card"));// 文件只能放在主工程里面。。。
+				br = new BufferedReader(is, 1024);
+				String line = "";
+				while ((line = br.readLine()) != null) {
+					makeCard += line;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return makeCard.replace("##x", x + "").replace("##y", y + "");
 	}
 }

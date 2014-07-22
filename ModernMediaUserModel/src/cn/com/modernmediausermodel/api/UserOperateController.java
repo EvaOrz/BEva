@@ -1,6 +1,8 @@
 package cn.com.modernmediausermodel.api;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import android.content.Context;
 import android.os.Handler;
@@ -9,6 +11,9 @@ import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.model.Favorite;
 import cn.com.modernmediaslate.model.Favorite.FavoriteItem;
 import cn.com.modernmediausermodel.listener.UserFetchEntryListener;
+import cn.com.modernmediausermodel.model.Card.CardItem;
+import cn.com.modernmediausermodel.model.MultiComment.CommentItem;
+import cn.com.modernmediausermodel.model.User;
 import cn.com.modernmediausermodel.util.UserTools;
 
 /**
@@ -19,7 +24,7 @@ import cn.com.modernmediausermodel.util.UserTools;
  */
 public class UserOperateController {
 	private static UserOperateController instance;
-	private Context mContext;
+	private static Context mContext;
 
 	private Handler mHandler = new Handler();
 
@@ -27,8 +32,8 @@ public class UserOperateController {
 		mContext = context;
 	}
 
-	protected static synchronized UserOperateController getInstance(
-			Context context) {
+	public static synchronized UserOperateController getInstance(Context context) {
+		mContext = context;
 		if (instance == null)
 			instance = new UserOperateController(context);
 		return instance;
@@ -67,6 +72,30 @@ public class UserOperateController {
 			final UserFetchEntryListener listener) {
 		final UserLoginOperate operate = new UserLoginOperate(userName,
 				password);
+		// http请求
+		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
+
+			@Override
+			public void callback(boolean success) {
+				sendMessage(success ? operate.getUser() : null, listener);
+			}
+		});
+	}
+
+	/**
+	 * 新浪微博用户登录
+	 * 
+	 * @param user
+	 *            用户信息
+	 * @param avatar
+	 *            服务器相对地址
+	 * @param listener
+	 *            view数据回调接口
+	 */
+	protected void sinaLogin(User user, String avatar,
+			final UserFetchEntryListener listener) {
+		final SinaLoginOperate operate = new SinaLoginOperate(mContext, user,
+				avatar);
 		// http请求
 		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
 
@@ -295,6 +324,302 @@ public class UserOperateController {
 			@Override
 			public void callback(boolean success) {
 				sendMessage(success ? operate.getFavorite() : null, listener);
+			}
+		});
+	}
+
+	/**
+	 * 获取推荐用户列表
+	 * 
+	 */
+	public void getRecommendUsers(String uid, int pageType,
+			final UserFetchEntryListener listener) {
+		final GetRecommendUsersOperate operate = new GetRecommendUsersOperate(
+				uid, pageType);
+		operate.asyncRequest(mContext, false, new DataCallBack() {
+
+			@Override
+			public void callback(boolean success) {
+				sendMessage(success ? operate.getUsers() : null, listener);
+			}
+		});
+	}
+
+	/**
+	 * 获取多用户信息列表
+	 * 
+	 */
+	public void getUsersInfo(Set<String> uidSet,
+			final UserFetchEntryListener listener) {
+		final GetUsersInfoOperate operate = new GetUsersInfoOperate(mContext);
+		operate.setUids(uidSet);
+		operate.setShowToast(false);
+		operate.asyncRequest(mContext, false, new DataCallBack() {
+
+			@Override
+			public void callback(boolean success) {
+				sendMessage(success ? operate.getUsers() : null, listener);
+			}
+		});
+	}
+
+	/**
+	 * 取获取用户卡片相关统计信息(收藏数、卡片数、粉丝数)
+	 * 
+	 * @param uid
+	 * @param users
+	 * @param listener
+	 */
+	public void getUserCardInfo(String uid, String customerUid,
+			final UserFetchEntryListener listener) {
+		final GetUserCardInfoOperate operate = new GetUserCardInfoOperate(uid,
+				customerUid);
+		operate.asyncRequest(mContext, false, new DataCallBack() {
+
+			@Override
+			public void callback(boolean success) {
+				sendMessage(success ? operate.getUserCardInfo() : null,
+						listener);
+			}
+		});
+	}
+
+	/**
+	 * 添加关注用户
+	 * 
+	 * @param uid
+	 * @param user
+	 * @param listener
+	 */
+	public void addFollow(String uid, List<User> user,
+			final UserFetchEntryListener listener) {
+		final AddFollowOperate operate = new AddFollowOperate(uid, user);
+		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
+
+			@Override
+			public void callback(boolean success) {
+				sendMessage(success ? operate.getError() : null, listener);
+			}
+		});
+	}
+
+	/**
+	 * 取消关注用户
+	 * 
+	 * @param uid
+	 * @param users
+	 * @param listener
+	 */
+	public void deleteFollow(String uid, List<User> users,
+			final UserFetchEntryListener listener) {
+		final DeleteFollowOperate operate = new DeleteFollowOperate(uid, users);
+		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
+
+			@Override
+			public void callback(boolean success) {
+				sendMessage(success ? operate.getError() : null, listener);
+			}
+		});
+	}
+
+	/**
+	 * 获取用户卡片
+	 * 
+	 */
+	public void getUserCard(String uid, String timelineId,
+			boolean isGetNewData, final UserFetchEntryListener listener) {
+		final GetUserCardOperate operate = new GetUserCardOperate(mContext,
+				uid, timelineId, isGetNewData);
+		operate.setShowToast(false);
+		operate.asyncRequest(mContext, false, new DataCallBack() {
+
+			@Override
+			public void callback(boolean success) {
+				sendMessage(success ? operate.getCard() : null, listener);
+			}
+		});
+	}
+
+	/**
+	 * 获取推荐的卡片
+	 * 
+	 */
+	public void getRecommendCard(String timelineId, boolean isGetNewData,
+			final UserFetchEntryListener listener) {
+		final GetRecommendCardOperate operate = new GetRecommendCardOperate(
+				mContext, timelineId, isGetNewData);
+		operate.setShowToast(false);
+		operate.asyncRequest(mContext, false, new DataCallBack() {
+
+			@Override
+			public void callback(boolean success) {
+				sendMessage(success ? operate.getCard() : null, listener);
+			}
+		});
+	}
+
+	/**
+	 * 获取卡片评论
+	 * 
+	 */
+	public void getCardComments(ArrayList<CardItem> cardItems, int commentId,
+			boolean isGetNewData, final UserFetchEntryListener listener) {
+		final GetCardCommentsOperate operate = new GetCardCommentsOperate(
+				cardItems, commentId, isGetNewData);
+		operate.asyncRequest(mContext, false, new DataCallBack() {
+
+			@Override
+			public void callback(boolean success) {
+				sendMessage(success ? operate.getComments() : null, listener);
+			}
+		});
+	}
+
+	/**
+	 * 添加评论
+	 * 
+	 */
+	public void addCardComment(CommentItem comment,
+			final UserFetchEntryListener listener) {
+		final CardAddCommentOperate operate = new CardAddCommentOperate(comment);
+		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
+
+			@Override
+			public void callback(boolean success) {
+				sendMessage(success ? operate.getError() : null, listener);
+			}
+		});
+	}
+
+	/**
+	 * 添加卡片
+	 * 
+	 * @param cardItem
+	 * @param listener
+	 */
+	public void addCard(CardItem cardItem, final UserFetchEntryListener listener) {
+		final AddCardOperate operate = new AddCardOperate(cardItem);
+		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
+
+			@Override
+			public void callback(boolean success) {
+				sendMessage(success ? operate.getError() : null, listener);
+			}
+		});
+	}
+
+	/**
+	 * 删除卡片
+	 * 
+	 * @param uid
+	 * @param cardId
+	 * @param listener
+	 */
+	public void deleteCard(String uid, String cardId,
+			final UserFetchEntryListener listener) {
+		final DeleteCardOperate operate = new DeleteCardOperate(uid, cardId);
+		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
+
+			@Override
+			public void callback(boolean success) {
+				sendMessage(success ? operate.getError() : null, listener);
+			}
+		});
+	}
+
+	/**
+	 * 收藏卡片
+	 * 
+	 * @param uid
+	 * @param cardId
+	 * @param listener
+	 */
+	public void addCardFav(String uid, String cardId,
+			final UserFetchEntryListener listener) {
+		final CardFavOperate operate = new CardFavOperate(uid, cardId,
+				CardFavOperate.TYPE_ADD);
+		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
+
+			@Override
+			public void callback(boolean success) {
+				sendMessage(success ? operate.getError() : null, listener);
+			}
+		});
+	}
+
+	/**
+	 * 取消收藏卡片
+	 * 
+	 * @param uid
+	 * @param cardId
+	 * @param listener
+	 */
+	public void cancelCardFav(String uid, String cardId,
+			final UserFetchEntryListener listener) {
+		final CardFavOperate operate = new CardFavOperate(uid, cardId,
+				CardFavOperate.TYPE_DELTE);
+		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
+
+			@Override
+			public void callback(boolean success) {
+				sendMessage(success ? operate.getError() : null, listener);
+			}
+		});
+	}
+
+	/**
+	 * 获取用户timeline
+	 * 
+	 * @param uid
+	 * @param listener
+	 */
+	public void getUserTimeLine(String uid, String timelineId,
+			boolean isGetNewData, final UserFetchEntryListener listener) {
+		final GetUserTimeLineOperate operate = new GetUserTimeLineOperate(
+				mContext, uid, timelineId, isGetNewData);
+		operate.setShowToast(false);
+		operate.asyncRequest(mContext, false, new DataCallBack() {
+
+			@Override
+			public void callback(boolean success) {
+				sendMessage(success ? operate.getCard() : null, listener);
+			}
+		});
+	}
+
+	/**
+	 * 获取消息列表
+	 * 
+	 * @param uid
+	 * @param listener
+	 */
+	public void getMessageList(String uid, int lastId,
+			final UserFetchEntryListener listener) {
+		final GetMessageListOperate operate = new GetMessageListOperate(uid,
+				lastId);
+		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
+
+			@Override
+			public void callback(boolean success) {
+				sendMessage(success ? operate.getMessage() : null, listener);
+			}
+		});
+	}
+
+	/**
+	 * 获取单张卡片的详情
+	 * 
+	 * @param cardId
+	 * @param listener
+	 */
+	public void getCardDetail(String cardId,
+			final UserFetchEntryListener listener) {
+		final GetCardDetailOperate operate = new GetCardDetailOperate(cardId);
+		operate.asyncRequest(mContext, false, new DataCallBack() {
+
+			@Override
+			public void callback(boolean success) {
+				sendMessage(success ? operate.getCard() : null, listener);
 			}
 		});
 	}

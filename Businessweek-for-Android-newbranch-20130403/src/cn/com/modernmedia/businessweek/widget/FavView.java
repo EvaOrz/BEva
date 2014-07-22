@@ -49,14 +49,14 @@ public class FavView extends BaseView implements FetchEntryListener {
 			}
 
 		});
-		LayoutParams lp = new LayoutParams(LayoutParams.FILL_PARENT,
-				LayoutParams.FILL_PARENT);
-		this.addView(LayoutInflater.from(mContext).inflate(R.layout.fav, null),
-				lp);
-		listView = (ListView) findViewById(R.id.fav_list);
-		adapter = new FavAdadper(mContext);
-		listView.setAdapter(adapter);
-		((MainActivity) mContext).doAfterLogin();
+//		LayoutParams lp = new LayoutParams(LayoutParams.FILL_PARENT,
+//				LayoutParams.FILL_PARENT);
+//		this.addView(LayoutInflater.from(mContext).inflate(R.layout.fav, null),
+//				lp);
+//		listView = (ListView) findViewById(R.id.fav_list);
+//		adapter = new FavAdadper(mContext);
+//		listView.setAdapter(adapter);
+//		((MainActivity) mContext).doAfterLogin();
 	}
 
 	@Override

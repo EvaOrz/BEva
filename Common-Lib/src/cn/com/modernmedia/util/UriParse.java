@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.view.View;
+import cn.com.modernmedia.CommonApplication;
 import cn.com.modernmedia.CommonArticleActivity.ArticleType;
 import cn.com.modernmedia.CommonMainActivity;
 import cn.com.modernmedia.VideoPlayerActivity;
@@ -89,7 +90,7 @@ public class UriParse {
 	 */
 	private static ArrayList<String> video(String uri) {
 		ArrayList<String> list = new ArrayList<String>();
-		String[] param = uri.split("video/");
+		String[] param = uri.split("slate://video/");
 
 		if (param.length == 2 && param[1] != "") {
 			list.add(param[1]);
@@ -249,15 +250,20 @@ public class UriParse {
 		} else if (link.toLowerCase().startsWith("http://")
 				|| link.toLowerCase().startsWith("https://")) {
 			doLinkHttp(context, link);
+		} else if (link.toLowerCase().startsWith("slate://card/")) {
+			String[] cards = link.split("slate://card/");
+			if (cards != null && cards.length == 2
+					&& !TextUtils.isEmpty(cards[1])
+					&& CommonApplication.userUriListener != null) {
+				CommonApplication.userUriListener.doCardUri(context, cards[1]);
+			}
 		} else if (link.toLowerCase().startsWith("slate://")) {
-			List<String> list = UriParse.parser(link);
+			List<String> list = parser(link);
 			if (list.size() > 1) {
 				String key = list.get(0).toLowerCase();
 				if (key.equals(VIDEO)) {
-					String path = list.get(1).replace(".m3u8", ".mp4");//
-					if (path.toLowerCase().endsWith(".mp4")) {
-						doLinkVideo(context, path);
-					}
+					String path = list.get(1).replace(".m3u8", ".mp4");
+					doLinkVideo(context, path);
 				} else if (key.equals(ARTICLE)) {
 					if (list.size() > 3) {
 						doLinkArticle(context, list, entries, view, cls);

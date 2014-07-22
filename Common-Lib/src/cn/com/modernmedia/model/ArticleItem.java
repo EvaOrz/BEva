@@ -22,6 +22,7 @@ public class ArticleItem extends Entry {
 	private int articleId = -1;// 文章id
 	private String title = "";// 文章title
 	private int catId = -1;// 文章所属栏目id
+	private int issueId = -1;// 期id
 	private String desc = "";// 描述
 	private List<String> pictureList = new ArrayList<String>();// 文章图片url
 	private Position position = new Position();// 图片位置,1:title,2:列表缩略图
@@ -35,6 +36,8 @@ public class ArticleItem extends Entry {
 	private AdvSource advSource = null;// 广告
 	private boolean isAdv = false;
 	private AdvTracker advTracker = null;// 广告统计
+	private String inputtime = "";
+	private boolean isDateFirst = false;// iweekly新闻栏目根据日期组合，是否为当前日期集合的第一个元素
 
 	public int getArticleId() {
 		return articleId;
@@ -58,6 +61,14 @@ public class ArticleItem extends Entry {
 
 	public void setCatId(int catId) {
 		this.catId = catId;
+	}
+
+	public int getIssueId() {
+		return issueId;
+	}
+
+	public void setIssueId(int issueId) {
+		this.issueId = issueId;
 	}
 
 	public String getDesc() {
@@ -162,6 +173,22 @@ public class ArticleItem extends Entry {
 
 	public void setAdvTracker(AdvTracker advTracker) {
 		this.advTracker = advTracker;
+	}
+
+	public String getInputtime() {
+		return inputtime;
+	}
+
+	public void setInputtime(String inputtime) {
+		this.inputtime = inputtime;
+	}
+
+	public boolean isDateFirst() {
+		return isDateFirst;
+	}
+
+	public void setDateFirst(boolean isDateFirst) {
+		this.isDateFirst = isDateFirst;
 	}
 
 	/**

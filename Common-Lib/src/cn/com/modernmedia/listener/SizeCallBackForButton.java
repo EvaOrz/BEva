@@ -1,21 +1,19 @@
 package cn.com.modernmedia.listener;
 
-import android.widget.Button;
-import cn.com.modernmedia.widget.MainHorizontalScrollView;
+import android.view.View;
 
 public class SizeCallBackForButton implements SizeCallBack {
-	private Button menu;
+	private View menu;
 	private int menuWidth;
 
-	public SizeCallBackForButton(Button menu) {
+	public SizeCallBackForButton(View menu) {
 		super();
 		this.menu = menu;
 	}
 
 	@Override
-	public void onGlobalLayout() {
-		this.menuWidth = this.menu.getMeasuredWidth()
-				+ MainHorizontalScrollView.ENLARGE_WIDTH;
+	public void onGlobalLayout(int enlarge) {
+		this.menuWidth = this.menu.getMeasuredWidth() + enlarge;
 	}
 
 	@Override

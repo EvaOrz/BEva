@@ -41,7 +41,6 @@ import com.parse.ParseAnalytics;
  * 
  */
 public abstract class CommonMainActivity extends BaseFragmentActivity {
-	public static final int LOGIN_REQUEST_CODE = 101;// 从用户页面返回
 	private Context mContext;
 	private OperateController controller;// 接口控制器
 	private long lastClickTime = 0;
@@ -122,6 +121,8 @@ public abstract class CommonMainActivity extends BaseFragmentActivity {
 				// 从push消息进来
 				checkPush.parsePushMsg(getIntent(), issue);
 			}
+		} else {
+			firstUseCache(true);
 		}
 	}
 
@@ -381,6 +382,9 @@ public abstract class CommonMainActivity extends BaseFragmentActivity {
 	};
 
 	public void gotoArticleActivity(TransferArticle transferArticle) {
+		if (getArticleActivity() == null) {
+			return;
+		}
 		if (transferArticle.getIssue() == null) {
 			transferArticle.setIssue(issue);
 		}
@@ -392,15 +396,13 @@ public abstract class CommonMainActivity extends BaseFragmentActivity {
 		mRefreshListener = refreshListener;
 	}
 
-	protected void doAfterLogin() {
-	}
-
 	public Issue getIssue() {
 		return issue;
 	}
 
 	public void setIssue(Issue issue) {
 		this.issue = issue;
+		CommonApplication.issue = issue;
 	}
 
 	public void setPushArticleId(int pushArticleId) {
@@ -428,7 +430,7 @@ public abstract class CommonMainActivity extends BaseFragmentActivity {
 	 * 
 	 * @param flag
 	 *            0.只执行子scrollview;1.当子scrollview滑到头时，执行父scrollview；2。
-	 *            清空子scrollview
+	 *            删除子scrollview
 	 * @param view
 	 */
 	public void setScrollView(int flag, View view) {
@@ -437,7 +439,7 @@ public abstract class CommonMainActivity extends BaseFragmentActivity {
 		} else if (flag == 1 && view instanceof AtlasViewPager) {
 			scrollView.setAtlasViewPager((AtlasViewPager) view);
 		} else if (flag == 2) {
-			scrollView.setNeedsScrollView(null);
+			scrollView.removeScrollView(view);
 		} else {
 			scrollView.setAtlasViewPager(null);
 		}
@@ -514,8 +516,6 @@ public abstract class CommonMainActivity extends BaseFragmentActivity {
 					showFecthingToast(0);
 					mProcess.getCatList();
 				}
-			} else if (requestCode == LOGIN_REQUEST_CODE) {
-				doAfterLogin();
 			}
 		}
 		super.onActivityResult(requestCode, resultCode, data);

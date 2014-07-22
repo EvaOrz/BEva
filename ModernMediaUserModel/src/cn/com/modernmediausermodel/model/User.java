@@ -4,33 +4,33 @@ import cn.com.modernmediaslate.model.Entry;
 
 public class User extends Entry {
 	private static final long serialVersionUID = 1L;
-	private String uid;
+	private String uid = "";
 	// 用户名(邮箱)
-	private String userName;
+	private String userName = "";
 	// 密码(注册和修改资料时传)
-	private String password;
+	private String password = "";
 	// 昵称
-	private String nickName;
+	private String nickName = "";
 	// 头像
-	private String avatar;
+	private String avatar = "";
 	// 错误信息
 	private Error error = new Error();
 	// 新浪uid(新浪用户登陆时用)
-	private String sinaId;
+	private String sinaId = "";
 	// 用户token
-	private String token;
+	private String token = "";
 	// 设备id
-	private String deviceId;
+	private String deviceId = "";
 	// 设备token
-	private String deviceToken;
+	private String deviceToken = "";
 	// 新密码(修改密码时用)
-	private String newPassword;
+	private String newPassword = "";
 	// 应用appid
-	private String appid;
+	private String appid = "";
 	// 应用版本
-	private String version;
+	private String version = "";
 	// 个人签名(一句话简介)
-	private String desc;
+	private String desc = "";
 	// 该用户的登录状态(默认未登录)
 	private boolean isLogined = false;
 

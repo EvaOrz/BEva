@@ -1,8 +1,10 @@
 package cn.com.modernmediaslate.api;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import org.apache.http.NameValuePair;
+import org.apache.http.protocol.HTTP;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -252,4 +254,17 @@ public abstract class SlateBaseOperate {
 				|| array.length() == 0;
 	}
 
+	/**
+	 * 将Value值进行UTF-8编码
+	 * 
+	 * @param obj
+	 * @param key
+	 * @param value
+	 * @throws Exception
+	 */
+	protected void addPostParams(JSONObject obj, String key, String value)
+			throws Exception {
+		if (!TextUtils.isEmpty(value))
+			obj.put(key, URLEncoder.encode(value, HTTP.UTF_8));
+	}
 }

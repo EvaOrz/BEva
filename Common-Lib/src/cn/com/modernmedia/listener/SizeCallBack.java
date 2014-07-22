@@ -10,7 +10,7 @@ public interface SizeCallBack {
 	/**
 	 * 在添加视图前计算大小
 	 */
-	public void onGlobalLayout();
+	public void onGlobalLayout(int enlarge);
 
 	/**
 	 * 指定视图的尺寸.

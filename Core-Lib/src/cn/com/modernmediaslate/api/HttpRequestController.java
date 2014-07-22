@@ -60,6 +60,10 @@ public class HttpRequestController {
 	}
 
 	public void requestHttp(final String url) {
+		requestHttp(url, null);
+	}
+
+	public void requestHttp(final String url, final String userAgent) {
 		if (TextUtils.isEmpty(url))
 			return;
 		new Thread() {
@@ -70,6 +74,9 @@ public class HttpRequestController {
 					URL mUrl = new URL(url);
 					HttpURLConnection conn = null;
 					conn = (HttpURLConnection) mUrl.openConnection();
+					if (!TextUtils.isEmpty(userAgent)) {
+						conn.addRequestProperty("User-Agent", userAgent);
+					}
 					// connect()函数，实际上只是建立了一个与服务器的tcp连接，并没有实际发送http请求。
 					// 无论是post还是get，http请求实际上直到HttpURLConnection的getInputStream()这个函数里面才正式发送出去。
 					conn.getInputStream();
@@ -171,7 +178,6 @@ public class HttpRequestController {
 						fetchLocalDataInBadNet();
 					}
 				} catch (Exception e) {
-					System.out.println(url);
 					e.printStackTrace();
 					fetchLocalDataInBadNet();
 				} finally {

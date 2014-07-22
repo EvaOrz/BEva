@@ -359,9 +359,10 @@ public class UrlMaker {
 	}
 
 	protected static String getAdvList() {
-		return "http://adver.cdn.bbwc.cn/adv/list/"
-				+ ConstData.getInitialAppId() + "-" + ConstData.DEVICE_TYPE
-				+ "-" + ConstData.DATA_TYPE + ".html";
+		String host = ConstData.IS_DEBUG == 0 ? "http://adver.cdn.bbwc.cn"
+				: "http://adver.test.bbwc.cn";
+		return host + "/adv/list/" + ConstData.getInitialAppId() + "-"
+				+ ConstData.DEVICE_TYPE + "-" + ConstData.DATA_TYPE + ".html";
 	}
 
 	/**

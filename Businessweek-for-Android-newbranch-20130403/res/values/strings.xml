@@ -5,7 +5,6 @@
     <!-- 登录 -->
 	<string name="login_title_text">请用您的商业周刊读者俱乐部账号登录。商业周刊读者俱乐部是「现代移动社区」的一部分。</string>
 	<!-- 个人信息 -->
-	<string name="modify_pwd_title_text">请输入您的旧密码和新密码，如果没有设置过密码，旧密码请留空。</string>
 	<string name="set_userinfo_desc">加入商业周刊俱乐部，您可以免费阅读商业周刊(数字版)的更多精彩内容。</string>
 	
 </resources>

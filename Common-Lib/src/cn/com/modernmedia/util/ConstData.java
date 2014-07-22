@@ -19,10 +19,11 @@ public class ConstData {
 	/**
 	 * 应用id bloomberg:1 modernlady:2 icollection:3 turningpoints:5 adv:6
 	 * onewaystreet:10 zhihu:11 tanc:12 itv:13 life:14 car:15 lohas:16
-	 * finance:17 bloomberg繁体版:18 iweekly:20
+	 * finance:17 bloomberg繁体版:18 iweekly:20 ifashion:21
 	 **/
 	private static int APP_ID = 1;
 	/** 设备号 **/
+	// test xiaomihezi=9
 	public static String DEVICE_TYPE = "10";
 	/** 数据类型（1 protobuf格式 2 json格式） **/
 	public static final String DATA_TYPE = "2";
@@ -35,7 +36,7 @@ public class ConstData {
 	/** toast显示时间 **/
 	public static final int TOAST_LENGTH = 1000;
 	/** 版本号 **/
-	public static final int VERSION = 150;
+	public static final int VERSION = 160;
 	/** 客户端名称 **/
 	public static String APP_NAME = "";
 	/** splash停留时间 **/
@@ -51,6 +52,7 @@ public class ConstData {
 	 * 没有成功同步到服务器上时使用当前uid,为了兼顾以前没有uid字段的数据，默认为0
 	 */
 	public static final String UN_UPLOAD_UID = "0";
+	public static final String SHARE_APP_ID = "share_app_id";// 区分是第三方应用分享还是当前应用分享,第三方应用离开的时候把所有页面都删除
 
 	/**
 	 * 由于繁体版和简体版很多逻辑是一样的，如果碰到相同逻辑，只有appid不同，通过这个方法获取appid
@@ -91,6 +93,10 @@ public class ConstData {
 
 	private static void setDebug(int debug) {
 		IS_DEBUG = debug;
+	}
+
+	public static void setDeviceType(String deviceType) {
+		DEVICE_TYPE = deviceType;
 	}
 
 	/**
@@ -137,6 +143,8 @@ public class ConstData {
 		} else if (APP_ID == 12) {
 			APP_NAME = "艺术新闻";
 			return "tanc";
+		} else if (APP_ID == 21) {
+			return "iFashion";
 		}
 		return "";
 	}
@@ -276,12 +284,32 @@ public class ConstData {
 	public static String getAdvList() {
 		return "adv_list";
 	}
-	
+
 	/**
 	 * iWeekly入版广告
+	 * 
 	 * @return
 	 */
-	public static String getWeeklyInApp(){
+	public static String getWeeklyInApp() {
 		return "iweekly_in_app";
+	}
+
+	/**
+	 * 是否是iweekly新闻栏目
+	 * 
+	 * @return
+	 */
+	public static boolean isWeeklyNews(int catId) {
+		return APP_ID == 20 && catId == 192;
+	}
+
+	/**
+	 * iweekly文章列表不加密
+	 * 
+	 * @param fileName
+	 * @return
+	 */
+	public static boolean needEncrpyt(String fileName) {
+		return APP_ID != 20 || !fileName.equals(getArticleListFileName());
 	}
 }

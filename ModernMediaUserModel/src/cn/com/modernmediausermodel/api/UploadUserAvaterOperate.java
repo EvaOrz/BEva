@@ -3,6 +3,7 @@ package cn.com.modernmediausermodel.api;
 import org.json.JSONObject;
 
 import cn.com.modernmediaslate.api.SlateBaseOperate;
+import cn.com.modernmediaslate.listener.FetchDataListener;
 import cn.com.modernmediausermodel.model.UploadAvatarResult;
 
 /**
@@ -51,6 +52,11 @@ public class UploadUserAvaterOperate extends SlateBaseOperate {
 	@Override
 	protected String getDefaultFileName() {
 		return null;
+	}
+
+	@Override
+	protected void fetchLocalDataInBadNet(FetchDataListener mFetchDataListener) {
+		mFetchDataListener.fetchData(false, null);
 	}
 
 }

@@ -4,7 +4,7 @@
     android:layout_height="fill_parent"
     android:background="@color/white_bg" >
 
-    <cn.com.modernmedia.businessweek.widget.FavView
+    <cn.com.modernmediausermodel.widget.UserCenterView
         android:id="@+id/main_fav"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

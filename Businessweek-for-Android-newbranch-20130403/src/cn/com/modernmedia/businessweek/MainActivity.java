@@ -1,29 +1,21 @@
 package cn.com.modernmedia.businessweek;
 
-import java.util.List;
-
 import android.app.Activity;
-import android.content.Intent;
-import android.graphics.Color;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import cn.com.modernmedia.businessweek.widget.ColumnView;
-import cn.com.modernmedia.businessweek.widget.FavView;
 import cn.com.modernmedia.businessweek.widget.IndexView;
-import cn.com.modernmedia.db.FavDb;
 import cn.com.modernmedia.listener.ScrollCallBackListener;
 import cn.com.modernmedia.listener.SizeCallBackForButton;
 import cn.com.modernmedia.util.ConstData;
-import cn.com.modernmedia.util.ParseUtil;
 import cn.com.modernmedia.widget.BaseView;
 import cn.com.modernmedia.widget.MainHorizontalScrollView;
 import cn.com.modernmediaslate.model.Entry;
-import cn.com.modernmediaslate.model.Favorite.FavoriteItem;
 import cn.com.modernmediasolo.CommonSoloActivity;
-import cn.com.modernmediausermodel.help.UserHelper;
 import cn.com.modernmediausermodel.model.User;
 import cn.com.modernmediausermodel.util.UserDataHelper;
+import cn.com.modernmediausermodel.widget.UserCenterView;
 
 /**
  * 首页
@@ -34,14 +26,18 @@ import cn.com.modernmediausermodel.util.UserDataHelper;
 public class MainActivity extends CommonSoloActivity {
 	private IndexView indexView;
 	private ColumnView columnView;// 栏目列表页
-	private Button columnButton, favButton;
-	private FavView favView;
+	private View columnButton, favButton;
+	private UserCenterView userCenterView;
 
 	@Override
 	protected void onResume() {
 		super.onResume();
 		if (indexView != null) {
 			indexView.setAuto(true);
+		}
+		// 用户中心页数据变化时，刷新页面
+		if (userCenterView != null) {
+			userCenterView.reLoad();
 		}
 	}
 
@@ -60,18 +56,18 @@ public class MainActivity extends CommonSoloActivity {
 		initProcess();
 		columnView = (ColumnView) findViewById(R.id.main_column);
 		scrollView = (MainHorizontalScrollView) findViewById(R.id.mScrollView);
-		favView = (FavView) findViewById(R.id.main_fav);
+		userCenterView = (UserCenterView) findViewById(R.id.main_fav);
 		indexView = new IndexView(this);
 		columnButton = indexView.getColumn();
 		favButton = indexView.getFav();
 
-		View leftView = new View(this);// 为了显示左边页面，设置透明区
-		leftView.setBackgroundColor(Color.TRANSPARENT);
-		View rightView = new View(this);
-		rightView.setBackgroundColor(Color.TRANSPARENT);// 为了显示右边页面，设置透明区
+		View leftView = LayoutInflater.from(this).inflate(R.layout.scroll_left,
+				null);
+		View rightView = LayoutInflater.from(this).inflate(
+				R.layout.scroll_right, null);
 		final View[] children = new View[] { leftView, indexView, rightView };
 		scrollView.initViews(children, new SizeCallBackForButton(columnButton),
-				columnView, favView);
+				columnView, userCenterView);
 		scrollView.setButtons(columnButton, favButton);
 		scrollView.setListener(new ScrollCallBackListener() {
 
@@ -95,23 +91,12 @@ public class MainActivity extends CommonSoloActivity {
 				scrollView.clickButton(false);
 			}
 		});
-		autoLogin();
-	}
-
-	/**
-	 * 自动登录
-	 */
-	private void autoLogin() {
-		User user = UserDataHelper.getUserLoginInfo(this);
-		if (user != null) {
-			if (columnView != null)
-				columnView.afterLogin(user.getUserName());
-		}
 	}
 
 	@Override
 	public void setDataForColumn(Entry entry) {
 		columnView.setData(entry);
+		userCenterView.setIssue(getIssue());
 	}
 
 	@Override
@@ -138,17 +123,6 @@ public class MainActivity extends CommonSoloActivity {
 	protected String getUid() {
 		User user = UserDataHelper.getUserLoginInfo(this);
 		return user == null ? ConstData.UN_UPLOAD_UID : user.getUid();
-	}
-
-	public void gotoLoginActivity() {
-		Intent intent = new Intent();
-		if (UserDataHelper.getUserLoginInfo(this) != null) {
-			intent.setClass(this, UserInfoActivity.class);
-		} else {
-			intent.setClass(this, LoginActivity.class);
-		}
-		startActivityForResult(intent, LOGIN_REQUEST_CODE);
-		overridePendingTransition(R.anim.right_in, R.anim.zoom_out);
 	}
 
 	@Override
@@ -186,31 +160,15 @@ public class MainActivity extends CommonSoloActivity {
 		scrollView.setPassToUp(isPulling);
 	}
 
-	@Override
-	public void doAfterLogin() {
-		User user = UserDataHelper.getUserLoginInfo(this);
-		if (user == null) {
-			if (columnView != null)
-				columnView.afterLogin(getString(R.string.login));
-			// 登出
-			MyApplication.notifyFav();
-		} else {
-			// 登录
-			if (columnView != null)
-				columnView.afterLogin(user.getUserName());
-			List<FavoriteItem> list = FavDb.getInstance(this)
-					.getUserUnUpdateFav(user.getUid(), false);
-			if (ParseUtil.listNotNull(list)) {
-				UserHelper.updateFav(this);
-			} else {
-				UserHelper.getFav(this);
-			}
-		}
-	}
-
 	public void setColumnPosition(int position) {
 		if (columnView != null)
 			columnView.setAdapterPosition(position);
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		MyApplication.exit();
 	}
 
 	@Override

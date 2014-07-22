@@ -265,4 +265,10 @@ public class PullToRefreshListView extends CheckScrollListview implements
 		return firstItemIndex;
 	}
 
+	public void setHeadRes(boolean showTime, int color) {
+		if (mPullToRefresh != null) {
+			mPullToRefresh.showTime(showTime);
+			mPullToRefresh.setContainBg(color);
+		}
+	}
 }

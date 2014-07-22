@@ -33,11 +33,20 @@ public abstract class CommonSplashActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		init();
+	}
+
+	protected void init() {
 		setContentViewById();
 		mContext = this;
 		CommonApplication.clear();
 		down();
-		getAdvList();
+		if (ConstData.getInitialAppId() == 20) {
+			// TODO iweekly
+			checkHasAdv(false, null, null, null);
+		} else {
+			getAdvList();
+		}
 	}
 
 	protected abstract void setContentViewById();

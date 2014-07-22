@@ -13,7 +13,6 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import cn.com.modernmedia.R;
@@ -34,7 +33,7 @@ public class PullToRefresh {
 	private Context mContext;
 	private PullToRefreshListView mListView;
 	private int state, toState;
-	private View mHeadView;
+	private View mHeadView, contain;
 	private TextView mRefreshText;
 	private TextView mUpdateTimeText;
 	private ProgressBar mProgressBar;
@@ -57,9 +56,10 @@ public class PullToRefresh {
 	}
 
 	private void init() {
-		mHeadView = (LinearLayout) LayoutInflater.from(mContext).inflate(
+		mHeadView = LayoutInflater.from(mContext).inflate(
 				R.layout.pull_to_refresh_header, null);
 
+		contain = mHeadView.findViewById(R.id.pull_head_contain);
 		mRow = (ImageView) mHeadView.findViewById(R.id.head_arrowImageView);
 		mRow.setMinimumWidth(70);
 		mRow.setMinimumHeight(50);
@@ -252,7 +252,6 @@ public class PullToRefresh {
 			mRow.setVisibility(View.VISIBLE);
 			mProgressBar.setVisibility(View.GONE);
 			mRefreshText.setVisibility(View.VISIBLE);
-			mUpdateTimeText.setVisibility(View.VISIBLE);
 
 			mRow.clearAnimation();
 			mRow.startAnimation(animation);
@@ -263,7 +262,6 @@ public class PullToRefresh {
 		case PULL_To_REFRESH:
 			mProgressBar.setVisibility(View.GONE);
 			mRefreshText.setVisibility(View.VISIBLE);
-			mUpdateTimeText.setVisibility(View.VISIBLE);
 			mRow.clearAnimation();
 			mRow.setVisibility(View.VISIBLE);
 			// 是由RELEASE_To_REFRESH状态转变来的
@@ -282,7 +280,6 @@ public class PullToRefresh {
 			mRow.clearAnimation();
 			mRow.setVisibility(View.GONE);
 			mRefreshText.setText(R.string.pull_to_refresh_refreshing_label);
-			mUpdateTimeText.setVisibility(View.VISIBLE);
 			toState = REFRESHING;
 			break;
 		case DONE:
@@ -296,7 +293,6 @@ public class PullToRefresh {
 			mRow.clearAnimation();
 			// arrowImageView.setImageResource(R.drawable.refresh_down);
 			mRefreshText.setText(R.string.pull_to_refresh_pull_label);
-			mUpdateTimeText.setVisibility(View.VISIBLE);
 			toState = DONE;
 			if (mListView.getRefreshListener() != null) {
 				mListView.getRefreshListener().onRefreshDone();
@@ -348,5 +344,23 @@ public class PullToRefresh {
 					time));
 		else
 			mUpdateTimeText.setText("");
+	}
+
+	/**
+	 * 是否显示时间
+	 * 
+	 * @param show
+	 */
+	public void showTime(boolean show) {
+		mUpdateTimeText.setVisibility(show ? View.VISIBLE : View.GONE);
+	}
+
+	/**
+	 * 设置背景
+	 * 
+	 * @param res
+	 */
+	public void setContainBg(int res) {
+		contain.setBackgroundColor(res);
 	}
 }

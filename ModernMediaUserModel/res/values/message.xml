@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="msg_login_email_error">无效的邮箱地址</string>
     <string name="msg_login_email_null">请输入邮箱</string>
     <string name="msg_login_pwd_null">请输入密码</string>
@@ -14,4 +15,5 @@
     <string name="msg_modify_pwd_failed">密码修改失败</string>
     <string name="msg_avatar_upload_success">头像上传成功</string>
     <string name="msg_avatar_upload_failed">头像上传失败</string>
+
 </resources>

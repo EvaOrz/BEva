@@ -11,13 +11,14 @@
         android:layout_height="@dimen/index_titlebar_height"
         android:background="@drawable/navbar" >
 
-        <Button
+        <ImageView
             android:id="@+id/index_titleBar_column"
             android:layout_width="@dimen/index_titlebar_height"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="@dimen/index_titlebar_column_marginLeft"
-            android:background="@drawable/nav_columns" />
+            android:contentDescription="@null"
+            android:src="@drawable/nav_columns" />
 
         <TextView
             android:id="@+id/index_titleBar_title"
@@ -27,13 +28,15 @@
             android:textColor="@color/black_bg"
             android:textSize="@dimen/index_titlebar_title_textSize" />
 
-        <Button
+        <ImageView
             android:id="@+id/index_titleBar_fav"
             android:layout_width="@dimen/index_titlebar_height"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/index_titlebar_height"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/index_titlebar_column_marginLeft"
-            android:background="@drawable/nav_fav" />
+            android:contentDescription="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/nav_fav" />
     </RelativeLayout>
 
     <FrameLayout

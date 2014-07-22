@@ -2,17 +2,12 @@ package cn.com.modernmedia.businessweek;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Environment;
-import android.text.TextUtils;
-import android.widget.ImageView;
 import android.widget.TextView;
-import cn.com.modernmedia.listener.ImageDownloadStateListener;
 import cn.com.modernmedia.util.ConstData;
+import cn.com.modernmediausermodel.DefaultModifyPwdActivity;
 import cn.com.modernmediausermodel.DefaultUserInfoActivity;
-import cn.com.modernmediausermodel.model.User;
-import cn.com.modernmediausermodel.util.UserDataHelper;
 
 /**
  * 用户信息页
@@ -32,47 +27,15 @@ public class UserInfoActivity extends DefaultUserInfoActivity {
 	}
 
 	private void init() {
-		((ImageView) findViewById(R.id.userinfo_img))
-				.setImageResource(R.drawable.img_ad_iphone);
-		if (isFromRegister)
+		if (actionFrom != 0)
 			((TextView) findViewById(R.id.userinfo_desc))
 					.setText(R.string.set_userinfo_desc);
-		User user = UserDataHelper.getUserLoginInfo(this);
-		if (user != null) {
-			afterFetchPicture(user,
-					UserDataHelper.getAvatarUrl(this, user.getUserName()));
-		}
-	}
-
-	@Override
-	protected void afterFetchPicture(User user, String picUrl) {
-		if (user != null && !TextUtils.isEmpty(picUrl)) {
-			MyApplication.getImageDownloader().download(picUrl,
-					new ImageDownloadStateListener() {
-
-						@Override
-						public void loading() {
-						}
-
-						@Override
-						public void loadOk(Bitmap bitmap) {
-							if (bitmap != null) {
-								setBitmapForAvatar(bitmap);
-							}
-						}
-
-						@Override
-						public void loadError() {
-						}
-					});
-		}
 	}
 
 	@Override
 	protected void gotoModifyPwdActivity() {
-		Intent intent = new Intent(this, ModifyPasswordActivity.class);
+		Intent intent = new Intent(this, DefaultModifyPwdActivity.class);
 		startActivity(intent);
-		overridePendingTransition(R.anim.right_in, R.anim.zoom_out);
 	}
 
 	@Override
@@ -83,12 +46,6 @@ public class UserInfoActivity extends DefaultUserInfoActivity {
 	}
 
 	@Override
-	public void finish() {
-		super.finish();
-		overridePendingTransition(R.anim.zoom_in, R.anim.right_out);
-	}
-
-	@Override
 	public String getActivityName() {
 		return UserInfoActivity.class.getName();
 	}
@@ -96,5 +53,9 @@ public class UserInfoActivity extends DefaultUserInfoActivity {
 	@Override
 	public Activity getActivity() {
 		return this;
+	}
+
+	@Override
+	public void reLoadData() {
 	}
 }

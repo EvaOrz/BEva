@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MyDBHelper {
+	public static final String SPLIT = "##";
 	private String tableName = "";
 	private List<String> list = new ArrayList<String>();
 

@@ -16,12 +16,16 @@ import android.text.TextUtils;
 import cn.com.modernmedia.api.ImageDownloader;
 import cn.com.modernmedia.breakpoint.BreakPointUtil;
 import cn.com.modernmedia.breakpoint.DownloadPackageCallBack;
+import cn.com.modernmedia.common.ShareTool;
 import cn.com.modernmedia.db.FavDb;
 import cn.com.modernmedia.db.ReadDb;
+import cn.com.modernmedia.listener.CardUriListener;
 import cn.com.modernmedia.listener.FavNotifykListener;
 import cn.com.modernmedia.model.AdvList;
+import cn.com.modernmedia.model.Issue;
 import cn.com.modernmedia.util.CommonCrashHandler;
 import cn.com.modernmedia.util.ConstData;
+import cn.com.modernmedia.util.FileManager;
 import cn.com.modernmedia.util.MD5;
 import cn.com.modernmedia.util.PrintHelper;
 import cn.com.modernmediaslate.SlateApplication;
@@ -52,6 +56,8 @@ public class CommonApplication extends SlateApplication {
 	public static boolean hasSolo = false;// 是否有独立栏目
 	public static AdvList advList;
 	public static List<String> issueIdList;
+	public static Issue issue;// 当前issue
+	public static CardUriListener userUriListener;
 
 	/**
 	 * 渠道
@@ -62,6 +68,7 @@ public class CommonApplication extends SlateApplication {
 	public void onCreate() {
 		super.onCreate();
 		mContext = this.getApplicationContext();
+		FileManager.createNoMediaFile();
 		if (ConstData.IS_DEBUG != 0)
 			CommonCrashHandler.getInstance().init(this);
 	}
@@ -95,11 +102,12 @@ public class CommonApplication extends SlateApplication {
 		hasNewIssue = false;
 		lastestIssueId = -1;
 		oldIssueId = -1;
-		// currentIssue = null;
 		currentIssueId = -1;
 		isFetchPush = false;
 		advList = null;
 		issueIdList = null;
+		issue = null;
+		userUriListener = null;
 	}
 
 	public static void setFavListener(FavNotifykListener favListener) {
@@ -215,6 +223,7 @@ public class CommonApplication extends SlateApplication {
 		clear();
 		removePreIssueDown(-1);
 		breakMap.clear();
+		new ShareTool(mContext).deleteShareImages();
 	}
 
 	public static void callGc() {

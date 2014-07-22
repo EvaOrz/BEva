@@ -4,6 +4,11 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.http.SslError;
@@ -15,6 +20,7 @@ import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
 import android.view.MotionEvent;
 import android.view.View;
+import android.webkit.JsResult;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -34,11 +40,13 @@ import cn.com.modernmedia.util.AdvTools;
 import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmedia.util.DataHelper;
 import cn.com.modernmedia.util.LogHelper;
+import cn.com.modernmedia.util.ModernMediaTools;
 import cn.com.modernmedia.util.UriParse;
 import cn.com.modernmedia.util.UseLocalDataUtil;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.model.Favorite.FavoriteItem;
 
+@SuppressLint("SetJavaScriptEnabled")
 public abstract class CommonWebView extends WebView {
 	private CommonWebView me;
 	private final static int TIME_OUT = 20 * 1000;// 设置超时时间
@@ -71,6 +79,21 @@ public abstract class CommonWebView extends WebView {
 							me.getSettings().setCacheMode(
 									WebSettings.LOAD_CACHE_ELSE_NETWORK);
 						}
+					}
+				}
+			});
+		}
+	}
+
+	final class MakeCard {
+		public void make(final String result) {
+			handler.post(new Runnable() {
+
+				@Override
+				public void run() {
+					ArticleItem item = getCard(result);
+					if (item != null) {
+						gotoWriteNewCardActivity(item);
 					}
 				}
 			});
@@ -128,6 +151,9 @@ public abstract class CommonWebView extends WebView {
 
 			@Override
 			public void onLongPress(MotionEvent e) {
+				// onLongClick((int) e.getX(), (int) (me.getScrollY() +
+				// e.getY()));
+				onLongClick((int) e.getX(), (int) e.getY());
 			}
 
 			@Override
@@ -157,6 +183,7 @@ public abstract class CommonWebView extends WebView {
 		s.setDefaultTextEncodingName("UTF -8");
 		this.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);// 去掉白边
 		this.addJavascriptInterface(new InJavaScriptLocalObj(), "local_obj");
+		this.addJavascriptInterface(new MakeCard(), "make");
 		this.setWebViewClient(new WebViewClient() {
 
 			/**
@@ -252,6 +279,20 @@ public abstract class CommonWebView extends WebView {
 
 		});
 		this.setWebChromeClient(new WebChromeClient() {
+
+			@Override
+			public boolean onJsAlert(WebView view, String url, String message,
+					JsResult result) {
+				if (message.length() != 0) {
+					AlertDialog.Builder builder = new AlertDialog.Builder(
+							mContext);
+					builder.setTitle("From JavaScript").setMessage(message)
+							.show();
+					result.cancel();
+					return true;
+				}
+				return false;
+			}
 
 		});
 	}
@@ -361,6 +402,12 @@ public abstract class CommonWebView extends WebView {
 	public abstract void showGallery(List<String> urlList);
 
 	/**
+	 * 跳转至写卡片页
+	 */
+	public void gotoWriteNewCardActivity(ArticleItem item) {
+	}
+
+	/**
 	 * 改变字体
 	 */
 	public void changeFont() {
@@ -401,6 +448,41 @@ public abstract class CommonWebView extends WebView {
 	}
 
 	/**
+	 * 长按选中段落
+	 */
+	private void onLongClick(int x, int y) {
+		// this.loadUrl("javascript:alert(123)");
+		this.loadUrl("javascript:window.make.make("
+				+ ModernMediaTools.getMakeCard(mContext, x, y) + ")");
+	}
+
+	/**
+	 * 把段落转成文章
+	 * 
+	 * @param json
+	 * @return
+	 */
+	private ArticleItem getCard(String json) {
+		if (TextUtils.isEmpty(json))
+			return null;
+		try {
+			JSONObject obj = new JSONObject(json);
+			if (JSONObject.NULL.equals(obj) || obj == null) {
+				return null;
+			}
+			ArticleItem item = new ArticleItem();
+			item.setDesc(obj.optString("content"));
+			item.setArticleId(obj.optInt("articleid"));
+			item.setCatId(obj.optInt("catid"));
+			item.setIssueId(obj.optInt("issueid"));
+			return item;
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	/**
 	 * 如果传进来的对象没有link，重新获取article
 	 * 
 	 * @param item
@@ -429,5 +511,4 @@ public abstract class CommonWebView extends WebView {
 		gestureDetector.onTouchEvent(ev);
 		return super.onTouchEvent(ev);
 	}
-
 }

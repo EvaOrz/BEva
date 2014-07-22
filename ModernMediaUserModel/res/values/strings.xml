@@ -13,12 +13,15 @@
     <string name="password">密码</string>
     <string name="register">注册</string>
     <string name="login">登录</string>
+    <string name="sina_login">用新浪微博登录</string>
+    <string name="sina_login_failed">微博登录失败</string>
 
     <!-- 修改密码 -->
     <string name="modify_password">请输入您的旧密码和新密码，如果没有设置过密码，旧密码请留空。</string>
     <string name="old_pwd">旧密码</string>
     <string name="new_pwd">新密码</string>
     <string name="complete">完成</string>
+    <string name="modify_success">修改成功</string>
 
     <!-- 用户信息 -->
     <string name="userinfo_desc">您的用户信息如下：</string>
@@ -28,5 +31,66 @@
     <string name="userinfo_nickname">昵称</string>
     <string name="confirm_change">确认修改</string>
     <string name="password_digits">_0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+
+    <!-- 用户中心 -->
+    <string name="business_card">商业笔记</string>
+    <string name="search_card">浏览发现</string>
+    <string name="message_center">通知中心</string>
+    <string name="my_fav">我的收藏</string>
+    <string name="user_setting">设置</string>
+
+    <!-- 推荐关注 -->
+    <string name="recommend_user">推荐用户</string>
+    <string name="back">返回</string>
+    <string name="follow_all">全部关注</string>
+    <string name="card_num">%s条笔记</string>
+    <string name="follow_num">%s人关注</string>
+    <string name="card">笔记</string>
+    <string name="follow">关注</string>
+    <string name="followed">已关注</string>
+    <string name="fans">粉丝</string>
+
+    <!-- 广场 -->
+    <string name="square">广场</string>
+    <!-- 我的首页 -->
+    <string name="my_homepage">我的首页</string>
+    <!-- 详情 -->
+    <string name="comment">评论</string>
+    <string name="write_some_comments">写几句评论</string>
+    <string name="card_delete_toast">抱歉！该卡片已删除</string>
+    <string name="comment_delete_toast">抱歉！该评论已删除</string>
+    <string name="card_not_allow_null_toast">添加的笔记不能为空</string>
+    <string name="comment_not_allow_null_toast">添加的评论不能为空</string>
+    <string name="card_add_failed_toast">添加笔记失败</string>
+    <string name="new_card">新笔记</string>
+    <string name="my_friends">我的朋友</string>
+    <string name="my_fans">我的粉丝</string>
+    <string name="his_friends">他的朋友</string>
+    <string name="his_fans">他的粉丝</string>
+    <string name="collect">收藏</string>
+    <string name="has_collected">已收藏</string>
+    <string name="new_comment">新评论</string>
+    <string name="write_success">发表成功</string>
+    <string name="write_failed">发表评论失败</string>
+    <string name="delete_card_failed">删除笔记失败</string>
+    <string name="share_to_weibo">同时分享到：</string>
+    <string name="me">我</string>
+    <string name="collect_success">收藏成功</string>
+    <string name="collect_failed">收藏失败</string>
+    <string name="uncollect_success">取消收藏成功</string>
+    <string name="uncollect_failed">取消收藏失败</string>
+
+    <!-- 通知中心 -->
+    <string name="message_no_message">没有未读通知</string>
+    <string name="message_new_fans">有%s个人关注了你</string>
+    <string name="message_new_comment">笔记「%1$s」有了%2$s条新评论</string>
+    <string name="message_card_is_recommended">笔记「%s」被收入每日精选</string>
+    <string name="message_user_is_recommended">你成为了推荐用户</string>
+    <string name="create_time">创建于%s</string>
+
+    <!-- 空数据提示 -->
+    <string name="user_no_card">你还没记录过笔记</string>
+    <string name="no_friend_tip">你还没有关注任何人</string>
+    <string name="no_fan_tip">你还没有任何人关注</string>
 
 </resources>

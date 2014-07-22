@@ -65,6 +65,7 @@ public abstract class ShareDialog {
 	private AlertDialog mAlertDialog;
 	private ListView mListView;
 	private List<Intent> mShareIntents;
+	List<String> packList = new ArrayList<String>();
 	private ShareAdapter adapter;
 	private ShareTool tool;
 	private Bitmap mBitmap;
@@ -226,15 +227,14 @@ public abstract class ShareDialog {
 
 	private void queryTargetIntents() {
 		mShareIntents.clear();
+		packList.clear();
 		Intent shareIntent = new Intent(Intent.ACTION_SEND);
-		shareIntent.setType("image/*");
+		shareIntent.setType(mBitmap == null ? "text/*" : "image/*");
 		List<ResolveInfo> resInfo = mContext.getPackageManager()
 				.queryIntentActivities(shareIntent, 0);
 		if (!resInfo.isEmpty()) {
 			for (ResolveInfo info : resInfo) {
-				Intent targeted = new Intent(Intent.ACTION_SEND);
-				targeted.setPackage(info.activityInfo.packageName);
-				mShareIntents.add(targeted);
+				addIntent(info);
 			}
 		}
 		if (mBitmap != null) {
@@ -245,10 +245,18 @@ public abstract class ShareDialog {
 					galleryIntent, 0);
 			if (!resInfo.isEmpty()) {
 				ResolveInfo info = resInfo.get(0);
-				Intent targeted = new Intent(Intent.ACTION_VIEW);
-				targeted.setPackage(info.activityInfo.packageName);
-				mShareIntents.add(targeted);
+				addIntent(info);
 			}
+		}
+	}
+
+	private void addIntent(ResolveInfo info) {
+		String pack = info.activityInfo.packageName;
+		if (!packList.contains(pack)) {
+			Intent targeted = new Intent(Intent.ACTION_SEND);
+			targeted.setPackage(pack);
+			mShareIntents.add(targeted);
+			packList.add(pack);
 		}
 	}
 

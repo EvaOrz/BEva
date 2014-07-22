@@ -43,7 +43,7 @@ public class ImageDownloader {
 	private static ImageDownloader instance;
 	private LruCache<String, Bitmap> mMemoryCache;
 	private HashMap<String, BitmapAsyncTask> mTasksMap;
-	private HashMap<String, SoftReference<ImageDownloadStateListener>> mListenerMap;
+	private HashMap<String, ImageDownloadStateListener> mListenerMap;
 	private HashSet<SoftReference<Bitmap>> mReusableBitmaps;
 
 	// private ExecutorService executorService =
@@ -69,7 +69,7 @@ public class ImageDownloader {
 
 		};
 		mTasksMap = new HashMap<String, BitmapAsyncTask>();
-		mListenerMap = new HashMap<String, SoftReference<ImageDownloadStateListener>>();
+		mListenerMap = new HashMap<String, ImageDownloadStateListener>();
 		mReusableBitmaps = new HashSet<SoftReference<Bitmap>>();
 	}
 
@@ -243,8 +243,7 @@ public class ImageDownloader {
 		if (TextUtils.isEmpty(url))
 			return;
 		if (listener != null) {
-			mListenerMap.put(url,
-					new SoftReference<ImageDownloadStateListener>(listener));
+			mListenerMap.put(url, listener);
 			askListener(url, 0, null);
 		}
 		Bitmap bitmap = fetchBitmapFromCache(url, width, height);
@@ -274,7 +273,7 @@ public class ImageDownloader {
 	 * @param url
 	 * @return
 	 */
-	private Bitmap fetchBitmapFromCache(String url, int width, int height) {
+	public Bitmap fetchBitmapFromCache(String url, int width, int height) {
 		if (TextUtils.isEmpty(url) || this == null) {
 			return null;
 		}
@@ -310,7 +309,7 @@ public class ImageDownloader {
 	 */
 	private void askListener(String url, int mode, Bitmap bitmap) {
 		if (!mListenerMap.isEmpty() && mListenerMap.containsKey(url)) {
-			ImageDownloadStateListener listener = mListenerMap.get(url).get();
+			ImageDownloadStateListener listener = mListenerMap.get(url);
 			if (listener == null) {
 				mListenerMap.remove(url);
 				return;
@@ -319,6 +318,7 @@ public class ImageDownloader {
 				listener.loading();
 			} else if (mode == 1) {
 				listener.loadOk(bitmap);
+				removeListener(url);
 			} else if (mode == 2) {
 				listener.loadError();
 			}
@@ -355,17 +355,20 @@ public class ImageDownloader {
 				}
 			}
 		}
-		if (mListenerMap != null && mListenerMap.containsKey(url)) {
-			SoftReference<ImageDownloadStateListener> sr = mListenerMap
-					.get(url);
-			if (sr != null && sr.get() != null) {
-				mListenerMap.remove(url);
-			}
-		}
+		removeListener(url);
 		if (mTasksMap != null && mTasksMap.containsKey(url)) {
 			BitmapAsyncTask task = mTasksMap.get(url);
 			if (task != null && !task.isCancelled()) {
 				task.cancel(true);
+			}
+		}
+	}
+
+	public void removeListener(String url) {
+		if (mListenerMap != null && mListenerMap.containsKey(url)) {
+			ImageDownloadStateListener sr = mListenerMap.get(url);
+			if (sr != null) {
+				mListenerMap.remove(url);
 			}
 		}
 	}

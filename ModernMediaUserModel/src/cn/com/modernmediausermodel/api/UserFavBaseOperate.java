@@ -33,7 +33,6 @@ public abstract class UserFavBaseOperate extends UserModelBaseOperate {
 
 	@Override
 	protected void handler(JSONObject jsonObject) {
-		System.out.println(jsonObject.toString());
 		favorite.setUid(jsonObject.optString("uid", ""));
 		favorite.setAppid(jsonObject.optString("appid", "0"));
 		JSONArray arr = jsonObject.optJSONArray("article");

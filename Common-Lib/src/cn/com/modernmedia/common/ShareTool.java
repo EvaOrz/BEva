@@ -19,6 +19,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.Html;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.webkit.WebView;
 import android.widget.Toast;
@@ -31,15 +32,10 @@ import cn.com.modernmedia.widget.ArticleDetailItem;
 
 public class ShareTool {
 	private Context mContext;
-	private static final String SHARE_IMAGE_NAME = "share_image.jpg";
 	private static final String SAVE_IMAGE_PATH_NAME = "/"
-			+ ConstData.getAppName() + "/";
+			+ ConstData.getAppName() + "/temp/";// 分享图片临时文件夹，退出应用删除
 	private String defaultPath = Environment.getExternalStorageDirectory()
 			.getPath();
-	private static final String SCREEN_PATH = Environment
-			.getExternalStorageDirectory().getPath()
-			+ "/"
-			+ ConstData.getAppName() + "/screen.jpg";
 	private static final int MAX_HEIGHT = 3000;
 
 	public ShareTool(Context context) {
@@ -60,7 +56,7 @@ public class ShareTool {
 	public void shareByMail(Intent intent, String emailSubject,
 			String emailBody, Bitmap bitmap) {
 		// 图片文件
-		File file = createShareBitmap(bitmap, SHARE_IMAGE_NAME);
+		File file = createShareBitmap(bitmap);
 		intent.setType("text/html");
 		intent.putExtra(Intent.EXTRA_SUBJECT, emailSubject);
 		intent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(emailBody));
@@ -84,9 +80,10 @@ public class ShareTool {
 	 */
 	public void shareWithoutMail(Intent intent, String extraText, Bitmap bitmap) {
 		// 图片文件
-		File file = createShareBitmap(bitmap, SHARE_IMAGE_NAME);
-		intent.setType("image/*");
+		File file = createShareBitmap(bitmap);
+		intent.setType(bitmap == null ? "text/*" : "image/*");
 		intent.putExtra(Intent.EXTRA_TEXT, extraText);
+		intent.putExtra(ConstData.SHARE_APP_ID, ConstData.getInitialAppId());
 		if (file != null) {
 			Uri uri = Uri.parse("file://" + file);
 			if (uri != null) {
@@ -106,10 +103,10 @@ public class ShareTool {
 	 *            底部拼接图片的资源id
 	 */
 	public void shareWithScreen(Intent intent, String extraText, int bottomResId) {
-		getScreen(bottomResId);
+		String path = getScreen(bottomResId);
 		intent.setType("image/*");
 		intent.putExtra(Intent.EXTRA_TEXT, extraText);
-		File file = new File(SCREEN_PATH);
+		File file = new File(path);
 		if (file != null) {
 			Uri uri = Uri.parse("file://" + file);
 			if (uri != null) {
@@ -123,7 +120,7 @@ public class ShareTool {
 	public void saveToGallery(Bitmap bitmap) {
 		// OutputStream outputStream = null;
 		long dateTaken = System.currentTimeMillis();
-		String fileName = createName(dateTaken) + ".jpg";
+		String fileName = createName(dateTaken);
 		File file = createShareBitmap(bitmap, fileName);
 		if (file == null) {
 			Toast.makeText(mContext, R.string.save_picture_fail,
@@ -154,6 +151,9 @@ public class ShareTool {
 	private File createShareBitmap(Bitmap bitmap, String fileName) {
 		if (bitmap == null)
 			return null;
+		if (TextUtils.isEmpty(fileName)) {
+			fileName = createName(0);
+		}
 		String imagePath = defaultPath + SAVE_IMAGE_PATH_NAME;
 		File file = new File(imagePath);
 		if (!file.exists()) {
@@ -180,25 +180,32 @@ public class ShareTool {
 		return picPath;
 	}
 
+	private File createShareBitmap(Bitmap bitmap) {
+		return createShareBitmap(bitmap, null);
+	}
+
 	private String createName(long dateTaken) {
-		return DateFormat.format("yyyy-MM-dd_kk.mm.ss", dateTaken).toString();
+		dateTaken = dateTaken == 0 ? System.currentTimeMillis() : dateTaken;
+		return DateFormat.format("yyyy-MM-dd_kk.mm.ss", dateTaken).toString()
+				+ ".jpg";
 	}
 
 	/**
 	 * 获取iweekly文章页面截图
+	 * 
 	 * @param bottomResId
 	 */
-	private void getScreen(int bottomResId) {
+	private String getScreen(int bottomResId) {
 		if (!(mContext instanceof CommonArticleActivity))
-			return;
+			return null;
 		ArticleDetailItem detailItem = ((CommonArticleActivity) mContext)
 				.getCurrentDetailItem();
 		if (detailItem == null) {
-			return;
+			return null;
 		}
 		WebView webView = detailItem.getWebView();
 		if (webView == null) {
-			return;
+			return null;
 		}
 		// 1.原始图切出来最高到3000，2.图片宽为640
 		Picture picture = webView.capturePicture();
@@ -227,14 +234,16 @@ public class ShareTool {
 		canvas.drawBitmap(bottom, 0, b.getHeight(), null);
 
 		FileOutputStream fos = null;
+		String screen_path = defaultPath + SAVE_IMAGE_PATH_NAME + createName(0);
 		try {
-			fos = new FileOutputStream(SCREEN_PATH);
+			fos = new FileOutputStream(screen_path);
 			if (fos != null) {
 				result.compress(Bitmap.CompressFormat.JPEG, 100, fos);
 				fos.close();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			return null;
 		} finally {
 			if (b != null && !b.isRecycled())
 				b.recycle();
@@ -243,6 +252,27 @@ public class ShareTool {
 			if (result != null && !result.isRecycled())
 				result.recycle();
 			CommonApplication.callGc();
+		}
+		return screen_path;
+	}
+
+	/**
+	 * 离开应用删除临时分享的图片
+	 */
+	public void deleteShareImages() {
+		String dataPath = defaultPath + SAVE_IMAGE_PATH_NAME;
+		File file = new File(dataPath);
+		if (!file.exists())
+			return;
+		File[] files = file.listFiles();
+		if (files == null || files.length == 0)
+			return;
+		for (int i = 0; i < files.length; i++) {
+			if (files[i].isDirectory()) {
+				continue;
+			} else {
+				files[i].delete();
+			}
 		}
 	}
 }

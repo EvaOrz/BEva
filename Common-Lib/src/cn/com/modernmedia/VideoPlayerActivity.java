@@ -191,6 +191,9 @@ public class VideoPlayerActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				// int pos = vv.getCurrentPosition();
+				// pos += 15000; // milliseconds
+				// vv.seekTo(pos);
 			}
 
 		});
@@ -307,10 +310,6 @@ public class VideoPlayerActivity extends Activity {
 		});
 		String vpath = getIntent().getStringExtra("vpath");
 		vv.setVideoPath(vpath);
-		Log.d("----vpath--------------------", vpath);
-		/**
-		 * 视频准备完成 可以播放
-		 */
 		vv.setOnPreparedListener(new OnPreparedListener() {
 
 			@Override

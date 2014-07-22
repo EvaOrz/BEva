@@ -11,6 +11,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="@dimen/login_image_close_marginright"
         android:layout_marginTop="@dimen/login_image_close_margintop"
+        android:contentDescription="@null"
         android:src="@drawable/ic_close_login" />
 
     <TextView
@@ -51,6 +52,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/login_image_clear_marginright"
+            android:contentDescription="@null"
             android:src="@drawable/ic_text_field_clear" />
     </RelativeLayout>
 
@@ -80,19 +82,21 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/login_image_clear_marginright"
+            android:contentDescription="@null"
             android:src="@drawable/ic_text_field_forget" />
     </RelativeLayout>
 
     <Button
         android:id="@+id/modify_sure"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/login_btn_width"
+        android:layout_height="@dimen/login_btn_height"
         android:layout_alignRight="@+id/modify_pwd_new"
         android:layout_below="@+id/modify_pwd_new"
         android:layout_marginTop="@dimen/login_button_margintop"
         android:background="@drawable/bg_btn_login"
         android:text="@string/complete"
-        android:textColor="@android:color/background_light" />
+        android:textColor="@android:color/background_light"
+        android:textSize="@dimen/dp13_textsize" />
 
     <ImageView
         android:id="@+id/modify_pwd_img"
@@ -100,6 +104,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/modify_sure"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/login_img_marginTop" />
+        android:layout_marginTop="@dimen/login_img_marginTop"
+        android:contentDescription="@null" />
 
 </RelativeLayout>

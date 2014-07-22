@@ -12,7 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import cn.com.modernmedia.businessweek.AboutActivity;
-import cn.com.modernmedia.businessweek.MainActivity;
 import cn.com.modernmedia.businessweek.R;
 import cn.com.modernmedia.businessweek.adapter.ColumnListAdapter;
 import cn.com.modernmedia.listener.FetchEntryListener;
@@ -32,7 +31,6 @@ public class ColumnView extends LinearLayout implements FetchEntryListener {
 	private ListView mListView;
 	private ColumnListAdapter adapter;
 	private View footerView;
-	private TextView loginText;
 
 	public ColumnView(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -54,23 +52,6 @@ public class ColumnView extends LinearLayout implements FetchEntryListener {
 	private void initFooter() {
 		footerView = LayoutInflater.from(mContext).inflate(
 				R.layout.column_footview, null);
-		View loginView = footerView.findViewById(R.id.column_footview_login);
-		((Button) loginView.findViewById(R.id.cloumn_item_color))
-				.setBackgroundColor(Color.BLUE);
-		((LinearLayout) loginView.findViewById(R.id.cloumn_margin))
-				.getLayoutParams().height = 10;
-		loginView.findViewById(R.id.cloumn_margin).setBackgroundColor(
-				Color.BLACK);
-		loginView.setVisibility(View.GONE);
-		loginText = (TextView) loginView.findViewById(R.id.cloumn_item_name);
-		loginText.setText(R.string.login);
-		loginView.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				((MainActivity) mContext).gotoLoginActivity();
-			}
-		});
 
 		View aboutView = footerView.findViewById(R.id.column_footview_about);
 		((Button) aboutView.findViewById(R.id.cloumn_item_color))
@@ -92,24 +73,24 @@ public class ColumnView extends LinearLayout implements FetchEntryListener {
 			}
 		});
 		// 应用推荐
-		View recommendView = footerView
-				.findViewById(R.id.column_footview_recommend);
-		((Button) recommendView.findViewById(R.id.cloumn_item_color))
-				.setBackgroundColor(Color.BLUE);
-		((TextView) recommendView.findViewById(R.id.cloumn_item_name))
-				.setText(R.string.app_recommend);
-		((LinearLayout) recommendView.findViewById(R.id.cloumn_margin))
-				.getLayoutParams().height = 10;
-		recommendView.findViewById(R.id.cloumn_margin).setBackgroundColor(
-				Color.BLACK);
-		recommendView.setOnClickListener(new OnClickListener() {
+				View recommendView = footerView
+						.findViewById(R.id.column_footview_recommend);
+				((Button) recommendView.findViewById(R.id.cloumn_item_color))
+						.setBackgroundColor(Color.BLUE);
+				((TextView) recommendView.findViewById(R.id.cloumn_item_name))
+						.setText(R.string.app_recommend);
+				((LinearLayout) recommendView.findViewById(R.id.cloumn_margin))
+						.getLayoutParams().height = 10;
+				recommendView.findViewById(R.id.cloumn_margin).setBackgroundColor(
+						Color.BLACK);
+				recommendView.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				new WebViewPop(mContext,
-						"http://www.bbwc.cn/install/honored_android/index2.html");
-			}
-		});
+					@Override
+					public void onClick(View v) {
+						new WebViewPop(mContext,
+								"http://www.bbwc.cn/install/honored_android/index2.html");
+					}
+				});
 	}
 
 	@Override
@@ -127,15 +108,6 @@ public class ColumnView extends LinearLayout implements FetchEntryListener {
 		adapter.setSelectPosition(position);
 		adapter.notifyDataSetChanged();
 		mListView.setSelection(position);
-	}
-
-	/**
-	 * 登录完成之后改变文字Fֵ
-	 * 
-	 * @param text
-	 */
-	public void afterLogin(String text) {
-		loginText.setText(text);
 	}
 
 }

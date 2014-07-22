@@ -29,7 +29,7 @@ public class BindFavToUserImplement implements BindFavToUserListener {
 	}
 
 	private void checkUpdateUser(FavoriteItem fav, String uid) {
-		if (!TextUtils.isEmpty(uid) && uid != ConstData.UN_UPLOAD_UID) {
+		if (!TextUtils.isEmpty(uid) && !uid.equals(ConstData.UN_UPLOAD_UID)) {
 			// 已登录
 			UserHelper.updateFav(mContext);
 		} else {

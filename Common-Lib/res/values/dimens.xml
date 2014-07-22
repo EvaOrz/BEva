@@ -36,4 +36,6 @@
     <dimen name="article_button_height">44.5dp</dimen>
     <dimen name="article_button_marginleft">5.5dp</dimen>
 
+    <!-- footer_view -->
+    <dimen name="footer_height">50dp</dimen>
 </resources>

@@ -191,7 +191,6 @@ public class AdvTools {
 	 * @param url
 	 */
 	private static void requestClick(String url) {
-		System.out.println("requestClick");
 		HttpRequestController.getInstance().requestHttp(url);
 	}
 }

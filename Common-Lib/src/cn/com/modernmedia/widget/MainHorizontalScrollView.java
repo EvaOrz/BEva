@@ -1,5 +1,8 @@
 package cn.com.modernmedia.widget;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Handler;
@@ -9,12 +12,12 @@ import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
-import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import cn.com.modernmedia.listener.ScrollCallBackListener;
 import cn.com.modernmedia.listener.ScrollStateListener;
 import cn.com.modernmedia.listener.SizeCallBack;
 import cn.com.modernmedia.util.LogHelper;
+import cn.com.modernmedia.util.ParseUtil;
 
 /**
  * 主页横向划屏
@@ -31,12 +34,13 @@ public class MainHorizontalScrollView extends HorizontalScrollView {
 	 * 移动中显示的view;0.无。1.左。2.右
 	 */
 	private int moveOut = 0;
-	public static int ENLARGE_WIDTH = 0;// 扩展宽度
+	public static int LEFT_ENLARGE_WIDTH = 0;// 扩展宽度
+	public static int RIGHT_ENLARGE_WIDTH = 0;// 扩展宽度
 	private int scrollWidth;// 需要滑动的宽度
-	private Button leftButton, rightButton;// 切换至左边view的button
+	private View leftButton, rightButton;// 切换至左边view的button
 	private int current;// 当前滑动的位置
 	private int left_max_width, right_max_width, mid_right;// 显示左边最大滑动距离
-	private View needsScrollView;// 需要自己单独滑动的view
+	private List<View> needsScrollViewList = new ArrayList<View>();// 需要自己单独滑动的view
 	private AtlasViewPager atlasViewPager;// 需要自己滑动的view(第2页至最后第2页)
 	private boolean passToUp = false;// 传递给上层页面执行touch事件
 	private ScrollCallBackListener listener;
@@ -88,6 +92,7 @@ public class MainHorizontalScrollView extends HorizontalScrollView {
 		me = this;
 		leftOut = false;
 		rightOut = false;
+		needsScrollViewList.clear();
 		scrollTask = new Runnable() {
 
 			@Override
@@ -136,7 +141,7 @@ public class MainHorizontalScrollView extends HorizontalScrollView {
 	 * 
 	 * @param leftButton
 	 */
-	public void setButtons(Button leftButton, Button rightButton) {
+	public void setButtons(View leftButton, View rightButton) {
 		this.leftButton = leftButton;
 		this.rightButton = rightButton;
 	}
@@ -146,7 +151,16 @@ public class MainHorizontalScrollView extends HorizontalScrollView {
 	}
 
 	public void setNeedsScrollView(View needsScrollView) {
-		this.needsScrollView = needsScrollView;
+		if (needsScrollView != null) {
+			if (needsScrollViewList.contains(needsScrollView))
+				removeScrollView(needsScrollView);
+			needsScrollViewList.add(needsScrollView);
+		}
+	}
+
+	public void removeScrollView(View needsScrollView) {
+		if (needsScrollView != null)
+			needsScrollViewList.remove(needsScrollView);
 	}
 
 	public void setAtlasViewPager(AtlasViewPager atlasViewPager) {
@@ -310,13 +324,8 @@ public class MainHorizontalScrollView extends HorizontalScrollView {
 	public boolean onInterceptTouchEvent(MotionEvent ev) {
 		if (passToUp)
 			return false;
-		if (needsScrollView != null) {
-			Rect rect = new Rect();
-			// 获取该gallery相对于全局的坐标点
-			needsScrollView.getGlobalVisibleRect(rect);
-			if (rect.contains((int) ev.getX(), (int) ev.getY())) {
-				return false;
-			}
+		if (checkChild(ev)) {
+			return false;
 		}
 		if (atlasViewPager != null) {
 			Rect rect = new Rect();
@@ -331,6 +340,22 @@ public class MainHorizontalScrollView extends HorizontalScrollView {
 			return false;
 		}
 		return super.onInterceptTouchEvent(ev);
+	}
+
+	private boolean checkChild(MotionEvent ev) {
+		boolean inChild = false;
+		if (ParseUtil.listNotNull(needsScrollViewList)) {
+			for (View view : needsScrollViewList) {
+				Rect rect = new Rect();
+				// 获取该gallery相对于全局的坐标点
+				view.getGlobalVisibleRect(rect);
+				if (rect.contains((int) ev.getX(), (int) ev.getY())) {
+					inChild = true;
+					break;
+				}
+			}
+		}
+		return inChild;
 	}
 
 	/**
@@ -407,7 +432,7 @@ public class MainHorizontalScrollView extends HorizontalScrollView {
 		} else {
 			// 当右边页面完全显示并且点击范围在右边页面，那么事件传递给右边页面
 			if (current == right_max_width
-					&& x > rightButton.getMeasuredWidth() + ENLARGE_WIDTH) {
+					&& x > rightButton.getMeasuredWidth() + RIGHT_ENLARGE_WIDTH) {
 				return false;
 			}
 		}
@@ -488,27 +513,27 @@ public class MainHorizontalScrollView extends HorizontalScrollView {
 	private void initWidgetWidth() {
 		if (left_max_width == 0) {
 			left_max_width = leftView.getMeasuredWidth()
-					- leftButton.getMeasuredWidth() - ENLARGE_WIDTH;
+					- leftButton.getMeasuredWidth() - LEFT_ENLARGE_WIDTH;
 		}
 		if (right_max_width == 0) {
 			if (rightButton.getVisibility() == View.VISIBLE)
 				right_max_width = left_max_width + leftView.getMeasuredWidth()
-						- rightButton.getMeasuredWidth() - ENLARGE_WIDTH;
+						- rightButton.getMeasuredWidth() - RIGHT_ENLARGE_WIDTH;
 			else
 				// iweekly右边按钮可能是隐藏的
 				right_max_width = left_max_width + leftView.getMeasuredWidth()
-						- leftButton.getMeasuredWidth() - ENLARGE_WIDTH;
+						- leftButton.getMeasuredWidth() - RIGHT_ENLARGE_WIDTH;
 		}
 		mid_right = right_max_width - left_max_width / 2;
 		leftView.getLayoutParams().width = left_max_width;
 		if (rightView != null)
 			if (rightButton.getVisibility() == View.VISIBLE)
 				rightView.setPadding(rightButton.getMeasuredWidth()
-						+ ENLARGE_WIDTH, 0, 0, 0);
+						+ RIGHT_ENLARGE_WIDTH, 0, 0, 0);
 			else
 				// iweekly右边按钮可能是隐藏的
 				rightView.setPadding(leftButton.getMeasuredWidth()
-						+ ENLARGE_WIDTH, 0, 0, 0);
+						+ RIGHT_ENLARGE_WIDTH, 0, 0, 0);
 		scrollWidth = left_max_width;
 		if (viewListener != null)
 			viewListener.fetchViewWidth(left_max_width);
@@ -550,7 +575,6 @@ public class MainHorizontalScrollView extends HorizontalScrollView {
 			// and re-add them.
 			// This lets the SizeCallback prepare View sizes, ahead of calls to
 			// SizeCallback.getViewSize().
-			leftCallBack.onGlobalLayout();
 			this.parent.removeViewsInLayout(0, children.length);
 			int width = me.getMeasuredWidth();
 			int height = me.getMeasuredHeight();
@@ -561,6 +585,12 @@ public class MainHorizontalScrollView extends HorizontalScrollView {
 			scrollToViewPos = 0;
 
 			for (int i = 0; i < children.length; i++) {
+				View child = children[i];
+				if (child.getTag() == null)
+					leftCallBack.onGlobalLayout(0);
+				else
+					leftCallBack.onGlobalLayout(ParseUtil.stoi(children[i]
+							.getTag().toString()));
 				leftCallBack.getViewSize(i, width, height, dims);
 				if (children[i].getVisibility() != View.GONE)
 					children[i].setVisibility(View.VISIBLE);

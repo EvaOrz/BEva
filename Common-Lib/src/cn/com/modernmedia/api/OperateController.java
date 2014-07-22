@@ -18,7 +18,7 @@ import cn.com.modernmediaslate.model.Favorite.FavoriteItem;
  */
 public class OperateController {
 	private static OperateController instance;
-	private Context mContext;
+	private static Context mContext;
 
 	private Handler mHandler = new Handler();
 
@@ -27,6 +27,7 @@ public class OperateController {
 	}
 
 	public static synchronized OperateController getInstance(Context context) {
+		mContext = context;
 		if (instance == null)
 			instance = new OperateController(context);
 		return instance;
@@ -320,7 +321,7 @@ public class OperateController {
 			}
 		});
 	}
-	
+
 	/**
 	 * 获取iWeekly入版广告
 	 * 

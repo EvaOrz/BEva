@@ -6,6 +6,7 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -23,6 +24,7 @@ import cn.com.modernmedia.listener.BindFavToUserListener;
 import cn.com.modernmedia.listener.CallWebStatusChangeListener;
 import cn.com.modernmedia.listener.FetchEntryListener;
 import cn.com.modernmedia.listener.HideTitleBarListener;
+import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.model.ArticleList;
 import cn.com.modernmedia.model.Atlas;
 import cn.com.modernmedia.model.Issue;
@@ -621,6 +623,19 @@ public abstract class CommonArticleActivity extends BaseActivity implements
 		} else if (id == R.id.default_article_share_btn) {
 			showShare();
 		}
+	}
+
+	/**
+	 * 发送send_action到登陆页
+	 * 
+	 * @param item
+	 */
+	protected void checkLogin(ArticleItem item, Class<?> loginCls) {
+		Intent intent = new Intent(Intent.ACTION_SEND);
+		intent.setClass(this, loginCls);
+		intent.putExtra(Intent.EXTRA_TEXT, item.getDesc());
+		intent.putExtra(ConstData.SHARE_APP_ID, ConstData.getInitialAppId());
+		startActivity(intent);
 	}
 
 	private class ViewPageAdapter extends PagerAdapter {

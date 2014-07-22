@@ -1,6 +1,9 @@
 package cn.com.modernmedia.api;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -44,6 +47,9 @@ public class GetCatIndexOperate extends BaseIndexAdvOperate {
 	private List<ArticleItem> itemList = new ArrayList<ArticleItem>();
 	// 添加数据库使用
 	private List<ArticleItem> headItemList = new ArrayList<ArticleItem>();
+	
+	private DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	private List<String> dateList = new ArrayList<String>();
 
 	/**
 	 * 非独立栏目
@@ -181,6 +187,7 @@ public class GetCatIndexOperate extends BaseIndexAdvOperate {
 		item.setSlateLink(obj.optString("link", ""));
 		item.setAuthor(obj.optString("author", ""));
 		item.setOutline(obj.optString("outline", ""));
+		item.setInputtime(obj.optString("inputtime"));
 
 		if (isSolo) {
 			item.getSoloItem().setPagenum(obj.optInt("pagenum", -1));
@@ -226,6 +233,15 @@ public class GetCatIndexOperate extends BaseIndexAdvOperate {
 			currentTitlePosition++;
 		} else {
 			// 列表
+			if (ConstData.isWeeklyNews(catIndexArticle.getId())) {
+				// TODO iweekly新闻栏目根据日期组合
+				String date = format.format(new Date(ParseUtil.stol(item
+						.getInputtime()) * 1000L));
+				if (!dateList.contains(date)) {
+					dateList.add(date);
+					item.setDateFirst(true);
+				}
+			}
 			catIndexArticle.getArticleItemList().addAll(
 					getListAdvsByPosition(currentListPosition));
 			catIndexArticle.getArticleItemList().add(item);
@@ -295,6 +311,11 @@ public class GetCatIndexOperate extends BaseIndexAdvOperate {
 			if (isNull(object))
 				continue;
 			pictureList.add(object.optString("url", ""));
+			// TODO iweekly视野使用
+			String bigUrl = object.optString("bigimgurl");
+			if (!TextUtils.isEmpty(bigUrl)) {
+				pictureList.add(bigUrl);
+			}
 		}
 		return pictureList;
 	}

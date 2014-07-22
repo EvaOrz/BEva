@@ -2,12 +2,4 @@
 <resources>
 
     <color name="child_cat_bg">#FFEB030D</color>
-    <color name="column_bg">#181818</color>
-    <!-- <color name="transparent">#00000000</color> -->
-    <color name="white_bg">#ffffff</color>
-    <color name="black_bg">#000000</color>
-    <color name="index_item_desc">#ff787878</color>
-    <color name="fav_bg">#1d1d1d</color>
-    <color name="control_back">#AA000000</color>
-
-</resources>
+</resources>

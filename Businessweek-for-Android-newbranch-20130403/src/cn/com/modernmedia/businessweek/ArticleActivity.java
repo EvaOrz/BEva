@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import cn.com.modernmedia.businessweek.widget.AtlasView;
+import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.widget.ArticleDetailItem;
 import cn.com.modernmedia.widget.AtlasViewPager;
 import cn.com.modernmediaslate.model.Favorite.FavoriteItem;
@@ -19,6 +20,7 @@ import cn.com.modernmediausermodel.help.BindFavToUserImplement;
  * 
  */
 public class ArticleActivity extends CommonSoloArticleActivity {
+
 	/**
 	 * 在ViewPager中，它除了加载当前页，还会加载当前页的左右页（无论它们实际可不可见）。除了当前页的View算是可见的，
 	 * 其左右页的View算是可见的（无论它们实际可不可见）
@@ -90,6 +92,12 @@ public class ArticleActivity extends CommonSoloArticleActivity {
 				public int getBackGroundRes() {
 					return R.drawable.webview_bg;
 				}
+
+				@Override
+				public void myGotoWriteNewCardActivity(ArticleItem item) {
+					checkLogin(item, LoginActivity.class);
+				}
+
 			};
 			((ArticleDetailItem) view).setData(detail);
 			((ArticleDetailItem) view).changeFont();

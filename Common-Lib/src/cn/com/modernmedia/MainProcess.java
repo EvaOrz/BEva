@@ -174,6 +174,10 @@ public class MainProcess {
 	 * 获取广告资源
 	 */
 	public void getAdvList() {
+		if (!hasAdv()) {
+			getCatList();
+			return;
+		}
 		errorType = 7;
 		mController.getAdvList(((CommonMainActivity) mContext).isUsingCache(),
 				new FetchEntryListener() {
@@ -385,6 +389,11 @@ public class MainProcess {
 				}
 			}
 		}
+	}
+
+	private boolean hasAdv() {
+		return ConstData.getInitialAppId() != 21
+				&& ConstData.getInitialAppId() != 20;
 	}
 
 	public int reLoadData() {

@@ -5,11 +5,11 @@ import java.io.File;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,9 +18,14 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
-import cn.com.modernmediaslate.SlateBaseActivity;
+import cn.com.modernmedia.BaseActivity;
+import cn.com.modernmedia.CommonApplication;
+import cn.com.modernmedia.listener.ImageDownloadStateListener;
+import cn.com.modernmedia.util.ConstData;
+import cn.com.modernmedia.util.FileManager;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediausermodel.api.UserModelInterface;
 import cn.com.modernmediausermodel.listener.RequestListener;
@@ -29,7 +34,11 @@ import cn.com.modernmediausermodel.model.User;
 import cn.com.modernmediausermodel.model.User.Error;
 import cn.com.modernmediausermodel.util.FetchPhotoManager;
 import cn.com.modernmediausermodel.util.UserDataHelper;
+import cn.com.modernmediausermodel.util.UserFileManager;
+import cn.com.modernmediausermodel.util.UserPageTransfer;
 import cn.com.modernmediausermodel.util.UserTools;
+import cn.com.modernmediausermodel.util.sina.SinaAPI;
+import cn.com.modernmediausermodel.util.sina.SinaRequestListener;
 
 /**
  * 用户信息界面
@@ -37,25 +46,31 @@ import cn.com.modernmediausermodel.util.UserTools;
  * @author ZhuQiao
  * 
  */
-public abstract class DefaultUserInfoActivity extends SlateBaseActivity
-		implements OnClickListener {
+public abstract class DefaultUserInfoActivity extends BaseActivity implements
+		OnClickListener {
+	public static final String KEY_ACTION_FROM = "from"; // 作为获得标识从哪个按钮点击跳转到该页面的key
+	public static final int FROM_REGISTER = 1;
+	public static final int FROM_SINA_LOGIN = 2;
+
 	private static final String KEY_IMAGE = "data";
 	private static final String AVATAR_PIC = "avatar.jpg";
-
 	private Context mContext;
-	private EditText mNickNameEdit;
-	private ImageView mClearImage;
-	private ImageView mCloseImage;
-	private ImageView mAvatarImage;
-	private TextView mModifyPwdText;
-	private TextView mLogoutText;
+	private EditText mNickNameEdit, mUserNameEdit;
+	private ImageView mClearImage, mCloseImage, avatar;
+	private TextView mModifyPwdText, mLogoutText;
+	private RelativeLayout mAccountLayout;
 	private Button mSureBtn;
 	private UserModelInterface mUserInterface;
 	private String picturePath;
 	private User mUser;
-	// 是否是注册成功后进入的
-	protected boolean isFromRegister = false;
+	// // 是否是注册成功后进入的
+	// protected boolean isFromRegister = false;
+	protected int actionFrom = 0; // 识从哪个按钮点击跳转到该页面
+	private String shareContent = "";// 分享内容
+	private int appId;// 区分是第三方应用分享还是当前应用分享
+	private int gotoPage;// 完成需要跳转的页面
 	private Animation shakeAnim;
+	private Handler mHandler = new Handler();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +80,13 @@ public abstract class DefaultUserInfoActivity extends SlateBaseActivity
 		picturePath = Environment.getExternalStorageDirectory().getPath() + "/"
 				+ AVATAR_PIC;
 		if (getIntent() != null && getIntent().getExtras() != null) {
-			isFromRegister = getIntent().getExtras().getBoolean(
-					"FROM_REGISTER", false);
+			Bundle bundle = getIntent().getExtras();
+			actionFrom = bundle.getInt(KEY_ACTION_FROM, 0);
+			shareContent = bundle.getString(WriteNewCardActivity.KEY_DATA);
+			appId = bundle.getInt(ConstData.SHARE_APP_ID);
+			mUser = (User) getIntent().getSerializableExtra(
+					UserCardInfoActivity.KEY_USER);
+			gotoPage = bundle.getInt(UserPageTransfer.LOGIN_KEY);
 		}
 	}
 
@@ -90,23 +110,30 @@ public abstract class DefaultUserInfoActivity extends SlateBaseActivity
 	private void init() {
 		shakeAnim = AnimationUtils.loadAnimation(this, R.anim.shake);
 		mNickNameEdit = (EditText) findViewById(R.id.userinfo_name_edit);
+		mUserNameEdit = (EditText) findViewById(R.id.userinfo_accout_edit);
+		mAccountLayout = (RelativeLayout) findViewById(R.id.userinfo_account_rl);
 		mClearImage = (ImageView) findViewById(R.id.userinfo_clear);
 		mCloseImage = (ImageView) findViewById(R.id.userinfo_img_close);
-		mAvatarImage = (ImageView) findViewById(R.id.userinfo_avatar);
+		avatar = (ImageView) findViewById(R.id.userinfo_avatar);
 		mModifyPwdText = (TextView) findViewById(R.id.userinfo_modify_pwd_btn);
 		mLogoutText = (TextView) findViewById(R.id.userinfo_logout_btn);
 		mSureBtn = (Button) findViewById(R.id.userinfo_complete);
 
 		mClearImage.setOnClickListener(this);
 		mCloseImage.setOnClickListener(this);
-		mAvatarImage.setOnClickListener(this);
+		avatar.setOnClickListener(this);
 		mModifyPwdText.setOnClickListener(this);
 		mLogoutText.setOnClickListener(this);
 		mSureBtn.setOnClickListener(this);
 
-		if (isFromRegister) {
+		if (actionFrom == FROM_REGISTER) { // 注册页面
 			mModifyPwdText.setVisibility(View.GONE);
 			mLogoutText.setVisibility(View.GONE);
+			mAccountLayout.setVisibility(View.GONE);
+		} else if (actionFrom == FROM_SINA_LOGIN) { // 新浪登录跳转
+			mModifyPwdText.setVisibility(View.GONE);
+			mLogoutText.setVisibility(View.GONE);
+			mAccountLayout.setVisibility(View.VISIBLE);
 		} else {
 			mSureBtn.setBackgroundResource(R.drawable.bg_btn);
 			mSureBtn.setText(R.string.confirm_change);
@@ -120,14 +147,15 @@ public abstract class DefaultUserInfoActivity extends SlateBaseActivity
 			mLogoutText.getPaint().setFlags(
 					mLogoutText.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 		}
+		UserTools.setAvatar(this, "", avatar);
 
-		mAvatarImage.setImageBitmap(UserTools
-				.transforCircleBitmap(BitmapFactory.decodeResource(
-						getResources(), R.drawable.avatar_placeholder)));
-
-		User user = UserDataHelper.getUserLoginInfo(this);
-		if (user != null) {
-			getUserInfo(user.getUid(), user.getToken());
+		if (actionFrom == FROM_SINA_LOGIN) { // 微博首次登录
+			getSinaUserInfo();
+		} else {
+			User user = UserDataHelper.getUserLoginInfo(this);
+			if (user != null) {
+				getUserInfo(user.getUid(), user.getToken());
+			}
 		}
 	}
 
@@ -156,8 +184,20 @@ public abstract class DefaultUserInfoActivity extends SlateBaseActivity
 		} else if (id == R.id.userinfo_complete) {
 			if (mNickNameEdit != null) {
 				String nick = mNickNameEdit.getText().toString();
-				if (UserTools.checkString(nick, mNickNameEdit, shakeAnim))
+				if (actionFrom == FROM_SINA_LOGIN && mUserNameEdit != null
+						&& mUser != null) { // 新浪微博首次登录
+					if (UserTools.checkString(mUserNameEdit.getText()
+							.toString(), mUserNameEdit, shakeAnim)
+							&& UserTools.checkString(nick, mNickNameEdit,
+									shakeAnim)) {
+						mUser.setUserName(mUserNameEdit.getText().toString());
+						mUser.setNickName(mNickNameEdit.getText().toString());
+						getSinaAvatar(mUser.getAvatar());
+					}
+				} else if (UserTools
+						.checkString(nick, mNickNameEdit, shakeAnim)) {
 					doAfterSetup(nick);
+				}
 			}
 		}
 	}
@@ -195,9 +235,105 @@ public abstract class DefaultUserInfoActivity extends SlateBaseActivity
 		});
 	}
 
+	/**
+	 * 获取新浪用户相关信息
+	 * 
+	 */
+	public void getSinaUserInfo() {
+		showLoadingDialog(true);
+		SinaAPI.getInstance(mContext).fetchUserInfo(new SinaRequestListener() {
+
+			@Override
+			public void onSuccess(Entry entry) {
+
+				if (entry != null && entry instanceof User) {
+					showLoadingDialog(false);
+					mUser = (User) entry;
+					UserDataHelper.saveAvatarUrl(mContext, mUser.getUserName(),
+							mUser.getAvatar());
+					// 设置昵称
+					mHandler.post(new Runnable() {
+
+						@Override
+						public void run() {
+							setDataForWidget(mUser);
+							UserTools.setAvatar(mContext, mUser.getAvatar(),
+									avatar);
+						}
+					});
+				}
+			}
+
+			@Override
+			public void onFailed(String error) {
+				showLoadingDialog(false);
+			}
+		});
+	}
+
+	/**
+	 * 获取新浪微博头像
+	 */
+	private void getSinaAvatar(final String url) {
+		showLoadingDialog(true);
+		CommonApplication.getImageDownloader().download(url,
+				new ImageDownloadStateListener() {
+
+					@Override
+					public void loading() {
+					}
+
+					@Override
+					public void loadOk(Bitmap bitmap) {
+						showLoadingDialog(false);
+						uploadAvatar(FileManager.getBitmapPath(url));
+					}
+
+					@Override
+					public void loadError() {
+					}
+				});
+	}
+
+	/**
+	 * 新浪微博登录
+	 */
+	protected void sinaLogin(String avatar) {
+		showLoadingDialog(true);
+		mUserInterface.sinaLogin(mUser, avatar, new RequestListener() {
+
+			@Override
+			public void onSuccess(Entry entry) {
+				showLoadingDialog(false);
+				User user = (User) entry;
+				UserDataHelper.saveUserLoginInfo(mContext, user);
+				UserPageTransfer.afterLogin(mContext, user, shareContent,
+						appId, gotoPage);
+				// 用于判定是否用新浪微博登录过
+				UserDataHelper.saveSinaLoginedName(mContext, mUser.getSinaId(),
+						mUser.getUserName());
+			}
+
+			@Override
+			public void onFailed(Entry error) {
+				showLoadingDialog(false);
+				if (error instanceof User.Error) {
+					showToast(((User.Error) error).getDesc());
+				}
+			}
+		});
+	}
+
+	/**
+	 * 设置昵称
+	 * 
+	 * @param user
+	 */
 	protected void setDataForWidget(User user) {
 		if (mNickNameEdit != null)
 			mNickNameEdit.setText(user.getNickName());
+		if (avatar != null)
+			UserTools.setAvatar(this, user, avatar);
 	}
 
 	/**
@@ -231,26 +367,15 @@ public abstract class DefaultUserInfoActivity extends SlateBaseActivity
 	/**
 	 * 登出
 	 */
-	public void doLoginOut() {
-		showLoadingDialog(true);
-		if (mUser != null) {
-			mUserInterface.loginOut(mUser.getUid(), mUser.getToken(),
-					new RequestListener() {
-
-						@Override
-						public void onSuccess(Entry entry) {
-							showLoadingDialog(false);
-							afterLoginOut();
-						}
-
-						@Override
-						public void onFailed(Entry error) {
-							showLoadingDialog(false);
-							if (error instanceof User.Error)
-								showToast(((Error) error).getDesc());
-						}
-					});
+	private void doLoginOut() {
+		// 新浪微博登录状态时，需清除存储的新浪ID对应的用户名
+		if (!TextUtils.isEmpty(mUser.getSinaId())) {
+			UserDataHelper.saveSinaLoginedName(mContext,
+					mUser.getSinaId(), "");
 		}
+		// 清除存储的登录信息
+		UserDataHelper.clearLoginInfo(mContext);
+		afterLoginOut();
 	}
 
 	protected void afterLoginOut() {
@@ -266,8 +391,10 @@ public abstract class DefaultUserInfoActivity extends SlateBaseActivity
 			mUser.setNickName(nickName);
 			modifyUserInfo(mUser, "", "", true);
 		}
-		if (isFromRegister)
-			finish();
+		if (actionFrom == FROM_REGISTER) { // 注册页面
+			UserPageTransfer.afterLogin(this, mUser, shareContent, appId,
+					gotoPage);
+		}
 	}
 
 	protected void doFecthPicture() {
@@ -284,6 +411,13 @@ public abstract class DefaultUserInfoActivity extends SlateBaseActivity
 	protected void uploadAvatar(String imagePath) {
 		if (mUser == null || TextUtils.isEmpty(imagePath))
 			return;
+
+		if (!new File(imagePath).exists()) {
+			showLoadingDialog(false);
+			showToast("取得头像失败");
+			return;
+		}
+
 		showLoadingDialog(true);
 		mUserInterface.uploadAvatar(imagePath, new RequestListener() {
 
@@ -293,8 +427,16 @@ public abstract class DefaultUserInfoActivity extends SlateBaseActivity
 				UploadAvatarResult result = (UploadAvatarResult) entry;
 				if (!TextUtils.isEmpty(result.getImagePath())
 						&& !TextUtils.isEmpty(result.getAvatarPath()))
-					modifyUserInfo(mUser, result.getImagePath(),
-							result.getAvatarPath(), false);
+					if (actionFrom == FROM_SINA_LOGIN) {
+						// 将得到的头像下载地址存储到本地
+						UserDataHelper.saveAvatarUrl(mContext,
+								mUser.getUserName(), result.getAvatarPath());
+						afterFetchPicture(mUser, result.getAvatarPath());
+						sinaLogin(result.getImagePath());
+					} else {
+						modifyUserInfo(mUser, result.getImagePath(),
+								result.getAvatarPath(), false);
+					}
 			}
 
 			@Override
@@ -355,13 +497,17 @@ public abstract class DefaultUserInfoActivity extends SlateBaseActivity
 	 * @param picUrl
 	 */
 	protected void afterFetchPicture(User user, String picUrl) {
+		UserTools.setAvatar(this, picUrl, avatar);
 	}
 
 	/**
 	 * 成功设置昵称
 	 */
 	protected void afterSetNickName() {
-		if (isFromRegister)
+		showToast(R.string.modify_success);
+		if (mUser != null)
+			UserDataHelper.saveUserLoginInfo(this, mUser);
+		if (actionFrom == FROM_REGISTER)
 			finish();
 	}
 
@@ -371,8 +517,8 @@ public abstract class DefaultUserInfoActivity extends SlateBaseActivity
 	 * @param bitmap
 	 */
 	protected void setBitmapForAvatar(Bitmap bitmap) {
-		if (mAvatarImage != null)
-			mAvatarImage.setImageBitmap(UserTools.transforCircleBitmap(bitmap));
+		if (avatar != null)
+			UserTools.transforCircleBitmap(bitmap, avatar);
 	}
 
 	@Override
@@ -388,8 +534,11 @@ public abstract class DefaultUserInfoActivity extends SlateBaseActivity
 			} else if (requestCode == UserTools.REQUEST_ZOOM) {
 				if (data != null) {
 					Bitmap bitmap = data.getExtras().getParcelable(KEY_IMAGE);
+					UserFileManager.saveImage(bitmap, picturePath);
 					if (bitmap != null) {
 						uploadAvatar(picturePath);
+						bitmap.recycle();
+						bitmap = null;
 					}
 				}
 			}

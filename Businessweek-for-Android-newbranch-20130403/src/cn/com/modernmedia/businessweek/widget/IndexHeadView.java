@@ -161,7 +161,7 @@ public class IndexHeadView extends BaseView implements FetchEntryListener {
 			return;
 		if (mContext instanceof MainActivity) {
 			if (mList.size() == 1) {
-				((MainActivity) mContext).setScrollView(2, null);
+				((MainActivity) mContext).setScrollView(2, viewPager);
 			} else {
 				((MainActivity) mContext).setScrollView(0, viewPager);
 				startRefresh();

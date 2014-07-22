@@ -5,12 +5,6 @@
     android:orientation="vertical" >
 
     <include
-        android:id="@+id/column_footview_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/column_item" />
-
-    <include
         android:id="@+id/column_footview_about"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

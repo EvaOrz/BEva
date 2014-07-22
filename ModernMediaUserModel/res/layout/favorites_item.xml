@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/favorites_item_name"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/favorites_list_item_height"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/listitem_avatar_marginleft"
+        android:singleLine="true"
+        android:textColor="@color/black_bg" />
+
+</LinearLayout>

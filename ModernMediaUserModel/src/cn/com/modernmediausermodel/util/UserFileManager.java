@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
+import android.text.TextUtils;
 
 /**
  * 文件存储
@@ -19,11 +20,18 @@ public class UserFileManager {
 	private static final int DEFAULT_COMPRESS_QUALITY = 100;//
 
 	public static void saveImage(Bitmap bitmap, String path) {
-		File file = new File(path);
-		if (!file.exists()) {
-			file.mkdirs();
+		if (TextUtils.isEmpty(path) || !path.contains(File.separator)) {
+			return;
+		}
+		String dirPath = path.substring(0, path.lastIndexOf(File.separator));
+		File dir = new File(dirPath);
+		if (!dir.exists()) {
+			dir.mkdirs();
 		}
 		File picPath = new File(path);
+		if (picPath.exists()) {
+			picPath.delete();
+		}
 		BufferedOutputStream bos = null;
 		try {
 			bos = new BufferedOutputStream(new FileOutputStream(picPath), 1024);

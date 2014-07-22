@@ -1,7 +1,11 @@
 package cn.com.modernmediausermodel;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
@@ -9,13 +13,19 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import cn.com.modernmediaslate.SlateBaseActivity;
+import cn.com.modernmedia.BaseActivity;
+import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediausermodel.api.UserModelInterface;
 import cn.com.modernmediausermodel.listener.RequestListener;
 import cn.com.modernmediausermodel.model.User;
 import cn.com.modernmediausermodel.model.User.Error;
+import cn.com.modernmediausermodel.util.UserDataHelper;
+import cn.com.modernmediausermodel.util.UserPageTransfer;
 import cn.com.modernmediausermodel.util.UserTools;
+import cn.com.modernmediausermodel.util.sina.SinaAPI;
+import cn.com.modernmediausermodel.util.sina.SinaAuth;
+import cn.com.modernmediausermodel.util.sina.UserModelAuthListener;
 
 /**
  * 默认登录页面
@@ -23,24 +33,69 @@ import cn.com.modernmediausermodel.util.UserTools;
  * @author ZhuQiao
  * 
  */
-public abstract class DefaultLoginActivity extends SlateBaseActivity implements
+public abstract class DefaultLoginActivity extends BaseActivity implements
 		OnClickListener {
 	private Context mContext;
-	private EditText mAcountEdit;
-	private EditText mPasswordEdit;
-	private ImageView mClearImage;
-	private ImageView mForgetPwdImage;
-	private ImageView mCloseImage;
-	private Button mRegisterBtn;
-	private Button mLoginBtn;
+	private EditText mAcountEdit, mPasswordEdit;
+	private ImageView mClearImage, mForgetPwdImage, mCloseImage;
+	private Button mRegisterBtn, mLoginBtn, mSinaLoginBtn;
 	private UserModelInterface userModel;
 	private Animation shakeAnim;
+	private SinaAuth weiboAuth;
+
+	private String shareData = "";// 分享的内容
+	private int appId;// 区分是第三方应用分享还是当前应用分享
+	private int gotoPage;// 登录完成需要跳转的页面
+	private boolean shouldFinish = false;// 当直接跳到发笔记页的时候，不会立即执行destory，所以延迟500ms
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mContext = this;
 		userModel = UserModelInterface.getInstance(this);
+		if (checkIsShare() && UserDataHelper.getUserLoginInfo(mContext) != null) {
+			UserPageTransfer.gotoWriteCardActivity(this, shareData, appId,
+					false);
+			shouldFinish = true;
+		}
+		initContentView();
+		new Handler().postDelayed(new Runnable() {
+
+			@Override
+			public void run() {
+				if (shouldFinish) {
+					finish();
+				}
+			}
+		}, 500);
+	}
+
+	protected abstract void initContentView();
+
+	/**
+	 * 检查是否来自应用分享，若是，则会取得要分享的文本信息
+	 * 
+	 * @return
+	 */
+	public boolean checkIsShare() {
+		Intent intent = getIntent();
+		if (intent != null && intent.getExtras() != null) {
+			Bundle bundle = intent.getExtras();
+			gotoPage = bundle.getInt(UserPageTransfer.LOGIN_KEY);
+			if (intent.getAction() != null
+					&& intent.getAction().equals(Intent.ACTION_SEND)) {
+				if (bundle.containsKey(Intent.EXTRA_TEXT)) {
+					shareData = bundle.getString(Intent.EXTRA_TEXT);
+					appId = bundle.getInt(ConstData.SHARE_APP_ID);
+					if (TextUtils.isEmpty(shareData)) {
+						finish();
+					} else {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -69,12 +124,14 @@ public abstract class DefaultLoginActivity extends SlateBaseActivity implements
 		mCloseImage = (ImageView) findViewById(R.id.login_img_close);
 		mRegisterBtn = (Button) findViewById(R.id.login_btn_register);
 		mLoginBtn = (Button) findViewById(R.id.login_btn_login);
+		mSinaLoginBtn = (Button) findViewById(R.id.login_btn_sina_login);
 
 		mCloseImage.setOnClickListener(this);
 		mClearImage.setOnClickListener(this);
 		mForgetPwdImage.setOnClickListener(this);
 		mRegisterBtn.setOnClickListener(this);
 		mLoginBtn.setOnClickListener(this);
+		mSinaLoginBtn.setOnClickListener(this);
 	}
 
 	@Override
@@ -103,6 +160,45 @@ public abstract class DefaultLoginActivity extends SlateBaseActivity implements
 			if (UserTools.checkString(userName, mAcountEdit, shakeAnim)
 					&& UserTools.checkString(psd, mPasswordEdit, shakeAnim))
 				doLogin(userName, psd);
+		} else if (v.getId() == R.id.login_btn_sina_login) { // 新浪登录
+			doSinaLogin();
+		}
+	}
+
+	private void doSinaLogin() {
+		// 新浪微博认证
+		weiboAuth = new SinaAuth(mContext);
+		if (!weiboAuth.checkIsOAuthed()) {
+			weiboAuth.oAuth();
+		} else {
+			doAfterIsOAuthed();
+		}
+		weiboAuth.setAuthListener(new UserModelAuthListener() {
+
+			@Override
+			public void onCallBack(boolean isSuccess) {
+				if (isSuccess) {
+					doAfterIsOAuthed();
+				} else {
+					showToast(R.string.sina_login_failed);
+				}
+			}
+		});
+
+	}
+
+	private void doAfterIsOAuthed() {
+		User user = UserDataHelper.getUserLoginInfo(mContext);
+		String sinaId = SinaAPI.getInstance(mContext).getSinaId();
+		String userName = UserDataHelper.getSinaLoginedName(mContext, sinaId);
+		if (user != null && !TextUtils.isEmpty(user.getSinaId())
+				&& user.getSinaId().equals(sinaId)) { // 已经用新浪微博账号登录
+			afterLogin(user);
+		} else { // 用户名不为空时，说明以前登录过；反之，则为第一次登录
+			User mUser = new User();
+			mUser.setUserName(userName);
+			mUser.setSinaId(sinaId);
+			sinaLogin(mUser);
 		}
 	}
 
@@ -156,7 +252,7 @@ public abstract class DefaultLoginActivity extends SlateBaseActivity implements
 					showLoadingDialog(false);
 					User user = (User) entry;
 					// 返回上一级界面
-					afterRegister(user);
+					afterRegister(user, shareData, appId);
 				}
 
 				@Override
@@ -171,12 +267,53 @@ public abstract class DefaultLoginActivity extends SlateBaseActivity implements
 	}
 
 	/**
-	 * 注册成功，默认进入设置用户信息界面
+	 * 登录页面登录操作
 	 * 
 	 * @param user
 	 */
-	protected void afterRegister(User user) {
+	public void sinaLogin(final User user) {
+		userModel.sinaLogin(user, "", new RequestListener() {
+
+			@Override
+			public void onSuccess(Entry entry) {
+				showLoadingDialog(false);
+				User mUser = (User) entry;
+				UserDataHelper.saveUserLoginInfo(mContext, mUser);
+				UserDataHelper.saveSinaLoginedName(mContext, mUser.getSinaId(),
+						mUser.getUserName());
+				afterLogin(mUser);
+			}
+
+			@Override
+			public void onFailed(Entry error) {
+				showLoadingDialog(false);
+				if (error != null) {
+					Error errors = (Error) error;
+					// 微博用户第一次登录时，前往资料页面完善资料
+					if (errors.getNo() == 2041) {
+						UserPageTransfer.gotoUserInfoActivity(mContext,
+								DefaultUserInfoActivity.FROM_SINA_LOGIN, null,
+								gotoPage);
+					} else {
+						showToast(errors.getDesc());
+					}
+
+				}
+			}
+		});
+	}
+
+	/**
+	 * 注册成功，默认进入设置用户信息界面
+	 * 
+	 * @param user
+	 * @param content
+	 *            分享内容
+	 */
+	protected void afterRegister(User user, String content, int appId) {
 		showToast(R.string.msg_register_success);
+		UserPageTransfer.gotoUserInfoActivity(this,
+				DefaultUserInfoActivity.FROM_REGISTER, content, gotoPage);
 	}
 
 	/**
@@ -215,20 +352,34 @@ public abstract class DefaultLoginActivity extends SlateBaseActivity implements
 	protected void afterLogin(User user) {
 		// 返回上一级界面
 		showToast(R.string.msg_login_success);
-		finish();
+		UserPageTransfer.afterLogin(this, user, shareData, appId, gotoPage);
 	}
 
 	/**
 	 * 返回
 	 */
 	protected void doClose() {
-		 finish();
+		finish();
 	}
 
 	@Override
 	public void finish() {
-		setResult(RESULT_OK);
+		if (UserDataHelper.getUserLoginInfo(this) != null)
+			setResult(RESULT_OK);
 		super.finish();
+	}
+
+	public static Class<DefaultLoginActivity> getLoginClass() {
+		return DefaultLoginActivity.class;
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+			doClose();
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 
 }

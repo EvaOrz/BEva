@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import cn.com.modernmedia.R;
 import cn.com.modernmedia.listener.CallWebStatusChangeListener;
 import cn.com.modernmedia.listener.WebProcessListener;
+import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmediaslate.model.Favorite.FavoriteItem;
 
 /**
@@ -64,6 +65,11 @@ public abstract class ArticleDetailItem extends BaseView implements
 				doScroll(l, t, oldl, oldt);
 			}
 
+			@Override
+			public void gotoWriteNewCardActivity(ArticleItem item) {
+				myGotoWriteNewCardActivity(item);
+			}
+
 		};
 		webView.setListener(listener);
 		ll.addView(webView, new LinearLayout.LayoutParams(
@@ -110,6 +116,14 @@ public abstract class ArticleDetailItem extends BaseView implements
 	public abstract int getBackGroundRes();
 
 	public abstract void showGallery(List<String> urlList);
+
+	/**
+	 * 跳转至写卡片页
+	 * 
+	 * @param item
+	 */
+	public void myGotoWriteNewCardActivity(ArticleItem item) {
+	}
 
 	public void doScroll(int l, int t, int oldl, int oldt) {
 	};

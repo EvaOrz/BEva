@@ -1,5 +1,8 @@
 package cn.com.modernmedia.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import cn.com.modernmediaslate.model.Entry;
 
 /**
@@ -15,6 +18,8 @@ public class InAppAdv extends Entry {
 	private String file = "";// zip包地址
 	private String html_file = "";// html文件名
 	private int html_duration;// html显示时间长度
+	private String splashFile = "";// 启动页zip包地址
+	private List<String> splashFileNameList = new ArrayList<String>();// 启动图片文件名称,如果找不到，用随机默认图替换
 
 	public String getStart_date() {
 		return start_date;
@@ -55,4 +60,21 @@ public class InAppAdv extends Entry {
 	public void setHtml_duration(int html_duration) {
 		this.html_duration = html_duration;
 	}
+
+	public String getSplashFile() {
+		return splashFile;
+	}
+
+	public void setSplashFile(String splashFile) {
+		this.splashFile = splashFile;
+	}
+
+	public List<String> getSplashFileNameList() {
+		return splashFileNameList;
+	}
+
+	public void setSplashFileNameList(List<String> splashFileNameList) {
+		this.splashFileNameList = splashFileNameList;
+	}
+
 }

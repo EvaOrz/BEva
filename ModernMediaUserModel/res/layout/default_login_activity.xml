@@ -89,25 +89,38 @@
 
     <Button
         android:id="@+id/login_btn_register"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/login_btn_width"
+        android:layout_height="@dimen/login_btn_height"
         android:layout_alignLeft="@+id/relativelayout_password"
         android:layout_below="@+id/relativelayout_password"
         android:layout_marginTop="@dimen/login_button_margintop"
         android:background="@drawable/bg_btn"
         android:text="@string/register"
-        android:textColor="@android:color/background_light" />
+        android:textColor="@color/white_bg"
+        android:textSize="@dimen/dp13_textsize" />
 
     <Button
         android:id="@+id/login_btn_login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/login_btn_width"
+        android:layout_height="@dimen/login_btn_height"
         android:layout_alignRight="@+id/relativelayout_password"
         android:layout_alignTop="@+id/login_btn_register"
         android:layout_below="@+id/relativelayout_password"
         android:background="@drawable/bg_btn_login"
         android:text="@string/login"
-        android:textColor="@android:color/background_light" />
+        android:textColor="@color/white_bg"
+        android:textSize="@dimen/dp13_textsize" />
+
+    <Button
+        android:id="@+id/login_btn_sina_login"
+        android:layout_width="@dimen/login_btn_width"
+        android:layout_height="@dimen/login_btn_height"
+        android:layout_alignRight="@id/login_btn_login"
+        android:layout_below="@id/login_btn_login"
+        android:background="@drawable/bg_btn_login"
+        android:text="@string/sina_login"
+        android:textColor="@color/white_bg"
+        android:textSize="@dimen/dp11_textsize" />
 
     <ImageView
         android:id="@+id/login_img"
@@ -115,6 +128,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/login_btn_register"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/login_img_marginTop" />
+        android:layout_marginTop="@dimen/login_img_marginTop"
+        android:contentDescription="@null" />
 
 </RelativeLayout>

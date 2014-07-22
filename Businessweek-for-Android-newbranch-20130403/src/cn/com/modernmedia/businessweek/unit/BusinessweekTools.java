@@ -10,6 +10,7 @@ import cn.com.modernmedia.util.DataHelper;
 import cn.com.modernmedia.util.PageTransfer.TransferArticle;
 import cn.com.modernmedia.widget.BaseView;
 import cn.com.modernmediaslate.model.Entry;
+import cn.com.modernmediausermodel.util.CardUriParse;
 import cn.com.modernmediausermodel.util.UserTools;
 
 /**
@@ -65,6 +66,7 @@ public class BusinessweekTools {
 
 	public static void clickSlate(BaseView view, Context context,
 			ArticleItem item, ArticleType articleType, Class<?>... cls) {
+		CardUriParse.getInstance();
 		TransferArticle transferArticle = new TransferArticle(articleType,
 				UserTools.getUid(context));
 		view.clickSlate(new Entry[] { item, transferArticle }, cls);

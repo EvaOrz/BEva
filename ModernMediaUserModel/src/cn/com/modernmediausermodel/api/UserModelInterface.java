@@ -2,13 +2,10 @@ package cn.com.modernmediausermodel.api;
 
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.model.Favorite;
 import cn.com.modernmediaslate.model.Favorite.FavoriteItem;
-import cn.com.modernmediausermodel.DefaultLoginActivity;
 import cn.com.modernmediausermodel.listener.RequestListener;
 import cn.com.modernmediausermodel.listener.UserFetchEntryListener;
 import cn.com.modernmediausermodel.model.UploadAvatarResult;
@@ -64,6 +61,40 @@ public class UserModelInterface {
 						// 将相关信息用SharedPreferences存储
 						UserDataHelper.saveUserLoginInfo(mContext, user);
 						listener.onSuccess(user);
+					} else {
+						// 登录失败
+						listener.onFailed(error);
+					}
+				} else {
+					// 登录失败
+					listener.onFailed(null);
+				}
+			}
+		});
+	}
+
+	/**
+	 * 新浪微博账号登录
+	 * 
+	 * @param user
+	 *            用户信息
+	 * @param listener
+	 *            view数据回调接口
+	 */
+	public void sinaLogin(User user, String avatar,
+			final RequestListener listener) {
+		controller.sinaLogin(user, avatar, new UserFetchEntryListener() {
+
+			@Override
+			public void setData(final Entry entry) {
+				if (entry instanceof User) {
+					User mUser = (User) entry;
+					User.Error error = mUser.getError();
+					if (error.getNo() == 0) {
+						// user.setNickName(userName);
+						// user.setSinaId(sinaId);
+						// UserDataHelper.saveUserLoginInfo(mContext, user);
+						listener.onSuccess(mUser);
 					} else {
 						// 登录失败
 						listener.onFailed(error);
@@ -169,6 +200,8 @@ public class UserModelInterface {
 							// 取得成功
 							if (error != null && error.getNo() == 0) {
 								user.setLogined(true);
+								UserDataHelper
+										.saveUserLoginInfo(mContext, user);
 								UserDataHelper.saveAvatarUrl(mContext,
 										user.getUserName(), user.getAvatar());
 								listener.onSuccess(entry);
@@ -205,8 +238,6 @@ public class UserModelInterface {
 					User.Error error = resUser.getError();
 					// 登出成功
 					if (error.getNo() == 0) {
-						// 清除存储的登录信息
-						UserDataHelper.clearLoginInfo(mContext);
 						listener.onSuccess(entry);
 					} else {
 						listener.onFailed(error);
@@ -364,18 +395,4 @@ public class UserModelInterface {
 			}
 		});
 	}
-
-	/**
-	 * 调用默认的登录界面
-	 * 
-	 * @param activity
-	 */
-	public void startDefaultLoginActivity(Activity activity) {
-		if (activity != null) {
-			Intent intent = new Intent();
-			intent.setClass(activity, DefaultLoginActivity.class);
-			activity.startActivity(intent);
-		}
-	}
-
 }

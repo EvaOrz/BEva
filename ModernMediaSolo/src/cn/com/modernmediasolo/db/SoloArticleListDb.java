@@ -15,6 +15,7 @@ import cn.com.modernmedia.api.GetArticleListOperate;
 import cn.com.modernmedia.db.MyDBHelper;
 import cn.com.modernmedia.model.ArticleList;
 import cn.com.modernmedia.model.ArticleList.ArticleColumnList;
+import cn.com.modernmedia.util.ParseUtil;
 import cn.com.modernmediaslate.model.Favorite.FavoriteItem;
 import cn.com.modernmediasolo.SoloApplication;
 import cn.com.modernmediasolo.unit.SoloHelper;
@@ -110,6 +111,9 @@ public class SoloArticleListDb extends SQLiteOpenHelper {
 						continue;
 					}
 				}
+			}
+			if (!ParseUtil.listNotNull(column.getList())) {
+				articleList.setHasData(false);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
