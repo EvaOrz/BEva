@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- index_gallery -->
+    <dimen name="index_gallery_height">180.5dp</dimen>
+    <dimen name="atlas_gallery_height">263.25dp</dimen>
+    <dimen name="atlas_text_paddingtop">273.25dp</dimen>
+
+</resources>

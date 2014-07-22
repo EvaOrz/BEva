@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 首页栏目 -->
+    <dimen name="column_title_height">78.5dp</dimen>
+    <dimen name="column_item_marginTop">2dp</dimen>
+    <dimen name="column_item_color_width">5.5dp</dimen>
+    <dimen name="column_item_textSize">16.5dp</dimen>
+    <dimen name="column_item_name_paddingLeft">13.5dp</dimen>
+    <dimen name="column_item_height">42.5dp</dimen>
+
+    <!-- 栏目index -->
+    <dimen name="index_titlebar_height">44.5dp</dimen>
+    <dimen name="index_titlebar_column_marginLeft">5.5dp</dimen>
+    <dimen name="index_titlebar_title_textSize">24.5dp</dimen>
+
+    <!-- index_gallery -->
+    <dimen name="index_gallery_height">160dp</dimen>
+    <dimen name="index_dot_height">30dp</dimen>
+    <dimen name="index_head_textsize">14dp</dimen>
+    <dimen name="index_head_marginleft">16dp</dimen>
+    <dimen name="dot_marginright">10dp</dimen>
+
+    <!-- index_item -->
+    <dimen name="index_marginLeft">8.5dp</dimen>
+    <dimen name="index_marginRight">10.5dp</dimen>
+    <dimen name="index_marginTop">8.5dp</dimen>
+    <dimen name="index_column_title_paddingLeft">7.5dp</dimen>
+    <dimen name="index_column_title_testSize">12.5dp</dimen>
+    <dimen name="index_img_frame_size">50.5dp</dimen>
+    <dimen name="index_img_padding">5dp</dimen>
+    <dimen name="index_item_title_textSize">15.5dp</dimen>
+    <dimen name="index_rightRow_size">15.5dp</dimen>
+    <dimen name="index_desc_textSize">11.5dp</dimen>
+    <dimen name="index_desc_marginLeft">23.5dp</dimen>
+    <dimen name="cat_index_marginTop">15dp</dimen>
+
+    <!-- fav -->
+    <dimen name="fav_titlebar_height">45dp</dimen>
+    <dimen name="fav_textsize">8pt</dimen>
+
+    <!-- about -->
+    <dimen name="about_bar_height">44.5dp</dimen>
+    <dimen name="about_button_width">44.5dp</dimen>
+    <dimen name="about_button_height">44.5dp</dimen>
+    <dimen name="about_button_marginleft">5.5dp</dimen>
+    <dimen name="about_textsize">24.5dp</dimen>
+
+    <!-- article -->
+    <dimen name="article_bar_height">44.5dp</dimen>
+    <dimen name="article_button_width">44.5dp</dimen>
+    <dimen name="article_button_height">44.5dp</dimen>
+    <dimen name="article_button_marginleft">5.5dp</dimen>
+
+    <!-- atlas -->
+    <dimen name="atlas_textsize">14dp</dimen>
+    <dimen name="atlas_text_paddingleft">16dp</dimen>
+    <dimen name="atlas_text_paddingtop">244dp</dimen>
+    <dimen name="atlas_desc_paddingtop">10dp</dimen>
+    <dimen name="atlas_gallery_height">234dp</dimen>
+
+</resources>
