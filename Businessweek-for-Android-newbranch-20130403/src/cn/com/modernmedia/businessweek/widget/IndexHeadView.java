@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.PagerAdapter;
@@ -14,23 +13,25 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import cn.com.modernmedia.VideoPlayerActivity;
+import cn.com.modernmedia.CommonArticleActivity.ArticleType;
 import cn.com.modernmedia.adapter.MyPagerAdapter;
 import cn.com.modernmedia.businessweek.MainActivity;
 import cn.com.modernmedia.businessweek.MyApplication;
 import cn.com.modernmedia.businessweek.R;
+import cn.com.modernmedia.businessweek.unit.BusinessweekTools;
 import cn.com.modernmedia.listener.FetchEntryListener;
 import cn.com.modernmedia.listener.NotifyArticleDesListener;
-import cn.com.modernmedia.listener.SlateListener;
 import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.model.CatIndexArticle;
-import cn.com.modernmedia.model.Entry;
 import cn.com.modernmedia.model.IndexArticle;
 import cn.com.modernmedia.util.LogHelper;
+import cn.com.modernmedia.util.ParseUtil;
 import cn.com.modernmedia.widget.BaseView;
+import cn.com.modernmedia.widget.CircularViewPager;
+import cn.com.modernmediaslate.model.Entry;
 
 /**
- * ��ҳ����view(��Ϊ��ҳlistview��headview)
+ * 首页滚屏view(作为首页listview的headview)
  * 
  * @author ZhuQiao
  * 
@@ -39,73 +40,31 @@ public class IndexHeadView extends BaseView implements FetchEntryListener {
 	private static final int CHANGE = 1;
 	private static final int CHANGE_DELAY = 5000;
 	private Context mContext;
-	private MyCircularViewPager viewPager;
+	private CircularViewPager viewPager;
 	private LinearLayout dotLl;
 	private TextView title;
 	private List<ImageView> dots = new ArrayList<ImageView>();
-	private List<ArticleItem> list;
+	private List<ArticleItem> mList = new ArrayList<ArticleItem>();
 	private boolean isSetting = true;
 	private boolean isAuto;
-	private SlateListener listener = new SlateListener() {
-
-		@Override
-		public void linkNull(ArticleItem item) {
-			if (item.getAdv().getAdvProperty().getIsadv() == 0) {
-				((MainActivity) mContext).gotoArticleActivity(
-						item.getArticleId(), item.getCatId(), true);
-			}
-		}
-
-		@Override
-		public void httpLink(ArticleItem item, Intent intent) {
-			if (item.getAdv().getAdvProperty().getIsadv() == 1)
-				((MainActivity) mContext).startActivity(intent);
-		}
-
-		@Override
-		public void articleLink(ArticleItem item, int articleId) {
-			((MainActivity) mContext).gotoArticleActivity(articleId,
-					item.getCatId(), true);
-		}
-
-		@Override
-		public void video(ArticleItem item, String path) {
-			if (item.getAdv().getAdvProperty().getIsadv() == 1
-					&& path.toLowerCase().endsWith(".mp4")) {
-				Intent intent = new Intent(mContext, VideoPlayerActivity.class);
-				intent.putExtra("vpath", path);
-				mContext.startActivity(intent);
-			}
-		}
-
-		@Override
-		public void column(String columnId) {
-		}
-
-		@Override
-		public void image(String url) {
-		}
-
-		@Override
-		public void gallery(List<String> urlList) {
-		}
-	};
+	private ArticleType articleType = ArticleType.Default;
 
 	private NotifyArticleDesListener pagerListener = new NotifyArticleDesListener() {
 
 		@Override
 		public void updatePage(int state) {
-			isSetting = state == ViewPager.SCROLL_STATE_SETTLING;// �������
-			startChange();
+			isSetting = state == ViewPager.SCROLL_STATE_SETTLING;// 加载完毕
+//			startChange();
 		}
 
 		@Override
 		public void updateDes(int position) {
-			if (list != null && list.size() > position && list.size() > 1) {
-				title.setText(list.get(position).getTitle());
+			if (mList != null && mList.size() > position && mList.size() > 1) {
+				ArticleItem item = mList.get(position);
+				title.setText(item.getTitle());
 				if (position == 0) {
 					position = dots.size() - 1;
-				} else if (position == list.size() - 1) {
+				} else if (position == mList.size() - 1) {
 					position = 0;
 				} else {
 					position--;
@@ -145,17 +104,18 @@ public class IndexHeadView extends BaseView implements FetchEntryListener {
 	private void init() {
 		this.addView(LayoutInflater.from(mContext).inflate(
 				R.layout.page_gallery, null));
-		viewPager = (MyCircularViewPager) findViewById(R.id.index_gallery);
+		viewPager = (CircularViewPager) findViewById(R.id.index_gallery);
 		viewPager.getLayoutParams().height = MyApplication.width / 2;
+		viewPager.setPlaceholderRes(R.drawable.placeholder);
 		dotLl = (LinearLayout) findViewById(R.id.index_gallery_dot);
 		title = (TextView) findViewById(R.id.index_head_title);
-		setListener(listener);
 		viewPager.setListener(pagerListener);
 	}
 
 	@Override
 	public void setData(Entry entry) {
 		if (entry != null) {
+			articleType = ArticleType.Default;
 			if (entry instanceof IndexArticle) {
 				setDataToGallery(((IndexArticle) entry).getTitleArticleList());
 			} else if (entry instanceof CatIndexArticle) {
@@ -165,22 +125,49 @@ public class IndexHeadView extends BaseView implements FetchEntryListener {
 		}
 	}
 
+	/**
+	 * 独立栏目
+	 * 
+	 * @param soloHeadIndex
+	 */
+	public void setSoloData(List<ArticleItem> soloHeadIndex) {
+		articleType = ArticleType.Solo;
+		setDataToGallery(soloHeadIndex);
+	}
+
+	/**
+	 * 获取当前list;当是独立栏目时，如果从服务器上返会的list。size为0，而当前headview不为空，那么不删除headview
+	 * 
+	 * @return
+	 */
+	public List<ArticleItem> getDataList() {
+		return mList;
+	}
+
+	/**
+	 * 
+	 * @param list
+	 * @param isSolo
+	 *            true:更新完的数据，追加在开始添加；false:覆盖本来数据
+	 */
 	private void setDataToGallery(final List<ArticleItem> list) {
-		if (list == null || list.isEmpty()) {
+		if (list == null)
 			return;
-		}
-		this.list = list;
+		mList.clear();
+		mList.addAll(list);
+		if (!ParseUtil.listNotNull(mList))
+			return;
 		if (mContext instanceof MainActivity) {
-			if (list.size() == 1) {
+			if (mList.size() == 1) {
 				((MainActivity) mContext).setScrollView(2, null);
 			} else {
 				((MainActivity) mContext).setScrollView(0, viewPager);
 				startRefresh();
 			}
 		}
-		title.setText(list.get(0).getTitle());
-		viewPager.setDataForPager(list);
-		initDot(list);
+		title.setText(mList.get(0).getTitle());
+		viewPager.setDataForPager(mList);
+		initDot(mList);
 
 		PagerAdapter adapter = viewPager.getAdapter();
 		if (adapter != null && adapter instanceof MyPagerAdapter) {
@@ -190,22 +177,24 @@ public class IndexHeadView extends BaseView implements FetchEntryListener {
 						@Override
 						public void onItemClick(View v, int position) {
 							if (mContext instanceof MainActivity) {
-								ArticleItem item = list.get(position
-										% list.size());
+								ArticleItem item = mList.get(position
+										% mList.size());
 								LogHelper.logOpenArticleFromColumnPage(
 										mContext, item.getArticleId() + "",
 										item.getCatId() + "");
-								if (dots != null && !dots.isEmpty()) {
+								if (ParseUtil.listNotNull(dots)) {
 									if (position == 0) {
 										position = dots.size() - 1;
-									} else if (position == list.size() - 1) {
+									} else if (position == mList.size() - 1) {
 										position = 0;
 									} else {
 										position--;
 									}
 									LogHelper.logAndroidTouchHeadline(position);
 								}
-								clickSlate(item);
+								BusinessweekTools.clickSlate(
+										IndexHeadView.this, mContext, item,
+										articleType);
 							}
 						}
 					});
@@ -217,7 +206,7 @@ public class IndexHeadView extends BaseView implements FetchEntryListener {
 	}
 
 	/**
-	 * ��ʼ��dot
+	 * 初始化dot
 	 * 
 	 * @param itemList
 	 */
@@ -244,7 +233,7 @@ public class IndexHeadView extends BaseView implements FetchEntryListener {
 	}
 
 	private void startChange() {
-		if (list == null || list.size() < 2 || !isSetting || !isAuto) {
+		if (mList == null || mList.size() < 2 || !isSetting || !isAuto) {
 			return;
 		}
 		Message msg = handler.obtainMessage();
@@ -256,7 +245,7 @@ public class IndexHeadView extends BaseView implements FetchEntryListener {
 	}
 
 	/**
-	 * ��ʼ�Զ��л�
+	 * 开始自动切换
 	 */
 	public void startRefresh() {
 		isAuto = true;
@@ -265,7 +254,7 @@ public class IndexHeadView extends BaseView implements FetchEntryListener {
 	}
 
 	/**
-	 * ֹͣ��̨�Զ��л�
+	 * 停止后台自动切换
 	 */
 	public void stopRefresh() {
 		if (handler.hasMessages(1)) {

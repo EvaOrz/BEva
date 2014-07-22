@@ -10,35 +10,28 @@ import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import cn.com.modernmedia.api.OperateController;
 import cn.com.modernmedia.businessweek.MyApplication;
 import cn.com.modernmedia.businessweek.R;
 import cn.com.modernmedia.businessweek.adapter.AtlasAdapter;
-import cn.com.modernmedia.listener.FetchEntryListener;
 import cn.com.modernmedia.listener.NotifyArticleDesListener;
-import cn.com.modernmedia.model.ArticleList.ArticleDetail;
 import cn.com.modernmedia.model.Atlas;
 import cn.com.modernmedia.model.Atlas.AtlasPicture;
-import cn.com.modernmedia.model.Entry;
-import cn.com.modernmedia.model.Issue;
+import cn.com.modernmedia.util.ParseUtil;
 import cn.com.modernmedia.widget.AtlasViewPager;
-import cn.com.modernmedia.widget.CommonAtlasView;
+import cn.com.modernmediasolo.widget.SoloAltasView;
 
 /**
- * ÕººØ
+ * ÂõæÈõÜ
  * 
  * @author ZhuQiao
  * 
  */
-public class AtlasView extends CommonAtlasView {
+public class AtlasView extends SoloAltasView {
 	private Context mContext;
 	private AtlasViewPager pager;
 	private TextView title, desc;
 	private LinearLayout dotLl;
-	private OperateController controller;
 	private List<ImageView> dots = new ArrayList<ImageView>();
-	private ArticleDetail detail;
-	private Issue issue;
 	private List<AtlasPicture> list;
 	private AtlasAdapter adapter;
 	private NotifyArticleDesListener listener = new NotifyArticleDesListener() {
@@ -76,7 +69,6 @@ public class AtlasView extends CommonAtlasView {
 	}
 
 	private void init() {
-		controller = new OperateController(mContext);
 		this.addView(LayoutInflater.from(mContext)
 				.inflate(R.layout.atlas, null));
 		title = (TextView) findViewById(R.id.atlas_title);
@@ -88,47 +80,20 @@ public class AtlasView extends CommonAtlasView {
 		dotLl = (LinearLayout) findViewById(R.id.atlas_gallery_dot);
 	}
 
-	public void setData(ArticleDetail detail, Issue issue) {
-		if (detail == null || issue == null)
-			return;
-		this.detail = detail;
-		this.issue = issue;
-		addLoadok(detail);
-		controller.getArticleById(issue, detail.getCatId() + "",
-				detail.getArticleId() + "", new FetchEntryListener() {
-
-					@Override
-					public void setData(final Entry entry) {
-						post(new Runnable() {
-
-							@Override
-							public void run() {
-								if (entry != null && entry instanceof Atlas) {
-									setValuesForWidget((Atlas) entry);
-									disProcess();
-								} else {
-									showError();
-								}
-							}
-						});
-					}
-				});
-	}
-
-	private void setValuesForWidget(Atlas atlas) {
+	protected void setValuesForWidget(Atlas atlas) {
 		list = atlas.getList();
-		if (list == null || list.isEmpty())
-			return;
-		adapter = new AtlasAdapter(mContext);
-		adapter.setData(list);
-		pager.setAdapter(adapter);
-		pager.setValue(list.size());
-		pager.setListener(listener);
-		initDot(list);
+		if (ParseUtil.listNotNull(list)) {
+			adapter = new AtlasAdapter(mContext);
+			adapter.setData(list);
+			pager.setAdapter(adapter);
+			pager.setValue(list.size());
+			pager.setListener(listener);
+			initDot(list);
+		}
 	}
 
 	/**
-	 * ≥ı ºªØdot
+	 * ÂàùÂßãÂåñdot
 	 * 
 	 * @param list
 	 */
@@ -156,7 +121,7 @@ public class AtlasView extends CommonAtlasView {
 
 	@Override
 	protected void reLoad() {
-		setData(detail, issue);
+		super.reLoad();
 	}
 
 	@Override

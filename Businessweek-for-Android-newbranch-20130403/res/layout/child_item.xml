@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
-    <cn.com.modernmedia.widget.HeadPagerListView
+    <cn.com.modernmedia.widget.PullToRefreshListView
         android:id="@+id/child_cat_listview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

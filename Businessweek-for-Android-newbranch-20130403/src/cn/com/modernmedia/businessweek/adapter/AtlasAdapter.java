@@ -18,7 +18,7 @@ import cn.com.modernmedia.businessweek.R;
 import cn.com.modernmedia.model.Atlas.AtlasPicture;
 
 /**
- * Í¼¼¯ÊÊÅäÆ÷
+ * å›¾é›†é€‚é…å™¨
  * 
  * @author ZhuQiao
  * 

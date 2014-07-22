@@ -9,26 +9,30 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import cn.com.modernmedia.businessweek.AboutActivity;
+import cn.com.modernmedia.businessweek.MainActivity;
 import cn.com.modernmedia.businessweek.R;
 import cn.com.modernmedia.businessweek.adapter.ColumnListAdapter;
 import cn.com.modernmedia.listener.FetchEntryListener;
-import cn.com.modernmedia.listener.NotifyAdapterListener;
 import cn.com.modernmedia.model.Cat;
-import cn.com.modernmedia.model.Entry;
+import cn.com.modernmedia.util.ParseUtil;
+import cn.com.modernmedia.widget.WebViewPop;
+import cn.com.modernmediaslate.model.Entry;
 
 /**
- * ��Ŀview
+ * 栏目view
  * 
  * @author ZhuQiao
  * 
  */
 public class ColumnView extends LinearLayout implements FetchEntryListener {
 	private Context mContext;
-	private LinearLayout layout;
+	private ListView mListView;
 	private ColumnListAdapter adapter;
 	private View footerView;
+	private TextView loginText;
 
 	public ColumnView(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -41,36 +45,44 @@ public class ColumnView extends LinearLayout implements FetchEntryListener {
 				null));
 		this.setBackgroundColor(Color.BLACK);
 		initFooter();
-		layout = (LinearLayout) findViewById(R.id.column_list);
-		adapter = new ColumnListAdapter(mContext, new NotifyAdapterListener() {
-
-			@Override
-			public void notifyReaded() {
-			}
-
-			@Override
-			public void notifyChanged() {
-				setValuesForWidget();
-			}
-
-			@Override
-			public void nofitySelectItem(Object args) {
-			}
-		});
+		mListView = (ListView) findViewById(R.id.column_list);
+		adapter = new ColumnListAdapter(mContext);
+		mListView.addFooterView(footerView);
+		mListView.setAdapter(adapter);
 	}
 
 	private void initFooter() {
 		footerView = LayoutInflater.from(mContext).inflate(
-				R.layout.column_item, null);
-		((Button) footerView.findViewById(R.id.cloumn_item_color))
+				R.layout.column_footview, null);
+		View loginView = footerView.findViewById(R.id.column_footview_login);
+		((Button) loginView.findViewById(R.id.cloumn_item_color))
 				.setBackgroundColor(Color.BLUE);
-		((TextView) footerView.findViewById(R.id.cloumn_item_name))
-				.setText(R.string.about);
-		((LinearLayout) footerView.findViewById(R.id.cloumn_margin))
+		((LinearLayout) loginView.findViewById(R.id.cloumn_margin))
 				.getLayoutParams().height = 10;
-		footerView.findViewById(R.id.cloumn_margin).setBackgroundColor(
+		loginView.findViewById(R.id.cloumn_margin).setBackgroundColor(
 				Color.BLACK);
-		footerView.setOnClickListener(new OnClickListener() {
+		loginView.setVisibility(View.GONE);
+		loginText = (TextView) loginView.findViewById(R.id.cloumn_item_name);
+		loginText.setText(R.string.login);
+		loginView.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				((MainActivity) mContext).gotoLoginActivity();
+			}
+		});
+
+		// 关于
+		View aboutView = footerView.findViewById(R.id.column_footview_about);
+		((Button) aboutView.findViewById(R.id.cloumn_item_color))
+				.setBackgroundColor(Color.BLUE);
+		((TextView) aboutView.findViewById(R.id.cloumn_item_name))
+				.setText(R.string.about);
+		((LinearLayout) aboutView.findViewById(R.id.cloumn_margin))
+				.getLayoutParams().height = 10;
+		aboutView.findViewById(R.id.cloumn_margin).setBackgroundColor(
+				Color.BLACK);
+		aboutView.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -80,26 +92,52 @@ public class ColumnView extends LinearLayout implements FetchEntryListener {
 						R.anim.hold);
 			}
 		});
+
+		// 应用推荐
+		View recommendView = footerView
+				.findViewById(R.id.column_footview_recommend);
+		((Button) recommendView.findViewById(R.id.cloumn_item_color))
+				.setBackgroundColor(Color.BLUE);
+		((TextView) recommendView.findViewById(R.id.cloumn_item_name))
+				.setText(R.string.app_recommend);
+		((LinearLayout) recommendView.findViewById(R.id.cloumn_margin))
+				.getLayoutParams().height = 10;
+		recommendView.findViewById(R.id.cloumn_margin).setBackgroundColor(
+				Color.BLACK);
+		recommendView.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				new WebViewPop(mContext,
+						"http://www.bbwc.cn/install/honored_android/index2.html");
+			}
+		});
 	}
 
 	@Override
 	public void setData(Entry entry) {
-		if (entry != null && entry instanceof Cat) {
+		if (entry instanceof Cat) {
 			Cat cat = (Cat) entry;
-			if (cat.getList() != null && !cat.getList().isEmpty()) {
+			if (ParseUtil.listNotNull(cat.getList())) {
 				adapter.clear();
 				adapter.setData(cat.getList());
-				setValuesForWidget();
 			}
 		}
 	}
 
-	public void setValuesForWidget() {
-		layout.removeAllViews();
-		for (int i = 0; i < adapter.getCount(); i++) {
-			layout.addView(adapter.getView(i, null, null));
-		}
-		layout.addView(footerView);
+	public void setAdapterPosition(int position) {
+		adapter.setSelectPosition(position);
+		adapter.notifyDataSetChanged();
+		mListView.setSelection(position);
+	}
+
+	/**
+	 * 登录完成之后改变文字Fֵ
+	 * 
+	 * @param text
+	 */
+	public void afterLogin(String text) {
+		loginText.setText(text);
 	}
 
 }

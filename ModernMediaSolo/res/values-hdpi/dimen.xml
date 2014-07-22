@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="solo_titlebar_height">30dp</dimen>
+    <dimen name="solo_img_frame_size">50.5dp</dimen>
+    <dimen name="solo_marginLeft">8.5dp</dimen>
+    <dimen name="solo_marginRight">10.5dp</dimen>
+    <dimen name="solo_marginTop">8.5dp</dimen>
+    <dimen name="solo_img_padding">5dp</dimen>
+    <dimen name="solo_rightRow_size">15.5dp</dimen>
+    <dimen name="solo_desc_textSize">11.5dp</dimen>
+    <dimen name="solo_more_cat_textSize">10dp</dimen>
+    <dimen name="solo_desc_marginLeft">23.5dp</dimen>
+    <dimen name="solo_desc_marginRight">20dp</dimen>
+    <dimen name="solo_more_padding_right">5dp</dimen>
+    <dimen name="solo_item_title_textSize">15.5dp</dimen>
+
+</resources>

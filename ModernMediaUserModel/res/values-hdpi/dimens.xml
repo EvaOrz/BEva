@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 登录页面 -->
+    <dimen name="login_image_close_width">29dp</dimen>
+    <dimen name="login_image_close_margintop">32dp</dimen>
+    <dimen name="login_image_close_marginright">15dp</dimen>
+    <dimen name="login_image_clear_marginright">11.5dp</dimen>
+    <dimen name="login_image_clear_width">21dp</dimen>
+    <dimen name="login_desc_marginTop">55dp</dimen>
+    <dimen name="login_desc_textsize">12dp</dimen>
+    <dimen name="login_desc_marginLeft">18dp</dimen>
+    <dimen name="login_desc_marginRight">10dp</dimen>
+    <dimen name="login_user_name_marginTop">20dp</dimen>
+    <dimen name="login_edittext_margin">32dp</dimen>
+    <dimen name="login_edittext_height">50dp</dimen>
+    <dimen name="login_psd_edittext_marginTop">7dp</dimen>
+    <dimen name="login_button_margintop">22.5dp</dimen>
+    <dimen name="login_img_marginTop">38dp</dimen>
+
+    <!-- 用户信息页面 -->
+    <dimen name="userinfo_avatar_marginTop">20dp</dimen>
+    <dimen name="userinfo_avatar_size">48dp</dimen>
+    <dimen name="userinfo_text_width">124dp</dimen>
+    <dimen name="userinfo_textsize">20dp</dimen>
+    <dimen name="userinfo_confirm_change_margintop">10dp</dimen>
+
+    <!-- 获取照片 -->
+    <dimen name="fetch_img_margin">10dp</dimen>
+
+</resources>

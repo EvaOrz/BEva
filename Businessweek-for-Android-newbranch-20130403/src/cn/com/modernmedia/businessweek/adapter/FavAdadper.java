@@ -11,18 +11,20 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import cn.com.modernmedia.CommonArticleActivity.ArticleType;
 import cn.com.modernmedia.businessweek.MainActivity;
 import cn.com.modernmedia.businessweek.R;
-import cn.com.modernmedia.model.ArticleList.ArticleDetail;
 import cn.com.modernmedia.util.LogHelper;
+import cn.com.modernmedia.util.PageTransfer.TransferArticle;
+import cn.com.modernmediaslate.model.Favorite.FavoriteItem;
 
 /**
- *  ’≤ÿ  ≈‰∆˜
+ * Êî∂ËóèÂàóË°®ÈÄÇÈÖçÂô®
  * 
  * @author ZhuQiao
  * 
  */
-public class FavAdadper extends ArrayAdapter<ArticleDetail> {
+public class FavAdadper extends ArrayAdapter<FavoriteItem> {
 	private Context mContext;
 	private LayoutInflater inflater;
 
@@ -32,9 +34,9 @@ public class FavAdadper extends ArrayAdapter<ArticleDetail> {
 		inflater = LayoutInflater.from(context);
 	}
 
-	public void setData(List<ArticleDetail> list) {
+	public void setData(List<FavoriteItem> list) {
 		synchronized (list) {
-			for (ArticleDetail item : list) {
+			for (FavoriteItem item : list) {
 				add(item);
 			}
 		}
@@ -42,7 +44,7 @@ public class FavAdadper extends ArrayAdapter<ArticleDetail> {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		final ArticleDetail detail = getItem(position);
+		final FavoriteItem detail = getItem(position);
 		ViewHolder holder = null;
 		if (convertView == null) {
 			convertView = inflater.inflate(R.layout.fav_item, null);
@@ -65,9 +67,11 @@ public class FavAdadper extends ArrayAdapter<ArticleDetail> {
 			public void onClick(View v) {
 				if (mContext instanceof MainActivity) {
 					LogHelper.logOpenArticleFromFavoriteArticleList(mContext,
-							detail.getArticleId() + "", detail.getCatId() + "");
-					((MainActivity) mContext).gotoArticleActivity(
-							detail.getArticleId(), detail.getCatId(), false);
+							detail.getId() + "", detail.getCatid() + "");
+					((MainActivity) mContext)
+							.gotoArticleActivity(new TransferArticle(detail
+									.getId(), detail.getCatid(), -1,
+									ArticleType.Fav));
 				}
 			}
 		});

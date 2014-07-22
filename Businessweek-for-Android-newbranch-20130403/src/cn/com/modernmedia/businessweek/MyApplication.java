@@ -1,19 +1,19 @@
 package cn.com.modernmedia.businessweek;
 
-import cn.com.modernmedia.CommonApplication;
 import cn.com.modernmedia.util.ConstData;
+import cn.com.modernmediasolo.SoloApplication;
+import cn.com.modernmediausermodel.util.UserConstData;
 
 import com.parse.Parse;
 import com.parse.PushService;
 
 /**
- * È«¾Ö±äÁ¿
+ * å…¨å±€å˜é‡
  * 
  * @author ZhuQiao
  * 
  */
-public class MyApplication extends CommonApplication {
-	// 1--ÉÌÖÜ¼òÌå£¬18---ÉÌÖÜ·±Ìå
+public class MyApplication extends SoloApplication {
 	public static int APPID = 1;
 	public static int DEBUG = 0;
 
@@ -22,26 +22,19 @@ public class MyApplication extends CommonApplication {
 		initChannel();
 		System.out.println(CHANNEL);
 		ConstData.setAppId(APPID, DEBUG);
+		UserConstData.setAppId(APPID, 0);
 		super.onCreate();
-		if (DEBUG != 0) {
-			Parse.initialize(this, "5kqOEMzkZ7OOdCkAwF6y6EIQg8qbLrCd15uTGqxj",
-					"cudO599rrcn92vhCVYZUvf4SycfCh71XeaNIZXu5");
-		} else {
-			Parse.initialize(this, "GrmqBvHVN9OBwpcgRXz9uKSxFGPOrT0QN46D8kpS",
-					"ITaYiCxWDBjcBxFYLceiwnlyzTFgmilT0WE82L8s");
-		}
+		Parse.initialize(this, "GrmqBvHVN9OBwpcgRXz9uKSxFGPOrT0QN46D8kpS",
+				"ITaYiCxWDBjcBxFYLceiwnlyzTFgmilT0WE82L8s");
 
-		// ¶©ÔÄpushÍ¨Öª
-		// ×îºóÒ»¸ö²ÎÊıYourActivity.class£¬ÊÇÖ¸µã»÷ÈÎÎñÀ¸ÍÆËÍÏûÏ¢Ê±½ÓÊÕ´¦ÀíµÄActivity£¬¿ÉÒÔ´ÓgetIntentÖĞÈ¡µ½ÍÆËÍÊı¾İ£¬ÀıÈç
-		// £º
+		// è®¢é˜…pushé€šçŸ¥
+		// æœ€åä¸€ä¸ªå‚æ•°YourActivity.classï¼Œæ˜¯æŒ‡ç‚¹å‡»ä»»åŠ¡æ æ¨é€æ¶ˆæ¯æ—¶æ¥æ”¶å¤„ç†çš„Activityï¼Œå¯ä»¥ä»getIntentä¸­å–åˆ°æ¨é€æ•°æ®ï¼Œä¾‹å¦‚
+		// ï¼š
 		// com.parse.Channel:null
 		// com.parse.Data:{"alert":"test","push_hash":"098f6bcd4621d373cade4e832627b4f6"}
-		getLocalLanguage();
-		String traditional = language.equals(ZH_TW) ? "_traditional" : "";
-		PushService.subscribe(this, "businessweek_" + ConstData.VERSION
-				+ traditional, MainActivity.class);
+		PushService.subscribe(this, "businessweek_" + ConstData.VERSION,
+				MainActivity.class, R.drawable.icon);
 		PushService.setDefaultPushCallback(this, MainActivity.class);
 		mContext = this.getApplicationContext();
 	}
-
 }

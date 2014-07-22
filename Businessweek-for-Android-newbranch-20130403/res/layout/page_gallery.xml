@@ -5,7 +5,7 @@
     android:background="@color/white_bg"
     android:orientation="vertical" >
 
-    <cn.com.modernmedia.businessweek.widget.MyCircularViewPager
+    <cn.com.modernmedia.widget.CircularViewPager
         android:id="@+id/index_gallery"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />

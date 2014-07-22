@@ -35,6 +35,7 @@
     <dimen name="index_desc_textSize">11.5dp</dimen>
     <dimen name="index_more_cat_textSize">10dp</dimen>
     <dimen name="index_desc_marginLeft">23.5dp</dimen>
+    <dimen name="index_desc_marginRight">20dp</dimen>
     <dimen name="index_more_padding_right">5dp</dimen>
     <dimen name="cat_index_marginTop">15dp</dimen>
     <dimen name="index_more_height">24dp</dimen>
@@ -62,5 +63,36 @@
     <dimen name="atlas_text_paddingtop">244dp</dimen>
     <dimen name="atlas_desc_paddingtop">10dp</dimen>
     <dimen name="atlas_gallery_height">234dp</dimen>
-
+    
+    <!-- 登录页面 -->
+	<dimen name="login_text_title_width">252.5dp</dimen>
+	<dimen name="login_text_title_heght">12dp</dimen>
+	<dimen name="login_text_title_size">12sp</dimen>
+	<dimen name="login_text_title_marginleft">17.5dp</dimen>
+	<dimen name="login_text_title_margintop">23dp</dimen>
+	<dimen name="login_text_weibo_margintop">10dp</dimen>
+	<dimen name="login_text_weibo_size">14sp</dimen>
+	<dimen name="login_image_close_width">29dp</dimen>
+	<dimen name="login_image_close_margintop">32dp</dimen>
+	<dimen name="login_image_close_marginright">15dp</dimen>
+	<dimen name="login_image_clear_marginright">11.5dp</dimen>
+	<dimen name="login_image_clear_width">21dp</dimen>
+	<dimen name="login_image_ad_iphone_width">190dp</dimen>
+	<dimen name="login_image_ad_iphone_height">115.5dp</dimen>
+	<dimen name="login_image_ad_iphone_margintop">35dp</dimen>
+	<dimen name="login_edit_account_margintop">47dp</dimen>
+	<dimen name="login_edit_account_width">256dp</dimen>
+	<dimen name="login_edit_account_height">40dp</dimen>
+	<dimen name="login_edit_spacing">7dp</dimen>
+	<dimen name="login_button_margintop">22.5dp</dimen>
+	<dimen name="login_button_width">127dp</dimen>
+	<dimen name="login_button_height">35dp</dimen>
+	<!-- 用户信息 -->		
+	<dimen name="userinfo_image_avatar_margintop">20dp</dimen>
+	<dimen name="userinfo_image_ad_iphone_margintop">50dp</dimen>
+	<dimen name="userinfo_image_avatar_width">45dp</dimen>
+	<dimen name="userinfo_edit_margintop">26.5dp</dimen>
+	
+	
+	
 </resources>

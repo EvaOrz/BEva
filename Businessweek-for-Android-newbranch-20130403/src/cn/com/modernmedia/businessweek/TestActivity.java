@@ -33,9 +33,11 @@ public class TestActivity extends Activity {
 				DataHelper.setIssueId(mContext,
 						ParseUtil.stoi(issue.getText().toString(), -1));
 				DataHelper.setColumnUpdateTime(mContext,
-						ParseUtil.stoi(column.getText().toString(), -1));
+						ParseUtil.stoi(column.getText().toString(), -1),
+						ParseUtil.stoi(issue.getText().toString(), -1));
 				DataHelper.setArticleUpdateTime(mContext,
-						ParseUtil.stoi(article.getText().toString(), -1));
+						ParseUtil.stoi(article.getText().toString(), -1),
+						ParseUtil.stoi(issue.getText().toString(), -1));
 				finish();
 			}
 		});

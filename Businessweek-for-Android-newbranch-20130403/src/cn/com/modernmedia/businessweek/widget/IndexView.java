@@ -3,7 +3,6 @@ package cn.com.modernmedia.businessweek.widget;
 import java.util.List;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.support.v4.view.ViewPager;
@@ -14,25 +13,27 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import cn.com.modernmedia.VideoPlayerActivity;
+import cn.com.modernmedia.CommonArticleActivity.ArticleType;
 import cn.com.modernmedia.adapter.MyPagerAdapter.OnItemClickListener;
 import cn.com.modernmedia.businessweek.MainActivity;
 import cn.com.modernmedia.businessweek.R;
 import cn.com.modernmedia.businessweek.adapter.IndexAdapter;
 import cn.com.modernmedia.businessweek.fragment.ChildCatFragment;
 import cn.com.modernmedia.businessweek.fragment.IndexListFragment;
+import cn.com.modernmedia.businessweek.solo.SoloCatFragment;
+import cn.com.modernmedia.businessweek.unit.BusinessweekTools;
 import cn.com.modernmedia.listener.FetchEntryListener;
-import cn.com.modernmedia.listener.SlateListener;
 import cn.com.modernmedia.model.ArticleItem;
-import cn.com.modernmedia.model.Entry;
 import cn.com.modernmedia.model.IndexArticle;
 import cn.com.modernmedia.model.IndexArticle.Today;
 import cn.com.modernmedia.model.Issue;
 import cn.com.modernmedia.util.LogHelper;
+import cn.com.modernmedia.util.ParseUtil;
 import cn.com.modernmedia.widget.BaseView;
+import cn.com.modernmediaslate.model.Entry;
 
 /**
- *  ◊“≥
+ * È¶ñÈ°µ
  * 
  * @author ZhuQiao
  * 
@@ -40,58 +41,18 @@ import cn.com.modernmedia.widget.BaseView;
 public class IndexView extends BaseView implements FetchEntryListener {
 	private static final String LIST_TAG = "list";
 	private static final String CHILD_TAG = "child";
-	public static final String[] TAGS = { LIST_TAG, CHILD_TAG };
+	private static final String SOLO_TAG = "solo";
+	public static final String[] TAGS = { LIST_TAG, CHILD_TAG, SOLO_TAG };
 	private String current_tag = "";
 	private Context mContext;
 	private Button column, fav;
 	private TextView title;
 	private ChildCatFragment childFragment;
 	private IndexListFragment listFragment;
+	private SoloCatFragment soloFragment;
 	private LinearLayout cover;
 	private boolean isIndex;
 	private Entry entry;
-	private SlateListener listener = new SlateListener() {
-
-		@Override
-		public void video(ArticleItem item, String path) {
-			if (item.getAdv().getAdvProperty().getIsadv() == 1
-					&& path.toLowerCase().endsWith(".mp4")) {
-				Intent intent = new Intent(mContext, VideoPlayerActivity.class);
-				intent.putExtra("vpath", path);
-				mContext.startActivity(intent);
-			}
-		}
-
-		@Override
-		public void linkNull(ArticleItem item) {
-			((MainActivity) mContext).gotoArticleActivity(item.getArticleId(),
-					item.getCatId(), true);
-		}
-
-		@Override
-		public void image(String url) {
-		}
-
-		@Override
-		public void httpLink(ArticleItem item, Intent intent) {
-			if (item.getAdv().getAdvProperty().getIsadv() == 1)
-				((MainActivity) mContext).startActivity(intent);
-		}
-
-		@Override
-		public void gallery(List<String> urlList) {
-		}
-
-		@Override
-		public void column(String columnId) {
-		}
-
-		@Override
-		public void articleLink(ArticleItem item, int articleId) {
-			((MainActivity) mContext).gotoArticleActivity(articleId,
-					item.getCatId(), true);
-		}
-	};
 
 	public IndexView(Context context) {
 		super(context);
@@ -118,6 +79,7 @@ public class IndexView extends BaseView implements FetchEntryListener {
 
 		listFragment = new IndexListFragment();
 		childFragment = new ChildCatFragment();
+		soloFragment = new SoloCatFragment();
 
 		cover.setOnClickListener(new OnClickListener() {
 
@@ -128,7 +90,6 @@ public class IndexView extends BaseView implements FetchEntryListener {
 				}
 			}
 		});
-		setListener(listener);
 		listFragment.setClickListener(new OnItemClickListener() {
 
 			@Override
@@ -136,10 +97,8 @@ public class IndexView extends BaseView implements FetchEntryListener {
 				IndexAdapter adapter = listFragment.getAdapter();
 				if (adapter != null && adapter.getCount() > position) {
 					ArticleItem item = adapter.getItem(position);
-					int type = item.getAdv().getAdvProperty().getIsadv();
-					if (type != 1) {// ≤ªŒ™π„∏Ê
-						clickSlate(item);
-					}
+					BusinessweekTools.clickSlate(IndexView.this, mContext,
+							item, ArticleType.Default);
 					LogHelper.logOpenArticleFromColumnPage(mContext,
 							item.getArticleId() + "", item.getCatId() + "");
 					if (isIndex && entry instanceof IndexArticle) {
@@ -164,7 +123,7 @@ public class IndexView extends BaseView implements FetchEntryListener {
 				break;
 			}
 		}
-		if (itemList != null && !itemList.isEmpty()) {
+		if (ParseUtil.listNotNull(itemList)) {
 			for (int i = 0; i < itemList.size(); i++) {
 				if (itemList.get(i).getArticleId() == articleId) {
 					row = i;
@@ -186,7 +145,7 @@ public class IndexView extends BaseView implements FetchEntryListener {
 	}
 
 	/**
-	 * …Ë÷√ ◊“≥±ÍÃ‚
+	 * ËÆæÁΩÆÈ¶ñÈ°µÊ†áÈ¢ò
 	 * 
 	 * @param name
 	 */
@@ -195,7 +154,7 @@ public class IndexView extends BaseView implements FetchEntryListener {
 	}
 
 	/**
-	 * »Áπ˚œ‘ æµƒ «index,æÕ∞—cover“˛≤ÿµÙ
+	 * Â¶ÇÊûúÊòæÁ§∫ÁöÑÊòØindex,Â∞±ÊääcoverÈöêËóèÊéâ
 	 * 
 	 * @param showIndex
 	 */
@@ -208,8 +167,8 @@ public class IndexView extends BaseView implements FetchEntryListener {
 	}
 
 	/**
-	 * »Áπ˚coverœ‘ æ£¨µ±action_down‘⁄ ◊“≥…œµƒ ±∫Ú£¨ontouch±ª¥´µ›∏¯◊Ó∂•≤„£¨º¥cover,
-	 * scrollviewµƒontouch ¬º˛±ª¿πΩÿ¡À£¨ ∑µªÿfalse‘ÚΩª”…scrollview¥¶¿Ì
+	 * Â¶ÇÊûúcoverÊòæÁ§∫ÔºåÂΩìaction_downÂú®È¶ñÈ°µ‰∏äÁöÑÊó∂ÂÄôÔºåontouchË¢´‰º†ÈÄíÁªôÊúÄÈ°∂Â±ÇÔºåÂç≥cover,
+	 * scrollviewÁöÑontouch‰∫ã‰ª∂Ë¢´Êã¶Êà™‰∫ÜÔºå ËøîÂõûfalseÂàô‰∫§Áî±scrollviewÂ§ÑÁêÜ
 	 */
 	@Override
 	public boolean dispatchTouchEvent(MotionEvent ev) {
@@ -236,6 +195,12 @@ public class IndexView extends BaseView implements FetchEntryListener {
 		showFragmentIfNeeded(childFragment, CHILD_TAG, R.id.index_main, TAGS);
 	}
 
+	public void setDataForSolo(int parentId) {
+		current_tag = SOLO_TAG;
+		soloFragment.setData(parentId);
+		showFragmentIfNeeded(soloFragment, SOLO_TAG, R.id.index_main, TAGS);
+	}
+
 	@Override
 	protected void reLoad() {
 		if (mContext instanceof MainActivity) {
@@ -244,7 +209,7 @@ public class IndexView extends BaseView implements FetchEntryListener {
 	}
 
 	/**
-	 *  «∑Ò∆Ù∂Ø◊‘∂Ø«–ªª
+	 * ÊòØÂê¶ÂêØÂä®Ëá™Âä®ÂàáÊç¢
 	 * 
 	 * @param start
 	 */
@@ -259,6 +224,12 @@ public class IndexView extends BaseView implements FetchEntryListener {
 		}
 	}
 
+	public void reStorePullResfresh() {
+		if (current_tag == SOLO_TAG && soloFragment != null) {
+			soloFragment.reStoreRefresh();
+		}
+	}
+
 	@Override
 	public boolean onInterceptTouchEvent(MotionEvent ev) {
 		if (current_tag.equals(CHILD_TAG) && childFragment != null) {
@@ -267,7 +238,7 @@ public class IndexView extends BaseView implements FetchEntryListener {
 				ViewPager scrollView = headView.getViewPager();
 				if (scrollView != null) {
 					Rect rect = new Rect();
-					// ªÒ»°∏√galleryœ‡∂‘”⁄»´æ÷µƒ◊¯±Íµ„
+					// Ëé∑ÂèñËØ•galleryÁõ∏ÂØπ‰∫éÂÖ®Â±ÄÁöÑÂùêÊ†áÁÇπ
 					scrollView.getGlobalVisibleRect(rect);
 					if (rect.contains((int) ev.getX(), (int) ev.getY())) {
 						childFragment.setIntercept(true);
@@ -276,6 +247,21 @@ public class IndexView extends BaseView implements FetchEntryListener {
 				}
 			}
 			childFragment.setIntercept(false);
+		} else if (current_tag.equals(SOLO_TAG) && soloFragment != null) {
+			IndexHeadView headView = soloFragment.getHeadView();
+			if (headView != null && soloFragment.getChildSize() > 1) {
+				ViewPager scrollView = headView.getViewPager();
+				if (scrollView != null) {
+					Rect rect = new Rect();
+					// Ëé∑ÂèñËØ•galleryÁõ∏ÂØπ‰∫éÂÖ®Â±ÄÁöÑÂùêÊ†áÁÇπ
+					scrollView.getGlobalVisibleRect(rect);
+					if (rect.contains((int) ev.getX(), (int) ev.getY())) {
+						soloFragment.setIntercept(true);
+						return false;
+					}
+				}
+			}
+			soloFragment.setIntercept(false);
 		}
 		return super.onInterceptTouchEvent(ev);
 	}

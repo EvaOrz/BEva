@@ -15,13 +15,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import cn.com.modernmedia.businessweek.MainActivity;
 import cn.com.modernmedia.businessweek.R;
+import cn.com.modernmedia.listener.LoadIssueType;
 import cn.com.modernmedia.listener.NotifyAdapterListener;
 import cn.com.modernmedia.model.Cat.CatItem;
 import cn.com.modernmedia.util.DataHelper;
 import cn.com.modernmedia.util.LogHelper;
+import cn.com.modernmedia.util.ModernMediaTools;
 
 /**
- * ¿∏ƒø¡–±Ì  ≈‰∆˜
+ * Ê†èÁõÆÂàóË°®ÈÄÇÈÖçÂô®
  * 
  * @author ZhuQiao
  * 
@@ -30,7 +32,6 @@ public class ColumnListAdapter extends ArrayAdapter<CatItem> {
 	private Context mContext;
 	private LayoutInflater inflater;
 	private int selectPosition = 0;
-	private NotifyAdapterListener listener;
 	private NotifyAdapterListener adapterListener = new NotifyAdapterListener() {
 
 		@Override
@@ -48,7 +49,6 @@ public class ColumnListAdapter extends ArrayAdapter<CatItem> {
 					}
 				}
 				notifyDataSetChanged();
-				listener.notifyChanged();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -59,15 +59,10 @@ public class ColumnListAdapter extends ArrayAdapter<CatItem> {
 		}
 	};
 
-	// public interface NotifyAdapterDataChange {
-	// public void dataChange();
-	// }
-
-	public ColumnListAdapter(Context context, NotifyAdapterListener listener) {
+	public ColumnListAdapter(Context context) {
 		super(context, 0);
 		mContext = context;
 		inflater = LayoutInflater.from(context);
-		this.listener = listener;
 		if (context instanceof MainActivity) {
 			((MainActivity) context).addListener(adapterListener);
 		}
@@ -81,7 +76,8 @@ public class ColumnListAdapter extends ArrayAdapter<CatItem> {
 		}
 	}
 
-	public void setSelectPosition(int catId) {
+	public void setSelectPosition(int selectPosition) {
+		this.selectPosition = selectPosition;
 	}
 
 	@Override
@@ -109,7 +105,10 @@ public class ColumnListAdapter extends ArrayAdapter<CatItem> {
 				holder.button.setBackgroundColor(item.getColor());
 			holder.name.setText(item.getCname());
 		}
-		holder.ll.setSelected(position == selectPosition);
+		if (position == selectPosition)
+			holder.ll.setBackgroundResource(R.drawable.left_cell_tapped);
+		else
+			holder.ll.setBackgroundResource(R.drawable.left_cell);
 		convertView.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -128,38 +127,51 @@ public class ColumnListAdapter extends ArrayAdapter<CatItem> {
 	}
 
 	private void click(final CatItem item, final int position) {
-		selectPosition = position;
-		notifyDataSetChanged();
-		listener.notifyChanged();
 		LogHelper.logOpenColumn(mContext, item.getId() + "");
 		if (mContext instanceof MainActivity) {
 			((MainActivity) mContext).setIndexTitle(item.getCname());
 			((MainActivity) mContext).getScrollView().IndexClick();
+			if (selectPosition == position)
+				return;
+			selectPosition = position;
+			notifyDataSetChanged();
 			final String id = item.getId() + "";
-			final String columnId = ((MainActivity) mContext).getColumnId();
-			if (id.equals("0") && columnId.equals("-1"))
-				return;
-			if (columnId.equals(item.getId() + ""))
-				return;
 			new Handler().postDelayed(new Runnable() {
 
 				@Override
 				public void run() {
-					if (item.getHaveChildren() == 1) {
-						if (DataHelper.childMap.containsKey(item.getParentId())) {
-							((MainActivity) mContext).showChildCat(item
-									.getParentId());
-							((MainActivity) mContext).setColumnId(id);
-							return;
-						}
+					if (isSoloColumn(item)) {
+						return;
 					}
-					if (position == 0) {//  ◊“≥
-						((MainActivity) mContext).getIndex();
-					} else {// ¿∏ƒø ◊“≥
+					if (isParentColumn(item)) {
+						return;
+					}
+					if (position == 0 || id.equals("0")) {
+						((MainActivity) mContext).getIndex(
+								LoadIssueType.NORMAL, true);
+					} else {
 						((MainActivity) mContext).getCatIndex(id);
 					}
 				}
 			}, 200);
 		}
+	}
+
+	private boolean isSoloColumn(CatItem item) {
+		int catId = ModernMediaTools.isSoloCat(item.getLink());
+		if (catId != -1) {
+			((MainActivity) mContext).showSoloChildCat(catId);
+		}
+		return catId != -1;
+	}
+
+	private boolean isParentColumn(CatItem item) {
+		if (item.getHaveChildren() == 1) {
+			if (DataHelper.childMap.containsKey(item.getParentId())) {
+				((MainActivity) mContext).showChildCat(item.getParentId());
+				return true;
+			}
+		}
+		return false;
 	}
 }

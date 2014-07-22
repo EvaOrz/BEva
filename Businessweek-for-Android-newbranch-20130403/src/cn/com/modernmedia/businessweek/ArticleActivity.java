@@ -1,50 +1,45 @@
 package cn.com.modernmedia.businessweek;
 
+import java.util.List;
+
 import android.app.Activity;
+import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import cn.com.modernmedia.CommonArticleActivity;
-import cn.com.modernmedia.businessweek.widget.ArticleDetailItem;
 import cn.com.modernmedia.businessweek.widget.AtlasView;
-import cn.com.modernmedia.model.ArticleList.ArticleDetail;
+import cn.com.modernmedia.widget.ArticleDetailItem;
 import cn.com.modernmedia.widget.AtlasViewPager;
-import cn.com.modernmedia.widget.CommonViewPager;
+import cn.com.modernmediaslate.model.Favorite.FavoriteItem;
+import cn.com.modernmediasolo.CommonSoloArticleActivity;
+import cn.com.modernmediausermodel.help.BindFavToUserImplement;
 
 /**
- * ÎÄÕÂÏêÇéÒ³
+ * æ–‡ç« è¯¦æƒ…é¡µ
  * 
  * @author ZhuQiao
  * 
  */
-public class ArticleActivity extends CommonArticleActivity implements
-		OnClickListener {
-	private Button backBtn, favBtn, fontBtn, shareBtn;
+public class ArticleActivity extends CommonSoloArticleActivity {
 	/**
-	 * ÔÚViewPagerÖĞ£¬Ëü³ıÁË¼ÓÔØµ±Ç°Ò³£¬»¹»á¼ÓÔØµ±Ç°Ò³µÄ×óÓÒÒ³£¨ÎŞÂÛËüÃÇÊµ¼Ê¿É²»¿É¼û£©¡£³ıÁËµ±Ç°Ò³µÄViewËãÊÇ¿É¼ûµÄ£¬
-	 * Æä×óÓÒÒ³µÄViewËãÊÇ¿É¼ûµÄ£¨ÎŞÂÛËüÃÇÊµ¼Ê¿É²»¿É¼û£©
+	 * åœ¨ViewPagerä¸­ï¼Œå®ƒé™¤äº†åŠ è½½å½“å‰é¡µï¼Œè¿˜ä¼šåŠ è½½å½“å‰é¡µçš„å·¦å³é¡µï¼ˆæ— è®ºå®ƒä»¬å®é™…å¯ä¸å¯è§ï¼‰ã€‚é™¤äº†å½“å‰é¡µçš„Viewç®—æ˜¯å¯è§çš„ï¼Œ
+	 * å…¶å·¦å³é¡µçš„Viewç®—æ˜¯å¯è§çš„ï¼ˆæ— è®ºå®ƒä»¬å®é™…å¯ä¸å¯è§ï¼‰
 	 */
-	private CommonViewPager viewPager;
-
 	@Override
-	protected void init() {
-		setContentView(R.layout.article_activity);
-		backBtn = (Button) findViewById(R.id.article_back_btn);
-		favBtn = (Button) findViewById(R.id.article_fav_btn);
-		fontBtn = (Button) findViewById(R.id.article_font_btn);
-		shareBtn = (Button) findViewById(R.id.article_share_btn);
-		viewPager = (CommonViewPager) findViewById(R.id.article_viewpager);
-		viewPager.setOffscreenPageLimit(1);// ÏŞÖÆÔ¤¼ÓÔØ£¬Ö»¼ÓÔØÏÂÒ»Ò³
-
-		backBtn.setOnClickListener(this);
-		favBtn.setOnClickListener(this);
-		fontBtn.setOnClickListener(this);
-		shareBtn.setOnClickListener(this);
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(-1);
 	}
 
 	@Override
-	protected CommonViewPager getViewPager() {
-		return viewPager;
+	protected void init() {
+		super.init();
+		findViewById(R.id.default_article_toolbar).setBackgroundResource(
+				R.drawable.navbar);
+		backBtn.setBackgroundResource(R.drawable.nav_back);
+		favBtn.setBackgroundResource(R.drawable.nav_fav);
+		fontBtn.setBackgroundResource(R.drawable.nav_font_size);
+		shareBtn.setBackgroundResource(R.drawable.nav_actionsheet);
+
+		setBindFavToUserListener(new BindFavToUserImplement(this));
 	}
 
 	@Override
@@ -64,14 +59,25 @@ public class ArticleActivity extends CommonArticleActivity implements
 	}
 
 	@Override
-	protected View fetchView(ArticleDetail detail) {
+	protected View fetchView(FavoriteItem detail) {
 		View view;
-		String type = detail.getProperty().getType();
-		if (type.equals("2")) {// Í¼¼¯
+		int type = detail.getProperty().getType();
+		if (type == 2) {// å›¾é›†
 			view = new AtlasView(this);
-			((AtlasView) view).setData(detail, getIssue());
+			((AtlasView) view).setData(detail, getIssue(),
+					mBundle.getArticleType() == ArticleType.Solo);
 		} else {
-			view = new ArticleDetailItem(this);
+			view = new ArticleDetailItem(this) {
+				
+				@Override
+				public void showGallery(List<String> urlList) {
+				}
+				
+				@Override
+				public int getBackGroundRes() {
+					return R.drawable.webview_bg;
+				}
+			};
 			((ArticleDetailItem) view).setData(detail);
 			((ArticleDetailItem) view).changeFont();
 		}
@@ -84,28 +90,6 @@ public class ArticleActivity extends CommonArticleActivity implements
 	}
 
 	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.article_back_btn:
-			if (!checkTime())
-				break;
-			finishAndAnim();
-			break;
-		case R.id.article_fav_btn:
-			addFav();
-			break;
-		case R.id.article_font_btn:
-			clickFont();
-			break;
-		case R.id.article_share_btn:
-			showShare();
-			break;
-		default:
-			break;
-		}
-	}
-
-	@Override
 	public String getActivityName() {
 		return ArticleActivity.class.getName();
 	}
@@ -114,4 +98,5 @@ public class ArticleActivity extends CommonArticleActivity implements
 	public Activity getActivity() {
 		return this;
 	}
+
 }

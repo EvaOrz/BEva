@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="column_bg">#181818</color>
+   <!--  <color name="transparent">#00000000</color> -->
+    <color name="white_bg">#ffffff</color>
+    <color name="black_bg">#000000</color>
+    <color name="index_item_desc">#ff787878</color>
+    <color name="fav_bg">#1d1d1d</color>
+    <color name="control_back">#AA000000</color>
+    
+    <!-- 登录界面-->
+    <color name="login_title_text_color">#676767</color>
+    <color name="login_edit_text_color">#727272</color>
+    <color name="login_weibo_text_color">#414141</color>
+    
+	
+</resources>

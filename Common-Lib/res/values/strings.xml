@@ -1,0 +1,70 @@
+<resources>
+
+    <string name="app_name">ModernMediaCommon</string>
+    <string name="fav">收藏夹</string>
+    <string name="about">关于</string>
+    <string name="net_error">请检查网络</string>
+    <string name="json_error">数据组装错误</string>
+    <string name="add_fav">已收藏</string>
+    <string name="delete_fav">取消收藏</string>
+    <string name="fav_error">收藏失败</string>
+    <string name="new_issue">新一期杂志到了，是否现在阅读？</string>
+    <string name="view_now">现在阅读</string>
+    <string name="vew_later">稍后再看</string>
+    <string name="can_not_find_article">对不起，暂时找不到该文章</string>
+    <string name="exit_app">再按一次退出应用</string>
+    <string name="sorry">对不起</string>
+    <string name="video_error">播放出现了错误，已停止。</string>
+    <string name="hello">你好</string>
+    <string name="video_complete">视频已播放完毕</string>
+    <string name="sure">确定</string>
+    <string name="update">软件版本更新</string>
+    <string name="download">下载</string>
+    <string name="download_later">以后再说</string>
+    <string name="cancel">取消</string>
+    <string name="download_error">下载遇到了错误，已停止</string>
+    <string name="share_by_email">邮件分享</string>
+    <string name="read_issue">阅读杂志</string>
+    <string name="app_recommend">应用推荐</string>
+
+    <item name="scale_type" type="id"/>
+
+    <!-- red_process -->
+    <string name="loading_pre">上一篇</string>
+    <string name="loading_more">下一篇</string>
+
+    <!-- pull_to_refresh -->
+    <string name="pull_to_refresh_pull_label">下拉刷新...</string>
+    <string name="pull_to_refresh_release_label">松开刷新...</string>
+    <string name="pull_to_refresh_refreshing_label">正在刷新...</string>
+    <string name="pull_to_refresh_tap_label">点击刷新...</string>
+    <string name="pull_to_refresh_update_time">上次更新时间:%s</string>
+
+    <!-- pull_to_loadmore -->
+    <string name="pull_to_loadmore">上推加载...</string>
+    <string name="pull_to_release">松开加载...</string>
+    <string name="pull_to_loading">正在加载...</string>
+    <string name="click_to_load">点击加载</string>
+
+    <!-- take photo -->
+    <string name="camera">拍照</string>
+    <string name="select_from_album">从手机相册选择</string>
+    <string name="reset_password">重置密码</string>
+
+    <!-- share -->
+    <string name="share_select">分享方式</string>
+    <string name="share_picture_fail">图片分享失败</string>
+    <string name="share_to_gallery">保存到相册</string>
+    <string name="save_picture_success">图片已保存</string>
+    <string name="save_picture_fail">图片保存失败</string>
+    <string name="share_none_component">分享失败</string>
+    <string name="share_email_html">&lt;div style=\"wi&lt;dth:300px;font-size:14px;\">Hi，&lt;br />我在iWeekly·周末画报 for
+        Android中发现了这篇文章，想与你分享:&lt;br />&lt;br />&lt;strong>%1$s&lt;/strong>&lt;br />&lt;br />%2$s&lt;br />&lt;br
+        />=======================&lt;br/>本文来自全球领先的时尚生活方式媒体&lt;br />&lt;strong>iWeekly·周末画报 for Android&lt;/strong>&lt;br/>您可以访问我们的官方网站获取详情
+        &lt;a href=\"http://iweek.ly\">http://iweek.ly&lt;/a>&lt;br/>或在Google Play中直接获取 &lt;a
+        href=\"https://play.google.com/store/apps/details?id=com.rakutec.android.iweekly\">https://play.google.com/store/apps/details?id=com.rakutec.android.iweekly&lt;/a>&lt;/div></string>
+    <string name="cover_share_message">%1$s - %2$s %3$s --分享来自@iWeekly周末画报 Android 版</string>
+    <string name="fecthing_http">正在更新数据</string>
+    <string name="fecthing_ok">更新成功</string>
+
+</resources>

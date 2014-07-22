@@ -1,6 +1,5 @@
 package cn.com.modernmedia.businessweek;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -9,30 +8,34 @@ import android.graphics.Color;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import cn.com.modernmedia.CommonMainActivity;
 import cn.com.modernmedia.businessweek.widget.ColumnView;
 import cn.com.modernmedia.businessweek.widget.FavView;
 import cn.com.modernmedia.businessweek.widget.IndexView;
-import cn.com.modernmedia.listener.NotifyAdapterListener;
+import cn.com.modernmedia.db.FavDb;
 import cn.com.modernmedia.listener.ScrollCallBackListener;
 import cn.com.modernmedia.listener.SizeCallBackForButton;
-import cn.com.modernmedia.model.Entry;
-import cn.com.modernmedia.widget.AtlasViewPager;
+import cn.com.modernmedia.util.ConstData;
+import cn.com.modernmedia.util.ParseUtil;
+import cn.com.modernmedia.widget.BaseView;
 import cn.com.modernmedia.widget.MainHorizontalScrollView;
+import cn.com.modernmediaslate.model.Entry;
+import cn.com.modernmediaslate.model.Favorite.FavoriteItem;
+import cn.com.modernmediasolo.CommonSoloActivity;
+import cn.com.modernmediausermodel.help.UserHelper;
+import cn.com.modernmediausermodel.model.User;
+import cn.com.modernmediausermodel.util.UserDataHelper;
 
 /**
- * Ö÷Ò³
+ * é¦–é¡µ
  * 
  * @author ZhuQiao
  * 
  */
-public class MainActivity extends CommonMainActivity {
-	private ColumnView columnView;// À¸Ä¿ÁĞ±íÒ³
-	private MainHorizontalScrollView scrollView;
-	private Button columnButton, favButton;
+public class MainActivity extends CommonSoloActivity {
 	private IndexView indexView;
+	private ColumnView columnView;// æ ç›®åˆ—è¡¨é¡µ
+	private Button columnButton, favButton;
 	private FavView favView;
-	private List<NotifyAdapterListener> listenerList = new ArrayList<NotifyAdapterListener>();
 
 	@Override
 	protected void onResume() {
@@ -52,7 +55,9 @@ public class MainActivity extends CommonMainActivity {
 
 	@Override
 	public void init() {
+		clearMap();
 		setContentView(R.layout.main);
+		initProcess();
 		columnView = (ColumnView) findViewById(R.id.main_column);
 		scrollView = (MainHorizontalScrollView) findViewById(R.id.mScrollView);
 		favView = (FavView) findViewById(R.id.main_fav);
@@ -60,10 +65,10 @@ public class MainActivity extends CommonMainActivity {
 		columnButton = indexView.getColumn();
 		favButton = indexView.getFav();
 
-		View leftView = new View(this);// ÎªÁËÏÔÊ¾×ó±ßÒ³Ãæ£¬ÉèÖÃÍ¸Ã÷Çø
+		View leftView = new View(this);// ä¸ºäº†æ˜¾ç¤ºå·¦è¾¹é¡µé¢ï¼Œè®¾ç½®é€æ˜åŒº
 		leftView.setBackgroundColor(Color.TRANSPARENT);
 		View rightView = new View(this);
-		rightView.setBackgroundColor(Color.TRANSPARENT);// ÎªÁËÏÔÊ¾ÓÒ±ßÒ³Ãæ£¬ÉèÖÃÍ¸Ã÷Çø
+		rightView.setBackgroundColor(Color.TRANSPARENT);// ä¸ºäº†æ˜¾ç¤ºå³è¾¹é¡µé¢ï¼Œè®¾ç½®é€æ˜åŒº
 		final View[] children = new View[] { leftView, indexView, rightView };
 		scrollView.initViews(children, new SizeCallBackForButton(columnButton),
 				columnView, favView);
@@ -71,8 +76,9 @@ public class MainActivity extends CommonMainActivity {
 		scrollView.setListener(new ScrollCallBackListener() {
 
 			@Override
-			public void isShowIndex(boolean showIndex) {
-				indexView.showCover(showIndex);
+			public void showIndex(int index) {
+				indexView.showCover(index == 0);
+				indexView.reStorePullResfresh();
 			}
 		});
 		columnButton.setOnClickListener(new OnClickListener() {
@@ -89,6 +95,18 @@ public class MainActivity extends CommonMainActivity {
 				scrollView.clickButton(false);
 			}
 		});
+		autoLogin();
+	}
+
+	/**
+	 * è‡ªåŠ¨ç™»å½•
+	 */
+	private void autoLogin() {
+		User user = UserDataHelper.getUserLoginInfo(this);
+		if (user != null) {
+			if (columnView != null)
+				columnView.afterLogin(user.getUserName());
+		}
 	}
 
 	@Override
@@ -107,26 +125,30 @@ public class MainActivity extends CommonMainActivity {
 	}
 
 	@Override
-	public void gotoArticleActivity(int artcleId, int catId, boolean isIndex) {
-		if (artcleId == -1)
-			return;
-		Intent intent = new Intent(this, ArticleActivity.class);
-		intent.putExtra("ISSUE", getIssue());
-		intent.putExtra("ARTICLE_ID", artcleId);
-		intent.putExtra("CAT_ID", catId);
-		intent.putExtra("IS_INDEX", isIndex);
-		startActivityForResult(intent, REQUEST_CODE);
-		overridePendingTransition(R.anim.right_in, R.anim.zoom_out);
+	protected BaseView getIndexView() {
+		return indexView;
 	}
 
 	@Override
-	public void indexShowLoading(int flag) {
-		if (flag == 0)
-			indexView.disProcess();
-		else if (flag == 1)
-			indexView.showLoading();
-		else if (flag == 2)
-			indexView.showError();
+	protected Class<?> getArticleActivity() {
+		return ArticleActivity.class;
+	}
+
+	@Override
+	protected String getUid() {
+		User user = UserDataHelper.getUserLoginInfo(this);
+		return user == null ? ConstData.UN_UPLOAD_UID : user.getUid();
+	}
+
+	public void gotoLoginActivity() {
+		Intent intent = new Intent();
+		if (UserDataHelper.getUserLoginInfo(this) != null) {
+			intent.setClass(this, UserInfoActivity.class);
+		} else {
+			intent.setClass(this, LoginActivity.class);
+		}
+		startActivityForResult(intent, LOGIN_REQUEST_CODE);
+		overridePendingTransition(R.anim.right_in, R.anim.zoom_out);
 	}
 
 	@Override
@@ -134,51 +156,61 @@ public class MainActivity extends CommonMainActivity {
 		indexView.setTitle(name);
 	}
 
+	/**
+	 * æ˜¾ç¤ºç‹¬ç«‹æ ç›®
+	 * 
+	 * @param parentId
+	 */
 	@Override
-	protected void notifyRead() {
-		for (NotifyAdapterListener listener : listenerList) {
-			listener.notifyReaded();
-		}
+	public void showSoloChildCat(int parentId) {
+		super.showSoloChildCat(parentId);
+		indexView.setDataForSolo(parentId);
 	}
 
+	/**
+	 * æ˜¾ç¤ºå­æ ç›®
+	 * 
+	 * @param parentId
+	 */
 	public void showChildCat(int parentId) {
 		setColumnId(parentId + "");
 		indexView.setDataForChild(getIssue(), parentId);
 	}
 
 	/**
-	 * ¸øscrollviewÉèÖÃĞèÒªÀ¹½ØµÄ×Óscrollview
+	 * ç»™scrollviewè®¾ç½®æ­£åœ¨ä¸‹æ‹‰åˆ·æ–°
 	 * 
-	 * @param flag
-	 *            0.Ö»Ö´ĞĞ×Óscrollview;1.µ±×Óscrollview»¬µ½Í·Ê±£¬Ö´ĞĞ¸¸scrollview£»2¡£
-	 *            Çå¿Õ×Óscrollview
-	 * @param view
+	 * @param isPulling
 	 */
-	public void setScrollView(int flag, View view) {
-		if (flag == 0) {
-			scrollView.setNeedsScrollView(view);
-		} else if (flag == 1 && view instanceof AtlasViewPager) {
-			scrollView.setAtlasViewPager((AtlasViewPager) view);
-		} else if (flag == 2) {
-			scrollView.setNeedsScrollView(null);
+	public void setPulling(boolean isPulling) {
+		scrollView.setPassToUp(isPulling);
+	}
+
+	@Override
+	public void doAfterLogin() {
+		User user = UserDataHelper.getUserLoginInfo(this);
+		if (user == null) {
+			if (columnView != null)
+				columnView.afterLogin(getString(R.string.login));
+			// ç™»å‡º
+			MyApplication.notifyFav();
 		} else {
-			scrollView.setAtlasViewPager(null);
+			// ç™»å½•
+			if (columnView != null)
+				columnView.afterLogin(user.getUserName());
+			List<FavoriteItem> list = FavDb.getInstance(this)
+					.getUserUnUpdateFav(user.getUid(), false);
+			if (ParseUtil.listNotNull(list)) {
+				UserHelper.updateFav(this);
+			} else {
+				UserHelper.getFav(this);
+			}
 		}
 	}
 
-	public void addListener(NotifyAdapterListener listener) {
-		listenerList.add(listener);
-	}
-
-	/**
-	 * Í¨Öª¸üĞÂÀ¸Ä¿ÁĞ±íÑ¡ÖĞ×´Ì¬
-	 * 
-	 * @param catId
-	 */
-	public void notifyColumnAdapter(int catId) {
-		for (NotifyAdapterListener listener : listenerList) {
-			listener.nofitySelectItem(catId);
-		}
+	public void setColumnPosition(int position) {
+		if (columnView != null)
+			columnView.setAdapterPosition(position);
 	}
 
 	@Override
@@ -195,5 +227,4 @@ public class MainActivity extends CommonMainActivity {
 	public Activity getActivity() {
 		return this;
 	}
-
 }

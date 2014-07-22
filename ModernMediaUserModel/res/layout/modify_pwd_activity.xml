@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/column_bg" >
+
+    <ImageView
+        android:id="@+id/modify_pwd_close"
+        android:layout_width="@dimen/login_image_close_width"
+        android:layout_height="@dimen/login_image_close_width"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/login_image_close_marginright"
+        android:layout_marginTop="@dimen/login_image_close_margintop"
+        android:src="@drawable/ic_close_login" />
+
+    <TextView
+        android:id="@+id/modify_pwd_desc"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/login_desc_marginLeft"
+        android:layout_marginRight="@dimen/login_desc_marginRight"
+        android:layout_marginTop="@dimen/login_desc_marginTop"
+        android:layout_toLeftOf="@+id/modify_pwd_close"
+        android:text="@string/modify_password"
+        android:textColor="@color/login_desc"
+        android:textSize="@dimen/login_desc_textsize" />
+
+    <RelativeLayout
+        android:id="@+id/modify_pwd_old"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/login_edittext_height"
+        android:layout_below="@+id/modify_pwd_desc"
+        android:layout_marginLeft="@dimen/login_edittext_margin"
+        android:layout_marginRight="@dimen/login_edittext_margin"
+        android:layout_marginTop="@dimen/login_user_name_marginTop" >
+
+        <EditText
+            android:id="@+id/modify_pwd_old_edit"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/bg_text_field"
+            android:hint="@string/old_pwd"
+            android:inputType="textPassword"
+            android:singleLine="true"
+            android:textColor="@color/black_bg" />
+
+        <ImageView
+            android:id="@+id/modify_pwd_img_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/login_image_clear_marginright"
+            android:src="@drawable/ic_text_field_clear" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/modify_pwd_new"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/login_edittext_height"
+        android:layout_below="@+id/modify_pwd_old"
+        android:layout_marginLeft="@dimen/login_edittext_margin"
+        android:layout_marginRight="@dimen/login_edittext_margin"
+        android:layout_marginTop="@dimen/login_psd_edittext_marginTop" >
+
+        <EditText
+            android:id="@+id/modify_pwd_new_edit"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/bg_text_field"
+            android:hint="@string/new_pwd"
+            android:inputType="textPassword"
+            android:singleLine="true"
+            android:textColor="@color/black_bg" />
+
+        <ImageView
+            android:id="@+id/modify_pwd_img_forget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/login_image_clear_marginright"
+            android:src="@drawable/ic_text_field_forget" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/modify_sure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/modify_pwd_new"
+        android:layout_below="@+id/modify_pwd_new"
+        android:layout_marginTop="@dimen/login_button_margintop"
+        android:background="@drawable/bg_btn_login"
+        android:text="@string/complete"
+        android:textColor="@android:color/background_light" />
+
+    <ImageView
+        android:id="@+id/modify_pwd_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/modify_sure"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/login_img_marginTop" />
+
+</RelativeLayout>

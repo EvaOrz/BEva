@@ -33,7 +33,7 @@ import cn.com.modernmedia.util.DataHelper;
 import cn.com.modernmedia.widget.AtlasViewPager;
 
 /**
- * ×ÓÀ¸Ä¿
+ * å­æ ç›®Fragment
  * 
  * @author ZhuQiao
  * 
@@ -110,13 +110,6 @@ public class ChildCatFragment extends BaseFragment implements
 		if (list != null && list.size() > position) {
 			if (!isClick)
 				startAnim(position);
-		}
-		if (viewPager != null && viewPager.getChildCount() > position) {
-			View view = viewPager.getChildAt(position);
-			if (view instanceof ChildCatItem) {
-				currentHeadView = ((ChildCatItem) view).getHeadView();
-				currentHeadSize = ((ChildCatItem) view).getChildSize();
-			}
 		}
 	}
 
@@ -256,6 +249,11 @@ public class ChildCatFragment extends BaseFragment implements
 		public void setPrimaryItem(ViewGroup container, int position,
 				Object object) {
 			super.setPrimaryItem(container, position, object);
+			View view = viewPager.getChildAt(position);
+			if (view instanceof ChildCatItem) {
+				currentHeadView = ((ChildCatItem) view).getHeadView();
+				currentHeadSize = ((ChildCatItem) view).getChildSize();
+			}
 		}
 
 	}

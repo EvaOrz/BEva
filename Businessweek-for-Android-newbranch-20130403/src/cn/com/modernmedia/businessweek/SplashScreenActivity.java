@@ -1,20 +1,19 @@
 package cn.com.modernmedia.businessweek;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Color;
-import android.os.Handler;
-import android.widget.ImageView;
 import cn.com.modernmedia.CommonSplashActivity;
-import cn.com.modernmedia.util.ConstData;
+import cn.com.modernmedia.db.FavDb;
+import cn.com.modernmedia.util.DataHelper;
 
 /**
- * ”¶”√∆Ù∂Ø“≥
+ * Â∫îÁî®ÂêØÂä®È°µ
  * 
  * @author ZhuQiao
  * 
  */
 public class SplashScreenActivity extends CommonSplashActivity {
+
 	@Override
 	public void reLoadData() {
 	}
@@ -23,48 +22,15 @@ public class SplashScreenActivity extends CommonSplashActivity {
 	protected void setContentViewById() {
 		setContentView(R.layout.splash_screen);
 		findViewById(R.id.splash_view).setBackgroundColor(Color.BLACK);
-		if (MyApplication.language.equals(MyApplication.ZH_TW)) {
-			((ImageView) findViewById(R.id.splash_image))
-					.setImageResource(R.drawable.splash_traditional);
+		reSetFavDb();
+	}
+
+	private void reSetFavDb() {
+		if (!DataHelper.getAddColumn(this)) {
+			FavDb db = FavDb.getInstance(this);
+			db.addColumn();
+			DataHelper.setAddColumn(this);
 		}
-	}
-
-	/**
-	 * Ã¯◊™÷¡ ◊“≥
-	 */
-	@Override
-	protected void gotoMainActivity() {
-		new Handler().postDelayed(new Runnable() {
-
-			@Override
-			public void run() {
-				Intent intent = new Intent(SplashScreenActivity.this,
-						MainActivity.class);
-				intent.putExtra("FROM_ACTIVITY", "SPLASH");
-				startActivity(intent);
-				finish();
-				overridePendingTransition(R.anim.alpha_out, R.anim.hold);
-			}
-		}, ConstData.SPLASH_DELAY_TIME);
-	}
-
-	/**
-	 * Ã¯◊™÷¡Œƒ’¬“≥
-	 */
-	@Override
-	protected void gotoAdvActivity() {
-		new Handler().postDelayed(new Runnable() {
-
-			@Override
-			public void run() {
-				Intent intent = new Intent(SplashScreenActivity.this,
-						AdvActivity.class);
-				intent.putExtra("FROM_ACTIVITY", "SPLASH");
-				startActivity(intent);
-				finish();
-				overridePendingTransition(R.anim.alpha_out, R.anim.hold);
-			}
-		}, ConstData.SPLASH_DELAY_TIME);
 	}
 
 	@Override
@@ -76,4 +42,15 @@ public class SplashScreenActivity extends CommonSplashActivity {
 	public Activity getActivity() {
 		return this;
 	}
+
+	@Override
+	protected Class<?> getMainActivity() {
+		return MainActivity.class;
+	}
+
+	@Override
+	protected Class<?> getAdvActivity() {
+		return AdvActivity.class;
+	}
+
 }

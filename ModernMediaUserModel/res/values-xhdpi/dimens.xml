@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   	<!-- 登录页面 -->
+	<dimen name="login_edittext_height">57dp</dimen>
+	
+	<dimen name="userinfo_avatar_size">48dp</dimen>
+</resources>

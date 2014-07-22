@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cn.com.modernmedia.businessweek"
-    android:versionCode="8"
-    android:versionName="1.3.2" >
+    android:versionCode="9"
+    android:versionName="1.4.0" >
 
     <uses-sdk
         android:minSdkVersion="10"
@@ -34,6 +34,12 @@
             android:name=".AboutActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UserInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ArticleActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -41,6 +47,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".TestActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ModifyPasswordActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="cn.com.modernmedia.VideoPlayerActivity"
@@ -73,11 +82,11 @@
                 <action android:name="android.intent.action.USER_PRESENT" />
             </intent-filter>
         </receiver>
-        <receiver android:name="cn.com.modernmedia.businessweek.service.LocalChangeReceiver" >
-            <intent-filter>
-                <action android:name="android.intent.action.LOCALE_CHANGED" />
-            </intent-filter>
-        </receiver>
+
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="CHANNEL_FLAG" >
+        </meta-data>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -91,5 +100,6 @@
     <uses-permission android:name="android.permission.PERMISSION_NAME" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
 </manifest>

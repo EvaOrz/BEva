@@ -1,0 +1,7 @@
+<resources>
+
+    <string name="app_name">ModernMediaSolo</string>
+    <string name="is_lastest">当前已是最新</string>
+    <string name="nomore_data">暂时没有内容</string>
+
+</resources>

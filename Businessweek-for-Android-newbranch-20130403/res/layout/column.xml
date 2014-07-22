@@ -1,26 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="fill_parent"
     android:background="@color/column_bg"
     android:orientation="vertical" >
 
     <ImageView
+        android:id="@+id/column_header"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/column_title_height"
         android:src="@drawable/navigation_header" />
 
-    <ScrollView
+    <ListView
+        android:id="@+id/column_list"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="@color/black_bg"
-        android:scrollbars="none" >
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/column_header"
+        android:cacheColorHint="@color/full_transparent"
+        android:divider="@null"
+        android:fadingEdge="none" />
 
-        <LinearLayout
-            android:id="@+id/column_list"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
-
-</LinearLayout>
+</RelativeLayout>
