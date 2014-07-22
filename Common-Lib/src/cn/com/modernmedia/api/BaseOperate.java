@@ -56,8 +56,8 @@ public abstract class BaseOperate extends SlateBaseOperate {
 		String fileName = getDefaultFileName();
 		if (TextUtils.isEmpty(fileName))
 			return;
-		// column时间只比较首页，栏目首页数据在判定为不相同时已经删除
-		if (fileName.equals(ConstData.getIndexFileName())
+		if ((fileName.equals(ConstData.getIndexFileName()) || fileName
+				.contains(ConstData.getCatIndexFileName("")))
 				&& !CommonApplication.columnUpdateTimeSame) {
 			CommonApplication.columnUpdateTimeSame = true;
 		} else if (fileName.equals(ConstData.getArticleListFileName())
@@ -74,6 +74,8 @@ public abstract class BaseOperate extends SlateBaseOperate {
 	 * @return
 	 */
 	protected boolean isAdv(JSONObject obj) {
+		if (isNull(obj))
+			return false;
 		JSONObject property = obj.optJSONObject("property");
 		if (isNull(property))
 			return false;

@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.os.Bundle;
+import cn.com.modernmedia.CommonArticleActivity.ArticleType;
 import cn.com.modernmedia.api.OperateController;
 import cn.com.modernmedia.db.FavDb;
 import cn.com.modernmedia.listener.BindFavToUserListener;
@@ -44,19 +45,24 @@ public abstract class CommonMainAddFavActivity extends CommonMainActivity {
 	 * 获取文章列表
 	 */
 	private void getArticleList(final ArticleItem item) {
+		if (CommonApplication.issue == null)
+			return;
 		showLoadingDialog(true);
-		OperateController.getInstance(this).getArticleList(getIssue(),
+		OperateController.getInstance(this).getArticleList(
+				CommonApplication.issue, ArticleType.Default,
 				new FetchEntryListener() {
 
 					@Override
 					public void setData(final Entry entry) {
 						if (entry instanceof ArticleList) {
 							list = ((ArticleList) entry).getAllArticleList();
-							if (ParseUtil.listNotNull(list))
-								addFav(item);
+							addFavToDb(
+									ModernMediaTools.fecthSlateArticleId(item),
+									item);
 							DataHelper.setArticleUpdateTime(mContext,
-									getIssue().getArticleUpdateTime(),
-									getIssue().getId());
+									CommonApplication.issue
+											.getArticleUpdateTime(),
+									CommonApplication.currentIssueId);
 						}
 						showLoadingDialog(false);
 					}
@@ -64,11 +70,22 @@ public abstract class CommonMainAddFavActivity extends CommonMainActivity {
 	}
 
 	/**
+	 * 独立栏目请求完文章后赋值
+	 * 
+	 * @param list
+	 */
+	@Override
+	public void setSoloArticleList(List<FavoriteItem> list) {
+		this.list = list;
+	}
+
+	/**
 	 * 添加收藏
 	 * 
 	 * @param item
+	 * @param isSoloAdapter
 	 */
-	public void addFav(ArticleItem item) {
+	public void addFav(ArticleItem item, boolean isSoloAdapter) {
 		int articleId = ModernMediaTools.fecthSlateArticleId(item);
 		if (favDb.containThisFav(articleId, getUid())) {
 			if (bindFavToUserListener != null)
@@ -83,10 +100,16 @@ public abstract class CommonMainAddFavActivity extends CommonMainActivity {
 				callBack.callBack(true, item);
 			return;
 		}
-		if (!ParseUtil.listNotNull(list)) {
+		if (isSoloAdapter) {
+			addFavToDb(articleId, item);
+		} else if (!ParseUtil.listNotNull(list)) {
 			getArticleList(item);
-			return;
 		}
+	}
+
+	private void addFavToDb(int articleId, ArticleItem item) {
+		if (!ParseUtil.listNotNull(list))
+			return;
 		int pos = -1;
 		int length = list.size();
 		for (int i = 0; i < length; i++) {
@@ -121,7 +144,9 @@ public abstract class CommonMainAddFavActivity extends CommonMainActivity {
 	 * @return
 	 */
 	private FavoriteItem getFavoriteItem(ArticleItem item) {
-		return item.convertToFavoriteItem(getIssue().getId());
+		if (CommonApplication.issue == null)
+			return new FavoriteItem();
+		return item.convertToFavoriteItem(CommonApplication.issue.getId());
 	}
 
 	public void setCallBack(AddFavCallBack callBack) {

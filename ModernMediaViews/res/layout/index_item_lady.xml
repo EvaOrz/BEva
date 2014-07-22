@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black_bg" >
+
+    <RelativeLayout
+        android:id="@+id/lady_index_item_rl"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/lady_index_item_image"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:contentDescription="@null"
+            android:scaleType="center" />
+
+        <LinearLayout
+            android:id="@+id/lady_index_item_title_frame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="@dimen/lady_index_item_title_frame_marginBottom"
+            android:background="#7f000000"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/lady_index_item_title"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/lady_index_item_title_marginLeft"
+                android:layout_marginRight="@dimen/lady_index_item_title_marginLeft"
+                android:layout_marginTop="@dimen/lady_index_item_title_marginTop"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textColor="@color/white_bg"
+                android:textSize="@dimen/dp15_textsize" />
+
+            <TextView
+                android:id="@+id/lady_index_item_desc"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/lady_index_item_title_marginLeft"
+                android:layout_marginRight="@dimen/lady_index_item_title_marginLeft"
+                android:layout_marginTop="3dp"
+                android:ellipsize="end"
+                android:lines="2"
+                android:textColor="@color/white_bg"
+                android:textSize="@dimen/dp12_textsize" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/lady_index_item_adv_img"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lady_index_item_rl"
+        android:contentDescription="@null"
+        android:scaleType="center"
+        android:visibility="gone" />
+
+    <View
+        android:id="@+id/lady_index_item_magin"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/lady_index_item_adv_img"
+        android:layout_marginTop="@dimen/lady_index_item_title_marginTop" />
+
+</RelativeLayout>

@@ -1,9 +1,16 @@
 package cn.com.modernmedia.widget;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.apache.http.protocol.HTTP;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -49,8 +56,8 @@ import cn.com.modernmediaslate.model.Favorite.FavoriteItem;
 @SuppressLint("SetJavaScriptEnabled")
 public abstract class CommonWebView extends WebView {
 	private CommonWebView me;
-	private final static int TIME_OUT = 20 * 1000;// 设置超时时间
-	private final static int TIME_OUT_MSG = 100;
+	private static final int TIME_OUT = 20 * 1000;// 设置超时时间
+	private static final int TIME_OUT_MSG = 100;
 	private WebProcessListener listener;
 	private Timer timer;
 	private boolean loadOk = true;
@@ -60,6 +67,11 @@ public abstract class CommonWebView extends WebView {
 	private boolean isFetchNull = false;
 	private UseLocalDataUtil useUtil;
 	private GestureDetector gestureDetector;
+	private int x, y;
+	private List<String> urlList = new ArrayList<String>();// 图片列表
+	private boolean hasLoadFromHttp = false;// 防止无限获取http
+	private boolean isError = false;// 因为disProcess会延迟0.5S,所以判断一下
+	private boolean isSlateWeb = false;// 是否是slate内部浏览器，true,拦截http请求
 
 	final class InJavaScriptLocalObj {
 		public void showSource(final String html) {
@@ -71,8 +83,20 @@ public abstract class CommonWebView extends WebView {
 						isFetchNull = true;
 						me.getSettings()
 								.setCacheMode(WebSettings.LOAD_NO_CACHE);
-						if (listener != null)
-							listener.showStyle(2);
+						if (!hasLoadFromHttp) {
+							hasLoadFromHttp = true;
+							showErrorType(1);
+							new Thread() {
+
+								@Override
+								public void run() {
+									getHtmlIfNull();
+								}
+
+							}.start();
+						} else {
+							showErrorType(2);
+						}
 					} else {
 						if (isFetchNull) {
 							isFetchNull = false;
@@ -100,14 +124,32 @@ public abstract class CommonWebView extends WebView {
 		}
 	}
 
+	/**
+	 * 获取点击的图片的src值
+	 * 
+	 * @author user
+	 * 
+	 */
+	final class GetImageSrc {
+		public void getSrc(final String result) {
+			handler.post(new Runnable() {
+
+				@Override
+				public void run() {
+					String currentUrl = TextUtils.isEmpty(result) ? "" : result;
+					gotoGalleryActivity(urlList, currentUrl);
+				}
+			});
+		}
+	}
+
 	private Handler handler = new Handler() {
 
 		@Override
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case TIME_OUT_MSG:
-				if (listener != null)
-					listener.showStyle(2);
+				showErrorType(2);
 				break;
 			default:
 				break;
@@ -116,18 +158,19 @@ public abstract class CommonWebView extends WebView {
 
 	};
 
-	public CommonWebView(Context context) {
-		this(context, null);
+	public CommonWebView(Context context, boolean bgIsTransparent) {
+		this(context, null, bgIsTransparent);
 	}
 
-	public CommonWebView(Context context, AttributeSet attrs) {
+	public CommonWebView(Context context, AttributeSet attrs,
+			boolean bgIsTransparent) {
 		super(context, attrs);
 		mContext = context;
 		useUtil = new UseLocalDataUtil(context, this);
-		init();
+		init(bgIsTransparent);
 	}
 
-	private void init() {
+	private void init(boolean bgIsTransparent) {
 		me = this;
 		gestureDetector = new GestureDetector(new OnGestureListener() {
 
@@ -135,6 +178,8 @@ public abstract class CommonWebView extends WebView {
 			public boolean onSingleTapUp(MotionEvent e) {
 				if (mContext instanceof CommonArticleActivity)
 					((CommonArticleActivity) mContext).getHideListener().hide();
+				x = (int) e.getX();
+				y = (int) e.getY();
 				return false;
 			}
 
@@ -167,7 +212,8 @@ public abstract class CommonWebView extends WebView {
 				return false;
 			}
 		});
-		this.setBackgroundColor(0);// 设置webview本身的白色背景为透明，以显示在它下面的view
+		if (bgIsTransparent)
+			this.setBackgroundColor(0);// 设置webview本身的白色背景为透明，以显示在它下面的view
 		WebSettings s = getSettings();
 		s.setSupportZoom(false);
 		s.setBuiltInZoomControls(false);
@@ -181,9 +227,11 @@ public abstract class CommonWebView extends WebView {
 		s.setJavaScriptCanOpenWindowsAutomatically(true);
 		s.setPluginState(PluginState.ON);
 		s.setDefaultTextEncodingName("UTF -8");
+		s.setUserAgentString(s.getUserAgentString() + " Slate/1.0");
 		this.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);// 去掉白边
 		this.addJavascriptInterface(new InJavaScriptLocalObj(), "local_obj");
 		this.addJavascriptInterface(new MakeCard(), "make");
+		this.addJavascriptInterface(new GetImageSrc(), "get_src");
 		this.setWebViewClient(new WebViewClient() {
 
 			/**
@@ -215,8 +263,14 @@ public abstract class CommonWebView extends WebView {
 					}
 					changeFont();
 					changeLineHeight();
-					if (listener != null)
-						listener.showStyle(0);
+					handler.postDelayed(new Runnable() {
+
+						@Override
+						public void run() {
+							if (!isError)
+								showErrorType(0);
+						}
+					}, 500);
 					view.loadUrl("javascript:window.local_obj.showSource(document.getElementsByTagName('head')[0].innerHTML)");
 				}
 			}
@@ -226,6 +280,11 @@ public abstract class CommonWebView extends WebView {
 			 */
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
+				if (isSlateWeb && !TextUtils.isEmpty(url)
+						&& url.startsWith("http")) {
+					me.loadUrl(url);
+					return false;
+				}
 				UriParse.clickSlate(mContext, url,
 						new Entry[] { new ArticleItem() }, me);
 				return true;
@@ -247,8 +306,7 @@ public abstract class CommonWebView extends WebView {
 					SslErrorHandler handler, SslError error) {
 				loadOk = false;
 				cancelTimer();
-				if (listener != null)
-					listener.showStyle(2);
+				showErrorType(2);
 				handler.cancel();// 不支持ssl
 				// PrintHelper.print("onReceivedSslError");
 				super.onReceivedSslError(view, handler, error);
@@ -258,8 +316,7 @@ public abstract class CommonWebView extends WebView {
 			public void onReceivedError(WebView view, int errorCode,
 					String description, String failingUrl) {
 				loadOk = false;
-				if (listener != null)
-					listener.showStyle(2);
+				showErrorType(2);
 				cancelTimer();
 				// PrintHelper.print("onReceivedError");
 				super.onReceivedError(view, errorCode, description, failingUrl);
@@ -298,6 +355,7 @@ public abstract class CommonWebView extends WebView {
 	}
 
 	public void startLoad(FavoriteItem detail) {
+		hasLoadFromHttp = false;
 		if (detail == null)
 			return;
 		this.detail = detail;
@@ -316,8 +374,7 @@ public abstract class CommonWebView extends WebView {
 		super.loadUrl(url);
 		if (!isChangeStatus) {
 			isChangeStatus = false;
-			if (listener != null)
-				listener.showStyle(1);
+			showErrorType(1);
 		}
 		// startTimer();
 	}
@@ -325,8 +382,7 @@ public abstract class CommonWebView extends WebView {
 	@Override
 	public void reload() {
 		super.reload();
-		if (listener != null)
-			listener.showStyle(1);
+		showErrorType(1);
 		// startTimer();
 	}
 
@@ -395,11 +451,25 @@ public abstract class CommonWebView extends WebView {
 	}
 
 	/**
-	 * 跳转至文章相册
+	 * 获取文章相册列表
 	 * 
 	 * @param urlList
 	 */
-	public abstract void showGallery(List<String> urlList);
+	public void fetchGalleryList(List<String> urlList) {
+		this.urlList = urlList;
+		getImageSrc(x, y);
+	};
+
+	/**
+	 * 跳转至相册页
+	 * 
+	 * @param urlList
+	 *            图片地址列表
+	 * @param currentUrl
+	 *            当前选中的图片地址
+	 */
+	public void gotoGalleryActivity(List<String> urlList, String currentUrl) {
+	}
 
 	/**
 	 * 跳转至写卡片页
@@ -451,9 +521,21 @@ public abstract class CommonWebView extends WebView {
 	 * 长按选中段落
 	 */
 	private void onLongClick(int x, int y) {
-		// this.loadUrl("javascript:alert(123)");
 		this.loadUrl("javascript:window.make.make("
 				+ ModernMediaTools.getMakeCard(mContext, x, y) + ")");
+	}
+
+	/**
+	 * 获取选中图片的src
+	 * 
+	 * @param x
+	 * @param y
+	 */
+	private void getImageSrc(int x, int y) {
+		if (ConstData.getInitialAppId() != 20)
+			return;
+		this.loadUrl("javascript:window.get_src.getSrc("
+				+ ModernMediaTools.getImageSrc(mContext, x, y) + ")");
 	}
 
 	/**
@@ -510,5 +592,96 @@ public abstract class CommonWebView extends WebView {
 	public boolean onTouchEvent(MotionEvent ev) {
 		gestureDetector.onTouchEvent(ev);
 		return super.onTouchEvent(ev);
+	}
+
+	/**
+	 * 显示状态
+	 * 
+	 * @param type
+	 */
+	private void showErrorType(final int type) {
+		isError = type == 2;
+		if (listener != null)
+			handler.post(new Runnable() {
+
+				@Override
+				public void run() {
+					listener.showStyle(type);
+				}
+			});
+	}
+
+	public void setSlateWeb(boolean isSlateWeb) {
+		this.isSlateWeb = isSlateWeb;
+	}
+
+	/**
+	 * 当webview没有加载到html时，通过http获取
+	 */
+	private void getHtmlIfNull() {
+		if (detail == null) {
+			showErrorType(2);
+			return;
+		}
+		final String uri = detail.getLink();
+		if (TextUtils.isEmpty(uri)) {
+			showErrorType(2);
+			return;
+		}
+		HttpURLConnection conn = null;
+		URL mUrl = null;
+		try {
+			mUrl = new URL(uri);
+			conn = (HttpURLConnection) mUrl.openConnection();
+			conn.setConnectTimeout(10 * 10000);
+			conn.setReadTimeout(10 * 10000);
+			int status = conn.getResponseCode();
+			if (status == 200) {
+				InputStream is = conn.getInputStream();
+				if (is == null) {
+					showErrorType(2);
+					return;
+				}
+				final String data = receiveData(is);
+				if (TextUtils.isEmpty(data)) {
+					showErrorType(2);
+					return;
+				}
+				handler.post(new Runnable() {
+
+					@Override
+					public void run() {
+						me.loadDataWithBaseURL(uri, data, "text/html",
+								HTTP.UTF_8, null);
+					}
+				});
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			showErrorType(2);
+		} finally {
+			if (conn != null)
+				conn.disconnect();
+		}
+	}
+
+	private String receiveData(InputStream is) throws IOException {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		try {
+			byte[] buff = new byte[1024];
+			int readed = -1;
+			while ((readed = is.read(buff)) != -1) {
+				baos.write(buff, 0, readed);
+			}
+			byte[] result = baos.toByteArray();
+			if (result == null)
+				return null;
+			return new String(result);
+		} finally {
+			if (is != null)
+				is.close();
+			if (baos != null)
+				baos.close();
+		}
 	}
 }

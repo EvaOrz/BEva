@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bus_column_contain"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/bus_cloumn_margin"
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:background="@color/black_bg"
+        android:orientation="horizontal" />
+
+    <RelativeLayout
+        android:id="@+id/bus_column_item_row"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/bus_column_item_height"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/bus_cloumn_item_color"
+            android:layout_width="@dimen/dp5"
+            android:layout_height="fill_parent"
+            android:background="@color/white_bg"
+            android:contentDescription="@null" />
+
+        <TextView
+            android:id="@+id/bus_column_item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingLeft="@dimen/bus_column_item_name_paddingLeft"
+            android:textColor="@color/white_bg"
+            android:textSize="@dimen/dp16_textsize" />
+
+        <ImageView
+            android:id="@+id/bus_column_item_right_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@null"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+</LinearLayout>

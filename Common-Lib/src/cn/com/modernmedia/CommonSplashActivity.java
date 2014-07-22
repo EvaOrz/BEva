@@ -16,7 +16,6 @@ import cn.com.modernmedia.model.Down;
 import cn.com.modernmedia.util.AdvTools;
 import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmedia.util.DataHelper;
-import cn.com.modernmedia.util.FileManager;
 import cn.com.modernmedia.util.GenericConstant;
 import cn.com.modernmedia.util.ParseUtil;
 import cn.com.modernmediaslate.model.Entry;
@@ -56,7 +55,9 @@ public abstract class CommonSplashActivity extends BaseActivity {
 
 			@Override
 			public void run() {
-				Intent intent = new Intent(mContext, getMainActivity());
+				if (CommonApplication.mainCls == null)
+					finish();
+				Intent intent = new Intent(mContext, CommonApplication.mainCls);
 				intent.putExtra(GenericConstant.FROM_ACTIVITY,
 						GenericConstant.FROM_ACTIVITY_VALUE);
 				startActivity(intent);
@@ -72,7 +73,7 @@ public abstract class CommonSplashActivity extends BaseActivity {
 
 			@Override
 			public void run() {
-				Intent intent = new Intent(mContext, getAdvActivity());
+				Intent intent = new Intent(mContext, CommonAdvActivity.class);
 				intent.putExtra(GenericConstant.FROM_ACTIVITY,
 						GenericConstant.FROM_ACTIVITY_VALUE);
 				intent.putExtra(GenericConstant.PIC_LIST, picList);
@@ -106,8 +107,9 @@ public abstract class CommonSplashActivity extends BaseActivity {
 	}
 
 	private void init(AdvList advList) {
-		if (advList == null || advList.getAdvMap().isEmpty()
-				|| !advList.getAdvMap().containsKey(AdvList.RU_BAN)) {
+		if (advList == null
+				|| !ParseUtil.mapContainsKey(advList.getAdvMap(),
+						AdvList.RU_BAN)) {
 			checkHasAdv(false, null, null, null);
 		} else {
 			ArrayList<String> picList = new ArrayList<String>();
@@ -121,7 +123,8 @@ public abstract class CommonSplashActivity extends BaseActivity {
 							item.getEndTime())) {
 						for (AdvSource pic : item.getSourceList()) {
 							// TODO 当所有图片都下载成功时，才进入入版广告页
-							if (FileManager.getImageFromFile(pic.getUrl()) == null) {
+							if (CommonApplication.finalBitmap
+									.getBitmapFromDiskCache(pic.getUrl()) == null) {
 								continue;
 							}
 							picList.add(pic.getUrl());
@@ -156,10 +159,6 @@ public abstract class CommonSplashActivity extends BaseActivity {
 					}
 				});
 	}
-
-	protected abstract Class<?> getMainActivity();
-
-	protected abstract Class<?> getAdvActivity();
 
 	@Override
 	public void reLoadData() {

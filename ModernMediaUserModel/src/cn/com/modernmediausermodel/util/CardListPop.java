@@ -13,9 +13,8 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout.LayoutParams;
 import cn.com.modernmedia.util.ModernMediaTools;
 import cn.com.modernmediaslate.model.Entry;
-import cn.com.modernmediausermodel.BaseCardListActivity;
 import cn.com.modernmediausermodel.R;
-import cn.com.modernmediausermodel.SquareActivity;
+import cn.com.modernmediausermodel.adapter.UserCardListAdapter;
 import cn.com.modernmediausermodel.api.UserOperateController;
 import cn.com.modernmediausermodel.listener.UserFetchEntryListener;
 import cn.com.modernmediausermodel.model.Card.CardItem;
@@ -102,8 +101,11 @@ public class CardListPop {
 	 * @return
 	 */
 	private String checkUid() {
-		if (mContext instanceof SquareActivity) {
-			return ((SquareActivity) mContext).checkUid();
+		User user = UserDataHelper.getUserLoginInfo(mContext);
+		if (user == null) {
+			UserPageTransfer.gotoLoginActivityRequest(mContext,
+					UserCardListAdapter.TO_LOGIN);
+			return "";
 		}
 		return UserTools.getUid(mContext);
 	}
@@ -158,8 +160,7 @@ public class CardListPop {
 
 					@Override
 					public void setData(Entry entry) {
-						((BaseCardListActivity) mContext)
-								.showLoadingDialog(false);
+						ModernMediaTools.showLoading(mContext, false);
 						if (entry instanceof User.Error) {
 							User.Error error = (User.Error) entry;
 							if (error.getNo() == 0) {

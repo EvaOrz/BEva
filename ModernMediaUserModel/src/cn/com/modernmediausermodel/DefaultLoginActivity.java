@@ -1,5 +1,6 @@
 package cn.com.modernmediausermodel;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,19 +14,22 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout.LayoutParams;
+import android.widget.TextView;
 import cn.com.modernmedia.BaseActivity;
-import cn.com.modernmedia.util.ConstData;
+import cn.com.modernmedia.CommonApplication;
+import cn.com.modernmedia.util.sina.SinaAPI;
+import cn.com.modernmedia.util.sina.SinaAuth;
+import cn.com.modernmedia.util.sina.UserModelAuthListener;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediausermodel.api.UserModelInterface;
 import cn.com.modernmediausermodel.listener.RequestListener;
+import cn.com.modernmediausermodel.model.LoginParm;
 import cn.com.modernmediausermodel.model.User;
 import cn.com.modernmediausermodel.model.User.Error;
 import cn.com.modernmediausermodel.util.UserDataHelper;
 import cn.com.modernmediausermodel.util.UserPageTransfer;
 import cn.com.modernmediausermodel.util.UserTools;
-import cn.com.modernmediausermodel.util.sina.SinaAPI;
-import cn.com.modernmediausermodel.util.sina.SinaAuth;
-import cn.com.modernmediausermodel.util.sina.UserModelAuthListener;
 
 /**
  * 默认登录页面
@@ -33,7 +37,7 @@ import cn.com.modernmediausermodel.util.sina.UserModelAuthListener;
  * @author ZhuQiao
  * 
  */
-public abstract class DefaultLoginActivity extends BaseActivity implements
+public class DefaultLoginActivity extends BaseActivity implements
 		OnClickListener {
 	private Context mContext;
 	private EditText mAcountEdit, mPasswordEdit;
@@ -44,7 +48,6 @@ public abstract class DefaultLoginActivity extends BaseActivity implements
 	private SinaAuth weiboAuth;
 
 	private String shareData = "";// 分享的内容
-	private int appId;// 区分是第三方应用分享还是当前应用分享
 	private int gotoPage;// 登录完成需要跳转的页面
 	private boolean shouldFinish = false;// 当直接跳到发笔记页的时候，不会立即执行destory，所以延迟500ms
 
@@ -54,8 +57,7 @@ public abstract class DefaultLoginActivity extends BaseActivity implements
 		mContext = this;
 		userModel = UserModelInterface.getInstance(this);
 		if (checkIsShare() && UserDataHelper.getUserLoginInfo(mContext) != null) {
-			UserPageTransfer.gotoWriteCardActivity(this, shareData, appId,
-					false);
+			UserPageTransfer.gotoWriteCardActivity(this, shareData, false);
 			shouldFinish = true;
 		}
 		initContentView();
@@ -70,7 +72,9 @@ public abstract class DefaultLoginActivity extends BaseActivity implements
 		}, 500);
 	}
 
-	protected abstract void initContentView();
+	protected void initContentView() {
+		setContentView(-1);
+	}
 
 	/**
 	 * 检查是否来自应用分享，若是，则会取得要分享的文本信息
@@ -86,7 +90,6 @@ public abstract class DefaultLoginActivity extends BaseActivity implements
 					&& intent.getAction().equals(Intent.ACTION_SEND)) {
 				if (bundle.containsKey(Intent.EXTRA_TEXT)) {
 					shareData = bundle.getString(Intent.EXTRA_TEXT);
-					appId = bundle.getInt(ConstData.SHARE_APP_ID);
 					if (TextUtils.isEmpty(shareData)) {
 						finish();
 					} else {
@@ -125,6 +128,15 @@ public abstract class DefaultLoginActivity extends BaseActivity implements
 		mRegisterBtn = (Button) findViewById(R.id.login_btn_register);
 		mLoginBtn = (Button) findViewById(R.id.login_btn_login);
 		mSinaLoginBtn = (Button) findViewById(R.id.login_btn_sina_login);
+
+		if (CommonApplication.width < 720) {
+			// 字数太多，显示不完整..
+			mSinaLoginBtn.getLayoutParams().width = LayoutParams.WRAP_CONTENT;
+		}
+
+		LoginParm parm = UserTools.parseColumn(this);
+		UserTools.setText((TextView) findViewById(R.id.login_desc),
+				parm.getLogin_desc());
 
 		mCloseImage.setOnClickListener(this);
 		mClearImage.setOnClickListener(this);
@@ -252,7 +264,7 @@ public abstract class DefaultLoginActivity extends BaseActivity implements
 					showLoadingDialog(false);
 					User user = (User) entry;
 					// 返回上一级界面
-					afterRegister(user, shareData, appId);
+					afterRegister(user, shareData);
 				}
 
 				@Override
@@ -281,6 +293,8 @@ public abstract class DefaultLoginActivity extends BaseActivity implements
 				UserDataHelper.saveUserLoginInfo(mContext, mUser);
 				UserDataHelper.saveSinaLoginedName(mContext, mUser.getSinaId(),
 						mUser.getUserName());
+				UserDataHelper.saveAvatarUrl(mContext, mUser.getUserName(),
+						mUser.getAvatar());
 				afterLogin(mUser);
 			}
 
@@ -310,7 +324,7 @@ public abstract class DefaultLoginActivity extends BaseActivity implements
 	 * @param content
 	 *            分享内容
 	 */
-	protected void afterRegister(User user, String content, int appId) {
+	protected void afterRegister(User user, String content) {
 		showToast(R.string.msg_register_success);
 		UserPageTransfer.gotoUserInfoActivity(this,
 				DefaultUserInfoActivity.FROM_REGISTER, content, gotoPage);
@@ -352,7 +366,7 @@ public abstract class DefaultLoginActivity extends BaseActivity implements
 	protected void afterLogin(User user) {
 		// 返回上一级界面
 		showToast(R.string.msg_login_success);
-		UserPageTransfer.afterLogin(this, user, shareData, appId, gotoPage);
+		UserPageTransfer.afterLogin(this, user, shareData, gotoPage);
 	}
 
 	/**
@@ -367,6 +381,8 @@ public abstract class DefaultLoginActivity extends BaseActivity implements
 		if (UserDataHelper.getUserLoginInfo(this) != null)
 			setResult(RESULT_OK);
 		super.finish();
+		overridePendingTransition(R.anim.activity_close_enter,
+				R.anim.activity_close_exit);
 	}
 
 	public static Class<DefaultLoginActivity> getLoginClass() {
@@ -380,6 +396,20 @@ public abstract class DefaultLoginActivity extends BaseActivity implements
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
+	}
+
+	@Override
+	public void reLoadData() {
+	}
+
+	@Override
+	public String getActivityName() {
+		return DefaultLoginActivity.class.getName();
+	}
+
+	@Override
+	public Activity getActivity() {
+		return this;
 	}
 
 }

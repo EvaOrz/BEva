@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/column_left_item_contain"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
+    <ImageView
+        android:id="@+id/column_left_item_img"
+        android:layout_width="@dimen/weekly_column_item_img_width"
+        android:layout_height="@dimen/weekly_column_item_img_height"
+        android:layout_marginLeft="@dimen/dp15"
+        android:layout_marginTop="@dimen/weekly_column_item_img_marginTop"
+        android:contentDescription="@null"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/column_left_item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/dp15"
+        android:layout_toRightOf="@+id/column_left_item_img"
+        android:textSize="@dimen/dp15_textsize" />
+
+    <ImageView
+        android:id="@+id/column_left_item_new"
+        android:layout_width="@dimen/weekly_column_item_dot_size"
+        android:layout_height="@dimen/weekly_column_item_dot_size"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/dp10"
+        android:layout_toRightOf="@+id/column_left_item_title"
+        android:contentDescription="@null"
+        android:scaleType="fitXY"
+        android:src="@drawable/user_center_message"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/column_left_item_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/dp10"
+        android:contentDescription="@null" />
+
+    <ImageView
+        android:id="@+id/column_left_item_divider"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/column_left_item_img"
+        android:layout_marginLeft="@dimen/dp5"
+        android:layout_marginTop="@dimen/weekly_column_item_img_marginTop"
+        android:layout_toRightOf="@+id/column_left_item_img"
+        android:contentDescription="@null"
+        android:scaleType="fitXY" />
+
+</RelativeLayout>

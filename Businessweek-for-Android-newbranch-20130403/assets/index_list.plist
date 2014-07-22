@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>type</key>
+	<string>business</string>
+	<key>placeholder</key>
+	<string>list_placeholder</string>
+	<key>image_background</key>
+	<string>iphone_placeholder_shadow</string>
+	<key>divider</key>
+	<string>line</string>
+	<key>moreinstant</key>
+	<string>index_item_moreinstant</string>
+	<key>head_type</key>
+	<string>business</string>
+	<key>head_placeholder</key>
+	<string>viewpager_placeholder</string>
+	<key>head_height</key>
+	<integer>360</integer>
+	<key>head_dot</key>
+	<string>dot</string>
+	<key>head_dot_active</key>
+	<string>dot_active</string>
+	<key>head_title_bg</key>
+	<string>index_head_title_bg</string>
+	<key>is_picture</key>
+	<integer>0</integer>
+</dict>
+</plist>

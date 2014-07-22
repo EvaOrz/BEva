@@ -195,7 +195,7 @@ public class BreakPointUtil {
 					// }
 					// handler.sendEmptyMessage(DB_ADD_MSG);
 					handler.post(new Runnable() {
-						
+
 						@Override
 						public void run() {
 							startDownload();
@@ -292,6 +292,8 @@ public class BreakPointUtil {
 
 	// 暂停下载
 	public void pause() {
+		if (mCallBack != null && breakPoint != null)
+			mCallBack.onPause(breakPoint.getId());
 		download_status = PAUSE;
 	}
 

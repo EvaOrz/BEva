@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import android.annotation.SuppressLint;
 import cn.com.modernmedia.CommonApplication;
 import cn.com.modernmedia.model.ArticleItem;
+import cn.com.modernmedia.model.ArticleItem.IndexProperty;
 import cn.com.modernmedia.model.IndexArticle;
 import cn.com.modernmedia.model.IndexArticle.Position;
 import cn.com.modernmedia.model.IndexArticle.Today;
@@ -63,8 +64,6 @@ public class GetIndexOperate extends BaseIndexAdvOperate {
 	private void parseTitleArticle(JSONArray array) {
 		int length = array.length();
 		JSONObject obj;
-		List<ArticleItem> articleItemList = new ArrayList<ArticleItem>();
-		List<ArticleItem> titleActicleList = new ArrayList<ArticleItem>();
 		ArticleItem titleArticle;
 		for (int i = 0; i < length; i++) {
 			obj = array.optJSONObject(i);
@@ -75,48 +74,66 @@ public class GetIndexOperate extends BaseIndexAdvOperate {
 			titleArticle.setArticleId(obj.optInt("id", -1));
 			titleArticle.setTitle(obj.optString("title", ""));
 			titleArticle.setDesc(obj.optString("desc", ""));
-			JSONArray pictureArr = obj.optJSONArray("picture");
-			if (!isNull(pictureArr))
-				titleArticle.setPictureList(parseTitlePicture(pictureArr));
+
+			// 大图解析
+			JSONArray picArr = obj.optJSONArray("picture");
+			if (!isNull(picArr)) {
+				titleArticle.setPicList(parsePicture(picArr));
+			}
+
+			// 列表图解析
+			JSONArray thumbArr = obj.optJSONArray("thumb");
+			if (!isNull(thumbArr)) {
+				titleArticle.setThumbList(parsePicture(thumbArr));
+			}
+
 			titleArticle.setCatId(obj.optInt("catid", -1));
 			titleArticle.setOutline(obj.optString("outline", ""));
+			titleArticle.setWeburl(obj.optString("weburl", ""));
+			titleArticle.setProperty(parseProperty(obj
+					.optJSONObject("property")));
+
 			JSONObject positionObj = obj.optJSONObject("position");
 			if (!isNull(positionObj))
 				titleArticle.setPosition(parseTitlePosition(positionObj));
 			titleArticle.setSlateLink(obj.optString("link", ""));
 			if (ConstData.getAppId() == 1) {// 商周
 				// TODO 填添加该位置存在的广告
-				titleActicleList
-						.addAll(getTitleAdvsByPosition(currentTitlePosition));
-				titleActicleList.add(titleArticle);
-				currentTitlePosition++;
+				getListFromMap(1).addAll(
+						getTitleAdvsByPosition(currentPosition1));
+				getListFromMap(1).add(titleArticle);
+				currentPosition1++;
 			} else {
 				if (titleArticle.getPosition().getId() == 1) {
-					titleActicleList
-							.addAll(getTitleAdvsByPosition(currentTitlePosition));
-					titleActicleList.add(titleArticle);
-					currentTitlePosition++;
-				} else {
-					articleItemList
-							.addAll(getListAdvsByPosition(currentListPosition));
-					articleItemList.add(titleArticle);
-					currentListPosition++;
+					getListFromMap(1).addAll(
+							getTitleAdvsByPosition(currentPosition1));
+					getListFromMap(1).add(titleArticle);
+					currentPosition1++;
+				} else if (titleArticle.getPosition().getId() == 2) {
+					getListFromMap(2).addAll(
+							getListAdvsByPosition(currentPosition2));
+					getListFromMap(2).add(titleArticle);
+					currentPosition2++;
 				}
 			}
 		}
 		// TODO 添加可能在列表末尾的广告
 		if (ConstData.getAppId() == 1) {
-			titleActicleList
-					.addAll(getTitleAdvsByEndPosition(currentTitlePosition));
+			getListFromMap(1).addAll(
+					getTitleAdvsByEndPosition(currentPosition2));
 		} else {
-			titleActicleList
-					.addAll(getTitleAdvsByEndPosition(currentTitlePosition));
-			articleItemList
-					.addAll(getListAdvsByEndPosition(currentListPosition));
+			getListFromMap(1).addAll(
+					getTitleAdvsByEndPosition(currentPosition2));
+			getListFromMap(2)
+					.addAll(getListAdvsByEndPosition(currentPosition2));
 		}
+	}
 
-		indexArticle.setTitleArticleList(titleActicleList);
-		indexArticle.setArticleItemList(articleItemList);
+	private List<ArticleItem> getListFromMap(int position) {
+		if (!indexArticle.getMap().containsKey(position)) {
+			indexArticle.getMap().put(position, new ArrayList<ArticleItem>());
+		}
+		return indexArticle.getMap().get(position);
 	}
 
 	/**
@@ -124,7 +141,7 @@ public class GetIndexOperate extends BaseIndexAdvOperate {
 	 * 
 	 * @param array
 	 */
-	private List<String> parseTitlePicture(JSONArray array) {
+	private List<String> parsePicture(JSONArray array) {
 		List<String> pictureList = new ArrayList<String>();
 		JSONObject object;
 		for (int i = 0; i < array.length(); i++) {
@@ -196,10 +213,22 @@ public class GetIndexOperate extends BaseIndexAdvOperate {
 			articleItem.setCatId(catId);
 			articleItem.setDesc(obj.optString("desc", ""));
 			articleItem.setOutline(obj.optString("outline", ""));
-			JSONArray thumbArr = obj.optJSONArray("thumb");
-			if (!isNull(thumbArr))
-				articleItem.setPictureList(parseThumb(thumbArr));
 			articleItem.setSlateLink(obj.optString("link", ""));
+			articleItem.setWeburl(obj.optString("weburl", ""));
+			articleItem
+					.setProperty(parseProperty(obj.optJSONObject("property")));
+
+			// 大图解析
+			JSONArray picArr = obj.optJSONArray("picture");
+			if (!isNull(picArr)) {
+				articleItem.setPicList(parsePicture(picArr));
+			}
+
+			// 列表图解析
+			JSONArray thumbArr = obj.optJSONArray("thumb");
+			if (!isNull(thumbArr)) {
+				articleItem.setThumbList(parsePicture(thumbArr));
+			}
 
 			articleItemList.addAll(getBBIndexListAdv(pos, i));
 			articleItemList.add(articleItem);
@@ -220,21 +249,19 @@ public class GetIndexOperate extends BaseIndexAdvOperate {
 	}
 
 	/**
-	 * 解析文章对于的图片
+	 * 解析Property
 	 * 
-	 * @param array
+	 * @param obj
 	 * @return
 	 */
-	private List<String> parseThumb(JSONArray array) {
-		List<String> thumbList = new ArrayList<String>();
-		JSONObject object;
-		for (int i = 0; i < array.length(); i++) {
-			object = array.optJSONObject(i);
-			if (isNull(object))
-				continue;
-			thumbList.add(object.optString("url", ""));
+	private IndexProperty parseProperty(JSONObject obj) {
+		IndexProperty property = new IndexProperty();
+		if (!isNull(obj)) {
+			property.setLevel(obj.optInt("level", 0));
+			property.setType(obj.optInt("type", 1));
+			property.setHavecard(obj.optInt("havecard", 1));
 		}
-		return thumbList;
+		return property;
 	}
 
 	@Override

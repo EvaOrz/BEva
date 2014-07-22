@@ -66,6 +66,7 @@
         android:padding="@dimen/dp10"
         android:singleLine="false"
         android:textColor="@color/black_bg"
+        android:textCursorDrawable="@null"
         android:textSize="@dimen/dp15_textsize" />
 
 </RelativeLayout>

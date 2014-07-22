@@ -1,6 +1,7 @@
 package cn.com.modernmediausermodel.widget;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,12 +11,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import cn.com.modernmedia.model.Issue;
+import cn.com.modernmedia.CommonApplication;
 import cn.com.modernmedia.util.ParseUtil;
 import cn.com.modernmedia.widget.BaseView;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediausermodel.R;
-import cn.com.modernmediausermodel.RecommendUserActivity;
 import cn.com.modernmediausermodel.api.UserOperateController;
 import cn.com.modernmediausermodel.listener.UserFetchEntryListener;
 import cn.com.modernmediausermodel.model.Message;
@@ -28,7 +28,7 @@ import cn.com.modernmediausermodel.util.UserTools;
 public class UserCenterView extends BaseView implements OnClickListener {
 	private ImageView avatar;
 	private ImageView msgCenter;
-	private TextView userText, cardNumText, followNumText, fansNumText;
+	protected TextView userText, cardNumText, followNumText, fansNumText;
 	private LinearLayout cardLayout, followLayout, fansLayout;
 	private UserOperateController controller;
 	private Context mContext;
@@ -38,7 +38,6 @@ public class UserCenterView extends BaseView implements OnClickListener {
 	private RelativeLayout cardInfoLayout;
 	private Button login;
 	private Message mMessage = new Message();
-	private Issue issue;
 
 	public UserCenterView(Context context) {
 		this(context, null);
@@ -87,8 +86,6 @@ public class UserCenterView extends BaseView implements OnClickListener {
 		cardLayout.setOnClickListener(this);
 		followLayout.setOnClickListener(this);
 		fansLayout.setOnClickListener(this);
-
-		reLoad();
 	}
 
 	/**
@@ -171,15 +168,12 @@ public class UserCenterView extends BaseView implements OnClickListener {
 		initHeadView();
 	}
 
-	public void setIssue(Issue issue) {
-		this.issue = issue;
-	}
-
 	@Override
 	public void onClick(View v) {
 		int id = v.getId();
 		if (id == R.id.user_center_layout_fav) { // 我的收藏,如果为登录，则显示本地收藏
-			UserPageTransfer.gotoFavoritesActivity(mContext, issue);
+			UserPageTransfer.gotoFavoritesActivity(mContext,
+					CommonApplication.issue);
 		} else if (id == R.id.user_center_info_avatar) { // 前往用户信息页面
 			UserPageTransfer.gotoUserInfoActivity(mContext, 0, null, 0);
 		} else if (id == R.id.user_center_btn_login) {// 点击登录按钮
@@ -193,16 +187,16 @@ public class UserCenterView extends BaseView implements OnClickListener {
 			UserPageTransfer.gotoUserCardInfoActivity(mContext, user, false);
 		} else if (id == R.id.user_center_layout_follow) { // 前往关注界面
 			UserPageTransfer.gotoUserListActivity(mContext, user,
-					RecommendUserActivity.PAGE_FRIEND, false);
+					RecommendUserView.PAGE_FRIEND, false);
 		} else if (id == R.id.user_center_layout_fans) { // 前往粉丝界面
 			UserPageTransfer.gotoUserListActivity(mContext, user,
-					RecommendUserActivity.PAGE_FANS, false);
+					RecommendUserView.PAGE_FANS, false);
 		} else if (id == R.id.user_center_layout_find) {// 热门商业笔记(广场)
 			UserPageTransfer.gotoSquareActivity(mContext, false);
 		}
 	}
 
-	protected void setTextColor(int color) {
+	public void setTextColor(int color) {
 		userText.setTextColor(color);
 		cardNumText.setTextColor(color);
 		followNumText.setTextColor(color);
@@ -222,5 +216,38 @@ public class UserCenterView extends BaseView implements OnClickListener {
 		((TextView) findViewById(R.id.user_center_fan)).setTextColor(color);
 		((TextView) findViewById(R.id.user_center_text_setting))
 				.setTextColor(color);
+	}
+
+	public void setCardName(int id) {
+		((TextView) findViewById(R.id.user_center_text_business_card))
+				.setText(id);
+	}
+
+	public Message getmMessage() {
+		return mMessage;
+	}
+
+	/**
+	 * 设置整个页面的背景色
+	 */
+	public void setBackgroundColor(int color) {
+		findViewById(R.id.use_center_contain).setBackgroundColor(color);
+	}
+
+	/**
+	 * 设置我的首页、浏览发现、通知中心icon
+	 * 
+	 * @param picture
+	 */
+	public void setTextLeftPicture(Drawable picture) {
+		((TextView) findViewById(R.id.user_center_text_my_homepage))
+				.setCompoundDrawablesWithIntrinsicBounds(picture, null, null,
+						null);
+		((TextView) findViewById(R.id.user_center_text_find))
+				.setCompoundDrawablesWithIntrinsicBounds(picture, null, null,
+						null);
+		((TextView) findViewById(R.id.user_center_text_message_center))
+				.setCompoundDrawablesWithIntrinsicBounds(picture, null, null,
+						null);
 	}
 }

@@ -4,15 +4,19 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.TextUtils;
 import cn.com.modernmedia.CommonApplication;
 import cn.com.modernmedia.model.ArticleItem;
+import cn.com.modernmedia.model.ArticleItem.IndexProperty;
 import cn.com.modernmedia.model.CatIndexArticle;
 import cn.com.modernmedia.model.CatIndexArticle.SoloColumnIndexItem;
 import cn.com.modernmedia.model.IndexArticle.Position;
@@ -47,7 +51,7 @@ public class GetCatIndexOperate extends BaseIndexAdvOperate {
 	private List<ArticleItem> itemList = new ArrayList<ArticleItem>();
 	// 添加数据库使用
 	private List<ArticleItem> headItemList = new ArrayList<ArticleItem>();
-	
+
 	private DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 	private List<String> dateList = new ArrayList<String>();
 
@@ -84,6 +88,7 @@ public class GetCatIndexOperate extends BaseIndexAdvOperate {
 	 * @param position
 	 *            当前栏目再栏目列表里的位置
 	 */
+	@SuppressLint("UseSparseArrays")
 	public GetCatIndexOperate(Context context, String catId, String fromOffset,
 			String toOffset, SoloColumn soloColumn, int position) {
 		reSetPosition();
@@ -100,10 +105,8 @@ public class GetCatIndexOperate extends BaseIndexAdvOperate {
 		}
 		if (mColumnItem != null && ParseUtil.listNotNull(mColumnItem.getList())) {
 			for (SoloColumnChild child : mColumnItem.getList()) {
-				catIndexArticle.getListMap().put(child.getName(),
-						new ArrayList<ArticleItem>());
-				catIndexArticle.getHeadMap().put(child.getName(),
-						new ArrayList<ArticleItem>());
+				catIndexArticle.getSoloMap().put(child.getName(),
+						new HashMap<Integer, List<ArticleItem>>());
 				if (child.getType().equals(SoloColumnChild.FULL_TYPE)) {
 					fullKey.add(child.getName());
 					if (TextUtils.isEmpty(catIndexArticle.getFullKeyTag()))
@@ -158,12 +161,20 @@ public class GetCatIndexOperate extends BaseIndexAdvOperate {
 			}
 		} else {
 			// TODO 添加可能在列表末尾的广告(独立栏目不考虑，因为有分页)
-			catIndexArticle.getTitleActicleList().addAll(
-					getTitleAdvsByEndPosition(currentTitlePosition));
-			catIndexArticle.getArticleItemList().addAll(
-					getListAdvsByEndPosition(currentListPosition));
+			getListFromMap(1).addAll(
+					getTitleAdvsByEndPosition(currentPosition1));
+			getListFromMap(2)
+					.addAll(getListAdvsByEndPosition(currentPosition2));
 		}
 		catIndexArticle.setImpressionUrlList(impressionUrlList);
+	}
+
+	private List<ArticleItem> getListFromMap(int position) {
+		if (!catIndexArticle.getMap().containsKey(position)) {
+			catIndexArticle.getMap()
+					.put(position, new ArrayList<ArticleItem>());
+		}
+		return catIndexArticle.getMap().get(position);
 	}
 
 	/**
@@ -185,9 +196,15 @@ public class GetCatIndexOperate extends BaseIndexAdvOperate {
 		item.setTitle(obj.optString("title", ""));
 		item.setTag(obj.optString("tag", ""));
 		item.setSlateLink(obj.optString("link", ""));
+		JSONArray links = obj.optJSONArray("links");
+		if (!isNull(links)) {
+			item.setSlateLinkList(parseLinks(links));
+		}
 		item.setAuthor(obj.optString("author", ""));
 		item.setOutline(obj.optString("outline", ""));
 		item.setInputtime(obj.optString("inputtime"));
+		item.setWeburl(obj.optString("weburl", ""));
+		item.setProperty(parseProperty(obj.optJSONObject("property")));
 
 		if (isSolo) {
 			item.getSoloItem().setPagenum(obj.optInt("pagenum", -1));
@@ -200,13 +217,13 @@ public class GetCatIndexOperate extends BaseIndexAdvOperate {
 		// 大图解析
 		JSONArray picArr = obj.optJSONArray("picture");
 		if (!isNull(picArr)) {
-			item.setPictureList(parsePicture(picArr));
+			item.setPicList(parsePicture(picArr));
 		}
 
 		// 列表图解析
 		JSONArray thumbArr = obj.optJSONArray("thumb");
 		if (!isNull(thumbArr)) {
-			item.setPictureList(parsePicture(thumbArr));
+			item.setThumbList(parsePicture(thumbArr));
 		}
 
 		// 图片位置
@@ -227,11 +244,10 @@ public class GetCatIndexOperate extends BaseIndexAdvOperate {
 	private void addDataToList(ArticleItem item) {
 		if (item.getPosition().getId() == 1) {
 			// 焦点图
-			catIndexArticle.getTitleActicleList().addAll(
-					getTitleAdvsByPosition(currentTitlePosition));
-			catIndexArticle.getTitleActicleList().add(item);
-			currentTitlePosition++;
-		} else {
+			getListFromMap(1).addAll(getTitleAdvsByPosition(currentPosition1));
+			getListFromMap(1).add(item);
+			currentPosition1++;
+		} else if (item.getPosition().getId() == 2) {
 			// 列表
 			if (ConstData.isWeeklyNews(catIndexArticle.getId())) {
 				// TODO iweekly新闻栏目根据日期组合
@@ -242,10 +258,9 @@ public class GetCatIndexOperate extends BaseIndexAdvOperate {
 					item.setDateFirst(true);
 				}
 			}
-			catIndexArticle.getArticleItemList().addAll(
-					getListAdvsByPosition(currentListPosition));
-			catIndexArticle.getArticleItemList().add(item);
-			currentListPosition++;
+			getListFromMap(2).addAll(getListAdvsByPosition(currentPosition2));
+			getListFromMap(2).add(item);
+			currentPosition2++;
 		}
 	}
 
@@ -254,6 +269,7 @@ public class GetCatIndexOperate extends BaseIndexAdvOperate {
 	 * 
 	 * @param item
 	 */
+	@SuppressLint("UseSparseArrays")
 	private void addDataToMap(ArticleItem item) {
 		if (item.getPosition().getId() == 1) {
 			headItemList.add(item);
@@ -263,38 +279,69 @@ public class GetCatIndexOperate extends BaseIndexAdvOperate {
 
 		for (String full_key : fullKey) {
 			if (item.getPosition().getId() == 1) {
-				// 焦点图
-				catIndexArticle
-						.getHeadMap()
-						.get(full_key)
-						.addAll(getTitleAdvsByPosition(currentTitlePosition
+				if (!getMapFromSoloMap(full_key).containsKey(1)) {
+					getMapFromSoloMap(full_key).put(1,
+							new ArrayList<ArticleItem>());
+				}
+				getMapFromSoloMap(full_key).get(1).addAll(
+						getTitleAdvsByPosition(currentPosition1
 								- DataHelper.solo_head_count));
-				catIndexArticle.getHeadMap().get(full_key).add(item);
-				currentTitlePosition++;
-			} else {
-				// 列表
-				catIndexArticle
-						.getListMap()
-						.get(full_key)
-						.addAll(getListAdvsByPosition(currentListPosition
+				getMapFromSoloMap(full_key).get(1).add(item);
+				currentPosition1++;
+			} else if (item.getPosition().getId() == 2) {
+				if (!getMapFromSoloMap(full_key).containsKey(2)) {
+					getMapFromSoloMap(full_key).put(2,
+							new ArrayList<ArticleItem>());
+				}
+				getMapFromSoloMap(full_key).get(2).addAll(
+						getListAdvsByPosition(currentPosition2
 								- DataHelper.solo_list_count));
-				catIndexArticle.getListMap().get(full_key).add(item);
-				currentListPosition++;
+				getMapFromSoloMap(full_key).get(2).add(item);
+				currentPosition2++;
 			}
 		}
 
 		String key = item.getTag();
 		if (!fullKey.contains(key)) {
 			if (item.getPosition().getId() == 1) {
-				if (catIndexArticle.getHeadMap().containsKey(key)) {
-					catIndexArticle.getHeadMap().get(key).add(item);
+				if (!getMapFromSoloMap(key).containsKey(1)) {
+					getMapFromSoloMap(key).put(1, new ArrayList<ArticleItem>());
 				}
+				getMapFromSoloMap(key).get(1).add(item);
 			} else {
-				if (catIndexArticle.getListMap().containsKey(key)) {
-					catIndexArticle.getListMap().get(key).add(item);
+				if (!getMapFromSoloMap(key).containsKey(2)) {
+					getMapFromSoloMap(key).put(2, new ArrayList<ArticleItem>());
 				}
+				getMapFromSoloMap(key).get(2).add(item);
 			}
 		}
+	}
+
+	@SuppressLint("UseSparseArrays")
+	private Map<Integer, List<ArticleItem>> getMapFromSoloMap(String key) {
+		if (!catIndexArticle.getSoloMap().containsKey(key)) {
+			catIndexArticle.getSoloMap().put(key,
+					new HashMap<Integer, List<ArticleItem>>());
+		}
+		return catIndexArticle.getSoloMap().get(key);
+	}
+
+	/**
+	 * 解析links，iweekly视野使用
+	 * 
+	 * @param array
+	 * @return
+	 */
+	private List<String> parseLinks(JSONArray array) {
+		List<String> linkList = new ArrayList<String>();
+		JSONObject object;
+		for (int i = 0; i < array.length(); i++) {
+			object = array.optJSONObject(i);
+			if (isNull(object))
+				continue;
+			linkList.add(object.optString("url", ""));
+		}
+		return linkList;
 	}
 
 	/**
@@ -333,6 +380,22 @@ public class GetCatIndexOperate extends BaseIndexAdvOperate {
 			position.setStyle(obj.optInt("style", -1));
 		}
 		return position;
+	}
+
+	/**
+	 * 解析Property
+	 * 
+	 * @param obj
+	 * @return
+	 */
+	private IndexProperty parseProperty(JSONObject obj) {
+		IndexProperty property = new IndexProperty();
+		if (!isNull(obj)) {
+			property.setLevel(obj.optInt("level", 0));
+			property.setType(obj.optInt("type", 1));
+			property.setHavecard(obj.optInt("havecard", 1));
+		}
+		return property;
 	}
 
 	@Override

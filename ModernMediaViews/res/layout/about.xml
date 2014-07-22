@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_bg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/about_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/index_titlebar_height" >
+
+        <ImageView
+            android:id="@+id/about_back"
+            android:layout_width="@dimen/index_titlebar_height"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/index_titlebar_column_marginLeft"
+            android:contentDescription="@null"
+            android:scaleType="fitXY" />
+
+        <TextView
+            android:id="@+id/about_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/about"
+            android:textColor="@color/black_bg"
+            android:textSize="@dimen/index_titlebar_title_textSize" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/about_bar_divider"
+        android:layout_width="fill_parent"
+        android:layout_height="1.5dip"
+        android:contentDescription="@null"
+        android:scaleType="fitXY" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <ImageView
+            android:id="@+id/about_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:contentDescription="@null" />
+    </RelativeLayout>
+
+</LinearLayout>

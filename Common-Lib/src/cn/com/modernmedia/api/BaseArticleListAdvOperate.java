@@ -67,7 +67,7 @@ public abstract class BaseArticleListAdvOperate extends BaseOperate {
 			return;
 		Map<Integer, List<AdvItem>> advMap = CommonApplication.advList
 				.getAdvMap();
-		if (advMap.isEmpty() || !advMap.containsKey(AdvList.BETWEEN_ARTICLE))
+		if (!ParseUtil.mapContainsKey(advMap, AdvList.BETWEEN_ARTICLE))
 			return;
 		List<AdvItem> list = advMap.get(AdvList.BETWEEN_ARTICLE);
 		if (!ParseUtil.listNotNull(list))

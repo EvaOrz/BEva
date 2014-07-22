@@ -7,11 +7,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStreamWriter;
 
-import android.graphics.Bitmap;
-import android.graphics.Bitmap.CompressFormat;
 import android.os.Environment;
 import android.text.TextUtils;
 
@@ -25,7 +22,6 @@ public class FileManager {
 	private static final String CAT_INDEX_FOLDER = "catindex";
 	private static final String ARTICLE_FOLDER = "article";
 	private static final String SHARE_FOLDER = "share";
-	private static final int DEFAULT_COMPRESS_QUALITY = 100;//
 	private static final String CHARSET = "utf-8";
 	private static String defaultPath = "";
 
@@ -45,40 +41,19 @@ public class FileManager {
 		}
 	}
 
-	/**
-	 * 保存图片至SD卡
-	 * 
-	 * @param bitmap
-	 * @param name
-	 *            图片名称(MD5加密图片url)
-	 */
-	public static void saveImageToFile(InputStream is, String name) {
-		if (TextUtils.isEmpty(name) || is == null)
-			return;
-		saveImage(is, name, true);
-	}
-
-	private static void saveImage(InputStream is, String name, boolean showMd5) {
-		String file_name = name;
-		if (showMd5) {
-			file_name = MD5.MD5Encode(name) + ".img";
+	public static void saveImage(String url, byte[] data) {
+		String path = getDefaultPath() + ConstData.DEFAULT_IMAGE_PATH;
+		File folder = new File(path);
+		if (!folder.exists()) {
+			folder.mkdir();
 		}
-		String imagePath = getDefaultPath() + ConstData.DEFAULT_IMAGE_PATH;
-		File file = new File(imagePath);
-		if (!file.exists()) {
-			file.mkdir();
-		}
-		File picPath = new File(imagePath + file_name);
+		File file = new File(path + MD5.MD5Encode(url) + ".img");
 		BufferedOutputStream bos = null;
+		FileOutputStream fos = null;
 		try {
-			bos = new BufferedOutputStream(new FileOutputStream(picPath), 1024);
-			byte[] buffer = new byte[1024];
-			int size = -1;
-			while ((size = is.read(buffer)) != -1) {
-				bos.write(buffer, 0, size);
-			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			fos = new FileOutputStream(file);
+			bos = new BufferedOutputStream(fos);
+			bos.write(data);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -87,8 +62,8 @@ public class FileManager {
 					bos.flush();
 					bos.close();
 				}
-				if (is != null) {
-					is.close();
+				if (fos != null) {
+					fos.close();
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -96,68 +71,38 @@ public class FileManager {
 		}
 	}
 
-	public static void saveImage(Bitmap bitmap, String name, boolean showMd5) {
-		String file_name = name;
-		if (showMd5) {
-			file_name = MD5.MD5Encode(name) + ".img";
-		}
-		String imagePath = getDefaultPath() + ConstData.DEFAULT_IMAGE_PATH;
-		File file = new File(imagePath);
-		if (!file.exists()) {
-			file.mkdirs();
-		}
-		File picPath = new File(imagePath + file_name);
-		BufferedOutputStream bos = null;
+	public static byte[] getImage(String url) {
+		String path = getDefaultPath() + ConstData.DEFAULT_IMAGE_PATH;
+		path += MD5.MD5Encode(url) + ".img";
+		byte[] buffer = null;
+		FileInputStream fis = null;
+		ByteArrayOutputStream bos = null;
 		try {
-			bos = new BufferedOutputStream(new FileOutputStream(picPath), 1024);
-			if (name.contains(".jpg") || name.contains(".jpeg")
-					|| name.contains("JPG") || name.contains("JPEG")) {
-				bitmap.compress(CompressFormat.JPEG, DEFAULT_COMPRESS_QUALITY,
-						bos);
-			} else {
-				bitmap.compress(CompressFormat.PNG, DEFAULT_COMPRESS_QUALITY,
-						bos);
+			File file = new File(path);
+			if (!file.exists()) {
+				return null;
 			}
-		} catch (FileNotFoundException e) {
+			fis = new FileInputStream(file);
+			bos = new ByteArrayOutputStream();
+			byte[] b = new byte[1024];
+			int n;
+			while ((n = fis.read(b)) != -1) {
+				bos.write(b, 0, n);
+			}
+			buffer = bos.toByteArray();
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				if (bos != null) {
-					bos.flush();
+				if (fis != null)
+					fis.close();
+				if (bos != null)
 					bos.close();
-				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-	}
-
-	/**
-	 * 从SD卡中读取图片
-	 * 
-	 * @param name
-	 * @return
-	 */
-	public static Bitmap getImageFromFile(String name) {
-		return getImageFromFile(name, 0, 0);
-	}
-
-	public static Bitmap getImageFromFile(String name, int width, int height) {
-		if (TextUtils.isEmpty(name))
-			return null;
-		String file_name = MD5.MD5Encode(name);
-		String img_path = getDefaultPath() + ConstData.DEFAULT_IMAGE_PATH
-				+ file_name + ".img";
-		File file = new File(img_path);
-		if (!file.exists()) {
-			return null;
-		}
-		return BitmapUtil.getBitmapByPath(img_path, width, height);
-	}
-
-	public static Bitmap getImageFromFileByPath(String path, int width,
-			int height) {
-		return BitmapUtil.getPhoto(path, width, height);
+		return buffer;
 	}
 
 	/**
@@ -183,7 +128,6 @@ public class FileManager {
 		if (data == null)
 			return;
 		boolean isCrash = name.equals(ConstData.CRASH_NAME);
-		boolean needEncrpyt = ConstData.needEncrpyt(name);
 		String expand = getexpandFolder(name);
 		String dataPath = "";
 		if (!isCrash) {
@@ -207,11 +151,11 @@ public class FileManager {
 			}
 			oStream = new FileOutputStream(saveFile, isCrash);// false:更新文件；true:追加文件
 			writer = new OutputStreamWriter(oStream, CHARSET);
-			if (isCrash || !needEncrpyt) {
-				writer.write(data);
-			} else {
-				writer.write(EncrptUtil.encrpyt2(data));
-			}
+			// if (isCrash || !needEncrpyt) {
+			writer.write(data);
+			// } else {
+			// writer.write(EncrptUtil.encrpyt2(data));
+			// }
 			writer.flush();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -237,7 +181,6 @@ public class FileManager {
 	 */
 	public static String getApiData(String name) {
 		String expand = getexpandFolder(name);
-		boolean needEncrpyt = ConstData.needEncrpyt(name);
 		name = MD5.MD5Encode(name);
 		String data_path = getDefaultPath() + ConstData.getCurrentIssueFold()
 				+ expand + name + ".txt";
@@ -254,11 +197,11 @@ public class FileManager {
 			byte[] result = baos.toByteArray();
 			if (result == null)
 				return null;
-			if (needEncrpyt) {
-				return EncrptUtil.decrypt2(new String(result));
-			} else {
-				return new String(result);
-			}
+			// if (needEncrpyt) {
+			// return EncrptUtil.decrypt2(new String(result));
+			// } else {
+			return new String(result);
+			// }
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			return null;

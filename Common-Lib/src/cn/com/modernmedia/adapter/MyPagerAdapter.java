@@ -16,8 +16,15 @@ import cn.com.modernmedia.CommonApplication;
 import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.util.ParseUtil;
 
-public class MyPagerAdapter extends PagerAdapter {
-	private List<ArticleItem> list = new ArrayList<ArticleItem>();
+/**
+ * 循环viewpager的适配器
+ * 
+ * @author user
+ * 
+ * @param <T>
+ */
+public class MyPagerAdapter<T> extends PagerAdapter {
+	private List<T> list = new ArrayList<T>();
 	private OnItemClickListener onItemClickListener;
 	private Context mContext;
 	/**
@@ -29,12 +36,11 @@ public class MyPagerAdapter extends PagerAdapter {
 		public void onItemClick(View view, int position);
 	}
 
-	public MyPagerAdapter(Context context, List<ArticleItem> list) {
+	public MyPagerAdapter(Context context, List<T> list) {
 		this(context, list, -1);
 	}
 
-	public MyPagerAdapter(Context context, List<ArticleItem> list,
-			int placeholderRes) {
+	public MyPagerAdapter(Context context, List<T> list, int placeholderRes) {
 		mContext = context;
 		this.list = list;
 		this.placeholderRes = placeholderRes;
@@ -61,12 +67,6 @@ public class MyPagerAdapter extends PagerAdapter {
 	@Override
 	public void destroyItem(ViewGroup container, int position, Object object) {
 		container.removeView((View) object);
-		if (list.size() > position) {
-			ArticleItem item = list.get(position);
-			if (item != null && ParseUtil.listNotNull(item.getPictureList()))
-				CommonApplication.getImageDownloader().removeBitmapFromCache(
-						item.getPictureList().get(0), false);
-		}
 		CommonApplication.callGc();
 	}
 
@@ -91,7 +91,10 @@ public class MyPagerAdapter extends PagerAdapter {
 	 * @param item
 	 * @return
 	 */
-	public View fetchView(ArticleItem item) {
+	public View fetchView(T t) {
+		if (!(t instanceof ArticleItem))
+			return new View(mContext);
+		ArticleItem item = (ArticleItem) t;
 		String url = "";
 		if (item != null) {
 			if (item.getAdvSource() != null) {
@@ -99,7 +102,7 @@ public class MyPagerAdapter extends PagerAdapter {
 				url = item.getAdvSource().getUrl();
 			}
 			if (TextUtils.isEmpty(url)) {
-				List<String> list = item.getPictureList();
+				List<String> list = item.getPicList();
 				if (ParseUtil.listNotNull(list)) {
 					url = list.get(0);
 				}
@@ -110,10 +113,10 @@ public class MyPagerAdapter extends PagerAdapter {
 		view.setLayoutParams(new Gallery.LayoutParams(
 				android.widget.Gallery.LayoutParams.FILL_PARENT,
 				android.widget.Gallery.LayoutParams.FILL_PARENT));
-		if (placeholderRes != -1)
+		if (placeholderRes > 0)
 			view.setImageResource(placeholderRes);
 		view.setScaleType(ScaleType.CENTER);
-		CommonApplication.getImageDownloader().download(url, view);
+		CommonApplication.finalBitmap.display(view, url);
 		return view;
 	};
 }

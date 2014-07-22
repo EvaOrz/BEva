@@ -27,8 +27,6 @@
     <string name="read_issue">阅读杂志</string>
     <string name="app_recommend">应用推荐</string>
 
-    <item name="scale_type" type="id"/>
-
     <!-- red_process -->
     <string name="loading_pre">上一篇</string>
     <string name="loading_more">下一篇</string>
@@ -52,7 +50,7 @@
     <string name="reset_password">重置密码</string>
 
     <!-- share -->
-    <string name="share_select">分享方式</string>
+    <string name="share_select">分享到...</string>
     <string name="share_picture_fail">图片分享失败</string>
     <string name="share_to_gallery">保存到相册</string>
     <string name="save_picture_success">图片已保存</string>
@@ -64,7 +62,24 @@
         &lt;a href=\"http://iweek.ly\">http://iweek.ly&lt;/a>&lt;br/>或在Google Play中直接获取 &lt;a
         href=\"https://play.google.com/store/apps/details?id=com.rakutec.android.iweekly\">https://play.google.com/store/apps/details?id=com.rakutec.android.iweekly&lt;/a>&lt;/div></string>
     <string name="cover_share_message">%1$s - %2$s %3$s --分享来自@iWeekly周末画报 Android 版</string>
+    <string name="entry_share_url">阅读全文:\u0020</string>
     <string name="fecthing_http">正在更新数据</string>
     <string name="fecthing_ok">更新成功</string>
+    <string name="weixin_friend">微信好友</string>
+    <string name="weixin_friends">微信朋友圈</string>
+    <string name="sina_weibo">新浪微博</string>
+    <string name="more">更多</string>
+    <string name="weixin_register_error">微信注册失败！</string>
+    <string name="no_weixin">微信尚未安装！</string>
+    <string name="weixin_version_low">微信版本较低，无法发送到朋友圈，请更新！</string>
+    <string name="share_to_weibo_title">分享到微博</string>
+    <string name="send">发送</string>
+    <string name="enter_content">请输入内容！</string>
+
+    <item name="scale_type" type="id"/>
+
+    <!-- 独立栏目 -->
+    <string name="is_lastest">当前已是最新</string>
+    <string name="nomore_data">暂时没有内容</string>
 
 </resources>

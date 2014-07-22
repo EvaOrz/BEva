@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -28,12 +29,18 @@ import cn.com.modernmedia.CommonArticleActivity;
 import cn.com.modernmedia.R;
 import cn.com.modernmedia.util.BitmapUtil;
 import cn.com.modernmedia.util.ConstData;
+import cn.com.modernmedia.util.ModernMediaTools;
+import cn.com.modernmedia.util.sina.SinaAPI;
+import cn.com.modernmedia.util.sina.SinaAuth;
+import cn.com.modernmedia.util.sina.SinaRequestListener;
 import cn.com.modernmedia.widget.ArticleDetailItem;
 
 public class ShareTool {
 	private Context mContext;
-	private static final String SAVE_IMAGE_PATH_NAME = "/"
+	private static final String SHARE_IMAGE_PATH_NAME = "/"
 			+ ConstData.getAppName() + "/temp/";// 分享图片临时文件夹，退出应用删除
+	private static final String SAVE_IMAGE_PATH_NAME = "/"
+			+ ConstData.getAppName() + "/";// 保存图片
 	private String defaultPath = Environment.getExternalStorageDirectory()
 			.getPath();
 	private static final int MAX_HEIGHT = 3000;
@@ -83,7 +90,6 @@ public class ShareTool {
 		File file = createShareBitmap(bitmap);
 		intent.setType(bitmap == null ? "text/*" : "image/*");
 		intent.putExtra(Intent.EXTRA_TEXT, extraText);
-		intent.putExtra(ConstData.SHARE_APP_ID, ConstData.getInitialAppId());
 		if (file != null) {
 			Uri uri = Uri.parse("file://" + file);
 			if (uri != null) {
@@ -95,6 +101,60 @@ public class ShareTool {
 	}
 
 	/**
+	 * 新浪微博分享
+	 * 
+	 * @param extraText
+	 * @param bitmap
+	 */
+	public void shareWithSina(String extraText, Bitmap bitmap) {
+		String path = "";
+		File file = createShareBitmap(bitmap);
+		if (file != null && file.exists())
+			path = file.getAbsolutePath();
+		shareWidthSina(extraText, path);
+	}
+
+	/**
+	 * 分享朋友
+	 * 
+	 * @param extraText
+	 */
+	public void shareToFriend(String extraText) {
+		Intent intent = new Intent();
+		ComponentName comp = new ComponentName("com.tencent.mm",
+				"com.tencent.mm.ui.tools.ShareImgUI");
+		intent.setComponent(comp);
+		intent.setAction("android.intent.action.SEND");
+		intent.setType("image/*");
+		intent.putExtra(Intent.EXTRA_TEXT, extraText);
+		mContext.startActivity(intent);
+	}
+
+	/**
+	 * 分享至朋友圈
+	 * 
+	 * @param bitmap
+	 */
+	public void shareToMoments(Bitmap bitmap) {
+		if (bitmap == null)
+			return;
+		File file = createShareBitmap(bitmap);
+		Intent intent = new Intent();
+		ComponentName comp = new ComponentName("com.tencent.mm",
+				"com.tencent.mm.ui.tools.ShareToTimeLineUI");
+		intent.setComponent(comp);
+		intent.setAction("android.intent.action.SEND");
+		intent.setType("image/*");
+		if (file != null) {
+			Uri uri = Uri.parse("file://" + file);
+			if (uri != null) {
+				intent.putExtra(Intent.EXTRA_STREAM, uri);
+			}
+		}
+		mContext.startActivity(intent);
+	}
+
+	/**
 	 * iweekly分享文章截屏
 	 * 
 	 * @param intent
@@ -102,26 +162,43 @@ public class ShareTool {
 	 * @param bottomResId
 	 *            底部拼接图片的资源id
 	 */
-	public void shareWithScreen(Intent intent, String extraText, int bottomResId) {
+	public void shareWithScreen(String extraText, int bottomResId) {
 		String path = getScreen(bottomResId);
-		intent.setType("image/*");
-		intent.putExtra(Intent.EXTRA_TEXT, extraText);
-		File file = new File(path);
-		if (file != null) {
-			Uri uri = Uri.parse("file://" + file);
-			if (uri != null) {
-				intent.putExtra(Intent.EXTRA_STREAM, uri);
-			}
+		if (TextUtils.isEmpty(path)) {
+			Toast.makeText(mContext, "请检查SD卡", ConstData.TOAST_LENGTH).show();
+			return;
 		}
-		intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-		mContext.startActivity(intent);
+		shareWidthSina(extraText, path);
+	}
+
+	private void shareWidthSina(String content, String path) {
+		SinaAuth auth = new SinaAuth(mContext);
+		if (auth.checkIsOAuthed()) {
+			SinaAPI.getInstance(mContext).sendTextAndImage(content, path,
+					new SinaRequestListener() {
+
+						@Override
+						public void onSuccess(String response) {
+							ModernMediaTools.showToast(mContext,
+									R.string.Weibo_Share_Success);
+						}
+
+						@Override
+						public void onFailed(String error) {
+							ModernMediaTools.showToast(mContext,
+									R.string.Weibo_Share_Error);
+						}
+					});
+		} else {
+			auth.oAuth();
+		}
 	}
 
 	public void saveToGallery(Bitmap bitmap) {
 		// OutputStream outputStream = null;
 		long dateTaken = System.currentTimeMillis();
 		String fileName = createName(dateTaken);
-		File file = createShareBitmap(bitmap, fileName);
+		File file = createShareBitmap(bitmap, fileName, true);
 		if (file == null) {
 			Toast.makeText(mContext, R.string.save_picture_fail,
 					Toast.LENGTH_SHORT).show();
@@ -148,13 +225,14 @@ public class ShareTool {
 				MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
 	}
 
-	private File createShareBitmap(Bitmap bitmap, String fileName) {
+	private File createShareBitmap(Bitmap bitmap, String fileName, boolean save) {
 		if (bitmap == null)
 			return null;
 		if (TextUtils.isEmpty(fileName)) {
 			fileName = createName(0);
 		}
-		String imagePath = defaultPath + SAVE_IMAGE_PATH_NAME;
+		String imagePath = defaultPath
+				+ (save ? SAVE_IMAGE_PATH_NAME : SHARE_IMAGE_PATH_NAME);
 		File file = new File(imagePath);
 		if (!file.exists()) {
 			file.mkdirs();
@@ -181,7 +259,7 @@ public class ShareTool {
 	}
 
 	private File createShareBitmap(Bitmap bitmap) {
-		return createShareBitmap(bitmap, null);
+		return createShareBitmap(bitmap, null, false);
 	}
 
 	private String createName(long dateTaken) {
@@ -234,7 +312,12 @@ public class ShareTool {
 		canvas.drawBitmap(bottom, 0, b.getHeight(), null);
 
 		FileOutputStream fos = null;
-		String screen_path = defaultPath + SAVE_IMAGE_PATH_NAME + createName(0);
+		File file = new File(defaultPath + SHARE_IMAGE_PATH_NAME);
+		if (!file.exists()) {
+			file.mkdirs();
+		}
+		String screen_path = defaultPath + SHARE_IMAGE_PATH_NAME
+				+ createName(0);
 		try {
 			fos = new FileOutputStream(screen_path);
 			if (fos != null) {
@@ -260,7 +343,7 @@ public class ShareTool {
 	 * 离开应用删除临时分享的图片
 	 */
 	public void deleteShareImages() {
-		String dataPath = defaultPath + SAVE_IMAGE_PATH_NAME;
+		String dataPath = defaultPath + SHARE_IMAGE_PATH_NAME;
 		File file = new File(dataPath);
 		if (!file.exists())
 			return;

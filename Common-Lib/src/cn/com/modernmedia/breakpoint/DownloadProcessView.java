@@ -15,11 +15,12 @@ import cn.com.modernmedia.CommonApplication;
 import cn.com.modernmedia.CommonArticleActivity.ArticleType;
 import cn.com.modernmedia.CommonMainActivity;
 import cn.com.modernmedia.R;
+import cn.com.modernmedia.mainprocess.MainProcessPreIssue;
+import cn.com.modernmedia.mainprocess.MainProcessPreIssue.FetchPreviousIssueCallBack;
+import cn.com.modernmedia.mainprocess.MainProcessPreIssue.PreIssusType;
 import cn.com.modernmedia.model.Issue;
 import cn.com.modernmedia.util.ModernMediaTools;
 import cn.com.modernmedia.util.PageTransfer.TransferArticle;
-import cn.com.modernmedia.util.ViewPreviousIssue;
-import cn.com.modernmedia.util.ViewPreviousIssue.FetchPreviousIssueCallBack;
 
 /**
  * 下载往期package时的processbar
@@ -42,7 +43,7 @@ public class DownloadProcessView extends View {
 	private int status = INIT;// false:pause;
 	private BreakPointUtil mUtil;
 	private Issue mIssue;
-	private int mStyle;
+	private PreIssusType mStyle;
 
 	public DownloadProcessView(Context context) {
 		this(context, null);
@@ -87,6 +88,14 @@ public class DownloadProcessView extends View {
 				status = INIT;
 				ModernMediaTools.showToast(mContext, R.string.net_error);
 			}
+
+			@Override
+			public void onPause(int issueId) {
+				if (status == LOADING) {
+					status = PAUSE;
+					System.out.println("PAUSE");
+				}
+			}
 		});
 	}
 
@@ -104,45 +113,31 @@ public class DownloadProcessView extends View {
 		this.status = status;
 	}
 
-	public int getStyle() {
-		return mStyle;
-	}
-
-	public void onClick(final int issueId, int style, final ProgressBar... bars) {
+	public void onClick(final int issueId, PreIssusType style,
+			final ProgressBar... bars) {
 		mStyle = style;
-		if (mIssue != null && mIssue.getId() == issueId) {// 防止adapter复用
-			if (TextUtils.isEmpty(mIssue.getFullPackage())) {
+		if (style == PreIssusType.REFRESH_INDEX) {
+			// TODO 刷新首页
+			if (CommonApplication.manage != null) {
+				CommonApplication.manage.fetchPreIssueIndex(issueId);
 				return;
 			}
-			if (status == LOADING) {
-				status = PAUSE;
-				System.out.println("PAUSE");
-				mUtil.pause();
-			} else if (status == PAUSE) {
-				status = LOADING;
-				System.out.println("reStart");
-				mUtil.reStart();
-			} else if (status == INIT) {
-				ModernMediaTools.downloadPackage(mContext, mIssue, mUtil);
-			} else if (status == DONE) {
-				ModernMediaTools.downloadPackage(mContext, mIssue, mUtil);
-			}
-			setBarVisibility(false, bars);
+		}
+		if (mIssue != null && mIssue.getId() == issueId) {// 防止adapter复用
+			checkPackage(issueId, bars);
 			return;
 		}
 		if (status == HTTP)
 			return;
-		ViewPreviousIssue preIssue = new ViewPreviousIssue(mContext);
+		MainProcessPreIssue preIssue = new MainProcessPreIssue(mContext, null);
 		status = HTTP;
 		setBarVisibility(true, bars);
-		preIssue.getIssue(issueId, style, new FetchPreviousIssueCallBack() {
+		preIssue.getPreIssue(issueId, new FetchPreviousIssueCallBack() {
 
 			@Override
 			public void onSuccess(Issue issue) {
-				setBarVisibility(false, bars);
 				mIssue = issue;
-				status = LOADING;
-				ModernMediaTools.downloadPackage(mContext, issue, mUtil);
+				checkPackage(issueId, bars);
 			}
 
 			@Override
@@ -150,7 +145,48 @@ public class DownloadProcessView extends View {
 				setBarVisibility(false, bars);
 				status = INIT;
 			}
-		});
+		}, style);
+	}
+
+	/**
+	 * 检查下载包是否存在及当前状态，并进行相应的处理
+	 * 
+	 * @param issueId
+	 * @param bars
+	 */
+	private void checkPackage(int issueId, ProgressBar... bars) {
+		if (TextUtils.isEmpty(mIssue.getFullPackage())) {
+			setBarVisibility(false, bars);
+			if (!ModernMediaTools.checkNetWork(mContext)) {
+				status = INIT;
+				ModernMediaTools.showToast(mContext, R.string.net_error);
+			} else {
+				// 没下载包时，从网上访问
+				readOnlineIssue(issueId);
+			}
+			return;
+		}
+		switch (status) {
+		case LOADING:
+			status = PAUSE;
+			mUtil.pause();
+			System.out.println("PAUSE");
+			break;
+		case PAUSE:
+			status = LOADING;
+			System.out.println("reStart");
+			mUtil.reStart();
+			break;
+		case HTTP:
+			status = LOADING;
+		case INIT:
+		case DONE:
+			ModernMediaTools.downloadPackage(mContext, mIssue, mUtil);
+			break;
+		default:
+			break;
+		}
+		setBarVisibility(false, bars);
 	}
 
 	public int getStatus() {
@@ -169,16 +205,14 @@ public class DownloadProcessView extends View {
 	private void doSuccess(String folderName) {
 		System.out.println("doSuccess");
 		if (mContext instanceof CommonMainActivity) {
-			if (mStyle == ViewPreviousIssue.REFRESH_INDEX) {
-				// TODO 如果查看往期之后需要显示当前往期index，则把main activity的issue改为当前issue
-				// ((CommonMainActivity) mContext).setIssue(mIssue);
-				// ((CommonMainActivity) mContext).getCatList();
-			} else if (mStyle == ViewPreviousIssue.GO_TO_ARTICLE) {
+			if (mStyle == PreIssusType.GO_TO_ARTICLE
+					|| mStyle == PreIssusType.Zip_GO_TO_ARTICLE) {
 				ModernMediaTools.showLoading(mContext, false);
+				ModernMediaTools.showLoadView(mContext, 0);
+				CommonApplication.lastIssue = mIssue;
 				CommonApplication.currentIssueId = mIssue.getId();
-				((CommonMainActivity) mContext).setReSetIssueId(true);
-				TransferArticle article = new TransferArticle(mIssue, -1, -1,
-						ArticleType.Default, "", folderName);
+				TransferArticle article = new TransferArticle(-1, -1,
+						ArticleType.Last, "", folderName);
 				((CommonMainActivity) mContext).gotoArticleActivity(article);
 			}
 		}
@@ -198,6 +232,18 @@ public class DownloadProcessView extends View {
 			// useCenter true:扇形；false,椭圆(-90,从12点钟方向开始)
 			canvas.drawArc(oval, -90, mSweepAngle, true, mProcessPaint);
 		}
+	}
+
+	/**
+	 * 从网络上直接读取杂志信息
+	 * 
+	 * @param issueId
+	 */
+	public void readOnlineIssue(int issueId) {
+		status = INIT;
+		CommonApplication.addPreIssueDown(issueId, mUtil);
+		CommonApplication.notityDwonload(issueId, 0);
+		doSuccess("");
 	}
 
 }

@@ -8,13 +8,13 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import cn.com.modernmedia.R;
+import cn.com.modernmedia.model.ShareDialogItem;
 
 /**
  * 分享列表适配器
@@ -22,19 +22,17 @@ import cn.com.modernmedia.R;
  * @author ZhuQiao
  * 
  */
-public class ShareAdapter extends ArrayAdapter<Intent> {
+public class ShareAdapter extends ArrayAdapter<ShareDialogItem> {
 	private Context mContext;
-	private LayoutInflater inflater;
 
 	public ShareAdapter(Context context) {
 		super(context, 0);
 		mContext = context;
-		inflater = LayoutInflater.from(mContext);
 	}
 
-	public void setData(List<Intent> list) {
+	public void setData(List<ShareDialogItem> list) {
 		synchronized (list) {
-			for (Intent item : list) {
+			for (ShareDialogItem item : list) {
 				add(item);
 			}
 		}
@@ -42,45 +40,44 @@ public class ShareAdapter extends ArrayAdapter<Intent> {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		Intent intent = getItem(position);
-		ViewHolder holder = null;
-		if (convertView == null) {
-			convertView = inflater.inflate(R.layout.share_item, null);
-			holder = new ViewHolder();
-			holder.icon = (ImageView) convertView.findViewById(R.id.app_icon);
-			holder.name = (TextView) convertView.findViewById(R.id.app_name);
-			convertView.setTag(holder);
+		ShareDialogItem item = getItem(position);
+		ViewHolder holder = ViewHolder.get(mContext, convertView,
+				R.layout.share_item);
+		ImageView icon = holder.getView(R.id.app_icon);
+		TextView name = holder.getView(R.id.app_name);
+
+		Intent intent = item.getIntent();
+		if (intent == null) {
+			name.setText(item.getName());
+			icon.setImageResource(item.getIcon());
 		} else {
-			holder = (ViewHolder) convertView.getTag();
-		}
-		ApplicationInfo appInfo = null;
-		try {
-			String packageName = intent.getPackage();
-			if (!TextUtils.isEmpty(packageName)) {
-				appInfo = mContext.getPackageManager().getApplicationInfo(
-						packageName, 0);
+			ApplicationInfo appInfo = null;
+			try {
+				String packageName = intent.getPackage();
+				if (!TextUtils.isEmpty(packageName)) {
+					appInfo = mContext.getPackageManager().getApplicationInfo(
+							packageName, 0);
+				}
+			} catch (NameNotFoundException e) {
+				e.printStackTrace();
 			}
-		} catch (NameNotFoundException e) {
-			e.printStackTrace();
+			if (appInfo != null) {
+				Drawable appIcon = appInfo.loadIcon(mContext
+						.getPackageManager());
+				icon.setImageDrawable(appIcon);
+				String appName = (String) appInfo.loadLabel(mContext
+						.getPackageManager());
+				name.setText(appName == null ? "" : appName);
+			} else {
+				icon.setImageDrawable(null);
+				name.setText("");
+			}
+			if (Intent.ACTION_VIEW.equals(intent.getAction())) {
+				name.setText(R.string.share_to_gallery);
+			}
 		}
-		if (appInfo != null) {
-			Drawable appIcon = appInfo.loadIcon(mContext.getPackageManager());
-			holder.icon.setImageDrawable(appIcon);
-			String appName = (String) appInfo.loadLabel(mContext
-					.getPackageManager());
-			holder.name.setText(appName == null ? "" : appName);
-		} else {
-			holder.icon.setImageDrawable(null);
-			holder.name.setText("");
-		}
-		if (Intent.ACTION_VIEW.equals(intent.getAction())) {
-			holder.name.setText(R.string.share_to_gallery);
-		}
-		return convertView;
+
+		return holder.getConvertView();
 	}
 
-	private class ViewHolder {
-		TextView name;
-		ImageView icon;
-	}
 }

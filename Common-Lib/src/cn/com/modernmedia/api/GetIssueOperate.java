@@ -2,6 +2,7 @@ package cn.com.modernmedia.api;
 
 import org.json.JSONObject;
 
+import android.text.TextUtils;
 import cn.com.modernmedia.CommonApplication;
 import cn.com.modernmedia.model.Issue;
 import cn.com.modernmedia.util.ConstData;
@@ -17,10 +18,16 @@ import cn.com.modernmedia.util.FileManager;
 public class GetIssueOperate extends BaseOperate {
 	private String url;
 	private Issue issue;
+	private String issueId;
+	private boolean hasNewIssue;
 
 	protected GetIssueOperate(int page, String issueId) {
 		url = UrlMaker.getIssueUrl(page, issueId);
 		issue = new Issue();
+		this.issueId = issueId;
+		hasNewIssue = false;
+		DataHelper.clear();
+		DataHelper.clearSoloMap();
 	}
 
 	protected Issue getIssue() {
@@ -50,20 +57,23 @@ public class GetIssueOperate extends BaseOperate {
 	 * @param issue
 	 */
 	private void compareData(Issue issue) {
-		// 比较获取的期id与上一次保存的是否相同
-		int oldIssueId = DataHelper.getIssueId(CommonApplication.mContext);
-		if (oldIssueId == issue.getId()) {
-			CommonApplication.issueIdSame = true;
+		if (!TextUtils.isEmpty(issueId)) {
+			// TODO 如果是获取特定一期，比较这一期的updatetime
 		} else {
-			if (oldIssueId != -1 || CommonApplication.isFetchPush) {
-				CommonApplication.oldIssueId = oldIssueId;
-				// 以前保存过一期，但有了新的一期
-				CommonApplication.hasNewIssue = true;
+			// 比较获取的期id与上一次保存的是否相同
+			int oldIssueId = DataHelper.getIssueId(CommonApplication.mContext);
+			if (oldIssueId == issue.getId()) {
+				CommonApplication.issueIdSame = true;
+			} else {
+				if (oldIssueId != -1) {
+					// 以前保存过一期，但有了新的一期
+					hasNewIssue = true;
+				}
+				updateIssue(issue);
+				updateColumn(issue);
+				updateArticle(issue);
+				return;
 			}
-			updateIssue(issue);
-			updateColumn(issue);
-			updateArticle(issue);
-			return;
 		}
 
 		long oldColumnTime = DataHelper.getColumnUpdateTime(
@@ -92,7 +102,7 @@ public class GetIssueOperate extends BaseOperate {
 	 */
 	private void updateIssue(Issue issue) {
 		CommonApplication.issueIdSame = false;
-		if (!CommonApplication.hasNewIssue)
+		if (!hasNewIssue)
 			DataHelper.setIssueId(CommonApplication.mContext, issue.getId());
 	}
 
@@ -103,7 +113,7 @@ public class GetIssueOperate extends BaseOperate {
 	 */
 	private void updateColumn(Issue issue) {
 		CommonApplication.columnUpdateTimeSame = false;
-		if (!CommonApplication.hasNewIssue)
+		if (!hasNewIssue)
 			FileManager.deleteCatIndexFile();
 		// TODO 当获取index成功后更新
 		// if (!MyApplication.hasNewIssue)
@@ -118,7 +128,7 @@ public class GetIssueOperate extends BaseOperate {
 	 */
 	private void updateArticle(Issue issue) {
 		CommonApplication.articleUpdateTimeSame = false;
-		if (!CommonApplication.hasNewIssue) {
+		if (!hasNewIssue) {
 			FileManager.deleteArticleFile();
 			FileManager.deleteShareFile();
 		}

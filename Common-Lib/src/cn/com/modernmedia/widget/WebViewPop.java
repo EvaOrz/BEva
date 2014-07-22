@@ -8,6 +8,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnKeyListener;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import cn.com.modernmedia.R;
 import cn.com.modernmediaslate.model.Favorite.FavoriteItem;
@@ -19,16 +20,16 @@ public class WebViewPop {
 
 	public WebViewPop(Context context, String link) {
 		mContext = context;
-		view = new ArticleDetailItem(mContext) {
+		view = new ArticleDetailItem(mContext, false, true) {
 
 			@Override
-			public void showGallery(List<String> urlList) {
+			public void showGallery(List<String> urlList, String currentUrl) {
 			}
 
 			@Override
-			public int getBackGroundRes() {
-				return -1;
+			public void setBackGroundRes(ImageView imageView) {
 			}
+
 		};
 		FavoriteItem item = new FavoriteItem();
 		item.setLink(link);

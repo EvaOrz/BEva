@@ -12,4 +12,6 @@
     <color name="process_loading_ring_bg">#ff292929</color>
     <color name="process_loading_red_ring">#ffb83126</color>
 
+    <!-- 半透明黑色 -->
+    <color name="translucent_black">#7f000000</color>
 </resources>

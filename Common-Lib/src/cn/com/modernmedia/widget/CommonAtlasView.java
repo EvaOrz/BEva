@@ -57,23 +57,50 @@ public abstract class CommonAtlasView extends BaseView {
 		}
 	}
 
+	/**
+	 * 获取普通文章图集
+	 * 
+	 * @param item
+	 */
 	private void getArticleById(FavoriteItem item) {
 		OperateController.getInstance(mContext).getArticleById(item,
 				new FetchEntryListener() {
 
 					@Override
-					public void setData(final Entry entry) {
-						if (entry instanceof Atlas) {
-							setValuesForWidget((Atlas) entry);
-							disProcess();
-						} else {
-							showError();
-						}
+					public void setData(Entry entry) {
+						doAfterFetchArticle(entry);
 					}
 				});
 	}
 
+	/**
+	 * 获取独立栏目文章图集
+	 * 
+	 * @param item
+	 */
 	protected void getSoloArticleById(FavoriteItem item) {
+		OperateController.getInstance(mContext).getSoloArticleById(item,
+				new FetchEntryListener() {
+
+					@Override
+					public void setData(Entry entry) {
+						doAfterFetchArticle(entry);
+					}
+				});
+	}
+
+	/**
+	 * 设置value
+	 * 
+	 * @param entry
+	 */
+	private void doAfterFetchArticle(Entry entry) {
+		if (entry instanceof Atlas) {
+			setValuesForWidget((Atlas) entry);
+			disProcess();
+		} else {
+			showError();
+		}
 	}
 
 	protected void setValuesForWidget(Atlas atlas) {

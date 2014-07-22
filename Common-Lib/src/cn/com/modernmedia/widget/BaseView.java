@@ -9,11 +9,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 import cn.com.modernmedia.BaseFragmentActivity;
 import cn.com.modernmedia.R;
 import cn.com.modernmedia.Fragment.BaseFragment;
-import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmedia.util.UriParse;
 import cn.com.modernmediaslate.model.Entry;
 
@@ -58,8 +56,8 @@ public abstract class BaseView extends RelativeLayout {
 	 */
 	public void showLoading() {
 		if (process_layout == null) {
-			Toast.makeText(mContext, "未初始化process!!", ConstData.TOAST_LENGTH)
-					.show();
+			// Toast.makeText(mContext, "未初始化process!!", ConstData.TOAST_LENGTH)
+			// .show();
 			return;
 		}
 		process_layout.setVisibility(View.VISIBLE);
@@ -72,8 +70,8 @@ public abstract class BaseView extends RelativeLayout {
 	 */
 	public void showError() {
 		if (process_layout == null) {
-			Toast.makeText(mContext, "未初始化process!!", ConstData.TOAST_LENGTH)
-					.show();
+			// Toast.makeText(mContext, "未初始化process!!", ConstData.TOAST_LENGTH)
+			// .show();
 			return;
 		}
 		process_layout.setVisibility(View.VISIBLE);
@@ -86,8 +84,8 @@ public abstract class BaseView extends RelativeLayout {
 	 */
 	public void disProcess() {
 		if (process_layout == null) {
-			Toast.makeText(mContext, "未初始化process!!", ConstData.TOAST_LENGTH)
-					.show();
+			// Toast.makeText(mContext, "未初始化process!!", ConstData.TOAST_LENGTH)
+			// .show();
 			return;
 		}
 		process_layout.setVisibility(View.GONE);
@@ -102,8 +100,7 @@ public abstract class BaseView extends RelativeLayout {
 	 * 
 	 * @param entries
 	 *            [0] ArticleItem;[1]TransferArticle(如果没有uri，
-	 *            那么取传来的这个TransferArticle的ArticleType
-	 *            ；否则，根据uri判断ArticleType);[2]issue...
+	 *            那么取传来的这个TransferArticle的ArticleType ；否则，根据uri判断ArticleType)...
 	 * @param cls
 	 *            [0]为特定的文章页
 	 */

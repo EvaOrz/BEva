@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.com.modernmedia.model.Cat.CatItem;
-import cn.com.modernmedia.model.Cat.CatProperty;
 import cn.com.modernmediaslate.model.Entry;
 
 /**
@@ -30,7 +29,6 @@ public class SoloColumn extends Entry {
 		private List<SoloColumnChild> list = new ArrayList<SoloColumnChild>();
 		private String columnUpdateTime = "0";
 		private String articleUpdateTime = "0";
-		private CatProperty property = new CatProperty();
 
 		public List<SoloColumnChild> getList() {
 			return list;
@@ -56,14 +54,6 @@ public class SoloColumn extends Entry {
 			this.articleUpdateTime = articleUpdateTime;
 		}
 
-		public CatProperty getProperty() {
-			return property;
-		}
-
-		public void setProperty(CatProperty property) {
-			this.property = property;
-		}
-
 	}
 
 	public static class SoloColumnChild extends Entry {
@@ -71,9 +61,18 @@ public class SoloColumn extends Entry {
 		public static String FULL_TYPE = "full";
 		public static String SELF_TYPE = "self";
 
+		private int parentId;
 		private String name = "";
 		private String color = "";// eg:25,67,171;转成16进制rgb
 		private String type = "";// full显示所有数据；self显示自己的数据
+
+		public int getParentId() {
+			return parentId;
+		}
+
+		public void setParentId(int parentId) {
+			this.parentId = parentId;
+		}
 
 		public String getName() {
 			return name;

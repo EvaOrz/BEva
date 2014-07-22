@@ -128,14 +128,9 @@ public class UserConstData {
 	/**
 	 * 初始化用户模块相关Class
 	 * 
-	 * @param loginClass
-	 * @param userInfoClass
 	 * @param articleClass
 	 */
-	public static void initClass(Class<?> loginClass, Class<?> userInfoClass,
-			Class<?> articleClass) {
-		UserConstData.userInfoClass = userInfoClass;
-		UserConstData.loginClass = loginClass;
+	public static void initClass(Class<?> articleClass) {
 		UserConstData.articleClass = articleClass;
 	}
 

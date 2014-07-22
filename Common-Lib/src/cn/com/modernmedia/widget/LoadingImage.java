@@ -43,13 +43,18 @@ public class LoadingImage extends RelativeLayout implements
 
 	public void setUrl(String url) {
 		imageView.setImageBitmap(null);
-		if (!TextUtils.isEmpty(tag))
+		if (!TextUtils.isEmpty(tag)) {
 			imageView.setTag(R.id.scale_type, tag);
+		}
 		loading();
 		if (TextUtils.isEmpty(url))
 			return;
-		CommonApplication.getImageDownloader().download(url, imageView, width,
-				height, this);
+		CommonApplication.finalBitmap.display(imageView, url, width, height,
+				this);
+	}
+
+	public RedProcess getProcess() {
+		return process;
 	}
 
 	@Override
@@ -62,6 +67,7 @@ public class LoadingImage extends RelativeLayout implements
 	public void loadOk(Bitmap bitmap) {
 		process.stop();
 		process.setVisibility(View.GONE);
+		imageView.setImageBitmap(bitmap);
 	}
 
 	@Override

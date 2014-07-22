@@ -60,6 +60,8 @@ public class UserModelInterface {
 						user.setLogined(true);
 						// 将相关信息用SharedPreferences存储
 						UserDataHelper.saveUserLoginInfo(mContext, user);
+						UserDataHelper.saveAvatarUrl(mContext,
+								user.getUserName(), user.getAvatar());
 						listener.onSuccess(user);
 					} else {
 						// 登录失败

@@ -9,19 +9,18 @@ import cn.com.modernmedia.model.AdvList.AdvSource;
 
 public class AdvTest {
 	public static void addRuBanLohasTest(AdvList advList) {
-		// AdvItem item = new AdvItem();
-		// item.setAdvType(1);
-		// item.setIssueId("*");
-		// item.setEffects(AdvList.ILOHAS);
-		// item.setStartTime("1378200121");
-		// item.setEndTime("1378372945");
-		// item.getPicList().add(new AdvPic());
-		// item.getPicList()
-		// .get(0)
-		// .setUrl("http://s1.cdn.imlady.bbwc.cn/issue_255/articles/22248/2013/0829/20130829064015896_640x0.jpg");
-		// List<AdvItem> list = new ArrayList<AdvItem>();
-		// list.add(item);
-		// advList.getAdvMap().put(item.getAdvType(), list);
+		AdvItem item = new AdvItem();
+		item.setAdvType(1);
+		item.setIssueId("*");
+		item.setEffects(AdvList.ILOHAS);
+		item.setStartTime("1393383693");
+		item.setEndTime("1393483693");
+		AdvSource advSource = new AdvSource();
+		advSource.setUrl("http://s1.cdn.imlady.bbwc.cn/issue_255/articles/22248/2013/0829/20130829064015896_640x0.jpg");
+		item.getSourceList().add(advSource);
+		List<AdvItem> list = new ArrayList<AdvItem>();
+		list.add(item);
+		advList.getAdvMap().put(item.getAdvType(), list);
 	}
 
 	public static void addRuBanWeeklyTest(AdvList advList) {

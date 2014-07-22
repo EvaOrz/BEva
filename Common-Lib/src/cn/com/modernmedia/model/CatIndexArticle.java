@@ -3,7 +3,10 @@ package cn.com.modernmedia.model;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import android.annotation.SuppressLint;
+import cn.com.modernmedia.util.ParseUtil;
 import cn.com.modernmediaslate.model.Entry;
 
 /**
@@ -16,27 +19,20 @@ public class CatIndexArticle extends Entry {
 	private static final long serialVersionUID = 1L;
 	private int id = -1;// 栏目ID
 	/**
-	 * 文章列表,普通栏目列表
+	 * key:position;value:文章列表
 	 */
-	private List<ArticleItem> articleItemList = new ArrayList<ArticleItem>();
-	/**
-	 * 上面大图展示,普通栏目列表
-	 */
-	private List<ArticleItem> titleActicleList = new ArrayList<ArticleItem>();
+	@SuppressLint("UseSparseArrays")
+	private Map<Integer, List<ArticleItem>> map = new HashMap<Integer, List<ArticleItem>>();
 
 	/**
 	 * 是否有数据 ，solo栏目
 	 */
 	private boolean hasData = true;
-	/**
-	 * 按照不同的栏目加载其需要的数据,列表，solo栏目
-	 */
-	private HashMap<String, List<ArticleItem>> listMap = new HashMap<String, List<ArticleItem>>();
 
 	/**
 	 * 按照不同的栏目加载其需要的数据,焦点图，solo栏目
 	 */
-	private HashMap<String, List<ArticleItem>> headMap = new HashMap<String, List<ArticleItem>>();
+	private Map<String, Map<Integer, List<ArticleItem>>> soloMap = new HashMap<String, Map<Integer, List<ArticleItem>>>();
 
 	public String fullKeyTag = "";
 
@@ -60,20 +56,12 @@ public class CatIndexArticle extends Entry {
 		this.id = id;
 	}
 
-	public List<ArticleItem> getArticleItemList() {
-		return articleItemList;
+	public Map<Integer, List<ArticleItem>> getMap() {
+		return map;
 	}
 
-	public void setArticleItemList(List<ArticleItem> articleItemList) {
-		this.articleItemList = articleItemList;
-	}
-
-	public List<ArticleItem> getTitleActicleList() {
-		return titleActicleList;
-	}
-
-	public void setTitleActicleList(List<ArticleItem> titleActicleList) {
-		this.titleActicleList = titleActicleList;
+	public void setMap(Map<Integer, List<ArticleItem>> map) {
+		this.map = map;
 	}
 
 	public boolean isHasData() {
@@ -84,20 +72,12 @@ public class CatIndexArticle extends Entry {
 		this.hasData = hasData;
 	}
 
-	public HashMap<String, List<ArticleItem>> getListMap() {
-		return listMap;
+	public Map<String, Map<Integer, List<ArticleItem>>> getSoloMap() {
+		return soloMap;
 	}
 
-	public void setListMap(HashMap<String, List<ArticleItem>> listMap) {
-		this.listMap = listMap;
-	}
-
-	public HashMap<String, List<ArticleItem>> getHeadMap() {
-		return headMap;
-	}
-
-	public void setHeadMap(HashMap<String, List<ArticleItem>> headMap) {
-		this.headMap = headMap;
+	public void setSoloMap(Map<String, Map<Integer, List<ArticleItem>>> soloMap) {
+		this.soloMap = soloMap;
 	}
 
 	public String getFullKeyTag() {
@@ -114,6 +94,11 @@ public class CatIndexArticle extends Entry {
 
 	public void setImpressionUrlList(List<String> impressionUrlList) {
 		this.impressionUrlList = impressionUrlList;
+	}
+
+	public boolean hasData(int position) {
+		return map.containsKey(position)
+				&& ParseUtil.listNotNull(map.get(position));
 	}
 
 	public static class SoloColumnIndexItem extends Entry {

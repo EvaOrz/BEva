@@ -16,6 +16,7 @@ import android.widget.HorizontalScrollView;
 import cn.com.modernmedia.listener.ScrollCallBackListener;
 import cn.com.modernmedia.listener.ScrollStateListener;
 import cn.com.modernmedia.listener.SizeCallBack;
+import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmedia.util.LogHelper;
 import cn.com.modernmedia.util.ParseUtil;
 
@@ -40,8 +41,7 @@ public class MainHorizontalScrollView extends HorizontalScrollView {
 	private View leftButton, rightButton;// 切换至左边view的button
 	private int current;// 当前滑动的位置
 	private int left_max_width, right_max_width, mid_right;// 显示左边最大滑动距离
-	private List<View> needsScrollViewList = new ArrayList<View>();// 需要自己单独滑动的view
-	private AtlasViewPager atlasViewPager;// 需要自己滑动的view(第2页至最后第2页)
+	private List<View> needsScrollViewList = new ArrayList<View>();// 需要自己单独滑动的view(可能有多个)
 	private boolean passToUp = false;// 传递给上层页面执行touch事件
 	private ScrollCallBackListener listener;
 	private static final long MIN_TIME = 500;
@@ -51,6 +51,7 @@ public class MainHorizontalScrollView extends HorizontalScrollView {
 	private VelocityTracker velocityTracker;// 判断滑动速率
 	private static final int SNAP_VELOCITY = 2000;// 最低滑动速率
 	private FecthViewSizeListener viewListener;
+	private boolean intercept;// 拦截掉滑动
 
 	/**
 	 * 扩展过后左右view的宽度
@@ -89,10 +90,10 @@ public class MainHorizontalScrollView extends HorizontalScrollView {
 		this.setFillViewport(true);
 		this.setVisibility(View.INVISIBLE);
 		this.setFadingEdgeLength(0);
+		clearNeedsScrollView();
 		me = this;
 		leftOut = false;
 		rightOut = false;
-		needsScrollViewList.clear();
 		scrollTask = new Runnable() {
 
 			@Override
@@ -150,21 +151,13 @@ public class MainHorizontalScrollView extends HorizontalScrollView {
 		this.listener = listener;
 	}
 
-	public void setNeedsScrollView(View needsScrollView) {
-		if (needsScrollView != null) {
-			if (needsScrollViewList.contains(needsScrollView))
-				removeScrollView(needsScrollView);
+	public void addNeedsScrollView(View needsScrollView) {
+		if (!needsScrollViewList.contains(needsScrollView))
 			needsScrollViewList.add(needsScrollView);
-		}
 	}
 
-	public void removeScrollView(View needsScrollView) {
-		if (needsScrollView != null)
-			needsScrollViewList.remove(needsScrollView);
-	}
-
-	public void setAtlasViewPager(AtlasViewPager atlasViewPager) {
-		this.atlasViewPager = atlasViewPager;
+	public void clearNeedsScrollView() {
+		needsScrollViewList.clear();
 	}
 
 	public void setPassToUp(boolean passToUp) {
@@ -173,6 +166,10 @@ public class MainHorizontalScrollView extends HorizontalScrollView {
 
 	public void setViewListener(FecthViewSizeListener viewListener) {
 		this.viewListener = viewListener;
+	}
+
+	public void setIntercept(boolean intercept) {
+		this.intercept = intercept;
 	}
 
 	/**
@@ -195,7 +192,7 @@ public class MainHorizontalScrollView extends HorizontalScrollView {
 	 * @param flag
 	 *            0:显示index;1:显示left;2:显示right
 	 */
-	private void viewSlide(int flag, boolean smooth) {
+	public void viewSlide(int flag, boolean smooth) {
 		if (flag == 0) {
 			leftOut = false;
 			rightOut = false;
@@ -207,23 +204,54 @@ public class MainHorizontalScrollView extends HorizontalScrollView {
 			scrollWidth = 0;
 			scrollToDestination(0, smooth);
 			LogHelper.logOpenColumnList(mContext);
+			if (intercept && leftView != null
+					&& leftView.getVisibility() != View.VISIBLE) {
+				leftView.setVisibility(View.VISIBLE);
+			}
+			if (intercept && rightView != null
+					&& rightView.getVisibility() != View.GONE) {
+				rightView.setVisibility(View.GONE);
+			}
 		} else {
 			leftOut = false;
 			rightOut = true;
 			scrollWidth = right_max_width;
 			scrollToDestination(right_max_width, smooth);
 			LogHelper.logOpenFavoriteArticleList();
+			if (intercept && rightView != null
+					&& rightView.getVisibility() != View.VISIBLE) {
+				rightView.setVisibility(View.VISIBLE);
+			}
+			if (intercept && leftView != null
+					&& leftView.getVisibility() != View.GONE) {
+				leftView.setVisibility(View.GONE);
+			}
 		}
 		if (listener != null)
 			listener.showIndex(flag);
 		moveOut = 0;
 	}
 
+	boolean isClick;
+
 	private void scrollToDestination(int destination, boolean smooth) {
+		isClick = true;
 		if (smooth)
 			this.smoothScrollTo(destination, 0);
 		else
 			this.scrollTo(destination, 0);
+	}
+
+	@Override
+	public void scrollTo(int x, int y) {
+		if (intercept) {
+			if (isClick) {
+				super.scrollTo(x, y);
+				isClick = false;
+			}
+		} else {
+			super.scrollTo(x, y);
+		}
 	}
 
 	/**
@@ -231,6 +259,9 @@ public class MainHorizontalScrollView extends HorizontalScrollView {
 	 */
 	@Override
 	protected void onScrollChanged(int l, int t, int oldl, int oldt) {
+		if (intercept) {
+			return;
+		}
 		super.onScrollChanged(l, t, oldl, oldt);
 		current = l;
 		checkCurrent(false, true);
@@ -264,6 +295,13 @@ public class MainHorizontalScrollView extends HorizontalScrollView {
 				viewSlide(0, smooth);
 			else
 				viewSlide(2, smooth);
+		} else {
+			if (ConstData.getInitialAppId() == 102) {
+				// 灵感有点问题
+				if (current == 0) {
+					viewSlide(0, false);
+				}
+			}
 		}
 	}
 
@@ -322,40 +360,67 @@ public class MainHorizontalScrollView extends HorizontalScrollView {
 	 */
 	@Override
 	public boolean onInterceptTouchEvent(MotionEvent ev) {
+		if (intercept)
+			return false;
 		if (passToUp)
 			return false;
-		if (checkChild(ev)) {
+		if (checkChilds(ev))
 			return false;
-		}
-		if (atlasViewPager != null) {
-			Rect rect = new Rect();
-			// 获取该gallery相对于全局的坐标点
-			atlasViewPager.getGlobalVisibleRect(rect);
-			if (rect.contains((int) ev.getX(), (int) ev.getY())) {
-				if (!lockScroll(atlasViewPager, ev))
-					return false;
-			}
-		}
 		if (adjustAngle(ev)) {
 			return false;
 		}
 		return super.onInterceptTouchEvent(ev);
 	}
 
-	private boolean checkChild(MotionEvent ev) {
+	private boolean checkChilds(MotionEvent ev) {
 		boolean inChild = false;
-		if (ParseUtil.listNotNull(needsScrollViewList)) {
-			for (View view : needsScrollViewList) {
-				Rect rect = new Rect();
-				// 获取该gallery相对于全局的坐标点
-				view.getGlobalVisibleRect(rect);
-				if (rect.contains((int) ev.getX(), (int) ev.getY())) {
-					inChild = true;
-					break;
-				}
+		if (!ParseUtil.listNotNull(needsScrollViewList))
+			return inChild;
+		for (View child : needsScrollViewList) {
+			if (child == null)
+				continue;
+			if (child instanceof AtlasViewPager) {
+				inChild = checkAtlasPager(ev, (AtlasViewPager) child);
+			} else {
+				inChild = checkNormalChild(ev, child);
 			}
+			if (inChild)
+				break;
 		}
 		return inChild;
+	}
+
+	/**
+	 * 判断普通child(只自己滑动)
+	 * 
+	 * @param ev
+	 * @param child
+	 * @return
+	 */
+	private boolean checkNormalChild(MotionEvent ev, View child) {
+		Rect rect = new Rect();
+		child.getGlobalVisibleRect(rect);
+		if (rect.contains((int) ev.getX(), (int) ev.getY())) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * 判断文章图集样式的child(第2页至最后第2页)
+	 * 
+	 * @param ev
+	 * @param child
+	 * @return
+	 */
+	private boolean checkAtlasPager(MotionEvent ev, AtlasViewPager child) {
+		Rect rect = new Rect();
+		// 获取该gallery相对于全局的坐标点
+		child.getGlobalVisibleRect(rect);
+		if (rect.contains((int) ev.getX(), (int) ev.getY())) {
+			return !lockScroll(child, ev);
+		}
+		return false;
 	}
 
 	/**
@@ -414,6 +479,8 @@ public class MainHorizontalScrollView extends HorizontalScrollView {
 
 	@Override
 	public boolean onTouchEvent(MotionEvent ev) {
+		if (intercept)
+			return false;
 		if (current == left_max_width) {
 		}
 
@@ -511,21 +578,26 @@ public class MainHorizontalScrollView extends HorizontalScrollView {
 	 * 初始化水平滑动的最大距离
 	 */
 	private void initWidgetWidth() {
-		if (left_max_width == 0) {
-			left_max_width = leftView.getMeasuredWidth()
+		if (leftView.getVisibility() == View.GONE) {
+			left_max_width = 0;
+			scrollWidth = rightView.getMeasuredWidth()
+					- rightButton.getMeasuredWidth() - LEFT_ENLARGE_WIDTH;
+		} else if (left_max_width == 0) {
+			scrollWidth = leftView.getMeasuredWidth()
 					- leftButton.getMeasuredWidth() - LEFT_ENLARGE_WIDTH;
+			left_max_width = scrollWidth;
 		}
 		if (right_max_width == 0) {
 			if (rightButton.getVisibility() == View.VISIBLE)
-				right_max_width = left_max_width + leftView.getMeasuredWidth()
+				right_max_width = left_max_width + rightView.getMeasuredWidth()
 						- rightButton.getMeasuredWidth() - RIGHT_ENLARGE_WIDTH;
 			else
 				// iweekly右边按钮可能是隐藏的
 				right_max_width = left_max_width + leftView.getMeasuredWidth()
 						- leftButton.getMeasuredWidth() - RIGHT_ENLARGE_WIDTH;
 		}
-		mid_right = right_max_width - left_max_width / 2;
-		leftView.getLayoutParams().width = left_max_width;
+		mid_right = right_max_width - scrollWidth / 2;
+		leftView.getLayoutParams().width = scrollWidth;
 		if (rightView != null)
 			if (rightButton.getVisibility() == View.VISIBLE)
 				rightView.setPadding(rightButton.getMeasuredWidth()
@@ -534,9 +606,8 @@ public class MainHorizontalScrollView extends HorizontalScrollView {
 				// iweekly右边按钮可能是隐藏的
 				rightView.setPadding(leftButton.getMeasuredWidth()
 						+ RIGHT_ENLARGE_WIDTH, 0, 0, 0);
-		scrollWidth = left_max_width;
 		if (viewListener != null)
-			viewListener.fetchViewWidth(left_max_width);
+			viewListener.fetchViewWidth(scrollWidth);
 	}
 
 	/**
@@ -592,17 +663,24 @@ public class MainHorizontalScrollView extends HorizontalScrollView {
 					leftCallBack.onGlobalLayout(ParseUtil.stoi(children[i]
 							.getTag().toString()));
 				leftCallBack.getViewSize(i, width, height, dims);
-				if (children[i].getVisibility() != View.GONE)
+				if (children[i].getVisibility() != View.GONE) {
 					children[i].setVisibility(View.VISIBLE);
-
-				parent.addView(children[i], dims[0], dims[1]);
+					parent.addView(children[i], dims[0], dims[1]);
+				}
 				if (i == 0) {
 					scrollToViewPos += dims[0];
 				}
 			}
+
+			if (children[0].getVisibility() == View.GONE) {
+				// 没有左边的
+				scrollToViewPos = 0;
+			}
+
 			new Handler().post(new Runnable() {
 				@Override
 				public void run() {
+					isClick = true;
 					me.scrollBy(scrollToViewPos, 0);
 
 					/* 视图不是中间视图 */

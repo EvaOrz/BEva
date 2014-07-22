@@ -371,6 +371,8 @@ public class CardDetailActivity extends BaseActivity implements OnClickListener 
 					if (error.getNo() == 0) {
 						isDataModified = true;
 						mCard.getCardItemList().remove(index);
+						cardItemList = mCard.getCardItemList(); // 状态栏按钮设置用
+						setNavBtnStatus(); //更新状态栏按钮
 						if (mCard.getCardItemList().size() != 0) { // 不是删除最后一个
 							pagerAdapter.setPagerData(mCard, mComments);
 							pagerAdapter.notifyDataSetChanged();

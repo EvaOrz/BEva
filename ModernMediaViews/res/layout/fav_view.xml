@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fav_contain"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <ImageView
+        android:id="@+id/fav_top_image"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@null"
+        android:scaleType="fitXY" />
+
+    <RelativeLayout
+        android:id="@+id/fav_titlebar"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/index_titlebar_height"
+        android:layout_below="@+id/fav_top_image" >
+
+        <TextView
+            android:id="@+id/fav_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/fav"
+            android:textColor="@color/white_bg"
+            android:textSize="@dimen/dp20_textsize" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/fav_head_shadow"
+        android:layout_width="fill_parent"
+        android:layout_height="1.5dp"
+        android:layout_below="@+id/fav_titlebar"
+        android:contentDescription="@null"
+        android:scaleType="fitXY" />
+
+    <ListView
+        android:id="@+id/fav_list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/fav_head_shadow"
+        android:cacheColorHint="@null"
+        android:divider="@null"
+        android:fadingEdge="none" />
+
+</RelativeLayout>

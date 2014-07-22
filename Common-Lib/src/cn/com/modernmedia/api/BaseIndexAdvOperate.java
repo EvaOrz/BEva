@@ -26,11 +26,11 @@ public abstract class BaseIndexAdvOperate extends BaseOperate {
 	/**
 	 * 当前解析到的焦点图的位置
 	 */
-	protected int currentTitlePosition = 0;
+	protected int currentPosition1 = 0;
 	/**
 	 * 当前解析到的列表图的位置
 	 */
-	protected int currentListPosition = 0;
+	protected int currentPosition2 = 0;
 	protected List<String> impressionUrlList = new ArrayList<String>();
 	/**
 	 * 焦点图广告 key:sort // *
@@ -40,7 +40,7 @@ public abstract class BaseIndexAdvOperate extends BaseOperate {
 	 * // * @cause
 	 * 如果先排具体的位置，再添加带*的，插入带*的就会把原来的顺序打乱了，导致原来排的具体位置出现偏移，所以等排完带*的内容之后统一排
 	 */
-	protected TreeMap<String, List<ArticleItem>> titleAdvMap = new TreeMap<String, List<ArticleItem>>(
+	protected TreeMap<String, List<ArticleItem>> position1Map = new TreeMap<String, List<ArticleItem>>(
 			new Comparator<String>() {
 
 				/**
@@ -68,7 +68,7 @@ public abstract class BaseIndexAdvOperate extends BaseOperate {
 	/**
 	 * 列表广告 key:sort
 	 */
-	protected TreeMap<String, List<ArticleItem>> indexAdvMap = new TreeMap<String, List<ArticleItem>>(
+	protected TreeMap<String, List<ArticleItem>> position2Map = new TreeMap<String, List<ArticleItem>>(
 			new Comparator<String>() {
 
 				@Override
@@ -115,7 +115,7 @@ public abstract class BaseIndexAdvOperate extends BaseOperate {
 			return;
 		Map<Integer, List<AdvItem>> advMap = CommonApplication.advList
 				.getAdvMap();
-		if (advMap.isEmpty() || !advMap.containsKey(AdvList.IN_CAT))
+		if (!ParseUtil.mapContainsKey(advMap, AdvList.IN_CAT))
 			return;
 		List<AdvItem> list = advMap.get(AdvList.IN_CAT);
 		if (!ParseUtil.listNotNull(list))
@@ -138,28 +138,28 @@ public abstract class BaseIndexAdvOperate extends BaseOperate {
 			} else {
 				String posId = item.getPosId();
 				ArticleItem articleItem = item.convertToArticleItem();
-				if (posId.equals("1") && titleAdvMap != null) {
+				if (posId.equals("1") && position1Map != null) {
 					// 焦点图
-					if (!titleAdvMap.containsKey(sort)) {
-						titleAdvMap.put(sort, new ArrayList<ArticleItem>());
+					if (!position1Map.containsKey(sort)) {
+						position1Map.put(sort, new ArrayList<ArticleItem>());
 					}
 					// TODO 如果广告有具体的位置，比如2，那么同一位置只能插入一条广告
 					if (!sort.contains("*")) {
-						titleAdvMap.get(sort).clear();
+						position1Map.get(sort).clear();
 					}
-					if (titleAdvMap.get(sort) != null)
-						titleAdvMap.get(sort).add(articleItem);
-				} else if (posId.equals("2") && indexAdvMap != null) {
+					if (position1Map.get(sort) != null)
+						position1Map.get(sort).add(articleItem);
+				} else if (posId.equals("2") && position2Map != null) {
 					// 列表
-					if (!indexAdvMap.containsKey(sort)) {
-						indexAdvMap.put(sort, new ArrayList<ArticleItem>());
+					if (!position2Map.containsKey(sort)) {
+						position2Map.put(sort, new ArrayList<ArticleItem>());
 					}
 					// TODO 如果广告有具体的位置，比如2，那么同一位置只能插入一条广告
 					if (!sort.contains("*")) {
-						indexAdvMap.get(sort).clear();
+						position2Map.get(sort).clear();
 					}
-					if (indexAdvMap.get(sort) != null)
-						indexAdvMap.get(sort).add(articleItem);
+					if (position2Map.get(sort) != null)
+						position2Map.get(sort).add(articleItem);
 					// TODO 商周首页
 					int section = item.getSection();
 					if (item.getCatId().equals("0")
@@ -185,15 +185,15 @@ public abstract class BaseIndexAdvOperate extends BaseOperate {
 	 */
 	protected List<ArticleItem> getTitleAdvsByPosition(int positon) {
 		List<ArticleItem> list = new ArrayList<ArticleItem>();
-		if (!titleAdvMap.isEmpty()) {
-			for (String key : titleAdvMap.keySet()) {
+		if (!position1Map.isEmpty()) {
+			for (String key : position1Map.keySet()) {
 				if (key.contains("*")
 						&& AdvTools.containPositionByStar(key, positon)) {
 					// TODO 添加带*的广告
-					list.addAll(titleAdvMap.get(key));
+					list.addAll(position1Map.get(key));
 				} else if (key.equals(String.valueOf(positon))) {
 					// TODO 添加具体位置的广告
-					list.addAll(titleAdvMap.get(key));
+					list.addAll(position1Map.get(key));
 				}
 			}
 		}
@@ -208,8 +208,8 @@ public abstract class BaseIndexAdvOperate extends BaseOperate {
 	 */
 	protected List<ArticleItem> getTitleAdvsByEndPosition(int positon) {
 		List<ArticleItem> list = new ArrayList<ArticleItem>();
-		if (titleAdvMap.containsKey(String.valueOf(positon))) {
-			list.addAll(titleAdvMap.get(String.valueOf(positon)));
+		if (position1Map.containsKey(String.valueOf(positon))) {
+			list.addAll(position1Map.get(String.valueOf(positon)));
 		}
 		return list;
 	}
@@ -222,15 +222,15 @@ public abstract class BaseIndexAdvOperate extends BaseOperate {
 	 */
 	protected List<ArticleItem> getListAdvsByPosition(int position) {
 		List<ArticleItem> list = new ArrayList<ArticleItem>();
-		if (!indexAdvMap.isEmpty()) {
-			for (String key : indexAdvMap.keySet()) {
+		if (!position2Map.isEmpty()) {
+			for (String key : position2Map.keySet()) {
 				if (key.contains("*")
 						&& AdvTools.containPositionByStar(key, position)) {
-					list.addAll(indexAdvMap.get(key));
-					addimpressionUrl(indexAdvMap.get(key));
+					list.addAll(position2Map.get(key));
+					addimpressionUrl(position2Map.get(key));
 				} else if (key.equals(String.valueOf(position))) {
-					list.addAll(indexAdvMap.get(key));
-					addimpressionUrl(indexAdvMap.get(key));
+					list.addAll(position2Map.get(key));
+					addimpressionUrl(position2Map.get(key));
 				}
 			}
 		}
@@ -246,9 +246,9 @@ public abstract class BaseIndexAdvOperate extends BaseOperate {
 	protected List<ArticleItem> getListAdvsByEndPosition(int positon) {
 		String key = String.valueOf(positon);
 		List<ArticleItem> list = new ArrayList<ArticleItem>();
-		if (indexAdvMap.containsKey(key)) {
-			list.addAll(indexAdvMap.get(key));
-			addimpressionUrl(indexAdvMap.get(key));
+		if (position2Map.containsKey(key)) {
+			list.addAll(position2Map.get(key));
+			addimpressionUrl(position2Map.get(key));
 		}
 		return list;
 	}
@@ -294,8 +294,8 @@ public abstract class BaseIndexAdvOperate extends BaseOperate {
 	}
 
 	protected void reSetPosition() {
-		currentTitlePosition = 0;
-		currentListPosition = 0;
+		currentPosition1 = 0;
+		currentPosition2 = 0;
 		impressionUrlList.clear();
 	}
 }

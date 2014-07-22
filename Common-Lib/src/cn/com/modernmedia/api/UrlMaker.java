@@ -29,6 +29,10 @@ public class UrlMaker {
 			} else {
 				HOST = "http://content.cdn.bbwc.cn";
 			}
+			if (ConstData.getInitialAppId() == 104
+					|| ConstData.getInitialAppId() == 110
+					|| ConstData.getInitialAppId() == 108)
+				HOST += "/wp";
 		} else if (ConstData.IS_DEBUG == 1) {
 			HOST = "http://content.test.bbwc.cn";
 		} else if (ConstData.IS_DEBUG == 2) {
@@ -371,6 +375,9 @@ public class UrlMaker {
 	 * @return
 	 */
 	protected static String getWeeklyInApp() {
-		return "http://beta.iweek.ly/api/json/intro";
+		if (ConstData.IS_DEBUG == 0)
+			return "http://beta.iweek.ly/api/json/intro";
+		else
+			return "http://iw-cdn-test.iweek.ly/api/json/intro";
 	}
 }

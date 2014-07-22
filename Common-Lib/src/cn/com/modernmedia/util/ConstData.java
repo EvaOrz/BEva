@@ -17,9 +17,10 @@ public class ConstData {
 	/** 接口版本号 **/
 	public static String API_VERSION = "5";
 	/**
-	 * 应用id bloomberg:1 modernlady:2 icollection:3 turningpoints:5 adv:6
-	 * onewaystreet:10 zhihu:11 tanc:12 itv:13 life:14 car:15 lohas:16
-	 * finance:17 bloomberg繁体版:18 iweekly:20 ifashion:21
+	 * 应用id bloomberg:1; modernlady:2; icollection:3; turningpoints:5; adv:6;
+	 * onewaystreet:10; zhihu:11; tanc:12; itv:13; life:14; car:15; lohas:16;
+	 * finance:17; bloomberg繁体版:18; iweekly:20; ifashion:21; iCenCi 104;
+	 * youthMba 108; zhihuiyun:110;
 	 **/
 	private static int APP_ID = 1;
 	/** 设备号 **/
@@ -36,7 +37,7 @@ public class ConstData {
 	/** toast显示时间 **/
 	public static final int TOAST_LENGTH = 1000;
 	/** 版本号 **/
-	public static final int VERSION = 160;
+	public static final int VERSION = 161;
 	/** 客户端名称 **/
 	public static String APP_NAME = "";
 	/** splash停留时间 **/
@@ -52,7 +53,10 @@ public class ConstData {
 	 * 没有成功同步到服务器上时使用当前uid,为了兼顾以前没有uid字段的数据，默认为0
 	 */
 	public static final String UN_UPLOAD_UID = "0";
-	public static final String SHARE_APP_ID = "share_app_id";// 区分是第三方应用分享还是当前应用分享,第三方应用离开的时候把所有页面都删除
+
+	public enum APP_TYPE {
+		BUSINESS, IWEEKLY, OTHERS;
+	}
 
 	/**
 	 * 由于繁体版和简体版很多逻辑是一样的，如果碰到相同逻辑，只有appid不同，通过这个方法获取appid
@@ -115,6 +119,16 @@ public class ConstData {
 			return "9659V6KFBT68JJXDMDM2";
 		} else if (APP_ID == 12) {
 			return "2XYF5NM5RNYJ3QQRJ8MJ";
+		} else if (APP_ID == 21) {
+			return "DQGQNYM698DSGMK6B9C5";
+		} else if (APP_ID == 104) {
+			return "HRHMPD5DDW83RBBTCCBJ";
+		} else if (APP_ID == 108) {
+			return "KCNV2KGDPXV44C3CWG2V";
+		} else if (APP_ID == 110) {
+			return "JWT6P7J75Q6HCP8W9XBW";
+		} else if (APP_ID == 16) {
+			return "BH54M98F23XXRNKVFQ2C";
 		}
 		return "";
 	}
@@ -137,6 +151,7 @@ public class ConstData {
 			return "lohas";
 		} else if (APP_ID == 18) {
 			APP_NAME = "彭博商業週刊";
+			return "BusinessWeek_traditional";
 		} else if (APP_ID == 20) {
 			APP_NAME = "周末画报";
 			return "iWeekly";
@@ -145,6 +160,15 @@ public class ConstData {
 			return "tanc";
 		} else if (APP_ID == 21) {
 			return "iFashion";
+		} else if (APP_ID == 104) {
+			APP_NAME = "参差计划";
+			return "iCenci";
+		} else if (APP_ID == 108) {
+			APP_NAME = "少年商学院";
+			return "youthmba";
+		} else if (APP_ID == 110) {
+			APP_NAME = "智慧云";
+			return "iZhiHuiYun";
 		}
 		return "";
 	}
@@ -223,6 +247,19 @@ public class ConstData {
 	 */
 	public static String getArticleListFileName() {
 		return "articlelist_";
+	}
+
+	/**
+	 * 获取往期articlelist文件名
+	 * 
+	 * @return
+	 */
+	public static String getLastArticleListFileName() {
+		if (CommonApplication.lastIssue != null) {
+			return getArticleListFileName()
+					+ CommonApplication.lastIssue.getId();
+		}
+		return getArticleListFileName();
 	}
 
 	/**
@@ -311,5 +348,14 @@ public class ConstData {
 	 */
 	public static boolean needEncrpyt(String fileName) {
 		return APP_ID != 20 || !fileName.equals(getArticleListFileName());
+	}
+
+	/**
+	 * 栏目首页是否可滑动
+	 * 
+	 * @return
+	 */
+	public static boolean isIndexPager() {
+		return CommonApplication.appType == APP_TYPE.BUSINESS;
 	}
 }

@@ -20,10 +20,10 @@ import cn.com.modernmedia.R;
  * 
  */
 public class PullToLoadMore {
-	private final static int RELEASE_TO_LOAD = 0;// 可以松开加载
-	private final static int PULL_TO_LOAD = 1;// 可以上拉加载
-	private final static int LOADING = 2;// 正在加载
-	private final static int DONE = 3;// 默认状态
+	private static final int RELEASE_TO_LOAD = 0;// 可以松开加载
+	private static final int PULL_TO_LOAD = 1;// 可以上拉加载
+	private static final int LOADING = 2;// 正在加载
+	private static final int DONE = 3;// 默认状态
 
 	private Context mContext;
 	private PullToRefreshListView mListView;

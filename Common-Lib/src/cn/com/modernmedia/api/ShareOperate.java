@@ -1,5 +1,6 @@
 package cn.com.modernmedia.api;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import cn.com.modernmedia.CommonApplication;
@@ -47,6 +48,24 @@ public class ShareOperate extends BaseOperate {
 		share.setTitle(jsonObject.optString("title", ""));
 		share.setContent(jsonObject.optString("content", ""));
 		share.setWeburl(jsonObject.optString("weburl", ""));
+		parsePicture(jsonObject.optJSONArray("picture"));
+	}
+
+	/**
+	 * 解析图片
+	 * 
+	 * @param arr
+	 */
+	private void parsePicture(JSONArray arr) {
+		if (isNull(arr))
+			return;
+		JSONObject object;
+		for (int i = 0; i < arr.length(); i++) {
+			object = arr.optJSONObject(i);
+			if (isNull(object))
+				continue;
+			share.getPicList().add(object.optString("url", ""));
+		}
 	}
 
 	@Override

@@ -4,16 +4,15 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.text.TextUtils;
-
 import cn.com.modernmedia.api.BaseOperate;
 import cn.com.modernmedia.util.FileManager;
 import cn.com.modernmediaslate.listener.FetchDataListener;
 import cn.com.modernmediaslate.unit.SlatePrintHelper;
-import cn.com.modernmediausermodel.RecommendUserActivity;
 import cn.com.modernmediausermodel.model.Users;
 import cn.com.modernmediausermodel.model.Users.UserCardInfo;
 import cn.com.modernmediausermodel.util.UserConstData;
 import cn.com.modernmediausermodel.util.UserTools;
+import cn.com.modernmediausermodel.widget.RecommendUserView;
 
 public class GetRecommendUsersOperate extends BaseOperate {
 
@@ -35,13 +34,13 @@ public class GetRecommendUsersOperate extends BaseOperate {
 	protected String getUrl() {
 		String url = "";
 		switch (pageType) {
-		case RecommendUserActivity.PAGE_RECOMMEND_FRIEND:
+		case RecommendUserView.PAGE_RECOMMEND_FRIEND:
 			url = UrlMaker.getReccommendUsers();
 			break;
-		case RecommendUserActivity.PAGE_FRIEND:
+		case RecommendUserView.PAGE_FRIEND:
 			url = UrlMaker.getFriends() + "/uid/" + uid;
 			break;
-		case RecommendUserActivity.PAGE_FANS:
+		case RecommendUserView.PAGE_FANS:
 			url = UrlMaker.getFans() + "/uid/" + uid;
 			break;
 		default:
@@ -57,7 +56,7 @@ public class GetRecommendUsersOperate extends BaseOperate {
 	protected void handler(JSONObject jsonObject) {
 		users.setUid(jsonObject.optString("uid", ""));
 		JSONArray array;
-		if (pageType == RecommendUserActivity.PAGE_RECOMMEND_FRIEND) {
+		if (pageType == RecommendUserView.PAGE_RECOMMEND_FRIEND) {
 			array = jsonObject.optJSONArray("user");
 		} else {
 			array = jsonObject.optJSONArray("auid");
@@ -87,9 +86,9 @@ public class GetRecommendUsersOperate extends BaseOperate {
 	@Override
 	protected void saveData(String data) {
 		String fileName = "";
-		if (pageType == RecommendUserActivity.PAGE_FRIEND) { // 好友
+		if (pageType == RecommendUserView.PAGE_FRIEND) { // 好友
 			fileName = UserConstData.getFrindsUidFileName(uid);
-		} else if (pageType == RecommendUserActivity.PAGE_FANS) { // 粉丝
+		} else if (pageType == RecommendUserView.PAGE_FANS) { // 粉丝
 			fileName = UserConstData.getFansUidFileName(uid);
 		}
 		FileManager.saveApiData(fileName, data);
@@ -98,9 +97,9 @@ public class GetRecommendUsersOperate extends BaseOperate {
 	@Override
 	protected String getDefaultFileName() {
 		String fileName = "";
-		if (pageType == RecommendUserActivity.PAGE_FRIEND) {
+		if (pageType == RecommendUserView.PAGE_FRIEND) {
 			fileName = UserConstData.getFrindsUidFileName(uid);
-		} else if (pageType == RecommendUserActivity.PAGE_FANS) {
+		} else if (pageType == RecommendUserView.PAGE_FANS) {
 			fileName = UserConstData.getFansUidFileName(uid);
 		}
 		return fileName;
@@ -108,7 +107,7 @@ public class GetRecommendUsersOperate extends BaseOperate {
 
 	@Override
 	protected void fetchLocalDataInBadNet(FetchDataListener mFetchDataListener) {
-		if (pageType != RecommendUserActivity.PAGE_RECOMMEND_FRIEND) {
+		if (pageType != RecommendUserView.PAGE_RECOMMEND_FRIEND) {
 			super.fetchLocalDataInBadNet(mFetchDataListener);
 		} else {
 			SlatePrintHelper.print("net error:" + getUrl());

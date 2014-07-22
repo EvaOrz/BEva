@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.text.TextUtils;
 import cn.com.modernmedia.CommonArticleActivity.ArticleType;
 import cn.com.modernmedia.R;
-import cn.com.modernmedia.model.Issue;
 import cn.com.modernmediaslate.model.Entry;
 
 public class PageTransfer {
@@ -46,7 +45,6 @@ public class PageTransfer {
 
 	public static class TransferArticle extends Entry {
 		private static final long serialVersionUID = 1L;
-		private Issue issue;
 		private int artcleId;
 		private int catId;
 		private int advId;
@@ -70,22 +68,13 @@ public class PageTransfer {
 			this.advId = advId;
 		}
 
-		public TransferArticle(Issue issue, int artcleId, int catId,
+		public TransferArticle(int artcleId, int catId,
 				ArticleType articleType, String uid, String floderName) {
-			this.issue = issue;
 			this.artcleId = artcleId;
 			this.catId = catId;
 			this.articleType = articleType;
 			this.uid = uid;
 			this.floderName = floderName;
-		}
-
-		public Issue getIssue() {
-			return issue;
-		}
-
-		public void setIssue(Issue issue) {
-			this.issue = issue;
 		}
 
 		public int getArtcleId() {

@@ -3,6 +3,7 @@ package cn.com.modernmedia;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,7 +22,6 @@ import android.widget.ViewFlipper;
 import cn.com.modernmedia.model.AdvList;
 import cn.com.modernmedia.util.AdvTools;
 import cn.com.modernmedia.util.ConstData;
-import cn.com.modernmedia.util.FileManager;
 import cn.com.modernmedia.util.GenericConstant;
 
 /**
@@ -30,7 +30,7 @@ import cn.com.modernmedia.util.GenericConstant;
  * @author ZhuQiao
  * 
  */
-public abstract class CommonAdvActivity extends BaseActivity {
+public class CommonAdvActivity extends BaseActivity {
 	public static final List<String> EFFECT_LIST = new ArrayList<String>() {
 		private static final long serialVersionUID = 1L;
 		{
@@ -111,12 +111,12 @@ public abstract class CommonAdvActivity extends BaseActivity {
 	private void doEffect() {
 		// imageView.setImageResource(R.drawable.ca9601);
 		if (effect.equals(EFFECT_LIST.get(0))) {
-			imageView.setImageBitmap(FileManager.getImageFromFile(picList
-					.get(0)));
+			imageView.setImageBitmap(CommonApplication.finalBitmap
+					.getBitmapFromDiskCache(picList.get(0)));
 			gotoMainActivity();
 		} else if (effect.equals(EFFECT_LIST.get(1))) {
-			imageView.setImageBitmap(FileManager.getImageFromFile(picList
-					.get(0)));
+			imageView.setImageBitmap(CommonApplication.finalBitmap
+					.getBitmapFromDiskCache(picList.get(0)));
 			ScaleAnimation scaleAnimation = new ScaleAnimation(1.2f, 1f, 1.2f,
 					1f, Animation.RELATIVE_TO_SELF, .5f,
 					Animation.RELATIVE_TO_SELF, .5f);
@@ -147,8 +147,8 @@ public abstract class CommonAdvActivity extends BaseActivity {
 				imageView.setLayoutParams(new LayoutParams(
 						LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
 				imageView.setScaleType(ScaleType.CENTER_INSIDE);
-				// imageView.setBackgroundResource(R.drawable.ca9601 + i);
-				imageView.setImageBitmap(FileManager.getImageFromFile(url));
+				imageView.setImageBitmap(CommonApplication.finalBitmap
+						.getBitmapFromDiskCache(url));
 				flipper.addView(imageView);
 			}
 			if (flipper.getChildCount() > 0)
@@ -178,7 +178,10 @@ public abstract class CommonAdvActivity extends BaseActivity {
 	};
 
 	private void switchActivity() {
-		Intent intent = new Intent(CommonAdvActivity.this, getMainActivity());
+		if (CommonApplication.mainCls == null)
+			return;
+		Intent intent = new Intent(CommonAdvActivity.this,
+				CommonApplication.mainCls);
 		intent.putExtra(GenericConstant.FROM_ACTIVITY,
 				GenericConstant.FROM_ACTIVITY_VALUE);
 		startActivity(intent);
@@ -186,10 +189,18 @@ public abstract class CommonAdvActivity extends BaseActivity {
 		overridePendingTransition(R.anim.alpha_out_1s, R.anim.alpha_in_1s);
 	}
 
-	protected abstract Class<?> getMainActivity();
-
 	@Override
 	public void reLoadData() {
+	}
+
+	@Override
+	public String getActivityName() {
+		return CommonAdvActivity.class.getName();
+	}
+
+	@Override
+	public Activity getActivity() {
+		return this;
 	}
 
 }

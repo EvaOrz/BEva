@@ -1,6 +1,7 @@
 package cn.com.modernmedia.util;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,19 +12,27 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.text.TextUtils;
 import android.text.format.Time;
+import android.widget.Toast;
 import cn.com.modernmedia.BaseActivity;
 import cn.com.modernmedia.BaseFragmentActivity;
 import cn.com.modernmedia.CommonApplication;
+import cn.com.modernmedia.R;
 import cn.com.modernmedia.breakpoint.BreakPointUtil;
 import cn.com.modernmedia.common.ShareDialog;
+import cn.com.modernmedia.db.FavDb;
+import cn.com.modernmedia.listener.BindFavToUserListener;
 import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.model.BreakPoint;
 import cn.com.modernmedia.model.Cat;
 import cn.com.modernmedia.model.Issue;
+import cn.com.modernmedia.model.SoloColumn;
+import cn.com.modernmedia.model.SoloColumn.SoloColumnChild;
+import cn.com.modernmedia.model.SoloColumn.SoloColumnItem;
 import cn.com.modernmediaslate.model.Favorite.FavoriteItem;
 
 public class ModernMediaTools {
 	private static String makeCard = "";
+	private static String imageSrc = "";// 点击对象的html属性
 
 	/**
 	 * 检测网络状态
@@ -118,7 +127,7 @@ public class ModernMediaTools {
 			FavoriteItem item, Issue issue) {
 		if (item == null || issue == null)
 			return;
-		new ShareDialog(context, null) {
+		new ShareDialog(context) {
 
 			@Override
 			public void logAndroidShareToSinaCount(String articleId,
@@ -149,10 +158,10 @@ public class ModernMediaTools {
 		if (item == null || issue == null)
 			return;
 		String url = "";
-		if (ParseUtil.listNotNull(item.getPictureList())) {
-			url = item.getPictureList().get(0);
+		if (ParseUtil.listNotNull(item.getPicList())) {
+			url = item.getPicList().get(0);
 		}
-		new ShareDialog(context, null) {
+		new ShareDialog(context) {
 
 			@Override
 			public void logAndroidShareToSinaCount(String articleId,
@@ -322,9 +331,25 @@ public class ModernMediaTools {
 	 * @return
 	 */
 	public static int getCatPosition(String catId, Cat cat) {
-		if (!TextUtils.isEmpty(catId) && cat != null
-				&& ParseUtil.listNotNull(cat.getIdList())) {
+		if (TextUtils.isEmpty(catId)) {
+			return -1;
+		}
+		if (cat != null && ParseUtil.listNotNull(cat.getIdList())) {
 			return cat.getIdList().indexOf(catId);
+		}
+		if (CommonApplication.soloColumn != null
+				&& ParseUtil
+						.listNotNull(CommonApplication.soloColumn.getList())) {
+			int position = -1;
+			for (int i = 0; i < CommonApplication.soloColumn.getList().size(); i++) {
+				SoloColumnItem item = CommonApplication.soloColumn.getList()
+						.get(i);
+				if (catId.equals(item.getId() + "")) {
+					position = i;
+					break;
+				}
+			}
+			return position;
 		}
 		return -1;
 	}
@@ -351,8 +376,152 @@ public class ModernMediaTools {
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
+			} finally {
+				try {
+					if (is != null)
+						is.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 		return makeCard.replace("##x", x + "").replace("##y", y + "");
+	}
+
+	/**
+	 * 获取点击图片的src
+	 * 
+	 * @param context
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	public static String getImageSrc(Context context, int x, int y) {
+		if (TextUtils.isEmpty(imageSrc)) {
+			InputStreamReader is = null;
+			BufferedReader br = null;
+			try {
+				is = new InputStreamReader(context.getAssets().open(
+						"get_image_src"));// 文件只能放在主工程里面。。。
+				br = new BufferedReader(is, 1024);
+				String line = "";
+				while ((line = br.readLine()) != null) {
+					imageSrc += line;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if (is != null)
+						is.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return imageSrc.replace("##x", x + "").replace("##y", y + "");
+	}
+
+	/**
+	 * 独立栏目数据库where条件
+	 * 
+	 * @param fromOffset
+	 * @param toOffset
+	 * @param offset
+	 * @return
+	 */
+	public static String checkSelection(String fromOffset, String toOffset,
+			String offsetName, boolean containFL) {
+		String greaterOperate = containFL ? " >= " : " > ";
+		String smallerOperate = containFL ? " <= " : " < ";
+		String result = "";
+		// TODO 因为要取文章的范围，必须包含第一篇和最后一篇
+		String greaterThanFrom = " and " + offsetName + greaterOperate + "'"
+				+ fromOffset + "'";
+		String smallerThanTo = " and " + offsetName + smallerOperate + "'"
+				+ toOffset + "'";
+		if (fromOffset.compareTo("0") == 0 && toOffset.compareTo("0") == 0) {
+			// 0_0 获取全部
+			return result;
+		}
+		if (fromOffset.compareTo("0") > 0 && toOffset.compareTo("0") > 0) {
+			// from_to 获取中间
+			result += greaterThanFrom;
+			result += smallerThanTo;
+			return result;
+		}
+		if (fromOffset.compareTo("0") > 0) {
+			// from_0
+			result += greaterThanFrom;
+		} else if (toOffset.compareTo("0") > 0) {
+			// 0_to
+			result += smallerThanTo;
+		}
+		return result;
+	}
+
+	/**
+	 * 添加/删除收藏
+	 * 
+	 * @param context
+	 * @param list
+	 * @param listener
+	 */
+	public static boolean addFav(Context context, FavoriteItem fav, String uid,
+			BindFavToUserListener listener) {
+		if (fav == null)
+			return false;
+		FavDb db = FavDb.getInstance(context);
+		if (db.containThisFav(fav.getId(), uid)) {
+			if (listener != null)
+				listener.deleteFav(fav, uid);
+			else
+				db.deleteFav(fav.getId());
+			Toast.makeText(context, R.string.delete_fav, ConstData.TOAST_LENGTH)
+					.show();
+		} else {
+			if (listener != null)
+				listener.addFav(fav, uid);
+			else
+				db.addFav(fav, uid, false);
+			Toast.makeText(context, R.string.add_fav, ConstData.TOAST_LENGTH)
+					.show();
+		}
+		LogHelper.logAddFavoriteArticle(context, fav.getId() + "",
+				fav.getCatid() + "");
+		CommonApplication.notifyFav();
+		return true;
+	}
+
+	/**
+	 * 获取独立栏目item
+	 * 
+	 * @param parentId
+	 * @return
+	 */
+	public static SoloColumnItem getSoloColumnItem(int parentId) {
+		SoloColumnItem item = new SoloColumnItem();
+		SoloColumn soloColumn = CommonApplication.soloColumn;
+		if (soloColumn == null || !ParseUtil.listNotNull(soloColumn.getList()))
+			return item;
+		for (SoloColumnItem it : soloColumn.getList()) {
+			if (it == null)
+				continue;
+			if (it.getId() == parentId) {
+				item = it;
+				break;
+			}
+		}
+		return item;
+	}
+
+	/**
+	 * 获取独立栏目child集合
+	 * 
+	 * @param parentId
+	 * @return
+	 */
+	public static List<SoloColumnChild> getSoloChild(int parentId) {
+		return getSoloColumnItem(parentId).getList();
 	}
 }

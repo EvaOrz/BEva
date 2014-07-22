@@ -43,7 +43,8 @@
             android:hint="@string/old_pwd"
             android:inputType="textPassword"
             android:singleLine="true"
-            android:textColor="@color/black_bg" />
+            android:textColor="@color/black_bg"
+            android:textCursorDrawable="@null" />
 
         <ImageView
             android:id="@+id/modify_pwd_img_clear"
@@ -73,7 +74,8 @@
             android:hint="@string/new_pwd"
             android:inputType="textPassword"
             android:singleLine="true"
-            android:textColor="@color/black_bg" />
+            android:textColor="@color/black_bg"
+            android:textCursorDrawable="@null" />
 
         <ImageView
             android:id="@+id/modify_pwd_img_forget"

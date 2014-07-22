@@ -80,6 +80,7 @@ public class Favorite extends Entry {
 		private int advId = -1;
 		private String impressionUrl = "";// 广告展示的统计
 		private String clickUrl = "";// 广告点击的统计
+		private String weburl = "";// 分享链接
 
 		public int getId() {
 			return id;
@@ -231,6 +232,14 @@ public class Favorite extends Entry {
 
 		public void setAdvId(int advId) {
 			this.advId = advId;
+		}
+
+		public String getWeburl() {
+			return weburl;
+		}
+
+		public void setWeburl(String weburl) {
+			this.weburl = weburl;
 		}
 
 	}

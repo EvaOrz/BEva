@@ -12,13 +12,10 @@ public interface DownloadPackageCallBack {
 	 */
 	public void onSuccess(int issueId, String folderName);
 
-	// /**
-	// * 当一个子线程请求成功后回调，当发现complete==total时。表示所有子线程都跑完，下载成功
-	// *
-	// * @param complete
-	// * @param total
-	// */
-	// public void onSingleSuccess(int complete, int total);
+	/**
+	 * 下载暂停
+	 */
+	public void onPause(int issueId);
 
 	/**
 	 * 下载失败

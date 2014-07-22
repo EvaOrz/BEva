@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import cn.com.modernmedia.CommonApplication;
+import cn.com.modernmedia.CommonMainActivity;
 import cn.com.modernmedia.R;
 import cn.com.modernmedia.api.OperateController;
 import cn.com.modernmedia.listener.FetchEntryListener;
@@ -61,7 +62,6 @@ public class IssueListView extends BaseView {
 	private void init() {
 		inflater = LayoutInflater.from(mContext);
 		this.addView(inflater.inflate(R.layout.issue_list_view, null));
-		initProcess();
 		mListView = (ListView) findViewById(R.id.issue_list);
 		initFooter();
 	}
@@ -119,8 +119,8 @@ public class IssueListView extends BaseView {
 	 */
 	private void getIssueList() {
 		status = LOADING;
-		if (isfirstIn)
-			showLoading();
+		if (isfirstIn && mContext instanceof CommonMainActivity)
+			((CommonMainActivity) mContext).checkIndexLoading(1);
 		mController.getIssueList(mPage, new FetchEntryListener() {
 
 			@Override
@@ -135,7 +135,7 @@ public class IssueListView extends BaseView {
 						mListView.removeFooterView(mFootView);
 					}
 					if (isfirstIn)
-						disProcess();
+						((CommonMainActivity) mContext).checkIndexLoading(0);
 					isfirstIn = false;
 					if (mFetchEntryListener != null)
 						mFetchEntryListener.setData(entry);
@@ -153,7 +153,7 @@ public class IssueListView extends BaseView {
 					mProgressBar.setVisibility(View.GONE);
 					foot_text.setText(R.string.click_to_load);
 					if (isfirstIn)
-						showError();
+						((CommonMainActivity) mContext).checkIndexLoading(2);
 				}
 			}
 		});

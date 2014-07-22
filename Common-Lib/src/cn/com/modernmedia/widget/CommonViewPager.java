@@ -3,6 +3,8 @@ package cn.com.modernmedia.widget;
 import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.view.GestureDetector;
+import android.view.GestureDetector.OnGestureListener;
 import android.view.MotionEvent;
 
 /**
@@ -12,8 +14,44 @@ import android.view.MotionEvent;
  * 
  */
 public class CommonViewPager extends ViewPager {
-	private AtlasViewPager pager;
+	private AtlasViewPager pager;// 图集
+	private ArticleDetailItem articleDetailItem;// 文章
 	private float lastX;
+	private boolean isScroll;
+	private GestureDetector gestureDetector = new GestureDetector(
+			new OnGestureListener() {
+
+				@Override
+				public boolean onSingleTapUp(MotionEvent e) {
+					return false;
+				}
+
+				@Override
+				public void onShowPress(MotionEvent e) {
+				}
+
+				@Override
+				public boolean onScroll(MotionEvent e1, MotionEvent e2,
+						float distanceX, float distanceY) {
+					isScroll = true;
+					return false;
+				}
+
+				@Override
+				public void onLongPress(MotionEvent e) {
+				}
+
+				@Override
+				public boolean onFling(MotionEvent e1, MotionEvent e2,
+						float velocityX, float velocityY) {
+					return false;
+				}
+
+				@Override
+				public boolean onDown(MotionEvent e) {
+					return false;
+				}
+			});
 
 	public CommonViewPager(Context context) {
 		super(context);
@@ -25,6 +63,12 @@ public class CommonViewPager extends ViewPager {
 
 	public void setPager(AtlasViewPager pager) {
 		this.pager = pager;
+		articleDetailItem = null;
+	}
+
+	public void setArticleDetailItem(ArticleDetailItem articleDetailItem) {
+		this.articleDetailItem = articleDetailItem;
+		pager = null;
 	}
 
 	@Override
@@ -42,8 +86,16 @@ public class CommonViewPager extends ViewPager {
 					return false;
 				}
 			}
+		} else if (articleDetailItem != null
+				&& articleDetailItem.getErrorType() == 2) {
+			// TODO 当webview显示错误时,滑动会被process_layout的onClick拦截
+			isScroll = false;
+			gestureDetector.onTouchEvent(event);
+			if (isScroll) {
+				// TODO 当滑动时,拦截掉事件传递
+				return true;
+			}
 		}
 		return super.onInterceptTouchEvent(event);
 	}
-
 }

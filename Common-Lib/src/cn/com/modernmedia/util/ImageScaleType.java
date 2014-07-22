@@ -14,7 +14,7 @@ public class ImageScaleType {
 	public static final String CENTER_CROP = "centerCrop";
 
 	/**
-	 * 把图片按比例扩大/缩小到View的宽度，居中显示
+	 * 把图片按比例扩大/缩小到View的宽度/高度，居中显示
 	 */
 	public static final String FIT_CENTER = "fitCenter";
 
@@ -47,6 +47,16 @@ public class ImageScaleType {
 	 * 用矩阵来绘制
 	 */
 	public static final String MATRIX = "matrix";
+
+	/**
+	 * 占满高，宽等比缩放
+	 */
+	public static final String FIT_Y = "fitY";
+
+	/**
+	 * 占满宽，宽等比缩放
+	 */
+	public static final String FIT_X = "fitX";
 
 	/**
 	 * 设置图片的scale type,默认为fix_xy

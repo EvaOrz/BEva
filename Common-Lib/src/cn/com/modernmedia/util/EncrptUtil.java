@@ -21,7 +21,8 @@ public class EncrptUtil {
 	 * @param content
 	 * @return
 	 */
-	public static String encrpyt2(String content) {
+	@SuppressWarnings("unused")
+	private static String encrpyt2(String content) {
 		if (TextUtils.isEmpty(content)) {
 			return "";
 		}
@@ -43,7 +44,8 @@ public class EncrptUtil {
 	 * @param content
 	 * @return
 	 */
-	public static String decrypt2(String content) {
+	@SuppressWarnings("unused")
+	private static String decrypt2(String content) {
 		if (TextUtils.isEmpty(content)) {
 			return "";
 		}

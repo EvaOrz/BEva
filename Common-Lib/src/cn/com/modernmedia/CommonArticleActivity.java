@@ -16,7 +16,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout.LayoutParams;
-import android.widget.Toast;
 import cn.com.modernmedia.api.OperateController;
 import cn.com.modernmedia.db.FavDb;
 import cn.com.modernmedia.db.ReadDb;
@@ -24,11 +23,13 @@ import cn.com.modernmedia.listener.BindFavToUserListener;
 import cn.com.modernmedia.listener.CallWebStatusChangeListener;
 import cn.com.modernmedia.listener.FetchEntryListener;
 import cn.com.modernmedia.listener.HideTitleBarListener;
+import cn.com.modernmedia.mainprocess.MainProcessPreIssue;
+import cn.com.modernmedia.mainprocess.MainProcessPreIssue.FetchPreviousIssueCallBack;
+import cn.com.modernmedia.mainprocess.MainProcessPreIssue.PreIssusType;
 import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.model.ArticleList;
 import cn.com.modernmedia.model.Atlas;
 import cn.com.modernmedia.model.Issue;
-import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmedia.util.DataHelper;
 import cn.com.modernmedia.util.GenericConstant;
 import cn.com.modernmedia.util.LogHelper;
@@ -87,7 +88,8 @@ public abstract class CommonArticleActivity extends BaseActivity implements
 	};
 
 	public enum ArticleType {
-		Default, Solo, Fav;
+		Default, Solo, Fav, Last/** 往期 **/
+		;
 	}
 
 	@Override
@@ -129,8 +131,6 @@ public abstract class CommonArticleActivity extends BaseActivity implements
 		favBtn.setOnClickListener(this);
 		fontBtn.setOnClickListener(this);
 		shareBtn.setOnClickListener(this);
-
-		addRule();
 	}
 
 	protected void addRule() {
@@ -152,6 +152,16 @@ public abstract class CommonArticleActivity extends BaseActivity implements
 			break;
 		case Solo:
 			getSoloArticleList(mBundle.getCatId(), mBundle.getArtcleId());
+			break;
+		case Last:
+			// 图片link进入往期时（如slate://article/393...）先取得期信息，然后取文章列表
+			if (CommonApplication.lastIssue == null
+					|| (CommonApplication.lastIssue.getId() != CommonApplication.currentIssueId)) {
+				getPreIssue();
+			} else {
+				issue = CommonApplication.lastIssue;
+				getArticleList();
+			}
 			break;
 		default:
 			break;
@@ -240,9 +250,7 @@ public abstract class CommonArticleActivity extends BaseActivity implements
 		if (getIntent() != null && getIntent().getExtras() != null) {
 			mBundle = (TransferArticle) getIntent().getSerializableExtra(
 					GenericConstant.TRANSFE_RARTICLE);
-			if (mBundle != null) {
-				issue = mBundle.getIssue();
-			}
+			issue = CommonApplication.issue;
 		}
 	}
 
@@ -256,25 +264,51 @@ public abstract class CommonArticleActivity extends BaseActivity implements
 	}
 
 	/**
+	 * 获取往期信息及文章列表
+	 */
+	private void getPreIssue() {
+		showLoading();
+		MainProcessPreIssue preIssue = new MainProcessPreIssue(mContext, null);
+		preIssue.getPreIssue(CommonApplication.currentIssueId,
+				new FetchPreviousIssueCallBack() {
+
+					@Override
+					public void onSuccess(Issue resultIssue) {
+						CommonApplication.lastIssue = resultIssue;
+						issue = resultIssue;
+						getArticleList();
+					}
+
+					@Override
+					public void onFailed() {
+						disProcess();
+					}
+				}, PreIssusType.GO_TO_ARTICLE);
+	}
+
+	/**
 	 * 获取文章列表
 	 */
 	protected void getArticleList() {
 		showLoading();
-		controller.getArticleList(issue, new FetchEntryListener() {
+		controller.getArticleList(issue, mBundle.getArticleType(),
+				new FetchEntryListener() {
 
-			@Override
-			public void setData(final Entry entry) {
-				if (entry instanceof ArticleList) {
-					list = ((ArticleList) entry).getAllArticleList();
-					getPosition(list, true);
-					DataHelper.setArticleUpdateTime(mContext,
-							issue.getArticleUpdateTime(), issue.getId());
-					disProcess();
-				} else {
-					showError();
-				}
-			}
-		});
+					@Override
+					public void setData(final Entry entry) {
+						if (entry instanceof ArticleList) {
+							list = ((ArticleList) entry).getAllArticleList();
+							getPosition(list, true);
+							if (mBundle.getArticleType() != ArticleType.Last)
+								DataHelper.setArticleUpdateTime(mContext,
+										issue.getArticleUpdateTime(),
+										issue.getId());
+							disProcess();
+						} else {
+							showError();
+						}
+					}
+				});
 	}
 
 	/**
@@ -456,26 +490,9 @@ public abstract class CommonArticleActivity extends BaseActivity implements
 		String uid = mBundle.getUid();
 		if (list.size() > position) {
 			FavoriteItem fav = list.get(position);
-			if (db.containThisFav(fav.getId(), uid)) {
-				if (bindFavToUserListener != null)
-					bindFavToUserListener.deleteFav(fav, uid);
-				else
-					db.deleteFav(fav.getId());
-				Toast.makeText(this, R.string.delete_fav,
-						ConstData.TOAST_LENGTH).show();
-			} else {
-				if (bindFavToUserListener != null)
-					bindFavToUserListener.addFav(fav, uid);
-				else
-					db.addFav(fav, uid, false);
-				Toast.makeText(this, R.string.add_fav, ConstData.TOAST_LENGTH)
-						.show();
-			}
-			LogHelper.logAddFavoriteArticle(this, fav.getId() + "",
-					fav.getCatid() + "");
+			ModernMediaTools.addFav(this, fav, uid, bindFavToUserListener);
 		}
 		changeFav(position);
-		CommonApplication.notifyFav();
 	}
 
 	/**
@@ -634,8 +651,9 @@ public abstract class CommonArticleActivity extends BaseActivity implements
 		Intent intent = new Intent(Intent.ACTION_SEND);
 		intent.setClass(this, loginCls);
 		intent.putExtra(Intent.EXTRA_TEXT, item.getDesc());
-		intent.putExtra(ConstData.SHARE_APP_ID, ConstData.getInitialAppId());
 		startActivity(intent);
+		overridePendingTransition(R.anim.activity_open_enter,
+				R.anim.activity_open_exit);
 	}
 
 	private class ViewPageAdapter extends PagerAdapter {
@@ -685,12 +703,14 @@ public abstract class CommonArticleActivity extends BaseActivity implements
 				Object object) {
 			if (object instanceof CommonAtlasView) {
 				viewPager.setPager(getAtlasViewPager(object));
+			} else if (object instanceof ArticleDetailItem) {
+				currentDetailItem = (ArticleDetailItem) object;
+				viewPager.setArticleDetailItem(currentDetailItem);
 			} else {
 				viewPager.setPager(null);
+				viewPager.setArticleDetailItem(null);
 			}
 			currentPosition = position;
-			if (object instanceof ArticleDetailItem)
-				currentDetailItem = (ArticleDetailItem) object;
 		}
 
 	}
@@ -730,10 +750,6 @@ public abstract class CommonArticleActivity extends BaseActivity implements
 	 * @param object
 	 */
 	protected abstract AtlasViewPager getAtlasViewPager(Object object);
-
-	public Issue getIssue() {
-		return issue;
-	}
 
 	private FavoriteItem getArticleByPosition(int position) {
 		if (list != null && list.size() > position) {

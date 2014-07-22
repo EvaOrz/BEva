@@ -1,6 +1,7 @@
 package cn.com.modernmedia.util;
 
 import java.util.List;
+import java.util.Map;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -136,5 +137,17 @@ public class ParseUtil {
 
 	public static <T> boolean listNotNull(List<T> list) {
 		return list != null && !list.isEmpty();
+	}
+
+	/**
+	 * map是否包含key
+	 * 
+	 * @param map
+	 * @param key
+	 * @return
+	 */
+	public static boolean mapContainsKey(
+			Map<? extends Object, ? extends Object> map, Object key) {
+		return map != null && !map.isEmpty() && map.containsKey(key);
 	}
 }

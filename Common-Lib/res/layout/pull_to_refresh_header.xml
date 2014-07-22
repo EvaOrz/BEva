@@ -20,7 +20,8 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:contentDescription="@null"
-            android:src="@drawable/ic_pulltorefresh_arrow" />
+            android:src="@drawable/ic_pulltorefresh_arrow"
+            android:visibility="invisible" />
 
         <ProgressBar
             android:id="@+id/head_progressBar"

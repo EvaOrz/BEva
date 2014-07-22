@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white_bg" >
+
+    <RelativeLayout
+        android:id="@+id/zhihuiyun_index_item_rl"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp10"
+        android:layout_marginRight="@dimen/dp10"
+        android:layout_marginTop="@dimen/dp10" >
+
+        <ImageView
+            android:id="@+id/zhihuiyun_index_item_img"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/zhihuiyun_index_item_img" >
+
+            <RelativeLayout
+                android:id="@+id/zhihuiyun_index_item_date_layout"
+                android:layout_width="@dimen/zhihuiyun_index_item_date_width"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tanc_index_item_img"
+                android:layout_marginTop="@dimen/zhihuiyun_index_item_day_margin_top" >
+
+                <TextView
+                    android:id="@+id/zhihuiyun_index_item_date_day"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/black_bg"
+                    android:textSize="@dimen/dp30_textsize" />
+
+                <TextView
+                    android:id="@+id/zhihuiyun_index_item_date_month"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/zhihuiyun_index_item_date_day"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/black_bg"
+                    android:textSize="@dimen/dp11_textsize" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/zhihuiyun_index_item_title"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/zhihuiyun_index_item_title_margin_top"
+                android:layout_toRightOf="@id/zhihuiyun_index_item_date_layout"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textColor="#333333"
+                android:textSize="@dimen/dp14_textsize" />
+
+            <TextView
+                android:id="@+id/zhihuiyun_index_item_desc"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/zhihuiyun_index_item_title"
+                android:layout_below="@+id/zhihuiyun_index_item_title"
+                android:layout_marginTop="@dimen/zhihuiyun_index_item_title_margin_top"
+                android:ellipsize="end"
+                android:lines="3"
+                android:textColor="#999999"
+                android:textSize="@dimen/dp11_textsize" />
+
+            <ImageView
+                android:id="@+id/zhihuiyun_index_item_line"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/zhihuiyun_index_item_desc"
+                android:layout_marginTop="@dimen/zhihuiyun_index_item_divider_margin_top"
+                android:contentDescription="@null"
+                android:scaleType="fitXY" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/zhihuiyun_ndex_item_adv_ll"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp10"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <ImageView
+            android:id="@+id/zhihuiyun_index_item_adv_img"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null" />
+
+        <ImageView
+            android:id="@+id/zhihuiyun_index_item_adv_line"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp10"
+            android:layout_marginRight="@dimen/dp10"
+            android:layout_marginTop="@dimen/dp10"
+            android:contentDescription="@null"
+            android:scaleType="fitXY" />
+    </LinearLayout>
+
+</RelativeLayout>

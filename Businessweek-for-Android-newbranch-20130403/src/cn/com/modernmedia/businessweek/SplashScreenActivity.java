@@ -13,9 +13,6 @@ import cn.com.modernmedia.util.DataHelper;
  * 
  */
 public class SplashScreenActivity extends CommonSplashActivity {
-	@Override
-	public void reLoadData() {
-	}
 
 	@Override
 	protected void setContentViewById() {
@@ -42,13 +39,4 @@ public class SplashScreenActivity extends CommonSplashActivity {
 		return this;
 	}
 
-	@Override
-	protected Class<?> getMainActivity() {
-		return MainActivity.class;
-	}
-
-	@Override
-	protected Class<?> getAdvActivity() {
-		return AdvActivity.class;
-	}
 }

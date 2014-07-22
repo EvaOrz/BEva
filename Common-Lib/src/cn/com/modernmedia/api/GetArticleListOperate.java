@@ -7,7 +7,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.text.TextUtils;
 import cn.com.modernmedia.CommonApplication;
+import cn.com.modernmedia.CommonArticleActivity.ArticleType;
 import cn.com.modernmedia.model.ArticleList;
 import cn.com.modernmedia.model.ArticleList.ArticleColumnList;
 import cn.com.modernmedia.model.SoloColumn;
@@ -30,6 +32,7 @@ public class GetArticleListOperate extends BaseArticleListAdvOperate {
 	private ArticleList articleList;
 	private boolean isSolo = false;
 	private int issueId;
+	private ArticleType articleType;
 	/**
 	 * 相对于所有文章的当前文章位置
 	 */
@@ -47,7 +50,9 @@ public class GetArticleListOperate extends BaseArticleListAdvOperate {
 	 * @param articleUpdateTime
 	 *            更新时间
 	 */
-	protected GetArticleListOperate(String issueId, String articleUpdateTime) {
+	protected GetArticleListOperate(String issueId, String articleUpdateTime,
+			ArticleType articleType) {
+		this.articleType = articleType;
 		url = UrlMaker.getArticleList(issueId, articleUpdateTime);
 		articleList = new ArticleList();
 		isSolo = false;
@@ -180,6 +185,7 @@ public class GetArticleListOperate extends BaseArticleListAdvOperate {
 		detail.setUpdateTime(obj.optString("updateTime", ""));
 		detail.setOffset(obj.optString("offset", ""));
 		detail.setTag(obj.optString("tag", ""));
+		detail.setWeburl(obj.optString("weburl", ""));
 		JSONArray thumbArr = obj.optJSONArray("thumb");
 		if (!isNull(thumbArr)) {
 			for (int j = 0; j < thumbArr.length(); j++) {
@@ -247,8 +253,9 @@ public class GetArticleListOperate extends BaseArticleListAdvOperate {
 	protected void saveData(String data) {
 		if (isSolo)
 			return;
-		String fileName = ConstData.getArticleListFileName();
-		if (!CommonApplication.articleUpdateTimeSame
+		String fileName = getDefaultFileName();
+		if (!TextUtils.isEmpty(fileName)
+				&& !CommonApplication.articleUpdateTimeSame
 				|| !FileManager.containFile(fileName)) {
 			FileManager.saveApiData(fileName, data);
 		}
@@ -258,6 +265,8 @@ public class GetArticleListOperate extends BaseArticleListAdvOperate {
 	protected String getDefaultFileName() {
 		if (isSolo)
 			return null;
+		if (articleType != null && articleType == ArticleType.Last)
+			return ConstData.getLastArticleListFileName();
 		return ConstData.getArticleListFileName();
 	}
 

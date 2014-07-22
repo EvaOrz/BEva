@@ -12,7 +12,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
-import android.text.TextUtils;
 
 public class BitmapUtil {
 	public static final int UNCONSTRAINED = -1;
@@ -84,21 +83,15 @@ public class BitmapUtil {
 					ratio = calculateInSampleSize(options, width, height);
 				}
 
-				if (ratio == 1 && file.length() > 100 * 1024
-						&& ConstData.getInitialAppId() == 20) {
-					ratio = 2;
-				}
-
 				options.inSampleSize = ratio; // 设置缩放比例
-				// PrintHelper.print("图片的缩放比例值inSampleSize:" + ratio);
 
-				if (ConstData.getAppId() == 20 || orientation != -1) {
-					String imageType = options.outMimeType;
-					if (!TextUtils.isEmpty(imageType)
-							&& "image/jpeg".equals(imageType)) {
-						options.inPreferredConfig = Bitmap.Config.RGB_565;
-					}
-				}
+				// if (ConstData.getAppId() == 20 || orientation != -1) {
+				// String imageType = options.outMimeType;
+				// if (!TextUtils.isEmpty(imageType)
+				// && "image/jpeg".equals(imageType)) {
+				// options.inPreferredConfig = Bitmap.Config.RGB_565;
+				// }
+				// }
 				options.inPurgeable = true;
 				options.inJustDecodeBounds = false;
 			}

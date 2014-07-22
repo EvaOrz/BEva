@@ -58,8 +58,8 @@
 
                 <ImageView
                     android:id="@+id/user_center_business_icon"
-                    android:layout_width="@dimen/dp10"
-                    android:layout_height="@dimen/dp10"
+                    android:layout_width="@dimen/dp20"
+                    android:layout_height="@dimen/dp20"
                     android:layout_centerVertical="true"
                     android:contentDescription="@null"
                     android:src="@drawable/card" />
@@ -180,8 +180,8 @@
 
                 <ImageView
                     android:id="@+id/user_center_fav_icon"
-                    android:layout_width="@dimen/dp10"
-                    android:layout_height="@dimen/dp10"
+                    android:layout_width="@dimen/dp20"
+                    android:layout_height="@dimen/dp20"
                     android:layout_centerVertical="true"
                     android:contentDescription="@null"
                     android:src="@drawable/center_fav" />
@@ -214,8 +214,8 @@
 
                 <ImageView
                     android:id="@+id/user_center_setting_icon"
-                    android:layout_width="@dimen/dp10"
-                    android:layout_height="@dimen/dp10"
+                    android:layout_width="@dimen/dp20"
+                    android:layout_height="@dimen/dp20"
                     android:layout_centerVertical="true"
                     android:contentDescription="@null" />
 

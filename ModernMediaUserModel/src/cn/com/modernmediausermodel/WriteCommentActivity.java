@@ -20,9 +20,9 @@ import cn.com.modernmediausermodel.util.UserTools;
 
 public class WriteCommentActivity extends BaseActivity implements
 		OnClickListener {
-	public final static String RETURN_DATA = "comment";
-	public final static String KEY_CARD_ID = "card_id";
-	public final static String KEY_IS_SHOW_TOAST = "is_show_toast";
+	public static final String RETURN_DATA = "comment";
+	public static final String KEY_CARD_ID = "card_id";
+	public static final String KEY_IS_SHOW_TOAST = "is_show_toast";
 
 	private Button cancelBtn, completeBtn;
 	private EditText contentEdit;

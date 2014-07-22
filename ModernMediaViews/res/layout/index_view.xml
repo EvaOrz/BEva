@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_bg" >
+
+    <RelativeLayout
+        android:id="@+id/index_titleBar"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/index_titlebar_height" >
+
+        <ImageView
+            android:id="@+id/index_titleBar_column"
+            android:layout_width="@dimen/index_titlebar_height"
+            android:layout_height="@dimen/index_titlebar_height"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/index_titlebar_column_marginLeft"
+            android:contentDescription="@null"
+            android:scaleType="fitXY" />
+
+        <ImageView
+            android:id="@+id/index_titleBar_title_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/index_titleBar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black_bg"
+            android:textSize="@dimen/index_titlebar_title_textSize" />
+
+        <ImageView
+            android:id="@+id/index_titleBar_fav"
+            android:layout_width="@dimen/index_titlebar_height"
+            android:layout_height="@dimen/index_titlebar_height"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/index_titlebar_column_marginLeft"
+            android:contentDescription="@null"
+            android:scaleType="fitXY" />
+
+        <ImageView
+            android:id="@+id/index_titleBar_readissue"
+            android:layout_width="@dimen/index_titlebar_height"
+            android:layout_height="@dimen/index_titlebar_height"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/index_titleBar_fav"
+            android:contentDescription="@null"
+            android:scaleType="fitXY"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/index_contain"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/index_titleBar"
+        android:orientation="vertical" />
+
+    <cn.com.modernmedia.views.index.IndexViewPager
+        android:id="@+id/index_pager"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/index_titleBar"
+        android:visibility="gone" />
+
+    <cn.com.modernmedia.widget.IssueListView
+        android:id="@+id/index_issue_list_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/index_titleBar"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/index_bar_divider"
+        android:layout_width="fill_parent"
+        android:layout_height="1.5dip"
+        android:layout_below="@+id/index_titleBar"
+        android:contentDescription="@null"
+        android:scaleType="fitXY" />
+
+    <include
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/index_titleBar"
+        layout="@layout/progress"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/index_cover"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/index_titleBar"
+        android:orientation="horizontal"
+        android:visibility="gone" />
+
+</RelativeLayout>

@@ -35,7 +35,7 @@ public class DataHelper {
 
 	public static Map<Integer, String> columnTitleMap = new HashMap<Integer, String>();// catid对于的cat名称
 	public static Map<Integer, Integer> columnColorMap = new HashMap<Integer, Integer>();// catid对应的cat颜色
-	public static Map<Integer, String> columnRowMap = new HashMap<Integer, String>();// catid对应的箭头图片
+	public static Map<Integer, List<String>> columnPicMap = new HashMap<Integer, List<String>>();// catid对应的图片列表
 	public static Map<Integer, List<CatItem>> childMap = new HashMap<Integer, List<CatItem>>();// key:parent_cat_id,value:子栏目列表
 	public static Map<Integer, Integer> soloCatMap = new HashMap<Integer, Integer>();// 独立栏目
 																						// key:catid,value:跳转至的catid
@@ -53,8 +53,11 @@ public class DataHelper {
 	public static void clear() {
 		columnTitleMap.clear();
 		columnColorMap.clear();
-		columnRowMap.clear();
+		columnPicMap.clear();
 		childMap.clear();
+	}
+
+	public static void clearSoloMap() {
 		fromOffset.clear();
 		toOffset.clear();
 		soloCatMap.clear();
@@ -324,6 +327,30 @@ public class DataHelper {
 	public static void setAddColumn(Context context) {
 		Editor editor = getPref(context).edit();
 		editor.putBoolean(DB_ADD_COLUMN, true);
+		editor.commit();
+	}
+	
+	/**
+	 * 获取上次点击的子栏目id
+	 * 
+	 * @param context
+	 * @param key
+	 * @return
+	 */
+	public static int getChildId(Context context, String key) {
+		return getPref(context).getInt(key, -1);
+	}
+
+	/**
+	 * 保存上次点击的子栏目id
+	 * 
+	 * @param context
+	 * @param parentId
+	 * @param childId
+	 */
+	public static void setChildId(Context context, int parentId, int childId) {
+		Editor editor = getPref(context).edit();
+		editor.putInt(parentId + "", childId);
 		editor.commit();
 	}
 

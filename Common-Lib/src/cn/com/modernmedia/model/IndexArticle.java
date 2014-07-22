@@ -1,8 +1,12 @@
 package cn.com.modernmedia.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import android.annotation.SuppressLint;
+import cn.com.modernmedia.util.ParseUtil;
 import cn.com.modernmediaslate.model.Entry;
 
 /**
@@ -13,26 +17,21 @@ import cn.com.modernmediaslate.model.Entry;
  */
 public class IndexArticle extends Entry {
 	private static final long serialVersionUID = 1L;
-	private List<ArticleItem> titleArticleList = new ArrayList<ArticleItem>();// 首页焦点图文章数据(如果是商周，就取article节点里的数据，其他的因为只有article节点，所以要判断position.1焦点，2列表)
-	private List<ArticleItem> articleItemList = new ArrayList<ArticleItem>();// 文章列表(除了商周以外的用)
+	@SuppressLint("UseSparseArrays")
+	/**
+	 * key:position;value:文章列表
+	 */
+	private Map<Integer, List<ArticleItem>> map = new HashMap<Integer, List<ArticleItem>>();
 	private List<Today> todayList = new ArrayList<Today>();// 只在商周里面有today
 	// 当列表里面有广告时，统计显示
 	private List<String> impressionUrlList = new ArrayList<String>();
 
-	public List<ArticleItem> getTitleArticleList() {
-		return titleArticleList;
+	public Map<Integer, List<ArticleItem>> getMap() {
+		return map;
 	}
 
-	public void setTitleArticleList(List<ArticleItem> titleArticleList) {
-		this.titleArticleList = titleArticleList;
-	}
-
-	public List<ArticleItem> getArticleItemList() {
-		return articleItemList;
-	}
-
-	public void setArticleItemList(List<ArticleItem> articleItemList) {
-		this.articleItemList = articleItemList;
+	public void setMap(Map<Integer, List<ArticleItem>> map) {
+		this.map = map;
 	}
 
 	public List<Today> getTodayList() {
@@ -49,6 +48,11 @@ public class IndexArticle extends Entry {
 
 	public void setImpressionUrlList(List<String> impressionUrlList) {
 		this.impressionUrlList = impressionUrlList;
+	}
+
+	public boolean hasData(int position) {
+		return map.containsKey(position)
+				&& ParseUtil.listNotNull(map.get(position));
 	}
 
 	/**

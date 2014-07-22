@@ -1,11 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cn.com.modernmedia.businessweek"
-    android:versionCode="11"
-    android:versionName="1.6.0" >
+    android:versionCode="12"
+    android:versionName="1.6.1" >
 
     <uses-sdk
         android:minSdkVersion="10"
-        android:targetSdkVersion="10" />
+        android:targetSdkVersion="16" />
 
     <supports-screens
         android:anyDensity="true"
@@ -14,9 +14,9 @@
         android:smallScreens="true" />
 
     <application
-        android:name="cn.com.modernmedia.businessweek.MyApplication"
-        android:debuggable="false"
+        android:name=".MyApplication"
         android:icon="@drawable/icon"
+        android:debuggable="false"
         android:label="@string/app_name" >
         <activity
             android:name=".SplashScreenActivity"
@@ -32,10 +32,14 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".AboutActivity"
+            android:name="cn.com.modernmedia.views.ArticleActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".LoginActivity"
+            android:name="cn.com.modernmedia.views.AboutActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="cn.com.modernmediausermodel.DefaultLoginActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait" >
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
@@ -46,13 +50,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".UserInfoActivity"
+            android:name="cn.com.modernmediausermodel.DefaultUserInfoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ArticleActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".AdvActivity"
+            android:name="cn.com.modernmedia.CommonAdvActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".TestActivity"
@@ -90,6 +91,7 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name="cn.com.modernmediausermodel.WriteNewCardActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" >
             <intent-filter>

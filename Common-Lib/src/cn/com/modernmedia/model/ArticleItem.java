@@ -7,6 +7,7 @@ import cn.com.modernmedia.model.AdvList.AdvSource;
 import cn.com.modernmedia.model.AdvList.AdvTracker;
 import cn.com.modernmedia.model.CatIndexArticle.SoloColumnIndexItem;
 import cn.com.modernmedia.model.IndexArticle.Position;
+import cn.com.modernmedia.util.ParseUtil;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.model.Favorite.FavoriteItem;
 import cn.com.modernmediaslate.model.Favorite.Thumb;
@@ -24,11 +25,13 @@ public class ArticleItem extends Entry {
 	private int catId = -1;// 文章所属栏目id
 	private int issueId = -1;// 期id
 	private String desc = "";// 描述
-	private List<String> pictureList = new ArrayList<String>();// 文章图片url
+	private List<String> picList = new ArrayList<String>();// 文章大图url
+	private List<String> thumbList = new ArrayList<String>();// 文章缩略图url
 	private Position position = new Position();// 图片位置,1:title,2:列表缩略图
 	private boolean showTitleBar = false;// 首页文章titlebar
 	private boolean showMoreCat = false;// 显示更多子栏目或者独立栏目
 	private String slateLink = "";// 首页跳转文章
+	private List<String> slateLinkList = new ArrayList<String>();// iweekly视野栏目使用
 	private String tag = "";// 栏目名称
 	private String author = "";
 	private String outline = "";
@@ -38,6 +41,8 @@ public class ArticleItem extends Entry {
 	private AdvTracker advTracker = null;// 广告统计
 	private String inputtime = "";
 	private boolean isDateFirst = false;// iweekly新闻栏目根据日期组合，是否为当前日期集合的第一个元素
+	private String weburl = "";// 分享链接
+	private IndexProperty property = new IndexProperty();
 
 	public int getArticleId() {
 		return articleId;
@@ -79,12 +84,20 @@ public class ArticleItem extends Entry {
 		this.desc = desc;
 	}
 
-	public List<String> getPictureList() {
-		return pictureList;
+	public List<String> getPicList() {
+		return picList;
 	}
 
-	public void setPictureList(List<String> pictureList) {
-		this.pictureList = pictureList;
+	public void setPicList(List<String> picList) {
+		this.picList = picList;
+	}
+
+	public List<String> getThumbList() {
+		return thumbList;
+	}
+
+	public void setThumbList(List<String> thumbList) {
+		this.thumbList = thumbList;
 	}
 
 	public Position getPosition() {
@@ -117,6 +130,14 @@ public class ArticleItem extends Entry {
 
 	public void setSlateLink(String slateLink) {
 		this.slateLink = slateLink;
+	}
+
+	public List<String> getSlateLinkList() {
+		return slateLinkList;
+	}
+
+	public void setSlateLinkList(List<String> slateLinkList) {
+		this.slateLinkList = slateLinkList;
 	}
 
 	public String getTag() {
@@ -191,6 +212,22 @@ public class ArticleItem extends Entry {
 		this.isDateFirst = isDateFirst;
 	}
 
+	public String getWeburl() {
+		return weburl;
+	}
+
+	public void setWeburl(String weburl) {
+		this.weburl = weburl;
+	}
+
+	public IndexProperty getProperty() {
+		return property;
+	}
+
+	public void setProperty(IndexProperty property) {
+		this.property = property;
+	}
+
 	/**
 	 * 当首页需要收藏时，用来做model转换
 	 * 
@@ -207,11 +244,20 @@ public class ArticleItem extends Entry {
 		item.setIssueid(issueId);
 		// item.setFavtime("");
 		// item.setFavdel(0);
-		for (String picture : pictureList) {
-			Thumb thumb = new Thumb();
-			thumb.setUrl(picture);
-			item.getThumb().add(thumb);
+		if (ParseUtil.listNotNull(picList)) {
+			for (String picture : picList) {
+				Thumb thumb = new Thumb();
+				thumb.setUrl(picture);
+				item.getThumb().add(thumb);
+			}
+		} else {
+			for (String picture : thumbList) {
+				Thumb thumb = new Thumb();
+				thumb.setUrl(picture);
+				item.getThumb().add(thumb);
+			}
 		}
+
 		// item.setProperty(null);
 		if (soloItem != null) {
 			item.setPagenum(soloItem.getPagenum());
@@ -220,5 +266,37 @@ public class ArticleItem extends Entry {
 		}
 		item.setTag(tag);
 		return item;
+	}
+
+	public static class IndexProperty extends Entry {
+		private static final long serialVersionUID = 1L;
+		private int level;
+		private int type;// 1.普通文章；2.组图文章；3.视频文章；4.组合文章；5.动态文章；6.链接文章；7.音频文章
+		private int havecard;
+
+		public int getLevel() {
+			return level;
+		}
+
+		public void setLevel(int level) {
+			this.level = level;
+		}
+
+		public int getType() {
+			return type;
+		}
+
+		public void setType(int type) {
+			this.type = type;
+		}
+
+		public int getHavecard() {
+			return havecard;
+		}
+
+		public void setHavecard(int havecard) {
+			this.havecard = havecard;
+		}
+
 	}
 }

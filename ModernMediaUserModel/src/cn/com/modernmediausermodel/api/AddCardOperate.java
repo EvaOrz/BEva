@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import cn.com.modernmediaslate.api.SlateBaseOperate;
 import cn.com.modernmediaslate.listener.FetchDataListener;
 import cn.com.modernmediaslate.unit.SlatePrintHelper;
+import cn.com.modernmediausermodel.UserApplication;
 import cn.com.modernmediausermodel.model.Card.CardItem;
 import cn.com.modernmediausermodel.model.User.Error;
 import cn.com.modernmediausermodel.util.UserConstData;
@@ -58,6 +59,10 @@ public class AddCardOperate extends SlateBaseOperate {
 		if (object != null) {
 			error.setNo(object.optInt("code", 0));
 			error.setDesc(object.optString("msg", ""));
+			if (UserApplication.infoChangeListener != null
+					&& error.getNo() == 0) {
+				UserApplication.infoChangeListener.addCard(1);
+			}
 		}
 	}
 

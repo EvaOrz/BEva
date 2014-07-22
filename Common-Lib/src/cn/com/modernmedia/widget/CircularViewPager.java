@@ -8,7 +8,6 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import cn.com.modernmedia.adapter.MyPagerAdapter;
 import cn.com.modernmedia.listener.NotifyArticleDesListener;
-import cn.com.modernmedia.model.ArticleItem;
 
 /**
  * 循环viewpager
@@ -16,13 +15,12 @@ import cn.com.modernmedia.model.ArticleItem;
  * @author ZhuQiao
  * 
  */
-public class CircularViewPager extends ViewPager {
-	private CircularViewPager me;
-	private MyPagerAdapter adapter;
+public class CircularViewPager<T> extends ViewPager {
+	private CircularViewPager<T> me;
+	private MyPagerAdapter<T> adapter;
 	private Context mContext;
 	private NotifyArticleDesListener listener;
-	private List<ArticleItem> list;
-	private int dirPosition = 0;
+	private List<T> list;
 	/**
 	 * 占位图资源
 	 */
@@ -46,7 +44,13 @@ public class CircularViewPager extends ViewPager {
 			public void onPageSelected(int position) {
 				if (list == null || list.size() <= position)
 					return;
-				dirPosition = position;
+				if (list.size() != 1) {
+					if (position == 0) {
+						me.setCurrentItem(list.size() - 2, false);// 其实是最后一个view
+					} else if (position == list.size() - 1) {
+						me.setCurrentItem(1, false);// 其实是第一个view
+					}
+				}
 				if (listener != null)
 					listener.updateDes(position);
 			}
@@ -59,13 +63,6 @@ public class CircularViewPager extends ViewPager {
 			@Override
 			public void onPageScrollStateChanged(int state) {
 				if (state != ViewPager.SCROLL_STATE_DRAGGING) {
-					if (list.size() != 1) {
-						if (dirPosition == 0) {
-							me.setCurrentItem(list.size() - 2, false);// 其实是最后一个view
-						} else if (dirPosition == list.size() - 1) {
-							me.setCurrentItem(1, false);// 其实是第一个view
-						}
-					}
 				}
 				if (listener != null)
 					listener.updatePage(state);
@@ -87,22 +84,33 @@ public class CircularViewPager extends ViewPager {
 	 * 
 	 * @param list
 	 */
-	public void setDataForPager(List<ArticleItem> list) {
+	public void setDataForPager(List<T> list) {
+		setDataForPager(list, 0);
+	}
+
+	public void setDataForPager(List<T> list, int position) {
+		int length = list.size();
 		buildData(list);
 		adapter = fetchAdapter(mContext, list);
 		this.setAdapter(adapter);
-		if (list.size() > 1)
-			this.setCurrentItem(1, false);
+		if (list.size() <= 1)
+			return;
+		if (position == length - 1) {
+			position = list.size() - 2;
+		} else {
+			position++;
+		}
+		this.setCurrentItem(position, false);
 	}
 
-	private void buildData(List<ArticleItem> list) {
+	private void buildData(List<T> list) {
 		/**
 		 * 创建一个新的list,循环滑动：头部添加一个和原尾部相同的view，尾部添加一个和原头部相同的view
 		 * 当滑动到第一个的时候，其实显示的是本来的最后一个view，这时把显示位置移到最后第二个，即本来的最后一个view
 		 * 同理，当滑到最后一个的时候，其实现实的是本来的第一个view，这时把位置移到第一个，即本来的第一个view
 		 */
 		if (list.size() > 1) {
-			List<ArticleItem> newList = new ArrayList<ArticleItem>();
+			List<T> newList = new ArrayList<T>();
 			newList.add(list.get(list.size() - 1));
 			newList.addAll(list);
 			newList.add(list.get(0));
@@ -118,7 +126,7 @@ public class CircularViewPager extends ViewPager {
 		listener.updateDes(0);
 	}
 
-	public MyPagerAdapter fetchAdapter(Context context, List<ArticleItem> list) {
-		return new MyPagerAdapter(context, list, placeholderRes);
+	public MyPagerAdapter<T> fetchAdapter(Context context, List<T> list) {
+		return new MyPagerAdapter<T>(context, list, placeholderRes);
 	}
 }

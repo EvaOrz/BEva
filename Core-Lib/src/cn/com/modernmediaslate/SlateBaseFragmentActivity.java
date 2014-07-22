@@ -170,6 +170,13 @@ public abstract class SlateBaseFragmentActivity extends FragmentActivity {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
+		exitApp();
+	}
+
+	/**
+	 * 离开应用
+	 */
+	protected void exitApp() {
 		removeActivityFromList();
 	}
 }

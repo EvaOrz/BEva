@@ -305,7 +305,7 @@ public class AdvList extends Entry {
 				AdvSource source = sourceList.get(0);
 				item.setTitle(source.getTitle());
 				item.setDesc(source.getDesc());
-				item.getPictureList().add(source.getUrl());
+				item.getPicList().add(source.getUrl());
 				item.setSlateLink(source.getLink());
 				item.setAdvSource(source);
 			}
@@ -574,7 +574,6 @@ public class AdvList extends Entry {
 		public void setTop(int top) {
 			this.top = top;
 		}
-
 	}
 
 	/**

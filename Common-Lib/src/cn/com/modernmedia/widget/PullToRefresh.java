@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -25,10 +24,10 @@ import cn.com.modernmedia.util.DataHelper;
  * 
  */
 public class PullToRefresh {
-	private final static int RELEASE_To_REFRESH = 0;// 松开刷新
-	private final static int PULL_To_REFRESH = 1;// 下拉刷新
-	private final static int REFRESHING = 2;// 正在刷新
-	private final static int DONE = 3;// 默认状态
+	private static final int RELEASE_To_REFRESH = 0;// 松开刷新
+	private static final int PULL_To_REFRESH = 1;// 下拉刷新
+	private static final int REFRESHING = 2;// 正在刷新
+	private static final int DONE = 3;// 默认状态
 
 	private Context mContext;
 	private PullToRefreshListView mListView;
@@ -41,8 +40,8 @@ public class PullToRefresh {
 
 	private int mHeadHeight;
 
-	private RotateAnimation animation;
-	private RotateAnimation reverseAnimation;
+	// private RotateAnimation animation;
+	// private RotateAnimation reverseAnimation;
 	private TranslateAnimation translateAnimation;
 
 	private int startY;
@@ -63,6 +62,7 @@ public class PullToRefresh {
 		mRow = (ImageView) mHeadView.findViewById(R.id.head_arrowImageView);
 		mRow.setMinimumWidth(70);
 		mRow.setMinimumHeight(50);
+		mRow.setVisibility(View.INVISIBLE);
 		mProgressBar = (ProgressBar) mHeadView
 				.findViewById(R.id.head_progressBar);
 		mRefreshText = (TextView) mHeadView
@@ -78,19 +78,19 @@ public class PullToRefresh {
 
 		mListView.addHeaderView(mHeadView);
 
-		animation = new RotateAnimation(0, -180,
-				RotateAnimation.RELATIVE_TO_SELF, 0.5f,
-				RotateAnimation.RELATIVE_TO_SELF, 0.5f);
-		animation.setInterpolator(new LinearInterpolator());
-		animation.setDuration(150);
-		animation.setFillAfter(true);
-
-		reverseAnimation = new RotateAnimation(-180, 0,
-				RotateAnimation.RELATIVE_TO_SELF, 0.5f,
-				RotateAnimation.RELATIVE_TO_SELF, 0.5f);
-		reverseAnimation.setInterpolator(new LinearInterpolator());
-		reverseAnimation.setDuration(150);
-		reverseAnimation.setFillAfter(true);
+		// animation = new RotateAnimation(0, -180,
+		// RotateAnimation.RELATIVE_TO_SELF, 0.5f,
+		// RotateAnimation.RELATIVE_TO_SELF, 0.5f);
+		// animation.setInterpolator(new LinearInterpolator());
+		// animation.setDuration(150);
+		// animation.setFillAfter(true);
+		//
+		// reverseAnimation = new RotateAnimation(-180, 0,
+		// RotateAnimation.RELATIVE_TO_SELF, 0.5f,
+		// RotateAnimation.RELATIVE_TO_SELF, 0.5f);
+		// reverseAnimation.setInterpolator(new LinearInterpolator());
+		// reverseAnimation.setDuration(150);
+		// reverseAnimation.setFillAfter(true);
 
 		translateAnimation = new TranslateAnimation(0, 0, 0, -mHeadHeight);
 		translateAnimation.setInterpolator(new LinearInterpolator());
@@ -249,12 +249,14 @@ public class PullToRefresh {
 	private void changeHeaderViewByState(boolean smoothScroll) {
 		switch (state) {
 		case RELEASE_To_REFRESH:
-			mRow.setVisibility(View.VISIBLE);
+			// mRow.setVisibility(View.VISIBLE);
+			// TODO
+			mRow.setVisibility(View.INVISIBLE);
 			mProgressBar.setVisibility(View.GONE);
 			mRefreshText.setVisibility(View.VISIBLE);
 
-			mRow.clearAnimation();
-			mRow.startAnimation(animation);
+			// mRow.clearAnimation();
+			// mRow.startAnimation(animation);
 
 			mRefreshText.setText(R.string.pull_to_refresh_release_label);
 			onPulling();
@@ -262,13 +264,15 @@ public class PullToRefresh {
 		case PULL_To_REFRESH:
 			mProgressBar.setVisibility(View.GONE);
 			mRefreshText.setVisibility(View.VISIBLE);
-			mRow.clearAnimation();
-			mRow.setVisibility(View.VISIBLE);
+			// mRow.clearAnimation();
+			// mRow.setVisibility(View.VISIBLE);
+			// TODO
+			mRow.setVisibility(View.INVISIBLE);
 			// 是由RELEASE_To_REFRESH状态转变来的
 			if (isBack) {
 				isBack = false;
-				mRow.clearAnimation();
-				mRow.startAnimation(reverseAnimation);
+				// mRow.clearAnimation();
+				// mRow.startAnimation(reverseAnimation);
 			}
 			mRefreshText.setText(R.string.pull_to_refresh_pull_label);
 			onPulling();
@@ -277,7 +281,7 @@ public class PullToRefresh {
 			mHeadView.setPadding(0, 0, 0, 0);
 
 			mProgressBar.setVisibility(View.VISIBLE);
-			mRow.clearAnimation();
+			// mRow.clearAnimation();
 			mRow.setVisibility(View.GONE);
 			mRefreshText.setText(R.string.pull_to_refresh_refreshing_label);
 			toState = REFRESHING;
@@ -290,8 +294,7 @@ public class PullToRefresh {
 				mHeadView.setPadding(0, -1 * mHeadHeight, 0, 0);
 
 			mProgressBar.setVisibility(View.GONE);
-			mRow.clearAnimation();
-			// arrowImageView.setImageResource(R.drawable.refresh_down);
+			// mRow.clearAnimation();
 			mRefreshText.setText(R.string.pull_to_refresh_pull_label);
 			toState = DONE;
 			if (mListView.getRefreshListener() != null) {

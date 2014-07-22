@@ -38,4 +38,5 @@
 
     <!-- footer_view -->
     <dimen name="footer_height">50dp</dimen>
+
 </resources>

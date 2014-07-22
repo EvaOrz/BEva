@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="child_cat_bg">#FFEB030D</color>
+
+    <!-- iweekly焦点图 -->
+    <color name="weekly_column_head_bg">#BF000000</color>
+    <color name="weather_day_label">#ffaaaaaa</color>
+    <color name="weather_day_shadow">#4c000000</color>
+    <color name="weather_view_bg">#66000000</color>
+    <color name="russet">#ffdd3d14</color>
+
+    <!-- iweekly子栏目导航栏 -->
+    <color name="index_head_bg">#323232</color>
+    <color name="index_head_bg_select">#222222</color>
+    <color name="index_head_divider">#414141</color>
+    <color name="column_left_logo_bg">#191919</color>
+    <color name="column_head_bg">#BF000000</color>
+    <color name="column_head">#c6391e</color>
+    <color name="column_item_bg">#323232</color>
+    <color name="column_item_text">#cccccc</color>
+</resources>

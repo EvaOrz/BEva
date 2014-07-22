@@ -17,6 +17,10 @@ public class AtlasViewPager extends ViewPager {
 	private NotifyArticleDesListener listener;
 	private boolean intercept = false;
 
+	public AtlasViewPager(Context context) {
+		this(context, null);
+	}
+
 	public AtlasViewPager(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		this.setOnPageChangeListener(new OnPageChangeListener() {

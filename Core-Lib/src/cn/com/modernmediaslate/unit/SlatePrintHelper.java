@@ -14,7 +14,7 @@ public class SlatePrintHelper {
 
 	public static void print(String msg) {
 //		if (is_debug)
-//			System.out.println(msg);
+			System.out.println(msg);
 	}
 
 	public static void logE(String tag, String msg) {

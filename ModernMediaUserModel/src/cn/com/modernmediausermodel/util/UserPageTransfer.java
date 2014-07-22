@@ -9,10 +9,11 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import cn.com.modernmedia.db.FavDb;
 import cn.com.modernmedia.model.Issue;
-import cn.com.modernmedia.util.ConstData;
+import cn.com.modernmedia.util.PageTransfer;
 import cn.com.modernmedia.util.ParseUtil;
 import cn.com.modernmediaslate.model.Favorite.FavoriteItem;
 import cn.com.modernmediausermodel.CardDetailActivity;
+import cn.com.modernmediausermodel.DefaultModifyPwdActivity;
 import cn.com.modernmediausermodel.DefaultUserInfoActivity;
 import cn.com.modernmediausermodel.FavoritesActivity;
 import cn.com.modernmediausermodel.MessageActivity;
@@ -27,6 +28,9 @@ import cn.com.modernmediausermodel.help.UserHelper;
 import cn.com.modernmediausermodel.model.Card;
 import cn.com.modernmediausermodel.model.Message;
 import cn.com.modernmediausermodel.model.User;
+import cn.com.modernmediausermodel.widget.MessageView;
+import cn.com.modernmediausermodel.widget.RecommendUserView;
+import cn.com.modernmediausermodel.widget.UserCardView;
 
 /**
  * 用户模块页面跳转
@@ -98,6 +102,10 @@ public class UserPageTransfer {
 			((Activity) context).startActivityForResult(intent, requestCode);
 		if (finish)
 			((Activity) context).finish();
+		if (cls == UserConstData.getLoginClass()) {
+			((Activity) context).overridePendingTransition(
+					R.anim.activity_open_enter, R.anim.activity_open_exit);
+		}
 	}
 
 	/**
@@ -106,7 +114,7 @@ public class UserPageTransfer {
 	public static void gotoUserCardInfoActivity(Context context, User user,
 			boolean finish) {
 		Bundle bundle = new Bundle();
-		bundle.putSerializable(UserCardInfoActivity.KEY_USER, user);
+		bundle.putSerializable(UserCardView.KEY_USER, user);
 		transfer(context, UserCardInfoActivity.class, bundle, finish, true);
 	}
 
@@ -141,7 +149,7 @@ public class UserPageTransfer {
 			return;
 		}
 		Bundle bundle = new Bundle();
-		bundle.putSerializable(MessageActivity.KEY_MESSAGE, message);
+		bundle.putSerializable(MessageView.KEY_MESSAGE, message);
 		transfer(context, MessageActivity.class, bundle, finish, true);
 	}
 
@@ -178,9 +186,9 @@ public class UserPageTransfer {
 		Bundle bundle = new Bundle();
 		if (user != null)
 			bundle.putSerializable(USER_KEY, user);
-		bundle.putInt(RecommendUserActivity.KEY_PAGE_TYPE, pageType);
+		bundle.putInt(RecommendUserView.KEY_PAGE_TYPE, pageType);
 		transfer(context, RecommendUserActivity.class, bundle, finish,
-				UserCardInfoActivity.REQUEST_CODE_USER_LIST, true);
+				UserCardView.REQUEST_CODE_USER_LIST, true);
 	}
 
 	/**
@@ -189,7 +197,10 @@ public class UserPageTransfer {
 	public static void gotoFavoritesActivity(Context context, Issue issue) {
 		Bundle bundle = new Bundle();
 		bundle.putSerializable(FavoritesActivity.ISSUE_KEY, issue);
-		transfer(context, FavoritesActivity.class, bundle, true);
+		// transfer(context, FavoritesActivity.class, bundle, true);
+		// test
+		transfer(context, FavoritesActivity.class, bundle, false,
+				PageTransfer.REQUEST_CODE, true);
 	}
 
 	/**
@@ -228,11 +239,9 @@ public class UserPageTransfer {
 	 * 跳转到写笔记页面
 	 * 
 	 * @param content
-	 * @param appId
-	 *            应用id，区分是第三方应用还是当前应用
 	 */
 	public static void gotoWriteCardActivity(Context context, String content,
-			int appId, boolean finish) {
+			boolean finish) {
 		if (TextUtils.isEmpty(content)) {
 			((Activity) context).finish();
 			return;
@@ -241,8 +250,9 @@ public class UserPageTransfer {
 		bundle.putString(WriteNewCardActivity.KEY_FROM,
 				WriteNewCardActivity.VALUE_SHARE);
 		bundle.putString(WriteNewCardActivity.KEY_DATA, content);
-		bundle.putInt(ConstData.SHARE_APP_ID, appId);
 		transfer(context, WriteNewCardActivity.class, bundle, finish, false);
+		((Activity) context).overridePendingTransition(R.anim.down_in,
+				R.anim.hold);
 	}
 
 	/**
@@ -274,18 +284,16 @@ public class UserPageTransfer {
 	 * @param user
 	 * @param content
 	 *            第三放分享内容
-	 * @param appId
-	 *            当前应用id
 	 * @param gotoPage
 	 *            需要跳转至的页面
 	 */
 	public static void afterLogin(Context context, User user, String content,
-			int appId, int gotoPage) {
+			int gotoPage) {
 		if (user == null)
 			return;
 		// 如果是第三方应用分享笔记，则进入发表笔记页面
 		if (!TextUtils.isEmpty(content)) {
-			gotoWriteCardActivity(context, content, appId, true);
+			gotoWriteCardActivity(context, content, true);
 		} else {
 			// 更新收藏文件夹
 			List<FavoriteItem> list = FavDb.getInstance(context)
@@ -300,7 +308,7 @@ public class UserPageTransfer {
 				UserDataHelper.saveIsFirstLogin(context, user.getUserName(),
 						false);
 				gotoUserListActivity(context, null,
-						RecommendUserActivity.PAGE_RECOMMEND_FRIEND, true);
+						RecommendUserView.PAGE_RECOMMEND_FRIEND, true);
 			} else {
 				if (!checkAfterLogin(context, gotoPage)) {
 					((Activity) context).finish();
@@ -352,4 +360,14 @@ public class UserPageTransfer {
 		transfer(context, UserConstData.getUserInfoClass(), bundle, from != 0,
 				true);
 	}
+
+	/**
+	 * 跳转至修改密码页面
+	 * 
+	 * @param context
+	 */
+	public static void gotoModifyPasswordActivity(Context context) {
+		transfer(context, DefaultModifyPwdActivity.class, null, false, true);
+	}
+
 }

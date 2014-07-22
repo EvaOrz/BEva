@@ -24,11 +24,13 @@ public abstract class ArticleDetailItem extends BaseView implements
 	private Context mContext;
 	private CommonWebView webView;
 	private FavoriteItem detail;
+	private int errorType;
 
 	private WebProcessListener listener = new WebProcessListener() {
 
 		@Override
 		public void showStyle(int style) {
+			errorType = style;
 			if (style == 0) {
 				disProcess();
 			} else if (style == 1) {
@@ -40,23 +42,37 @@ public abstract class ArticleDetailItem extends BaseView implements
 
 	};
 
-	public ArticleDetailItem(Context context) {
-		super(context);
-		mContext = context;
-		init();
+	public ArticleDetailItem(Context context, boolean bgIsTransparent) {
+		this(context, bgIsTransparent, false);
 	}
 
-	private void init() {
+	public ArticleDetailItem(Context context, boolean bgIsTransparent,
+			boolean isSlateWeb) {
+		super(context);
+		mContext = context;
+		init(bgIsTransparent, isSlateWeb);
+	}
+
+	/**
+	 * 初始化
+	 * 
+	 * @param bgIsTransparent
+	 *            webview 背景是否透明
+	 * @param isSlateWeb
+	 *            是否slate跳转内部浏览器
+	 */
+	private void init(boolean bgIsTransparent, boolean isSlateWeb) {
 		this.addView(LayoutInflater.from(mContext).inflate(
 				R.layout.article_detail, null));
 		this.setBackgroundColor(Color.WHITE);
 		initProcess();
 		LinearLayout ll = (LinearLayout) findViewById(R.id.web_contain);
-		webView = new CommonWebView(mContext) {
+		webView = new CommonWebView(mContext, bgIsTransparent) {
 
 			@Override
-			public void showGallery(List<String> urlList) {
-				ArticleDetailItem.this.showGallery(urlList);
+			public void gotoGalleryActivity(List<String> urlList,
+					String currentUrl) {
+				showGallery(urlList, currentUrl);
 			}
 
 			@Override
@@ -72,13 +88,11 @@ public abstract class ArticleDetailItem extends BaseView implements
 
 		};
 		webView.setListener(listener);
+		webView.setSlateWeb(isSlateWeb);
 		ll.addView(webView, new LinearLayout.LayoutParams(
 				LinearLayout.LayoutParams.FILL_PARENT,
 				LinearLayout.LayoutParams.FILL_PARENT));
-		if (getBackGroundRes() != -1) {
-			((ImageView) findViewById(R.id.web_back))
-					.setImageResource(getBackGroundRes());
-		}
+		setBackGroundRes((ImageView) findViewById(R.id.web_back));
 	}
 
 	public void setData(FavoriteItem detail) {
@@ -113,9 +127,9 @@ public abstract class ArticleDetailItem extends BaseView implements
 		return webView;
 	}
 
-	public abstract int getBackGroundRes();
+	public abstract void setBackGroundRes(ImageView imageView);
 
-	public abstract void showGallery(List<String> urlList);
+	public abstract void showGallery(List<String> urlList, String currentUrl);
 
 	/**
 	 * 跳转至写卡片页
@@ -131,4 +145,9 @@ public abstract class ArticleDetailItem extends BaseView implements
 	public void changeFont() {
 		webView.changeFont();
 	}
+
+	public int getErrorType() {
+		return errorType;
+	}
+
 }

@@ -3,8 +3,6 @@ package cn.com.modernmedia.widget;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.com.modernmedia.util.ParseUtil;
-
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Rect;
@@ -12,6 +10,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ListView;
+import cn.com.modernmedia.util.ParseUtil;
 
 /**
  * 
@@ -22,9 +21,10 @@ import android.widget.ListView;
  */
 public class HeadPagerListView extends ListView {
 	private List<View> scrollViewList;
+	private boolean check_angle;// 是否需要判断角度
 
 	public HeadPagerListView(Context context) {
-		super(context);
+		this(context, null);
 	}
 
 	public HeadPagerListView(Context context, AttributeSet attrs) {
@@ -59,9 +59,20 @@ public class HeadPagerListView extends ListView {
 		setHeaderDividersEnabled(headerDividersEnabled);
 	}
 
+	public void setCheck_angle(boolean check_angle) {
+		this.check_angle = check_angle;
+	}
+
 	@Override
 	public boolean onInterceptTouchEvent(MotionEvent ev) {
-		if (checkScroll(ev))
+		if (check_angle) {
+			if (adjustAngle(ev)) {
+				return super.onInterceptTouchEvent(ev);
+			}
+			if (checkScroll(ev) && ev.getAction() == MotionEvent.ACTION_MOVE) {
+				return false;
+			}
+		} else if (checkScroll(ev))
 			return false;
 		return super.onInterceptTouchEvent(ev);
 	}
@@ -85,5 +96,33 @@ public class HeadPagerListView extends ListView {
 			}
 		}
 		return inChild;
+	}
+
+	private float angleX, angleY;
+	private double angle;
+	private static final double MIN_ANGLE = 30;
+
+	/**
+	 * 滑动的角度是否大于最小值
+	 * 
+	 * @param ev
+	 * @return
+	 */
+	private boolean adjustAngle(MotionEvent ev) {
+		float y = ev.getRawY();
+		float x = ev.getRawX();
+		if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+			angleX = x;
+			angleY = y;
+		} else if (ev.getAction() == MotionEvent.ACTION_MOVE) {
+			angle = Math.atan(Math.abs(x - angleX) / Math.abs(y - angleY))
+					/ Math.PI * 180;
+			angleX = x;
+			angleY = y;
+			if (angle < MIN_ANGLE) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

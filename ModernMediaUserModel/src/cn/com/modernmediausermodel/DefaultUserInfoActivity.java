@@ -2,6 +2,9 @@ package cn.com.modernmediausermodel;
 
 import java.io.File;
 
+import org.json.JSONObject;
+
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -24,11 +27,13 @@ import android.widget.TextView;
 import cn.com.modernmedia.BaseActivity;
 import cn.com.modernmedia.CommonApplication;
 import cn.com.modernmedia.listener.ImageDownloadStateListener;
-import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmedia.util.FileManager;
+import cn.com.modernmedia.util.sina.SinaAPI;
+import cn.com.modernmedia.util.sina.SinaRequestListener;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediausermodel.api.UserModelInterface;
 import cn.com.modernmediausermodel.listener.RequestListener;
+import cn.com.modernmediausermodel.model.LoginParm;
 import cn.com.modernmediausermodel.model.UploadAvatarResult;
 import cn.com.modernmediausermodel.model.User;
 import cn.com.modernmediausermodel.model.User.Error;
@@ -37,8 +42,7 @@ import cn.com.modernmediausermodel.util.UserDataHelper;
 import cn.com.modernmediausermodel.util.UserFileManager;
 import cn.com.modernmediausermodel.util.UserPageTransfer;
 import cn.com.modernmediausermodel.util.UserTools;
-import cn.com.modernmediausermodel.util.sina.SinaAPI;
-import cn.com.modernmediausermodel.util.sina.SinaRequestListener;
+import cn.com.modernmediausermodel.widget.UserCardView;
 
 /**
  * 用户信息界面
@@ -46,7 +50,7 @@ import cn.com.modernmediausermodel.util.sina.SinaRequestListener;
  * @author ZhuQiao
  * 
  */
-public abstract class DefaultUserInfoActivity extends BaseActivity implements
+public class DefaultUserInfoActivity extends BaseActivity implements
 		OnClickListener {
 	public static final String KEY_ACTION_FROM = "from"; // 作为获得标识从哪个按钮点击跳转到该页面的key
 	public static final int FROM_REGISTER = 1;
@@ -67,7 +71,6 @@ public abstract class DefaultUserInfoActivity extends BaseActivity implements
 	// protected boolean isFromRegister = false;
 	protected int actionFrom = 0; // 识从哪个按钮点击跳转到该页面
 	private String shareContent = "";// 分享内容
-	private int appId;// 区分是第三方应用分享还是当前应用分享
 	private int gotoPage;// 完成需要跳转的页面
 	private Animation shakeAnim;
 	private Handler mHandler = new Handler();
@@ -83,11 +86,11 @@ public abstract class DefaultUserInfoActivity extends BaseActivity implements
 			Bundle bundle = getIntent().getExtras();
 			actionFrom = bundle.getInt(KEY_ACTION_FROM, 0);
 			shareContent = bundle.getString(WriteNewCardActivity.KEY_DATA);
-			appId = bundle.getInt(ConstData.SHARE_APP_ID);
 			mUser = (User) getIntent().getSerializableExtra(
-					UserCardInfoActivity.KEY_USER);
+					UserCardView.KEY_USER);
 			gotoPage = bundle.getInt(UserPageTransfer.LOGIN_KEY);
 		}
+		setContentView(-1);
 	}
 
 	/**
@@ -118,6 +121,12 @@ public abstract class DefaultUserInfoActivity extends BaseActivity implements
 		mModifyPwdText = (TextView) findViewById(R.id.userinfo_modify_pwd_btn);
 		mLogoutText = (TextView) findViewById(R.id.userinfo_logout_btn);
 		mSureBtn = (Button) findViewById(R.id.userinfo_complete);
+
+		if (actionFrom != 0) {
+			LoginParm parm = UserTools.parseColumn(this);
+			UserTools.setText((TextView) findViewById(R.id.userinfo_desc),
+					parm.getUserinfo_desc());
+		}
 
 		mClearImage.setOnClickListener(this);
 		mCloseImage.setOnClickListener(this);
@@ -241,14 +250,21 @@ public abstract class DefaultUserInfoActivity extends BaseActivity implements
 	 */
 	public void getSinaUserInfo() {
 		showLoadingDialog(true);
-		SinaAPI.getInstance(mContext).fetchUserInfo(new SinaRequestListener() {
+		final SinaAPI sinaAPI = SinaAPI.getInstance(mContext);
+		sinaAPI.fetchUserInfo(new SinaRequestListener() {
 
 			@Override
-			public void onSuccess(Entry entry) {
-
-				if (entry != null && entry instanceof User) {
+			public void onSuccess(String response) {
+				JSONObject object;
+				try {
 					showLoadingDialog(false);
-					mUser = (User) entry;
+					object = new JSONObject(response);
+					mUser = new User();
+					mUser.setSinaId(object.optString("idstr", "")); // 新浪ID
+					mUser.setNickName(object.optString("screen_name")); // 昵称
+					mUser.setUserName(object.optString("name"));
+					mUser.setAvatar(object.optString("profile_image_url"));// 用户头像地址（中图），50×50像素
+					mUser.setToken(sinaAPI.getToken());
 					UserDataHelper.saveAvatarUrl(mContext, mUser.getUserName(),
 							mUser.getAvatar());
 					// 设置昵称
@@ -261,6 +277,8 @@ public abstract class DefaultUserInfoActivity extends BaseActivity implements
 									avatar);
 						}
 					});
+				} catch (Exception e) {
+					showLoadingDialog(false);
 				}
 			}
 
@@ -276,11 +294,12 @@ public abstract class DefaultUserInfoActivity extends BaseActivity implements
 	 */
 	private void getSinaAvatar(final String url) {
 		showLoadingDialog(true);
-		CommonApplication.getImageDownloader().download(url,
+		CommonApplication.finalBitmap.display(url,
 				new ImageDownloadStateListener() {
 
 					@Override
 					public void loading() {
+						showLoadingDialog(false);
 					}
 
 					@Override
@@ -291,6 +310,7 @@ public abstract class DefaultUserInfoActivity extends BaseActivity implements
 
 					@Override
 					public void loadError() {
+						showLoadingDialog(false);
 					}
 				});
 	}
@@ -307,8 +327,10 @@ public abstract class DefaultUserInfoActivity extends BaseActivity implements
 				showLoadingDialog(false);
 				User user = (User) entry;
 				UserDataHelper.saveUserLoginInfo(mContext, user);
+				UserDataHelper.saveAvatarUrl(mContext, user.getUserName(),
+						user.getAvatar());
 				UserPageTransfer.afterLogin(mContext, user, shareContent,
-						appId, gotoPage);
+						gotoPage);
 				// 用于判定是否用新浪微博登录过
 				UserDataHelper.saveSinaLoginedName(mContext, mUser.getSinaId(),
 						mUser.getUserName());
@@ -355,6 +377,7 @@ public abstract class DefaultUserInfoActivity extends BaseActivity implements
 	 * 跳转至修改密码页
 	 */
 	protected void gotoModifyPwdActivity() {
+		UserPageTransfer.gotoModifyPasswordActivity(this);
 	}
 
 	/**
@@ -369,9 +392,8 @@ public abstract class DefaultUserInfoActivity extends BaseActivity implements
 	 */
 	private void doLoginOut() {
 		// 新浪微博登录状态时，需清除存储的新浪ID对应的用户名
-		if (!TextUtils.isEmpty(mUser.getSinaId())) {
-			UserDataHelper.saveSinaLoginedName(mContext,
-					mUser.getSinaId(), "");
+		if (mUser != null && !TextUtils.isEmpty(mUser.getSinaId())) {
+			UserDataHelper.saveSinaLoginedName(mContext, mUser.getSinaId(), "");
 		}
 		// 清除存储的登录信息
 		UserDataHelper.clearLoginInfo(mContext);
@@ -379,6 +401,9 @@ public abstract class DefaultUserInfoActivity extends BaseActivity implements
 	}
 
 	protected void afterLoginOut() {
+		if (UserApplication.logOutListener != null) {
+			UserApplication.logOutListener.onLogout();
+		}
 		// 返回上级界面
 		finish();
 	}
@@ -392,8 +417,7 @@ public abstract class DefaultUserInfoActivity extends BaseActivity implements
 			modifyUserInfo(mUser, "", "", true);
 		}
 		if (actionFrom == FROM_REGISTER) { // 注册页面
-			UserPageTransfer.afterLogin(this, mUser, shareContent, appId,
-					gotoPage);
+			UserPageTransfer.afterLogin(this, mUser, shareContent, gotoPage);
 		}
 	}
 
@@ -550,5 +574,19 @@ public abstract class DefaultUserInfoActivity extends BaseActivity implements
 	public void finish() {
 		setResult(RESULT_OK);
 		super.finish();
+	}
+
+	@Override
+	public void reLoadData() {
+	}
+
+	@Override
+	public String getActivityName() {
+		return DefaultUserInfoActivity.class.getName();
+	}
+
+	@Override
+	public Activity getActivity() {
+		return this;
 	}
 }

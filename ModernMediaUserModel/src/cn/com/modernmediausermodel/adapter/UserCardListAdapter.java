@@ -3,7 +3,6 @@ package cn.com.modernmediausermodel.adapter;
 import java.util.List;
 
 import android.content.Context;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,11 +13,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.com.modernmedia.adapter.CheckScrollAdapter;
 import cn.com.modernmediausermodel.R;
-import cn.com.modernmediausermodel.SquareActivity;
 import cn.com.modernmediausermodel.model.Card;
 import cn.com.modernmediausermodel.model.Card.CardItem;
 import cn.com.modernmediausermodel.model.User;
 import cn.com.modernmediausermodel.util.CardListPop;
+import cn.com.modernmediausermodel.util.UserDataHelper;
 import cn.com.modernmediausermodel.util.UserPageTransfer;
 import cn.com.modernmediausermodel.util.UserTools;
 
@@ -29,6 +28,8 @@ import cn.com.modernmediausermodel.util.UserTools;
  * 
  */
 public class UserCardListAdapter extends CheckScrollAdapter<CardItem> {
+	public static final int TO_LOGIN = 100;// 从登录回来刷新页面
+
 	private Context mContext;
 	private LayoutInflater inflater;
 	private Card card;
@@ -160,13 +161,15 @@ public class UserCardListAdapter extends CheckScrollAdapter<CardItem> {
 	}
 
 	/**
-	 * 广场需要判断是否登录
+	 * 广场需要判断是否登录;可能刚进页面的时候是未登录状态，所以时时获取一下
 	 * 
 	 * @return
 	 */
 	private boolean checkLogin() {
-		if (mContext instanceof SquareActivity) {
-			return !TextUtils.isEmpty(((SquareActivity) mContext).checkUid());
+		User user = UserDataHelper.getUserLoginInfo(mContext);
+		if (user == null) {
+			UserPageTransfer.gotoLoginActivityRequest(mContext, TO_LOGIN);
+			return false;
 		}
 		return true;
 	}

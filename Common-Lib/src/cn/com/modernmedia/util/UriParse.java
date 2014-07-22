@@ -14,7 +14,6 @@ import cn.com.modernmedia.CommonArticleActivity.ArticleType;
 import cn.com.modernmedia.CommonMainActivity;
 import cn.com.modernmedia.VideoPlayerActivity;
 import cn.com.modernmedia.model.ArticleItem;
-import cn.com.modernmedia.model.Issue;
 import cn.com.modernmedia.util.PageTransfer.TransferArticle;
 import cn.com.modernmedia.widget.CommonAtlasView;
 import cn.com.modernmedia.widget.CommonWebView;
@@ -205,7 +204,7 @@ public class UriParse {
 	 * 
 	 * @param context
 	 * @param entries
-	 *            [0] ArticleItem;[1]TransferArticle;[2]issue...
+	 *            [0] ArticleItem;[1]TransferArticle...
 	 * @param cls
 	 *            [0]为特定的文章页
 	 */
@@ -272,7 +271,8 @@ public class UriParse {
 					list.remove(0);
 					doLinkGallery(list, view);
 				} else if (key.equals(WEB)) {
-					doLinkWeb(context, list.get(1));
+					// doLinkWeb(context, list.get(1));
+					doLinkHttp(context, list.get(1));
 				}
 			}
 		}
@@ -295,9 +295,6 @@ public class UriParse {
 		if (transferArticle != null) {
 			tr.setUid(transferArticle.getUid());
 			tr.setArticleType(transferArticle.getArticleType());
-		}
-		if (entries.length > 2) {
-			tr.setIssue((Issue) entries[2]);
 		}
 		if (cls != null && cls.length > 0) {
 			PageTransfer.gotoArticleActivity(context, cls[0], tr);
@@ -356,8 +353,11 @@ public class UriParse {
 					: null;
 			if (transferArticle != null)
 				tr.setUid(transferArticle.getUid());
-			if (entries.length > 2) {
-				tr.setIssue((Issue) entries[2]);
+			// test 跳转到其它期
+			if (CommonApplication.issue != null && issueId != 0
+					&& issueId != CommonApplication.issue.getId()) {
+				tr.setArticleType(ArticleType.Last);
+				CommonApplication.currentIssueId = issueId;
 			}
 			if (cls != null && cls.length > 0) {
 				PageTransfer.gotoArticleActivity(context, cls[0], tr);
@@ -375,7 +375,7 @@ public class UriParse {
 	 */
 	public static void doLinkGallery(List<String> urlList, View view) {
 		if (view instanceof CommonWebView) {
-			((CommonWebView) view).showGallery(urlList);
+			((CommonWebView) view).fetchGalleryList(urlList);
 		}
 	}
 

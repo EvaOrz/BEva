@@ -10,24 +10,16 @@ import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
-import cn.com.modernmedia.CommonApplication;
-import cn.com.modernmedia.CommonArticleActivity;
 import cn.com.modernmedia.R;
 import cn.com.modernmedia.adapter.ShareAdapter;
-import cn.com.modernmedia.api.OperateController;
-import cn.com.modernmedia.listener.FetchEntryListener;
-import cn.com.modernmedia.listener.ImageDownloadStateListener;
 import cn.com.modernmedia.model.Issue;
-import cn.com.modernmedia.model.Share;
-import cn.com.modernmedia.util.ConstData;
+import cn.com.modernmedia.model.ShareDialogItem;
 import cn.com.modernmedia.util.ModernMediaTools;
-import cn.com.modernmediaslate.model.Entry;
 
 /**
  * 分享
@@ -36,44 +28,23 @@ import cn.com.modernmediaslate.model.Entry;
  * 
  */
 public abstract class ShareDialog {
-	/**
-	 * email
-	 */
-	public static final String MAIL = "mail";
-	/**
-	 * gmail
-	 */
-	public static final String GM = "gm";
-	/**
-	 * 新浪微博
-	 */
-	public static final String SINA = "com.sina.weibo";
-	/**
-	 * 微信
-	 */
-	public static final String WEIXIN = "com.tencent.mm";
-	/**
-	 * LinkedIn
-	 */
-	public static final String LINKEDIN = "com.linkedin.android";
-	/**
-	 * evernote
-	 */
-	public static final String EVERNOTE = "com.evernote.world";
+	public static final int WEIXIN_FRIEND = 1;
+	public static final int WEIXIN_FRIENDS = 2;
+	public static final int SINA_WEIBO = 3;
+	public static final int MORE_ID = 4;
 
 	private Context mContext;
 	private AlertDialog mAlertDialog;
 	private ListView mListView;
-	private List<Intent> mShareIntents;
+	private List<ShareDialogItem> shareDialogItemList;
 	List<String> packList = new ArrayList<String>();
 	private ShareAdapter adapter;
 	private ShareTool tool;
-	private Bitmap mBitmap;
-	private Args args;
-	private WeeklyArgs weeklyArgs;
+	private BaseShare baseShare;
+	private boolean hasWeixin;
 
 	// --非iweekly应用参数
-	private class Args {
+	public class Args {
 		Issue issue;
 		String columnId;
 		String articleId;
@@ -95,24 +66,27 @@ public abstract class ShareDialog {
 	}
 
 	// --iweekly参数
-	private class WeeklyArgs {
+	public class WeeklyArgs {
 		String title;
 		String desc;
 		String url;
+		String webUrl;
 		int bottomResId;// 文章页截屏底部资源
 
-		public WeeklyArgs(String title, String desc, String url, int bottomResId) {
+		public WeeklyArgs(String title, String desc, String url,
+				int bottomResId, String webUrl) {
 			this.title = title;
 			this.desc = desc;
 			this.url = url;
 			this.bottomResId = bottomResId;
+			this.webUrl = webUrl;
 		}
 
 	}
 
-	public ShareDialog(Context context, Bitmap bitmap) {
+	public ShareDialog(Context context) {
 		mContext = context;
-		mBitmap = bitmap;
+		hasWeixin = isAvilible(mContext, BaseShare.WEIXIN);
 		mListView = new ListView(mContext);
 		mListView.setCacheColorHint(Color.WHITE);
 		mListView.setDivider(new ColorDrawable(Color.LTGRAY));
@@ -120,10 +94,58 @@ public abstract class ShareDialog {
 		mListView.setFadingEdgeLength(mContext.getResources()
 				.getDimensionPixelOffset(R.dimen.share_list_fade_length));
 		mListView.setBackgroundColor(Color.WHITE);
-		mShareIntents = new ArrayList<Intent>();
+		shareDialogItemList = new ArrayList<ShareDialogItem>();
 		adapter = new ShareAdapter(mContext);
 		mListView.setAdapter(adapter);
 		tool = new ShareTool(context);
+		initDefaultApps(true);
+	}
+
+	private boolean isAvilible(Context context, String packageName) {
+		Intent shareIntent = new Intent(Intent.ACTION_SEND);
+		shareIntent.setType("image/*");
+		List<ResolveInfo> resInfo = mContext.getPackageManager()
+				.queryIntentActivities(shareIntent, 0);
+		if (!resInfo.isEmpty()) {
+			for (ResolveInfo info : resInfo) {
+				String pack = info.activityInfo.packageName;
+				if (pack.equals(BaseShare.WEIXIN))
+					return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * 初始化默认分享的app
+	 */
+	private void initDefaultApps(boolean showMore) {
+		ShareDialogItem item = new ShareDialogItem();
+		// TODO 微信好友
+		item.setId(WEIXIN_FRIEND);
+		item.setIcon(R.drawable.wechat);
+		item.setName(mContext.getString(R.string.weixin_friend));
+		shareDialogItemList.add(item);
+		// TODO 微信朋友圈
+		item = new ShareDialogItem();
+		item.setId(WEIXIN_FRIENDS);
+		item.setIcon(R.drawable.moments);
+		item.setName(mContext.getString(R.string.weixin_friends));
+		shareDialogItemList.add(item);
+		// TODO 新浪微博
+		item = new ShareDialogItem();
+		item.setId(SINA_WEIBO);
+		item.setIcon(R.drawable.weibo);
+		item.setName(mContext.getString(R.string.sina_weibo));
+		shareDialogItemList.add(item);
+		// TODO 更多
+		if (!showMore)
+			return;
+		item = new ShareDialogItem();
+		item.setIcon(0);
+		item.setName(mContext.getString(R.string.more));
+		item.setId(MORE_ID);
+		shareDialogItemList.add(item);
 	}
 
 	/**
@@ -134,8 +156,9 @@ public abstract class ShareDialog {
 	 * @param articleId
 	 */
 	public void startShareDefault(Issue issue, String columnId, String articleId) {
-		args = new Args(issue, columnId, articleId);
-		queryTargetIntentsDefault();
+		baseShare = new NormalShare(mContext, new Args(issue, columnId,
+				articleId), this);
+		baseShare.prepareShareAfterFetchBitmap("");
 	}
 
 	/**
@@ -147,8 +170,9 @@ public abstract class ShareDialog {
 	 */
 	public void startShareDefault(Issue issue, String columnId,
 			String articleId, String url) {
-		args = new Args(issue, columnId, articleId, url);
-		prepareShareAfterFetchBitmap(false);
+		baseShare = new NormalShare(mContext, new Args(issue, columnId,
+				articleId, url), this);
+		baseShare.prepareShareAfterFetchBitmap(url);
 	}
 
 	/**
@@ -159,85 +183,26 @@ public abstract class ShareDialog {
 	 * @param url
 	 */
 	public void startShareWeekly(String title, String desc, String url,
-			int bottomResId) {
-		weeklyArgs = new WeeklyArgs(title, desc, url, bottomResId);
-		prepareShareAfterFetchBitmap(true);
+			int bottomResId, String webUrl) {
+		baseShare = new WeeklyShare(mContext, new WeeklyArgs(title, desc, url,
+				bottomResId, webUrl), this);
+		baseShare.prepareShareAfterFetchBitmap(url);
 	}
 
-	/**
-	 * iweekly分享
-	 * 
-	 * @param title
-	 * @param desc
-	 * @param url
-	 */
-	private void prepareShareAfterFetchBitmap(final boolean isWeekly) {
-		String url = "";
-		if (isWeekly && weeklyArgs != null)
-			url = weeklyArgs.url;
-		else if (!isWeekly && args != null)
-			url = args.url;
-		if (!TextUtils.isEmpty(url)) {
-			ModernMediaTools.showLoading(mContext, true);
-			CommonApplication.getImageDownloader().download(url,
-					new ImageDownloadStateListener() {
-
-						@Override
-						public void loading() {
-						}
-
-						@Override
-						public void loadOk(Bitmap bitmap) {
-							mBitmap = bitmap;
-							afterFetchBitmap(isWeekly);
-						}
-
-						@Override
-						public void loadError() {
-							mBitmap = null;
-							afterFetchBitmap(isWeekly);
-						}
-					});
-		} else {
-			mBitmap = null;
-			afterFetchBitmap(isWeekly);
-		}
-	}
-
-	private void afterFetchBitmap(boolean isWeekly) {
-		if (isWeekly)
-			queryTargetIntentsForWeekly();
-		else
-			queryTargetIntentsDefault();
-	}
-
-	/**
-	 * 查询所有包好图片分享的应用
-	 * 
-	 */
-	private void queryTargetIntentsDefault() {
-		queryTargetIntents();
-		showShareDialog(false);
-	}
-
-	private void queryTargetIntentsForWeekly() {
-		queryTargetIntents();
-		showShareDialog(true);
-	}
-
-	private void queryTargetIntents() {
-		mShareIntents.clear();
+	private void queryTargetIntents(Bitmap bitmap) {
+		shareDialogItemList.clear();
+		initDefaultApps(false);
 		packList.clear();
 		Intent shareIntent = new Intent(Intent.ACTION_SEND);
-		shareIntent.setType(mBitmap == null ? "text/*" : "image/*");
+		shareIntent.setType(bitmap == null ? "text/*" : "image/*");
 		List<ResolveInfo> resInfo = mContext.getPackageManager()
 				.queryIntentActivities(shareIntent, 0);
 		if (!resInfo.isEmpty()) {
 			for (ResolveInfo info : resInfo) {
-				addIntent(info);
+				addIntent(info, Intent.ACTION_SEND);
 			}
 		}
-		if (mBitmap != null) {
+		if (bitmap != null) {
 			// 记录能浏览、保存图片的app
 			Intent galleryIntent = new Intent(Intent.ACTION_VIEW);
 			galleryIntent.setType("image/*");
@@ -245,26 +210,39 @@ public abstract class ShareDialog {
 					galleryIntent, 0);
 			if (!resInfo.isEmpty()) {
 				ResolveInfo info = resInfo.get(0);
-				addIntent(info);
+				addIntent(info, Intent.ACTION_VIEW);
 			}
 		}
+
+		adapter.clear();
+		adapter.setData(shareDialogItemList);
 	}
 
-	private void addIntent(ResolveInfo info) {
+	private void addIntent(ResolveInfo info, String action) {
 		String pack = info.activityInfo.packageName;
 		if (!packList.contains(pack)) {
-			Intent targeted = new Intent(Intent.ACTION_SEND);
+			Intent targeted = new Intent(action);
 			targeted.setPackage(pack);
-			mShareIntents.add(targeted);
+			if (pack.contains(BaseShare.SINA)
+					|| pack.contains(BaseShare.WEIXIN)) {
+			} else {
+				ShareDialogItem item = new ShareDialogItem();
+				item.setIntent(targeted);
+				shareDialogItemList.add(item);
+			}
 			packList.add(pack);
 		}
 	}
 
 	/**
 	 * 显示分享dialog
+	 * 
+	 * @param isWeekly
 	 */
-	private void showShareDialog(final boolean isWeekly) {
-		setDataToAdapter();
+	protected void showShareDialog(final Bitmap bitmap) {
+		adapter.clear();
+		adapter.setData(shareDialogItemList);
+
 		AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mContext);
 		dialogBuilder.setTitle(R.string.share_select);
 		dialogBuilder.setView(mListView);
@@ -273,194 +251,66 @@ public abstract class ShareDialog {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				Intent intent = mShareIntents.get(position);
-				if (intent != null) {
-					if (Intent.ACTION_SEND.equals(intent.getAction())) {
-						if (isWeekly) {
-							onItemClickForWeekly(intent);
-						} else {
-							onItemClickDefault(intent);
-						}
-					} else {
-						if (mBitmap != null) {
-							tool.saveToGallery(mBitmap);
-							logAndroidSaveToImageAlbum();
-							Toast.makeText(mContext,
-									R.string.save_picture_success,
-									Toast.LENGTH_SHORT).show();
-						} else {
-							Toast.makeText(mContext,
-									R.string.save_picture_fail,
-									Toast.LENGTH_SHORT).show();
-						}
-					}
-				}
-				dismissDialog();
+				onListItemClick(position, bitmap);
 			}
 		});
-		if (mShareIntents.size() > 0) {
-			mAlertDialog = dialogBuilder.create();
-			try {
-				mAlertDialog.show();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} else {
-			Toast.makeText(mContext, R.string.share_none_component,
-					Toast.LENGTH_SHORT).show();
+		mAlertDialog = dialogBuilder.create();
+		try {
+			mAlertDialog.show();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+
 		ModernMediaTools.showLoading(mContext, false);
 	}
 
 	/**
-	 * 非iweekly点击item，需要单独请求接口获取数据
+	 * 点击listview的item
 	 * 
+	 * @param position
 	 */
-	private void onItemClickDefault(Intent intent) {
-		if (intent != null) {
-			String pack = intent.getPackage();
-			if (!TextUtils.isEmpty(pack) && args != null) {
-				String shareType = prepareShare(intent, pack);
-				share(intent, shareType);
-			}
-		}
-	}
-
-	/**
-	 * iweekly点击item
-	 */
-	private void onItemClickForWeekly(Intent intent) {
-		if (intent != null) {
-			String pack = intent.getPackage();
-			if (!TextUtils.isEmpty(pack) && weeklyArgs != null) {
-				String shareType = prepareShare(intent, pack);
-				String emailBody = String.format(
-						mContext.getString(R.string.share_email_html),
-						weeklyArgs.title, weeklyArgs.desc);
-				String extraText = String.format(
-						mContext.getString(R.string.cover_share_message),
-						weeklyArgs.title, weeklyArgs.desc, "");
-
-				if (shareType.equals("01")) {
-					showShareByMail(intent, weeklyArgs.title, emailBody);
-				} else if (shareType.equals("02") || shareType.equals("03")) {
-					if (shareType.equals("02"))
-						logAndroidShareToSinaCount("", "");
-					if (mContext instanceof CommonArticleActivity) {
-						// iweekly文章分享，新浪微博，微信分享文章截图
-						showShareWithScreen(intent, extraText,
-								weeklyArgs.bottomResId);
-					} else {
-						showShareOther(intent, extraText);
-					}
+	private void onListItemClick(int position, Bitmap bitmap) {
+		if (adapter.getCount() <= position)
+			return;
+		ShareDialogItem item = adapter.getItem(position);
+		if (item.getId() == WEIXIN_FRIEND) {
+			if (hasWeixin)
+				baseShare.shareByFriend();
+			else
+				ModernMediaTools.showToast(mContext, R.string.no_weixin);
+		} else if (item.getId() == WEIXIN_FRIENDS) {
+			if (hasWeixin)
+				baseShare.shareByFriends();
+			else
+				ModernMediaTools.showToast(mContext, R.string.no_weixin);
+		} else if (item.getId() == SINA_WEIBO) {
+			baseShare.shareByWeibo();
+		} else if (item.getId() == MORE_ID) {
+			queryTargetIntents(bitmap);
+			return;
+		} else if (item.getIntent() != null) {
+			Intent intent = item.getIntent();
+			if (Intent.ACTION_SEND.equals(intent.getAction())) {
+				baseShare.shareToOthers(intent);
+			} else {
+				if (bitmap != null) {
+					tool.saveToGallery(bitmap);
+					logAndroidSaveToImageAlbum();
+					Toast.makeText(mContext, R.string.save_picture_success,
+							Toast.LENGTH_SHORT).show();
 				} else {
-					showShareOther(intent, extraText);
+					Toast.makeText(mContext, R.string.save_picture_fail,
+							Toast.LENGTH_SHORT).show();
 				}
 			}
 		}
-	}
-
-	private void setDataToAdapter() {
-		adapter.clear();
-		adapter.setData(mShareIntents);
+		dismissDialog();
 	}
 
 	private void dismissDialog() {
 		if (mAlertDialog != null && mAlertDialog.isShowing()) {
 			mAlertDialog.dismiss();
 		}
-	}
-
-	private String prepareShare(Intent intent, String pack) {
-		pack = pack.toLowerCase();
-		String shareType = "04";
-		if (pack.contains(MAIL) || pack.contains(GM)) {
-			shareType = "01";
-		} else if (pack.equals(SINA)) {
-			shareType = "02";
-		} else if (pack.equals(WEIXIN)) {
-			shareType = "03";
-		} else if (pack.equals(LINKEDIN)) {
-			shareType = "05";
-		} else if (pack.equals(EVERNOTE)) {
-			shareType = "06";
-		}
-		return shareType;
-	}
-
-	/**
-	 * 获取分享内容
-	 * 
-	 * @param intent
-	 * @param issue
-	 * @param columnId
-	 * @param articleId
-	 * @param shareType
-	 */
-	private void share(final Intent intent, final String shareType) {
-		ModernMediaTools.showLoading(mContext, true);
-		OperateController.getInstance(mContext).share(args.issue,
-				args.columnId, args.articleId, shareType,
-				new FetchEntryListener() {
-
-					@Override
-					public void setData(final Entry entry) {
-						ModernMediaTools.showLoading(mContext, false);
-						if (entry instanceof Share) {
-							Share share = (Share) entry;
-							String title = share.getTitle();
-							String msg = share.getContent();
-							String url = share.getWeburl();
-							String content = msg.contains(url) ? msg : msg
-									+ " " + url;
-
-							if (shareType.equals("01")) {
-								showShareByMail(intent, title, content);
-							} else {
-								if (shareType.equals("02"))
-									logAndroidShareToSinaCount(args.articleId,
-											args.columnId);
-								showShareOther(intent, content);
-							}
-						}
-					}
-				});
-	}
-
-	/**
-	 * 通过email分享
-	 * 
-	 * @param intent
-	 * @param title
-	 * @param content
-	 */
-	private void showShareByMail(Intent intent, String title, String content) {
-		tool.shareByMail(intent, title, content, mBitmap);
-		if (ConstData.getAppId() == 20)
-			logAndroidShareToMail("", "");
-		else if (args != null)
-			logAndroidShareToMail(args.articleId, args.columnId);
-	}
-
-	/**
-	 * 通过非email分享
-	 * 
-	 * @param intent
-	 * @param content
-	 */
-	private void showShareOther(Intent intent, String content) {
-		tool.shareWithoutMail(intent, content, mBitmap);
-	}
-
-	/**
-	 * 
-	 * @param intent
-	 * @param content
-	 * @param bottomResId
-	 */
-	private void showShareWithScreen(Intent intent, String content,
-			int bottomResId) {
-		tool.shareWithScreen(intent, content, bottomResId);
 	}
 
 	/**

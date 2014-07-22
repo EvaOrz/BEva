@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.annotation.SuppressLint;
+import cn.com.modernmedia.model.SoloColumn.SoloColumnItem;
 import cn.com.modernmediaslate.model.Entry;
 
 /**
@@ -15,15 +16,14 @@ import cn.com.modernmediaslate.model.Entry;
 @SuppressLint("UseSparseArrays")
 public class Cat extends Entry {
 	private static final long serialVersionUID = 1L;
-	/**
-	 * 栏目中父栏目和子栏目有两张图，根据SPLITE分隔(第一个元素为子栏目，第二个元素为父栏目)
-	 */
-	public static final String SPLITE = "###";
 	private List<CatItem> list = new ArrayList<CatItem>();
 	/**
 	 * 栏目id列表(用来判断是否需要显示广告)
 	 */
 	private List<String> idList = new ArrayList<String>();
+
+	// 为了兼容独立栏目
+	private List<SoloColumnItem> soloList = new ArrayList<SoloColumnItem>();
 
 	public List<CatItem> getList() {
 		return list;
@@ -41,6 +41,14 @@ public class Cat extends Entry {
 		this.idList = idList;
 	}
 
+	public List<SoloColumnItem> getSoloList() {
+		return soloList;
+	}
+
+	public void setSoloList(List<SoloColumnItem> soloList) {
+		this.soloList = soloList;
+	}
+
 	public static class CatItem extends Entry {
 		private static final long serialVersionUID = 1L;
 		private int id;// 栏目id
@@ -53,7 +61,6 @@ public class Cat extends Entry {
 		private int complete;
 		private String arrow;
 		private int parentId = -1;// 父catid
-		private int haveChildren = 0;// 是否有子栏目。0.无。1.有
 		private String tagname = "";// 子栏目显示在tag上的名字
 		private String link = "";// slate
 		private boolean isSoloCat;// 是否是独立栏目
@@ -137,14 +144,6 @@ public class Cat extends Entry {
 
 		public void setParentId(int parentId) {
 			this.parentId = parentId;
-		}
-
-		public int getHaveChildren() {
-			return haveChildren;
-		}
-
-		public void setHaveChildren(int haveChildren) {
-			this.haveChildren = haveChildren;
 		}
 
 		public String getTagname() {

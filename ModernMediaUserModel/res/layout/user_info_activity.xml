@@ -53,7 +53,8 @@
             android:hint="@string/userinfo_nickname"
             android:inputType="textEmailAddress"
             android:singleLine="true"
-            android:textColor="@color/black_bg" />
+            android:textColor="@color/black_bg"
+            android:textCursorDrawable="@null" />
 
         <ImageView
             android:id="@+id/userinfo_clear"
@@ -84,7 +85,8 @@
             android:hint="@string/mail_address"
             android:inputType="textEmailAddress"
             android:singleLine="true"
-            android:textColor="@color/black_bg" />
+            android:textColor="@color/black_bg"
+            android:textCursorDrawable="@null" />
 
         <ImageView
             android:id="@+id/userinfo_account_clear"

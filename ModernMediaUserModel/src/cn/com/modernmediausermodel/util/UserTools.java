@@ -1,6 +1,9 @@
 package cn.com.modernmediausermodel.util;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -30,6 +33,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.Animation;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import cn.com.modernmedia.CommonApplication;
 import cn.com.modernmedia.listener.ImageDownloadStateListener;
@@ -37,8 +41,11 @@ import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmedia.util.ParseUtil;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediausermodel.R;
+import cn.com.modernmediausermodel.model.LoginParm;
 import cn.com.modernmediausermodel.model.User;
 
+import com.dd.plist.NSDictionary;
+import com.dd.plist.PropertyListParser;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -325,7 +332,6 @@ public class UserTools {
 		intent.setType("text/plain");
 		intent.putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.share));
 		intent.putExtra(Intent.EXTRA_TEXT, content);
-		intent.putExtra(ConstData.SHARE_APP_ID, ConstData.getInitialAppId());
 		context.startActivity(Intent.createChooser(intent, ""));
 	}
 
@@ -355,11 +361,12 @@ public class UserTools {
 		if (TextUtils.isEmpty(url)) {
 			return;
 		}
-		CommonApplication.getImageDownloader().download(url,
+		CommonApplication.finalBitmap.display(url,
 				new ImageDownloadStateListener() {
 
 					@Override
 					public void loading() {
+
 					}
 
 					@Override
@@ -391,5 +398,65 @@ public class UserTools {
 		}
 		double res = num / 1000000d;
 		return NumberFormatHelper.getInstance().formatDoubleValue(res) + "M";
+	}
+
+	/**
+	 * 根据文本名称设置资源id
+	 * 
+	 * @param pic
+	 * @return
+	 */
+	public static void setText(TextView textView, String str) {
+		if (CommonApplication.stringCls == null) {
+			try {
+				throw new NullPointerException("string class is null!");
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+			return;
+		}
+		if (TextUtils.isEmpty(str)) {
+			return;
+		}
+		try {
+			Field field = CommonApplication.stringCls.getDeclaredField(str);
+			textView.setText(field.getInt(str));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 解析栏目列表
+	 * 
+	 * @return
+	 */
+	public static LoginParm parseColumn(Context context) {
+		LoginParm parm = new LoginParm();
+		InputStream is = null;
+		try {
+			is = context.getAssets().open("login.plist");
+			NSDictionary rootDic = (NSDictionary) PropertyListParser.parse(is);
+			if (rootDic != null) {
+				if (rootDic.containsKey("login_desc")) {
+					parm.setLogin_desc(rootDic.objectForKey("login_desc")
+							.toString());
+				}
+				if (rootDic.containsKey("userinfo_desc")) {
+					parm.setUserinfo_desc(rootDic.objectForKey("userinfo_desc")
+							.toString());
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (is != null)
+				try {
+					is.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+		}
+		return parm;
 	}
 }

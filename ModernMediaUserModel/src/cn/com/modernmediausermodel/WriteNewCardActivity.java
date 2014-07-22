@@ -3,6 +3,7 @@ package cn.com.modernmediausermodel;
 import java.util.Calendar;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -12,8 +13,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import cn.com.modernmedia.BaseActivity;
-import cn.com.modernmedia.CommonApplication;
-import cn.com.modernmedia.util.ConstData;
+import cn.com.modernmedia.util.sina.SinaAPI;
+import cn.com.modernmedia.util.sina.SinaAuth;
+import cn.com.modernmedia.util.sina.SinaRequestListener;
+import cn.com.modernmedia.util.sina.UserModelAuthListener;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediausermodel.api.UserOperateController;
 import cn.com.modernmediausermodel.listener.UserFetchEntryListener;
@@ -22,16 +25,12 @@ import cn.com.modernmediausermodel.model.User;
 import cn.com.modernmediausermodel.util.UserConstData;
 import cn.com.modernmediausermodel.util.UserDataHelper;
 import cn.com.modernmediausermodel.util.UserTools;
-import cn.com.modernmediausermodel.util.sina.SinaAPI;
-import cn.com.modernmediausermodel.util.sina.SinaAuth;
-import cn.com.modernmediausermodel.util.sina.SinaRequestListener;
-import cn.com.modernmediausermodel.util.sina.UserModelAuthListener;
 
 public class WriteNewCardActivity extends BaseActivity implements
 		OnClickListener {
-	public final static String KEY_FROM = "intent_from";
-	public final static String KEY_DATA = "share_data";
-	public final static String VALUE_SHARE = "share_data";
+	public static final String KEY_FROM = "intent_from";
+	public static final String KEY_DATA = "share_data";
+	public static final String VALUE_SHARE = "share_data";
 
 	private Button cancelBtn, completeBtn;
 	private ImageView shareBtn;
@@ -39,31 +38,36 @@ public class WriteNewCardActivity extends BaseActivity implements
 	private boolean isShareToWeibo = false;
 	private SinaAuth weiboAuth;
 	private SinaAPI sinaAPI;
-	private boolean isFromShare = false;// 是否分享进来的
-	private int appId;
+
+	// private boolean isFromShare = false;// 是否分享进来的
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_write_card);
 		init();
-		initDataFromBundle();
+		initDataFromBundle(getIntent());
 		sinaAPI = SinaAPI.getInstance(this);
 	}
 
-	private void initDataFromBundle() {
-		if (getIntent() != null && getIntent().getExtras() != null) {
-			if (VALUE_SHARE.equals(getIntent().getStringExtra(KEY_FROM))) {
-				isFromShare = true;
-				String content = getIntent().getStringExtra(KEY_DATA);
+	private void initDataFromBundle(Intent intent) {
+		if (intent != null && intent.getExtras() != null) {
+			if (VALUE_SHARE.equals(intent.getStringExtra(KEY_FROM))) {
+				// isFromShare = true;
+				String content = intent.getStringExtra(KEY_DATA);
 				if (!TextUtils.isEmpty(content)) {
 					content = content.trim();
 					contentEdit.setText(content);
 					contentEdit.setSelection(content.length());
 				}
-				appId = getIntent().getExtras().getInt(ConstData.SHARE_APP_ID);
 			}
 		}
+	}
+
+	@Override
+	protected void onNewIntent(Intent intent) {
+		super.onNewIntent(intent);
+		initDataFromBundle(intent);
 	}
 
 	private void init() {
@@ -169,7 +173,7 @@ public class WriteNewCardActivity extends BaseActivity implements
 				new SinaRequestListener() {
 
 					@Override
-					public void onSuccess(Entry entry) {
+					public void onSuccess(String entry) {
 						showToast(R.string.Weibo_Share_Success);
 					}
 
@@ -183,13 +187,9 @@ public class WriteNewCardActivity extends BaseActivity implements
 	@Override
 	public void finish() {
 		super.finish();
-		if (isFromShare && appId != ConstData.getInitialAppId()) {
-			// TODO 如果是第三方应用分享，清空所有页面
-			CommonApplication.exit();
-		}
-		if (!isFromShare) {
-			overridePendingTransition(R.anim.hold, R.anim.down_out);
-		}
+		// if (!isFromShare) {
+		overridePendingTransition(R.anim.hold, R.anim.down_out);
+		// }
 	}
 
 	@Override

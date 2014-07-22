@@ -389,11 +389,14 @@ public class UserOperateController {
 	 * 
 	 * @param uid
 	 * @param user
+	 * @param refreshList
+	 *            是否需要刷新朋友页
 	 * @param listener
 	 */
-	public void addFollow(String uid, List<User> user,
+	public void addFollow(String uid, List<User> user, boolean refreshList,
 			final UserFetchEntryListener listener) {
-		final AddFollowOperate operate = new AddFollowOperate(uid, user);
+		final AddFollowOperate operate = new AddFollowOperate(uid, user,
+				refreshList);
 		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
 
 			@Override
@@ -408,11 +411,14 @@ public class UserOperateController {
 	 * 
 	 * @param uid
 	 * @param users
+	 * @param refreshList
+	 *            是否需要刷新朋友页
 	 * @param listener
 	 */
-	public void deleteFollow(String uid, List<User> users,
+	public void deleteFollow(String uid, List<User> users, boolean refreshList,
 			final UserFetchEntryListener listener) {
-		final DeleteFollowOperate operate = new DeleteFollowOperate(uid, users);
+		final DeleteFollowOperate operate = new DeleteFollowOperate(uid, users,
+				refreshList);
 		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
 
 			@Override

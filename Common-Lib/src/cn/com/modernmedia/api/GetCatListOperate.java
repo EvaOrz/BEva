@@ -1,6 +1,7 @@
 package cn.com.modernmedia.api;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -10,6 +11,7 @@ import android.text.TextUtils;
 import cn.com.modernmedia.CommonApplication;
 import cn.com.modernmedia.model.Cat;
 import cn.com.modernmedia.model.Cat.CatItem;
+import cn.com.modernmedia.model.SoloColumn.SoloColumnItem;
 import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmedia.util.DataHelper;
 import cn.com.modernmedia.util.FileManager;
@@ -33,6 +35,7 @@ public class GetCatListOperate extends BaseOperate {
 	protected GetCatListOperate(int issueId) {
 		cat = new Cat();
 		url = UrlMaker.getCatList(issueId + "");
+		DataHelper.clear();
 	}
 
 	protected Cat getCat() {
@@ -50,25 +53,25 @@ public class GetCatListOperate extends BaseOperate {
 		if (isNull(array))
 			return;
 		int length = array.length();
-		CatItem item;
+		SoloColumnItem item;
 		JSONObject obj;
-		DataHelper.clear();
 		for (int i = 0; i < length; i++) {
 			obj = array.optJSONObject(i);
 			if (isNull(obj))
 				continue;
-			item = new CatItem();
+			item = new SoloColumnItem();
 			item.setId(obj.optInt("id", -1));
 			item.setName(obj.optString("name", ""));
 			item.setEname(obj.optString("ename", ""));
 			item.setCname(obj.optString("cname", ""));
 			item.setColor(transformColor(obj.optString("color", "")));
 			item.setDisplayType(obj.optInt("displayType", -1));
-			item.setHaveChildren(obj.optInt("haveChildren", 0));
 			item.setTagname(obj.optString("tagname", ""));
 			int parentId = obj.optInt("parentId", -1);
 			item.setParentId(parentId);
 			item.setLink(obj.optString("link", ""));
+			if (ModernMediaTools.isSoloCat(item.getLink()) != -1)
+				CommonApplication.hasSolo = true;
 			parseProperty(obj.optJSONObject("property"), item);
 			int soloCatId = ModernMediaTools.isSoloCat(item.getLink());
 			item.setSoloCat(soloCatId != -1);
@@ -77,6 +80,7 @@ public class GetCatListOperate extends BaseOperate {
 			}
 			if (item.getProperty().getNoColumn() == 0) {
 				cat.getList().add(item);
+				cat.getSoloList().add(item);
 				cat.getIdList().add(String.valueOf(item.getId()));
 				if (ConstData.getAppId() == 1
 						&& !CommonApplication.columnUpdateTimeSame) {
@@ -95,7 +99,7 @@ public class GetCatListOperate extends BaseOperate {
 				DataHelper.columnColorMap.put(item.getId(), item.getColor());
 			JSONArray pictureArr = obj.optJSONArray("picture");
 			if (!isNull(pictureArr))
-				DataHelper.columnRowMap.put(item.getId(),
+				DataHelper.columnPicMap.put(item.getId(),
 						parsePicture(pictureArr));
 		}
 	}
@@ -112,19 +116,16 @@ public class GetCatListOperate extends BaseOperate {
 	 * @param array
 	 * @return
 	 */
-	private String parsePicture(JSONArray array) {
-		String url = "";
+	private List<String> parsePicture(JSONArray array) {
+		List<String> list = new ArrayList<String>();
 		JSONObject object;
 		for (int i = 0; i < array.length(); i++) {
 			object = array.optJSONObject(i);
 			if (isNull(object))
 				continue;
-			url += object.optString("url", "") + Cat.SPLITE;
+			list.add(object.optString("url", ""));
 		}
-		if (url.length() > Cat.SPLITE.length()) {
-			url = url.substring(0, url.length() - Cat.SPLITE.length());
-		}
-		return url;
+		return list;
 	}
 
 	/**

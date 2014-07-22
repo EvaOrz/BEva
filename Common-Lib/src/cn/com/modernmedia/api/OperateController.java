@@ -4,8 +4,13 @@ import android.content.Context;
 import android.os.Handler;
 import android.text.TextUtils;
 import cn.com.modernmedia.CommonApplication;
+import cn.com.modernmedia.CommonArticleActivity.ArticleType;
 import cn.com.modernmedia.listener.FetchEntryListener;
 import cn.com.modernmedia.model.Issue;
+import cn.com.modernmedia.solo.api.GetSoloArticleListOperate;
+import cn.com.modernmedia.solo.api.GetSoloArticleOperate;
+import cn.com.modernmedia.solo.api.GetSoloCatIndexOperate;
+import cn.com.modernmedia.solo.api.GetSoloColumnOperate;
 import cn.com.modernmediaslate.listener.DataCallBack;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.model.Favorite.FavoriteItem;
@@ -163,14 +168,18 @@ public class OperateController {
 	 * 
 	 * @param issue
 	 * @param listener
+	 * @param articleType
+	 *            文章类型
 	 */
-	public void getArticleList(Issue issue, final FetchEntryListener listener) {
+	public void getArticleList(Issue issue, ArticleType articleType,
+			final FetchEntryListener listener) {
 		if (issue == null) {
 			sendMessage(null, listener);
 			return;
 		}
 		final GetArticleListOperate operate = new GetArticleListOperate(
-				issue.getId() + "", issue.getArticleUpdateTime() + "");
+				issue.getId() + "", issue.getArticleUpdateTime() + "",
+				articleType);
 		operate.asyncRequest(mContext, CommonApplication.articleUpdateTimeSame,
 				new DataCallBack() {
 
@@ -335,6 +344,95 @@ public class OperateController {
 			@Override
 			public void callback(boolean success) {
 				sendMessage(success ? operate.getInAppAdv() : null, listener);
+			}
+		});
+	}
+	
+	/**
+	 * 独立栏目index
+	 * 
+	 * @param catId
+	 * @param fromOffset
+	 *            (from_0)取from前的所有数据(最新数据)
+	 * @param toOffset
+	 *            (0_to)取to后的所有数据(旧数据) ......0_0代表取全部数据
+	 * @param fecthNew
+	 *            是否获取新数据
+	 * @param listener
+	 * @return
+	 */
+	public void getSoloCatIndex(String catId, String fromOffset,
+			String toOffset, boolean fecthNew, int position,
+			final FetchEntryListener listener) {
+		final GetSoloCatIndexOperate operate = new GetSoloCatIndexOperate(
+				mContext, catId, fromOffset, toOffset, position);
+		operate.asyncRequest(mContext, false, new DataCallBack() {
+
+			@Override
+			public void callback(boolean success) {
+				sendMessage(success ? operate.getCatIndexArticle() : null,
+						listener);
+			}
+		});
+	}
+
+	/**
+	 * 独立栏目文章列表
+	 * 
+	 * @param catId
+	 * @param issue
+	 * @param listener
+	 */
+	public void getSoloArticleList(String catId, String fromOffset,
+			String toOffset, boolean fetchNew, final FetchEntryListener listener) {
+		final GetSoloArticleListOperate operate = new GetSoloArticleListOperate(
+				mContext, catId, fromOffset, toOffset, true, fetchNew);
+		operate.asyncRequest(mContext, false, new DataCallBack() {
+
+			@Override
+			public void callback(boolean success) {
+				sendMessage(success ? operate.getArticleList() : null, listener);
+			}
+		});
+	}
+
+	/**
+	 * 获取文章详情
+	 * 
+	 * @param issue
+	 * @param columnId
+	 * @param articleId
+	 * @param listener
+	 */
+	public void getSoloArticleById(FavoriteItem detail,
+			final FetchEntryListener listener) {
+		if (detail == null) {
+			sendMessage(null, listener);
+			return;
+		}
+		final GetSoloArticleOperate operate = new GetSoloArticleOperate(detail);
+		operate.asyncRequest(mContext, true, new DataCallBack() {
+
+			@Override
+			public void callback(boolean success) {
+				sendMessage(success ? operate.getAtlas() : null, listener);
+			}
+		});
+	}
+
+	/**
+	 * 获取独立栏目列表
+	 * 
+	 * @param listener
+	 */
+	public void getSoloColumn(boolean useCache,
+			final FetchEntryListener listener) {
+		final GetSoloColumnOperate operate = new GetSoloColumnOperate();
+		operate.asyncRequest(mContext, useCache, new DataCallBack() {
+
+			@Override
+			public void callback(boolean success) {
+				sendMessage(success ? operate.getColumn() : null, listener);
 			}
 		});
 	}

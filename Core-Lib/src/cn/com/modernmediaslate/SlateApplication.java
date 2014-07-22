@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
+import cn.com.modernmediaslate.unit.SlatePrintHelper;
 
 public class SlateApplication extends Application {
 	public static int width;
@@ -58,6 +59,7 @@ public class SlateApplication extends Application {
 	}
 
 	public static void slateExit() {
+		SlatePrintHelper.print("SlateApplication exit");
 		if (!activityMap.isEmpty()) {
 			for (String key : activityMap.keySet()) {
 				Activity activity = activityMap.get(key);

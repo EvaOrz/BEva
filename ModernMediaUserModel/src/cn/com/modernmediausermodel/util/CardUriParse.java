@@ -11,7 +11,7 @@ import cn.com.modernmedia.listener.CardUriListener;
  * 
  */
 public class CardUriParse {
-	public static final String COMMENTS = "comments";
+	public static final String DETAIL = "detail";
 
 	private CardUriListener listener = new CardUriListener() {
 
@@ -42,7 +42,7 @@ public class CardUriParse {
 		String arr[] = link.split("/");
 		if (arr == null || arr.length < 2)
 			return;
-		if (arr[0].equals(COMMENTS)) {
+		if (arr[0].equals(DETAIL)) {
 			// 打开某个卡片详情
 			UserPageTransfer.gotoCardDetailActivity(context, arr[1], false);
 		}

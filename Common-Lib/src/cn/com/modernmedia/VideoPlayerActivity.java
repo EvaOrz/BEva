@@ -39,8 +39,7 @@ import cn.com.modernmedia.widget.VideoView;
 import cn.com.modernmedia.widget.VideoView.MySizeChangeLinstener;
 
 public class VideoPlayerActivity extends Activity {
-
-	private final static String TAG = "VideoPlayerActivity";
+	private static final String TAG = "VideoPlayerActivity";
 	private boolean isOnline = false;
 	private boolean isChangedVideo = false;
 
@@ -76,7 +75,7 @@ public class VideoPlayerActivity extends Activity {
 	private static int screenHeight = 0;
 	private static int controlHeight = 0;
 
-	private final static int TIME = 6868;
+	private static final int TIME = 6868;
 
 	private boolean isControllerShow = true;
 	private boolean isPaused = false;
@@ -388,8 +387,8 @@ public class VideoPlayerActivity extends Activity {
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 
-	private final static int PROGRESS_CHANGED = 0;
-	private final static int HIDE_CONTROLER = 1;
+	private static final int PROGRESS_CHANGED = 0;
+	private static final int HIDE_CONTROLER = 1;
 
 	Handler myHandler = new Handler() {
 
@@ -550,8 +549,8 @@ public class VideoPlayerActivity extends Activity {
 		myHandler.removeMessages(HIDE_CONTROLER);
 	}
 
-	private final static int SCREEN_FULL = 0;
-	private final static int SCREEN_DEFAULT = 1;
+	private static final int SCREEN_FULL = 0;
+	private static final int SCREEN_DEFAULT = 1;
 
 	private void setVideoScale(int flag) {
 

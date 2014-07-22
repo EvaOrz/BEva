@@ -11,8 +11,4 @@
         android:divider="@null"
         android:fadingEdge="none" />
 
-    <include
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        layout="@layout/progress" />
-</RelativeLayout>
+</RelativeLayout>

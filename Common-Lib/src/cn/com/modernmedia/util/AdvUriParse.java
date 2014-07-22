@@ -8,7 +8,6 @@ import android.text.TextUtils;
 import android.view.View;
 import cn.com.modernmedia.CommonArticleActivity.ArticleType;
 import cn.com.modernmedia.CommonMainActivity;
-import cn.com.modernmedia.model.Issue;
 import cn.com.modernmedia.util.PageTransfer.TransferArticle;
 import cn.com.modernmedia.widget.CommonWebView;
 import cn.com.modernmediaslate.model.Entry;
@@ -101,7 +100,7 @@ public class AdvUriParse {
 	 * 
 	 * @param context
 	 * @param entries
-	 *            [0] ArticleItem;[1]TransferArticle;[2]issue...
+	 *            [0] ArticleItem;[1]TransferArticle...
 	 * @param view
 	 * @param cls
 	 *            [0]为特定的文章页
@@ -146,9 +145,6 @@ public class AdvUriParse {
 					: null;
 			if (transferArticle != null)
 				tr.setUid(transferArticle.getUid());
-			if (entries.length > 2) {
-				tr.setIssue((Issue) entries[2]);
-			}
 			if (cls != null && cls.length > 0) {
 				PageTransfer.gotoArticleActivity(context, cls[0], tr);
 			} else if (context instanceof CommonMainActivity) {
