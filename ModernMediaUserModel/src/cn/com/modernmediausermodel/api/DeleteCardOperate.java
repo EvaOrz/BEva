@@ -8,9 +8,9 @@ import org.json.JSONObject;
 
 import cn.com.modernmediaslate.api.SlateBaseOperate;
 import cn.com.modernmediaslate.listener.FetchDataListener;
+import cn.com.modernmediaslate.model.ErrorMsg;
 import cn.com.modernmediaslate.unit.SlatePrintHelper;
 import cn.com.modernmediausermodel.UserApplication;
-import cn.com.modernmediausermodel.model.User.Error;
 
 /**
  * 删除卡片operate
@@ -20,14 +20,14 @@ import cn.com.modernmediausermodel.model.User.Error;
  */
 public class DeleteCardOperate extends SlateBaseOperate {
 	private ArrayList<NameValuePair> nameValuePairs; // post参数
-	private Error error;
+	private ErrorMsg error;
 
-	public Error getError() {
+	public ErrorMsg getError() {
 		return error;
 	}
 
 	protected DeleteCardOperate(String uid, String cardid) {
-		this.error = new Error();
+		this.error = new ErrorMsg();
 		// post 参数设置
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		JSONObject postObject = new JSONObject();
@@ -37,7 +37,6 @@ public class DeleteCardOperate extends SlateBaseOperate {
 			addPostParams(postObject, "submit", "delete");
 			params.add(new BasicNameValuePair("data", postObject.toString()));
 			setPostParams(params);
-			SlatePrintHelper.print("post values:" + postObject.toString());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -65,7 +64,7 @@ public class DeleteCardOperate extends SlateBaseOperate {
 	@Override
 	protected void fetchLocalDataInBadNet(FetchDataListener mFetchDataListener) {
 		SlatePrintHelper.print("net error:" + getUrl());
-		mFetchDataListener.fetchData(false, null);
+		mFetchDataListener.fetchData(false, null, false);
 	}
 
 	@Override

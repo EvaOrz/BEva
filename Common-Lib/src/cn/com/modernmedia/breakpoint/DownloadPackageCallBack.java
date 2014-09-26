@@ -10,17 +10,17 @@ public interface DownloadPackageCallBack {
 	/**
 	 * 当以前已经成功下载过，当点击下载的时候回调
 	 */
-	public void onSuccess(int issueId, String folderName);
+	public void onSuccess(String tagName, String folderName);
 
 	/**
 	 * 下载暂停
 	 */
-	public void onPause(int issueId);
+	public void onPause(String tagName);
 
 	/**
 	 * 下载失败
 	 */
-	public void onFailed(int issueId);
+	public void onFailed(String tagName);
 
 	/**
 	 * 下载中
@@ -28,5 +28,5 @@ public interface DownloadPackageCallBack {
 	 * @param complete
 	 * @param total
 	 */
-	public void onProcess(int issueId, long complete, long total);
+	public void onProcess(String tagName, long complete, long total);
 }

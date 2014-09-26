@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.view.Window;
 import android.widget.Toast;
+
+import com.flurry.android.FlurryAgent;
 
 /**
  * 所有activity的父类
@@ -17,11 +20,13 @@ public abstract class SlateBaseActivity extends Activity {
 	private final int TOAST_LENGTH = 1000;
 	private Handler handler = new Handler();
 	private Dialog dialog;
+	private String flurry = "";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		flurry = SlateApplication.mConfig.getFlurry_api_key();
 		addActivityToList();
 	}
 
@@ -87,6 +92,20 @@ public abstract class SlateBaseActivity extends Activity {
 	public abstract String getActivityName();
 
 	public abstract Activity getActivity();
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		if (this != null && !TextUtils.isEmpty(flurry))
+			FlurryAgent.onStartSession(this, flurry);
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		if (this != null && !TextUtils.isEmpty(flurry))
+			FlurryAgent.onEndSession(this);
+	}
 
 	@Override
 	protected void onDestroy() {

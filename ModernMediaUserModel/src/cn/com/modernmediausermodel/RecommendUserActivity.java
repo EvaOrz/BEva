@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import cn.com.modernmedia.BaseActivity;
+import cn.com.modernmediaslate.SlateBaseActivity;
 import cn.com.modernmediausermodel.model.User;
 import cn.com.modernmediausermodel.util.UserDataHelper;
 import cn.com.modernmediausermodel.util.UserPageTransfer;
@@ -18,7 +18,7 @@ import cn.com.modernmediausermodel.widget.RecommendUserView;
  * @author user
  * 
  */
-public class RecommendUserActivity extends BaseActivity implements
+public class RecommendUserActivity extends SlateBaseActivity implements
 		OnClickListener {
 	private int pageType; // 页面类型
 	private User mUser;// 从此用户获取信息(非登录用户)
@@ -90,9 +90,5 @@ public class RecommendUserActivity extends BaseActivity implements
 	@Override
 	public Activity getActivity() {
 		return this;
-	}
-
-	@Override
-	public void reLoadData() {
 	}
 }

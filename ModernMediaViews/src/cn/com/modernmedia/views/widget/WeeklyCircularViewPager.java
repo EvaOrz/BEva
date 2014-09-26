@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 import cn.com.modernmedia.adapter.MyPagerAdapter;
 import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.views.adapter.WeeklyCircularPagerAdapter;
+import cn.com.modernmedia.views.index.head.IndexHeadCircularViewPager;
 
 /**
  * iweekly类型焦点图viewpager
@@ -14,7 +15,7 @@ import cn.com.modernmedia.views.adapter.WeeklyCircularPagerAdapter;
  * @author user
  * 
  */
-public class WeeklyCircularViewPager extends ImageCircularViewPager {
+public class WeeklyCircularViewPager extends IndexHeadCircularViewPager {
 	private int width = 0;
 	private int height = 0;
 

@@ -9,9 +9,11 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import cn.com.modernmedia.adapter.MyPagerAdapter;
-import cn.com.modernmedia.model.Cat;
-import cn.com.modernmedia.model.SoloColumn.SoloColumnItem;
+import cn.com.modernmedia.model.TagArticleList;
+import cn.com.modernmedia.model.TagInfoList;
+import cn.com.modernmedia.model.TagInfoList.TagInfo;
 import cn.com.modernmedia.views.index.IndexViewPagerItem;
+import cn.com.modernmedia.views.index.IndexViewPagerItemUri;
 import cn.com.modernmediaslate.model.Entry;
 
 /**
@@ -20,26 +22,28 @@ import cn.com.modernmediaslate.model.Entry;
  * @author user
  * 
  */
-public class IndexViewPagerAdapter extends MyPagerAdapter<SoloColumnItem> {
+public class IndexViewPagerAdapter extends MyPagerAdapter<TagInfo> {
 	private Context mContext;
-	private Cat cat;
 	private int currentPosition = -1;
 	// 保存已经获得的列表数据
 	@SuppressLint("UseSparseArrays")
-	private Map<Integer, Entry> map = new HashMap<Integer, Entry>();
+	private Map<String, Entry> indexMap = new HashMap<String, Entry>();
+	private Map<String, Entry> articleMap = new HashMap<String, Entry>();
 	private IndexViewPagerItem currentIndexViewPagerItem;
 
-	public IndexViewPagerAdapter(Context context, Cat cat,
-			List<SoloColumnItem> list) {
-		super(context, list);
+	public IndexViewPagerAdapter(Context context, List<TagInfo> tagList) {
+		super(context, tagList);
 		mContext = context;
-		this.cat = cat;
-		map.clear();
+		indexMap.clear();
+		articleMap.clear();
 	}
 
 	@Override
-	public View fetchView(SoloColumnItem t) {
-		return new IndexViewPagerItem(mContext, cat, t, this).fetchView();
+	public View fetchView(TagInfo t) {
+		if (t.isUriTag()) {
+			return new IndexViewPagerItemUri(mContext, t, this).fetchView();
+		}
+		return new IndexViewPagerItem(mContext, t, this).fetchView();
 	}
 
 	@Override
@@ -61,22 +65,72 @@ public class IndexViewPagerAdapter extends MyPagerAdapter<SoloColumnItem> {
 				&& ((View) object).getTag() instanceof IndexViewPagerItem) {
 			currentIndexViewPagerItem = (IndexViewPagerItem) ((View) object)
 					.getTag();
-			currentIndexViewPagerItem.fetchData();
+			currentIndexViewPagerItem.fetchData("", false, false, null, null);
 		}
 	}
 
-	public void addEntryToMap(int catId, Entry entry) {
-		if (map.containsKey(catId)) {
-			map.remove(catId);
+	/**
+	 * 添加文章列表
+	 * 
+	 * @param tagName
+	 * @param articleList
+	 * @param more
+	 */
+	public void addArticleListToMap(String tagName, TagArticleList articleList,
+			boolean more, boolean isIndex) {
+		Map<String, Entry> map = isIndex ? indexMap : articleMap;
+		if (!more) {
+			if (map.containsKey(tagName)) {
+				map.remove(tagName);
+			}
+		} else {
+			if (map.containsKey(tagName)) {
+				if (map.get(tagName) instanceof TagArticleList) {
+					TagArticleList curr = (TagArticleList) map.get(tagName);
+					for (int key : curr.getMap().keySet()) {
+						if (articleList.hasData(key)) {
+							curr.getMap().get(key)
+									.addAll(articleList.getMap().get(key));
+						}
+					}
+					curr.setEndOffset(articleList.getEndOffset());
+					map.remove(tagName);
+					map.put(tagName, curr);
+					return;
+				}
+			}
 		}
-		map.put(catId, entry);
+		map.put(tagName, articleList);
 	}
 
-	public Entry getEntryFromMap(int catId) {
-		if (map.containsKey(catId)) {
-			return map.get(catId);
+	/**
+	 * 添加子栏目列表
+	 * 
+	 * @param tagName
+	 * @param tagInfoList
+	 */
+	public void addChildrenTopMap(String tagName, TagInfoList tagInfoList,
+			boolean isIndex) {
+		Map<String, Entry> map = isIndex ? indexMap : articleMap;
+		if (map.containsKey(tagName)) {
+			map.remove(tagName);
+		}
+		map.put(tagName, tagInfoList);
+	}
+
+	public Entry getEntryFromMap(String tagName, boolean isIndex) {
+		Map<String, Entry> map = isIndex ? indexMap : articleMap;
+		if (map.containsKey(tagName)) {
+			return map.get(tagName);
 		}
 		return null;
+	}
+
+	public void removeEntryFromMap(String tagName, boolean isIndex) {
+		Map<String, Entry> map = isIndex ? indexMap : articleMap;
+		if (map.containsKey(tagName)) {
+			map.remove(tagName);
+		}
 	}
 
 	public List<View> getSelfScrollViews() {

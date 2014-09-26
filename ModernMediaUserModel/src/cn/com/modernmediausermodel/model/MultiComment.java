@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import cn.com.modernmediaslate.model.Entry;
+import cn.com.modernmediaslate.model.ErrorMsg;
 
 public class MultiComment extends Entry {
 	private static final long serialVersionUID = 1L;
@@ -34,7 +35,7 @@ public class MultiComment extends Entry {
 		private int pageCount;
 		private List<CommentItem> commentItemList = new ArrayList<CommentItem>();
 
-		private User.Error error = new User.Error();
+		private ErrorMsg error = new ErrorMsg();
 
 		public String getUid() {
 			return uid;
@@ -60,11 +61,11 @@ public class MultiComment extends Entry {
 			this.commentItemList = commentItemList;
 		}
 
-		public User.Error getError() {
+		public ErrorMsg getError() {
 			return error;
 		}
 
-		public void setError(User.Error error) {
+		public void setError(ErrorMsg error) {
 			this.error = error;
 		}
 	}

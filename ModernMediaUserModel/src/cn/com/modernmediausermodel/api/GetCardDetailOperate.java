@@ -1,9 +1,10 @@
 package cn.com.modernmediausermodel.api;
 
-import cn.com.modernmedia.util.FileManager;
+import cn.com.modernmediausermodel.model.Card;
 import cn.com.modernmediausermodel.model.User;
 import cn.com.modernmediausermodel.util.UserConstData;
 import cn.com.modernmediausermodel.util.UserDataHelper;
+import cn.com.modernmediausermodel.util.UserFileManager;
 
 /**
  * 获取单张卡片的详情
@@ -15,7 +16,7 @@ public class GetCardDetailOperate extends CardBaseOperate {
 	private String cardId = "";
 
 	public GetCardDetailOperate(String cardId) {
-		super("0", false);
+		super("0", false, null);
 		this.cardId = cardId;
 	}
 
@@ -31,12 +32,17 @@ public class GetCardDetailOperate extends CardBaseOperate {
 
 	@Override
 	protected void saveData(String data) {
-		FileManager.saveApiData(getDefaultFileName(), data);
+		UserFileManager.saveApiData(getDefaultFileName(), data);
 	}
 
 	@Override
 	protected String getDefaultFileName() {
 		return UserConstData.getCardDetailFileName(cardId);
+	}
+
+	@Override
+	protected Card getCardFromDb() {
+		return null;
 	}
 
 }

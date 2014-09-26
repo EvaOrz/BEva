@@ -10,30 +10,46 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.view.View;
 import cn.com.modernmedia.CommonApplication;
+import cn.com.modernmedia.CommonArticleActivity;
 import cn.com.modernmedia.CommonArticleActivity.ArticleType;
 import cn.com.modernmedia.CommonMainActivity;
+import cn.com.modernmedia.R;
 import cn.com.modernmedia.VideoPlayerActivity;
+import cn.com.modernmedia.model.AppValue;
 import cn.com.modernmedia.model.ArticleItem;
+import cn.com.modernmedia.model.TagInfoList.TagInfo;
 import cn.com.modernmedia.util.PageTransfer.TransferArticle;
+import cn.com.modernmedia.util.UriParseToIndex.UriParseToIndexListener;
 import cn.com.modernmedia.widget.CommonAtlasView;
 import cn.com.modernmedia.widget.CommonWebView;
 import cn.com.modernmedia.widget.WebViewPop;
 import cn.com.modernmediaslate.model.Entry;
+import cn.com.modernmediaslate.unit.ParseUtil;
+import cn.com.modernmediaslate.unit.Tools;
 
 /*
  * uri转换类
  * 转换规则
- * 打开文章 slate://article/{issueId}/{columnId}/{articleId}/{from}/{page}/
+ * 打开文章 slate://article/tagname/{tagname}/{articleId}/{page}/
  * 打开视频 slate://video/{videoUrl}
  * 打开大图 slate://image/{imageUrl}
- * 打开当期栏目首页 slate://column/{columnId}/{issueId}/
- * 打开当期今日焦点 slate://column/home/{issueId}/
- * 图集slate://gallery/{issueId}/{columnId}/{articleId}
- * -打开某期 slate://issue/{issueId}/
- * -打开�?���?slate://issue/latest/{appid}/
+ * 打开当期栏目首页 slate://column/{columnId}/{issueId}/  无用
+ * 打开当期今日焦点 slate://column/home/{issueId}/  无用
+ * 图集slate://gallery/pic,pic,pic
+ * 打开某期 slate://issue/{issueId}/   无用
+ * 打开最新期 slate://issue/latest/{appid}/  无用
+ * 打开栏目slate://column/tagname/{tagname}
  */
 public class UriParse {
 	public static final String TAG = "UriParser";
+
+	public static final String SETTINGS = "settings";
+	public static final String ABOUT = "about";
+	public static final String FEEDBACK = "feedback";
+	public static final String FOLLOW = "follow";
+	public static final String WEIBO = "weibo";
+	public static final String WEIXIN = "weixin";
+	public static final String STORE = "store";// 去商店评论
 
 	public static final String COLUMN = "column";
 	public static final String IMAGE = "image";
@@ -42,17 +58,13 @@ public class UriParse {
 	public static final String GALLERY = "gallery";
 	public static final String WEB = "web";
 
+	// public static final String TAGNAME = "tagname";
+
 	/*
 	 * @param String uri
-	 * 
-	 * @return arraylist {issueID,columnId,articleId,from,page};
-	 * 
-	 * @form 来源
-	 * 
-	 * @page 页码
 	 */
 	private static ArrayList<String> article(String uri) {
-		// "issueId|columnId|articleId|from|page";
+		// slate://article/tagname/cat_19/46204/1
 		ArrayList<String> list = new ArrayList<String>();
 		String[] Array = uri.split("article/");
 		if (Array.length == 2) {
@@ -114,15 +126,11 @@ public class UriParse {
 
 	/*
 	 * @param String uri
-	 * 
-	 * @return arraylist {columnId,issueId} columnID=home 打开当期今日焦点
-	 * columnID!=home 打开当期栏目首页
 	 */
 	private static ArrayList<String> column(String uri) {
-		// "issueId|columnId|articleId|from|page";
-		// solo : slate://column/32/0/
+		// slate://column/tagname/{tagname}
 		ArrayList<String> list = new ArrayList<String>();
-		String[] Array = uri.split("column/");
+		String[] Array = uri.split("column/tagname/");
 		if (Array.length == 2) {
 			String[] param = Array[1].split("/");
 			for (int i = 0; i < param.length; i++) {
@@ -143,6 +151,63 @@ public class UriParse {
 	 */
 	private static String web(String uri) {
 		String[] Array = uri.split("web/");
+		if (Array.length == 2) {
+			return Array[1];
+		}
+		return null;
+	}
+
+	/**
+	 * slate://tagname/cat_xxx 跳转到某个栏目
+	 * 
+	 * @param uri
+	 * @return
+	 */
+	@SuppressWarnings("unused")
+	private static String tagname(String uri) {
+		String[] Array = uri.split("tagname/");
+		if (Array.length == 2) {
+			return Array[1];
+		}
+		return null;
+	}
+
+	/**
+	 * slate://about/ 打开关于
+	 * 
+	 * @param uri
+	 * @return
+	 */
+	private static String about(String uri) {
+		String[] Array = uri.split("about/");
+		if (Array.length == 2) {
+			return Array[1];
+		}
+		return null;
+	}
+
+	/**
+	 * slate://settings/ 打开设置
+	 * 
+	 * @param uri
+	 * @return
+	 */
+	private static String settings(String uri) {
+		String[] Array = uri.split("settings/");
+		if (Array.length == 2) {
+			return Array[1];
+		}
+		return null;
+	}
+
+	/**
+	 * slate://follow/weibo/ 关注官方微博 slate://follow/weixin/ 关注官方微信
+	 * 
+	 * @param uri
+	 * @return
+	 */
+	private static String follow(String uri) {
+		String[] Array = uri.split("follow/");
 		if (Array.length == 2) {
 			return Array[1];
 		}
@@ -180,6 +245,21 @@ public class UriParse {
 				String url = web(uri);
 				if (!TextUtils.isEmpty(url)) {
 					list.add(url);
+				}
+			} else if (param[0].equals(SETTINGS)) {
+				String setting = settings(uri);
+				if (!TextUtils.isEmpty(setting)) {
+					list.add(setting);
+				}
+			} else if (param[0].equals(ABOUT)) {
+				String about = about(uri);
+				if (!TextUtils.isEmpty(about)) {
+					list.add(about);
+				}
+			} else if (param[0].equals(FOLLOW)) {
+				String follow = follow(uri);
+				if (!TextUtils.isEmpty(follow)) {
+					list.add(follow);
 				}
 			}
 		}
@@ -234,11 +314,19 @@ public class UriParse {
 			ArticleItem item = (ArticleItem) entries[0];
 			if (item.getAdvSource() != null) {// 广告
 				link = item.getAdvSource().getLink();
-				AdvUriParse.clickSlate(context, link, entries, view, cls);
+				if (TextUtils.isEmpty(link))
+					return;
+				if (link.startsWith("slate://adv/tagname")) {
+					// TODO 跳转到广告文章
+					AdvUriParse.clickSlate(context, link, entries, view, cls);
+					return;
+				}
+				link = link.replace("adv/", "");
 			} else {
 				link = item.getSlateLink();
-				clickSlate(context, link, entries, view, cls);
 			}
+
+			clickSlate(context, link, entries, view, cls);
 		}
 	}
 
@@ -249,8 +337,11 @@ public class UriParse {
 		} else if (link.toLowerCase().startsWith("http://")
 				|| link.toLowerCase().startsWith("https://")) {
 			doLinkHttp(context, link);
-		} else if (link.toLowerCase().startsWith("slate://card/")) {
-			String[] cards = link.split("slate://card/");
+		} else if (link.toLowerCase().startsWith("slate://card/")
+				|| link.toLowerCase().startsWith("slate://user/")) {
+			String key = link.toLowerCase().startsWith("slate://card/") ? "slate://card/"
+					: "slate://user/";
+			String[] cards = link.split(key);
 			if (cards != null && cards.length == 2
 					&& !TextUtils.isEmpty(cards[1])
 					&& CommonApplication.userUriListener != null) {
@@ -258,8 +349,8 @@ public class UriParse {
 			}
 		} else if (link.toLowerCase().startsWith("slate://")) {
 			List<String> list = parser(link);
+			String key = list.size() > 0 ? list.get(0).toLowerCase() : "";
 			if (list.size() > 1) {
-				String key = list.get(0).toLowerCase();
 				if (key.equals(VIDEO)) {
 					String path = list.get(1).replace(".m3u8", ".mp4");
 					doLinkVideo(context, path);
@@ -271,10 +362,24 @@ public class UriParse {
 					list.remove(0);
 					doLinkGallery(list, view);
 				} else if (key.equals(WEB)) {
-					// doLinkWeb(context, list.get(1));
-					doLinkHttp(context, list.get(1));
+					doLinkWeb(context, list.get(1));
+					// doLinkHttp(context, list.get(1));
+				} else if (key.equals(COLUMN)) {
+					doTagname(context, list.get(1));
+				} else if (key.equals(FOLLOW)) { // 微博、微信关注
+					doFollow(context, list.get(1));
 				}
+			} else if (key.equals(ABOUT) || key.equals(SETTINGS)) {
+				gotoActivity(context, cls);
+			} else if (key.equals(FEEDBACK)) {
+				ModernMediaTools.feedBack(context);
+			} else if (key.equals(STORE)) {
+				ModernMediaTools.assess(context);
 			}
+		} else if (link.startsWith("tel://")) {
+			String arr[] = link.split("tel://");
+			if (arr.length == 2)
+				doCall(context, arr[1]);
 		}
 	}
 
@@ -290,17 +395,27 @@ public class UriParse {
 		ArticleItem item = (ArticleItem) entries[0];
 		TransferArticle transferArticle = entries.length > 1 ? (TransferArticle) entries[1]
 				: null;
-		TransferArticle tr = new TransferArticle(item.getArticleId(),
-				item.getCatId(), -1, ArticleType.Default);
+		String tagName = "";
+		if (item.getApiTag().equals(item.getTagName())) {
+			tagName = item.getTagName();
+		} else {
+			if (item.getApiTag().contains(",")) {
+				// TODO
+				// 组合tagname,使用item自己的tagname再去数据库里比较，如果直接给文章页传组合id，再数据库查找的时候会找不到
+				tagName = item.getTagName();
+			} else {
+				// TODO
+				// 如果请求api的tagname和当前item的tagname不一致，并且api不是组合id,那么使用api的tagname(商周首页)
+				tagName = item.getApiTag();
+			}
+		}
+		TransferArticle tr = new TransferArticle(item.getArticleId(), tagName,
+				item.getParent(), -1, ArticleType.Default);
 		if (transferArticle != null) {
 			tr.setUid(transferArticle.getUid());
 			tr.setArticleType(transferArticle.getArticleType());
 		}
-		if (cls != null && cls.length > 0) {
-			PageTransfer.gotoArticleActivity(context, cls[0], tr);
-		} else if (context instanceof CommonMainActivity) {
-			((CommonMainActivity) context).gotoArticleActivity(tr);
-		}
+		PageTransfer.gotoArticleActivity(context, tr);
 	}
 
 	/**
@@ -337,34 +452,25 @@ public class UriParse {
 	 */
 	public static void doLinkArticle(Context context, List<String> list,
 			Entry[] entries, View view, Class<?>... cls) {
-		if (view instanceof CommonWebView) {
-			((CommonWebView) view).gotoArticle(ParseUtil.stoi(list.get(3), -1));
-		} else if (view instanceof CommonAtlasView) {
-			((CommonAtlasView) view)
-					.gotoArticle(ParseUtil.stoi(list.get(3), -1));
-		} else {
-			int issueId = 0;
-			if (list.size() > 1)
-				issueId = ParseUtil.stoi(list.get(1), 0);
-			TransferArticle tr = new TransferArticle(ParseUtil.stoi(
-					list.get(3), -1), ParseUtil.stoi(list.get(2), -1), -1,
-					issueId == 0 ? ArticleType.Solo : ArticleType.Default);
-			TransferArticle transferArticle = entries.length > 1 ? (TransferArticle) entries[1]
-					: null;
-			if (transferArticle != null)
-				tr.setUid(transferArticle.getUid());
-			// test 跳转到其它期
-			if (CommonApplication.issue != null && issueId != 0
-					&& issueId != CommonApplication.issue.getId()) {
-				tr.setArticleType(ArticleType.Last);
-				CommonApplication.currentIssueId = issueId;
-			}
-			if (cls != null && cls.length > 0) {
-				PageTransfer.gotoArticleActivity(context, cls[0], tr);
-			} else if (context instanceof CommonMainActivity) {
-				((CommonMainActivity) context).gotoArticleActivity(tr);
+		if (context instanceof CommonArticleActivity) {
+			if (view instanceof CommonWebView) {
+				((CommonWebView) view).gotoArticle(ParseUtil.stoi(list.get(3),
+						-1));
+				return;
+			} else if (view instanceof CommonAtlasView) {
+				((CommonAtlasView) view).gotoArticle(ParseUtil.stoi(
+						list.get(3), -1));
+				return;
 			}
 		}
+		TransferArticle tr = new TransferArticle(
+				ParseUtil.stoi(list.get(3), -1), list.get(2), "", -1,
+				ArticleType.Default);
+		TransferArticle transferArticle = entries.length > 1 ? (TransferArticle) entries[1]
+				: null;
+		if (transferArticle != null)
+			tr.setUid(transferArticle.getUid());
+		PageTransfer.gotoArticleActivity(context, tr);
 	}
 
 	/**
@@ -386,5 +492,95 @@ public class UriParse {
 	 */
 	public static void doLinkWeb(Context context, String link) {
 		new WebViewPop(context, link);
+	}
+
+	/**
+	 * 跳转到拨号页面
+	 * 
+	 * @param context
+	 * @param telNumber
+	 *            电话号码
+	 */
+	private static void doCall(Context context, String telNumber) {
+		try {
+			Uri uri = Uri.parse("tel:" + telNumber); // 拨打电话号码的URI格式
+			Intent intent = new Intent(); // 实例化Intent
+			intent.setAction(Intent.ACTION_DIAL); // 指定Action
+			intent.setData(uri); // 设置数据
+			context.startActivity(intent);// 启动Acitivity
+		} catch (Exception e) {
+			Tools.showToast(context, R.string.dial_error);
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 跳转到某个栏目
+	 * 
+	 * @param context
+	 * @param tagName
+	 */
+	private static void doTagname(Context context, String tagName) {
+		if (CommonApplication.mConfig.getIs_index_pager() == 1) {
+			if (context instanceof CommonMainActivity)
+				((CommonMainActivity) context).clickItemIfPager(tagName, true);
+			return;
+		}
+		if (AppValue.mainProcess != null
+				&& context instanceof CommonMainActivity) {
+			UriParseToIndex uriParseToIndex = new UriParseToIndex(context,
+					new UriParseToIndexListener() {
+
+						@Override
+						public void fetchTagInfo(TagInfo info) {
+							if (info != null) {
+								if (info.getHaveChildren() == 1) {
+									AppValue.mainProcess.getChild(info);
+								} else {
+									AppValue.mainProcess.getArticleList(info,
+											null);
+								}
+							}
+						}
+					});
+			TagInfo tagInfo = uriParseToIndex.findTagInSubscriptList(tagName);
+			if (tagInfo != null) {
+				((CommonMainActivity) context).checkIndexLoading(1);
+				if (tagInfo.getHaveChildren() == 1) {
+					AppValue.mainProcess.getChild(tagInfo);
+				} else {
+					AppValue.mainProcess.getArticleList(tagInfo, null);
+				}
+			} else {
+				uriParseToIndex.findTagWhenDidnotFind(tagName);
+			}
+		}
+	}
+
+	/**
+	 * 跳转到指定的activity
+	 * 
+	 * @param context
+	 * @param cls
+	 */
+	private static void gotoActivity(Context context, Class<?>... cls) {
+		if (cls != null && cls.length > 0) {
+			Intent intent = new Intent(context, cls[0]);
+			context.startActivity(intent);
+		}
+	}
+
+	/**
+	 * 微博、微信关注
+	 * 
+	 * @param context
+	 * @param type
+	 */
+	private static void doFollow(Context context, String type) {
+		if (WEIBO.equals(type)) {
+			ModernMediaTools.followWeibo(context);
+		} else if (WEIXIN.equals(type)) {
+			ModernMediaTools.followWeixin(context);
+		}
 	}
 }

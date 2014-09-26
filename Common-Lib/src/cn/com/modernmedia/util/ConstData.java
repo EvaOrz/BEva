@@ -1,8 +1,8 @@
 package cn.com.modernmedia.util;
 
-import android.text.TextUtils;
 import cn.com.modernmedia.CommonApplication;
 import cn.com.modernmedia.api.UrlMaker;
+import cn.com.modernmediaslate.SlateApplication;
 
 /**
  * 
@@ -16,13 +16,6 @@ public class ConstData {
 	public static int IS_DEBUG = 0;
 	/** 接口版本号 **/
 	public static String API_VERSION = "5";
-	/**
-	 * 应用id bloomberg:1; modernlady:2; icollection:3; turningpoints:5; adv:6;
-	 * onewaystreet:10; zhihu:11; tanc:12; itv:13; life:14; car:15; lohas:16;
-	 * finance:17; bloomberg繁体版:18; iweekly:20; ifashion:21; iCenCi 104;
-	 * youthMba 108; zhihuiyun:110;
-	 **/
-	private static int APP_ID = 1;
 	/** 设备号 **/
 	// test xiaomihezi=9
 	public static String DEVICE_TYPE = "10";
@@ -37,22 +30,16 @@ public class ConstData {
 	/** toast显示时间 **/
 	public static final int TOAST_LENGTH = 1000;
 	/** 版本号 **/
-	public static final int VERSION = 161;
-	/** 客户端名称 **/
-	public static String APP_NAME = "";
+	public static final int VERSION = 162;
 	/** splash停留时间 **/
 	public static int SPLASH_DELAY_TIME = 1000;
-	/** 图片保存地址 **/
-	public static String DEFAULT_IMAGE_PATH;
+	/** 文件保存地址 **/
 	public static String DEFAULT_DATA_PATH;
 	public static String DEFAULT_APK_PATH;
 	public static String DEFAULT_PACKAGE_PATH;
+	public static String DEFAULT_TEMPLATE_PATH;
 	public static final String PUSH_ACTION = "cn.com.modernmedia.businessweek.service.UPDATE_STATUS";
 	public static final String CRASH_NAME = "crash";
-	/**
-	 * 没有成功同步到服务器上时使用当前uid,为了兼顾以前没有uid字段的数据，默认为0
-	 */
-	public static final String UN_UPLOAD_UID = "0";
 
 	public enum APP_TYPE {
 		BUSINESS, IWEEKLY, OTHERS;
@@ -64,7 +51,7 @@ public class ConstData {
 	 * @return
 	 */
 	public static int getAppId() {
-		return APP_ID == 18 ? 1 : APP_ID;
+		return CommonApplication.APP_ID == 18 ? 1 : CommonApplication.APP_ID;
 	}
 
 	/**
@@ -73,7 +60,7 @@ public class ConstData {
 	 * @return
 	 */
 	public static int getInitialAppId() {
-		return APP_ID;
+		return CommonApplication.APP_ID;
 	}
 
 	/**
@@ -92,7 +79,7 @@ public class ConstData {
 	}
 
 	private static void setAppId(int appId) {
-		APP_ID = appId;
+		CommonApplication.APP_ID = appId;
 	}
 
 	private static void setDebug(int debug) {
@@ -104,200 +91,17 @@ public class ConstData {
 	}
 
 	/**
-	 * Flurry统计key
-	 * 
-	 * @return
-	 */
-	public static String getFlurryApiKey() {
-		if (IS_DEBUG != 0)
-			return "";
-		if (APP_ID == 1 || APP_ID == 18) {
-			return "KHSTGVVGP7422NSW4TM4";
-		} else if (APP_ID == 2) {
-			return "6T4YCHYM8PK6RVS858F4";
-		} else if (APP_ID == 20) {
-			return "9659V6KFBT68JJXDMDM2";
-		} else if (APP_ID == 12) {
-			return "2XYF5NM5RNYJ3QQRJ8MJ";
-		} else if (APP_ID == 21) {
-			return "DQGQNYM698DSGMK6B9C5";
-		} else if (APP_ID == 104) {
-			return "HRHMPD5DDW83RBBTCCBJ";
-		} else if (APP_ID == 108) {
-			return "KCNV2KGDPXV44C3CWG2V";
-		} else if (APP_ID == 110) {
-			return "JWT6P7J75Q6HCP8W9XBW";
-		} else if (APP_ID == 16) {
-			return "BH54M98F23XXRNKVFQ2C";
-		}
-		return "";
-	}
-
-	/**
-	 * 设置应用id
-	 * 
-	 * @param appId
-	 * @return
-	 */
-	public static String getAppName() {
-		if (APP_ID == 1) {
-			APP_NAME = "彭博商业周刊";
-			return "BussinessWeek";
-		} else if (APP_ID == 2) {
-			APP_NAME = "优家画报";
-			return "ModernLady";
-		} else if (APP_ID == 16) {
-			APP_NAME = "乐活 LOHAS";
-			return "lohas";
-		} else if (APP_ID == 18) {
-			APP_NAME = "彭博商業週刊";
-			return "BusinessWeek_traditional";
-		} else if (APP_ID == 20) {
-			APP_NAME = "周末画报";
-			return "iWeekly";
-		} else if (APP_ID == 12) {
-			APP_NAME = "艺术新闻";
-			return "tanc";
-		} else if (APP_ID == 21) {
-			return "iFashion";
-		} else if (APP_ID == 104) {
-			APP_NAME = "参差计划";
-			return "iCenci";
-		} else if (APP_ID == 108) {
-			APP_NAME = "少年商学院";
-			return "youthmba";
-		} else if (APP_ID == 110) {
-			APP_NAME = "智慧云";
-			return "iZhiHuiYun";
-		}
-		return "";
-	}
-
-	/**
-	 * 设置应用名称
+	 * 设置文件存储路径
 	 * 
 	 * @param name
 	 */
 	private static void initDefaultValue() {
-		DEFAULT_IMAGE_PATH = "/" + getAppName() + "/imgs/";
-		DEFAULT_DATA_PATH = "/" + getAppName() + "/datas/";
-		DEFAULT_APK_PATH = "/" + getAppName() + "/apk/";
-		DEFAULT_PACKAGE_PATH = "/" + getAppName() + "/package/";
-	}
-
-	/**
-	 * issue文件名，(只有网络不好的情况下才从本地取)
-	 * 
-	 * @return
-	 */
-	public static String getIssueFileName() {
-		return "getissue_";
-	}
-
-	/**
-	 * 往期列表文件名(只有网络不好的情况下才从本地取,因为不好判断是否有些期被下了)
-	 * 
-	 * @return
-	 */
-	public static String getIssuelistFileName(int page) {
-		return "issuelist_" + page;
-	}
-
-	/**
-	 * catlist文件名
-	 * 
-	 * @return
-	 */
-	public static String getCatListFileName() {
-		return "cartlist_";
-	}
-
-	/**
-	 * 独立栏目catlist文件名
-	 * 
-	 * @return
-	 */
-	public static String getSoloCatListFileName() {
-		return "solo_cartlist_";
-	}
-
-	/**
-	 * index文件名
-	 * 
-	 * @return
-	 */
-	public static String getIndexFileName() {
-		return "index_";
-	}
-
-	/**
-	 * catindex文件名
-	 * 
-	 * @param columnId
-	 * @return
-	 */
-	public static String getCatIndexFileName(String columnId) {
-		return "catindex_" + columnId;
-	}
-
-	/**
-	 * 获取articlelist文件名
-	 * 
-	 * @return
-	 */
-	public static String getArticleListFileName() {
-		return "articlelist_";
-	}
-
-	/**
-	 * 获取往期articlelist文件名
-	 * 
-	 * @return
-	 */
-	public static String getLastArticleListFileName() {
-		if (CommonApplication.lastIssue != null) {
-			return getArticleListFileName()
-					+ CommonApplication.lastIssue.getId();
-		}
-		return getArticleListFileName();
-	}
-
-	/**
-	 * 获取图集文章文件名
-	 * 
-	 * @param issueId
-	 * @param columnId
-	 * @param articleId
-	 * @return
-	 */
-	public static String getArticleFileName(String issueId, String columnId,
-			String articleId) {
-		return "article_" + issueId + "_" + columnId + "_" + articleId;
-	}
-
-	/**
-	 * 获取分享信息文件名
-	 * 
-	 * @param issueId
-	 * @param columnId
-	 * @param articleId
-	 * @return
-	 */
-	public static String getShareFileName(String issueId, String columnId,
-			String articleId, String shareType) {
-		return "share_" + issueId + "_" + columnId + "_" + articleId + "_"
-				+ shareType;
-	}
-
-	public static String getCurrentIssueFold() {
-		String issueFolder = "";
-		if (CommonApplication.currentIssueId != -1) {
-			issueFolder = CommonApplication.currentIssueId + "/";
-		}
-		if (TextUtils.isEmpty(issueFolder))
-			issueFolder = DataHelper.getIssueId(CommonApplication.mContext)
-					+ "/";
-		return DEFAULT_DATA_PATH + issueFolder;
+		String fileName = CommonApplication.mConfig.getCache_file_name();
+		SlateApplication.DEFAULT_IMAGE_PATH = "/" + fileName + "/imgs/";
+		DEFAULT_DATA_PATH = "/" + fileName + "/datas/";
+		DEFAULT_APK_PATH = "/" + fileName + "/apk/";
+		DEFAULT_PACKAGE_PATH = "/" + fileName + "/package/";
+		DEFAULT_TEMPLATE_PATH = "/" + fileName + "/templates/";
 	}
 
 	/**
@@ -337,25 +141,48 @@ public class ConstData {
 	 * @return
 	 */
 	public static boolean isWeeklyNews(int catId) {
-		return APP_ID == 20 && catId == 192;
+		return CommonApplication.APP_ID == 20 && catId == 192;
 	}
 
 	/**
-	 * iweekly文章列表不加密
+	 * 获取文章详情文件名
 	 * 
-	 * @param fileName
+	 * @param articleId
+	 *            文章统一标识，可以传多个articleid
 	 * @return
 	 */
-	public static boolean needEncrpyt(String fileName) {
-		return APP_ID != 20 || !fileName.equals(getArticleListFileName());
+	public static String getArticleDetailFileName(String articleId) {
+		return "article_detail_" + articleId;
 	}
 
 	/**
-	 * 栏目首页是否可滑动
+	 * <<<<<<< HEAD 获取往期文章列表的缓存名字
+	 * 
+	 * @param tagName
+	 *            期tag
+	 * @return
+	 */
+	public static String getLastArticlesFileName(String tagName) {
+		return "last_articles_" + tagName;
+	}
+
+	/**
+	 * 获取往期列表的缓存名字
+	 * 
+	 * @param tagName
+	 *            期tag
+	 * @return
+	 */
+	public static String getLastIssueListFileName(String tagName) {
+		return "last_issuelist_" + tagName;
+	}
+
+	/**
+	 * 是否是goodlife
 	 * 
 	 * @return
 	 */
-	public static boolean isIndexPager() {
-		return CommonApplication.appType == APP_TYPE.BUSINESS;
+	public static boolean isGoodLife() {
+		return CommonApplication.APP_ID == 32 || CommonApplication.APP_ID == 33;
 	}
 }

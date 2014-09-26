@@ -7,19 +7,15 @@ import java.util.Map;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
 import cn.com.modernmedia.CommonApplication;
 import cn.com.modernmedia.adapter.MyPagerAdapter.OnItemClickListener;
-import cn.com.modernmedia.model.Atlas.AtlasPicture;
-import cn.com.modernmedia.util.ParseUtil;
-import cn.com.modernmedia.views.R;
-import cn.com.modernmedia.views.model.AtlasParm;
-import cn.com.modernmedia.views.util.V;
+import cn.com.modernmedia.model.ArticleItem.PhonePageList;
+import cn.com.modernmedia.views.model.TemplateAtlas;
+import cn.com.modernmedia.views.xmlparse.XMLParse;
+import cn.com.modernmediaslate.unit.ParseUtil;
 
 /**
  * 图集适配器
@@ -29,25 +25,28 @@ import cn.com.modernmedia.views.util.V;
  */
 public class AtlasAdapter extends PagerAdapter {
 	private Context mContext;
-	private LayoutInflater inflater;
-	private List<AtlasPicture> list = new ArrayList<AtlasPicture>();
+	private List<PhonePageList> list = new ArrayList<PhonePageList>();
 	private Map<String, View> map = new HashMap<String, View>();
 	private OnItemClickListener onItemClickListener;
-	private AtlasParm parm;
+	private TemplateAtlas template;
+	private int curr;
 
-	public AtlasAdapter(Context context, AtlasParm parm) {
+	public AtlasAdapter(Context context, TemplateAtlas template) {
 		mContext = context;
-		this.parm = parm;
-		inflater = LayoutInflater.from(mContext);
+		this.template = template;
 	}
 
-	public void setData(List<AtlasPicture> list) {
+	public void setData(List<PhonePageList> list) {
 		this.list = list;
 		notifyDataSetChanged();
 	}
 
 	public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
 		this.onItemClickListener = onItemClickListener;
+	}
+
+	public int getCurr() {
+		return curr;
 	}
 
 	@Override
@@ -62,18 +61,13 @@ public class AtlasAdapter extends PagerAdapter {
 
 	@Override
 	public Object instantiateItem(ViewGroup container, final int position) {
-		AtlasPicture picture = list.get(position);
+		PhonePageList picture = list.get(position);
 		View view;
 		String url = picture.getUrl();
 		if (map.containsKey(url)) {
 			view = map.get(url);
 		} else {
-			view = inflater.inflate(R.layout.atlas_item, null);
-			ImageView imageView = (ImageView) view
-					.findViewById(R.id.atlas_picture);
-			initImage(imageView);
-			imageView.setScaleType(ScaleType.CENTER);
-			CommonApplication.finalBitmap.display(imageView, url);
+			view = fetchView(picture);
 			map.put(url, view);
 			container.addView(view);
 		}
@@ -88,18 +82,6 @@ public class AtlasAdapter extends PagerAdapter {
 		return view;
 	}
 
-	private void initImage(ImageView imageView) {
-		if (parm == null)
-			return;
-		V.setImage(imageView, parm.getPlaceholder());
-		if (parm.getType().equals(V.ILADY) && parm.getHeight() > 0) {
-			// TODO 优家类型，高=3*parent/4,宽等比算
-			int height = (int) (CommonApplication.height * AtlasParm.LADY_HEIGHT);
-			imageView.getLayoutParams().width = height * parm.getWidth()
-					/ parm.getHeight();
-		}
-	}
-
 	@Override
 	public void destroyItem(ViewGroup container, int position, Object object) {
 		String url = list.get(position).getUrl();
@@ -110,4 +92,19 @@ public class AtlasAdapter extends PagerAdapter {
 		}
 	}
 
+	@Override
+	public void setPrimaryItem(ViewGroup container, int position, Object object) {
+		super.setPrimaryItem(container, position, object);
+		curr = position;
+	}
+
+	private View fetchView(PhonePageList item) {
+		if (template == null)
+			return new View(mContext);
+		XMLParse xmlParse = new XMLParse(mContext, null);
+		View view = xmlParse.inflate(template.getPagerItem().getData(), null,
+				"");
+		xmlParse.setDataForAtlasItem(item);
+		return view;
+	}
 }

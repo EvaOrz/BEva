@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import cn.com.modernmedia.R;
 import cn.com.modernmedia.model.ShareDialogItem;
+import cn.com.modernmediaslate.adapter.ViewHolder;
 
 /**
  * 分享列表适配器

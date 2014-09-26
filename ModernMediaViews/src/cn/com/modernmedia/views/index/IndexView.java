@@ -1,38 +1,33 @@
 package cn.com.modernmedia.views.index;
 
+import java.util.Observable;
+
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Rect;
-import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-import cn.com.modernmedia.CommonApplication;
 import cn.com.modernmedia.CommonMainActivity;
 import cn.com.modernmedia.listener.FetchEntryListener;
-import cn.com.modernmedia.model.IssueList;
+import cn.com.modernmedia.model.TagArticleList;
+import cn.com.modernmedia.model.TagInfoList;
 import cn.com.modernmedia.views.R;
-import cn.com.modernmedia.views.ViewsMainActivity;
-import cn.com.modernmedia.views.adapter.IssueListAdapter;
-import cn.com.modernmedia.views.adapter.LohasIssueListAdapter;
-import cn.com.modernmedia.views.model.IndexNavParm;
-import cn.com.modernmedia.views.model.IndexNavParm.IndexNavTitleParm;
-import cn.com.modernmedia.views.model.IssueListParm;
+import cn.com.modernmedia.views.index.head.BaseIndexHeadView;
+import cn.com.modernmedia.views.model.TemplateIndexNavbar;
 import cn.com.modernmedia.views.solo.BaseChildCatHead;
 import cn.com.modernmedia.views.solo.BaseSoloIndexView;
 import cn.com.modernmedia.views.solo.ChildIndexView;
-import cn.com.modernmedia.views.solo.SoloIndexView;
 import cn.com.modernmedia.views.util.ParseProperties;
-import cn.com.modernmedia.views.util.V;
+import cn.com.modernmedia.views.xmlparse.XMLDataSetForIndexNav;
+import cn.com.modernmedia.views.xmlparse.XMLParse;
 import cn.com.modernmedia.widget.BaseView;
-import cn.com.modernmedia.widget.IssueListView;
+import cn.com.modernmediaslate.SlateApplication;
 import cn.com.modernmediaslate.model.Entry;
 
 /**
@@ -43,25 +38,42 @@ import cn.com.modernmediaslate.model.Entry;
  */
 public class IndexView extends BaseView implements FetchEntryListener {
 	public static final int LIST = 1;// 普通列表
-	public static final int SOLO = 2;// 独立栏目
 	public static final int CHILD = 3;// 子栏目
+	public static final int ISSUE_LIST = 4;// 期刊列表
+
+	public static int BAR_HEIGHT;
+	public static int height;
 
 	private Context mContext;
-	private View navBar;
-	private ImageView column, fav, navShadow, titleImage;
-	private TextView title;
+	private RelativeLayout navBar;
 	private FrameLayout contain;
 	private LinearLayout cover;
 	private int currTag;
 
 	// child view
-	private IndexListView indexListView;
+	private TagIndexListView indexListView;
 	private BaseSoloIndexView baseSoloIndexView;
-	private IssueListView issueListView;
-	private IssueListAdapter issueListAdapter;
+	private IndexIssueListView issueListView;
 
 	// 可滑动的栏目首页
 	private IndexViewPager indexViewPager;
+	// 首页导航栏模板数据
+	private XMLDataSetForIndexNav dataSetForIndexNav;
+
+	/**
+	 * 通知列表滑动同步
+	 * 
+	 * @author zhuqiao
+	 * 
+	 */
+	public static class NavObservable extends Observable {
+
+		public void setData() {
+			setChanged();
+			notifyObservers();
+		}
+
+	}
 
 	public IndexView(Context context) {
 		this(context, null);
@@ -73,83 +85,53 @@ public class IndexView extends BaseView implements FetchEntryListener {
 		init();
 	}
 
+	@SuppressLint("InflateParams")
 	private void init() {
+		BAR_HEIGHT = mContext.getResources().getDimensionPixelSize(
+				R.dimen.index_titlebar_height);
 		addView(LayoutInflater.from(mContext)
 				.inflate(R.layout.index_view, null), new LayoutParams(
 				LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
 		initProcess();
-		navBar = findViewById(R.id.index_titleBar);
-		navBar.getLayoutParams().height = CommonApplication.width * 88 / 640;
-		column = (ImageView) findViewById(R.id.index_titleBar_column);
-		fav = (ImageView) findViewById(R.id.index_titleBar_fav);
-		title = (TextView) findViewById(R.id.index_titleBar_title);
-		navShadow = (ImageView) findViewById(R.id.index_bar_divider);
-		titleImage = (ImageView) findViewById(R.id.index_titleBar_title_img);
+		navBar = (RelativeLayout) findViewById(R.id.index_titleBar);
 		contain = (FrameLayout) findViewById(R.id.index_contain);
-		issueListView = (IssueListView) findViewById(R.id.index_issue_list_view);
 		indexViewPager = (IndexViewPager) findViewById(R.id.index_pager);
 		cover = (LinearLayout) findViewById(R.id.index_cover);
 		cover.setBackgroundColor(Color.TRANSPARENT);
 		cover.setBackgroundDrawable(null);
 
 		initRes();
-		initIssueListView();
+		if (SlateApplication.mConfig.getNav_hide() == 0
+				&& SlateApplication.mConfig.getAlign_bar() == 0) {
+			((LayoutParams) indexViewPager.getLayoutParams()).topMargin = BAR_HEIGHT;
+		} else {
+			callNavPadding(0);
+		}
 	}
 
 	/**
 	 * 初始化导航栏资源
 	 */
 	private void initRes() {
-		IndexNavParm parm = ParseProperties.getInstance(mContext)
+		TemplateIndexNavbar template = ParseProperties.getInstance(mContext)
 				.parseIndexNav();
-		V.setImage(column, parm.getNav_column());
-		V.setImage(fav, parm.getNav_fav());
-		V.setImage(navShadow, parm.getNav_shadow());
-		V.setImage(navBar, parm.getNav_bg());
-
-		int rule = parm.getType().equals(V.IWEEKLY) ? RelativeLayout.CENTER_HORIZONTAL
-				: RelativeLayout.CENTER_IN_PARENT;
-		((LayoutParams) title.getLayoutParams()).addRule(rule);
-		((LayoutParams) titleImage.getLayoutParams()).addRule(rule);
-
-		if (parm.getShow_title() == 0) {
-			title.setVisibility(View.GONE);
-		}
-		IndexNavTitleParm titleParm = parm.getTitleParm();
-		if (titleParm.getTitle_top_padding() != 0) {
-			((LayoutParams) title.getLayoutParams()).topMargin = titleParm
-					.getTitle_top_padding() * CommonApplication.height / 1280;
-		}
-		if (titleParm.getTitle_textsize() != 0) {
-			title.setTextSize(TypedValue.COMPLEX_UNIT_DIP,
-					titleParm.getTitle_textsize());
-		}
-		if (!TextUtils.isEmpty(titleParm.getTitle_color())) {
-			title.setTextColor(Color.parseColor(titleParm.getTitle_color()));
-		}
-
-		if (parm.getTitleParm().getShow_shadow() == 1) {
-			// TODO 显示阴影
-			title.setShadowLayer(1, 0, -0.5f, Color.BLACK);
-		}
-
-		if (!TextUtils.isEmpty(parm.getNav_title_img())) {
-			titleImage.setVisibility(View.VISIBLE);
-			V.setImage(titleImage, parm.getNav_title_img());
-			if (parm.getNav_title_img_top_padding() != 0) {
-				((LayoutParams) titleImage.getLayoutParams()).topMargin = parm
-						.getNav_title_img_top_padding()
-						* CommonApplication.height / 1280;
-			}
-		}
+		XMLParse xmlParse = new XMLParse(mContext, null);
+		View view = xmlParse.inflate(template.getData(), null, "");
+		navBar.addView(view);
+		dataSetForIndexNav = xmlParse.getDataSetForIndexNav();
+		dataSetForIndexNav.setData();
 	}
 
 	public View getColumn() {
-		return column;
+		return dataSetForIndexNav.getColumn();
 	}
 
 	public View getFav() {
-		return fav;
+		return dataSetForIndexNav.getFav();
+	}
+	
+	public View getNav(){
+		return dataSetForIndexNav.getNavBar();
 	}
 
 	/**
@@ -158,7 +140,8 @@ public class IndexView extends BaseView implements FetchEntryListener {
 	 * @param name
 	 */
 	public void setTitle(String name) {
-		title.setText(name);
+		// title.setText(name);
+		dataSetForIndexNav.setTitle(name);
 	}
 
 	/**
@@ -179,50 +162,46 @@ public class IndexView extends BaseView implements FetchEntryListener {
 		if (entry == null)
 			return;
 		((CommonMainActivity) mContext).clearScrollView();
-		if (indexListView == null) {
-			indexListView = new IndexListView(mContext);
-			contain.removeAllViews();
-			contain.addView(indexListView.fetchView());
-		}
-		indexListView.setData(entry);
+		// TODO 直接初始化，防止headview添加多次
+		indexListView = new TagIndexListView(mContext);
+		contain.removeAllViews();
+		contain.addView(indexListView.fetchView());
+		if (entry instanceof TagArticleList)
+			indexListView.setData((TagArticleList) entry, null);
 		currTag = LIST;
 
 		baseSoloIndexView = null;
-		showIssueListView(false);
+		issueListView = null;
 	}
 
 	/**
 	 * 设置子栏目catid
 	 * 
-	 * @param parentId
+	 * @param childInfoList
 	 */
-	public void setDataForChild(int parentId) {
+	public void setDataForChild(TagInfoList childInfoList) {
 		((CommonMainActivity) mContext).clearScrollView();
 		contain.removeAllViews();
 		baseSoloIndexView = new ChildIndexView(mContext);
-		baseSoloIndexView.setData(parentId);
+		baseSoloIndexView.setData(childInfoList);
 		contain.addView(baseSoloIndexView.fetchView());
 		currTag = CHILD;
 
 		indexListView = null;
-		showIssueListView(false);
+		issueListView = null;
 	}
 
 	/**
-	 * 设置独立栏目catid
-	 * 
-	 * @param parentId
+	 * 设置期刊列表
 	 */
-	public void setDataForSolo(int parentId) {
-		((CommonMainActivity) mContext).clearScrollView();
+	public void setDataForIssueList() {
 		contain.removeAllViews();
-		baseSoloIndexView = new SoloIndexView(mContext);
-		baseSoloIndexView.setData(parentId);
-		contain.addView(baseSoloIndexView.fetchView());
-		currTag = SOLO;
-
+		issueListView = new IndexIssueListView(mContext);
+		issueListView.setData(null);
+		contain.addView(issueListView.fetchView());
+		currTag = ISSUE_LIST;
+		baseSoloIndexView = null;
 		indexListView = null;
-		showIssueListView(false);
 	}
 
 	/**
@@ -230,20 +209,19 @@ public class IndexView extends BaseView implements FetchEntryListener {
 	 */
 	public void setDataForIndexPager() {
 		indexViewPager.setVisibility(View.VISIBLE);
-		Entry entry = ((ViewsMainActivity) mContext).getCat();
-		if (entry == null)
-			entry = CommonApplication.soloColumn;
-		indexViewPager.setCatList(entry);
+		indexViewPager.setCatList();
 	}
 
 	/**
 	 * 定位首页滑屏
 	 * 
-	 * @param id
+	 * @param tagName
+	 * @param isUri
+	 *            是否来自uri;如果是，当找不到的时候需要添加这个栏目，否则，显示第一个栏目
 	 */
-	public void checkPositionIfPager(int id) {
+	public void checkPositionIfPager(String tagName, boolean isUri) {
 		if (indexViewPager != null) {
-			indexViewPager.checkPosition(id);
+			indexViewPager.checkPosition(tagName, isUri);
 		}
 	}
 
@@ -263,9 +241,9 @@ public class IndexView extends BaseView implements FetchEntryListener {
 	}
 
 	public void reStorePullResfresh() {
-		if (currTag == SOLO && baseSoloIndexView instanceof SoloIndexView) {
-			((SoloIndexView) baseSoloIndexView).reStoreRefresh();
-		}
+		// if (currTag == SOLO && baseSoloIndexView instanceof SoloIndexView) {
+		// ((SoloIndexView) baseSoloIndexView).reStoreRefresh();
+		// }
 	}
 
 	/**
@@ -274,13 +252,14 @@ public class IndexView extends BaseView implements FetchEntryListener {
 	 * @param alpha
 	 */
 	public void setShadowAlpha(int alpha) {
-		navShadow.setAlpha(alpha);
+		// navShadow.setAlpha(alpha);
+		dataSetForIndexNav.setAlpha(alpha);
 	}
 
 	@Override
 	protected void reLoad() {
-		if (issueListView.getVisibility() == View.VISIBLE) {
-			issueListView.startFecth();
+		if (currTag == ISSUE_LIST && issueListView != null) {
+			issueListView.setData(null);
 		} else if (mContext instanceof CommonMainActivity) {
 			((CommonMainActivity) mContext).reLoadData();
 		}
@@ -302,7 +281,7 @@ public class IndexView extends BaseView implements FetchEntryListener {
 		if (soloIndexView == null) {
 			return false;
 		}
-		IndexHeadView headView = soloIndexView.getHeadView();
+		BaseIndexHeadView headView = soloIndexView.getHeadView();
 		if (headView != null && soloIndexView.getChildSize() > 1) {
 			Rect rect = new Rect();
 			headView.getGlobalVisibleRect(rect);
@@ -324,61 +303,11 @@ public class IndexView extends BaseView implements FetchEntryListener {
 		return false;
 	}
 
-	/**
-	 * 首页是否显示为期刊列表
-	 * 
-	 * @param isShow
-	 */
-	public void showIssueListView(boolean isShow) {
-		if (isShow) {
-			issueListView.setVisibility(View.VISIBLE);
-			contain.setVisibility(View.GONE);
-			issueListView.startFecth();
-		} else {
-			issueListView.setVisibility(View.GONE);
-			contain.setVisibility(View.VISIBLE);
-		}
+	public void callNavPadding(int padding) {
+		dataSetForIndexNav.callNavPadding(padding);
 	}
 
-	/**
-	 * 初始化期刊列表
-	 * 
-	 */
-	private void initIssueListView() {
-		IssueListParm parm = ParseProperties.getInstance(mContext)
-				.parseIssueList();
-		View footerView = issueListView.getFootView();
-		View layout = footerView.findViewById(R.id.footer_contain);
-		// 添加背景颜色
-		V.setImage(layout, parm.getFooter_bg());
-		// 字体颜色
-		if (!TextUtils.isEmpty(parm.getFooter_text_color())) {
-			((TextView) footerView.findViewById(R.id.footer_text))
-					.setTextColor(Color.parseColor(parm.getFooter_text_color()));
-		}
-		if (V.ILOHAS.equals(parm.getType())) {
-			issueListAdapter = new LohasIssueListAdapter(mContext, parm);
-		} else {
-			issueListAdapter = new IssueListAdapter(mContext, parm);
-		}
-		issueListView.setAdapter(issueListAdapter);
-		issueListView.setEntryListener(new FetchEntryListener() {
-
-			@Override
-			public void setData(Entry entry) {
-				if (issueListAdapter != null && entry != null
-						&& entry instanceof IssueList)
-					issueListAdapter.setData((IssueList) entry);
-			}
-		});
-	}
-
-	/**
-	 * 获取当前期刊列表的view
-	 * 
-	 * @return
-	 */
-	public IssueListView getIssueListView() {
-		return issueListView;
+	public boolean isNavShow() {
+		return dataSetForIndexNav.isNavShow();
 	}
 }

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/issuelist_item_layout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:id="@+id/issuelist_item_layout"
-    android:paddingTop="@dimen/lohas_issue_list_item_margin_top"
-    android:orientation="horizontal" >
+    android:background="@color/issuelist_bg"
+    android:orientation="horizontal"
+    android:paddingTop="@dimen/lohas_issue_list_item_margin_top" >
 
     <cn.com.modernmedia.views.index.IssueItemView
         android:id="@+id/issuelist_rl_left"

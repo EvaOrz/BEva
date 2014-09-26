@@ -3,7 +3,7 @@ package cn.com.modernmediausermodel;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import cn.com.modernmedia.BaseActivity;
+import cn.com.modernmediaslate.SlateBaseActivity;
 import cn.com.modernmediausermodel.widget.SquareView;
 
 /**
@@ -12,7 +12,7 @@ import cn.com.modernmediausermodel.widget.SquareView;
  * @author user
  * 
  */
-public class SquareActivity extends BaseActivity {
+public class SquareActivity extends SlateBaseActivity {
 	private SquareView squareView;
 
 	@Override
@@ -43,7 +43,4 @@ public class SquareActivity extends BaseActivity {
 		return this;
 	}
 
-	@Override
-	public void reLoadData() {
-	}
 }

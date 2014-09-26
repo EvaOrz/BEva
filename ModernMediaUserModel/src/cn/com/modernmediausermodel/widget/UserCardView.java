@@ -1,6 +1,6 @@
 package cn.com.modernmediausermodel.widget;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,9 +11,10 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import cn.com.modernmedia.util.ModernMediaTools;
 import cn.com.modernmedia.widget.CheckFooterListView;
 import cn.com.modernmediaslate.model.Entry;
+import cn.com.modernmediaslate.model.ErrorMsg;
+import cn.com.modernmediaslate.unit.Tools;
 import cn.com.modernmediausermodel.CardDetailActivity;
 import cn.com.modernmediausermodel.R;
 import cn.com.modernmediausermodel.api.UserOperateController;
@@ -22,8 +23,8 @@ import cn.com.modernmediausermodel.listener.CardViewListener;
 import cn.com.modernmediausermodel.listener.UserFetchEntryListener;
 import cn.com.modernmediausermodel.model.Card;
 import cn.com.modernmediausermodel.model.User;
-import cn.com.modernmediausermodel.model.User.Error;
-import cn.com.modernmediausermodel.model.Users.UserCardInfo;
+import cn.com.modernmediausermodel.model.UserCardInfoList;
+import cn.com.modernmediausermodel.model.UserCardInfoList.UserCardInfo;
 import cn.com.modernmediausermodel.util.UserPageTransfer;
 import cn.com.modernmediausermodel.util.UserTools;
 
@@ -139,7 +140,7 @@ public class UserCardView implements OnClickListener, CardViewListener {
 	 */
 	private void getUserCardInfo(final boolean isRefresh) {
 		if (!isRefresh)
-			ModernMediaTools.showLoading(mContext, true);
+			Tools.showLoading(mContext, true);
 		String customerUid = "";
 		String uid = UserTools.getUid(mContext);
 		if (uid != null && !uid.equals(user.getUid())) { // 登录用户自己
@@ -168,7 +169,7 @@ public class UserCardView implements OnClickListener, CardViewListener {
 								cardListHelp.getCardList("0", false, false);
 							}
 						} else {
-							ModernMediaTools.showLoading(mContext, false);
+							Tools.showLoading(mContext, false);
 						}
 					}
 				});
@@ -190,8 +191,8 @@ public class UserCardView implements OnClickListener, CardViewListener {
 								cardListHelp.afterGetCardList(entry,
 										timelineId, isGetMore, isPull);
 							} else {
-								ModernMediaTools.showToast(mContext, card
-										.getError().getDesc());
+								Tools.showToast(mContext, card.getError()
+										.getDesc());
 								listView.onLoadError();
 							}
 						} else {
@@ -205,16 +206,16 @@ public class UserCardView implements OnClickListener, CardViewListener {
 	/**
 	 * 关注用户
 	 */
-	private void addFollow(ArrayList<User> users) {
-		ModernMediaTools.showLoading(mContext, true);
+	private void addFollow(List<UserCardInfo> users) {
+		Tools.showLoading(mContext, true);
 		controller.addFollow(UserTools.getUid(mContext), users, true,
 				new UserFetchEntryListener() {
 
 					@Override
 					public void setData(Entry entry) {
-						ModernMediaTools.showLoading(mContext, false);
-						if (entry instanceof Error) {
-							Error error = (Error) entry;
+						Tools.showLoading(mContext, false);
+						if (entry instanceof ErrorMsg) {
+							ErrorMsg error = (ErrorMsg) entry;
 							if (error.getNo() == 0) {
 								isFollowed = true;
 								setFollowBtnText();
@@ -227,16 +228,16 @@ public class UserCardView implements OnClickListener, CardViewListener {
 	/**
 	 * 取消关注用户
 	 */
-	private void deleteFollow(ArrayList<User> users) {
-		ModernMediaTools.showLoading(mContext, true);
+	private void deleteFollow(List<UserCardInfo> users) {
+		Tools.showLoading(mContext, true);
 		controller.deleteFollow(UserTools.getUid(mContext), users, true,
 				new UserFetchEntryListener() {
 
 					@Override
 					public void setData(Entry entry) {
-						ModernMediaTools.showLoading(mContext, false);
-						if (entry instanceof Error) {
-							Error error = (Error) entry;
+						Tools.showLoading(mContext, false);
+						if (entry instanceof ErrorMsg) {
+							ErrorMsg error = (ErrorMsg) entry;
 							if (error.getNo() == 0) {
 								isFollowed = false;
 								setFollowBtnText();
@@ -281,12 +282,14 @@ public class UserCardView implements OnClickListener, CardViewListener {
 			((Activity) mContext).finish();
 		} else if (v.getId() == R.id.button_follow) {
 			if (follow.getVisibility() == View.VISIBLE) {
-				ArrayList<User> users = new ArrayList<User>();
-				users.add(user);
+				UserCardInfo userCardInfo = new UserCardInfo();
+				userCardInfo.setUid(user.getUid());
+				UserCardInfoList list = new UserCardInfoList();
+				list.getList().add(userCardInfo);
 				if (isFollowed) {
-					deleteFollow(users);
+					deleteFollow(list.getList());
 				} else {
-					addFollow(users);
+					addFollow(list.getList());
 				}
 			}
 		} else if (v.getId() == R.id.user_card_info_avatar) {

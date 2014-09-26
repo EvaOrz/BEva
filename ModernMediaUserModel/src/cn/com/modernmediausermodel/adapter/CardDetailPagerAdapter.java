@@ -4,7 +4,7 @@ import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
-import cn.com.modernmedia.util.ParseUtil;
+import cn.com.modernmediaslate.unit.ParseUtil;
 import cn.com.modernmediausermodel.model.Card;
 import cn.com.modernmediausermodel.model.Card.CardItem;
 import cn.com.modernmediausermodel.model.MultiComment;

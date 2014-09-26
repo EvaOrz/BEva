@@ -9,9 +9,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.view.Window;
 import android.widget.Toast;
 import cn.com.modernmediaslate.fragment.SlateBaseFragment;
+
+import com.flurry.android.FlurryAgent;
 
 /**
  * FragmentActivity父类
@@ -24,12 +27,14 @@ public abstract class SlateBaseFragmentActivity extends FragmentActivity {
 	private Context mContext;
 	private Handler handler = new Handler();
 	private Dialog dialog;
+	private String flurry = "";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		mContext = this;
+		flurry = SlateApplication.mConfig.getFlurry_api_key();
 		addActivityToList();
 		deleteAllFragments(getFragmentTags());
 	}
@@ -166,6 +171,20 @@ public abstract class SlateBaseFragmentActivity extends FragmentActivity {
 	public abstract String getActivityName();
 
 	public abstract Activity getActivity();
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		if (this != null && !TextUtils.isEmpty(flurry))
+			FlurryAgent.onStartSession(this, flurry);
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		if (this != null && !TextUtils.isEmpty(flurry))
+			FlurryAgent.onEndSession(this);
+	}
 
 	@Override
 	protected void onDestroy() {

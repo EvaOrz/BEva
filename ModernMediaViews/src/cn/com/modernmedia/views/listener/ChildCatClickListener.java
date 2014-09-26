@@ -1,6 +1,6 @@
 package cn.com.modernmedia.views.listener;
 
-import cn.com.modernmedia.model.SoloColumn.SoloColumnChild;
+import cn.com.modernmedia.model.TagInfoList.TagInfo;
 
 /**
  * 子栏目导航栏点击回调接口
@@ -14,10 +14,6 @@ public interface ChildCatClickListener {
 	 * 
 	 * @param position
 	 *            索引
-	 * @param parentId
-	 *            如果是子栏目，为子栏目父id;else -1
-	 * @param soloChild
-	 *            如果是独立栏目，那么为子独立栏目;else null
 	 */
-	public void onClick(int position, int parentId, SoloColumnChild soloChild);
+	public void onClick(int position, TagInfo info);
 }

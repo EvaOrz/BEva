@@ -6,19 +6,20 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import cn.com.modernmedia.model.BreakPoint;
-import cn.com.modernmedia.util.ParseUtil;
+import cn.com.modernmediaslate.unit.MyDBHelper;
+import cn.com.modernmediaslate.unit.ParseUtil;
 
 public class BreakPointDb extends SQLiteOpenHelper {
-	private static final String DATABASE_NAME = "breakpoint.db";
+	private static final String DATABASE_NAME = "breakpoint_tag.db";
 	private static final int DATABASE_VERSION = 1;
-	public static final String TABLE_NAME = "breakpoint";
+	public static final String TABLE_NAME = "breakpoint_tag";
 
 	// column name
 	public static final String ID = "id";// 主键，自增
 	public static final String URL = "url";// package url 标识
 	public static final String COMPLETE = "complete";// 完成度
 	public static final String TOTAL = "total";// 总大小
-	public static final String ISSUE_ID = "issue_id";// 期id
+	public static final String TAG_NAME = "tag_name";// 期id
 
 	private static BreakPointDb instance = null;
 	private static MyDBHelper helper;
@@ -34,7 +35,7 @@ public class BreakPointDb extends SQLiteOpenHelper {
 		helper.addColumn(URL, "TEXT");// 1
 		helper.addColumn(COMPLETE, "TEXT");// 2
 		helper.addColumn(TOTAL, "TEXT");// 3
-		helper.addColumn(ISSUE_ID, "INTEGER");// 4
+		helper.addColumn(TAG_NAME, "TEXT");// 4
 		db.execSQL(helper.getSql());
 	}
 
@@ -73,7 +74,7 @@ public class BreakPointDb extends SQLiteOpenHelper {
 		cv.put(URL, breakPoint.getUrl());
 		cv.put(COMPLETE, breakPoint.getComplete() + "");
 		cv.put(TOTAL, breakPoint.getTotal() + "");
-		cv.put(ISSUE_ID, breakPoint.getId());
+		cv.put(TAG_NAME, breakPoint.getTagName());
 		return cv;
 	}
 
@@ -100,13 +101,13 @@ public class BreakPointDb extends SQLiteOpenHelper {
 	 * @param issueId
 	 * @return
 	 */
-	public synchronized long getComplete(int issueId) {
+	public synchronized long getComplete(String tagName) {
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cursor = null;
 		String columns[] = { COMPLETE };
 		try {
-			cursor = db.query(TABLE_NAME, columns, ISSUE_ID + "=?",
-					new String[] { issueId + "" }, null, null, null);
+			cursor = db.query(TABLE_NAME, columns, TAG_NAME + "=?",
+					new String[] { tagName }, null, null, null);
 			while (cursor.moveToNext()) {
 				return ParseUtil.stol(cursor.getString(0), 0);
 			}
@@ -127,13 +128,13 @@ public class BreakPointDb extends SQLiteOpenHelper {
 	 * @param issueId
 	 * @return
 	 */
-	public synchronized long getTotal(int issueId) {
+	public synchronized long getTotal(String tagName) {
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cursor = null;
 		String columns[] = { TOTAL };
 		try {
-			cursor = db.query(TABLE_NAME, columns, ISSUE_ID + "=?",
-					new String[] { issueId + "" }, null, null, null);
+			cursor = db.query(TABLE_NAME, columns, TAG_NAME + "=?",
+					new String[] { tagName }, null, null, null);
 			while (cursor.moveToNext()) {
 				return ParseUtil.stol(cursor.getString(0), 0);
 			}

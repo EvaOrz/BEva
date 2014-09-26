@@ -3,31 +3,37 @@ package cn.com.modernmediausermodel.api;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import android.content.Context;
 import android.text.TextUtils;
-import cn.com.modernmedia.api.BaseOperate;
-import cn.com.modernmedia.util.FileManager;
-import cn.com.modernmediaslate.listener.FetchDataListener;
+import cn.com.modernmediaslate.unit.ParseUtil;
 import cn.com.modernmediaslate.unit.SlatePrintHelper;
-import cn.com.modernmediausermodel.model.Users;
-import cn.com.modernmediausermodel.model.Users.UserCardInfo;
-import cn.com.modernmediausermodel.util.UserConstData;
+import cn.com.modernmediausermodel.db.UserListDb;
+import cn.com.modernmediausermodel.model.UserCardInfoList;
+import cn.com.modernmediausermodel.model.UserCardInfoList.UserCardInfo;
 import cn.com.modernmediausermodel.util.UserTools;
 import cn.com.modernmediausermodel.widget.RecommendUserView;
 
-public class GetRecommendUsersOperate extends BaseOperate {
-
-	private Users users;
+public class GetRecommendUsersOperate extends UserBaseOperate {
+	private UserCardInfoList userCardInfoList;
 	private String uid;
 	private int pageType;
+	private String offsetId;
+	private UserListDb db;
+	private int lastDbId; // 上页数据最后一条数据的关键字
 
-	public Users getUsers() {
-		return users;
+	public UserCardInfoList getUserCardInfoList() {
+		return userCardInfoList;
 	}
-
-	public GetRecommendUsersOperate(String uid, int pageType) {
-		this.users = new Users();
+ 
+	public GetRecommendUsersOperate(String uid, int pageType, String offsetId,
+			int lastDbId, Context context) {
+		this.userCardInfoList = new UserCardInfoList();
 		this.uid = uid;
 		this.pageType = pageType;
+		this.offsetId = offsetId;
+		this.lastDbId = lastDbId;
+		db = UserListDb.getInstance(context);
+		cacheIsDb = true;
 	}
 
 	@Override
@@ -48,13 +54,18 @@ public class GetRecommendUsersOperate extends BaseOperate {
 		}
 		if (!TextUtils.isEmpty(url)) {
 			url += "/customer_uid/" + UserTools.getUid(getmContext());
+			// 加载更多时，必须带有pages参数
+			if (!TextUtils.isEmpty(offsetId)) {
+				url += "/pages/0/offsetid/" + offsetId;
+			}
 		}
 		return url;
 	}
 
 	@Override
 	protected void handler(JSONObject jsonObject) {
-		users.setUid(jsonObject.optString("uid", ""));
+		userCardInfoList.setUid(jsonObject.optString("uid", ""));
+		userCardInfoList.setOffsetId(jsonObject.optString("offsetid", ""));
 		JSONArray array;
 		if (pageType == RecommendUserView.PAGE_RECOMMEND_FRIEND) {
 			array = jsonObject.optJSONArray("user");
@@ -66,52 +77,52 @@ public class GetRecommendUsersOperate extends BaseOperate {
 			for (int i = 0; i < len; i++) {
 				JSONObject object = array.optJSONObject(i);
 				if (object != null) {
-					String uid = object.optString("uid", "");
 					UserCardInfo userCardInfo = new UserCardInfo();
+					userCardInfo.setUid(object.optString("uid", ""));
+					userCardInfo.setNickName(object.optString("nickname", ""));
+					userCardInfo.setAvatar(object.optString("avatar", ""));
 					userCardInfo.setFollowNum(object.optInt("follow", 0));
 					userCardInfo.setFansNum(object.optInt("follower", 0));
 					userCardInfo.setCardNum(object.optInt("cardnum", 0));
 					userCardInfo.setIsFollowed(object.optInt("isfollow", 0));
-					users.getUserCardInfoMap().put(uid, userCardInfo);
+					userCardInfoList.getList().add(userCardInfo);
 				}
 			}
+			// 存入数据库
+			if (offsetId.equals("0")) {
+				db.clearTable(pageType + "", uid);
+			}
+			db.addUsersInfo(userCardInfoList.getList(), pageType + "",
+					userCardInfoList.getOffsetId(), uid);
 		}
 		JSONObject error = jsonObject.optJSONObject("error");
 		if (error != null) {
-			users.getError().setNo(error.optInt("code", 0));
-			users.getError().setDesc(error.optString("msg"));
+			userCardInfoList.getError().setNo(error.optInt("code", 0));
+			userCardInfoList.getError().setDesc(error.optString("msg"));
 		}
+	}
+
+	@Override
+	public boolean fecthLocalData(String fileName) {
+		UserCardInfoList infoList = db.getUserInfoList(pageType + "", uid,
+				lastDbId);
+		if (ParseUtil.listNotNull(infoList.getList())) {
+			userCardInfoList = infoList;
+			if (callBack != null) {
+				SlatePrintHelper.print("from db:" + "====" + getUrl());
+				callBack.callback(true, false);
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override
 	protected void saveData(String data) {
-		String fileName = "";
-		if (pageType == RecommendUserView.PAGE_FRIEND) { // 好友
-			fileName = UserConstData.getFrindsUidFileName(uid);
-		} else if (pageType == RecommendUserView.PAGE_FANS) { // 粉丝
-			fileName = UserConstData.getFansUidFileName(uid);
-		}
-		FileManager.saveApiData(fileName, data);
 	}
 
 	@Override
 	protected String getDefaultFileName() {
-		String fileName = "";
-		if (pageType == RecommendUserView.PAGE_FRIEND) {
-			fileName = UserConstData.getFrindsUidFileName(uid);
-		} else if (pageType == RecommendUserView.PAGE_FANS) {
-			fileName = UserConstData.getFansUidFileName(uid);
-		}
-		return fileName;
-	}
-
-	@Override
-	protected void fetchLocalDataInBadNet(FetchDataListener mFetchDataListener) {
-		if (pageType != RecommendUserView.PAGE_RECOMMEND_FRIEND) {
-			super.fetchLocalDataInBadNet(mFetchDataListener);
-		} else {
-			SlatePrintHelper.print("net error:" + getUrl());
-			mFetchDataListener.fetchData(false, null);
-		}
+		return null;
 	}
 }

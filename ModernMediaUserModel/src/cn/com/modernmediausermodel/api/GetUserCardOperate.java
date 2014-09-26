@@ -16,15 +16,13 @@ import cn.com.modernmediausermodel.util.UserDataHelper;
  */
 public class GetUserCardOperate extends CardBaseOperate {
 	private String uid;
-	private String timelineId = "";
 	private String customerId = "";// 当前登录用户ID
 	private UserCardInfoDb db;
 
 	public GetUserCardOperate(Context context, String uid, String timelineId,
 			boolean isGetNewData) {
-		super(timelineId, isGetNewData);
+		super(timelineId, isGetNewData, context);
 		this.uid = uid;
-		this.timelineId = timelineId;
 		db = UserCardInfoDb.getInstance(context);
 		User user = UserDataHelper.getUserLoginInfo(context);
 		if (user != null) {
@@ -46,7 +44,12 @@ public class GetUserCardOperate extends CardBaseOperate {
 			if (timelineId.equals("0")) {
 				db.clearTable(uid);
 			}
-			db.addCardItem(getCard(), uid);
+			db.addCardItem(card, uid);
 		}
+	}
+
+	@Override
+	protected Card getCardFromDb() {
+		return db.getCard(timelineId, uid);
 	}
 }

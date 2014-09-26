@@ -7,5 +7,5 @@ package cn.com.modernmediaslate.listener;
  * 
  */
 public interface DataCallBack {
-	public void callback(boolean success);
+	public void callback(boolean success, boolean fromHttp);
 }

@@ -1,13 +1,10 @@
 package cn.com.modernmedia;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import net.tsz.afinal.FinalBitmap;
 import android.annotation.SuppressLint;
-import android.app.ActivityManager;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -17,25 +14,25 @@ import android.text.TextUtils;
 import cn.com.modernmedia.breakpoint.BreakPointUtil;
 import cn.com.modernmedia.breakpoint.DownloadPackageCallBack;
 import cn.com.modernmedia.common.ShareTool;
-import cn.com.modernmedia.db.FavDb;
+import cn.com.modernmedia.common.WeixinShare;
+import cn.com.modernmedia.db.NewFavDb;
 import cn.com.modernmedia.db.ReadDb;
-import cn.com.modernmedia.listener.CardUriListener;
-import cn.com.modernmedia.listener.FavNotifykListener;
-import cn.com.modernmedia.mainprocess.BaseMainProcess;
-import cn.com.modernmedia.mainprocess.MainProcessManage;
+import cn.com.modernmedia.listener.FavNotifyListener;
 import cn.com.modernmedia.model.AdvList;
-import cn.com.modernmedia.model.Issue;
-import cn.com.modernmedia.model.SoloColumn;
-import cn.com.modernmedia.solo.db.SoloArticleListDb;
-import cn.com.modernmedia.solo.db.SoloDb;
-import cn.com.modernmedia.solo.db.SoloFocusDb;
+import cn.com.modernmedia.model.AppValue;
+import cn.com.modernmedia.model.LastestArticleId;
+import cn.com.modernmedia.newtag.mainprocess.MainProcessObservable;
+import cn.com.modernmedia.newtag.mainprocess.TagBaseMainProcess;
 import cn.com.modernmedia.util.CommonCrashHandler;
 import cn.com.modernmedia.util.ConstData;
-import cn.com.modernmedia.util.ConstData.APP_TYPE;
+import cn.com.modernmedia.util.DataHelper;
 import cn.com.modernmedia.util.FileManager;
-import cn.com.modernmedia.util.MD5;
 import cn.com.modernmedia.util.PrintHelper;
+import cn.com.modernmedia.util.sina.SinaConstants;
 import cn.com.modernmediaslate.SlateApplication;
+import cn.com.modernmediaslate.unit.MD5;
+
+import com.parse.Parse;
 
 /**
  * 全局变量
@@ -44,32 +41,14 @@ import cn.com.modernmediaslate.SlateApplication;
  * 
  */
 public class CommonApplication extends SlateApplication {
-	public static Context mContext;
-	public static boolean issueIdSame = false;// issueId是否相同
-	public static boolean columnUpdateTimeSame = false;// 栏目更新时间是否相同
-	public static boolean articleUpdateTimeSame = false;// 文章更新时间是否相同
-	public static int lastestIssueId;// 最新一期的issueId
-	public static int currentIssueId;
-	public static FavNotifykListener favListener;
-	private static int memorySize;
+	public static FavNotifyListener favListener;
 	public static boolean onSystemDestory = true;// 是否被系统回收了
 	@SuppressLint("UseSparseArrays")
-	private static Map<Integer, BreakPointUtil> breakMap = new HashMap<Integer, BreakPointUtil>();
+	private static Map<String, BreakPointUtil> breakMap = new HashMap<String, BreakPointUtil>();
 	public static DownloadPackageCallBack downBack;
-	public static boolean hasSolo = false;// 是否有独立栏目
 	public static AdvList advList;
-	public static List<String> issueIdList;
-	public static Issue issue;// 当前issue
-	public static Issue lastIssue;// 往期issue
-	public static CardUriListener userUriListener;
-	public static Class<?> drawCls;// 图片资源class
-	public static Class<?> stringCls;// string资源class
-	public static Class<?> mainCls;// MainActivity
-	public static SoloColumn soloColumn;// 独立栏目列表
-	public static MainProcessManage manage;
-
-	public static FinalBitmap finalBitmap;
-	public static APP_TYPE appType = APP_TYPE.OTHERS;// 应用类型
+	public static LastestArticleId lastestArticleId;
+	public static MainProcessObservable mainProcessObservable = new MainProcessObservable();
 
 	/**
 	 * 渠道
@@ -79,61 +58,30 @@ public class CommonApplication extends SlateApplication {
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		init();
+	}
+
+	public void init() {
+		initChannel();
+		System.out.println(CHANNEL);
 		mContext = this.getApplicationContext();
+		SinaConstants.APP_KEY = mConfig.getWeibo_app_id();
+		WeixinShare.APP_ID = mConfig.getWeixin_app_id();
+		Parse.initialize(this, mConfig.getParse_app_id(),
+				mConfig.getParse_client_id());
 		FileManager.createNoMediaFile();
 		if (ConstData.IS_DEBUG != 0)
 			CommonCrashHandler.getInstance().init(this);
-		initImageLoader(mContext);
+		mainProcessObservable.deleteObservers();
 	}
-
-	/**
-	 * 初始化整个app的配置
-	 * 
-	 * @param context
-	 */
-	public static void initImageLoader(Context context) {
-		finalBitmap = FinalBitmap.create(context); // 初始化
-		finalBitmap.configBitmapLoadThreadSize(3);// 定义线程数量
-
-		finalBitmap.configMemoryCacheSize(memorySize);// 设置缓存大小
-	}
-
-	@Override
-	public void onTerminate() {
-		super.onTerminate();
-	}
-
-	@Override
-	public void initScreenInfo() {
-		super.initScreenInfo();
-		initMemorySize();
-	}
-
-	private void initMemorySize() {
-		final int memoryClass = ((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE))
-				.getMemoryClass();
-		memorySize = memoryClass * 1024 * 1024 / 8;
-		PrintHelper.print("memorySize == " + memorySize);
-	}
-
-	// public static ImageDownloader getImageDownloader() {
-	// return ImageDownloader.getInstance(mContext, memorySize);
-	// }
 
 	public static void clear() {
-		issueIdSame = false;
-		columnUpdateTimeSame = false;
-		articleUpdateTimeSame = false;
-		lastestIssueId = -1;
-		currentIssueId = -1;
 		advList = null;
-		issueIdList = null;
-		issue = null;
 		userUriListener = null;
-		hasSolo = false;
+		AppValue.clear();
 	}
 
-	public static void setFavListener(FavNotifykListener favListener) {
+	public static void setFavListener(FavNotifyListener favListener) {
 		CommonApplication.favListener = favListener;
 	}
 
@@ -149,20 +97,20 @@ public class CommonApplication extends SlateApplication {
 	 * @param flag
 	 *            0:success;1.loading;2.failed;3.pause
 	 */
-	public static void notityDwonload(int issueId, int flag) {
+	public static void notityDwonload(String tagName, int flag) {
 		if (downBack != null) {
 			switch (flag) {
 			case 0:
-				downBack.onSuccess(issueId, null);
+				downBack.onSuccess(tagName, null);
 				break;
 			case 1:
-				downBack.onProcess(issueId, -1, -1);
+				downBack.onProcess(tagName, -1, -1);
 				break;
 			case 2:
-				downBack.onFailed(issueId);
+				downBack.onFailed(tagName);
 				break;
 			case 3:
-				downBack.onPause(issueId);
+				downBack.onPause(tagName);
 				break;
 			default:
 				break;
@@ -175,9 +123,9 @@ public class CommonApplication extends SlateApplication {
 	 * 
 	 * @param issue
 	 */
-	public static void notifyDown(int issueId, long complete, long total) {
+	public static void notifyDown(String tagName, long complete, long total) {
 		if (downBack != null) {
-			downBack.onProcess(issueId, complete, total);
+			downBack.onProcess(tagName, complete, total);
 		}
 	}
 
@@ -186,17 +134,17 @@ public class CommonApplication extends SlateApplication {
 	 * 
 	 * @param breakPointUtil
 	 */
-	public static void addPreIssueDown(int issueId,
+	public static void addPreIssueDown(String tagName,
 			BreakPointUtil breakPointUtil) {
-		breakMap.put(issueId, breakPointUtil);
-		removePreIssueDown(issueId);
+		breakMap.put(tagName, breakPointUtil);
+		removePreIssueDown(tagName);
 	}
 
-	private static void removePreIssueDown(int issueId) {
+	private static void removePreIssueDown(String tagName) {
 		if (!breakMap.isEmpty()) {
-			for (int id : breakMap.keySet()) {
+			for (String id : breakMap.keySet()) {
 				BreakPointUtil util = breakMap.get(id);
-				if (id != issueId) {
+				if (!TextUtils.equals(tagName, id)) {
 					util.pause();
 				}
 			}
@@ -245,18 +193,16 @@ public class CommonApplication extends SlateApplication {
 		PrintHelper.print("CommonApplication exit");
 		slateExit();
 		ReadDb.getInstance(mContext).close();
-		FavDb.getInstance(mContext).close();
+		NewFavDb.getInstance(mContext).close();
 		favListener = null;
+		lastestArticleId = null;
 		clear();
-		removePreIssueDown(-1);
+		removePreIssueDown("");
 		breakMap.clear();
 		new ShareTool(mContext).deleteShareImages();
-		BaseMainProcess.clear();
-		SoloDb.getInstance(mContext).close();
-		SoloArticleListDb.getInstance(mContext).close();
-		SoloFocusDb.getInstance(mContext).close();
-		soloColumn = null;
-		manage = null;
+		DataHelper.clear();
+		TagBaseMainProcess.clear();
+		mainProcessObservable.deleteObservers();
 	}
 
 	public static void callGc() {

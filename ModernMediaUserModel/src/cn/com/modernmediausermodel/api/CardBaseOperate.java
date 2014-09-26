@@ -1,28 +1,42 @@
 package cn.com.modernmediausermodel.api;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import cn.com.modernmedia.api.BaseOperate;
+import android.content.Context;
+import cn.com.modernmediaslate.unit.ParseUtil;
+import cn.com.modernmediaslate.unit.SlatePrintHelper;
+import cn.com.modernmediausermodel.db.UserInfoDb;
 import cn.com.modernmediausermodel.model.Card;
 import cn.com.modernmediausermodel.model.Card.CardItem;
 import cn.com.modernmediausermodel.model.Card.CardPicture;
+import cn.com.modernmediausermodel.model.User;
+import cn.com.modernmediausermodel.model.Users;
 
-public class CardBaseOperate extends BaseOperate {
+public abstract class CardBaseOperate extends UserBaseOperate {
 	private Card card;
 	protected String getParam; // get的一部分参数
+	private UserInfoDb userInfoDb; // 卡片用户信息库
+	protected String timelineId = "0";
 
 	public Card getCard() {
 		return card;
 	}
 
-	public CardBaseOperate(String timelineId, boolean isGetNewData) {
+	public CardBaseOperate(String timelineId, boolean isGetNewData,
+			Context context) {
+		this.timelineId = timelineId;
 		card = new Card();
+		userInfoDb = UserInfoDb.getInstance(context);
 		if (isGetNewData) {
 			getParam = "/top/" + timelineId; // 取最新的数据
 		} else {
 			getParam = "/bottom/" + timelineId; // 加载更多较早数据，timelineId为0时，加载当前数据
 		}
+		cacheIsDb = true;
 	}
 
 	@Override
@@ -97,6 +111,27 @@ public class CardBaseOperate extends BaseOperate {
 					card.getCardItemList().add(cardItem);
 				}
 			}
+			// 解析user
+			JSONObject userObject = jsonObject.optJSONObject("userList");
+			if (!isNull(userObject)) {
+				JSONArray userArray = userObject.optJSONArray("user");
+				if (!isNull(userArray)) {
+					List<User> list = new ArrayList<User>();
+					int size = userArray.length();
+					for (int j = 0; j < size; j++) {
+						JSONObject object = userArray.optJSONObject(j);
+						User user = new User();
+						String uid = object.optString("uid", "");
+						user.setUid(uid);
+						user.setNickName(object.optString("nickname", ""));
+						user.setAvatar(object.optString("avatar", ""));
+						card.getUserInfoMap().put(uid, user);
+						list.add(user);
+					}
+					// 将user信息存入到相应的库中
+					userInfoDb.addUsersInfo(list);
+				}
+			}
 		}
 
 		JSONObject error = jsonObject.optJSONObject("error");
@@ -124,4 +159,26 @@ public class CardBaseOperate extends BaseOperate {
 			item.getFavUsers().add(obj.optString("uid", ""));
 		}
 	}
+
+	@Override
+	public boolean fecthLocalData(String fileName) {
+		card = getCardFromDb();
+		if (card != null && ParseUtil.listNotNull(card.getCardItemList())) {
+			Users users = userInfoDb.getUsersInfo();
+			card.setUserInfoMap(users.getUserInfoMap());
+			if (callBack != null) {
+				SlatePrintHelper.print("from db:" + "====" + getUrl());
+				callBack.callback(true, false);
+				return true;
+			}
+		}
+		return super.fecthLocalData(fileName);
+	}
+
+	/**
+	 * 从本地数据库获取数据
+	 * 
+	 * @return
+	 */
+	protected abstract Card getCardFromDb();
 }

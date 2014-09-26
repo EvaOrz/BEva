@@ -6,14 +6,13 @@ import android.view.View;
 import android.widget.FrameLayout;
 import cn.com.modernmedia.CommonMainActivity;
 import cn.com.modernmedia.listener.NotifyArticleDesListener;
-import cn.com.modernmedia.model.SoloColumn.SoloColumnChild;
+import cn.com.modernmedia.model.TagInfoList;
+import cn.com.modernmedia.model.TagInfoList.TagInfo;
 import cn.com.modernmedia.views.R;
 import cn.com.modernmedia.views.ViewsApplication;
-import cn.com.modernmedia.views.index.IndexHeadView;
+import cn.com.modernmedia.views.index.head.BaseIndexHeadView;
 import cn.com.modernmedia.views.listener.ChildCatClickListener;
-import cn.com.modernmedia.views.model.IndexListParm;
-import cn.com.modernmedia.views.util.ParseProperties;
-import cn.com.modernmedia.views.util.V;
+import cn.com.modernmedia.views.model.Template;
 import cn.com.modernmedia.widget.AtlasViewPager;
 
 /**
@@ -31,15 +30,14 @@ public class BaseSoloIndexView implements NotifyArticleDesListener,
 
 	protected BaseChildCatHead catHead;
 
-	protected IndexListParm parm;
 	protected int currentHeadSize;
-	protected IndexHeadView currentHeadView;
-	protected int parentId;
+	protected BaseIndexHeadView currentHeadView;
 	private int currentPosition;
+	protected TagInfoList childInfoList;
+	private boolean hasInit = false;// 不用每个子栏目获得模板都刷新一下
 
 	public BaseSoloIndexView(Context context) {
 		mContext = context;
-		parm = ParseProperties.getInstance(mContext).parseIndexList();
 		ViewsApplication.catClickListener = this;
 		BaseChildCatHead.selectPosition = -1;
 	}
@@ -49,27 +47,6 @@ public class BaseSoloIndexView implements NotifyArticleDesListener,
 		viewPager = (AtlasViewPager) view.findViewById(R.id.solo_viewpager);
 		frameLayout = (FrameLayout) view.findViewById(R.id.child_cat_frame);
 
-		boolean hold = parm.getCat_list_hold() == 1;
-		if (!hold) {
-			frameLayout.setVisibility(View.GONE);
-			catHead = new BaseChildCatHead(mContext, null);
-		} else {
-			if (parm.getCat_list_type().equals(V.BUSINESS)) {
-				catHead = new BusChildCatHead(mContext, null);
-				if (hold)
-					frameLayout.addView(catHead.fetchView());
-				frameLayout.getLayoutParams().height = catHead.getHeight();
-			} else if (parm.getCat_list_type().equals(V.IWEEKLY)) {
-				catHead = new WeeklyChildCatHead(mContext, null);
-				if (hold)
-					frameLayout.addView(catHead.fetchView());
-				frameLayout.getLayoutParams().height = catHead.getHeight();
-			} else {
-				catHead = new BaseChildCatHead(mContext, null);
-				frameLayout.setVisibility(View.GONE);
-			}
-		}
-
 		viewPager.setListener(this);
 		viewPager.setOffscreenPageLimit(limit);
 		if (mContext instanceof CommonMainActivity) {
@@ -78,12 +55,35 @@ public class BaseSoloIndexView implements NotifyArticleDesListener,
 		}
 	}
 
-	public void setData(int parentId) {
-		this.parentId = parentId;
-		if (catHead instanceof BusChildCatHead) {
-			((BusChildCatHead) catHead).frame.removeAllViews();
-			((BusChildCatHead) catHead).tag.setVisibility(View.GONE);
+	/**
+	 * 初始化配置信息
+	 */
+	public void initProperties(Template template, boolean isChild) {
+		if (hasInit)
+			return;
+		hasInit = true;
+		frameLayout.removeAllViews();
+		catHead = new ChildCatHead(mContext, null, template);
+		boolean hold = template.getCatHead().getCat_list_hold() == 1;
+		if (!hold) {
+			frameLayout.setVisibility(View.GONE);
+		} else {
+			if (hold)
+				frameLayout.addView(catHead.fetchView(),
+						new FrameLayout.LayoutParams(
+								FrameLayout.LayoutParams.MATCH_PARENT,
+								FrameLayout.LayoutParams.WRAP_CONTENT));
 		}
+
+		if (catHead != null)
+			if (isChild)
+				catHead.setChildValues(childInfoList, "");
+			else
+				catHead.setSoloValues(childInfoList);
+	}
+
+	public void setData(TagInfoList childInfoList) {
+		this.childInfoList = childInfoList;
 	}
 
 	public void setIntercept(boolean intercept) {
@@ -95,7 +95,7 @@ public class BaseSoloIndexView implements NotifyArticleDesListener,
 	 * 
 	 * @return
 	 */
-	public IndexHeadView getHeadView() {
+	public BaseIndexHeadView getHeadView() {
 		return currentHeadView;
 	}
 
@@ -126,7 +126,7 @@ public class BaseSoloIndexView implements NotifyArticleDesListener,
 	}
 
 	@Override
-	public void onClick(int position, int parentId, SoloColumnChild soloChild) {
+	public void onClick(int position, TagInfo info) {
 		if (viewPager != null && currentPosition != position)
 			viewPager.setCurrentItem(position, false);
 	}

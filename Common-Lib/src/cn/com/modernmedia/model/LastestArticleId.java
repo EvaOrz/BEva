@@ -1,6 +1,9 @@
 package cn.com.modernmedia.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import android.annotation.SuppressLint;
 import cn.com.modernmediaslate.model.Entry;
@@ -14,25 +17,25 @@ import cn.com.modernmediaslate.model.Entry;
 @SuppressLint("UseSparseArrays")
 public class LastestArticleId extends Entry {
 	private static final long serialVersionUID = 1L;
-	//key:catId;value====key:articleId,vaule:updatetTime
-	private HashMap<Integer, HashMap<Integer, String>> unReadedEntryIds = new HashMap<Integer, HashMap<Integer, String>>();
-	// key:文章id;value:栏目id
-	private HashMap<Integer, Integer> unReadedId = new HashMap<Integer, Integer>();
+	// key:栏目tag;value:articleid列表
+	private Map<String, ArrayList<Integer>> unReadedArticles = new HashMap<String, ArrayList<Integer>>();
+	// key:文章id
+	private List<Integer> unReadedId = new ArrayList<Integer>();
 
-	public HashMap<Integer, HashMap<Integer, String>> getUnReadedEntryIds() {
-		return unReadedEntryIds;
+	public Map<String, ArrayList<Integer>> getUnReadedArticles() {
+		return unReadedArticles;
 	}
 
-	public void setUnReadedEntryIds(
-			HashMap<Integer, HashMap<Integer, String>> unReadedEntryIds) {
-		this.unReadedEntryIds = unReadedEntryIds;
+	public void setUnReadedArticles(
+			Map<String, ArrayList<Integer>> unReadedArticles) {
+		this.unReadedArticles = unReadedArticles;
 	}
 
-	public HashMap<Integer, Integer> getUnReadedId() {
+	public List<Integer> getUnReadedId() {
 		return unReadedId;
 	}
 
-	public void setUnReadedId(HashMap<Integer, Integer> unReadedId) {
+	public void setUnReadedId(List<Integer> unReadedId) {
 		this.unReadedId = unReadedId;
 	}
 

@@ -3,15 +3,14 @@ package cn.com.modernmediausermodel.adapter;
 import java.util.List;
 
 import android.content.Context;
-import android.view.LayoutInflater;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import cn.com.modernmedia.adapter.CheckScrollAdapter;
+import cn.com.modernmediaslate.adapter.ViewHolder;
 import cn.com.modernmediausermodel.R;
 import cn.com.modernmediausermodel.model.Card;
 import cn.com.modernmediausermodel.model.Card.CardItem;
@@ -31,16 +30,13 @@ public class UserCardListAdapter extends CheckScrollAdapter<CardItem> {
 	public static final int TO_LOGIN = 100;// 从登录回来刷新页面
 
 	private Context mContext;
-	private LayoutInflater inflater;
 	private Card card;
 	private boolean isForUser = true; // 是否是登录用户资料,默认是
-	public boolean firstScrollEnd = true;
 	private CardListPop pop;
 
 	public UserCardListAdapter(Context context) {
 		super(context);
 		this.mContext = context;
-		this.inflater = LayoutInflater.from(mContext);
 		pop = new CardListPop(mContext, this);
 	}
 
@@ -60,69 +56,58 @@ public class UserCardListAdapter extends CheckScrollAdapter<CardItem> {
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		final CardItem cardItem = getItem(position);
-		ViewHolder viewHolder = null;
-		if (convertView == null) {
-			convertView = inflater.inflate(R.layout.user_card_list_item, null);
-			viewHolder = new ViewHolder();
-			viewHolder.divider = (ImageView) convertView
-					.findViewById(R.id.divider);
-			viewHolder.content = (TextView) convertView
-					.findViewById(R.id.item_card_content);
-			viewHolder.slidingBtn = (ImageView) convertView
-					.findViewById(R.id.user_card_sliding_button);
-			viewHolder.userInfoLayout = (RelativeLayout) convertView
-					.findViewById(R.id.user_info_layout);
-			// 显示某一用户的卡片列表时，不需要显示头像及名称；广场显示则相反
-			if (!isForUser) {
-				viewHolder.userInfoLayout.setVisibility(View.VISIBLE);
-				viewHolder.avatar = (ImageView) convertView
-						.findViewById(R.id.item_avatar);
-				viewHolder.userName = (TextView) convertView
-						.findViewById(R.id.item_user_name);
-				viewHolder.time = (TextView) convertView
-						.findViewById(R.id.time);
-			} else {
-				viewHolder.userInfoLayout.setVisibility(View.GONE);
-			}
-			convertView.setTag(viewHolder);
+		ViewHolder viewHolder = ViewHolder.get(mContext, convertView,
+				R.layout.user_card_list_item);
+		ImageView divider = viewHolder.getView(R.id.divider);
+		TextView content = viewHolder.getView(R.id.item_card_content);
+		ImageView slidingBtn = viewHolder
+				.getView(R.id.user_card_sliding_button);
+		View userInfoLayout = viewHolder.getView(R.id.user_info_layout);
+		ImageView avatar = viewHolder.getView(R.id.item_avatar);
+		TextView userName = viewHolder.getView(R.id.item_user_name);
+		TextView time = viewHolder.getView(R.id.time);
+		// 显示某一用户的卡片列表时，不需要显示头像及名称；广场显示则相反
+		if (!isForUser) {
+			userInfoLayout.setVisibility(View.VISIBLE);
+			UserTools.transforCircleBitmap(mContext,
+					R.drawable.avatar_placeholder, avatar);
 		} else {
-			viewHolder = (ViewHolder) convertView.getTag();
-			if (!isForUser)
-				UserTools.transforCircleBitmap(mContext,
-						R.drawable.avatar_placeholder, viewHolder.avatar);
+			userInfoLayout.setVisibility(View.GONE);
 		}
-		viewHolder.divider.setVisibility(position == 0 ? View.GONE
-				: View.VISIBLE);
+
+		divider.setVisibility(position == 0 ? View.GONE : View.VISIBLE);
 		if (cardItem != null) {
 			if (!isForUser) {
-				doUserInfoLayout(viewHolder, cardItem);
+				doUserInfoLayout(userName, avatar, time, cardItem);
 			}
 			// 笔记
-			viewHolder.content.setText(cardItem.getContents());
-
-			viewHolder.slidingBtn.setOnClickListener(new OnClickListener() {
+			if (!TextUtils.isEmpty(cardItem.getContents())) {
+				content.setText(cardItem.getContents());
+			}
+			slidingBtn.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
 					pop.showPop(v, cardItem);
 				}
 			});
+			viewHolder.getConvertView().setOnClickListener(
+					new OnClickListener() {
 
-			convertView.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					// 跳转到详情页
-					if (checkLogin())
-						UserPageTransfer.gotoCardDetailActivity(mContext, card,
-								position);
-				}
-			});
+						@Override
+						public void onClick(View v) {
+							// 跳转到详情页
+							if (checkLogin())
+								UserPageTransfer.gotoCardDetailActivity(
+										mContext, card, position);
+						}
+					});
 		}
-		return convertView;
+		return viewHolder.getConvertView();
 	}
 
-	private void doUserInfoLayout(ViewHolder viewHolder, CardItem cardItem) {
+	private void doUserInfoLayout(TextView userName, ImageView avatar,
+			TextView time, CardItem cardItem) {
 		String uid = cardItem.getUid();
 		if (cardItem.getType() == 2) { // 收藏关系
 			uid = cardItem.getFuid();
@@ -130,13 +115,12 @@ public class UserCardListAdapter extends CheckScrollAdapter<CardItem> {
 		final User user = card.getUserInfoMap().get(uid);
 		if (user != null) {
 			// 昵称
-			viewHolder.userName.setText(user.getNickName());
+			userName.setText(user.getNickName());
 			// 头像
 			if (!isScroll) {
-				UserTools.setAvatar(mContext, user.getAvatar(),
-						viewHolder.avatar);
+				UserTools.setAvatar(mContext, user.getAvatar(), avatar);
 			}
-			viewHolder.avatar.setOnClickListener(new OnClickListener() {
+			avatar.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
@@ -147,7 +131,7 @@ public class UserCardListAdapter extends CheckScrollAdapter<CardItem> {
 				}
 			});
 			// time
-			viewHolder.time.setText(UserTools.dateFormat(cardItem.getTime()));
+			time.setText(UserTools.dateFormat(cardItem.getTime()));
 		}
 	}
 
@@ -163,7 +147,6 @@ public class UserCardListAdapter extends CheckScrollAdapter<CardItem> {
 	/**
 	 * 广场需要判断是否登录;可能刚进页面的时候是未登录状态，所以时时获取一下
 	 * 
-	 * @return
 	 */
 	private boolean checkLogin() {
 		User user = UserDataHelper.getUserLoginInfo(mContext);
@@ -172,15 +155,6 @@ public class UserCardListAdapter extends CheckScrollAdapter<CardItem> {
 			return false;
 		}
 		return true;
-	}
-
-	class ViewHolder {
-		TextView content;
-		ImageView slidingBtn, divider;
-		RelativeLayout userInfoLayout;
-		ImageView avatar;
-		TextView userName, time;
-		boolean isShowAll = true; // 是否显示收藏和评论按钮
 	}
 
 	@Override

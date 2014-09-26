@@ -17,7 +17,7 @@ public class UserFindPasswordOperate extends UserModelBaseOperate {
 		JSONObject object = new JSONObject();
 		try {
 			object.put("username", userName);
-			object.put("appid", UserConstData.getAppId());
+			object.put("appid", UserConstData.getInitialAppId());
 			params.add(new BasicNameValuePair("data", object.toString()));
 			setPostParams(params);
 		} catch (JSONException e) {

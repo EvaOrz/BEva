@@ -14,19 +14,19 @@ import cn.com.modernmediaslate.model.Entry;
  */
 public class BreakPoint extends Entry {
 	private static final long serialVersionUID = 1L;
-	private int id;// issue_id
+	private String tagName = "";
 	private String url = "";// zip包地址
 	private long complete = 0;// 完成度
 	private long total = 0;// 总大小
 	private List<ThreadInfo> infoList = new ArrayList<ThreadInfo>();
 	private int status = BreakPointUtil.NONE;// 当前下载状态
 
-	public int getId() {
-		return id;
+	public String getTagName() {
+		return tagName;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setTagName(String tagName) {
+		this.tagName = tagName;
 	}
 
 	public String getUrl() {

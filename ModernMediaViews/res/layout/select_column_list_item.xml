@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/select_column_item_contain"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/dp20" >
+
+    <ImageView
+        android:id="@+id/select_column_item_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@null" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/subcribe_column_img_bg"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/select_column_item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dp10"
+            android:paddingRight="@dimen/dp10"
+            android:textColor="@color/white_bg"
+            android:textSize="@dimen/dp15_textsize" />
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="@dimen/dp20"
+            android:layout_gravity="center_vertical"
+            android:background="#7fffffff" />
+
+        <!--
+             <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dp10"
+            android:paddingRight="@dimen/dp10"
+            android:text="@string/add"
+            android:textColor="@color/white_bg"
+            android:textSize="@dimen/dp13_textsize" />
+        -->
+
+        <ImageView
+            android:id="@+id/select_column_item_select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dp10"
+            android:layout_marginRight="@dimen/dp10"
+            android:contentDescription="@null"
+            android:src="@drawable/subscribe_check" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/select_column_item_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/dp15"
+        android:contentDescription="@null"
+        android:src="@drawable/subscribe_row" />
+
+</RelativeLayout>

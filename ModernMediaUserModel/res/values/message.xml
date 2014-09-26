@@ -12,8 +12,14 @@
     <string name="msg_find_pwd_failed">找回密码失败</string>
     <string name="msg_find_pwd_success">重置密码的邮件已经发送到 %s，如果 5 分钟后仍没有收到邮件，请联系 feedback@modernmedia.com.cn。</string>
     <string name="msg_modify_success">修改成功</string>
+    <string name="msg_modify_failed">修改失败</string>
+    <string name="msg_modify_email_failed">修改邮箱失败</string>
     <string name="msg_modify_pwd_failed">密码修改失败</string>
     <string name="msg_avatar_upload_success">头像上传成功</string>
     <string name="msg_avatar_upload_failed">头像上传失败</string>
-
+    <string name="msg_avatar_get_failed">头像取得失败</string>
+    <string name="msg_your_coin_is_not_enough">你的金币余额不足</string>
+    <string name="msg_has_error">出错了</string>
+    <string name="msg_if_exchange">你确定要花费%1$s金币购买%2$s？</string>
+    <string name="msg_get_userinfo_failed">信息取得失败，请重新登录</string>
 </resources>

@@ -11,8 +11,9 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout.LayoutParams;
-import cn.com.modernmedia.util.ModernMediaTools;
 import cn.com.modernmediaslate.model.Entry;
+import cn.com.modernmediaslate.model.ErrorMsg;
+import cn.com.modernmediaslate.unit.Tools;
 import cn.com.modernmediausermodel.R;
 import cn.com.modernmediausermodel.adapter.UserCardListAdapter;
 import cn.com.modernmediausermodel.api.UserOperateController;
@@ -119,23 +120,23 @@ public class CardListPop {
 		uid = checkUid();
 		if (TextUtils.isEmpty(uid))
 			return;
-		ModernMediaTools.showLoading(mContext, true);
+		Tools.showLoading(mContext, true);
 		UserOperateController.getInstance(mContext).addCardFav(
 				UserTools.getUid(mContext), item.getId(),
 				new UserFetchEntryListener() {
 
 					@Override
 					public void setData(Entry entry) {
-						ModernMediaTools.showLoading(mContext, false);
-						if (entry instanceof User.Error) {
-							User.Error error = (User.Error) entry;
+						Tools.showLoading(mContext, false);
+						if (entry instanceof ErrorMsg) {
+							ErrorMsg error = (ErrorMsg) entry;
 							if (error.getNo() == 0) {
 								item.setIsFav(1);
 								adapter.notifyDataSetChanged();
-								ModernMediaTools.showToast(mContext,
+								Tools.showToast(mContext,
 										R.string.collect_success);
 							} else {
-								ModernMediaTools.showToast(mContext,
+								Tools.showToast(mContext,
 										R.string.collect_failed);
 							}
 						}
@@ -153,23 +154,23 @@ public class CardListPop {
 		uid = checkUid();
 		if (TextUtils.isEmpty(uid))
 			return;
-		ModernMediaTools.showLoading(mContext, true);
+		Tools.showLoading(mContext, true);
 		UserOperateController.getInstance(mContext).cancelCardFav(
 				UserTools.getUid(mContext), item.getId(),
 				new UserFetchEntryListener() {
 
 					@Override
 					public void setData(Entry entry) {
-						ModernMediaTools.showLoading(mContext, false);
-						if (entry instanceof User.Error) {
-							User.Error error = (User.Error) entry;
+						Tools.showLoading(mContext, false);
+						if (entry instanceof ErrorMsg) {
+							ErrorMsg error = (ErrorMsg) entry;
 							if (error.getNo() == 0) {
 								item.setIsFav(0);
 								adapter.notifyDataSetChanged();
-								ModernMediaTools.showToast(mContext,
+								Tools.showToast(mContext,
 										R.string.uncollect_success);
 							} else {
-								ModernMediaTools.showToast(mContext,
+								Tools.showToast(mContext,
 										R.string.uncollect_failed);
 							}
 						}

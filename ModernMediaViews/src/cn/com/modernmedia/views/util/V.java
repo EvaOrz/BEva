@@ -2,41 +2,52 @@ package cn.com.modernmedia.views.util;
 
 import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Paint.Style;
+import android.graphics.Path;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.NinePatchDrawable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.ListView;
+import android.widget.TextView;
 import cn.com.modernmedia.CommonApplication;
 import cn.com.modernmedia.CommonArticleActivity.ArticleType;
+import cn.com.modernmedia.model.AppValue;
 import cn.com.modernmedia.model.ArticleItem;
-import cn.com.modernmedia.model.Cat.CatItem;
-import cn.com.modernmedia.model.SoloColumn.SoloColumnChild;
+import cn.com.modernmedia.model.TagInfoList;
+import cn.com.modernmedia.model.TagInfoList.TagInfo;
+import cn.com.modernmedia.newtag.db.TagInfoListDb;
+import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmedia.util.DataHelper;
-import cn.com.modernmedia.util.ModernMediaTools;
 import cn.com.modernmedia.util.PageTransfer.TransferArticle;
-import cn.com.modernmedia.util.ParseUtil;
 import cn.com.modernmedia.util.UriParse;
+import cn.com.modernmedia.views.R;
+import cn.com.modernmedia.views.ViewsApplication;
 import cn.com.modernmedia.views.ViewsMainActivity;
-import cn.com.modernmedia.views.adapter.BaseIndexAdapter;
-import cn.com.modernmedia.views.adapter.BusIndexAdapter;
-import cn.com.modernmedia.views.adapter.LadyIndexAdapter;
-import cn.com.modernmedia.views.adapter.LohasIndexAdapter;
-import cn.com.modernmedia.views.adapter.TancIndexAdapter;
-import cn.com.modernmedia.views.adapter.WeeklyIndexAdapter;
-import cn.com.modernmedia.views.adapter.ZhihuiyunIndexAdapter;
-import cn.com.modernmedia.views.index.BusHeadView;
-import cn.com.modernmedia.views.index.IndexHeadView;
-import cn.com.modernmedia.views.index.WeeklyHeadView;
-import cn.com.modernmedia.views.model.IndexListParm;
+import cn.com.modernmedia.views.index.adapter.BaseIndexAdapter;
+import cn.com.modernmedia.views.index.adapter.GridIndexAdapter;
+import cn.com.modernmedia.views.index.adapter.ListIndexAdapter;
+import cn.com.modernmedia.views.index.head.IndexViewHead;
+import cn.com.modernmedia.views.model.Template;
 import cn.com.modernmedia.widget.BaseView;
+import cn.com.modernmediaslate.SlateApplication;
+import cn.com.modernmediaslate.listener.ImageDownloadStateListener;
 import cn.com.modernmediaslate.model.Entry;
+import cn.com.modernmediaslate.unit.ParseUtil;
 import cn.com.modernmediausermodel.util.CardUriParse;
+import cn.com.modernmediausermodel.util.UserDataHelper;
 import cn.com.modernmediausermodel.util.UserTools;
 
 public class V {
@@ -46,9 +57,13 @@ public class V {
 	public static final String TANC = "tanc";
 	public static final String IWEEKLY = "iweekly";
 	public static final String ZHIHUIYUN = "zhihuiyun";
+	public static final String WEIZIT = "weizit";
 
 	public static final int ID_ERROR = -1;
 	public static final int ID_COLOR = -2;
+	public static final int ID_HTTP = -3;
+
+	public static final int RADIUS = 19;
 
 	/**
 	 * 列表点击
@@ -99,6 +114,9 @@ public class V {
 		if (pic.startsWith("#")) {
 			return ID_COLOR;
 		}
+		if (pic.startsWith("http")) {
+			return ID_HTTP;
+		}
 		try {
 			Field field = CommonApplication.drawCls.getDeclaredField(pic);
 			return field.getInt(pic);
@@ -122,6 +140,10 @@ public class V {
 			view.setBackgroundColor(Color.parseColor(pic));
 			return;
 		}
+		if (id == ID_HTTP) {
+			SlateApplication.finalBitmap.display(view, pic);
+			return;
+		}
 		if (view instanceof ImageView)
 			((ImageView) view).setImageResource(id);
 		else
@@ -134,12 +156,34 @@ public class V {
 	 * @param view
 	 * @param pic
 	 */
-	public static void setViewBack(View view, String pic) {
+	public static void setViewBack(final View view, String pic) {
 		int id = getId(pic);
 		if (id == ID_ERROR)
 			return;
 		if (id == ID_COLOR)
 			view.setBackgroundColor(Color.parseColor(pic));
+		else if (id == ID_HTTP)
+			SlateApplication.finalBitmap.display(pic,
+					new ImageDownloadStateListener() {
+
+						@Override
+						public void loading() {
+						}
+
+						@Override
+						public void loadOk(Bitmap bitmap,
+								NinePatchDrawable drawable) {
+							if (drawable != null)
+								view.setBackgroundDrawable(drawable);
+							else
+								view.setBackgroundDrawable(new BitmapDrawable(
+										bitmap));
+						}
+
+						@Override
+						public void loadError() {
+						}
+					});
 		else
 			view.setBackgroundResource(id);
 	}
@@ -150,13 +194,34 @@ public class V {
 	 * @param listView
 	 * @param pic
 	 */
-	public static void setListviewDivider(Context context, ListView listView,
-			String pic) {
+	public static void setListviewDivider(Context context,
+			final ListView listView, String pic) {
 		int id = getId(pic);
 		if (id == ID_ERROR)
 			return;
 		if (id == ID_COLOR)
 			listView.setDivider(new ColorDrawable(Color.parseColor(pic)));
+		else if (id == ID_HTTP)
+			SlateApplication.finalBitmap.display(pic,
+					new ImageDownloadStateListener() {
+
+						@Override
+						public void loading() {
+						}
+
+						@Override
+						public void loadOk(Bitmap bitmap,
+								NinePatchDrawable drawable) {
+							if (drawable != null)
+								listView.setDivider(drawable);
+							else
+								listView.setDivider(new BitmapDrawable(bitmap));
+						}
+
+						@Override
+						public void loadError() {
+						}
+					});
 		else
 			listView.setDivider(new BitmapDrawable(BitmapFactory
 					.decodeResource(context.getResources(), id)));
@@ -170,23 +235,95 @@ public class V {
 	 */
 	public static void setIndexItemButtonImg(ImageView imageView,
 			ArticleItem item) {
-		int catId = item.getCatId();
-		boolean hasRes = catId == 11 || catId == 12 || catId == 13
-				|| catId == 14 || catId == 16 || catId == 18 || catId == 19
-				|| catId == 20 || catId == 21 || catId == 32 || catId == 37;
-		if (hasRes)
-			setImage(imageView, "arrow_" + catId);
-		else if (catId >= 110 && catId <= 114)
-			setImage(imageView, "arrow_32");
-		else if (catId == 99)
-			setImage(imageView, "arrow_14");
-		else {
-			setImage(imageView, "arrow_xx");
-			if (ParseUtil.mapContainsKey(DataHelper.columnPicMap, catId)) {
-				List<String> list = DataHelper.columnPicMap.get(catId);
-				if (ParseUtil.listNotNull(list))
-					CommonApplication.finalBitmap.display(imageView,
-							list.get(0));
+		String tagName = item.getGroupname();
+		int color = Color.RED;
+		if (!item.isSubscribeMerge()
+				&& DataHelper.columnColorMap.containsKey(tagName)) {
+			color = DataHelper.columnColorMap.get(tagName);
+		}
+		Bitmap output = Bitmap.createBitmap(RADIUS * 2, RADIUS * 2,
+				Config.ARGB_8888);
+		Canvas canvas = new Canvas(output);
+		Paint paint = new Paint();
+		paint.setColor(color);
+		paint.setAntiAlias(true);
+		paint.setStyle(Style.FILL);
+		// 画圆
+		canvas.drawCircle(RADIUS, RADIUS, RADIUS, paint);
+		// 画箭头
+		paint.setColor(Color.WHITE);
+		Path path = new Path();
+		path.moveTo(RADIUS - 10, RADIUS - 2);
+		path.lineTo(RADIUS, RADIUS - 2);
+		path.lineTo(RADIUS, RADIUS - 2 - 5);
+		path.lineTo(RADIUS + 10, RADIUS);
+		path.lineTo(RADIUS, RADIUS + 2 + 5);
+		path.lineTo(RADIUS, RADIUS + 2);
+		path.lineTo(RADIUS - 10, RADIUS + 2);
+		path.close();
+		canvas.drawPath(path, paint);
+		imageView.setImageBitmap(output);
+	}
+
+	/**
+	 * 下载栏目图片;如果没有栏目图，就用圆点
+	 * 
+	 * @param isChildSelectAdapter
+	 *            只有iweekly有用
+	 */
+	public static void downCatPic(Context context, TagInfo info,
+			ImageView imageView, boolean isChildSelectAdapter) {
+		if (ParseUtil
+				.mapContainsKey(DataHelper.columnPicMap, info.getTagName())) {
+			List<String> list = DataHelper.columnPicMap.get(info.getTagName());
+			if (ParseUtil.listNotNull(list)) {
+				CommonApplication.finalBitmap.display(imageView, list.get(0));
+				return;
+			}
+		}
+		if (info.getAppId() == 20 && !isChildSelectAdapter) {
+			// TODO nothing...
+		} else if (info.getAppId() == 105) {
+			// TODO nothing...
+		} else {
+			catPicShowColor(context, info, imageView);
+		}
+	}
+
+	/**
+	 * 显示颜色
+	 * 
+	 * @param context
+	 * @param info
+	 * @param imageView
+	 */
+	public static void catPicShowColor(Context context, TagInfo info,
+			ImageView imageView) {
+		if (ParseUtil.mapContainsKey(DataHelper.columnColorMap,
+				info.getTagName())) {
+			if (ConstData.isGoodLife()) {
+				// GOODLIFE
+				imageView.setBackgroundColor(DataHelper.columnColorMap.get(info
+						.getTagName()));
+			} else {
+				imageView.setScaleType(ScaleType.CENTER);
+				imageView.setImageBitmap(getCircleBitmap(context,
+						DataHelper.columnColorMap.get(info.getTagName())));
+			}
+		}
+	}
+
+	/**
+	 * 下载订阅大图
+	 * 
+	 * @param tagName
+	 * @param imageView
+	 */
+	public static void downSubscriptPicture(String tagName, ImageView imageView) {
+		if (ParseUtil.mapContainsKey(DataHelper.columnBigMap, tagName)) {
+			List<String> list = DataHelper.columnBigMap.get(tagName);
+			if (ParseUtil.listNotNull(list)) {
+				CommonApplication.finalBitmap.display(imageView, list.get(0));
 			}
 		}
 	}
@@ -200,114 +337,43 @@ public class V {
 	 * @param catId
 	 * @param imageView
 	 */
-	public static void setImageForWeeklyCat(CatItem catItem,
-			ImageView imageView, boolean isParent) {
-		int catId = catItem.getId();
-		if (catId == 191) {
-			setImage(imageView, "shiye_icon");
-		} else if (catId == 192) {
-			setImage(imageView, "xinwen_icon");
-		} else if (catId == 194) {
-			if (isParent)
-				setImage(imageView, "zhuanlan_icon");
-			else
-				setImage(imageView, "zuixin_icon");
-		} else if (catId == 204) {
-			setImage(imageView, "nyt_icon");
-		} else if (catId == 198) {
-			setImage(imageView, "wenhua_icon");
-		} else if (catId == 200) {
-			setImage(imageView, "shenghuo_icon");
-		} else if (catId == 203) {
-			setImage(imageView, "meirong_icon");
-		} else if (catId == 202) {
-			setImage(imageView, "meishi_icon");
-		} else if (catId == 201) {
-			if (isParent)
-				setImage(imageView, "xingzuo_icon");
-			else
-				setImage(imageView, "xingzuo_child_icon");
-		} else if (catId == 199) {
-			setImage(imageView, "fengshang_icon");
-		} else if (catId == 196) {
-			setImage(imageView, "huabao_icon");
-		} else if (catId == 195) {
-			if (isParent)
-				setImage(imageView, "chengshi_icon");
-			else
-				setImage(imageView, "didian_icon");
-		} else if (catId == 206 || catId == 207) {
-			setImage(imageView, "didian_icon");
-		} else if (catId == 208) {
-			setImage(imageView, "quanqiu_icon");
+	public static void setImageForWeeklyCat(Context context, TagInfo tagInfo,
+			ImageView imageView) {
+		String tagName = tagInfo.getTagName();
+		if (ConstData.getAppId() != 20) {
+			downCatPic(context, tagInfo, imageView, false);
+			return;
 		}
-		downloadIcon(catItem, imageView, isParent);
-	}
-
-	private static void downloadIcon(CatItem item, ImageView imageView,
-			boolean isParent) {
-		if (ParseUtil.mapContainsKey(DataHelper.columnPicMap, item.getId())) {
-			List<String> list = DataHelper.columnPicMap.get(item.getId());
-			if (!ParseUtil.listNotNull(list))
-				return;
-			for (String url : list) {
-				if (isParent && url.contains(PARENT)) {
-					CommonApplication.finalBitmap.display(imageView, url);
-				} else if (!isParent && url.contains(CHILD)) {
-					CommonApplication.finalBitmap.display(imageView, url);
-				}
-			}
-		}
+		imageView.setImageBitmap(null);
+		setImage(imageView, tagName);
+		downCatPic(context, tagInfo, imageView, false);
 	}
 
 	/**
-	 * 是否独立栏目
-	 * 
-	 * @param item
-	 * @return
+	 * 设置微在栏目icon
 	 */
-	public static boolean isSoloColumn(Context context, CatItem item) {
-		if (!CommonApplication.hasSolo || CommonApplication.issue == null)
-			return false;
-		int catId;
-		if (CommonApplication.issue.getId() == 0) {
-			// TODO 全部是独立栏目
-			catId = item.getId();
-		} else {
-			catId = ModernMediaTools.isSoloCat(item.getLink());
-			if (catId == -1) {
-				return false;
-			}
+	public static void setWeZeitColumnIcon(Context context, TagInfo tagInfo,
+			ImageView imageView) {
+		String tagName = tagInfo.getTagName();
+		if (ConstData.getAppId() != 105) {
+			downCatPic(context, tagInfo, imageView, false);
+			return;
 		}
-		if (CommonApplication.manage != null)
-			CommonApplication.manage.getProcess().showSoloChildCat(catId, true);
-		return true;
-	}
-
-	/**
-	 * 是否父栏目
-	 * 
-	 * @param context
-	 * @param item
-	 * @return
-	 */
-	public static boolean isParentColumn(Context context, CatItem item) {
-		// if (item.getHaveChildren() == 1) {
-		if (DataHelper.childMap.containsKey(item.getParentId())) {
-			((ViewsMainActivity) context).showChildCat(item.getParentId());
-			return true;
+		int catId = ParseUtil.stoi(tagName.replace("cat_", ""), -1);
+		if (catId == 46) {
+			setImage(imageView, "column_main");
+		} else if (catId == 11) {
+			setImage(imageView, "column_fresh");
+		} else if (catId == 16) {
+			setImage(imageView, "column_yule");
+		} else if (catId == 10) {
+			setImage(imageView, "column_play");
+		} else if (catId == 12) {
+			setImage(imageView, "column_idle");
+		} else if (catId == 17) {
+			setImage(imageView, "column_zoo");
 		}
-		// }
-		return false;
-	}
-
-	public static int getSoloParentId(Context context, CatItem item) {
-		if (!CommonApplication.hasSolo || CommonApplication.issue == null
-				|| item == null)
-			return -1;
-		if (CommonApplication.issue.getId() == 0)
-			return item.getId();
-		return ModernMediaTools.isSoloCat(item.getLink());
+		downCatPic(context, tagInfo, imageView, false);
 	}
 
 	/**
@@ -320,40 +386,83 @@ public class V {
 		if (!(context instanceof ViewsMainActivity)) {
 			return;
 		}
-		if (entry instanceof CatItem) {
-			CatItem item = (CatItem) entry;
-			if (!ParseUtil.mapContainsKey(DataHelper.childMap, item.getId())) {
-				((ViewsMainActivity) context).setTitle(item);
+		if (entry instanceof TagInfo) {
+			TagInfo tagInfo = (TagInfo) entry;
+			if (setIndexTitleByUriTag(context, tagInfo))
 				return;
-			}
-			List<CatItem> list = DataHelper.childMap.get(item.getId());
-			if (ParseUtil.listNotNull(list)) {
-				int savedCatId = DataHelper.getChildId(context, item.getId()
-						+ "");
-				if (savedCatId != -1) {
-					for (int i = 0; i < list.size(); i++) {
-						if (list.get(i).getId() == savedCatId) {
-							((ViewsMainActivity) context).setTitle(list.get(i));
-							return;
-						}
-					}
-					((ViewsMainActivity) context).setTitle(list.get(0));
-				} else {
-					((ViewsMainActivity) context).setTitle(item);
-				}
+			TagInfo parentTag;
+			if (tagInfo.getTagLevel() == 2) {
+				parentTag = TagInfoListDb.getInstance(context)
+						.getTagInfoByName(tagInfo.getParent(), "", true);
 			} else {
-				((ViewsMainActivity) context).setTitle(item);
+				parentTag = tagInfo;
 			}
-		} else if (entry instanceof SoloColumnChild) {
-			SoloColumnChild child = (SoloColumnChild) entry;
-			String title = child.getName();
-			if (ParseUtil.mapContainsKey(DataHelper.columnTitleMap,
-					child.getParentId())) {
-				title = DataHelper.columnTitleMap.get(child.getParentId())
-						+ " · " + child.getName();
+			if (parentTag.showChildren()) {
+				// TODO 子栏目显示"父栏目 · 子栏目"
+				TagInfoList childInfoList = AppValue.ensubscriptColumnList
+						.getChildHasSubscriptTagInfoList(parentTag.getTagName());
+				if (ParseUtil.listNotNull(childInfoList.getList())) {
+					String childName = "";
+					if (tagInfo.getTagLevel() == 1) {
+						childName = childInfoList.getList().get(0)
+								.getColumnProperty().getCname();
+					} else {
+						childName = tagInfo.getColumnProperty().getCname();
+					}
+					String title = parentTag.getColumnProperty().getCname()
+							+ " · " + childName;
+					((ViewsMainActivity) context).setIndexTitle(title);
+					return;
+				}
+			}
+			((ViewsMainActivity) context).setIndexTitle(tagInfo
+					.getColumnProperty().getCname());
+		}
+	}
+
+	/**
+	 * 根据uri新生成的tag
+	 * 
+	 * @param context
+	 * @param tagInfo
+	 * @return
+	 */
+	private static boolean setIndexTitleByUriTag(Context context,
+			TagInfo tagInfo) {
+		if (!tagInfo.isUriTag())
+			return false;
+		String title = "";
+		if (TextUtils.isEmpty(tagInfo.getParent())
+				|| tagInfo.getParent().startsWith("app")) {
+			// TODO 一级栏目
+			title = tagInfo.getColumnProperty().getCname();
+			if (tagInfo.getHaveChildren() == 1
+					&& AppValue.uriTagInfoList.getChildMap().containsKey(
+							tagInfo.getTagName())) {
+				Map<String, List<TagInfo>> map = AppValue.uriTagInfoList
+						.getChildMap();
+				if (ParseUtil.mapContainsKey(map, tagInfo.getTagName())
+						&& ParseUtil.listNotNull(map.get(tagInfo.getTagName()))) {
+					title += " · "
+							+ map.get(tagInfo.getTagName()).get(0)
+									.getColumnProperty().getCname();
+					((ViewsMainActivity) context).setIndexTitle(title);
+					return true;
+				}
 			}
 			((ViewsMainActivity) context).setIndexTitle(title);
+			return true;
 		}
+		// TODO 子栏目
+		for (TagInfo _info : AppValue.uriTagInfoList.getList()) {
+			if (_info.getTagName().equals(tagInfo.getParent())) {
+				title = _info.getColumnProperty().getCname() + " · "
+						+ tagInfo.getColumnProperty().getCname();
+				((ViewsMainActivity) context).setIndexTitle(title);
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -363,24 +472,11 @@ public class V {
 	 * @return
 	 */
 	public static BaseIndexAdapter getIndexAdapter(Context context,
-			IndexListParm parm) {
-		BaseIndexAdapter adapter;
-		if (parm.getType().equals(V.BUSINESS)) {
-			adapter = new BusIndexAdapter(context, parm);
-		} else if (parm.getType().equals(V.ILADY)) {
-			adapter = new LadyIndexAdapter(context, parm);
-		} else if (parm.getType().equals(V.ILOHAS)) {
-			adapter = new LohasIndexAdapter(context, parm);
-		} else if (parm.getType().equals(V.TANC)) {
-			adapter = new TancIndexAdapter(context, parm);
-		} else if (parm.getType().equals(V.IWEEKLY)) {
-			adapter = new WeeklyIndexAdapter(context, parm);
-		} else if (parm.getType().equals(V.ZHIHUIYUN)) {
-			adapter = new ZhihuiyunIndexAdapter(context, parm);
-		} else {
-			adapter = new BaseIndexAdapter(context, parm);
-		}
-		return adapter;
+			Template template, ArticleType articleType) {
+		if (template.getList().getOne_line_count() > 1)
+			return new GridIndexAdapter(context, template, articleType);
+		else
+			return new ListIndexAdapter(context, template, articleType);
 	}
 
 	/**
@@ -390,14 +486,116 @@ public class V {
 	 * @param parm
 	 * @return
 	 */
-	public static IndexHeadView getIndexHeadView(Context context,
-			IndexListParm parm) {
-		IndexHeadView headView = null;
-		if (parm.getHead_type().equals(V.BUSINESS)) {
-			headView = new BusHeadView(context, parm);
-		} else if (parm.getHead_type().equals(V.IWEEKLY)) {
-			headView = new WeeklyHeadView(context, parm);
+	public static IndexViewHead getIndexHeadView(Context context,
+			Template template) {
+		return new IndexViewHead(context, template);
+	}
+
+//	/**
+//	 * 根据比例获取正确的值
+//	 * 
+//	 * @param value
+//	 * @return
+//	 */
+//	public static int getSize(String value) {
+//		if (TextUtils.isEmpty(value))
+//			return 1;
+//		if (value.contains("width")) {
+//			if (value.contains("*")) {
+//				String[] arr = value.split("\\*");
+//				if (arr.length == 2)
+//					return (int) (CommonApplication.width * ParseUtil
+//							.stof(arr[1]));
+//			}
+//		}
+//		if (value.contains("height")) {
+//			if (value.contains("*")) {
+//				String[] arr = value.split("\\*");
+//				if (arr.length == 2)
+//					return (int) (CommonApplication.height * ParseUtil
+//							.stof(arr[1]));
+//			}
+//		}
+//		return 1;
+//	}
+
+	public static Bitmap getCircleBitmap(Context context, int color) {
+		int size = context.getResources().getDimensionPixelSize(R.dimen.dp10);
+		Bitmap bitmap = Bitmap.createBitmap(size, size, Config.ARGB_8888);
+		Canvas canvas = new Canvas(bitmap);
+		Paint paint = new Paint();
+		paint.setColor(color);
+		canvas.drawCircle(size / 2, size / 2, size / 2, paint);
+		return bitmap;
+	}
+
+	public static void setTextById(TextView textView, String resId) {
+		if (CommonApplication.stringCls == null) {
+			return;
 		}
-		return headView;
+		if (TextUtils.isEmpty(resId)) {
+			return;
+		}
+		try {
+			Field field = CommonApplication.stringCls.getDeclaredField(resId);
+			textView.setText(field.getInt(resId));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 文章是否已读
+	 * 
+	 * @param item
+	 * @return
+	 */
+	public static boolean articleIsReaded(ArticleItem item) {
+		if (ConstData.getAppId() == 20 && item.getAppid() == 20) { // iweekly 文章
+			if (ViewsApplication.lastestArticleId == null) {
+				return true;
+			} else {
+				List<Integer> ids = ViewsApplication.lastestArticleId
+						.getUnReadedId();
+				if (ids.contains(item.getArticleId())) {
+					return false;
+				}
+			}
+			return true;
+		}
+		if (!ParseUtil.listNotNull(ViewsApplication.readedArticles))
+			return false;
+		return ViewsApplication.readedArticles.contains(Integer.valueOf(item
+				.getArticleId()));
+	}
+
+	/**
+	 * 判断是否需要插入订阅文章
+	 * 
+	 * @param context
+	 * @param tagName
+	 * @param loadMore
+	 * @return
+	 */
+	public static boolean checkShouldInsertSubscribeArticle(Context context,
+			String tagName) {
+		if (ConstData.getAppId() != 20 && ConstData.getAppId() != 1) {
+			return false;
+		}
+		if (ConstData.getAppId() == 20 && !tagName.equals("cat_192")) {
+			return false;
+		}
+		if (ConstData.getInitialAppId() == 1 && !tagName.equals("cat_15")) {
+			return false;
+		}
+		if (ConstData.getInitialAppId() == 18 && !tagName.equals("cat_167")) {
+			return false;
+		}
+		if (UserDataHelper.getUserLoginInfo(context) == null
+				|| AppValue.ensubscriptColumnList.getColumnTagList(true, false)
+						.size() == 0) {
+			return false;
+		}
+		return true;
 	}
 }

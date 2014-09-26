@@ -54,7 +54,7 @@
     <cn.com.modernmedia.widget.CheckFooterListView
         android:id="@+id/card_list_view"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:layout_below="@+id/bar_layout"
         android:cacheColorHint="@android:color/white"
         android:divider="@null"

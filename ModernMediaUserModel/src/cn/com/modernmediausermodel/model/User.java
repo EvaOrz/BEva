@@ -1,6 +1,7 @@
 package cn.com.modernmediausermodel.model;
 
 import cn.com.modernmediaslate.model.Entry;
+import cn.com.modernmediaslate.model.ErrorMsg;
 
 public class User extends Entry {
 	private static final long serialVersionUID = 1L;
@@ -14,7 +15,7 @@ public class User extends Entry {
 	// 头像
 	private String avatar = "";
 	// 错误信息
-	private Error error = new Error();
+	private ErrorMsg error = new ErrorMsg();
 	// 新浪uid(新浪用户登陆时用)
 	private String sinaId = "";
 	// 用户token
@@ -33,6 +34,8 @@ public class User extends Entry {
 	private String desc = "";
 	// 该用户的登录状态(默认未登录)
 	private boolean isLogined = false;
+	// qq openid(qq用户登陆时用)
+	private String qqId = "";
 
 	public String getUid() {
 		return uid;
@@ -74,11 +77,11 @@ public class User extends Entry {
 		this.avatar = avatar;
 	}
 
-	public Error getError() {
+	public ErrorMsg getError() {
 		return error;
 	}
 
-	public void setError(Error error) {
+	public void setError(ErrorMsg error) {
 		this.error = error;
 	}
 
@@ -88,6 +91,14 @@ public class User extends Entry {
 
 	public void setSinaId(String sinaId) {
 		this.sinaId = sinaId;
+	}
+
+	public String getQqId() {
+		return qqId;
+	}
+
+	public void setQqId(String qqId) {
+		this.qqId = qqId;
 	}
 
 	public String getToken() {
@@ -154,25 +165,4 @@ public class User extends Entry {
 		this.isLogined = isLogined;
 	}
 
-	public static class Error extends Entry {
-		private static final long serialVersionUID = 1L;
-		private int no = 0;
-		private String desc;
-
-		public int getNo() {
-			return no;
-		}
-
-		public void setNo(int no) {
-			this.no = no;
-		}
-
-		public String getDesc() {
-			return desc;
-		}
-
-		public void setDesc(String desc) {
-			this.desc = desc;
-		}
-	}
 }

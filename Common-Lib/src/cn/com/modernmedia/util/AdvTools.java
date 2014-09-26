@@ -1,11 +1,13 @@
 package cn.com.modernmedia.util;
 
+import java.util.List;
+
 import android.text.TextUtils;
-import cn.com.modernmedia.CommonApplication;
 import cn.com.modernmedia.model.AdvList.AdvItem;
+import cn.com.modernmedia.model.AppValue;
 import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmediaslate.api.HttpRequestController;
-import cn.com.modernmediaslate.model.Favorite.FavoriteItem;
+import cn.com.modernmediaslate.unit.ParseUtil;
 
 public class AdvTools {
 	/**
@@ -31,7 +33,7 @@ public class AdvTools {
 	 */
 	public static boolean containThisCat(int catPosition, AdvItem item,
 			String catId) {
-		return parseStarPosition(item, item.getCatId(), catPosition, catId);
+		return parseStarPosition(item, item.getTagname(), catPosition, catId);
 	}
 
 	/**
@@ -41,19 +43,19 @@ public class AdvTools {
 	 * @param issueId
 	 * @return
 	 */
-	public static boolean containThisIssue(AdvItem item, String issueId) {
-		if (item.getIssueId().equals("L")) {
-			return issueId.equals(String
-					.valueOf(CommonApplication.lastestIssueId))
-					|| issueId.equals("0");
-		}
-		int issuePosition = 0;
-		if (CommonApplication.issueIdList != null) {
-			issuePosition = CommonApplication.issueIdList.indexOf(issueId);
-		}
-		return parseStarPosition(item, item.getIssueId(), issuePosition,
-				issueId);
-	}
+	// public static boolean containThisIssue(AdvItem item, String issueId) {
+	// // if (item.getIssueId().equals("L")) {
+	// // return issueId.equals(String
+	// // .valueOf(CommonApplication.lastestIssueId))
+	// // || issueId.equals("0");
+	// // }
+	// // int issuePosition = 0;
+	// // if (CommonApplication.issueIdList != null) {
+	// // issuePosition = CommonApplication.issueIdList.indexOf(issueId);
+	// // }
+	// // return parseStarPosition(item, item.getIssueId(), issuePosition,
+	// // issueId);
+	// }
 
 	/**
 	 * 解析带*的位置
@@ -133,6 +135,25 @@ public class AdvTools {
 	}
 
 	/**
+	 * 获取栏目在栏目列表里的位置
+	 * 
+	 * @return
+	 */
+	public static int getCatPosition(String tagName) {
+		int pos = -1;
+		List<String> list = AppValue.defaultColumnList.getTopLevelList();
+		if (!ParseUtil.listNotNull(list))
+			return pos;
+		for (int i = 0; i < list.size(); i++) {
+			if (TextUtils.equals(tagName, list.get(i))) {
+				pos = i;
+				break;
+			}
+		}
+		return pos;
+	}
+
+	/**
 	 * 广告展示的统计
 	 * 
 	 * @param item
@@ -146,32 +167,10 @@ public class AdvTools {
 	/**
 	 * 广告展示的统计
 	 * 
-	 * @param item
-	 */
-	public static void requestImpression(FavoriteItem item) {
-		if (item != null && !TextUtils.isEmpty(item.getImpressionUrl())) {
-			requestImpression(item.getImpressionUrl());
-		}
-	}
-
-	/**
-	 * 广告展示的统计
-	 * 
 	 * @param url
 	 */
 	public static void requestImpression(String url) {
 		HttpRequestController.getInstance().requestHttp(url);
-	}
-
-	/**
-	 * 广告点击的统计
-	 * 
-	 * @param item
-	 */
-	public static void requestClick(FavoriteItem item) {
-		if (item != null && !TextUtils.isEmpty(item.getClickUrl())) {
-			requestClick(item.getClickUrl());
-		}
 	}
 
 	/**

@@ -5,22 +5,25 @@ import java.util.List;
 
 import android.content.Context;
 import android.graphics.Rect;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import cn.com.modernmedia.CommonApplication;
 import cn.com.modernmedia.CommonMainActivity;
 import cn.com.modernmedia.adapter.MyPagerAdapter;
 import cn.com.modernmedia.listener.NotifyArticleDesListener;
-import cn.com.modernmedia.model.Cat;
-import cn.com.modernmedia.model.Cat.CatItem;
-import cn.com.modernmedia.model.SoloColumn;
-import cn.com.modernmedia.model.SoloColumn.SoloColumnItem;
-import cn.com.modernmedia.util.ParseUtil;
+import cn.com.modernmedia.model.AppValue;
+import cn.com.modernmedia.model.TagInfoList.TagInfo;
+import cn.com.modernmedia.util.UriParseToIndex;
+import cn.com.modernmedia.util.UriParseToIndex.UriParseToIndexListener;
+import cn.com.modernmedia.views.ViewsApplication;
 import cn.com.modernmedia.views.adapter.IndexViewPagerAdapter;
 import cn.com.modernmedia.views.util.V;
-import cn.com.modernmedia.views.widget.VerticalFlowGallery;
+import cn.com.modernmedia.views.widget.VerticalViewPager;
 import cn.com.modernmedia.widget.CircularViewPager;
-import cn.com.modernmediaslate.model.Entry;
+import cn.com.modernmediaslate.SlateApplication;
+import cn.com.modernmediaslate.unit.ParseUtil;
 
 /**
  * 可滑动的首页
@@ -28,11 +31,10 @@ import cn.com.modernmediaslate.model.Entry;
  * @author user
  * 
  */
-public class IndexViewPager extends CircularViewPager<SoloColumnItem> implements
+public class IndexViewPager extends CircularViewPager<TagInfo> implements
 		NotifyArticleDesListener {
 	private Context mContext;
-	private List<SoloColumnItem> catItems = new ArrayList<SoloColumnItem>();// 栏目列表
-	private Cat cat;// 用来做获取当前选中的栏目的位置使用;独立栏目用solocolumn
+	private List<TagInfo> catItems = new ArrayList<TagInfo>();// 栏目列表
 	private IndexViewPagerAdapter adapter;
 
 	public IndexViewPager(Context context) {
@@ -51,34 +53,45 @@ public class IndexViewPager extends CircularViewPager<SoloColumnItem> implements
 	}
 
 	/**
+	 * 初始化栏目列表
+	 */
+	private void initCatItems() {
+		catItems.clear();
+		catItems.addAll(AppValue.ensubscriptColumnList.getColumnTagList(false,
+				false));
+		catItems.addAll(AppValue.ensubscriptColumnList.getColumnTagList(true,
+				false));
+		if (CommonApplication.mConfig.getHas_single_view() == 1) {
+			if (catItems.size() > 0)
+				catItems.remove(0);
+		}
+	}
+
+	/**
 	 * 设置栏目信息
 	 * 
 	 * @param cat
 	 */
-	public void setCatList(Entry entry) {
-		if (entry instanceof Cat) {
-			catItems = ((Cat) entry).getSoloList();
-			cat = (Cat) entry;
-		} else if (entry instanceof SoloColumn) {
-			catItems = ((SoloColumn) entry).getList();
-		}
+	public void setCatList() {
+		initCatItems();
 		setDataForPager(catItems);
+		setTitle(getCurrentItem());
 	}
 
 	/**
 	 * 直接定位到某一个栏目
 	 * 
-	 * @param id
+	 * @param tagName
+	 * @param isUri
+	 *            是否来自uri;如果是，当找不到的时候需要添加这个栏目，否则，显示第一个栏目
 	 */
-	public void checkPosition(int id) {
+	public void checkPosition(String tagName, boolean isUri) {
 		if (!ParseUtil.listNotNull(catItems))
 			return;
 		int position = -1;
 		for (int i = 0; i < catItems.size(); i++) {
-			SoloColumnItem item = catItems.get(i);
-			int catId = V.getSoloParentId(mContext, item);
-			catId = catId == -1 ? item.getId() : catId;
-			if (catId == id) {
+			TagInfo item = catItems.get(i);
+			if (TextUtils.equals(item.getTagName(), tagName)) {
 				position = i;
 				break;
 			}
@@ -86,27 +99,50 @@ public class IndexViewPager extends CircularViewPager<SoloColumnItem> implements
 		if (position == 0) {
 			position = catItems.size() - 2;
 		}
-		position = position == -1 ? 1 : position;
-		this.setCurrentItem(position, false);
+		if (position == -1 && isUri) {
+			new UriParseToIndex(mContext, new UriParseToIndexListener() {
+
+				@Override
+				public void fetchTagInfo(TagInfo info) {
+					if (info != null) {
+						initCatItems();
+						catItems.add(0, info);
+						setDataForPager(catItems);
+						V.setIndexTitle(mContext, info);
+					}
+				}
+			}).findTagWhenDidnotFind(tagName);
+		} else {
+			position = position == -1 ? 1 : position;
+			this.setCurrentItem(position, false);
+			setTitle(position);
+		}
 	}
 
 	@Override
-	public MyPagerAdapter<SoloColumnItem> fetchAdapter(Context context,
-			List<SoloColumnItem> list) {
-		return adapter = new IndexViewPagerAdapter(mContext, cat, list);
+	public MyPagerAdapter<TagInfo> fetchAdapter(Context context,
+			List<TagInfo> list) {
+		return adapter = new IndexViewPagerAdapter(mContext, list);
 	}
 
 	@Override
 	public void updateDes(int position) {
+		setTitle(position);
+	}
+
+	private void setTitle(int position) {
 		if (ParseUtil.listNotNull(catItems) && catItems.size() > position) {
-			CatItem item = catItems.get(position);
+			TagInfo item = catItems.get(position);
+			((CommonMainActivity) mContext).notifyColumnAdapter(item
+					.getTagName());
 			V.setIndexTitle(mContext, item);
-			((CommonMainActivity) mContext).notifyColumnAdapter(item.getId());
 		}
 	}
 
 	@Override
 	public void updatePage(int state) {
+		if (SlateApplication.mConfig.getNav_hide() == 1)
+			ViewsApplication.navObservable.setData();
 	}
 
 	@Override
@@ -121,7 +157,7 @@ public class IndexViewPager extends CircularViewPager<SoloColumnItem> implements
 
 	private boolean intercept(MotionEvent ev) {
 		for (View view : adapter.getSelfScrollViews()) {
-			if (view instanceof VerticalFlowGallery) {
+			if (view instanceof VerticalViewPager) {
 				// TODO 图集
 				return adjustAngle(ev);
 			}

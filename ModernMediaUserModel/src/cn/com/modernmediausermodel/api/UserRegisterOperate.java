@@ -18,7 +18,7 @@ public class UserRegisterOperate extends UserModelBaseOperate {
 		try {
 			object.put("username", userName);
 			object.put("password", password);
-			object.put("appid", UserConstData.getAppId() + "");
+			object.put("appid", UserConstData.getInitialAppId() + "");
 			params.add(new BasicNameValuePair("data", object.toString()));
 			setPostParams(params);
 		} catch (JSONException e) {

@@ -11,7 +11,6 @@ import cn.com.modernmedia.R;
 import cn.com.modernmedia.listener.CallWebStatusChangeListener;
 import cn.com.modernmedia.listener.WebProcessListener;
 import cn.com.modernmedia.model.ArticleItem;
-import cn.com.modernmediaslate.model.Favorite.FavoriteItem;
 
 /**
  * 文章详情
@@ -23,7 +22,7 @@ public abstract class ArticleDetailItem extends BaseView implements
 		CallWebStatusChangeListener {
 	private Context mContext;
 	private CommonWebView webView;
-	private FavoriteItem detail;
+	private ArticleItem detail;
 	private int errorType;
 
 	private WebProcessListener listener = new WebProcessListener() {
@@ -95,7 +94,7 @@ public abstract class ArticleDetailItem extends BaseView implements
 		setBackGroundRes((ImageView) findViewById(R.id.web_back));
 	}
 
-	public void setData(FavoriteItem detail) {
+	public void setData(ArticleItem detail) {
 		this.detail = detail;
 		webView.startLoad(detail);
 	}

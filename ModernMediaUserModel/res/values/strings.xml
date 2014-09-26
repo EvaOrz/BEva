@@ -9,19 +9,23 @@
     <string name="select_from_album">从手机相册选择</string>
     <string name="cancel">取消</string>
     <!-- 默认登录页面 -->
-    <string name="mail_address">电邮地址</string>
+    <string name="mail_address">Email</string>
     <string name="password">密码</string>
     <string name="register">注册</string>
     <string name="login">登录</string>
-    <string name="sina_login">用新浪微博登录</string>
+    <string name="sina_login">用微博账号登录</string>
     <string name="sina_login_failed">微博登录失败</string>
-
+    <string name="qq_login">用QQ账号登录</string>
+    <string name="qq_login_failed">QQ账号登录失败</string>
+    <string name="some_account_login">你可以用以下账号登录</string>
+    <string name="moder_media_account_login">或用现代移动社区账号登录</string>
+    <string name="login_title_text">请用你的现代移动社区账号登录。</string>
+    <string name="set_userinfo_desc">加入现代移动社区，即可在云端保存你的收藏夹，并在现代传播出品的各大app中享受各种用户权益。</string>
     <!-- 修改密码 -->
     <string name="modify_password">请输入您的旧密码和新密码，如果没有设置过密码，旧密码请留空。</string>
     <string name="old_pwd">旧密码</string>
     <string name="new_pwd">新密码</string>
     <string name="complete">完成</string>
-    <string name="modify_success">修改成功</string>
 
     <!-- 用户信息 -->
     <string name="userinfo_desc">您的用户信息如下：</string>
@@ -33,11 +37,12 @@
     <string name="password_digits">_0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
 
     <!-- 用户中心 -->
-    <string name="business_card">商业笔记</string>
+    <string name="card_name"></string>
     <string name="search_card">浏览发现</string>
     <string name="message_center">通知中心</string>
     <string name="my_fav">我的收藏</string>
     <string name="user_setting">设置</string>
+    <string name="my_coin">我的金币</string>
 
     <!-- 推荐关注 -->
     <string name="recommend_user">推荐用户</string>
@@ -49,7 +54,10 @@
     <string name="follow">关注</string>
     <string name="followed">已关注</string>
     <string name="fans">粉丝</string>
-
+    <string name="follow_success">关注成功</string>
+    <string name="follow_failed">关注失败</string>
+    <string name="unfollow_success">取消关注成功</string>
+    <string name="unfollow_failed">取消关注失败</string>
     <!-- 广场 -->
     <string name="square">广场</string>
     <!-- 我的首页 -->
@@ -62,6 +70,7 @@
     <string name="card_not_allow_null_toast">添加的笔记不能为空</string>
     <string name="comment_not_allow_null_toast">添加的评论不能为空</string>
     <string name="card_add_failed_toast">添加笔记失败</string>
+    <string name="card_add_success">添加笔记成功</string>
     <string name="new_card">新笔记</string>
     <string name="my_friends">我的朋友</string>
     <string name="my_fans">我的粉丝</string>
@@ -73,6 +82,7 @@
     <string name="write_success">发表成功</string>
     <string name="write_failed">发表评论失败</string>
     <string name="delete_card_failed">删除笔记失败</string>
+    <string name="delete_card_success">删除笔记成功</string>
     <string name="share_to_weibo">同时分享到：</string>
     <string name="me">我</string>
     <string name="collect_success">收藏成功</string>
@@ -92,5 +102,31 @@
     <string name="user_no_card">你还没记录过笔记</string>
     <string name="no_friend_tip">你还没有关注任何人</string>
     <string name="no_fan_tip">你还没有任何人关注</string>
+    <string name="no_article_card">没有该文章的摘要</string>
+
+    <!-- 金币商城使用须知 -->
+    <string name="welcom_user">你好，%s!</string>
+    <string name="shop_use_notice">金币商城使用须知</string>
+    <string name="notice_content">InNote社区金币商城会经常为你推荐新鲜有趣的玩意，大部分虚拟物品都需要通过电子邮件发送给你。\n\n在兑换任何物品之前，请务必确认你注册时是否填写了正确的邮箱地址。现在点击下面的按钮，即可确认邮箱地址。\n\n祝你玩得开心！</string>
+    <string name="confirm_email">确认邮箱</string>
+    <string name="email_address_is">你的邮箱地址是</string>
+    <string name="goto_shop">确认进入商城</string>
+    <string name="modify_email">修改邮箱</string>
+    <string name="input_email">请输入你的邮箱地址</string>
+    <string name="input_password">请输入你的密码</string>
+    <string name="my_coin_ok">好的</string>
+
+    <!-- 我的金币 -->
+    <string name="get_more_coin">获取更多金币</string>
+    <string name="exchange">兑换</string>
+    <string name="exchange_success">兑换成功</string>
+    <string name="exchange_failed">兑换失败</string>
+    <string name="my_coin_footer_msg">您积累的所有金币在InNote ID登陆的APP中都可以使用</string>
+    <string name="coin">%1$s&#160;金币</string>
+    <string name="add_coin_num">%1$s&#160;+%2$s金币</string>
+
+    <!-- 文章摘要与评论 -->
+    <string name="article_card_and_comment">文章摘要与评论</string>
+    <string name="share">分享</string>
 
 </resources>

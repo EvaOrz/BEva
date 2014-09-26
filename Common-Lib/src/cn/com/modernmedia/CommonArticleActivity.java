@@ -10,38 +10,36 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.RelativeLayout.LayoutParams;
 import cn.com.modernmedia.api.OperateController;
-import cn.com.modernmedia.db.FavDb;
+import cn.com.modernmedia.db.NewFavDb;
 import cn.com.modernmedia.db.ReadDb;
 import cn.com.modernmedia.listener.BindFavToUserListener;
 import cn.com.modernmedia.listener.CallWebStatusChangeListener;
 import cn.com.modernmedia.listener.FetchEntryListener;
 import cn.com.modernmedia.listener.HideTitleBarListener;
-import cn.com.modernmedia.mainprocess.MainProcessPreIssue;
-import cn.com.modernmedia.mainprocess.MainProcessPreIssue.FetchPreviousIssueCallBack;
-import cn.com.modernmedia.mainprocess.MainProcessPreIssue.PreIssusType;
 import cn.com.modernmedia.model.ArticleItem;
-import cn.com.modernmedia.model.ArticleList;
-import cn.com.modernmedia.model.Atlas;
-import cn.com.modernmedia.model.Issue;
+import cn.com.modernmedia.model.ArticleItem.PhonePageList;
+import cn.com.modernmedia.model.TagArticleList;
+import cn.com.modernmedia.model.TagInfoList;
+import cn.com.modernmedia.model.TagInfoList.TagInfo;
+import cn.com.modernmedia.newtag.db.TagInfoListDb;
 import cn.com.modernmedia.util.DataHelper;
 import cn.com.modernmedia.util.GenericConstant;
+import cn.com.modernmedia.util.LastIssueAticleActivityHelper;
 import cn.com.modernmedia.util.LogHelper;
 import cn.com.modernmedia.util.ModernMediaTools;
 import cn.com.modernmedia.util.PageTransfer.TransferArticle;
-import cn.com.modernmedia.util.ParseUtil;
 import cn.com.modernmedia.widget.ArticleDetailItem;
 import cn.com.modernmedia.widget.AtlasViewPager;
 import cn.com.modernmedia.widget.CommonAtlasView;
 import cn.com.modernmedia.widget.CommonViewPager;
 import cn.com.modernmediaslate.model.Entry;
-import cn.com.modernmediaslate.model.Favorite.FavoriteItem;
+import cn.com.modernmediaslate.unit.ParseUtil;
 
 /**
  * common文章页
@@ -49,28 +47,26 @@ import cn.com.modernmediaslate.model.Favorite.FavoriteItem;
  * @author ZhuQiao
  * 
  */
-public abstract class CommonArticleActivity extends BaseActivity implements
-		OnClickListener {
+public abstract class CommonArticleActivity extends BaseActivity {
 	private Context mContext;
-	private OperateController controller;
-	protected Issue issue;
-	public TransferArticle mBundle;
-	protected List<FavoriteItem> list = new ArrayList<FavoriteItem>();
+	protected TransferArticle transferArticle;
+	protected List<ArticleItem> list = new ArrayList<ArticleItem>();
 	protected CommonViewPager viewPager;
 	private ViewPageAdapter adapter;
-	private FavDb db;
+	private NewFavDb db;
 	private ReadDb readDb;
 	private long lastClickTime = 0;// 执行完动画才能返回
-	private String currentUrl = "";// 当前view的URL
-	private List<String> loadOkUrl = new ArrayList<String>();
+	private int currArticleId;// 当前文章id
+	private List<Integer> loadOkIds = new ArrayList<Integer>();
 	private int needDeleteHidden = -1;
 	@SuppressLint("UseSparseArrays")
 	private HashMap<Integer, CallWebStatusChangeListener> listenerMap = new HashMap<Integer, CallWebStatusChangeListener>();
 	protected int currentPosition;
 	private BindFavToUserListener bindFavToUserListener;
-	protected Button backBtn, favBtn, fontBtn, shareBtn;
 	private boolean isHide = false;
-	private ArticleDetailItem currentDetailItem;
+	protected View currView;
+	private boolean singleArticle;// 只有一篇文章
+
 	private HideTitleBarListener hideListener = new HideTitleBarListener() {
 
 		@Override
@@ -88,7 +84,7 @@ public abstract class CommonArticleActivity extends BaseActivity implements
 	};
 
 	public enum ArticleType {
-		Default, Solo, Fav, Last/** 往期 **/
+		Default, Fav, Last/** 往期 **/
 		;
 	}
 
@@ -96,7 +92,6 @@ public abstract class CommonArticleActivity extends BaseActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mContext = this;
-		controller = OperateController.getInstance(mContext);
 		list.clear();
 		initDataFromBundle();
 	}
@@ -113,6 +108,8 @@ public abstract class CommonArticleActivity extends BaseActivity implements
 			layoutResID = R.layout.default_article_activity;
 		}
 		super.setContentView(layoutResID);
+		if (transferArticle == null)
+			return;
 		init();
 		initProcess();
 		initViewpager();
@@ -120,56 +117,174 @@ public abstract class CommonArticleActivity extends BaseActivity implements
 	}
 
 	protected void init() {
-		backBtn = (Button) findViewById(R.id.default_article_back_btn);
-		favBtn = (Button) findViewById(R.id.default_article_fav_btn);
-		fontBtn = (Button) findViewById(R.id.default_article_font_btn);
-		shareBtn = (Button) findViewById(R.id.default_article_share_btn);
 		viewPager = (CommonViewPager) findViewById(R.id.default_article_viewpager);
 		viewPager.setOffscreenPageLimit(1);// 限制预加载，只加载下一页
-
-		backBtn.setOnClickListener(this);
-		favBtn.setOnClickListener(this);
-		fontBtn.setOnClickListener(this);
-		shareBtn.setOnClickListener(this);
 	}
 
 	protected void addRule() {
 		LayoutParams lp = (LayoutParams) viewPager.getLayoutParams();
-		// lp.addRule(RelativeLayout.BELOW, R.id.default_article_toolbar);
 		lp.topMargin = getResources().getDimensionPixelSize(
 				R.dimen.article_bar_height);
 	}
 
+	/**
+	 * 获取文章数据
+	 */
 	private void fetchData() {
-		if (mBundle == null)
-			return;
-		switch (mBundle.getArticleType()) {
-		case Default:
-			getArticleList();
-			break;
-		case Fav:
+		if (transferArticle.getArticleType() == ArticleType.Fav) { // 收藏
 			getFavList();
-			break;
-		case Solo:
-			getSoloArticleList(mBundle.getCatId(), mBundle.getArtcleId());
-			break;
-		case Last:
-			// 图片link进入往期时（如slate://article/393...）先取得期信息，然后取文章列表
-			if (CommonApplication.lastIssue == null
-					|| (CommonApplication.lastIssue.getId() != CommonApplication.currentIssueId)) {
-				getPreIssue();
-			} else {
-				issue = CommonApplication.lastIssue;
-				getArticleList();
-			}
-			break;
-		default:
-			break;
+		} else if (transferArticle.getArticleType() == ArticleType.Last) { // 往期
+			LastIssueAticleActivityHelper lastHelper = new LastIssueAticleActivityHelper(
+					this, transferArticle);
+			lastHelper.doGetLastIssueAricles();
+		} else {
+			getArticleList();
 		}
 	}
 
+	/**
+	 * 从服务器获取文章列表
+	 */
+	private void getArticleList() {
+		showLoading();
+		TagInfo tagInfo;
+		if (TextUtils.isEmpty(transferArticle.getParent())) {
+			tagInfo = TagInfoListDb.getInstance(this).getTagInfoByName(
+					transferArticle.getTagName(), "", true);
+		} else {
+			tagInfo = TagInfoListDb.getInstance(this).getTagInfoByName(
+					transferArticle.getTagName(), transferArticle.getParent(),
+					false);
+		}
+		if (TextUtils.isEmpty(tagInfo.getTagName())) {
+			// TODO 请求tag信息
+			getTagInfo();
+		} else {
+			tagInfo = tagInfo.getMergeParentTagInfo(this);
+			getTagArticleList(tagInfo, true);
+		}
+	}
+
+	/**
+	 * 获取文章信息
+	 * 
+	 * @param tagInfo
+	 */
+	private void getTagArticleList(TagInfo tagInfo, boolean useCache) {
+		// TODO 因为在请求index时候已经请求了articlelist，所有每次都从数据库取，如果数据库没有，那么从服务器上获取
+		if (useCache) {
+			OperateController.getInstance(this).getTagArticles(tagInfo, "", "",
+					null, true, new FetchEntryListener() {
+
+						@Override
+						public void setData(Entry entry) {
+							afterFecthArticleList(entry);
+						}
+					});
+		} else {
+			OperateController.getInstance(this).getTagArticles(tagInfo, "", "",
+					null, new FetchEntryListener() {
+
+						@Override
+						public void setData(Entry entry) {
+							afterFecthArticleList(entry);
+						}
+					});
+		}
+	}
+
+	public void afterFecthArticleList(Entry entry) {
+		if (entry instanceof TagArticleList) {
+			checkShouldInsertSubscribe((TagArticleList) entry);
+			disProcess();
+		} else {
+			showError();
+		}
+	}
+
+	/**
+	 * 获取tag信息(tag只能是子栏目，如果是父栏目，那么必须有自己的文章列表)
+	 * 
+	 * @param tagName
+	 */
+	private void getTagInfo() {
+		OperateController.getInstance(this).getTagInfo(
+				transferArticle.getTagName(), new FetchEntryListener() {
+
+					@Override
+					public void setData(Entry entry) {
+						if (entry instanceof TagInfoList) {
+							TagInfoList list = (TagInfoList) entry;
+							if (ParseUtil.listNotNull(list.getList())) {
+								getTagArticleList(list.getList().get(0), false);
+							} else {
+								showError();
+							}
+						} else {
+							showError();
+						}
+					}
+				});
+	}
+
+	/**
+	 * 获取解压的zip数据存放的目录名
+	 */
+	public String getLocalArticlesFolder() {
+		return transferArticle.getFloderName();
+	}
+
+	/**
+	 * 获取文章
+	 * 
+	 * @param articleId
+	 */
+	private void getArticle(int articleId) {
+		showLoading();
+		OperateController.getInstance(this).getArticleDetails(articleId,
+				new FetchEntryListener() {
+
+					@Override
+					public void setData(Entry entry) {
+						if (entry instanceof TagArticleList) {
+							TagArticleList tagArticleList = (TagArticleList) entry;
+							if (ParseUtil.listNotNull(tagArticleList
+									.getArticleList())) {
+								// 把这个文章添在列表末尾
+								ArticleItem item = tagArticleList
+										.getArticleList().get(0);
+								list.addAll(checkMultiplePage(item));
+								buildCycleList(true, list.size()
+										- item.getPageUrlList().size(),
+										list.size());
+							}
+							disProcess();
+						} else {
+							showError();
+						}
+					}
+				});
+	}
+
+	/**
+	 * 判断是否需要插入订阅文章
+	 * 
+	 * @param dArticleList
+	 */
+	protected void checkShouldInsertSubscribe(TagArticleList dArticleList) {
+	}
+
+	/**
+	 * 如果是从收藏页跳转过来的，显示收藏的列表文章
+	 */
+	private void getFavList() {
+		disProcess();
+		list = db.getUserFav(transferArticle.getUid());
+		getPosition(true);
+	}
+
 	private void initViewpager() {
-		db = FavDb.getInstance(this);
+		db = NewFavDb.getInstance(this);
 		readDb = ReadDb.getInstance(this);
 		lastClickTime = System.currentTimeMillis() / 1000;
 		viewPager.setOnPageChangeListener(new OnPageChangeListener() {
@@ -209,16 +324,18 @@ public abstract class CommonArticleActivity extends BaseActivity implements
 						viewPager.setCurrentItem(1, false);// 其实是第一个view
 					}
 				}
-				FavoriteItem item = list.get(position);
+				ArticleItem item = list.get(position);
 				int type = item.getProperty().getType();
 				hideFont(type == 2);
 				hideIfAdv(item.isAdv());
 				changeFav(position);
-				currentUrl = item.getLink();
-				if (loadOkUrl.contains(currentUrl)) {
-					readDb.addReadArticle(item.getId());
-					LogHelper.logAndroidShowArticle(mContext, item.getCatid()
-							+ "", item.getId() + "");
+				changedNavBar(position);
+				currArticleId = item.getArticleId();
+				if (loadOkIds.contains(currArticleId)) {
+					readDb.addReadArticle(item.getArticleId());
+					LogHelper.logAndroidShowArticle(mContext,
+							transferArticle.getTagName(), item.getArticleId()
+									+ "");
 				}
 			}
 
@@ -239,8 +356,8 @@ public abstract class CommonArticleActivity extends BaseActivity implements
 		});
 	}
 
-	public void addLoadOkUrl(String url) {
-		loadOkUrl.add(url);
+	public void addLoadOkIds(int articleId) {
+		loadOkIds.add(articleId);
 	}
 
 	/**
@@ -248,122 +365,14 @@ public abstract class CommonArticleActivity extends BaseActivity implements
 	 */
 	private void initDataFromBundle() {
 		if (getIntent() != null && getIntent().getExtras() != null) {
-			mBundle = (TransferArticle) getIntent().getSerializableExtra(
+			transferArticle = (TransferArticle) getIntent().getExtras().get(
 					GenericConstant.TRANSFE_RARTICLE);
-			issue = CommonApplication.issue;
-		}
-	}
-
-	/**
-	 * 如果是从收藏页跳转过来的，显示收藏的列表文章
-	 */
-	private void getFavList() {
-		disProcess();
-		list = db.getUserFav(mBundle.getUid(), true);
-		getPosition(list, true);
-	}
-
-	/**
-	 * 获取往期信息及文章列表
-	 */
-	private void getPreIssue() {
-		showLoading();
-		MainProcessPreIssue preIssue = new MainProcessPreIssue(mContext, null);
-		preIssue.getPreIssue(CommonApplication.currentIssueId,
-				new FetchPreviousIssueCallBack() {
-
-					@Override
-					public void onSuccess(Issue resultIssue) {
-						CommonApplication.lastIssue = resultIssue;
-						issue = resultIssue;
-						getArticleList();
-					}
-
-					@Override
-					public void onFailed() {
-						disProcess();
-					}
-				}, PreIssusType.GO_TO_ARTICLE);
-	}
-
-	/**
-	 * 获取文章列表
-	 */
-	protected void getArticleList() {
-		showLoading();
-		controller.getArticleList(issue, mBundle.getArticleType(),
-				new FetchEntryListener() {
-
-					@Override
-					public void setData(final Entry entry) {
-						if (entry instanceof ArticleList) {
-							list = ((ArticleList) entry).getAllArticleList();
-							getPosition(list, true);
-							if (mBundle.getArticleType() != ArticleType.Last)
-								DataHelper.setArticleUpdateTime(mContext,
-										issue.getArticleUpdateTime(),
-										issue.getId());
-							disProcess();
-						} else {
-							showError();
-						}
-					}
-				});
-	}
-
-	/**
-	 * 获取独立栏目文章列表
-	 * 
-	 * @param catId
-	 */
-	protected void getSoloArticleList(int catId, int articleId) {
-	}
-
-	private void getArticleById() {
-		if (issue == null)
-			return;
-		showLoading();
-		FavoriteItem item = new FavoriteItem();
-		item.setId(mBundle.getArtcleId());
-		item.setCatid(mBundle.getCatId());
-		item.setIssueid(issue.getId());
-		item.setUpdateTime(issue.getArticleUpdateTime() + "");
-		controller.getArticleById(item, new FetchEntryListener() {
-
-			@Override
-			public void setData(final Entry entry) {
-				afterGetArticleById(entry);
-			}
-		});
-	}
-
-	protected void getSoloArticleById(Issue issue, String catId,
-			String articleId) {
-	}
-
-	protected void afterGetArticleById(Entry entry) {
-		if (entry instanceof Atlas) {
-			Atlas atlas = (Atlas) entry;
-			// 把这个文章添在列表末尾
-			list.add(atlas);
-			List<FavoriteItem> newList1 = new ArrayList<FavoriteItem>();
-			newList1.add(atlas);
-			newList1.addAll(list);
-			newList1.add(list.get(0));
-			list.clear();
-			list.addAll(newList1);
-			newList1 = null;
-			setDataForAdapter(list, list.size() - 2, false);
-			checkHidden();
-			disProcess();
-		} else {
-			showError();
 		}
 	}
 
 	private void checkHidden() {
 		for (int i = 0; i < list.size(); i++) {
-			if (list.get(i).getId() == mBundle.getArtcleId()) {
+			if (list.get(i).getArticleId() == transferArticle.getArtcleId()) {
 				// 当前文章为需要隐藏的文章
 				if (list.get(i).getProperty().getScrollHidden() == 1) {
 					needDeleteHidden = i;
@@ -374,13 +383,39 @@ public abstract class CommonArticleActivity extends BaseActivity implements
 	}
 
 	/**
+	 * 判断是否有多个page
+	 * 
+	 * @param detail
+	 * @return
+	 */
+	private List<ArticleItem> checkMultiplePage(ArticleItem detail) {
+		List<ArticleItem> _list = new ArrayList<ArticleItem>();
+		if (detail.getPageUrlList().size() > 1
+				&& detail.getProperty().getType() == 1) {
+			// pagelist多页
+			ArticleItem _temp = new ArticleItem();
+			_temp.getPageUrlList().clear();
+			_temp.getPageUrlList().addAll(detail.getPageUrlList());
+			for (PhonePageList pageList : _temp.getPageUrlList()) {
+				ArticleItem item = detail.copy();
+				item.getPageUrlList().clear();
+				item.getPageUrlList().add(pageList);
+				_list.add(item);
+			}
+		} else {
+			_list.add(detail);
+		}
+		return _list;
+	}
+
+	/**
 	 * 获取当前文章所在索引
 	 * 
 	 * @param changeList
 	 *            是否需要更改list(如果是从别的页面进来的，需要添加头尾；如果是改变整体的字体，那么不需要)
 	 * @return
 	 */
-	protected void getPosition(List<FavoriteItem> list, boolean changeList) {
+	protected void getPosition(boolean changeList) {
 		if (!ParseUtil.listNotNull(list)) {
 			return;
 		}
@@ -391,14 +426,14 @@ public abstract class CommonArticleActivity extends BaseActivity implements
 			return;
 		}
 
-		// 去掉滑动时需要隐藏的文章
-		List<FavoriteItem> newList = new ArrayList<FavoriteItem>();
+		List<ArticleItem> newList = new ArrayList<ArticleItem>();
 		for (int i = 0; i < length; i++) {
-			FavoriteItem detail = list.get(i);
-			if (detail.getProperty().getScrollHidden() == 0
-					|| detail.getId() == mBundle.getArtcleId()) {
-				newList.add(detail);
-			}
+			ArticleItem detail = list.get(i);
+			// 去掉滑动时需要隐藏的文章
+			if (detail.getProperty().getScrollHidden() == 1
+					&& detail.getArticleId() != transferArticle.getArtcleId())
+				continue;
+			newList.addAll(checkMultiplePage(detail));
 		}
 		list.clear();
 		list.addAll(newList);
@@ -406,34 +441,46 @@ public abstract class CommonArticleActivity extends BaseActivity implements
 		// ------------
 
 		int pos = -1;
-		if (mBundle.getArtcleId() == -1) {
+		if (transferArticle.getArtcleId() == -1) {
 			pos = 0;
 		} else {
 			length = list.size();
 			for (int i = 0; i < length; i++) {
-				if (list.get(i).getId() == mBundle.getArtcleId()) {
+				if (transferArticle.getAdvId() > 0) {
+					// TODO 跳转至某个广告
+					if (list.get(i).getAdvId() == transferArticle.getAdvId()) {
+						pos = i;
+						break;
+					}
+				} else if (list.get(i).getArticleId() == transferArticle
+						.getArtcleId()) {
 					pos = i;
 					break;
 				}
 			}
-
-			if (pos == -1) {// 运营配错了
-				if (mBundle.getArticleType() == ArticleType.Default)
-					getArticleById();
-				else
-					getSoloArticleById(issue, mBundle.getCatId() + "",
-							mBundle.getArtcleId() + "");
-				return;
-			}
 		}
 
-		/**
-		 * 创建一个新的list,循环滑动：头部添加一个和原尾部相同的view，尾部添加一个和原头部相同的view
-		 * 当滑动到第一个的时候，其实显示的是本来的最后一个view，这时把显示位置移到最后第二个，即本来的最后一个view
-		 * 同理，当滑到最后一个的时候，其实现实的是本来的第一个view，这时把位置移到第一个，即本来的第一个view
-		 */
+		if (pos == -1 && !singleArticle) {
+			// TODO 找不到这篇文章
+			singleArticle = true;
+			getArticle(transferArticle.getArtcleId());
+			return;
+		}
+
+		pos = pos == -1 ? 0 : pos;
+		buildCycleList(changeList, pos, length);
+	}
+
+	/**
+	 * 封装成可循环的列表
+	 * 
+	 * @param changeList
+	 * @param pos
+	 * @param defaultLength
+	 */
+	private void buildCycleList(boolean changeList, int pos, int defaultLength) {
 		if (changeList && list.size() != 1) {
-			List<FavoriteItem> newList1 = new ArrayList<FavoriteItem>();
+			List<ArticleItem> newList1 = new ArrayList<ArticleItem>();
 			newList1.add(list.get(list.size() - 1));
 			newList1.addAll(list);
 			newList1.add(list.get(0));
@@ -442,7 +489,7 @@ public abstract class CommonArticleActivity extends BaseActivity implements
 			newList1 = null;
 			if (pos == 0) {
 				pos = 1;
-			} else if (pos == length - 1) {
+			} else if (pos == defaultLength - 1) {
 				pos = list.size() - 2;
 			} else {
 				pos++;
@@ -453,7 +500,7 @@ public abstract class CommonArticleActivity extends BaseActivity implements
 		setDataForAdapter(list, pos, true);
 	}
 
-	private void setDataForAdapter(List<FavoriteItem> list, int position,
+	private void setDataForAdapter(List<ArticleItem> list, int position,
 			boolean changeList) {
 		if (ParseUtil.listNotNull(list)) {
 			adapter = new ViewPageAdapter();
@@ -470,9 +517,10 @@ public abstract class CommonArticleActivity extends BaseActivity implements
 	 * @param pos
 	 */
 	protected void changeFav(int pos) {
-		FavoriteItem detail = getArticleByPosition(pos);
+		ArticleItem detail = getArticleByPosition(pos);
 		if (detail != null) {
-			if (db.containThisFav(detail.getId(), mBundle.getUid())) {
+			if (db.containThisFav(detail.getArticleId(),
+					transferArticle.getUid())) {
 				changeFavBtn(true);
 			} else {
 				changeFavBtn(false);
@@ -481,15 +529,21 @@ public abstract class CommonArticleActivity extends BaseActivity implements
 	}
 
 	/**
+	 * 切换view
+	 */
+	protected void changedNavBar(int pos) {
+	}
+
+	/**
 	 * 添加收藏
 	 */
-	protected void addFav() {
+	public void addFav() {
 		if (!ParseUtil.listNotNull(list))
 			return;
 		int position = viewPager.getCurrentItem();
-		String uid = mBundle.getUid();
+		String uid = transferArticle.getUid();
 		if (list.size() > position) {
-			FavoriteItem fav = list.get(position);
+			ArticleItem fav = list.get(position);
 			ModernMediaTools.addFav(this, fav, uid, bindFavToUserListener);
 		}
 		changeFav(position);
@@ -498,7 +552,7 @@ public abstract class CommonArticleActivity extends BaseActivity implements
 	/**
 	 * 点击字体按钮
 	 */
-	protected void clickFont() {
+	public void clickFont() {
 		if (DataHelper.getFontSize(this) == 1) {
 			DataHelper.setFontSize(this, 2);
 		} else {
@@ -512,7 +566,7 @@ public abstract class CommonArticleActivity extends BaseActivity implements
 	 * 
 	 * @param plus
 	 */
-	protected void clickFont(boolean plus) {
+	public void clickFont(boolean plus) {
 		int now = DataHelper.getFontSize(this);
 		if (plus) {// 放大
 			if (now == 5) {
@@ -542,7 +596,7 @@ public abstract class CommonArticleActivity extends BaseActivity implements
 	 * 
 	 * @param plus
 	 */
-	protected void changeLineHeight(boolean plus) {
+	public void changeLineHeight(boolean plus) {
 		if (!ParseUtil.listNotNull(list))
 			return;
 		int now = DataHelper.getLineHeight(this);
@@ -576,19 +630,10 @@ public abstract class CommonArticleActivity extends BaseActivity implements
 		if (list.size() <= position) {
 			return;
 		}
-		FavoriteItem detail = list.get(position);
-		LogHelper.logChangeArticleFontSize(this, detail.getId() + "",
-				detail.getCatid() + "");
+		ArticleItem detail = list.get(position);
+		LogHelper.logChangeArticleFontSize(this, detail.getArticleId() + "",
+				transferArticle.getTagName());
 		setDataForAdapter(list, position, false);
-	}
-
-	/**
-	 * 点击分享按钮
-	 */
-	protected void showShare() {
-		int position = viewPager.getCurrentItem();
-		FavoriteItem item = getArticleByPosition(position);
-		ModernMediaTools.shareFavoriteItem(this, item, issue);
 	}
 
 	/**
@@ -598,7 +643,7 @@ public abstract class CommonArticleActivity extends BaseActivity implements
 		int pos = -1;
 		int length = list.size();
 		for (int i = 0; i < length; i++) {
-			if (list.get(i).getId() == id) {
+			if (list.get(i).getArticleId() == id) {
 				pos = i;
 				break;
 			}
@@ -616,7 +661,7 @@ public abstract class CommonArticleActivity extends BaseActivity implements
 		int pos = -1;
 		int length = list.size();
 		for (int i = 0; i < length; i++) {
-			if (list.get(i).getId() == id) {
+			if (list.get(i).getAdvId() == id) {
 				pos = i;
 				break;
 			}
@@ -624,21 +669,6 @@ public abstract class CommonArticleActivity extends BaseActivity implements
 		if (pos != -1) {
 			changeFav(pos);
 			viewPager.setCurrentItem(pos, false);
-		}
-	}
-
-	@Override
-	public void onClick(View v) {
-		int id = v.getId();
-		if (id == R.id.default_article_back_btn) {
-			if (checkTime())
-				finishAndAnim();
-		} else if (id == R.id.default_article_fav_btn) {
-			addFav();
-		} else if (id == R.id.default_article_font_btn) {
-			clickFont();
-		} else if (id == R.id.default_article_share_btn) {
-			showShare();
 		}
 	}
 
@@ -650,16 +680,18 @@ public abstract class CommonArticleActivity extends BaseActivity implements
 	protected void checkLogin(ArticleItem item, Class<?> loginCls) {
 		Intent intent = new Intent(Intent.ACTION_SEND);
 		intent.setClass(this, loginCls);
-		intent.putExtra(Intent.EXTRA_TEXT, item.getDesc());
+		// 将articleid作为添加到发送的数据中
+		String prefix = "{:" + item.getArticleId() + ":}";
+		intent.putExtra(Intent.EXTRA_TEXT, prefix + item.getDesc());
 		startActivity(intent);
 		overridePendingTransition(R.anim.activity_open_enter,
 				R.anim.activity_open_exit);
 	}
 
 	private class ViewPageAdapter extends PagerAdapter {
-		private List<FavoriteItem> list = new ArrayList<FavoriteItem>();
+		private List<ArticleItem> list = new ArrayList<ArticleItem>();
 
-		public void setData(List<FavoriteItem> list) {
+		public void setData(List<ArticleItem> list) {
 			this.list = list;
 			notifyDataSetChanged();
 		}
@@ -688,7 +720,7 @@ public abstract class CommonArticleActivity extends BaseActivity implements
 
 		@Override
 		public Object instantiateItem(ViewGroup container, int position) {
-			FavoriteItem detail = list.get(position);
+			ArticleItem detail = list.get(position);
 			View view = fetchView(detail);
 			view.setTag(detail.getProperty().getScrollHidden());
 			container.addView(view);
@@ -703,10 +735,12 @@ public abstract class CommonArticleActivity extends BaseActivity implements
 				Object object) {
 			if (object instanceof CommonAtlasView) {
 				viewPager.setPager(getAtlasViewPager(object));
+				currView = (View) object;
 			} else if (object instanceof ArticleDetailItem) {
-				currentDetailItem = (ArticleDetailItem) object;
-				viewPager.setArticleDetailItem(currentDetailItem);
+				currView = (View) object;
+				viewPager.setArticleDetailItem((ArticleDetailItem) object);
 			} else {
+				currView = null;
 				viewPager.setPager(null);
 				viewPager.setArticleDetailItem(null);
 			}
@@ -742,7 +776,7 @@ public abstract class CommonArticleActivity extends BaseActivity implements
 	 * @param detail
 	 * @return
 	 */
-	protected abstract View fetchView(FavoriteItem detail);
+	protected abstract View fetchView(ArticleItem detail);
 
 	/**
 	 * 获取图集文章view
@@ -751,19 +785,19 @@ public abstract class CommonArticleActivity extends BaseActivity implements
 	 */
 	protected abstract AtlasViewPager getAtlasViewPager(Object object);
 
-	private FavoriteItem getArticleByPosition(int position) {
+	protected ArticleItem getArticleByPosition(int position) {
 		if (list != null && list.size() > position) {
 			return list.get(position);
 		}
 		return null;
 	}
 
-	protected FavoriteItem getCurrentArticleDetail() {
+	protected ArticleItem getCurrentArticleDetail() {
 		return getArticleByPosition(currentPosition);
 	}
 
-	public String getCurrentUrl() {
-		return currentUrl;
+	public int getCurrArticleId() {
+		return currArticleId;
 	}
 
 	public void setBindFavToUserListener(
@@ -771,20 +805,17 @@ public abstract class CommonArticleActivity extends BaseActivity implements
 		this.bindFavToUserListener = bindFavToUserListener;
 	}
 
-	public TransferArticle getBundle() {
-		return mBundle;
-	}
-
 	public HideTitleBarListener getHideListener() {
 		return hideListener;
 	}
 
-	public ArticleDetailItem getCurrentDetailItem() {
-		return currentDetailItem;
+	public View getCurrView() {
+		return currView;
 	}
 
 	@Override
 	public void reLoadData() {
+		singleArticle = false;
 		fetchData();
 	}
 
@@ -801,7 +832,7 @@ public abstract class CommonArticleActivity extends BaseActivity implements
 	}
 
 	protected void finishAndAnim() {
-		loadOkUrl.clear();
+		loadOkIds.clear();
 		setResult(RESULT_OK);
 		finish();
 		overridePendingTransition(R.anim.zoom_in, R.anim.right_out);
@@ -819,6 +850,15 @@ public abstract class CommonArticleActivity extends BaseActivity implements
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * 返回
+	 */
+	public void back() {
+		if (checkTime()) {
+			finishAndAnim();
+		}
 	}
 
 	@Override

@@ -1,17 +1,13 @@
 package cn.com.modernmedia;
 
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmediaslate.SlateBaseFragmentActivity;
-
-import com.flurry.android.FlurryAgent;
 
 /**
  * FragmentActivity基类
@@ -23,19 +19,16 @@ public abstract class BaseFragmentActivity extends SlateBaseFragmentActivity {
 	private RelativeLayout process_layout;
 	private ProgressBar loading;
 	private ImageView error;
-	private String flurryApiKey = "";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		flurryApiKey = ConstData.getFlurryApiKey();
 		CommonApplication app = (CommonApplication) getApplication();
-		if (CommonApplication.width == 0) {
+		if (CommonApplication.width == 0
+				|| CommonApplication.width > CommonApplication.height) {
 			app.initScreenInfo();
-		}
-		if (TextUtils.isEmpty(CommonApplication.CHANNEL)) {
-			app.initChannel();
+			app.init();
 		}
 		deleteAllFragments(getFragmentTags());
 	}
@@ -89,20 +82,6 @@ public abstract class BaseFragmentActivity extends SlateBaseFragmentActivity {
 			loading.setVisibility(View.GONE);
 			error.setVisibility(View.GONE);
 		}
-	}
-
-	@Override
-	protected void onStart() {
-		super.onStart();
-		if (this != null && !TextUtils.isEmpty(flurryApiKey))
-			FlurryAgent.onStartSession(this, flurryApiKey);
-	}
-
-	@Override
-	protected void onStop() {
-		super.onStop();
-		if (this != null && !TextUtils.isEmpty(flurryApiKey))
-			FlurryAgent.onEndSession(this);
 	}
 
 	/**

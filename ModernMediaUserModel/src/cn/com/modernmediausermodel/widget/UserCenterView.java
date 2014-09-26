@@ -11,30 +11,35 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import cn.com.modernmedia.CommonApplication;
-import cn.com.modernmedia.util.ParseUtil;
-import cn.com.modernmedia.widget.BaseView;
+import cn.com.modernmediaslate.SlateApplication;
 import cn.com.modernmediaslate.model.Entry;
+import cn.com.modernmediaslate.unit.ParseUtil;
 import cn.com.modernmediausermodel.R;
 import cn.com.modernmediausermodel.api.UserOperateController;
 import cn.com.modernmediausermodel.listener.UserFetchEntryListener;
 import cn.com.modernmediausermodel.model.Message;
 import cn.com.modernmediausermodel.model.User;
-import cn.com.modernmediausermodel.model.Users.UserCardInfo;
+import cn.com.modernmediausermodel.model.UserCardInfoList.UserCardInfo;
 import cn.com.modernmediausermodel.util.UserDataHelper;
 import cn.com.modernmediausermodel.util.UserPageTransfer;
 import cn.com.modernmediausermodel.util.UserTools;
 
-public class UserCenterView extends BaseView implements OnClickListener {
-	private ImageView avatar;
-	private ImageView msgCenter;
+/**
+ * 用户中心
+ * 
+ * @author user
+ * 
+ */
+public class UserCenterView extends RelativeLayout implements OnClickListener {
+	private ImageView avatar, messageDot;
+	private TextView msgCenter;
 	protected TextView userText, cardNumText, followNumText, fansNumText;
 	private LinearLayout cardLayout, followLayout, fansLayout;
 	private UserOperateController controller;
 	private Context mContext;
 	private User user;
-	private RelativeLayout businessPage, homePage, cardFind, msgCenterLayout,
-			myFav;
+	private RelativeLayout businessPage, homePage, cardFind, myCoin, myFav,
+			messageLayout;
 	private RelativeLayout cardInfoLayout;
 	private Button login;
 	private Message mMessage = new Message();
@@ -62,16 +67,17 @@ public class UserCenterView extends BaseView implements OnClickListener {
 		businessPage = (RelativeLayout) findViewById(R.id.user_center_layout_business_card);
 		homePage = (RelativeLayout) findViewById(R.id.user_center_layout_homepage);
 		cardFind = (RelativeLayout) findViewById(R.id.user_center_layout_find);
-		msgCenterLayout = (RelativeLayout) findViewById(R.id.user_center_layout_message_center);
+		myCoin = (RelativeLayout) findViewById(R.id.user_center_layout_my_coin);
 		myFav = (RelativeLayout) findViewById(R.id.user_center_layout_fav);
+		messageLayout = (RelativeLayout) findViewById(R.id.user_center_layout_message);
 		login = (Button) findViewById(R.id.user_center_btn_login);
 		avatar = (ImageView) findViewById(R.id.user_center_info_avatar);
-
+		messageDot = (ImageView) findViewById(R.id.user_center_message_dot);
 		userText = (TextView) findViewById(R.id.user_center_info_user_name);
 		cardNumText = (TextView) findViewById(R.id.user_center_card_number);
 		followNumText = (TextView) findViewById(R.id.user_center_follow_number);
 		fansNumText = (TextView) findViewById(R.id.user_center_fan_number);
-		msgCenter = (ImageView) findViewById(R.id.user_center_has_message);
+		msgCenter = (TextView) findViewById(R.id.user_center_message_number);
 		cardLayout = (LinearLayout) findViewById(R.id.user_center_layout_card);
 		followLayout = (LinearLayout) findViewById(R.id.user_center_layout_follow);
 		fansLayout = (LinearLayout) findViewById(R.id.user_center_layout_fans);
@@ -79,13 +85,24 @@ public class UserCenterView extends BaseView implements OnClickListener {
 		businessPage.setOnClickListener(this);
 		homePage.setOnClickListener(this);
 		cardFind.setOnClickListener(this);
-		msgCenterLayout.setOnClickListener(this);
 		myFav.setOnClickListener(this);
 		login.setOnClickListener(this);
 		avatar.setOnClickListener(this);
 		cardLayout.setOnClickListener(this);
 		followLayout.setOnClickListener(this);
 		fansLayout.setOnClickListener(this);
+		messageLayout.setOnClickListener(this);
+		myCoin.setOnClickListener(this);
+		msgCenter.setOnClickListener(this);
+
+		// 如果存在我的金币页面时，通知中心以数字形式存在
+		if (SlateApplication.mConfig.getHas_coin() == 1) {
+			messageLayout.setVisibility(View.GONE);
+			myCoin.setVisibility(View.VISIBLE);
+		} else {
+			myCoin.setVisibility(View.GONE);
+			messageLayout.setVisibility(View.VISIBLE);
+		}
 	}
 
 	/**
@@ -138,19 +155,29 @@ public class UserCenterView extends BaseView implements OnClickListener {
 
 					@Override
 					public void setData(Entry entry) {
-						if (entry != null && entry instanceof Message) {
+						if (entry instanceof Message) {
 							mMessage = (Message) entry;
 							if (ParseUtil.listNotNull(mMessage.getMessageList())) {
-								msgCenter.setVisibility(View.VISIBLE);
+								if (SlateApplication.mConfig.getHas_coin() == 1) {
+									msgCenter.setVisibility(View.VISIBLE);
+									msgCenter.setText(mMessage.getMessageList()
+											.size() + "");
+								} else {
+									messageDot.setVisibility(View.VISIBLE);
+									msgCenter.setVisibility(View.GONE);
+								}
 							} else {
 								msgCenter.setVisibility(View.GONE);
+								messageDot.setVisibility(View.GONE);
 							}
+						} else {
+							msgCenter.setVisibility(View.GONE);
+							messageDot.setVisibility(View.GONE);
 						}
 					}
 				});
 	}
 
-	@Override
 	public void reLoad() {
 		user = UserDataHelper.getUserLoginInfo(mContext);
 		if (user == null) {
@@ -172,17 +199,20 @@ public class UserCenterView extends BaseView implements OnClickListener {
 	public void onClick(View v) {
 		int id = v.getId();
 		if (id == R.id.user_center_layout_fav) { // 我的收藏,如果为登录，则显示本地收藏
-			UserPageTransfer.gotoFavoritesActivity(mContext,
-					CommonApplication.issue);
+			UserPageTransfer.gotoFavoritesActivity(mContext);
 		} else if (id == R.id.user_center_info_avatar) { // 前往用户信息页面
 			UserPageTransfer.gotoUserInfoActivity(mContext, 0, null, 0);
 		} else if (id == R.id.user_center_btn_login) {// 点击登录按钮
-			UserPageTransfer.gotoLoginActivity(mContext, 0);
+			UserPageTransfer.gotoLoginActivity(mContext,
+					UserPageTransfer.GOTO_HOME_PAGE);
 		} else if (id == R.id.user_center_layout_homepage
 				|| id == R.id.user_center_layout_business_card) { // 我的首页
 			UserPageTransfer.gotoMyHomePageActivity(mContext, false);
-		} else if (id == R.id.user_center_layout_message_center) {// 通知中心
+		} else if (id == R.id.user_center_message_number
+				|| id == R.id.user_center_layout_message) { // 通知中心
 			UserPageTransfer.gotoMessageActivity(mContext, mMessage, false);
+		} else if (id == R.id.user_center_layout_my_coin) { // 我的金币
+			UserPageTransfer.gotoMyCoinActivity(mContext, false, false);
 		} else if (id == R.id.user_center_layout_card) { // 前往笔记页面
 			UserPageTransfer.gotoUserCardInfoActivity(mContext, user, false);
 		} else if (id == R.id.user_center_layout_follow) { // 前往关注界面
@@ -205,7 +235,7 @@ public class UserCenterView extends BaseView implements OnClickListener {
 				.setTextColor(color);
 		((TextView) findViewById(R.id.user_center_text_my_homepage))
 				.setTextColor(color);
-		((TextView) findViewById(R.id.user_center_text_message_center))
+		((TextView) findViewById(R.id.user_center_text_my_coin))
 				.setTextColor(color);
 		((TextView) findViewById(R.id.user_center_text_find))
 				.setTextColor(color);
@@ -215,6 +245,8 @@ public class UserCenterView extends BaseView implements OnClickListener {
 		((TextView) findViewById(R.id.user_center_follow)).setTextColor(color);
 		((TextView) findViewById(R.id.user_center_fan)).setTextColor(color);
 		((TextView) findViewById(R.id.user_center_text_setting))
+				.setTextColor(color);
+		((TextView) findViewById(R.id.user_center_text_message))
 				.setTextColor(color);
 	}
 
@@ -235,7 +267,7 @@ public class UserCenterView extends BaseView implements OnClickListener {
 	}
 
 	/**
-	 * 设置我的首页、浏览发现、通知中心icon
+	 * 设置我的首页、浏览发现、我的金币icon
 	 * 
 	 * @param picture
 	 */
@@ -246,8 +278,45 @@ public class UserCenterView extends BaseView implements OnClickListener {
 		((TextView) findViewById(R.id.user_center_text_find))
 				.setCompoundDrawablesWithIntrinsicBounds(picture, null, null,
 						null);
-		((TextView) findViewById(R.id.user_center_text_message_center))
+		((TextView) findViewById(R.id.user_center_text_my_coin))
 				.setCompoundDrawablesWithIntrinsicBounds(picture, null, null,
 						null);
+		((TextView) findViewById(R.id.user_center_text_message))
+				.setCompoundDrawablesWithIntrinsicBounds(picture, null, null,
+						null);
+	}
+
+	/**
+	 * 设置分隔线背景
+	 * 
+	 * @param drawable
+	 */
+	public void setDivider(Drawable drawable) {
+		((ImageView) findViewById(R.id.user_center_divider1))
+				.setImageDrawable(drawable);
+		((ImageView) findViewById(R.id.user_center_divider2))
+				.setImageDrawable(drawable);
+		((ImageView) findViewById(R.id.user_center_divider3))
+				.setImageDrawable(drawable);
+		((ImageView) findViewById(R.id.user_center_divider4))
+				.setImageDrawable(drawable);
+		((ImageView) findViewById(R.id.user_center_divider5))
+				.setImageDrawable(drawable);
+		((ImageView) findViewById(R.id.user_center_divider6))
+				.setImageDrawable(drawable);
+	}
+
+	/**
+	 * 设置分隔线高度
+	 * 
+	 * @param height
+	 */
+	public void setDividerHeight(int height) {
+		findViewById(R.id.user_center_divider1).getLayoutParams().height = height;
+		findViewById(R.id.user_center_divider2).getLayoutParams().height = height;
+		findViewById(R.id.user_center_divider3).getLayoutParams().height = height;
+		findViewById(R.id.user_center_divider4).getLayoutParams().height = height;
+		findViewById(R.id.user_center_divider5).getLayoutParams().height = height;
+		findViewById(R.id.user_center_divider6).getLayoutParams().height = height;
 	}
 }

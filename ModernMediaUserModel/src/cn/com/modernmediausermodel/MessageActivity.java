@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import cn.com.modernmedia.BaseActivity;
+import cn.com.modernmediaslate.SlateBaseActivity;
 import cn.com.modernmediausermodel.model.Message;
 import cn.com.modernmediausermodel.widget.MessageView;
 
@@ -14,7 +14,7 @@ import cn.com.modernmediausermodel.widget.MessageView;
  * @author user
  * 
  */
-public class MessageActivity extends BaseActivity {
+public class MessageActivity extends SlateBaseActivity {
 	private Message mMessage;
 	private MessageView messageView;
 
@@ -45,10 +45,6 @@ public class MessageActivity extends BaseActivity {
 				finish();
 			}
 		});
-	}
-
-	@Override
-	public void reLoadData() {
 	}
 
 	@Override

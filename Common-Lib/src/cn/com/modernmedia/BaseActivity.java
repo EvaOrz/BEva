@@ -1,16 +1,12 @@
 package cn.com.modernmedia;
 
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmediaslate.SlateBaseActivity;
-
-import com.flurry.android.FlurryAgent;
 
 /**
  * 所有activity的父类
@@ -22,18 +18,15 @@ public abstract class BaseActivity extends SlateBaseActivity {
 	private RelativeLayout process_layout;
 	private ProgressBar loading;
 	private ImageView error;
-	private String flurryApiKey = "";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		flurryApiKey = ConstData.getFlurryApiKey();
 		CommonApplication app = (CommonApplication) getApplication();
-		if (CommonApplication.width == 0) {
+		if (CommonApplication.width == 0
+				|| CommonApplication.width > CommonApplication.height) {
 			app.initScreenInfo();
-		}
-		if (TextUtils.isEmpty(CommonApplication.CHANNEL)) {
-			app.initChannel();
+			app.init();
 		}
 	}
 
@@ -92,20 +85,6 @@ public abstract class BaseActivity extends SlateBaseActivity {
 		process_layout.setVisibility(View.GONE);
 		loading.setVisibility(View.GONE);
 		error.setVisibility(View.GONE);
-	}
-
-	@Override
-	protected void onStart() {
-		super.onStart();
-		if (this != null && !TextUtils.isEmpty(flurryApiKey))
-			FlurryAgent.onStartSession(this, flurryApiKey);
-	}
-
-	@Override
-	protected void onStop() {
-		super.onStop();
-		if (this != null && !TextUtils.isEmpty(flurryApiKey))
-			FlurryAgent.onEndSession(this);
 	}
 
 	/**

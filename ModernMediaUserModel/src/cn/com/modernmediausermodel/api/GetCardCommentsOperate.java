@@ -12,9 +12,9 @@ import cn.com.modernmediausermodel.model.Card.CardItem;
 import cn.com.modernmediausermodel.model.MultiComment;
 import cn.com.modernmediausermodel.model.MultiComment.Comment;
 import cn.com.modernmediausermodel.model.MultiComment.CommentItem;
+import cn.com.modernmediausermodel.model.User;
 
 public class GetCardCommentsOperate extends SlateBaseOperate {
-
 	private ArrayList<CardItem> cardItemList;
 	private MultiComment comments;
 	private int commentId;
@@ -66,6 +66,11 @@ public class GetCardCommentsOperate extends SlateBaseOperate {
 				}
 			}
 		}
+		// 解析user
+		JSONObject userObject = jsonObject.optJSONObject("userList");
+		if (!isNull(userObject)) {
+			parseUsers(userObject);
+		}
 	}
 
 	@Override
@@ -81,7 +86,7 @@ public class GetCardCommentsOperate extends SlateBaseOperate {
 	@Override
 	protected void fetchLocalDataInBadNet(FetchDataListener mFetchDataListener) {
 		SlatePrintHelper.print("net error:" + getUrl());
-		mFetchDataListener.fetchData(false, null);
+		mFetchDataListener.fetchData(false, null, false);
 	}
 
 	private Comment parseComment(JSONObject jsonObject) {
@@ -112,4 +117,19 @@ public class GetCardCommentsOperate extends SlateBaseOperate {
 		return comment;
 	}
 
+	private void parseUsers(JSONObject userObject) {
+		JSONArray userArray = userObject.optJSONArray("user");
+		if (!isNull(userArray)) {
+			int size = userArray.length();
+			for (int j = 0; j < size; j++) {
+				JSONObject object = userArray.optJSONObject(j);
+				User user = new User();
+				String uid = object.optString("uid", "");
+				user.setUid(uid);
+				user.setNickName(object.optString("nickname", ""));
+				user.setAvatar(object.optString("avatar", ""));
+				comments.getUserInfoMap().put(uid, user);
+			}
+		}
+	}
 }

@@ -3,6 +3,7 @@ package cn.com.modernmediausermodel;
 import java.util.Calendar;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,39 +13,50 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import cn.com.modernmedia.BaseActivity;
 import cn.com.modernmedia.util.sina.SinaAPI;
 import cn.com.modernmedia.util.sina.SinaAuth;
 import cn.com.modernmedia.util.sina.SinaRequestListener;
 import cn.com.modernmedia.util.sina.UserModelAuthListener;
+import cn.com.modernmediaslate.SlateApplication;
+import cn.com.modernmediaslate.SlateBaseActivity;
 import cn.com.modernmediaslate.model.Entry;
+import cn.com.modernmediaslate.model.ErrorMsg;
+import cn.com.modernmediaslate.unit.ParseUtil;
 import cn.com.modernmediausermodel.api.UserOperateController;
 import cn.com.modernmediausermodel.listener.UserFetchEntryListener;
 import cn.com.modernmediausermodel.model.Card.CardItem;
 import cn.com.modernmediausermodel.model.User;
+import cn.com.modernmediausermodel.util.UserCentManager;
 import cn.com.modernmediausermodel.util.UserConstData;
 import cn.com.modernmediausermodel.util.UserDataHelper;
 import cn.com.modernmediausermodel.util.UserTools;
 
-public class WriteNewCardActivity extends BaseActivity implements
+/**
+ * 新建笔记页
+ * 
+ * @author zhuqiao
+ * 
+ */
+public class WriteNewCardActivity extends SlateBaseActivity implements
 		OnClickListener {
 	public static final String KEY_FROM = "intent_from";
 	public static final String KEY_DATA = "share_data";
 	public static final String VALUE_SHARE = "share_data";
 
+	private Context mContext;
 	private Button cancelBtn, completeBtn;
 	private ImageView shareBtn;
 	private EditText contentEdit;
 	private boolean isShareToWeibo = false;
 	private SinaAuth weiboAuth;
 	private SinaAPI sinaAPI;
-
-	// private boolean isFromShare = false;// 是否分享进来的
+	private String articleId; // 文章摘要分享时使用
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_write_card);
+		mContext = this;
 		init();
 		initDataFromBundle(getIntent());
 		sinaAPI = SinaAPI.getInstance(this);
@@ -53,10 +65,14 @@ public class WriteNewCardActivity extends BaseActivity implements
 	private void initDataFromBundle(Intent intent) {
 		if (intent != null && intent.getExtras() != null) {
 			if (VALUE_SHARE.equals(intent.getStringExtra(KEY_FROM))) {
-				// isFromShare = true;
 				String content = intent.getStringExtra(KEY_DATA);
 				if (!TextUtils.isEmpty(content)) {
 					content = content.trim();
+					if (content.contains("{:") && content.contains(":}")
+							&& content.indexOf("{:") == 0) { // 分享内容为文章摘要
+						articleId = content.substring(2, content.indexOf(":}"));
+						content = content.replace("{:" + articleId + ":}", "");
+					}
 					contentEdit.setText(content);
 					contentEdit.setSelection(content.length());
 				}
@@ -79,27 +95,29 @@ public class WriteNewCardActivity extends BaseActivity implements
 		completeBtn.setOnClickListener(this);
 		shareBtn.setOnClickListener(this);
 		contentEdit.requestFocus();
-		weiboAuth = new SinaAuth(this);
-		User user = UserDataHelper.getUserLoginInfo(this);
-		if (user != null && !TextUtils.isEmpty(user.getSinaId())) { // 微博登录时同步微博
-			shareBtn.setImageResource(R.drawable.img_weibo_select);
-			isShareToWeibo = true;
-		}
-		weiboAuth.setAuthListener(new UserModelAuthListener() {
-
-			@Override
-			public void onCallBack(boolean isSuccess) {
-				if (isSuccess) {
-					shareBtn.setImageResource(R.drawable.img_weibo_select);
-				} else {
-					shareBtn.setImageResource(R.drawable.img_weibo_normal);
-				}
+		// 分享到微博栏，当应用不支持微博时，隐藏
+		View weiBoLayout = findViewById(R.id.write_card_weibo);
+		if (SlateApplication.mConfig.getHas_sina() != 1) {
+			weiBoLayout.setVisibility(View.GONE);
+		} else {
+			weiboAuth = new SinaAuth(this);
+			User user = UserDataHelper.getUserLoginInfo(this);
+			if (user != null && !TextUtils.isEmpty(user.getSinaId())) { // 微博登录时同步微博
+				shareBtn.setImageResource(R.drawable.img_weibo_select);
+				isShareToWeibo = true;
 			}
-		});
-	}
+			weiboAuth.setAuthListener(new UserModelAuthListener() {
 
-	@Override
-	public void reLoadData() {
+				@Override
+				public void onCallBack(boolean isSuccess) {
+					if (isSuccess) {
+						shareBtn.setImageResource(R.drawable.img_weibo_select);
+					} else {
+						shareBtn.setImageResource(R.drawable.img_weibo_normal);
+					}
+				}
+			});
+		}
 	}
 
 	@Override
@@ -143,6 +161,7 @@ public class WriteNewCardActivity extends BaseActivity implements
 		item.setAppId(UserConstData.getInitialAppId());
 		item.setTime(Calendar.getInstance().getTimeInMillis() + "");
 		item.setContents(contentEdit.getText().toString());
+		item.setArticleId(ParseUtil.stoi(articleId));
 
 		showLoadingDialog(true);
 		UserOperateController.getInstance(this).addCard(item,
@@ -151,19 +170,7 @@ public class WriteNewCardActivity extends BaseActivity implements
 					@Override
 					public void setData(Entry entry) {
 						showLoadingDialog(false);
-						if (entry instanceof User.Error) {
-							User.Error error = (User.Error) entry;
-							if (error.getNo() == 0) {
-								setResult(RESULT_OK);
-								if (isShareToWeibo) {
-									shareToWeibo();
-								}
-								finish();
-							} else {
-								showToast(getString(R.string.card_add_failed_toast));
-								finish();
-							}
-						}
+						doAfterAddCard(entry);
 					}
 				});
 	}
@@ -184,12 +191,29 @@ public class WriteNewCardActivity extends BaseActivity implements
 				});
 	}
 
+	private void doAfterAddCard(Entry entry) {
+		if (entry instanceof ErrorMsg) {
+			ErrorMsg error = (ErrorMsg) entry;
+			if (error.getNo() == 0) {
+				setResult(RESULT_OK);
+				if (isShareToWeibo) {
+					shareToWeibo();
+				}
+				if (SlateApplication.mConfig.getHas_coin() == 1)
+					UserCentManager.getInstance(mContext).addCardCoinCent();
+				showToast(R.string.card_add_success);
+				finish();
+			} else {
+				showToast(R.string.card_add_failed_toast);
+				finish();
+			}
+		}
+	}
+
 	@Override
 	public void finish() {
 		super.finish();
-		// if (!isFromShare) {
 		overridePendingTransition(R.anim.hold, R.anim.down_out);
-		// }
 	}
 
 	@Override

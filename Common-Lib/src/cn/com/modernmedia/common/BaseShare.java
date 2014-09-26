@@ -7,12 +7,15 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.NinePatchDrawable;
 import android.text.TextUtils;
 import android.widget.EditText;
 import cn.com.modernmedia.CommonApplication;
 import cn.com.modernmedia.R;
-import cn.com.modernmedia.listener.ImageDownloadStateListener;
-import cn.com.modernmedia.util.ModernMediaTools;
+import cn.com.modernmedia.model.ArticleItem;
+import cn.com.modernmediaslate.listener.ImageDownloadStateListener;
+import cn.com.modernmediaslate.unit.Tools;
 
 /**
  * app分享基类
@@ -32,7 +35,8 @@ public class BaseShare {
 	/**
 	 * 新浪微博
 	 */
-	public static final String SINA = "com.sina.weibo";
+	public static final String SINA_START = "com.sina";
+	public static final String SINA_END = "weibo";
 	/**
 	 * 微信
 	 */
@@ -60,9 +64,14 @@ public class BaseShare {
 	protected ShareTool shareTool;
 	protected ShareDialog shareDialog;
 	protected Bitmap mBitmap;
+	protected ArticleItem item;
 
-	public BaseShare(Context context, ShareDialog shareDialog) {
+	public BaseShare(Context context, ArticleItem articleItem,
+			ShareDialog shareDialog) {
 		mContext = context;
+		if (articleItem == null)
+			articleItem = new ArticleItem();
+		item = articleItem;
 		this.shareDialog = shareDialog;
 		shareTool = new ShareTool(mContext);
 	}
@@ -76,11 +85,11 @@ public class BaseShare {
 	 */
 	protected void prepareShareAfterFetchBitmap(String url) {
 		if (TextUtils.isEmpty(url)) {
-			mBitmap = null;
+			mBitmap = getAppIcon();
 			afterFetchBitmap();
 			return;
 		}
-		ModernMediaTools.showLoading(mContext, true);
+		Tools.showLoading(mContext, true);
 		CommonApplication.finalBitmap.display(url,
 				new ImageDownloadStateListener() {
 
@@ -89,17 +98,27 @@ public class BaseShare {
 					}
 
 					@Override
-					public void loadOk(Bitmap bitmap) {
+					public void loadOk(Bitmap bitmap, NinePatchDrawable drawable) {
 						mBitmap = bitmap;
 						afterFetchBitmap();
 					}
 
 					@Override
 					public void loadError() {
-						mBitmap = null;
+						mBitmap = getAppIcon();
 						afterFetchBitmap();
 					}
 				});
+	}
+
+	/**
+	 * 获取app icon
+	 * 
+	 * @return
+	 */
+	private Bitmap getAppIcon() {
+		return BitmapFactory.decodeResource(mContext.getResources(),
+				R.drawable.icon);
 	}
 
 	protected void afterFetchBitmap() {
@@ -109,12 +128,28 @@ public class BaseShare {
 	 * 微信好友分享
 	 */
 	public void shareByFriend() {
+		if (CommonApplication.mConfig.getHas_weixin() != 1) {
+			shareTool.shareToFriend(item.getDesc());
+		} else {
+			checkIfShreByWeixin();
+			WeixinShare.getInstance(mContext).shareImageAndTextToWeixin(
+					item.getTitle(), item.getDesc(), item.getWeburl(), mBitmap,
+					false);
+		}
 	}
 
 	/**
 	 * 微信朋友圈分享
 	 */
 	public void shareByFriends() {
+		if (CommonApplication.mConfig.getHas_weixin() != 1) {
+			shareTool.shareToMoments(mBitmap);
+		} else {
+			checkIfShreByWeixin();
+			WeixinShare.getInstance(mContext).shareImageAndTextToWeixin(
+					item.getTitle(), item.getDesc(), item.getWeburl(), mBitmap,
+					true);
+		}
 	}
 
 	/**
@@ -161,8 +196,7 @@ public class BaseShare {
 			public void onClick(DialogInterface dialog, int which) {
 				final String text = editText.getText().toString();
 				if (TextUtils.isEmpty(text)) {
-					ModernMediaTools
-							.showToast(mContext, R.string.enter_content);
+					Tools.showToast(mContext, R.string.enter_content);
 					return;
 				}
 				if (dialog != null)
@@ -190,7 +224,7 @@ public class BaseShare {
 		String shareType = "04";
 		if (pack.contains(MAIL) || pack.contains(GM)) {
 			shareType = "01";
-		} else if (pack.contains(SINA)) {
+		} else if (pack.contains(SINA_START) && pack.contains(SINA_END)) {
 			shareType = "02";
 		} else if (pack.equals(WEIXIN)) {
 			shareType = "03";
@@ -200,5 +234,14 @@ public class BaseShare {
 			shareType = "06";
 		}
 		return shareType;
+	}
+
+	protected void checkIfShreByWeixin() {
+		if (TextUtils.isEmpty(item.getTitle())) {
+			item.setTitle(mContext.getString(R.string.app_name));
+		}
+		if (TextUtils.isEmpty(item.getDesc())) {
+			item.setDesc(item.getTitle());
+		}
 	}
 }

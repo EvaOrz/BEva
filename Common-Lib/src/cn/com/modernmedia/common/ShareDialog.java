@@ -15,11 +15,13 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
+import cn.com.modernmedia.CommonApplication;
 import cn.com.modernmedia.R;
 import cn.com.modernmedia.adapter.ShareAdapter;
-import cn.com.modernmedia.model.Issue;
+import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.model.ShareDialogItem;
-import cn.com.modernmedia.util.ModernMediaTools;
+import cn.com.modernmediaslate.unit.ParseUtil;
+import cn.com.modernmediaslate.unit.Tools;
 
 /**
  * 分享
@@ -42,47 +44,6 @@ public abstract class ShareDialog {
 	private ShareTool tool;
 	private BaseShare baseShare;
 	private boolean hasWeixin;
-
-	// --非iweekly应用参数
-	public class Args {
-		Issue issue;
-		String columnId;
-		String articleId;
-		String url;
-
-		public Args(Issue issue, String columnId, String articleId) {
-			this.issue = issue;
-			this.columnId = columnId;
-			this.articleId = articleId;
-		}
-
-		public Args(Issue issue, String columnId, String articleId, String url) {
-			this.issue = issue;
-			this.columnId = columnId;
-			this.articleId = articleId;
-			this.url = url;
-		}
-
-	}
-
-	// --iweekly参数
-	public class WeeklyArgs {
-		String title;
-		String desc;
-		String url;
-		String webUrl;
-		int bottomResId;// 文章页截屏底部资源
-
-		public WeeklyArgs(String title, String desc, String url,
-				int bottomResId, String webUrl) {
-			this.title = title;
-			this.desc = desc;
-			this.url = url;
-			this.bottomResId = bottomResId;
-			this.webUrl = webUrl;
-		}
-
-	}
 
 	public ShareDialog(Context context) {
 		mContext = context;
@@ -133,11 +94,13 @@ public abstract class ShareDialog {
 		item.setName(mContext.getString(R.string.weixin_friends));
 		shareDialogItemList.add(item);
 		// TODO 新浪微博
-		item = new ShareDialogItem();
-		item.setId(SINA_WEIBO);
-		item.setIcon(R.drawable.weibo);
-		item.setName(mContext.getString(R.string.sina_weibo));
-		shareDialogItemList.add(item);
+		if (CommonApplication.mConfig.getHas_sina() == 1) {
+			item = new ShareDialogItem();
+			item.setId(SINA_WEIBO);
+			item.setIcon(R.drawable.weibo);
+			item.setName(mContext.getString(R.string.sina_weibo));
+			shareDialogItemList.add(item);
+		}
 		// TODO 更多
 		if (!showMore)
 			return;
@@ -149,43 +112,33 @@ public abstract class ShareDialog {
 	}
 
 	/**
-	 * 非iweekly应用开始分享(不带图片)
+	 * 非iweekly应用开始分享
 	 * 
-	 * @param issue
-	 * @param columnId
-	 * @param articleId
+	 * @param share
 	 */
-	public void startShareDefault(Issue issue, String columnId, String articleId) {
-		baseShare = new NormalShare(mContext, new Args(issue, columnId,
-				articleId), this);
-		baseShare.prepareShareAfterFetchBitmap("");
-	}
-
-	/**
-	 * 非iweekly应用开始分享(带图片)
-	 * 
-	 * @param issue
-	 * @param columnId
-	 * @param articleId
-	 */
-	public void startShareDefault(Issue issue, String columnId,
-			String articleId, String url) {
-		baseShare = new NormalShare(mContext, new Args(issue, columnId,
-				articleId, url), this);
-		baseShare.prepareShareAfterFetchBitmap(url);
+	public void startShareDefault(ArticleItem item) {
+		baseShare = new NormalShare(mContext, item, this);
+		prepareShare(item);
 	}
 
 	/**
 	 * iweekly应用开始分享
 	 * 
-	 * @param title
-	 * @param desc
-	 * @param url
+	 * @param share
 	 */
-	public void startShareWeekly(String title, String desc, String url,
-			int bottomResId, String webUrl) {
-		baseShare = new WeeklyShare(mContext, new WeeklyArgs(title, desc, url,
-				bottomResId, webUrl), this);
+	public void startShareWeekly(ArticleItem item) {
+		baseShare = new WeeklyShare(mContext, item, this);
+		prepareShare(item);
+	}
+
+	private void prepareShare(ArticleItem item) {
+		String url = "";
+		if (ParseUtil.listNotNull(item.getPicList())) {
+			url = item.getPicList().get(0);
+		} else if (ParseUtil.listNotNull(item.getThumbList())
+				&& item.getThumbList().get(0) != null) {
+			url = item.getThumbList().get(0).getUrl();
+		}
 		baseShare.prepareShareAfterFetchBitmap(url);
 	}
 
@@ -223,12 +176,20 @@ public abstract class ShareDialog {
 		if (!packList.contains(pack)) {
 			Intent targeted = new Intent(action);
 			targeted.setPackage(pack);
-			if (pack.contains(BaseShare.SINA)
+			if ((CommonApplication.mConfig.getHas_sina() == 1
+					&& pack.contains(BaseShare.SINA_START) && pack
+						.contains(BaseShare.SINA_END))
 					|| pack.contains(BaseShare.WEIXIN)) {
 			} else {
 				ShareDialogItem item = new ShareDialogItem();
 				item.setIntent(targeted);
-				shareDialogItemList.add(item);
+				if (CommonApplication.mConfig.getHas_sina() != 1
+						&& pack.contains(BaseShare.SINA_START)
+						&& pack.contains(BaseShare.SINA_END)
+						&& shareDialogItemList.size() > 1) {
+					shareDialogItemList.add(2, item);
+				} else
+					shareDialogItemList.add(item);
 			}
 			packList.add(pack);
 		}
@@ -260,8 +221,7 @@ public abstract class ShareDialog {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		ModernMediaTools.showLoading(mContext, false);
+		Tools.showLoading(mContext, false);
 	}
 
 	/**
@@ -277,12 +237,12 @@ public abstract class ShareDialog {
 			if (hasWeixin)
 				baseShare.shareByFriend();
 			else
-				ModernMediaTools.showToast(mContext, R.string.no_weixin);
+				Tools.showToast(mContext, R.string.no_weixin);
 		} else if (item.getId() == WEIXIN_FRIENDS) {
 			if (hasWeixin)
 				baseShare.shareByFriends();
 			else
-				ModernMediaTools.showToast(mContext, R.string.no_weixin);
+				Tools.showToast(mContext, R.string.no_weixin);
 		} else if (item.getId() == SINA_WEIBO) {
 			baseShare.shareByWeibo();
 		} else if (item.getId() == MORE_ID) {

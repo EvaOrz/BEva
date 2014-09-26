@@ -2,44 +2,40 @@ package cn.com.modernmedia.views.index;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
-import android.os.Handler;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
-import android.widget.FrameLayout.LayoutParams;
 import android.widget.RelativeLayout;
-import cn.com.modernmedia.CommonApplication;
 import cn.com.modernmedia.api.OperateController;
 import cn.com.modernmedia.listener.FetchEntryListener;
-import cn.com.modernmedia.mainprocess.SoloProcessHelper;
-import cn.com.modernmedia.model.Cat;
-import cn.com.modernmedia.model.Cat.CatItem;
-import cn.com.modernmedia.model.CatIndexArticle;
-import cn.com.modernmedia.model.IndexArticle;
-import cn.com.modernmedia.model.SoloColumn.SoloColumnItem;
+import cn.com.modernmedia.model.AppValue;
+import cn.com.modernmedia.model.TagArticleList;
+import cn.com.modernmedia.model.TagInfoList;
+import cn.com.modernmedia.model.TagInfoList.TagInfo;
+import cn.com.modernmedia.newtag.db.TagInfoListDb;
 import cn.com.modernmedia.util.ConstData;
-import cn.com.modernmedia.util.DataHelper;
-import cn.com.modernmedia.util.ModernMediaTools;
-import cn.com.modernmedia.util.ParseUtil;
 import cn.com.modernmedia.views.R;
+import cn.com.modernmedia.views.ViewsApplication;
 import cn.com.modernmedia.views.adapter.IndexViewPagerAdapter;
-import cn.com.modernmedia.views.model.IndexListParm;
+import cn.com.modernmedia.views.listener.LoadCallBack;
+import cn.com.modernmedia.views.model.Template;
 import cn.com.modernmedia.views.solo.BaseChildCatHead;
-import cn.com.modernmedia.views.solo.BusChildCatHead;
-import cn.com.modernmedia.views.solo.SoloIndexView;
-import cn.com.modernmedia.views.solo.WeeklyChildCatHead;
-import cn.com.modernmedia.views.util.MyLocation;
-import cn.com.modernmedia.views.util.MyLocation.FetchLocationListener;
-import cn.com.modernmedia.views.util.ParseProperties;
-import cn.com.modernmedia.views.util.V;
-import cn.com.modernmedia.views.widget.VerticalGalleryView;
+import cn.com.modernmedia.views.solo.ChildCatHead;
+import cn.com.modernmedia.views.util.DownloadTemplate;
+import cn.com.modernmedia.views.util.DownloadTemplate.DownloadTemplateCallBack;
+import cn.com.modernmedia.views.widget.VerticalGallery;
 import cn.com.modernmedia.widget.RedProcess;
+import cn.com.modernmediaslate.SlateApplication;
 import cn.com.modernmediaslate.model.Entry;
+import cn.com.modernmediaslate.unit.ParseUtil;
 
 /**
  * 可滑动的首页view item
@@ -47,45 +43,42 @@ import cn.com.modernmediaslate.model.Entry;
  * @author user
  * 
  */
-public class IndexViewPagerItem {
-	private Context mContext;
+public class IndexViewPagerItem implements Observer {
+	protected Context mContext;
 	private RelativeLayout view;
 	private FrameLayout headFrame, frame;
-	private IndexListView indexListView;// 普通首页
-	private SoloIndexView soloIndexView;// 独立栏目
-	private VerticalGalleryView galleryView;// 图集
+	private View divider;
+	private TagIndexListView indexListView;// 普通首页
+	private VerticalGallery galleryView;// 图集
 
-	private IndexListParm parm;
-	private SoloColumnItem item;
-	private Cat cat;
-	private Handler handler = new Handler();
-	private IndexViewPagerAdapter adapter;
+	protected TagInfo tagInfo;
+	protected IndexViewPagerAdapter adapter;
 	private View layout, loading, error;
-	private SoloProcessHelper helper;
-	private boolean hasSetData;
+	protected boolean hasSetData;
+	protected TagInfoList childInfoList;
+	private BaseChildCatHead childHead;
+	private Template template;
 
-	public IndexViewPagerItem(Context context, Cat cat, SoloColumnItem item,
+	public IndexViewPagerItem(Context context, TagInfo tagInfo,
 			IndexViewPagerAdapter adapter) {
 		mContext = context;
 		this.adapter = adapter;
-		this.item = item;
-		this.cat = cat;
+		this.tagInfo = tagInfo;
 		hasSetData = false;
-		parm = ParseProperties.getInstance(mContext).parseIndexList();
 		BaseChildCatHead.selectPosition = -1;
 		init();
+		if (SlateApplication.mConfig.getNav_hide() == 1)
+			ViewsApplication.navObservable.addObserver(this);
 	}
 
+	@SuppressLint("InflateParams")
 	private void init() {
-		if ((cat == null && CommonApplication.soloColumn == null)
-				|| item == null)
+		if (tagInfo == null)
 			return;
 		view = (RelativeLayout) LayoutInflater.from(mContext).inflate(
 				R.layout.index_view_pager_item, null);
 		view.setTag(this);
-		// test 先写死，只要iweekly画报是黑色,其他都是白色背景
-		// V.setImage(view, parm.getList_bg());
-		if (parm.getProcess_type().equals(V.IWEEKLY)) {
+		if (ConstData.getAppId() == 20) {
 			layout = view.findViewById(R.id.pager_item_layout_weekly);
 			loading = view.findViewById(R.id.pager_item_loading_weekly);
 			layout.setVisibility(View.VISIBLE);
@@ -96,101 +89,227 @@ public class IndexViewPagerItem {
 		}
 		headFrame = (FrameLayout) view.findViewById(R.id.pager_item_head_frame);
 		frame = (FrameLayout) view.findViewById(R.id.pager_item_frame);
-		if (V.getSoloParentId(mContext, item) != -1) {
-			// TODO 独立栏目
-			soloIndexView = new SoloIndexView(mContext, this);
-			frame.addView(soloIndexView.fetchView());
-			soloIndexView.setIntercept(true);
-		} else {
-			if (ParseUtil.mapContainsKey(DataHelper.childMap,
-					item.getParentId())
-					&& parm.getCat_list_hold() == 1) {
-				// TODO 子栏目导航栏固定在顶部
-				BaseChildCatHead childHead = null;
-				if (parm.getCat_list_type().equals(V.BUSINESS)) {
-					childHead = new BusChildCatHead(mContext, this);
-				} else if (parm.getCat_list_type().equals(V.IWEEKLY)) {
-					childHead = new WeeklyChildCatHead(mContext, this);
-				}
-				if (childHead != null) {
-					childHead.setChildValues(item.getParentId());
-					headFrame.addView(childHead.fetchView(), new LayoutParams(
-							LayoutParams.FILL_PARENT, childHead.getHeight()));
-				}
-			}
-		}
+		divider = view.findViewById(R.id.pager_item_head_frame_divider);
 		if (error != null)
 			error.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
-					reLoad();
+					fetchData("", false, false, null, null);
 				}
 			});
 		showLoading();
 	}
 
-	public void fetchData() {
+	/**
+	 * 获取数据
+	 */
+	public void fetchData(String top, boolean isRefresh, boolean isLoadMore,
+			LoadCallBack callBack, TagArticleList tagArticleList) {
 		if (hasSetData)
 			return;
-		final int catId = V.getSoloParentId(mContext, item);
-		if (catId != -1) {
-			// TODO 独立栏目
-			getSoloIndex(catId);
+		if (tagInfo.showChildren()) {
+			getChildren();
 		} else {
-			reLoad();
+			getArticleList(tagInfo, top, isRefresh, isLoadMore, callBack,
+					tagArticleList);
 		}
 	}
 
 	/**
-	 * 获取首页
+	 * 刷新
 	 */
-	private void getIndex() {
-		if (adapter.getEntryFromMap(0) != null) {
-			setValueForIndex(adapter.getEntryFromMap(0));
+	public void refresh(LoadCallBack callBack) {
+		hasSetData = false;
+		adapter.removeEntryFromMap(getApiTagName(), true);
+		adapter.removeEntryFromMap(getApiTagName(), false);
+		fetchData("", true, false, callBack, null);
+	}
+
+	/**
+	 * 加载更多
+	 * 
+	 * @param callBack
+	 * @param top
+	 */
+	public void loadMore(LoadCallBack callBack, String top,
+			TagArticleList articleList) {
+		hasSetData = false;
+		fetchData(top, false, true, callBack, articleList);
+	}
+
+	/**
+	 * 获取指定的子栏目数据
+	 */
+	public void fecthSpecificChildData(int position) {
+		hasSetData = false;
+		if (childInfoList.getList().size() > position) {
+			getCatIndex(childInfoList.getList().get(position));
+		}
+	}
+
+	public void setHeadFrame(Template template) {
+		if (childInfoList == null
+				|| template.getCatHead().getCat_list_hold() == 0)
+			return;
+		if (childHead != null)
+			return;
+		headFrame.removeAllViews();
+		divider.setVisibility(View.GONE);
+		if (!checkShowCatHead()) {
 			return;
 		}
-		showLoading();
-		OperateController.getInstance(mContext).getIndex(
-				CommonApplication.issue, new FetchEntryListener() {
+		// TODO 子栏目导航栏固定在顶部
+		childHead = new ChildCatHead(mContext, this, template);
+		childHead.setChildValues(childInfoList, tagInfo.getTagName());
+		headFrame.addView(childHead.fetchView(), new FrameLayout.LayoutParams(
+				FrameLayout.LayoutParams.MATCH_PARENT,
+				FrameLayout.LayoutParams.WRAP_CONTENT));
+		String bg = template.getCatHead().getColor();
+		if (TextUtils.isEmpty(bg) || bg.equalsIgnoreCase("#FFFFFFFF")) {
+			divider.setVisibility(View.VISIBLE);
+		}
+	}
+
+	/**
+	 * 判断是否需要显示cathead
+	 * 
+	 * @return
+	 */
+	protected boolean checkShowCatHead() {
+		if (tagInfo.getTagLevel() == 2) {
+			TagInfo parentTag = TagInfoListDb.getInstance(mContext)
+					.getTagInfoByName(tagInfo.getParent(), "", true);
+			return parentTag.showChildren();
+		}
+		return tagInfo.showChildren();
+	}
+
+	/**
+	 * 获取子栏目
+	 */
+	protected void getChildren() {
+		childInfoList = AppValue.ensubscriptColumnList
+				.getChildHasSubscriptTagInfoList(tagInfo.getTagName());
+		if (ParseUtil.listNotNull(childInfoList.getList())) {
+			getCatIndex(childInfoList.getList().get(0));
+		}
+	}
+
+	protected void getCatIndex(TagInfo tagInfo) {
+		getArticleList(tagInfo, "", false, false, null, null);
+	}
+
+	/**
+	 * 获取api请求时的tagname
+	 * 
+	 * @return
+	 */
+	protected String getApiTagName() {
+		String tagName = tagInfo.getMergeName(true);
+		return TextUtils.isEmpty(tagName) ? tagInfo.getTagName() : tagName;
+	}
+
+	/**
+	 * 先请求文章列表(与栏目首页联动);文章列表的数据库缓存会在接口里实现
+	 * 
+	 * @param tagInfo
+	 * @param top
+	 * @param isRefresh
+	 * @param isLoadMore
+	 * @param callBack
+	 * @param tagArticleList
+	 */
+	protected void getArticleList(final TagInfo tagInfo, final String top,
+			final boolean isRefresh, final boolean isLoadMore,
+			final LoadCallBack callBack, final TagArticleList tagArticleList) {
+		final String tagName = getApiTagName();
+		if (adapter.getEntryFromMap(tagName, false) != null && !isLoadMore) {
+			getTemplate(adapter.getEntryFromMap(tagName, false), isLoadMore);
+			getCatIndex(tagInfo, top, isRefresh, isLoadMore, callBack,
+					tagArticleList);
+			return;
+		}
+		if (!isRefresh && !isLoadMore)
+			showLoading();
+		OperateController.getInstance(mContext).getTagArticles(tagInfo, top,
+				"", null, new FetchEntryListener() {
 
 					@Override
 					public void setData(Entry entry) {
-						if (entry instanceof IndexArticle) {
-							setValueForIndex(entry);
-						} else {
-							showError();
+						if (entry instanceof TagArticleList) {
+							TagArticleList articleList = (TagArticleList) entry;
+							if (ParseUtil.listNotNull(articleList
+									.getArticleList())) {
+								adapter.addArticleListToMap(tagName,
+										(TagArticleList) entry, isLoadMore,
+										false);
+								getCatIndex(tagInfo, top, isRefresh,
+										isLoadMore, callBack, tagArticleList);
+							} else {
+								if (isLoadMore && indexListView != null
+										&& indexListView.getListView() != null) {
+									indexListView.getListView().loadOk(false);
+								}
+							}
+							return;
 						}
+						if (!isRefresh && !isLoadMore)
+							showError();
 					}
 				});
 	}
 
 	/**
 	 * 获取栏目首页
+	 * 
+	 * @param isRefresh
+	 *            是否刷新
+	 * @param isLoadMore
+	 *            是否加载更多
 	 */
-	private void getCatIndex(final int catId) {
-		if ((cat == null && CommonApplication.soloColumn == null)
-				|| item == null)
-			return;
-		if (adapter.getEntryFromMap(catId) != null) {
-			setValueForIndex(adapter.getEntryFromMap(catId));
+	private void getCatIndex(TagInfo tagInfo, String top,
+			final boolean isRefresh, final boolean isLoadMore,
+			final LoadCallBack callBack, TagArticleList tagArticleList) {
+		this.tagInfo = tagInfo;
+		AppValue.currColumn = tagInfo;
+		String tagName = getApiTagName();
+		if (adapter.getEntryFromMap(tagName, true) != null && !isLoadMore) {
+			getTemplate(adapter.getEntryFromMap(tagName, true), isLoadMore);
 			return;
 		}
-		showLoading();
-		OperateController.getInstance(mContext).getCartIndex(
-				CommonApplication.issue, catId + "",
-				ModernMediaTools.getCatPosition(catId + "", cat),
-				new FetchEntryListener() {
+		OperateController.getInstance(mContext).getTagIndex(tagInfo, top, "",
+				tagArticleList, new FetchEntryListener() {
 
 					@Override
 					public void setData(Entry entry) {
-						if (entry instanceof CatIndexArticle) {
-							setValueForIndex(entry);
+						boolean success = false;
+						if (entry instanceof TagArticleList) {
+							success = true;
+							getTemplate(entry, isLoadMore);
 						} else {
-							showError();
+							if (!isRefresh && !isLoadMore)
+								showError();
 						}
+						loadCallBack(callBack, isRefresh, isLoadMore, success);
 					}
 				});
+	}
+
+	/**
+	 * 通知加载完成
+	 * 
+	 * @param callBack
+	 * @param success
+	 */
+	private void loadCallBack(LoadCallBack callBack, boolean isRefresh,
+			boolean isLoadMore, boolean success) {
+		if (callBack == null)
+			return;
+		if (isRefresh)
+			callBack.onRefreshed(success);
+		else if (isLoadMore)
+			callBack.onLoaded(success);
 	}
 
 	/**
@@ -198,179 +317,57 @@ public class IndexViewPagerItem {
 	 * 
 	 * @param entry
 	 */
-	private void setValueForIndex(Entry entry) {
-		frame.removeAllViews();
+	private void setValueForIndex(TagArticleList articleList, boolean loadMore) {
 		disProcess();
-		if (entry instanceof Entry) {
-			if (entry.getTemplate().equals("phone-gallery")) {
-				// TODO 图集
-				view.setBackgroundColor(Color.BLACK);
-				galleryView = new VerticalGalleryView(mContext, this);
-				frame.addView(galleryView.getGallery());
-				galleryView.setData(entry);
+		if (template.getList().getIs_gallery() == 1) {
+			// TODO iweekly图集
+			setHeadFrame(template);
+			frame.removeAllViews();
+			view.setBackgroundColor(Color.BLACK);
+			galleryView = new VerticalGallery(mContext);
+			frame.addView(galleryView.getView());
+			galleryView.setData(articleList, template);
+		} else {
+			// TODO 列表
+			if (indexListView != null && loadMore) {
+				indexListView.setData(articleList, childInfoList, true,
+						template);
 			} else {
-				// TODO 列表
-				int parentId = item.getParentId();
-				indexListView = new IndexListView(mContext, parentId, this);
+				frame.removeAllViews();
+				indexListView = new TagIndexListView(mContext, this);
 				frame.addView(indexListView.fetchView());
-				indexListView.setData(entry);
+				indexListView.setData(articleList, childInfoList, loadMore,
+						template);
 			}
 		}
-		if (entry instanceof IndexArticle) {
-			adapter.addEntryToMap(0, entry);
-			hasSetData = true;
-		} else if (entry instanceof CatIndexArticle) {
-			adapter.addEntryToMap(((CatIndexArticle) entry).getId(), entry);
-			hasSetData = true;
-		}
+		adapter.addArticleListToMap(getApiTagName(), articleList, loadMore,
+				true);
+		hasSetData = true;
 	}
 
 	/**
-	 * 获取独立栏目首页
+	 * 获取模板
 	 * 
-	 * @param catId
+	 * @param entry
+	 * @param loadMore
 	 */
-	private void getSoloIndex(final int catId) {
-		if (soloIndexView == null)
+	private void getTemplate(Entry entry, final boolean loadMore) {
+		if (!(entry instanceof TagArticleList))
 			return;
-		helper = new SoloProcessHelper(mContext) {
-
-			@Override
-			public void fetchSoloData(String from, String to) {
-				Entry entry = adapter.getEntryFromMap(catId);
-				if (entry instanceof CatIndexArticle) {
-					doAfterFetchData((CatIndexArticle) entry, true, false);
-					return;
-				}
-				showLoading();
-				if (from != null && !from.equals("0") && to != null
-						&& !to.equals("0")) {
-					handler.post(new Runnable() {
-
-						@Override
-						public void run() {
-							if (getArticleListFromDb()) {
-								disProcess();
-							} else {
-								showError();
-							}
-						}
-					});
-				} else {
-					getSoloArticleList(catId, false, "0", "0", true);
-				}
-			}
-
-			@Override
-			protected void doAfterFetchData(CatIndexArticle catIndex,
-					boolean fromDb, boolean newData) {
-				super.doAfterFetchData(catIndex, fromDb, newData);
-				if (catIndex instanceof CatIndexArticle) {
-					adapter.addEntryToMap(catId, catIndex);
-					hasSetData = true;
-				}
-				disProcess();
-			}
-
-			@Override
-			protected void fecthDataError(boolean fromDb, boolean newData,
-					boolean isPull) {
-				super.fecthDataError(fromDb, newData, isPull);
-				if (!isPull) {
-					showError();
-				}
-			}
-
-			@Override
-			public void showSoloChildCat(int parentId) {
-				soloIndexView.setData(parentId);
-			}
-
-		};
-		helper.showSoloChildCat(catId, false);
-	}
-
-	private void reLoad() {
-		int catId = V.getSoloParentId(mContext, item);
-		if (catId != -1) {
-			getSoloIndex(catId);
-		} else {
-			if (DataHelper.childMap.containsKey(item.getParentId())) {
-				// TODO 子栏目
-				showCatIndexView();
-			} else {
-				if (cat != null) {
-					if (item.getId() == 0) {
-						getIndex();
-					} else {
-						getCatIndex(item.getId());
-					}
-				}
-			}
-		}
-	}
-
-	/**
-	 * 显示栏目view
-	 */
-	private void showCatIndexView() {
-		if (hasSetData)
+		final TagArticleList articleList = (TagArticleList) entry;
+		if (template != null) {
+			setValueForIndex(articleList, loadMore);
 			return;
-		if (ParseUtil.mapContainsKey(DataHelper.childMap, item.getId())) {
-			final List<CatItem> list = DataHelper.childMap.get(item.getId());
-			if (ParseUtil.listNotNull(list)) {
-				int savedCatId = DataHelper.getChildId(mContext, item.getId()
-						+ "");
-				if (savedCatId != -1) {
-					boolean contain = false;
-					for (int i = 0; i < list.size(); i++) {
-						if (list.get(i).getId() == savedCatId) {
-							contain = true;
-							getChildIndex(list.get(i), i);
-							break;
-						}
-					}
-					if (!contain)
-						getChildIndex(list.get(0), 0);
-				} else if (item.getId() == 195 && ConstData.getAppId() == 20) {
-					MyLocation location = new MyLocation(mContext);
-					location.setmListener(new FetchLocationListener() {
-
-						@Override
-						public void fetchCoordinate(double longitude,
-								double latitude) {
-						}
-
-						@Override
-						public void fetchAddress(String address) {
-							boolean contain = false;
-							if (!TextUtils.isEmpty(address)) {
-								for (int i = 0; i < list.size(); i++) {
-									CatItem cat = list.get(0);
-									if (address.contains(cat.getTagname())) {
-										contain = true;
-										getChildIndex(cat, i);
-										break;
-									}
-								}
-							}
-							if (!contain)
-								getChildIndex(list.get(0), 0);
-						}
-					});
-					location.startGetLocation();
-				} else {
-					getChildIndex(list.get(0), 0);
-				}
-			}
-		} else {
-			getCatIndex(item.getId());
 		}
-	}
+		new DownloadTemplate(mContext, articleList,
+				new DownloadTemplateCallBack() {
 
-	private void getChildIndex(CatItem catItem, int selectPosition) {
-		getCatIndex(catItem.getId());
-		DataHelper.setChildId(mContext, catItem.getParentId(), catItem.getId());
+					@Override
+					public void afterDownload(Template _template) {
+						template = _template;
+						setValueForIndex(articleList, loadMore);
+					}
+				}).getTemplate();
 	}
 
 	public List<View> getHeadView() {
@@ -378,12 +375,8 @@ public class IndexViewPagerItem {
 		list.add(headFrame);
 		if (indexListView != null) {
 			list.addAll(indexListView.getSelfScrollViews());
-		} else if (soloIndexView != null
-				&& soloIndexView.getCurrentCatItem() != null) {
-			// TODO 还需要在自己的viewpager里给外部的首页pager赋值
-			list.addAll(soloIndexView.getCurrentCatItem().getSelfScrollViews());
 		} else if (galleryView != null) {
-			list.add(galleryView.getGallery());
+			list.add(galleryView.getViewPager());
 		}
 		return list;
 	}
@@ -423,20 +416,27 @@ public class IndexViewPagerItem {
 			error.setVisibility(View.GONE);
 	}
 
-	public SoloProcessHelper getHelper() {
-		return helper;
+	public TagInfo getTagInfo() {
+		return tagInfo;
 	}
 
 	public void destory() {
 		hasSetData = false;
+		if (SlateApplication.mConfig.getNav_hide() == 1)
+			ViewsApplication.navObservable.deleteObserver(this);
 	}
 
 	public View fetchView() {
 		return view;
 	}
 
-	public void setHasSetData(boolean hasSetData) {
-		this.hasSetData = hasSetData;
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		if (indexListView != null) {
+			indexListView.setSelection(-1);
+		} else if (galleryView != null) {
+			galleryView.setSelection(IndexView.height);
+		}
 	}
 
 }

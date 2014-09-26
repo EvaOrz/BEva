@@ -2,26 +2,25 @@ package cn.com.modernmedia;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnKeyListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Toast;
 import cn.com.modernmedia.listener.NotifyAdapterListener;
-import cn.com.modernmedia.mainprocess.MainProcessManage;
+import cn.com.modernmedia.model.TagArticleList;
+import cn.com.modernmedia.model.TagInfoList;
+import cn.com.modernmedia.newtag.mainprocess.MainProcessObservable;
+import cn.com.modernmedia.newtag.mainprocess.MainProcessObservable.ObserverItem;
+import cn.com.modernmedia.newtag.mainprocess.TagProcessManage;
 import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmedia.util.PageTransfer;
-import cn.com.modernmedia.util.PageTransfer.TransferArticle;
 import cn.com.modernmedia.widget.BaseView;
 import cn.com.modernmedia.widget.MainHorizontalScrollView;
-import cn.com.modernmediaslate.model.Entry;
-import cn.com.modernmediaslate.model.Favorite.FavoriteItem;
+import cn.com.modernmediaslate.SlateApplication;
 
 import com.parse.ParseAnalytics;
 
@@ -31,70 +30,36 @@ import com.parse.ParseAnalytics;
  * @author ZhuQiao
  * 
  */
-public abstract class CommonMainActivity extends BaseFragmentActivity {
+public abstract class CommonMainActivity extends BaseFragmentActivity implements
+		Observer {
 	private long lastClickTime = 0;
 	protected int pushArticleId = -1;
 	protected MainHorizontalScrollView scrollView;
 	private List<NotifyAdapterListener> listenerList = new ArrayList<NotifyAdapterListener>();
+	private TagProcessManage manage;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		CommonApplication.mainProcessObservable.addObserver(this,
+				getActivityName());
 		init();
-		initParse();
+		startMainProcess(getIntent(), true);
 	}
 
-	protected void initParse() {
-		ParseAnalytics.trackAppOpened(getIntent());
-		CommonApplication.manage = new MainProcessManage(this);
-		CommonApplication.manage.checkIntent(getIntent());
+	protected void startMainProcess(Intent intent, boolean track) {
+		if (track)
+			ParseAnalytics.trackAppOpened(intent);
+		if (intent == null)
+			return;
+		manage = new TagProcessManage(this);
+		manage.checkIntent(intent);
 	}
 
 	@Override
 	protected void onNewIntent(Intent intent) {
 		super.onNewIntent(intent);
-		if (intent.getExtras() != null) {
-			if (CommonApplication.manage == null)
-				CommonApplication.manage = new MainProcessManage(this);
-			CommonApplication.manage.parsePush(intent);
-		}
-	}
-
-	@Override
-	protected Dialog onCreateDialog(final int id) {
-		Builder builder = new Builder(this);
-		builder.setMessage(R.string.new_issue);
-		builder.setPositiveButton(R.string.vew_later,
-				new DialogInterface.OnClickListener() {
-
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						// 稍后查看
-						CommonApplication.manage.getProcess().viewLater(id);
-					}
-				}).setNegativeButton(R.string.view_now,
-				new DialogInterface.OnClickListener() {
-
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						CommonApplication.manage.getProcess().viewNow(id);
-					}
-				});
-		AlertDialog dialog = builder.create();
-		dialog.setOnKeyListener(new OnKeyListener() {
-
-			@Override
-			public boolean onKey(DialogInterface dialog, int keyCode,
-					KeyEvent event) {
-				if (keyCode == KeyEvent.KEYCODE_BACK) {
-					CommonApplication.manage.getProcess().viewLater(id);
-					dialog.cancel();
-					return true;
-				}
-				return false;
-			}
-		});
-		return dialog;
+		startMainProcess(intent, false);
 	}
 
 	/**
@@ -102,55 +67,69 @@ public abstract class CommonMainActivity extends BaseFragmentActivity {
 	 */
 	protected abstract void init();
 
+	@Override
+	public void update(Observable observable, Object data) {
+		if (!(data instanceof ObserverItem))
+			return;
+		ObserverItem item = (ObserverItem) data;
+		switch (item.flag) {
+		case MainProcessObservable.SET_DATA_TO_COLUMN:
+			setDataForColumn();
+			break;
+		case MainProcessObservable.SET_DATA_TO_INDEX:
+			if (item.entry instanceof TagArticleList)
+				setDataForIndex((TagArticleList) item.entry);
+			break;
+		case MainProcessObservable.SHOW_CHILD_CAT:
+			if (item.entry instanceof TagInfoList) {
+				showChildCat((TagInfoList) item.entry);
+			}
+			break;
+		case MainProcessObservable.SHOW_INDEX_PAGER:
+			showIndexPager();
+			break;
+		default:
+			break;
+		}
+	}
+
 	/**
 	 * 初始化栏目列表
-	 * 
-	 * @param entry
 	 */
-	public abstract void setDataForColumn(Entry entry);
+	protected abstract void setDataForColumn();
 
 	/**
 	 * 初始化index
 	 * 
 	 * @param entry
 	 */
-	public abstract void setDataForIndex(Entry entry);
+	protected abstract void setDataForIndex(TagArticleList articleList);
 
 	/**
-	 * 显示独立栏目
+	 * 子栏目
 	 * 
-	 * @param parentId
+	 * @param childInfoList
 	 */
-	public void showSoloChildCat(int parentId) {
-	}
-
-	/**
-	 * 独立栏目请求完文章后赋值
-	 * 
-	 * @param list
-	 */
-	public void setSoloArticleList(List<FavoriteItem> list) {
-	}
+	protected abstract void showChildCat(TagInfoList childInfoList);
 
 	/**
 	 * 显示首页滑屏view
 	 */
-	public void showIndexPager() {
-	}
+	protected abstract void showIndexPager();
 
 	public abstract MainHorizontalScrollView getScrollView();
-
-	protected Class<?> getArticleActivity() {
-		return null;
-	}
 
 	/**
 	 * 如果继承的应用包含用户模块，需要重载此方法
 	 * 
 	 * @return
 	 */
-	protected String getUid() {
-		return ConstData.UN_UPLOAD_UID;
+	public String getUid() {
+		return SlateApplication.UN_UPLOAD_UID;
+	}
+
+	public String getToken() {
+		return "";
 	}
 
 	/**
@@ -185,14 +164,6 @@ public abstract class CommonMainActivity extends BaseFragmentActivity {
 		}
 	};
 
-	public void gotoArticleActivity(TransferArticle transferArticle) {
-		if (getArticleActivity() == null) {
-			return;
-		}
-		PageTransfer.gotoArticleActivity(this, getArticleActivity(),
-				transferArticle);
-	}
-
 	public void setPushArticleId(int pushArticleId) {
 		this.pushArticleId = pushArticleId;
 	}
@@ -218,20 +189,25 @@ public abstract class CommonMainActivity extends BaseFragmentActivity {
 	}
 
 	/**
-	 * 通知更新栏目列表选中状态״
+	 * 通知更新栏目列表选中状态
 	 * 
-	 * @param catId
+	 * @param tagName
 	 */
-	public void notifyColumnAdapter(int catId) {
+	public void notifyColumnAdapter(String tagName) {
 		for (NotifyAdapterListener listener : listenerList) {
-			listener.nofitySelectItem(catId);
+			listener.nofitySelectItem(tagName);
 		}
 	}
 
-	public String getColumnId() {
-		if (CommonApplication.manage == null)
-			return "";
-		return CommonApplication.manage.getProcess().getColumnId() + "";
+	/**
+	 * 跳转到某个栏目首页
+	 * 
+	 * @param tagName
+	 *            栏目名称
+	 * @param isUri
+	 *            是否来自uri;如果是，当找不到的时候需要添加这个栏目，否则，显示第一个栏目
+	 */
+	public void clickItemIfPager(String tagName, boolean isUri) {
 	}
 
 	@Override
@@ -250,8 +226,8 @@ public abstract class CommonMainActivity extends BaseFragmentActivity {
 
 	@Override
 	public void reLoadData() {
-		if (CommonApplication.manage != null)
-			CommonApplication.manage.reLoadData();
+		if (manage != null)
+			manage.reLoadData();
 	}
 
 	@Override
@@ -265,18 +241,6 @@ public abstract class CommonMainActivity extends BaseFragmentActivity {
 		if (resultCode == RESULT_OK) {
 			if (requestCode == PageTransfer.REQUEST_CODE) {
 				notifyRead();
-
-				// TODO
-				// 如果点击往期进入文章页，进入之前改变currentIssueId,从文章页退出，还原为最新当前index的issueId;(现在改成:只要从文章页返回，就替换)
-				if (CommonApplication.issue != null) {
-					CommonApplication.currentIssueId = CommonApplication.issue
-							.getId();
-				}
-
-				if (pushArticleId != -1) {
-					pushArticleId = -1;
-					CommonApplication.manage.fetchFromHttpAfterParse();
-				}
 			}
 		}
 		super.onActivityResult(requestCode, resultCode, data);

@@ -10,9 +10,9 @@ import android.text.TextUtils;
 import cn.com.modernmedia.CommonApplication;
 import cn.com.modernmedia.model.AdvList;
 import cn.com.modernmedia.model.AdvList.AdvItem;
+import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.util.AdvTools;
-import cn.com.modernmedia.util.ParseUtil;
-import cn.com.modernmediaslate.model.Favorite.FavoriteItem;
+import cn.com.modernmediaslate.unit.ParseUtil;
 
 /**
  * 文章广告（如果有catId，那么就是这个栏目下的第sort个位置，如果没有catId，那么就是整个articleList里的第sort个位置；
@@ -28,7 +28,7 @@ public abstract class BaseArticleListAdvOperate extends BaseOperate {
 	/**
 	 * key:catId
 	 */
-	public TreeMap<String, TreeMap<String, List<FavoriteItem>>> articleAdvMap = new TreeMap<String, TreeMap<String, List<FavoriteItem>>>(
+	public TreeMap<String, TreeMap<String, List<ArticleItem>>> articleAdvMap = new TreeMap<String, TreeMap<String, List<ArticleItem>>>(
 			new Comparator<String>() {
 
 				/**
@@ -75,27 +75,24 @@ public abstract class BaseArticleListAdvOperate extends BaseOperate {
 		for (AdvItem item : list) {
 			if (item == null)
 				continue;
-			// TODO 比较issueId是否符合
-			if (!AdvTools.containThisIssue(item, issueId))
-				continue;
 			String sort = item.getSort();
 			if (TextUtils.isEmpty(sort)) {
-				return;
+				continue;
 			} else if (!sort.contains("*") && ParseUtil.stoi(sort, -1) == -1) {
 				// TODO 如果sort不包含*,而又不能解析成整数，那么说明sort有错误，返回
-				return;
+				continue;
 			}
-			String catId = item.getCatId();
-			if (catId.contains("*")) {
+			String tagName = item.getTagname();
+			if (tagName.contains("*")) {
 				// TODO 如果catId包含*，那么判断有哪些栏目需要添加广告的，批量添加
-				List<String> temp = getAdvCatList(catId, catList);
+				List<String> temp = getAdvCatList(tagName, catList);
 				if (ParseUtil.listNotNull(temp)) {
 					for (String cat_id : temp) {
 						addAdvToMap(cat_id, sort, item);
 					}
 				}
 			} else {
-				addAdvToMap(catId, sort, item);
+				addAdvToMap(tagName, sort, item);
 			}
 		}
 	}
@@ -106,7 +103,7 @@ public abstract class BaseArticleListAdvOperate extends BaseOperate {
 			/**
 			 * key:sort 当是同一栏目的广告时，按sort排序；先排*，再按具体数字由小到大排
 			 */
-			new TreeMap<String, List<FavoriteItem>>(new Comparator<String>() {
+			new TreeMap<String, List<ArticleItem>>(new Comparator<String>() {
 				@Override
 				public int compare(String o1, String o2) {
 					if (o1.contains("*") && o2.contains("*")) {
@@ -123,13 +120,14 @@ public abstract class BaseArticleListAdvOperate extends BaseOperate {
 			}));
 		}
 		if (!articleAdvMap.get(catId).containsKey(sort)) {
-			articleAdvMap.get(catId).put(sort, new ArrayList<FavoriteItem>());
+			articleAdvMap.get(catId).put(sort, new ArrayList<ArticleItem>());
 		}
 		// TODO 如果广告有具体的位置，比如2，那么同一位置只能插入一条广告
 		if (!sort.contains("*")) {
 			articleAdvMap.get(catId).get(sort).clear();
 		}
-		articleAdvMap.get(catId).get(sort).addAll(item.convertToFavoriteItem());
+		articleAdvMap.get(catId).get(sort)
+				.addAll(item.convertToArticleItemList());
 	}
 
 	/**
@@ -166,10 +164,10 @@ public abstract class BaseArticleListAdvOperate extends BaseOperate {
 	 * @param position
 	 * @return
 	 */
-	public List<FavoriteItem> getAdvsRefAllByPosition(int position) {
-		List<FavoriteItem> list = new ArrayList<FavoriteItem>();
+	public List<ArticleItem> getAdvsRefAllByPosition(int position) {
+		List<ArticleItem> list = new ArrayList<ArticleItem>();
 		if (articleAdvMap.containsKey(AdvList.ARTICLE_NULL_CAT)) {
-			TreeMap<String, List<FavoriteItem>> map = articleAdvMap
+			TreeMap<String, List<ArticleItem>> map = articleAdvMap
 					.get(AdvList.ARTICLE_NULL_CAT);
 			for (String key : map.keySet()) {
 				if (key.contains("*")
@@ -190,11 +188,11 @@ public abstract class BaseArticleListAdvOperate extends BaseOperate {
 	 * @param position
 	 * @return
 	 */
-	public List<FavoriteItem> getAdvsRefCatByPosition(int cId, int position) {
+	public List<ArticleItem> getAdvsRefCatByPosition(int cId, int position) {
 		String catId = String.valueOf(cId);
-		List<FavoriteItem> list = new ArrayList<FavoriteItem>();
+		List<ArticleItem> list = new ArrayList<ArticleItem>();
 		if (articleAdvMap.containsKey(catId)) {
-			TreeMap<String, List<FavoriteItem>> map = articleAdvMap.get(catId);
+			TreeMap<String, List<ArticleItem>> map = articleAdvMap.get(catId);
 			for (String key : map.keySet()) {
 				if (key.contains("*")
 						&& AdvTools.containPositionByStar(key, position)) {

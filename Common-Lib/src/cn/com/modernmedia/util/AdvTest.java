@@ -10,14 +10,25 @@ import cn.com.modernmedia.model.AdvList.AdvSource;
 public class AdvTest {
 	public static void addRuBanLohasTest(AdvList advList) {
 		AdvItem item = new AdvItem();
-		item.setAdvType(1);
-		item.setIssueId("*");
-		item.setEffects(AdvList.ILOHAS);
-		item.setStartTime("1393383693");
-		item.setEndTime("1393483693");
 		AdvSource advSource = new AdvSource();
-		advSource.setUrl("http://s1.cdn.imlady.bbwc.cn/issue_255/articles/22248/2013/0829/20130829064015896_640x0.jpg");
+		advSource
+				.setUrl("http://s1.cdn.imlady.bbwc.cn/issue_255/articles/22248/2013/0829/20130829064015896_640x0.jpg");
 		item.getSourceList().add(advSource);
+		item.setStartTime("1374728191");
+		item.setEndTime("1424728191");
+		// case 1-3
+		item.setAdvType(1);
+		// case 1
+		// item.setEffects(AdvList.IBB);
+		// // case 2
+		// item.setEffects(AdvList.ILOHAS);
+		// case 3
+		item.setEffects(AdvList.IWEEKLY);
+		AdvSource advSource2 = new AdvSource();
+		advSource2
+				.setUrl("http://s1.cdn.imlady.bbwc.cn/issue_255/articles/22151/2013/0904/20130904032300880_640x0.jpg");
+		item.getSourceList().add(advSource2);
+
 		List<AdvItem> list = new ArrayList<AdvItem>();
 		list.add(item);
 		advList.getAdvMap().put(item.getAdvType(), list);
@@ -44,23 +55,52 @@ public class AdvTest {
 	}
 
 	public static void addCatAdvTest(AdvList advList) {
-		AdvItem item = new AdvItem();
-		item.setAdvType(3);
-		item.setIssueId("*");
-		item.setStartTime("1378200121");
-		item.setEndTime("1398472945");
-		item.setCatId("0");
 		AdvSource source = new AdvSource();
 		source.setTitle("dunhill");
 		// pic.setLink("slate://adv/article/262/16/23351/0/0");
-		source.setLink("slate://adv/100/0/32");
-		source.setUrl("http://s3.cdn.bb.bbwc.cn/issue_287/articles/0/2013/1023/20131023155618918_1280x640.jpg");
+		source.setLink("http://www.bbwc.cn");
+		source.setUrl("http://develop.bbwc.cn/dev/issue_434/articles/0/2014/0516/20140516163833825_2048x1536.jpg");
 		source.setWidth(2);
 		source.setHeight(1);
+
+		AdvItem item = new AdvItem();
 		item.getSourceList().add(source);
+		item.setStartTime("1374728191");
+		item.setEndTime("1424728191");
+		// case 4-11
+		item.setAdvType(3);
+		// case 10
+		// item.setTagname("*");
+		// item.setPosId("2");
+		// item.setSort("1");
+		// case 11
+		// item.setTagname("*/2");
+		// item.setPosId("1");
+		// item.setSort("1");
+		// case 4,5,8,9
+		// item.setTagname("cat_11"); //科技
+		// case 6-7
+		item.setTagname("cat_15"); // 今日焦点
+		// case 4
+		// item.setPosId("1");
+		// item.setSort("1");
+		// case 5
+		// item.setPosId("2");
+		// item.setSort("2");
+		// case 6（case有误）
+		item.setSection(2);
 		item.setPosId("2");
 		item.setSort("2");
-		item.setSection(1);
+		// case 7
+		// item.setSort("2");
+		// item.setPosId("3");
+		// item.setSection(2);
+		// case 8
+		// item.setSort("*");
+		// item.setPosId("2");
+		// case 9
+		// item.setSort("*/2");
+		// item.setPosId("2");
 
 		// pos = 3
 		// AdvItem item3 = new AdvItem();
@@ -116,17 +156,32 @@ public class AdvTest {
 		AdvItem item = new AdvItem();
 		item.setAdvId(100);
 		item.setAdvType(5);
-		item.setIssueId("*");
-		item.setStartTime("1378200121");
-		item.setEndTime("1398472945");
-		item.setCatId(AdvList.ARTICLE_NULL_CAT);
-		item.setSort("*/3");
+		item.setStartTime("1374728191");
+		item.setEndTime("1428472945");
+		item.setTagname("*");
 		AdvSource source = new AdvSource();
-		source.setUrl("http://www.bbwc.cn");
+		// source.setUrl("http://develop.bbwc.cn/dev/issue_434/articles/0/2014/0516/20140516163833825_2048x1536.jpg");
+		source.setUrl("http://www.baidu.com/"); // case 19用
 		item.getSourceList().add(source);
-		// AdvPageInfo info = new AdvPageInfo();
-		// info.setUrl("http://www.baidu.com/");
-		// item.getPageInfoList().add(info);
+		// case 12,15
+		// item.setSort("2");
+		// case 13,16
+		// item.setSort("*");
+		// case 14,17
+		// item.setSort("*/2");
+
+		// case 18
+		// item.setSort("*");
+		// item.setShowType(0);
+		// AdvSource advSource2 = new AdvSource();
+		// advSource2
+		// .setUrl("http://s1.cdn.imlady.bbwc.cn/issue_255/articles/22151/2013/0904/20130904032300880_640x0.jpg");
+		// item.getSourceList().add(advSource2);
+
+		// case 19
+		item.setSort("*");
+		item.setShowType(1);
+
 		list.add(item);
 
 		// item = new AdvItem();
@@ -161,5 +216,21 @@ public class AdvTest {
 		// list.add(item);
 
 		advList.getAdvMap().put(5, list);
+	}
+
+	public static void addFuDongAdvTest(AdvList advList) {
+		List<AdvItem> list = new ArrayList<AdvItem>();
+		AdvItem item = new AdvItem();
+		item.setAdvId(100);
+		item.setAdvType(4);
+		item.setStartTime("1374728191");
+		item.setEndTime("1428472945");
+		item.setTagname("*");
+		AdvSource source = new AdvSource();
+		source.setUrl("http://develop.bbwc.cn/dev/issue_434/articles/0/2014/0516/20140516163833825_2048x1536.jpg");
+		item.getSourceList().add(source);
+		
+		list.add(item);
+		advList.getAdvMap().put(4, list);
 	}
 }

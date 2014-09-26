@@ -3,4 +3,17 @@
     <string name="app_name">ModernMediaSlate</string>
     <string name="net_error">请检查网络</string>
 
+    <!-- pull_to_refresh -->
+    <string name="pull_to_refresh_pull_label">下拉刷新...</string>
+    <string name="pull_to_refresh_release_label">松开刷新...</string>
+    <string name="pull_to_refresh_refreshing_label">正在刷新...</string>
+    <string name="pull_to_refresh_tap_label">点击刷新...</string>
+    <string name="pull_to_refresh_update_time">上次更新时间:%s</string>
+
+    <!-- pull_to_loadmore -->
+    <string name="pull_to_loadmore">上推加载...</string>
+    <string name="pull_to_release">松开加载...</string>
+    <string name="pull_to_loading">正在加载...</string>
+    <string name="click_to_load">点击加载</string>
+
 </resources>

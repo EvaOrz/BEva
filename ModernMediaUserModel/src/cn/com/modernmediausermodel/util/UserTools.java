@@ -1,12 +1,8 @@
 package cn.com.modernmediausermodel.util;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.lang.reflect.Field;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -26,6 +22,7 @@ import android.graphics.Paint.Style;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+import android.graphics.drawable.NinePatchDrawable;
 import android.net.Uri;
 import android.os.Handler;
 import android.telephony.TelephonyManager;
@@ -35,27 +32,17 @@ import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import cn.com.modernmedia.CommonApplication;
-import cn.com.modernmedia.listener.ImageDownloadStateListener;
-import cn.com.modernmedia.util.ConstData;
-import cn.com.modernmedia.util.ParseUtil;
-import cn.com.modernmediaslate.model.Entry;
+import cn.com.modernmediaslate.SlateApplication;
+import cn.com.modernmediaslate.listener.ImageDownloadStateListener;
+import cn.com.modernmediaslate.unit.DateFormatTool;
+import cn.com.modernmediaslate.unit.ParseUtil;
 import cn.com.modernmediausermodel.R;
-import cn.com.modernmediausermodel.model.LoginParm;
 import cn.com.modernmediausermodel.model.User;
-
-import com.dd.plist.NSDictionary;
-import com.dd.plist.PropertyListParser;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 public class UserTools {
 	public static final int REQUEST_ZOOM = 111;
-	public static final int STROKE = 1;// 边框宽度
+	public static final int STROKE = 2;// 边框宽度
 	private static Handler handler = new Handler();
-	private static SimpleDateFormat beforeToday = new SimpleDateFormat(
-			"yyyy-MM-dd");
-	private static SimpleDateFormat today = new SimpleDateFormat("HH:mm");
 
 	/**
 	 * 检查输入的密码是否合法,当前只检查是否为null或者空
@@ -199,7 +186,7 @@ public class UserTools {
 		Rect dst = new Rect(0, 0, 2 * radius, 2 * radius);
 
 		paint.setAntiAlias(true);
-		canvas.drawCircle(radius, radius, radius, paint);
+		canvas.drawCircle(radius, radius, radius - STROKE, paint);
 		paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
 
 		canvas.drawBitmap(bitmap, src, dst, paint);
@@ -224,25 +211,6 @@ public class UserTools {
 		paint.setXfermode(new PorterDuffXfermode(Mode.SRC_OVER));
 		canvas.drawCircle(radius, radius, radius - STROKE, paint);
 		imageView.setImageBitmap(output);
-	}
-
-	/**
-	 * 把对象转换成json
-	 * 
-	 * @param entry
-	 * @return
-	 */
-	public static String objectToJson(Entry entry) {
-		try {
-			GsonBuilder builder = new GsonBuilder();
-			// 不转换没有 @Expose 注解的字段
-			builder.excludeFieldsWithoutExposeAnnotation();
-			Gson gson = builder.create();
-			return gson.toJson(entry);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return "";
 	}
 
 	/**
@@ -278,7 +246,7 @@ public class UserTools {
 	 */
 	public static String getUid(Context context) {
 		User user = UserDataHelper.getUserLoginInfo(context);
-		return user == null ? ConstData.UN_UPLOAD_UID : user.getUid();
+		return user == null ? SlateApplication.UN_UPLOAD_UID : user.getUid();
 	}
 
 	/**
@@ -302,9 +270,9 @@ public class UserTools {
 				&& calendar.get(Calendar.DAY_OF_MONTH) == current
 						.get(Calendar.DAY_OF_MONTH)) {
 			// 同一天
-			return today.format(new Date(time));
+			return DateFormatTool.format(time, "HH:mm");
 		}
-		return beforeToday.format(new Date(time));
+		return DateFormatTool.format(time, "yyyy-MM-dd");
 	}
 
 	/**
@@ -361,7 +329,7 @@ public class UserTools {
 		if (TextUtils.isEmpty(url)) {
 			return;
 		}
-		CommonApplication.finalBitmap.display(url,
+		SlateApplication.finalBitmap.display(url,
 				new ImageDownloadStateListener() {
 
 					@Override
@@ -370,7 +338,7 @@ public class UserTools {
 					}
 
 					@Override
-					public void loadOk(Bitmap bitmap) {
+					public void loadOk(Bitmap bitmap, NinePatchDrawable drawable) {
 						transforCircleBitmap(bitmap, avatar);
 					}
 
@@ -407,7 +375,7 @@ public class UserTools {
 	 * @return
 	 */
 	public static void setText(TextView textView, String str) {
-		if (CommonApplication.stringCls == null) {
+		if (SlateApplication.stringCls == null) {
 			try {
 				throw new NullPointerException("string class is null!");
 			} catch (Exception e1) {
@@ -419,44 +387,11 @@ public class UserTools {
 			return;
 		}
 		try {
-			Field field = CommonApplication.stringCls.getDeclaredField(str);
+			Field field = SlateApplication.stringCls.getDeclaredField(str);
 			textView.setText(field.getInt(str));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	/**
-	 * 解析栏目列表
-	 * 
-	 * @return
-	 */
-	public static LoginParm parseColumn(Context context) {
-		LoginParm parm = new LoginParm();
-		InputStream is = null;
-		try {
-			is = context.getAssets().open("login.plist");
-			NSDictionary rootDic = (NSDictionary) PropertyListParser.parse(is);
-			if (rootDic != null) {
-				if (rootDic.containsKey("login_desc")) {
-					parm.setLogin_desc(rootDic.objectForKey("login_desc")
-							.toString());
-				}
-				if (rootDic.containsKey("userinfo_desc")) {
-					parm.setUserinfo_desc(rootDic.objectForKey("userinfo_desc")
-							.toString());
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if (is != null)
-				try {
-					is.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-		}
-		return parm;
-	}
 }

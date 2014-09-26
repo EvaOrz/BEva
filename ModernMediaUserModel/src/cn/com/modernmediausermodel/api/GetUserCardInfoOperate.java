@@ -3,13 +3,11 @@ package cn.com.modernmediausermodel.api;
 import org.json.JSONObject;
 
 import android.text.TextUtils;
-import cn.com.modernmedia.api.BaseOperate;
-import cn.com.modernmedia.util.FileManager;
-import cn.com.modernmediausermodel.model.Users.UserCardInfo;
+import cn.com.modernmediausermodel.model.UserCardInfoList.UserCardInfo;
 import cn.com.modernmediausermodel.util.UserConstData;
+import cn.com.modernmediausermodel.util.UserFileManager;
 
-public class GetUserCardInfoOperate extends BaseOperate {
-
+public class GetUserCardInfoOperate extends UserBaseOperate {
 	private UserCardInfo userCardInfo;
 	private String uid = ""; // 要查看的用户的uid
 	private String customerUid = ""; // 当前登录用户的uid
@@ -39,6 +37,8 @@ public class GetUserCardInfoOperate extends BaseOperate {
 		userCardInfo.setFollowNum(jsonObject.optInt("follow", 0));
 		userCardInfo.setFansNum(jsonObject.optInt("follower", 0));
 		userCardInfo.setCardNum(jsonObject.optInt("cardnum", 0));
+		userCardInfo.setNickName(jsonObject.optString("nickname", ""));
+		userCardInfo.setAvatar(jsonObject.optString("avatar", ""));
 		// 当前登录用户与查看用户是否为收藏关系，若查看自己，则无用
 		userCardInfo.setIsFollowed(jsonObject.optInt("isfollow", 0));
 	}
@@ -46,7 +46,7 @@ public class GetUserCardInfoOperate extends BaseOperate {
 	@Override
 	protected void saveData(String data) {
 		String fileName = UserConstData.getUserCardInfoFileName(uid);
-		FileManager.saveApiData(fileName, data);
+		UserFileManager.saveApiData(fileName, data);
 	}
 
 	@Override

@@ -10,15 +10,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import cn.com.modernmedia.BaseActivity;
+import cn.com.modernmediaslate.SlateBaseActivity;
 import cn.com.modernmediaslate.model.Entry;
+import cn.com.modernmediaslate.model.ErrorMsg;
 import cn.com.modernmediausermodel.api.UserOperateController;
 import cn.com.modernmediausermodel.listener.UserFetchEntryListener;
 import cn.com.modernmediausermodel.model.MultiComment.CommentItem;
-import cn.com.modernmediausermodel.model.User;
 import cn.com.modernmediausermodel.util.UserTools;
 
-public class WriteCommentActivity extends BaseActivity implements
+public class WriteCommentActivity extends SlateBaseActivity implements
 		OnClickListener {
 	public static final String RETURN_DATA = "comment";
 	public static final String KEY_CARD_ID = "card_id";
@@ -52,10 +52,6 @@ public class WriteCommentActivity extends BaseActivity implements
 		cancelBtn.setOnClickListener(this);
 		completeBtn.setOnClickListener(WriteCommentActivity.this);
 		contentEdit.requestFocus();
-	}
-
-	@Override
-	public void reLoadData() {
 	}
 
 	@Override
@@ -97,8 +93,8 @@ public class WriteCommentActivity extends BaseActivity implements
 					@Override
 					public void setData(Entry entry) {
 						showLoadingDialog(false);
-						if (entry instanceof User.Error) {
-							User.Error error = (User.Error) entry;
+						if (entry instanceof ErrorMsg) {
+							ErrorMsg error = (ErrorMsg) entry;
 							if (error.getNo() == 0) {
 								// 发表成功
 								if (isShowToast) {

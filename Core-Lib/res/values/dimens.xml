@@ -18,5 +18,20 @@
     <dimen name="dp5">5dp</dimen>
     <dimen name="dp10">10dp</dimen>
     <dimen name="dp15">15dp</dimen>
+    <dimen name="dp1">1dp</dimen>
+    <dimen name="dp2">2dp</dimen>
+
+    <!-- pull to refresh header -->
+    <dimen name="head_contentLayout_paddingLeft">30dp</dimen>
+    <dimen name="head_tipsTextView_tSize">15dp</dimen>
+    <dimen name="head_lastUpdatedTextView_tSize">11dp</dimen>
+
+    <!-- pull to load footer -->
+    <dimen name="footer_paddingTop">10dp</dimen>
+    <dimen name="footer_paddingBottom">10dp</dimen>
+    <dimen name="footer_textsize">15dp</dimen>
+
+    <!-- footer_view -->
+    <dimen name="footer_height">50dp</dimen>
 
 </resources>

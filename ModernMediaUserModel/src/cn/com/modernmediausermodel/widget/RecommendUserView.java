@@ -1,7 +1,6 @@
 package cn.com.modernmediausermodel.widget;
 
 import java.util.List;
-import java.util.Map;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,23 +11,26 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import cn.com.modernmedia.util.ConstData;
-import cn.com.modernmedia.util.ModernMediaTools;
-import cn.com.modernmedia.util.ParseUtil;
-import cn.com.modernmedia.widget.CheckScrollListview;
+import cn.com.modernmedia.widget.CheckFooterListView;
+import cn.com.modernmedia.widget.CheckFooterListView.FooterCallBack;
+import cn.com.modernmediaslate.SlateApplication;
 import cn.com.modernmediaslate.model.Entry;
+import cn.com.modernmediaslate.model.ErrorMsg;
+import cn.com.modernmediaslate.unit.ParseUtil;
+import cn.com.modernmediaslate.unit.Tools;
+import cn.com.modernmediausermodel.LoginActivity;
 import cn.com.modernmediausermodel.R;
 import cn.com.modernmediausermodel.UserApplication;
 import cn.com.modernmediausermodel.adapter.RecommendUsersAdapter;
 import cn.com.modernmediausermodel.api.UserOperateController;
-import cn.com.modernmediausermodel.db.UserInfoDb;
+import cn.com.modernmediausermodel.db.UserListDb;
 import cn.com.modernmediausermodel.listener.CardViewListener;
 import cn.com.modernmediausermodel.listener.UserFetchEntryListener;
 import cn.com.modernmediausermodel.listener.UserInfoChangeListener;
 import cn.com.modernmediausermodel.model.User;
-import cn.com.modernmediausermodel.model.User.Error;
-import cn.com.modernmediausermodel.model.Users;
-import cn.com.modernmediausermodel.model.Users.UserCardInfo;
+import cn.com.modernmediausermodel.model.UserCardInfoList;
+import cn.com.modernmediausermodel.model.UserCardInfoList.UserCardInfo;
+import cn.com.modernmediausermodel.util.UserConstData;
 import cn.com.modernmediausermodel.util.UserPageTransfer;
 import cn.com.modernmediausermodel.util.UserTools;
 
@@ -49,19 +51,26 @@ public class RecommendUserView implements OnClickListener, CardViewListener {
 	private TextView tipText, titleText;
 	private ImageView divider;
 	private Button complete, followAll;
-	private CheckScrollListview listView;
+	private CheckFooterListView listView;
 	private RecommendUsersAdapter adapter;
 	private UserOperateController controller;
-	private Users mUsers;
+	private UserCardInfoList userCardInfoList;
 	private int pageType; // 页面类型
 	private User mUser;// 从此用户获取信息(非登录用户)
 	private Handler handler = new Handler();
+	private boolean isGetMore = false; // 是否加载更多
 
 	public RecommendUserView(Context context, int pageType, User user) {
 		mContext = context;
 		this.pageType = pageType;
 		mUser = user;
 		initWidget();
+		// TODO微博登陆成功后弹框可能在登录页面finish后才dismiss,所以等跳转了页面再把登录页面finish掉
+		if (ParseUtil.mapContainsKey(SlateApplication.activityMap,
+				LoginActivity.class.getName())) {
+			SlateApplication.activityMap.get(
+					LoginActivity.class.getName()).finish();
+		}
 	}
 
 	private void initWidget() {
@@ -72,7 +81,8 @@ public class RecommendUserView implements OnClickListener, CardViewListener {
 		complete = (Button) view.findViewById(R.id.complete);
 		followAll = (Button) view.findViewById(R.id.button_follow_all);
 		divider = (ImageView) view.findViewById(R.id.recommend_divider);
-		listView = (CheckScrollListview) view.findViewById(R.id.list_view);
+		listView = (CheckFooterListView) view
+				.findViewById(R.id.recommend_user_list_view);
 		tipText = (TextView) view.findViewById(R.id.no_friend_tip);
 		UserApplication.recommInfoChangeListener = new UserInfoChangeListener() {
 
@@ -122,8 +132,27 @@ public class RecommendUserView implements OnClickListener, CardViewListener {
 
 	private void init() {
 		controller = UserOperateController.getInstance(mContext);
+		listView.enableAutoFetch(false, false);
 		adapter = new RecommendUsersAdapter(mContext, pageType, mUser);
 		listView.setAdapter(adapter);
+		loadCacheFirst();
+		// 加载更多
+		listView.setCallBack(new FooterCallBack() {
+
+			@Override
+			public void onLoad() {
+				if (adapter.getCount() < UserConstData.MAX_USER_ITEM_COUNT
+						|| userCardInfoList == null) {
+					return;
+				}
+				List<UserCardInfo> list = userCardInfoList.getList();
+				if (ParseUtil.listNotNull(list)) {
+					isGetMore = true;
+					getRecommendUsersData(false);
+				}
+			}
+		});
+
 		followAll.setOnClickListener(this);
 		complete.setOnClickListener(this);
 		// 根据页面类型，获得相应的数据，并显示
@@ -131,13 +160,34 @@ public class RecommendUserView implements OnClickListener, CardViewListener {
 	}
 
 	private void refresh() {
+		isGetMore = false;
 		handler.post(new Runnable() {
 
 			@Override
 			public void run() {
-				showPageContent(false);
+				getRecommendUsersData(false);
 			}
 		});
+	}
+
+	// TODO 先加载缓存数据
+	private void loadCacheFirst() {
+		UserCardInfoList list = getListFromDb();
+		if (ParseUtil.listNotNull(list.getList())) {
+			userCardInfoList = list;
+			adapter.setData(list.getList());
+		}
+	}
+
+	private UserCardInfoList getListFromDb() {
+		int dbId = -1;
+		if (userCardInfoList != null
+				&& ParseUtil.listNotNull(userCardInfoList.getList())) {
+			dbId = userCardInfoList.getList()
+					.get(userCardInfoList.getList().size() - 1).getDb_id();
+		}
+		return UserListDb.getInstance(mContext).getUserInfoList(pageType + "",
+				mUser.getUid(), dbId);
 	}
 
 	private void showPageContent(boolean showLoading) {
@@ -145,12 +195,12 @@ public class RecommendUserView implements OnClickListener, CardViewListener {
 				UserTools.getUid(mContext)); // 是否显示当前用户的相关信息
 		switch (pageType) {
 		case PAGE_RECOMMEND_FRIEND:
+			followAll.setVisibility(View.VISIBLE);
+			divider.setVisibility(View.VISIBLE);
 			complete.setText(R.string.complete);
 			titleText.setText(R.string.recommend_user);
 			break;
 		case PAGE_FRIEND:
-			followAll.setVisibility(View.GONE);
-			divider.setVisibility(View.GONE);
 			if (isCurrentUser) {
 				titleText.setText(R.string.my_friends);
 				tipText.setText(R.string.no_friend_tip);
@@ -162,8 +212,6 @@ public class RecommendUserView implements OnClickListener, CardViewListener {
 			}
 			break;
 		case PAGE_FANS:
-			followAll.setVisibility(View.GONE);
-			divider.setVisibility(View.GONE);
 			if (isCurrentUser) {
 				titleText.setText(R.string.my_fans);
 				tipText.setText(R.string.no_fan_tip);
@@ -186,89 +234,78 @@ public class RecommendUserView implements OnClickListener, CardViewListener {
 	 */
 	private void getRecommendUsersData(boolean showLoading) {
 		if (showLoading) {
-			ModernMediaTools.showLoading(mContext, true);
+			Tools.showLoading(mContext, true);
 		}
-		controller.getRecommendUsers(mUser.getUid(), pageType,
-				new UserFetchEntryListener() {
+		final String offsetId = isGetMore ? userCardInfoList.getOffsetId()
+				: "0";
+		int dbId = isGetMore ? userCardInfoList.getList()
+				.get(userCardInfoList.getList().size() - 1).getDb_id() : -1;
+		controller.getRecommendUsers(mUser.getUid(), pageType, offsetId, dbId,
+				mContext, new UserFetchEntryListener() {
 
 					@Override
 					public void setData(Entry entry) {
-						if (entry != null) {
-							final Users users = (Users) entry;
-							if (users.getError().getNo() == 0) {
-								getUsersInfo(users);
-							} else {
-								ModernMediaTools.showLoading(mContext, false);
-								ModernMediaTools.showToast(mContext, users
-										.getError().getDesc());
-							}
-						} else {
-							ModernMediaTools.showLoading(mContext, false);
-						}
+						afterGetUserCardInfos(entry, offsetId);
 					}
 				});
 	}
 
-	/**
-	 * 获得所有推荐用户的相关信息
-	 * 
-	 * @param users
-	 */
-	private void getUsersInfo(Users users) {
-		this.mUsers = users;
-		adapter.clear();
-		adapter.setmUsers(mUsers);
-		if (mUsers.getUserCardInfoMap().size() > 0) {
-			controller.getUsersInfo(users.getUserCardInfoMap().keySet(),
-					new UserFetchEntryListener() {
-
-						@Override
-						public void setData(Entry entry) {
-							ModernMediaTools.showLoading(mContext, false);
-							if (entry instanceof Users) {
-								mUsers.setUserList(((Users) entry)
-										.getUserList());
-								adapter.setData(mUsers);
-								System.out.println(adapter.getCount());
-							} else {
-								// 所有缓存的卡片用户信息
-								Users mAllUsers = UserInfoDb.getInstance(
-										mContext).getUsersInfo();
-								List<User> mUserList = mAllUsers.getUserList();
-								if (ParseUtil.listNotNull(mUserList)) {
-									Map<String, UserCardInfo> map = mUsers
-											.getUserCardInfoMap();
-									for (User user : mUserList) {
-										// 清除不属于粉丝或者好友列表的用户
-										if (map.containsKey(user.getUid())) {
-											mUsers.getUserList().add(user);
-										}
-									}
-									adapter.setData(mUsers);
-								}
-							}
-						}
-					});
+	private void afterGetUserCardInfos(Entry entry, String offsetId) {
+		UserCardInfoList infoList;
+		if (entry instanceof UserCardInfoList) {
+			infoList = (UserCardInfoList) entry;
+			List<UserCardInfo> list = infoList.getList();
+			if (!ParseUtil.listNotNull(list)) {
+				if (!isGetMore) {
+					adapter.clear();
+					Tools.showLoading(mContext, false);
+				} else {
+					listView.loadOk(false);
+				}
+				if (adapter.getCount() == 0) {
+					tipText.setVisibility(View.VISIBLE);
+					listView.removeFooter();
+				} else {
+					tipText.setVisibility(View.GONE);
+				}
+				return;
+			}
+			if (isGetMore) {
+				userCardInfoList.getList().addAll(list);
+				userCardInfoList.setOffsetId(infoList.getOffsetId());
+			} else {
+				userCardInfoList = infoList;
+			}
+			Tools.showLoading(mContext, false);
+			adapter.clear();
+			adapter.setData(userCardInfoList.getList());
+			listView.loadOk(true);
+			if (list.size() < UserConstData.MAX_USER_ITEM_COUNT) {
+				listView.removeFooter();
+			} else {
+				listView.showFooter();
+			}
+		} else if (isGetMore) {
+			listView.onLoadError();
 		} else {
-			ModernMediaTools.showLoading(mContext, false);
-			tipText.setVisibility(adapter.getCount() == 0 ? View.VISIBLE
-					: View.GONE);
+			Tools.showLoading(mContext, false);
 		}
+
 	}
 
 	/**
 	 * 关注用户(推荐列表，全部关注)
 	 */
-	private void addFollow(List<User> users) {
-		ModernMediaTools.showLoading(mContext, true);
-		controller.addFollow(UserTools.getUid(mContext), users, false,
+	private void addFollow(List<UserCardInfo> list) {
+		Tools.showLoading(mContext, true);
+		controller.addFollow(UserTools.getUid(mContext), list, false,
 				new UserFetchEntryListener() {
 
 					@Override
 					public void setData(Entry entry) {
-						if (entry instanceof Error
-								&& ((Error) entry).getNo() == 0)
-							checkGotoSquareActivity();
+						if (entry instanceof ErrorMsg
+								&& ((ErrorMsg) entry).getNo() == 0)
+							checkGotoMyHomeActivity();
 					}
 				});
 	}
@@ -281,25 +318,24 @@ public class RecommendUserView implements OnClickListener, CardViewListener {
 	public void onClick(View v) {
 		if (v.getId() == R.id.complete) {
 			if (pageType == PAGE_RECOMMEND_FRIEND) {
-				checkGotoSquareActivity();
+				checkGotoMyHomeActivity();
 			}
 		} else if (v.getId() == R.id.button_follow_all) {
-			addFollow(mUsers.getUserList());
+			addFollow(userCardInfoList.getList());
 		}
 	}
 
 	/**
 	 * 灵感直接finish
 	 */
-	private void checkGotoSquareActivity() {
-		if (ConstData.getAppId() == 102) {
+	private void checkGotoMyHomeActivity() {
+		if (SlateApplication.APP_ID == 102) {
 			if (UserApplication.logOutListener != null) {
 				UserApplication.logOutListener.onLogout();
 			}
-			((Activity) mContext).finish();
-		} else {
-			UserPageTransfer.gotoSquareActivity(mContext, true);
+				((Activity) mContext).finish();
 		}
+		UserPageTransfer.gotoMyHomePageActivity(mContext, true);
 	}
 
 }

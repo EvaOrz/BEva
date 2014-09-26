@@ -1,6 +1,5 @@
 package cn.com.modernmedia.util;
 
-import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -11,6 +10,8 @@ import java.io.OutputStreamWriter;
 
 import android.os.Environment;
 import android.text.TextUtils;
+import cn.com.modernmedia.CommonApplication;
+import cn.com.modernmediaslate.unit.MD5;
 
 /**
  * 文件存储
@@ -19,9 +20,6 @@ import android.text.TextUtils;
  * 
  */
 public class FileManager {
-	private static final String CAT_INDEX_FOLDER = "catindex";
-	private static final String ARTICLE_FOLDER = "article";
-	private static final String SHARE_FOLDER = "share";
 	private static final String CHARSET = "utf-8";
 	private static String defaultPath = "";
 
@@ -33,87 +31,13 @@ public class FileManager {
 	}
 
 	public static void createNoMediaFile() {
-		String path = getDefaultPath() + "/" + ConstData.getAppName() + "/"
+		String path = getDefaultPath() + "/"
+				+ CommonApplication.mConfig.getCache_file_name() + "/"
 				+ ".nomedia";
 		File file = new File(path);
 		if (!file.exists()) {
 			file.mkdirs();
 		}
-	}
-
-	public static void saveImage(String url, byte[] data) {
-		String path = getDefaultPath() + ConstData.DEFAULT_IMAGE_PATH;
-		File folder = new File(path);
-		if (!folder.exists()) {
-			folder.mkdir();
-		}
-		File file = new File(path + MD5.MD5Encode(url) + ".img");
-		BufferedOutputStream bos = null;
-		FileOutputStream fos = null;
-		try {
-			fos = new FileOutputStream(file);
-			bos = new BufferedOutputStream(fos);
-			bos.write(data);
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (bos != null) {
-					bos.flush();
-					bos.close();
-				}
-				if (fos != null) {
-					fos.close();
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
-	public static byte[] getImage(String url) {
-		String path = getDefaultPath() + ConstData.DEFAULT_IMAGE_PATH;
-		path += MD5.MD5Encode(url) + ".img";
-		byte[] buffer = null;
-		FileInputStream fis = null;
-		ByteArrayOutputStream bos = null;
-		try {
-			File file = new File(path);
-			if (!file.exists()) {
-				return null;
-			}
-			fis = new FileInputStream(file);
-			bos = new ByteArrayOutputStream();
-			byte[] b = new byte[1024];
-			int n;
-			while ((n = fis.read(b)) != -1) {
-				bos.write(b, 0, n);
-			}
-			buffer = bos.toByteArray();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (fis != null)
-					fis.close();
-				if (bos != null)
-					bos.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		return buffer;
-	}
-
-	/**
-	 * 获取图片在SD卡中的路径
-	 * 
-	 * @param name
-	 * @return
-	 */
-	public static String getBitmapPath(String name) {
-		return getDefaultPath() + ConstData.DEFAULT_IMAGE_PATH
-				+ MD5.MD5Encode(name) + ".img";
 	}
 
 	/**
@@ -128,14 +52,13 @@ public class FileManager {
 		if (data == null)
 			return;
 		boolean isCrash = name.equals(ConstData.CRASH_NAME);
-		String expand = getexpandFolder(name);
 		String dataPath = "";
 		if (!isCrash) {
 			name = MD5.MD5Encode(name);
-			dataPath = getDefaultPath() + ConstData.getCurrentIssueFold()
-					+ expand;
-		} else {
 			dataPath = getDefaultPath() + ConstData.DEFAULT_DATA_PATH;
+		} else {
+			dataPath = getDefaultPath() + ConstData.DEFAULT_DATA_PATH
+					+ "crash/";
 		}
 		File file = new File(dataPath);
 		if (!file.exists()) {
@@ -151,11 +74,7 @@ public class FileManager {
 			}
 			oStream = new FileOutputStream(saveFile, isCrash);// false:更新文件；true:追加文件
 			writer = new OutputStreamWriter(oStream, CHARSET);
-			// if (isCrash || !needEncrpyt) {
 			writer.write(data);
-			// } else {
-			// writer.write(EncrptUtil.encrpyt2(data));
-			// }
 			writer.flush();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -180,10 +99,9 @@ public class FileManager {
 	 * @return
 	 */
 	public static String getApiData(String name) {
-		String expand = getexpandFolder(name);
 		name = MD5.MD5Encode(name);
-		String data_path = getDefaultPath() + ConstData.getCurrentIssueFold()
-				+ expand + name + ".txt";
+		String data_path = getDefaultPath() + ConstData.DEFAULT_DATA_PATH
+				+ name + ".txt";
 		FileInputStream in = null;
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		try {
@@ -197,11 +115,7 @@ public class FileManager {
 			byte[] result = baos.toByteArray();
 			if (result == null)
 				return null;
-			// if (needEncrpyt) {
-			// return EncrptUtil.decrypt2(new String(result));
-			// } else {
 			return new String(result);
-			// }
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			return null;
@@ -226,10 +140,8 @@ public class FileManager {
 	 * @param name
 	 */
 	public static void deleteFile(String name) {
-		String expand = getexpandFolder(name);
 		String delete_name = MD5.MD5Encode(name);// 需要删除的文件名
-		String dataPath = getDefaultPath() + ConstData.getCurrentIssueFold()
-				+ expand;
+		String dataPath = getDefaultPath() + ConstData.DEFAULT_DATA_PATH;
 		File deleteFile = new File(dataPath + delete_name + ".txt");
 		if (deleteFile.exists()) {
 			deleteFile.delete();
@@ -243,132 +155,10 @@ public class FileManager {
 	 * @return
 	 */
 	public static boolean containFile(String name) {
-		String expand = getexpandFolder(name);
 		name = MD5.MD5Encode(name);
-		String dataPath = getDefaultPath() + ConstData.getCurrentIssueFold()
-				+ expand;
+		String dataPath = getDefaultPath() + ConstData.DEFAULT_DATA_PATH;
 		File file = new File(dataPath + name + ".txt");
 		return file.exists();
-	}
-
-	/**
-	 * 由于保存的catindex不唯一，所以批量删除
-	 */
-	public static void deleteCatIndexFile() {
-		String dataPath = getDefaultPath() + ConstData.getCurrentIssueFold()
-				+ CAT_INDEX_FOLDER + "/";
-		File file = new File(dataPath);
-		if (!file.exists())
-			return;
-		File[] files = file.listFiles();
-		for (int i = 0; i < files.length; i++) {
-			if (files[i].isDirectory()) {
-				continue;
-			} else {
-				files[i].delete();
-			}
-		}
-	}
-
-	/**
-	 * 更新了文章，把图集文章删除
-	 */
-	public static void deleteArticleFile() {
-		String dataPath = getDefaultPath() + ConstData.getCurrentIssueFold()
-				+ ARTICLE_FOLDER + "/";
-		File file = new File(dataPath);
-		if (!file.exists())
-			return;
-		File[] files = file.listFiles();
-		for (int i = 0; i < files.length; i++) {
-			if (files[i].isDirectory()) {
-				continue;
-			} else {
-				files[i].delete();
-			}
-		}
-	}
-
-	/**
-	 * 更新了文章，把分享信息删除
-	 */
-	public static void deleteShareFile() {
-		String dataPath = getDefaultPath() + ConstData.getCurrentIssueFold()
-				+ SHARE_FOLDER + "/";
-		File file = new File(dataPath);
-		if (!file.exists())
-			return;
-		File[] files = file.listFiles();
-		for (int i = 0; i < files.length; i++) {
-			if (files[i].isDirectory()) {
-				continue;
-			} else {
-				files[i].delete();
-			}
-		}
-	}
-
-	/**
-	 * 当用户更新了一期，把上一期的删除
-	 * 
-	 * @param folder_name
-	 */
-	public static void deleteIssueFolder(String folder_name) {
-		String dataPath = getDefaultPath() + ConstData.getCurrentIssueFold()
-				+ folder_name + "/";
-		File file = new File(dataPath);
-		if (!file.exists())
-			return;
-		File[] files = file.listFiles();
-		for (int i = 0; i < files.length; i++) {
-			if (files[i].isDirectory()) {
-				continue;
-			} else {
-				files[i].delete();
-			}
-		}
-	}
-
-	/**
-	 * 是否是catindex，单独创建文件夹
-	 * 
-	 * @param name
-	 * @return
-	 */
-	private static String isCatIndex(String name) {
-		return name.contains(CAT_INDEX_FOLDER + "_") ? CAT_INDEX_FOLDER + "/"
-				: "";
-	}
-
-	/**
-	 * 是否是图集文章，单独创建文件夹
-	 * 
-	 * @param name
-	 * @return
-	 */
-	private static String isArticle(String name) {
-		return name.contains(ARTICLE_FOLDER + "_") ? ARTICLE_FOLDER + "/" : "";
-	}
-
-	/**
-	 * 是否是分享文章信息，单独创建文件夹
-	 * 
-	 * @param name
-	 * @return
-	 */
-	private static String isShareArticle(String name) {
-		return name.contains(SHARE_FOLDER + "_") ? SHARE_FOLDER + "/" : "";
-	}
-
-	private static String getexpandFolder(String name) {
-		if (!TextUtils.isEmpty(isCatIndex(name))) {
-			return isCatIndex(name);
-		} else if (!TextUtils.isEmpty(isArticle(name))) {
-			return isArticle(name);
-		} else if (!TextUtils.isEmpty(isShareArticle(name))) {
-			return isShareArticle(name);
-		}
-		return "";
 	}
 
 	/**

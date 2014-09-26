@@ -18,7 +18,7 @@ public class UserLoginOutOperate extends UserModelBaseOperate {
 		try {
 			object.put("uid", uid);
 			object.put("token", token);
-			object.put("appid", UserConstData.getAppId() + "");
+			object.put("appid", UserConstData.getInitialAppId() + "");
 			params.add(new BasicNameValuePair("data", object.toString()));
 			setPostParams(params);
 		} catch (JSONException e) {

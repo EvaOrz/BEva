@@ -22,7 +22,7 @@
     <cn.com.modernmediausermodel.widget.UserCenterView
         android:id="@+id/user_center_view"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:layout_below="@id/user_center_bar_layout"
         android:layout_marginTop="@dimen/user_card_listview_magin_top"
         android:cacheColorHint="@android:color/white"

@@ -8,9 +8,10 @@ import java.io.ByteArrayOutputStream;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
+import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 import cn.com.modernmedia.R;
-import cn.com.modernmedia.util.ModernMediaTools;
+import cn.com.modernmediaslate.unit.Tools;
 
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.SendMessageToWX;
@@ -52,8 +53,7 @@ public class WeixinShare {
 		api = WXAPIFactory.createWXAPI(context, APP_ID, true);
 		// 将应用注册到手机上
 		if (!api.registerApp(APP_ID)) {
-			ModernMediaTools
-					.showToast(mContext, R.string.weixin_register_error);
+			Tools.showToast(mContext, R.string.weixin_register_error);
 		}
 	}
 
@@ -93,13 +93,13 @@ public class WeixinShare {
 			String url, Bitmap bmp, boolean isSharedToFriends) {
 		// 检测微信是否安装
 		if (!api.isWXAppInstalled()) {
-			ModernMediaTools.showToast(mContext, R.string.no_weixin);
+			Tools.showToast(mContext, R.string.no_weixin);
 			return;
 		}
 
 		// 微信4.2以上支持发送到朋友圈
 		if (isSharedToFriends && api.getWXAppSupportAPI() < 0x21020001) {
-			ModernMediaTools.showToast(mContext, R.string.weixin_version_low);
+			Tools.showToast(mContext, R.string.weixin_version_low);
 			return;
 		}
 
@@ -109,29 +109,26 @@ public class WeixinShare {
 		WXMediaMessage msg = new WXMediaMessage(webpage);
 		if (!TextUtils.isEmpty(title))
 			msg.title = title;
+		else
+			msg.title = mContext.getString(R.string.app_name);
 		if (!TextUtils.isEmpty(content))
 			msg.description = content;
 
-		if (bmp != null) {
-			Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, THUMB_SIZE,
-					THUMB_SIZE, true);
-			msg.thumbData = bmpToByteArray(thumbBmp); // 设置缩略图
-			int imageSize = msg.thumbData.length / 1024;
-			if (imageSize > 32) {
-				ModernMediaTools.showToast(mContext, "您分享的图片过大");
-				return;
-			}
-		}
+		if (bmp == null)
+			bmp = BitmapFactory.decodeResource(mContext.getResources(),
+					R.drawable.icon);
+		Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, THUMB_SIZE,
+				THUMB_SIZE, true);
+		msg.thumbData = bmpToByteArray(thumbBmp);
 
-		// 构造一个Req
-		SendMessageToWX.Req request = new SendMessageToWX.Req();
-		request.transaction = buildTransaction("webpage"); // transaction字段用于唯一标识一个请求
-		request.message = msg;
+		SendMessageToWX.Req req = new SendMessageToWX.Req();
+		req.transaction = buildTransaction("webpage");
+		req.message = msg;
 		// 判断是否分享到朋友圈（默认分享到会话）
 		if (isSharedToFriends) {
-			request.scene = SendMessageToWX.Req.WXSceneTimeline;
+			req.scene = SendMessageToWX.Req.WXSceneTimeline;
 		}
-		api.sendReq(request);
+		api.sendReq(req);
 	}
 
 	private String buildTransaction(final String type) {

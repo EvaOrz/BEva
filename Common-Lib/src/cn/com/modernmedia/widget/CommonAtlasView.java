@@ -4,18 +4,10 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import cn.com.modernmedia.CommonArticleActivity;
-import cn.com.modernmedia.api.OperateController;
 import cn.com.modernmedia.db.ReadDb;
-import cn.com.modernmedia.listener.FetchEntryListener;
-import cn.com.modernmedia.model.Atlas;
-import cn.com.modernmedia.model.Atlas.AtlasPicture;
-import cn.com.modernmedia.model.Issue;
+import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.util.AdvTools;
 import cn.com.modernmedia.util.LogHelper;
-import cn.com.modernmedia.util.ParseUtil;
-import cn.com.modernmediaslate.model.Entry;
-import cn.com.modernmediaslate.model.Favorite.FavoriteItem;
-import cn.com.modernmediaslate.model.Favorite.Thumb;
 
 /**
  * 图集
@@ -25,9 +17,6 @@ import cn.com.modernmediaslate.model.Favorite.Thumb;
  */
 public abstract class CommonAtlasView extends BaseView {
 	private Context mContext;
-	private FavoriteItem detail;
-	private Issue issue;
-	private boolean mIsSolo;
 
 	public CommonAtlasView(Context context) {
 		super(context);
@@ -39,76 +28,21 @@ public abstract class CommonAtlasView extends BaseView {
 		mContext = context;
 	}
 
-	public void setData(FavoriteItem detail, Issue issue, boolean isSolo) {
-		if (detail == null || issue == null)
+	public void setData(ArticleItem item) {
+		if (item == null)
 			return;
-		mIsSolo = isSolo;
-		this.detail = detail;
-		this.issue = issue;
-		addLoadok(detail);
-		if (detail.isAdv()) {
-			setValuesForWidget(convertFavoriteToAtlas(detail));
-			disProcess();
-		} else {
-			if (!isSolo)
-				getArticleById(detail);
-			else
-				getSoloArticleById(detail);
-		}
+		addLoadok(item);
+		setValuesForWidget(item);
+		disProcess();
 	}
 
-	/**
-	 * 获取普通文章图集
-	 * 
-	 * @param item
-	 */
-	private void getArticleById(FavoriteItem item) {
-		OperateController.getInstance(mContext).getArticleById(item,
-				new FetchEntryListener() {
-
-					@Override
-					public void setData(Entry entry) {
-						doAfterFetchArticle(entry);
-					}
-				});
+	protected void setValuesForWidget(ArticleItem item) {
 	}
 
-	/**
-	 * 获取独立栏目文章图集
-	 * 
-	 * @param item
-	 */
-	protected void getSoloArticleById(FavoriteItem item) {
-		OperateController.getInstance(mContext).getSoloArticleById(item,
-				new FetchEntryListener() {
-
-					@Override
-					public void setData(Entry entry) {
-						doAfterFetchArticle(entry);
-					}
-				});
-	}
-
-	/**
-	 * 设置value
-	 * 
-	 * @param entry
-	 */
-	private void doAfterFetchArticle(Entry entry) {
-		if (entry instanceof Atlas) {
-			setValuesForWidget((Atlas) entry);
-			disProcess();
-		} else {
-			showError();
-		}
-	}
-
-	protected void setValuesForWidget(Atlas atlas) {
-	}
+	public abstract int getCurrentIndex();
 
 	@Override
 	protected void reLoad() {
-		setData(detail, issue, mIsSolo);
 	}
 
 	public abstract AtlasViewPager getAtlasViewPager();
@@ -118,38 +52,17 @@ public abstract class CommonAtlasView extends BaseView {
 		return getAtlasViewPager().onTouchEvent(event);
 	}
 
-	protected void addLoadok(FavoriteItem detail) {
+	protected void addLoadok(ArticleItem item) {
 		if (mContext instanceof CommonArticleActivity) {
-			((CommonArticleActivity) mContext).addLoadOkUrl(detail.getLink());
-			if (((CommonArticleActivity) mContext).getCurrentUrl().equals(
-					detail.getLink())) {
-				ReadDb.getInstance(mContext).addReadArticle(detail.getId());
-				LogHelper.logAndroidShowArticle(mContext, detail.getCatid()
-						+ "", detail.getId() + "");
-				AdvTools.requestImpression(detail);
+			int id = item.getArticleId();
+			((CommonArticleActivity) mContext).addLoadOkIds(id);
+			if (((CommonArticleActivity) mContext).getCurrArticleId() == id) {
+				ReadDb.getInstance(mContext).addReadArticle(id);
+				LogHelper.logAndroidShowArticle(mContext, item.getTagName(), id
+						+ "");
+				AdvTools.requestImpression(item);
 			}
 		}
-	}
-
-	private Atlas convertFavoriteToAtlas(FavoriteItem item) {
-		Atlas atlas = new Atlas();
-		if (ParseUtil.listNotNull(item.getThumb())) {
-			for (Thumb thumb : item.getThumb()) {
-				AtlasPicture pic = new AtlasPicture();
-				pic.setUrl(thumb.getUrl());
-				pic.setTitle(pic.getTitle());
-				pic.setDesc(thumb.getDesc());
-				pic.setLink(thumb.getLink());
-				pic.setWidth(thumb.getWidth());
-				pic.setHeight(thumb.getHeight());
-				atlas.getList().add(pic);
-			}
-		}
-		return atlas;
-	}
-
-	public boolean ismIsSolo() {
-		return mIsSolo;
 	}
 
 	public void gotoArticle(int articleId) {

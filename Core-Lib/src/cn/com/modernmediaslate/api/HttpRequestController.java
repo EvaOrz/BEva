@@ -171,7 +171,7 @@ public class HttpRequestController {
 							return;
 						}
 						showToast("from http:" + url);
-						mFetchDataListener.fetchData(true, data);
+						mFetchDataListener.fetchData(true, data, true);
 						reSetUpdateTime();
 						SlatePrintHelper.print("from http:" + url);
 					} else {
@@ -229,7 +229,7 @@ public class HttpRequestController {
 							return;
 						}
 						showToast("from http:" + url);
-						mFetchDataListener.fetchData(true, resData);
+						mFetchDataListener.fetchData(true, resData, true);
 						reSetUpdateTime();
 						SlatePrintHelper.print("from http:" + url);
 					} catch (Exception e) {

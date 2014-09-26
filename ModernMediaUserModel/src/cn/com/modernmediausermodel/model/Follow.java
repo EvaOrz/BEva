@@ -3,7 +3,6 @@ package cn.com.modernmediausermodel.model;
 import java.util.ArrayList;
 
 import cn.com.modernmediaslate.model.Entry;
-import cn.com.modernmediausermodel.model.User.Error;
 
 public class Follow extends Entry {
 	private static final long serialVersionUID = 1L;

@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/column_bg" >
+    android:background="@color/white_bg" >
 
     <ImageView
         android:id="@+id/userinfo_img_close"
@@ -22,9 +22,9 @@
         android:layout_marginRight="@dimen/login_desc_marginRight"
         android:layout_marginTop="@dimen/login_desc_marginTop"
         android:layout_toLeftOf="@+id/userinfo_img_close"
-        android:text="@string/userinfo_desc"
+        android:text="@string/set_userinfo_desc"
         android:textColor="@color/login_desc"
-        android:textSize="@dimen/login_desc_textsize" />
+        android:textSize="@dimen/dp12_textsize" />
 
     <ImageView
         android:id="@+id/userinfo_avatar"
@@ -49,7 +49,7 @@
             android:id="@+id/userinfo_name_edit"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:background="@drawable/bg_text_field"
+            android:background="@drawable/login_edittext_select"
             android:hint="@string/userinfo_nickname"
             android:inputType="textEmailAddress"
             android:singleLine="true"
@@ -62,8 +62,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/login_image_clear_marginright"
             android:contentDescription="@null"
+            android:padding="@dimen/dp5"
             android:src="@drawable/ic_text_field_clear" />
     </RelativeLayout>
 
@@ -81,7 +81,7 @@
             android:id="@+id/userinfo_accout_edit"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:background="@drawable/bg_text_field"
+            android:background="@drawable/login_edittext_select"
             android:hint="@string/mail_address"
             android:inputType="textEmailAddress"
             android:singleLine="true"
@@ -94,8 +94,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/login_image_clear_marginright"
             android:contentDescription="@null"
+            android:padding="@dimen/dp5"
             android:src="@drawable/ic_text_field_clear" />
     </RelativeLayout>
 
@@ -105,10 +105,10 @@
         android:layout_height="@dimen/login_btn_height"
         android:layout_alignRight="@+id/userinfo_name_rl"
         android:layout_below="@+id/userinfo_account_rl"
-        android:layout_marginTop="@dimen/login_button_margintop"
-        android:background="@drawable/bg_btn_login"
+        android:layout_marginTop="@dimen/login_btn_margintop"
+        android:background="@drawable/login_btn_login_bg"
         android:text="@string/complete"
-        android:textColor="@android:color/background_light"
+        android:textColor="@color/white_bg"
         android:textSize="@dimen/dp13_textsize" />
 
     <TextView
@@ -117,10 +117,10 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/userinfo_name_rl"
         android:layout_below="@+id/userinfo_complete"
-        android:layout_marginTop="@dimen/login_button_margintop"
+        android:layout_marginTop="@dimen/login_btn_margintop"
         android:gravity="center_horizontal"
         android:text="@string/modify_pwd"
-        android:textColor="@android:color/background_light"
+        android:textColor="@color/login_desc"
         android:textSize="@dimen/userinfo_textsize" />
 
     <TextView
@@ -131,7 +131,7 @@
         android:layout_alignTop="@+id/userinfo_modify_pwd_btn"
         android:gravity="center_horizontal"
         android:text="@string/login_out"
-        android:textColor="@android:color/background_light"
+        android:textColor="@color/login_desc"
         android:textSize="@dimen/userinfo_textsize" />
 
     <ImageView

@@ -9,9 +9,9 @@ import org.json.JSONObject;
 
 import cn.com.modernmediaslate.api.SlateBaseOperate;
 import cn.com.modernmediaslate.listener.FetchDataListener;
+import cn.com.modernmediaslate.model.ErrorMsg;
 import cn.com.modernmediaslate.unit.SlatePrintHelper;
 import cn.com.modernmediausermodel.UserApplication;
-import cn.com.modernmediausermodel.model.User.Error;
 
 /**
  * 添加卡片operate
@@ -22,16 +22,16 @@ import cn.com.modernmediausermodel.model.User.Error;
 public class CardFavOperate extends SlateBaseOperate {
 	public static final int TYPE_ADD = 0; // 收藏卡片
 	public static final int TYPE_DELTE = 1; // 删除卡片
-	private Error error;
+	private ErrorMsg error;
 	private ArrayList<NameValuePair> nameValuePairs; // post参数
 	private int type = 0;
 
-	public Error getError() {
+	public ErrorMsg getError() {
 		return error;
 	}
 
 	protected CardFavOperate(String uid, String cardId, int type) {
-		this.error = new Error();
+		this.error = new ErrorMsg();
 		this.type = type;
 		// post 参数设置
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -46,7 +46,6 @@ public class CardFavOperate extends SlateBaseOperate {
 			}
 			params.add(new BasicNameValuePair("data", postObject.toString()));
 			setPostParams(params);
-			SlatePrintHelper.print("post values:" + postObject.toString());
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -82,7 +81,7 @@ public class CardFavOperate extends SlateBaseOperate {
 	@Override
 	protected void fetchLocalDataInBadNet(FetchDataListener mFetchDataListener) {
 		SlatePrintHelper.print("net error:" + getUrl());
-		mFetchDataListener.fetchData(false, null);
+		mFetchDataListener.fetchData(false, null, false);
 	}
 
 	@Override

@@ -7,9 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import cn.com.modernmedia.adapter.MyPagerAdapter;
 import cn.com.modernmedia.model.ArticleItem;
-import cn.com.modernmedia.util.ParseUtil;
-import cn.com.modernmedia.views.util.WeeklyLogEvent;
+import cn.com.modernmedia.util.WeeklyLogEvent;
 import cn.com.modernmedia.widget.LoadingImage;
+import cn.com.modernmediaslate.unit.ParseUtil;
 
 /**
  * iweekly类型的焦点图适配器
@@ -33,8 +33,8 @@ public class WeeklyCircularPagerAdapter extends MyPagerAdapter<ArticleItem> {
 
 	@Override
 	public View fetchView(ArticleItem item) {
-		LoadingImage loadingImage = new LoadingImage(mContext, tag, width,
-				height);
+		LoadingImage loadingImage = new LoadingImage(mContext, width, height);
+		loadingImage.setTag(tag);
 		if (item != null) {
 			if (ParseUtil.listNotNull(item.getPicList())) {
 				loadingImage.setUrl(item.getPicList().get(0));

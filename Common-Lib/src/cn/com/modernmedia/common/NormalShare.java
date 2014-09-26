@@ -2,30 +2,26 @@ package cn.com.modernmedia.common;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.text.TextUtils;
-import cn.com.modernmedia.CommonApplication;
-import cn.com.modernmedia.api.OperateController;
-import cn.com.modernmedia.common.ShareDialog.Args;
-import cn.com.modernmedia.listener.FetchEntryListener;
-import cn.com.modernmedia.listener.ImageDownloadStateListener;
-import cn.com.modernmedia.model.Share;
-import cn.com.modernmedia.util.ModernMediaTools;
-import cn.com.modernmedia.util.ParseUtil;
-import cn.com.modernmediaslate.model.Entry;
+import cn.com.modernmedia.R;
+import cn.com.modernmedia.model.ArticleItem;
+import cn.com.modernmediaslate.unit.ParseUtil;
 
 /**
  * 非iweekly应用分享
+ * 
+ * @flag 微博：【文章标题】文章摘要[空格]weburl
+ * @flag 微信（好友/朋友圈）：标题就用文章标题，描述就是文章描述，图就是缩略图，如果文章描述为空，就用文章标题；如果没有缩略图，就用 app icon
+ * @flag 邮件：主题：我在$appname看到了一篇文章，想要分享给你
  * 
  * @author user
  * 
  */
 public class NormalShare extends BaseShare {
-	private Args args;
 
-	public NormalShare(Context context, Args args, ShareDialog shareDialog) {
-		super(context, shareDialog);
-		this.args = args;
+	public NormalShare(Context context, ArticleItem item,
+			ShareDialog shareDialog) {
+		super(context, item, shareDialog);
 	}
 
 	@Override
@@ -35,17 +31,19 @@ public class NormalShare extends BaseShare {
 
 	@Override
 	public void shareByFriend() {
-		share(null, "03", SHARE_TYPE.WEIXIN_FRIEND);
+		super.shareByFriend();
 	}
 
 	@Override
 	public void shareByFriends() {
-		share(null, "03", SHARE_TYPE.WEIXIN_FRIENDS);
+		super.shareByFriends();
 	}
 
 	@Override
 	public void shareByWeibo() {
-		share(null, "02", SHARE_TYPE.SINA);
+		shareDialog.logAndroidShareToSinaCount(item.getArticleId() + "",
+				item.getTagName());
+		showWeiboDialog(getWeiBoContent(), false);
 	}
 
 	@Override
@@ -55,109 +53,38 @@ public class NormalShare extends BaseShare {
 
 	@Override
 	public void shareToOthers(Intent intent) {
-		if (intent == null || TextUtils.isEmpty(intent.getPackage())
-				|| args == null)
+		if (intent == null || TextUtils.isEmpty(intent.getPackage()))
 			return;
 		String pack = intent.getPackage();
-		share(intent, getShareType(intent, pack), null);
-	}
-
-	/**
-	 * 获取分享内容
-	 * 
-	 * @param intent
-	 * @param shareType
-	 * @param _Type
-	 *            为了区分微信好友和朋友圈
-	 */
-	private void share(final Intent intent, final String shareType,
-			final SHARE_TYPE _Type) {
-		ModernMediaTools.showLoading(mContext, true);
-		OperateController.getInstance(mContext).share(args.issue,
-				args.columnId, args.articleId, shareType,
-				new FetchEntryListener() {
-
-					@Override
-					public void setData(final Entry entry) {
-						ModernMediaTools.showLoading(mContext, false);
-						if (entry instanceof Share) {
-							Share share = (Share) entry;
-							if (ParseUtil.listNotNull(share.getPicList())) {
-								fecthBitmapAfterShare(share, intent, shareType,
-										_Type);
-							} else {
-								afterFecthShare(share, intent, shareType, _Type);
-							}
-						}
-					}
-				});
-	}
-
-	/**
-	 * 非iweekly应用获取完share接口下载图片
-	 * 
-	 * @param share
-	 * @param intent
-	 * @param shareType
-	 */
-	private void fecthBitmapAfterShare(final Share share, final Intent intent,
-			final String shareType, final SHARE_TYPE _Type) {
-		CommonApplication.finalBitmap.display(share.getPicList().get(0),
-				new ImageDownloadStateListener() {
-
-					@Override
-					public void loading() {
-						ModernMediaTools.showLoading(mContext, true);
-					}
-
-					@Override
-					public void loadOk(Bitmap bitmap) {
-						ModernMediaTools.showLoading(mContext, false);
-						mBitmap = bitmap;
-						afterFecthShare(share, intent, shareType, _Type);
-					}
-
-					@Override
-					public void loadError() {
-						ModernMediaTools.showLoading(mContext, false);
-						afterFecthShare(share, intent, shareType, _Type);
-					}
-				});
-	}
-
-	/**
-	 * 非iweekly应用获取完share接口
-	 * 
-	 * @param share
-	 * @param intent
-	 * @param shareType
-	 */
-	private void afterFecthShare(Share share, Intent intent, String shareType,
-			SHARE_TYPE _Type) {
-		String title = share.getTitle();
-		String msg = share.getContent();
-		String url = share.getWeburl();
-		String content = msg.contains(url) ? msg : msg + " " + url;
-
+		String shareType = getShareType(intent, pack);
 		if (shareType.equals("01")) {
-			shareTool.shareByMail(intent, title, content, mBitmap);
-			shareDialog.logAndroidShareToMail(args.articleId, args.columnId);
-		} else if (shareType.equals("02")) {
-			shareDialog.logAndroidShareToSinaCount(args.articleId,
-					args.columnId);
-			showWeiboDialog(content, false);
-		} else if (shareType.equals("03")) {
-			if (_Type == SHARE_TYPE.WEIXIN_FRIEND) {
-//				WeixinShare.getInstance(mContext).shareImageAndTextToWeixin(
-//						title, msg, url, mBitmap, false);
-				shareTool.shareToFriend(content);
-			} else if (_Type == SHARE_TYPE.WEIXIN_FRIENDS) {
-//				WeixinShare.getInstance(mContext).shareImageAndTextToWeixin(
-//						title, msg, url, mBitmap, true);
-				shareTool.shareToMoments(mBitmap);
-			}
+			shareTool.shareByMail(intent, getEmailTitle(), getWeiBoContent(),
+					mBitmap);
+			shareDialog.logAndroidShareToMail(item.getArticleId() + "",
+					item.getTagName());
 		} else {
-			shareTool.shareWithoutMail(intent, content, mBitmap);
+			shareTool.shareWithoutMail(intent, getWeiBoContent(), mBitmap);
 		}
 	}
+
+	/**
+	 * 获取邮件标题
+	 * 
+	 * @return
+	 */
+	private String getEmailTitle() {
+		return ParseUtil.parseString(mContext, R.string.share_by_email_title,
+				mContext.getString(R.string.app_name));
+	}
+
+	/**
+	 * 获取微博分享内容（除了微信分享，其它分享内容都同微博）
+	 * 
+	 * @return
+	 */
+	private String getWeiBoContent() {
+		return ParseUtil.parseString(mContext, R.string.share_wp_content,
+				item.getTitle(), item.getDesc(), item.getWeburl());
+	}
+
 }

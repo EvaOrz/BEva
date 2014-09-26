@@ -8,10 +8,10 @@ import org.json.JSONObject;
 
 import cn.com.modernmediaslate.api.SlateBaseOperate;
 import cn.com.modernmediaslate.listener.FetchDataListener;
+import cn.com.modernmediaslate.model.ErrorMsg;
 import cn.com.modernmediaslate.unit.SlatePrintHelper;
 import cn.com.modernmediausermodel.UserApplication;
 import cn.com.modernmediausermodel.model.Card.CardItem;
-import cn.com.modernmediausermodel.model.User.Error;
 import cn.com.modernmediausermodel.util.UserConstData;
 
 /**
@@ -21,31 +21,41 @@ import cn.com.modernmediausermodel.util.UserConstData;
  * 
  */
 public class AddCardOperate extends SlateBaseOperate {
-	private Error error;
-	private ArrayList<NameValuePair> nameValuePairs; // post参数
+	private ErrorMsg error;
+	private ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(); // post参数
 
-	public Error getError() {
+	public ErrorMsg getError() {
 		return error;
 	}
 
 	protected AddCardOperate(CardItem cardItem) {
-		this.error = new Error();
-		// post 参数设置
-		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+		this.error = new ErrorMsg();
 		JSONObject postObject = new JSONObject();
 		try {
 			addPostParams(postObject, "uid", cardItem.getUid());
 			addPostParams(postObject, "appid", UserConstData.getInitialAppId()
 					+ "");
 			addPostParams(postObject, "time", cardItem.getTime());
+			if (cardItem.getArticleId() != 0)
+				addPostParams(postObject, "articleid", cardItem.getArticleId()
+						+ "");
 			addPostParams(postObject, "contents", cardItem.getContents());
-			params.add(new BasicNameValuePair("data", postObject.toString()));
-			setPostParams(params);
-			SlatePrintHelper.print("post values:" + postObject.toString());
+			nameValuePairs.add(new BasicNameValuePair("data", postObject
+					.toString()));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * 构造方法
+	 * 
+	 * @param json
+	 *            post数据，中文需要进行UTF-8编码，但是如果其中含有换行符不需要编码
+	 */
+	protected AddCardOperate(String json) {
+		nameValuePairs.add(new BasicNameValuePair("data", json));
 	}
 
 	@Override
@@ -69,7 +79,7 @@ public class AddCardOperate extends SlateBaseOperate {
 	@Override
 	protected void fetchLocalDataInBadNet(FetchDataListener mFetchDataListener) {
 		SlatePrintHelper.print("net error:" + getUrl());
-		mFetchDataListener.fetchData(false, null);
+		mFetchDataListener.fetchData(false, null, false);
 	}
 
 	@Override
@@ -84,9 +94,5 @@ public class AddCardOperate extends SlateBaseOperate {
 	@Override
 	protected ArrayList<NameValuePair> getPostParams() {
 		return nameValuePairs;
-	}
-
-	protected void setPostParams(ArrayList<NameValuePair> params) {
-		this.nameValuePairs = params;
 	}
 }

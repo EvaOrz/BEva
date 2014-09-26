@@ -56,7 +56,7 @@ public class UploadUserAvaterOperate extends SlateBaseOperate {
 
 	@Override
 	protected void fetchLocalDataInBadNet(FetchDataListener mFetchDataListener) {
-		mFetchDataListener.fetchData(false, null);
+		mFetchDataListener.fetchData(false, null, false);
 	}
 
 }

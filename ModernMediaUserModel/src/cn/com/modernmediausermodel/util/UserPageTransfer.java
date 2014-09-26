@@ -1,30 +1,28 @@
 package cn.com.modernmediausermodel.util;
 
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import cn.com.modernmedia.db.FavDb;
-import cn.com.modernmedia.model.Issue;
-import cn.com.modernmedia.util.PageTransfer;
-import cn.com.modernmedia.util.ParseUtil;
-import cn.com.modernmediaslate.model.Favorite.FavoriteItem;
+import cn.com.modernmediaslate.SlateApplication;
+import cn.com.modernmediaslate.unit.FavObservable;
+import cn.com.modernmediausermodel.ArticleCardListActivity;
 import cn.com.modernmediausermodel.CardDetailActivity;
-import cn.com.modernmediausermodel.DefaultModifyPwdActivity;
-import cn.com.modernmediausermodel.DefaultUserInfoActivity;
-import cn.com.modernmediausermodel.FavoritesActivity;
+import cn.com.modernmediausermodel.ModifyPwdActivity;
+import cn.com.modernmediausermodel.UserInfoActivity;
 import cn.com.modernmediausermodel.MessageActivity;
+import cn.com.modernmediausermodel.ModifyEmailActivity;
+import cn.com.modernmediausermodel.MyCoinActivity;
+import cn.com.modernmediausermodel.MyCoinUseNoticeActivity;
 import cn.com.modernmediausermodel.MyHomePageActivity;
 import cn.com.modernmediausermodel.R;
 import cn.com.modernmediausermodel.RecommendUserActivity;
 import cn.com.modernmediausermodel.SquareActivity;
+import cn.com.modernmediausermodel.UserApplication;
 import cn.com.modernmediausermodel.UserCardInfoActivity;
 import cn.com.modernmediausermodel.WriteCommentActivity;
 import cn.com.modernmediausermodel.WriteNewCardActivity;
-import cn.com.modernmediausermodel.help.UserHelper;
 import cn.com.modernmediausermodel.model.Card;
 import cn.com.modernmediausermodel.model.Message;
 import cn.com.modernmediausermodel.model.User;
@@ -45,8 +43,10 @@ public class UserPageTransfer {
 
 	public static final int GOTO_HOME_PAGE = 1;// 登录完成进入我的首页
 	public static final int GOTO_MESSAGE = 2;// 登录完成进入通知中心页
+	public static final int GOTO_MY_COIN = 3;// 登录完成进入我的金币页
 	public static final int TO_LOGIN_BY_WRITE = 1001;// 填写卡片前登录回来刷新页面
 	public static final int AFTER_WRITE_CARD = 1002;// 填写卡片回来
+	public static final int TO_LOGIN_BY_ARTICLE_CARD = 1003;// 查看文章摘要，未登录状态下进入登录页的请求code
 
 	// 跳转页面需要的参数
 	private static Message message;
@@ -194,13 +194,10 @@ public class UserPageTransfer {
 	/**
 	 * 跳转至收藏夹界面
 	 */
-	public static void gotoFavoritesActivity(Context context, Issue issue) {
+	public static void gotoFavoritesActivity(Context context) {
 		Bundle bundle = new Bundle();
-		bundle.putSerializable(FavoritesActivity.ISSUE_KEY, issue);
-		// transfer(context, FavoritesActivity.class, bundle, true);
-		// test
-		transfer(context, FavoritesActivity.class, bundle, false,
-				PageTransfer.REQUEST_CODE, true);
+		if (UserApplication.favActivity != null)
+			transfer(context, UserApplication.favActivity, bundle, false, true);
 	}
 
 	/**
@@ -291,26 +288,24 @@ public class UserPageTransfer {
 			int gotoPage) {
 		if (user == null)
 			return;
+		SlateApplication.loginStatusChange = true;
 		// 如果是第三方应用分享笔记，则进入发表笔记页面
 		if (!TextUtils.isEmpty(content)) {
 			gotoWriteCardActivity(context, content, true);
 		} else {
 			// 更新收藏文件夹
-			List<FavoriteItem> list = FavDb.getInstance(context)
-					.getUserUnUpdateFav(user.getUid(), false);
-			if (ParseUtil.listNotNull(list)) {
-				UserHelper.updateFav(context);
-			} else {
-				UserHelper.getFav(context);
-			}
+			SlateApplication.favObservable.setData(FavObservable.AFTER_LOGIN);
 			// 如果是第一次登录，则进入推荐关注界面
 			if (UserDataHelper.getIsFirstLogin(context, user.getUserName())) {
 				UserDataHelper.saveIsFirstLogin(context, user.getUserName(),
 						false);
 				gotoUserListActivity(context, null,
-						RecommendUserView.PAGE_RECOMMEND_FRIEND, true);
+						RecommendUserView.PAGE_RECOMMEND_FRIEND, false);
 			} else {
-				if (!checkAfterLogin(context, gotoPage)) {
+				if (UserApplication.afterLoginListener != null) {
+					UserApplication.afterLoginListener.doAfterLogin(gotoPage);
+					((Activity) context).finish();
+				} else if (!checkAfterLogin(context, gotoPage)) {
 					((Activity) context).finish();
 				}
 			}
@@ -328,6 +323,8 @@ public class UserPageTransfer {
 			gotoMyHomePageActivity(context, true);
 		} else if (gotoPage == GOTO_MESSAGE) {
 			gotoMessageActivity(context, message, true);
+		} else if (gotoPage == GOTO_MY_COIN) {
+			gotoMyCoinActivity(context, true, false);
 		} else {
 			return false;
 		}
@@ -339,7 +336,7 @@ public class UserPageTransfer {
 	 * 
 	 * @param context
 	 * @param from
-	 *            页面跳转起源（1：注册；2：新浪微博登录；其它为0）
+	 *            页面跳转起源（1：注册；2：新浪微博登录；3: QQ登录；其它为0）
 	 * @param content
 	 *            第三方应用或者本应用分享的内容
 	 * @param gotoPage
@@ -347,12 +344,15 @@ public class UserPageTransfer {
 	 */
 	public static void gotoUserInfoActivity(Context context, int from,
 			String content, int gotoPage) {
-		if (!isLogin(context)) {
+		// 检查是否登录过，通过开放平台（如新浪微博、qq等）第一次登录进入信息页面时无需检查
+		if (!isLogin(context)
+				&& from != UserInfoActivity.FROM_SINA_LOGIN
+				&& from != UserInfoActivity.FROM_QQ_LOGIN) {
 			gotoLoginActivity(context, 0);
 			return;
 		}
 		Bundle bundle = new Bundle();
-		bundle.putInt(DefaultUserInfoActivity.KEY_ACTION_FROM, from);
+		bundle.putInt(UserInfoActivity.KEY_ACTION_FROM, from);
 		if (!TextUtils.isEmpty(content)) {
 			bundle.putString(WriteNewCardActivity.KEY_DATA, content);
 		}
@@ -367,7 +367,70 @@ public class UserPageTransfer {
 	 * @param context
 	 */
 	public static void gotoModifyPasswordActivity(Context context) {
-		transfer(context, DefaultModifyPwdActivity.class, null, false, true);
+		transfer(context, ModifyPwdActivity.class, null, false, true);
 	}
 
+	/**
+	 * 跳转到商城须知页面
+	 */
+	public static void gotoMyCoinUseNoticeActivity(Context context) {
+		if (isLogin(context))
+			transfer(context, MyCoinUseNoticeActivity.class, null, false, true);
+		else
+			gotoLoginActivity(context, 0);
+	}
+
+	/**
+	 * 跳转到修改邮箱页面
+	 */
+	public static void gotoModifyEmailActivity(Context context) {
+		if (isLogin(context))
+			transfer(context, ModifyEmailActivity.class, null, false, true);
+		else
+			gotoLoginActivity(context, 0);
+	}
+
+	/**
+	 * 跳转到我的金币页面
+	 * 
+	 * @param context
+	 * @param isFinish
+	 * @param isFromNotice
+	 */
+	public static void gotoMyCoinActivity(Context context, boolean isFinish,
+			boolean isFromNotice) {
+		if (isLogin(context)) {
+			// 如果是第一次进入并且不是从说明页而来，则进入商城使用说明页面
+			String uid = UserTools.getUid(context);
+			if (!TextUtils.isEmpty(uid)
+					&& UserDataHelper.getIsFirstUseCoin(context, uid)
+					&& !isFromNotice) {
+				UserPageTransfer.gotoMyCoinUseNoticeActivity(context);
+			} else {
+				transfer(context, MyCoinActivity.class, null, isFinish, true);
+			}
+		} else
+			gotoLoginActivity(context, UserPageTransfer.GOTO_MY_COIN);
+	}
+
+	/**
+	 * 前往文章摘要与评论页面
+	 * 
+	 * @param context
+	 * @param issueId
+	 * @param articleId
+	 */
+	public static void gotoArticleCardActivity(Context context, String articleId) {
+		if (!isLogin(context)) {
+			gotoLoginActivityRequest(context, TO_LOGIN_BY_ARTICLE_CARD);
+			return;
+		}
+		if (TextUtils.isEmpty(articleId)) {
+			((Activity) context).finish();
+			return;
+		}
+		Bundle bundle = new Bundle();
+		bundle.putString(ArticleCardListActivity.KEY_ARTICLE_ID, articleId);
+		transfer(context, ArticleCardListActivity.class, bundle, false, false);
+	}
 }

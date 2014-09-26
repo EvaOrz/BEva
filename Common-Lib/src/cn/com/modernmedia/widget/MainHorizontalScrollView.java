@@ -18,7 +18,7 @@ import cn.com.modernmedia.listener.ScrollStateListener;
 import cn.com.modernmedia.listener.SizeCallBack;
 import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmedia.util.LogHelper;
-import cn.com.modernmedia.util.ParseUtil;
+import cn.com.modernmediaslate.unit.ParseUtil;
 
 /**
  * 主页横向划屏
@@ -681,7 +681,7 @@ public class MainHorizontalScrollView extends HorizontalScrollView {
 				@Override
 				public void run() {
 					isClick = true;
-					me.scrollBy(scrollToViewPos, 0);
+					me.scrollTo(scrollToViewPos, 0);
 
 					/* 视图不是中间视图 */
 					me.setVisibility(View.VISIBLE);

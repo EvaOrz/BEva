@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
-import cn.com.modernmedia.model.Cat.CatItem;
 
 /**
  * 保存数据
@@ -26,43 +25,25 @@ public class DataHelper {
 	private static final String FONT_SIZE = "Font_Size";
 	private static final String COLUMN_UPDATE_TIME = "columnUpdateTime_";
 	private static final String ARTICLE_UPDATE_TIME = "articleUpdateTime_";
+	private static final String APP_UPDATETIME = "app_updatetime";
 	private static final String DOWN = "down";
 	private static final String UPDATE = "update";
 	private static final String LINE_HEIGHT = "line_height";// webview行间距
 	private static final String INDEX_UPDATE_TIME = "index_update_time_";// 首页、栏目首页更新时间
 	private static final String PUSH = "push";
-	private static final String DB_ADD_COLUMN = "db_add_column";
+	private static final String DB_CHANGED = "db_changed";
+	private static final String LAST_ISSUE_PUBLISH_TIME = "last_issue_publish_time_";// 往期文章更新时间
 
-	public static Map<Integer, String> columnTitleMap = new HashMap<Integer, String>();// catid对于的cat名称
-	public static Map<Integer, Integer> columnColorMap = new HashMap<Integer, Integer>();// catid对应的cat颜色
-	public static Map<Integer, List<String>> columnPicMap = new HashMap<Integer, List<String>>();// catid对应的图片列表
-	public static Map<Integer, List<CatItem>> childMap = new HashMap<Integer, List<CatItem>>();// key:parent_cat_id,value:子栏目列表
-	public static Map<Integer, Integer> soloCatMap = new HashMap<Integer, Integer>();// 独立栏目
-																						// key:catid,value:跳转至的catid
-	public static Map<String, String> fromOffset = new HashMap<String, String>();// 独立栏目from_offset
-	public static Map<String, String> toOffset = new HashMap<String, String>();// 独立栏目from_offset
-	/**
-	 * 当前焦点图的个数（full页的，用来做广告）
-	 */
-	public static int solo_head_count = 0;
-	/**
-	 * 当前列表图的个数（full页的，用来做广告）
-	 */
-	public static int solo_list_count = 0;
+	public static Map<String, String> columnTitleMap = new HashMap<String, String>();// tagname对于的cat名称
+	public static Map<String, Integer> columnColorMap = new HashMap<String, Integer>();// tagname对应的cat颜色
+	public static Map<String, List<String>> columnPicMap = new HashMap<String, List<String>>();// tagname对应的图片列表
+	public static Map<String, List<String>> columnBigMap = new HashMap<String, List<String>>();// tagname对应的大图列表
 
 	public static void clear() {
 		columnTitleMap.clear();
 		columnColorMap.clear();
 		columnPicMap.clear();
-		childMap.clear();
-	}
-
-	public static void clearSoloMap() {
-		fromOffset.clear();
-		toOffset.clear();
-		soloCatMap.clear();
-		solo_head_count = 0;
-		solo_list_count = 0;
+		columnBigMap.clear();
 	}
 
 	private static SharedPreferences getPref(Context context) {
@@ -181,6 +162,28 @@ public class DataHelper {
 			int issueId) {
 		Editor editor = getPref(context).edit();
 		editor.putLong(ARTICLE_UPDATE_TIME + issueId, time);
+		editor.commit();
+	}
+
+	/**
+	 * 获取最近一次更新的APP_UPDATETIME
+	 * 
+	 * @param context
+	 * @return
+	 */
+	public static String getAppUpdateTime(Context context) {
+		return getPref(context).getString(APP_UPDATETIME, "");
+	}
+
+	/**
+	 * 保存最近一次获取的APP_UPDATETIME
+	 * 
+	 * @param context
+	 * @param time
+	 */
+	public static void setAppUpdateTime(Context context, String time) {
+		Editor editor = getPref(context).edit();
+		editor.putString(APP_UPDATETIME, time);
 		editor.commit();
 	}
 
@@ -310,26 +313,26 @@ public class DataHelper {
 	}
 
 	/**
-	 * 是否是第一次进应用
+	 * 是否已经修改收藏数据库
 	 * 
 	 * @param context
 	 * @return
 	 */
-	public static boolean getAddColumn(Context context) {
-		return getPref(context).getBoolean(DB_ADD_COLUMN, false);
+	public static boolean getDbChanged(Context context) {
+		return getPref(context).getBoolean(DB_CHANGED, false);
 	}
 
 	/**
-	 * 设置不是第一次进应用
+	 * 设置是否已经修改收藏数据库
 	 * 
 	 * @param context
 	 */
-	public static void setAddColumn(Context context) {
+	public static void setDbChanged(Context context) {
 		Editor editor = getPref(context).edit();
-		editor.putBoolean(DB_ADD_COLUMN, true);
+		editor.putBoolean(DB_CHANGED, true);
 		editor.commit();
 	}
-	
+
 	/**
 	 * 获取上次点击的子栏目id
 	 * 
@@ -354,4 +357,26 @@ public class DataHelper {
 		editor.commit();
 	}
 
+	/**
+	 * 获取往期更新时间
+	 * 
+	 * @param context
+	 * @return
+	 */
+	public static String getLastIssuePublishTime(Context context, String tagName) {
+		return getPref(context)
+				.getString(LAST_ISSUE_PUBLISH_TIME + tagName, "");
+	}
+
+	/**
+	 * 保存往期更新时间
+	 * 
+	 * @param context
+	 */
+	public static void setLastIssuePublishTime(Context context, String tagName,
+			String publishTime) {
+		Editor editor = getPref(context).edit();
+		editor.putString(LAST_ISSUE_PUBLISH_TIME + tagName, publishTime);
+		editor.commit();
+	}
 }

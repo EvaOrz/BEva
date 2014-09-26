@@ -6,8 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.content.Context;
-
-import cn.com.modernmedia.api.BaseOperate;
+import cn.com.modernmediaslate.api.SlateBaseOperate;
 import cn.com.modernmediausermodel.db.UserInfoDb;
 import cn.com.modernmediausermodel.model.User;
 import cn.com.modernmediausermodel.model.Users;
@@ -18,7 +17,7 @@ import cn.com.modernmediausermodel.model.Users;
  * @author user
  * 
  */
-public class GetUsersInfoOperate extends BaseOperate {
+public class GetUsersInfoOperate extends SlateBaseOperate {
 	private Users users;
 	private Set<String> uidSet;
 	private String uids;

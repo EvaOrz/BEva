@@ -6,13 +6,21 @@ import java.util.List;
 import java.util.Map;
 
 import cn.com.modernmedia.CommonApplication;
-import cn.com.modernmedia.model.LastestArticleId;
+import cn.com.modernmedia.newtag.db.TagArticleListDb;
+import cn.com.modernmedia.newtag.db.TagIndexDb;
+import cn.com.modernmedia.newtag.db.TagInfoListDb;
+import cn.com.modernmedia.newtag.db.UserSubscribeListDb;
+import cn.com.modernmedia.newtag.mainprocess.TagBaseMainProcess;
 import cn.com.modernmedia.util.PrintHelper;
-import cn.com.modernmedia.views.column.ColumnView.ColumnFooterItemIsSeletedListener;
+import cn.com.modernmedia.views.column.NewColumnView.ColumnFooterItemIsSeletedListener;
+import cn.com.modernmedia.views.fav.FavObserver;
+import cn.com.modernmedia.views.index.IndexView.NavObservable;
 import cn.com.modernmedia.views.listener.ChildCatClickListener;
+import cn.com.modernmedia.views.listener.ColumnChangedListener;
 import cn.com.modernmedia.views.listener.FlowPositionChangedListener;
 import cn.com.modernmedia.views.listener.NotifyLastestChangeListener;
 import cn.com.modernmediausermodel.UserApplication;
+import cn.com.modernmediausermodel.db.CardListByArtilceIdDb;
 import cn.com.modernmediausermodel.db.RecommendCardDb;
 import cn.com.modernmediausermodel.db.TimelineDb;
 import cn.com.modernmediausermodel.db.UserCardInfoDb;
@@ -27,8 +35,19 @@ public class ViewsApplication extends CommonApplication {
 	public static FlowPositionChangedListener positionChangedListener;
 	// 通知刷新未读个数(相同类型的只存在一个,比如栏目首页,一次只能显示一个)
 	private static Map<String, NotifyLastestChangeListener> notifyLastestMap = new HashMap<String, NotifyLastestChangeListener>();
-	public static LastestArticleId lastestArticleId;
 	public static List<Integer> readedArticles = new ArrayList<Integer>();
+	public static ColumnChangedListener columnChangedListener;
+	public static NavObservable navObservable = new NavObservable();
+	public static Class<?> articleGalleryCls; // 文章详情显示
+
+	@Override
+	public void onCreate() {
+		super.onCreate();
+		articleCls = ArticleActivity.class;
+		UserApplication.favActivity = FavoritesActivity.class;
+		favObservable.deleteObservers();
+		favObservable.addObserver(new FavObserver(mContext));
+	}
 
 	public static void addListener(String name,
 			NotifyLastestChangeListener lastestChangeListener) {
@@ -53,15 +72,21 @@ public class ViewsApplication extends CommonApplication {
 		PrintHelper.print("ViewsApplication exit");
 		RecommendCardDb.getInstance(mContext).close();
 		TimelineDb.getInstance(mContext).close();
+		CardListByArtilceIdDb.getInstance(mContext).close();
 		UserCardInfoDb.getInstance(mContext).close();
 		UserInfoDb.getInstance(mContext).close();
-		soloColumn = null;
+		TagInfoListDb.getInstance(mContext).close();
+		TagArticleListDb.getInstance(mContext).close();
+		TagIndexDb.getInstance(mContext).close();
+		UserSubscribeListDb.getInstance(mContext).close();
 		UserApplication.exit();
 		itemIsSelectedListener = null;
 		catClickListener = null;
-		lastestArticleId = null;
 		positionChangedListener = null;
 		clearListener();
 		readedArticles.clear();
+		TagBaseMainProcess.clear();
+		columnChangedListener = null;
+		navObservable.deleteObservers();
 	}
 }

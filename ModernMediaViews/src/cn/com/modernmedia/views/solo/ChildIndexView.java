@@ -1,6 +1,5 @@
 package cn.com.modernmedia.views.solo;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,10 +9,8 @@ import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
-import cn.com.modernmedia.model.Cat.CatItem;
-import cn.com.modernmedia.model.SoloColumn.SoloColumnChild;
-import cn.com.modernmedia.util.DataHelper;
-import cn.com.modernmedia.util.ParseUtil;
+import cn.com.modernmedia.model.TagInfoList;
+import cn.com.modernmedia.model.TagInfoList.TagInfo;
 
 /**
  * 子栏目首页
@@ -23,7 +20,7 @@ import cn.com.modernmedia.util.ParseUtil;
  */
 public class ChildIndexView extends BaseSoloIndexView {
 	private Context mContext;
-	private List<CatItem> list;
+	private List<TagInfo> list;
 	@SuppressLint("UseSparseArrays")
 	private Map<Integer, ChildCatItem> map = new HashMap<Integer, ChildCatItem>();
 
@@ -35,38 +32,20 @@ public class ChildIndexView extends BaseSoloIndexView {
 	}
 
 	@Override
-	public void setData(int parentId) {
-		super.setData(parentId);
-		if (ParseUtil.mapContainsKey(DataHelper.childMap, parentId)) {
-			list = DataHelper.childMap.get(parentId);
-			viewPager.setValue(list.size());
-			catHead.setChildValues(parentId);
-		} else {
-			list = new ArrayList<CatItem>();
-			frameLayout.setVisibility(View.GONE);
-		}
+	public void setData(TagInfoList childInfoList) {
+		super.setData(childInfoList);
+		list = childInfoList.getList();
+		viewPager.setValue(list.size());
 		ChildPagerAdapter adapter = new ChildPagerAdapter();
 		viewPager.setAdapter(adapter);
-		if (ParseUtil.listNotNull(list)) {
-			int savedCatId = DataHelper.getChildId(mContext, parentId + "");
-			if (savedCatId != -1) {
-				for (int i = 0; i < list.size(); i++) {
-					CatItem item = list.get(i);
-					if (item.getId() == savedCatId) {
-						onClick(i, parentId, null);
-						break;
-					}
-				}
-			}
-		}
 	}
 
 	@Override
-	public void onClick(int position, int parentId, SoloColumnChild soloChild) {
-		super.onClick(position, parentId, soloChild);
+	public void onClick(int position, TagInfo info) {
+		super.onClick(position, info);
 		if (!map.isEmpty()) {
 			for (int key : map.keySet()) {
-				map.get(key).onClick(position, parentId, soloChild);
+				map.get(key).onClick(position, info);
 			}
 		}
 	}
@@ -75,7 +54,7 @@ public class ChildIndexView extends BaseSoloIndexView {
 	public void updateDes(int position) {
 		super.updateDes(position);
 		if (list != null && list.size() > position) {
-			CatItem item = list.get(position);
+			TagInfo item = list.get(position);
 			if (catHead != null) {
 				catHead.clickItem(item, position);
 			}
@@ -101,9 +80,9 @@ public class ChildIndexView extends BaseSoloIndexView {
 
 		@Override
 		public Object instantiateItem(ViewGroup container, int position) {
-			CatItem item = list.get(position);
-			ChildCatItem childView = new ChildCatItem(mContext, null, parentId);
-			childView.setData(item.getId() + "");
+			TagInfo item = list.get(position);
+			ChildCatItem childView = new ChildCatItem(mContext, null, item,
+					childInfoList, ChildIndexView.this);
 			container.addView(childView);
 			map.put(position, childView);
 			return childView;

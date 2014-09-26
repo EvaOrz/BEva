@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    android:background="@color/white_bg"
     android:minHeight="@dimen/recommend_user_item_height" >
 
     <ImageView
@@ -43,7 +44,7 @@
         android:layout_marginRight="@dimen/recommend_user_item_image_marginright"
         android:background="@android:color/transparent"
         android:contentDescription="@null"
-        android:padding="10dp"
+        android:padding="@dimen/dp10"
         android:textSize="@dimen/listitem_name_size" />
 
 </RelativeLayout>

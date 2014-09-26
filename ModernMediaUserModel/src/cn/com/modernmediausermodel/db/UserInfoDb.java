@@ -7,8 +7,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import cn.com.modernmedia.db.MyDBHelper;
-import cn.com.modernmedia.util.ParseUtil;
+import cn.com.modernmediaslate.unit.ParseUtil;
 import cn.com.modernmediausermodel.model.User;
 import cn.com.modernmediausermodel.model.Users;
 
@@ -28,7 +27,6 @@ public class UserInfoDb extends SQLiteOpenHelper {
 	public static final String USERNAME = "username";
 	public static final String NICKNAME = "nickname";
 	public static final String AVATAR = "avatar";
-
 	private MyDBHelper helper;
 	private static UserInfoDb instance = null;
 

@@ -1,7 +1,7 @@
 package cn.com.modernmediausermodel.util;
 
-import cn.com.modernmediausermodel.DefaultLoginActivity;
-import cn.com.modernmediausermodel.DefaultUserInfoActivity;
+import cn.com.modernmediausermodel.LoginActivity;
+import cn.com.modernmediausermodel.UserInfoActivity;
 import cn.com.modernmediausermodel.api.UrlMaker;
 
 /**
@@ -27,10 +27,12 @@ public class UserConstData {
 	/** toast显示时间 **/
 	public static final int TOAST_LENGTH = 1000;
 	public static final int MAX_CARD_ITEM_COUNT = 10; // 卡片列表一页最大条数
+	public static final int MAX_USER_ITEM_COUNT = 20; // 用户列表一页最大条数
 
 	private static Class<?> loginClass; // LoginActivity.class，若不设置，则登录页面会采用默认布局
 	private static Class<?> userInfoClass; // UserInfoActivity.class，若不设置，则用户资料页面会采用默认布局
-	private static Class<?> articleClass; // ArticleActivity.class，若不设置，无法从文章收藏页进入到文章浏览页
+	// private static Class<?> articleClass; //
+	// ArticleActivity.class，若不设置，无法从文章收藏页进入到文章浏览页
 
 	/**
 	 * 由于繁体版和简体版很多逻辑是一样的，如果碰到相同逻辑，只有appid不同，通过这个方法获取appid
@@ -73,26 +75,6 @@ public class UserConstData {
 	}
 
 	/**
-	 * 获取存有user朋友的uid的文件名
-	 * 
-	 * @param uid
-	 * @return
-	 */
-	public static String getFrindsUidFileName(String uid) {
-		return "friend_uid_" + uid;
-	}
-
-	/**
-	 * 获取存有user粉丝的uid的文件名
-	 * 
-	 * @param uid
-	 * @return
-	 */
-	public static String getFansUidFileName(String uid) {
-		return "fans_uid_" + uid;
-	}
-
-	/**
 	 * 获取用户卡片信息文件名
 	 * 
 	 * @param uid
@@ -113,25 +95,62 @@ public class UserConstData {
 	}
 
 	public static Class<?> getLoginClass() {
-		return loginClass == null ? DefaultLoginActivity.class : loginClass;
+		return loginClass == null ? LoginActivity.class : loginClass;
 	}
 
 	public static Class<?> getUserInfoClass() {
-		return userInfoClass == null ? DefaultUserInfoActivity.class
+		return userInfoClass == null ? UserInfoActivity.class
 				: userInfoClass;
 	}
 
-	public static Class<?> getArticleClass() {
-		return articleClass;
+	// public static Class<?> getArticleClass() {
+	// return articleClass;
+	// }
+
+	// /**
+	// * 初始化用户模块相关Class
+	// *
+	// * @param articleClass
+	// */
+	// public static void initClass(Class<?> articleClass) {
+	// UserConstData.articleClass = articleClass;
+	// }
+
+	/**
+	 * 获取用户金币数文件名
+	 * 
+	 * @param uid
+	 * @return
+	 */
+	public static String getUserCentFileName(String uid) {
+		return "user_cent_uid_" + uid;
 	}
 
 	/**
-	 * 初始化用户模块相关Class
+	 * 获取应用规则文件名
 	 * 
-	 * @param articleClass
+	 * @param uid
+	 * @return
 	 */
-	public static void initClass(Class<?> articleClass) {
-		UserConstData.articleClass = articleClass;
+	public static String getActionRulesFileName() {
+		return "actionrules_appid_" + getInitialAppId();
 	}
 
+	/**
+	 * 获取商品列表
+	 * 
+	 * @return
+	 */
+	public static String getGoodsListFileName() {
+		return "goods_appid_" + getInitialAppId();
+	}
+
+	/**
+	 * 获取栏目订阅列表
+	 * 
+	 * @return
+	 */
+	public static String getSubscribeColumnListFileName(String uid) {
+		return "subscribe_column_" + uid + "_" + getInitialAppId();
+	}
 }

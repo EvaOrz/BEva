@@ -10,17 +10,26 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
 
+    <LinearLayout
+        android:id="@+id/pager_item_head_frame_divider"
+        android:layout_width="fill_parent"
+        android:layout_height="1.5dip"
+        android:layout_below="@+id/pager_item_head_frame"
+        android:background="@drawable/solo_navbar_shadow"
+        android:orientation="horizontal"
+        android:visibility="gone" />
+
     <FrameLayout
         android:id="@+id/pager_item_frame"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/pager_item_head_frame" />
+        android:layout_below="@+id/pager_item_head_frame_divider" />
 
     <RelativeLayout
         android:id="@+id/pager_item_layout"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/pager_item_head_frame"
+        android:layout_below="@+id/pager_item_head_frame_divider"
         android:background="@color/white_bg"
         android:visibility="gone" >
 
@@ -45,7 +54,7 @@
         android:id="@+id/pager_item_layout_weekly"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/pager_item_head_frame"
+        android:layout_below="@+id/pager_item_head_frame_divider"
         android:background="@color/black_bg"
         android:visibility="gone" >
 

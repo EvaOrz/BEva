@@ -1,5 +1,6 @@
 package cn.com.modernmediausermodel.api;
 
+import android.text.TextUtils;
 import cn.com.modernmediausermodel.util.UserConstData;
 
 /**
@@ -12,25 +13,25 @@ public class UrlMaker {
 	/** 用户模块基础URL信息 */
 	private static String USER_MODEL_URL = "";
 	private static String CARD_URL = "";
+	private static String COIN_URL = "";
 
 	public static void setUserModelUrl() {
 		String card_host = "";
 		if (UserConstData.IS_DEBUG == 0) {
 			USER_MODEL_URL = "http://user.bbwc.cn/interface/index.php";
-			card_host = "http://card.bb.bbwc.cn/v1/app%s/";
+			card_host = "http://card.bb.bbwc.cn/vt/app%s/card/api/";
+			COIN_URL = "http://cent.bbwc.cn/cent/";
 		} else if (UserConstData.IS_DEBUG == 1) {
 			USER_MODEL_URL = "http://user.test.bbwc.cn/interface/index.php";
-			card_host = "http://card.test.bbwc.cn/v1/app%s/";
+			// card_host = "http://card.test.bbwc.cn/v1/app%s/"; 没布置
 		} else if (UserConstData.IS_DEBUG == 2) {
 			USER_MODEL_URL = "http://develop.cname.bbwc.cn/mmuser/interface/index.php";
-			// card_host =
-			// "http://develop.cname.bbwc.cn/dev/v1/app%s/card/interface/datatype/%s";
+			card_host = "http://develop.cname.bbwc.cn/dev/vt/app%s/card/api/";
+			COIN_URL = "http://develop.bbwc.cn/cent/";
 		} else if (UserConstData.IS_DEBUG == 4) { // 本地
 			USER_MODEL_URL = "http://1develop.cname.bbwc.cn/jinxin/interface/index.php";
-			// card_host =
-			// "http://develop.cname.bbwc.cn/jinxin/slate/v1/app%s/card/interface/datatype/%s";
 		}
-		CARD_URL = String.format(card_host, UserConstData.getAppId());
+		CARD_URL = String.format(card_host, UserConstData.getInitialAppId());
 	}
 
 	/**
@@ -46,6 +47,14 @@ public class UrlMaker {
 	 */
 	public static String getSinaLoginUrl() {
 		return USER_MODEL_URL + "?m=user&a=sina_login&datatype="
+				+ UserConstData.DATA_TYPE;
+	}
+
+	/**
+	 * @return 开放平台用户登录用的url
+	 */
+	public static String getOpenLoginUrl() {
+		return USER_MODEL_URL + "?m=user&a=open_login&datatype="
 				+ UserConstData.DATA_TYPE;
 	}
 
@@ -122,32 +131,13 @@ public class UrlMaker {
 	}
 
 	/**
-	 * 同步收藏
-	 * 
-	 * @return
-	 */
-	public static String getUpdateFav() {
-		return USER_MODEL_URL + "?m=user&a=updateFav&datatype="
-				+ UserConstData.DATA_TYPE;
-	}
-
-	/**
-	 * 获取服务器上的收藏列表 uid,appid,
-	 * 
-	 * @return
-	 */
-	public static String getFva() {
-		return USER_MODEL_URL + "?m=user&a=getFav&datatype="
-				+ UserConstData.DATA_TYPE;
-	}
-
-	/**
 	 * 获取服务器推荐用户关注的用户列表
 	 * 
 	 * @return
 	 */
 	public static String getReccommendUsers() {
-		return CARD_URL + "user/recommend/datatype/" + UserConstData.DATA_TYPE;
+		return CARD_URL + "recommendUserList/datatype/"
+				+ UserConstData.DATA_TYPE;
 	}
 
 	/**
@@ -156,7 +146,7 @@ public class UrlMaker {
 	 * @return
 	 */
 	public static String getUserCardInfo() {
-		return CARD_URL + "user/get/datatype/" + UserConstData.DATA_TYPE;
+		return CARD_URL + "getuserinfo/datatype/" + UserConstData.DATA_TYPE;
 	}
 
 	/**
@@ -175,7 +165,7 @@ public class UrlMaker {
 	 * @return
 	 */
 	public static String getAddFollow() {
-		return CARD_URL + "follow/add/datatype/" + UserConstData.DATA_TYPE;
+		return CARD_URL + "follow/datatype/" + UserConstData.DATA_TYPE;
 	}
 
 	/**
@@ -184,7 +174,7 @@ public class UrlMaker {
 	 * @return
 	 */
 	public static String getDelFollow() {
-		return CARD_URL + "follow/delete/datatype/" + UserConstData.DATA_TYPE;
+		return CARD_URL + "unfollow/datatype/" + UserConstData.DATA_TYPE;
 	}
 
 	/**
@@ -193,7 +183,7 @@ public class UrlMaker {
 	 * @return
 	 */
 	public static String getUserCard() {
-		return CARD_URL + "card/list/datatype/" + UserConstData.DATA_TYPE;
+		return CARD_URL + "mylist/datatype/" + UserConstData.DATA_TYPE;
 	}
 
 	/**
@@ -202,7 +192,8 @@ public class UrlMaker {
 	 * @return
 	 */
 	public static String getRecommentCard() {
-		return CARD_URL + "card/recommend/datatype/" + UserConstData.DATA_TYPE;
+		return CARD_URL + "recommendCardList/datatype/"
+				+ UserConstData.DATA_TYPE;
 	}
 
 	/**
@@ -211,7 +202,7 @@ public class UrlMaker {
 	 * @return
 	 */
 	public static String getCardComments() {
-		return CARD_URL + "comment/list/datatype/" + UserConstData.DATA_TYPE;
+		return CARD_URL + "commentlist/datatype/" + UserConstData.DATA_TYPE;
 	}
 
 	/**
@@ -220,7 +211,7 @@ public class UrlMaker {
 	 * @return
 	 */
 	public static String getAddComment() {
-		return CARD_URL + "comment/add/datatype/" + UserConstData.DATA_TYPE;
+		return CARD_URL + "comment/datatype/" + UserConstData.DATA_TYPE;
 	}
 
 	/**
@@ -229,7 +220,7 @@ public class UrlMaker {
 	 * @return
 	 */
 	public static String getFans() {
-		return CARD_URL + "user/follower/datatype/" + UserConstData.DATA_TYPE;
+		return CARD_URL + "FollowerList/datatype/" + UserConstData.DATA_TYPE;
 	}
 
 	/**
@@ -238,7 +229,7 @@ public class UrlMaker {
 	 * @return
 	 */
 	public static String getFriends() {
-		return CARD_URL + "user/follow/datatype/" + UserConstData.DATA_TYPE;
+		return CARD_URL + "FollowList/datatype/" + UserConstData.DATA_TYPE;
 	}
 
 	/**
@@ -247,7 +238,7 @@ public class UrlMaker {
 	 * @return
 	 */
 	public static String getTimeLine() {
-		return CARD_URL + "card/timeline/datatype/" + UserConstData.DATA_TYPE;
+		return CARD_URL + "timeline/datatype/" + UserConstData.DATA_TYPE;
 	}
 
 	/**
@@ -256,7 +247,7 @@ public class UrlMaker {
 	 * @return
 	 */
 	public static String getAddCard() {
-		return CARD_URL + "card/add/datatype/" + UserConstData.DATA_TYPE;
+		return CARD_URL + "add/datatype/" + UserConstData.DATA_TYPE;
 	}
 
 	/**
@@ -265,7 +256,7 @@ public class UrlMaker {
 	 * @return
 	 */
 	public static String getDelCard() {
-		return CARD_URL + "card/delete/datatype/" + UserConstData.DATA_TYPE;
+		return CARD_URL + "delete/datatype/" + UserConstData.DATA_TYPE;
 	}
 
 	/**
@@ -274,7 +265,7 @@ public class UrlMaker {
 	 * @return
 	 */
 	public static String getAddCardFav() {
-		return CARD_URL + "favorite/add/datatype/" + UserConstData.DATA_TYPE;
+		return CARD_URL + "fav/datatype/" + UserConstData.DATA_TYPE;
 	}
 
 	/**
@@ -283,7 +274,7 @@ public class UrlMaker {
 	 * @return
 	 */
 	public static String getCancelCardFav() {
-		return CARD_URL + "favorite/delete/datatype/" + UserConstData.DATA_TYPE;
+		return CARD_URL + "unfav/datatype/" + UserConstData.DATA_TYPE;
 	}
 
 	/**
@@ -292,8 +283,8 @@ public class UrlMaker {
 	 * @return
 	 */
 	public static String getMessageList() {
-		String url = "http://user.bbwc.cn/interface/";
-		return url + "?m=sms&a=noticeList&datatype=" + UserConstData.DATA_TYPE;
+		return USER_MODEL_URL + "?m=sms&a=noticeList&datatype="
+				+ UserConstData.DATA_TYPE;
 	}
 
 	/**
@@ -303,7 +294,121 @@ public class UrlMaker {
 	 * @return
 	 */
 	public static String getCardDetail(String cardId) {
-		return CARD_URL + "card/get/datatype/" + UserConstData.DATA_TYPE
+		return CARD_URL + "getCard/datatype/" + UserConstData.DATA_TYPE
 				+ "/cardid/" + cardId;
+	}
+
+	/**
+	 * 获取摘自该文章的卡片
+	 * 
+	 * @param articleId
+	 * @param issueId
+	 *            期id，可为空
+	 * @param uid
+	 *            用户id，可为空
+	 * @return
+	 */
+	public static String getCardByArticleId(String articleId, String issueId,
+			String uid) {
+		String url = CARD_URL + "listbyarticleid/datatype/"
+				+ UserConstData.DATA_TYPE + "/articleid/" + articleId;
+		if (!TextUtils.isEmpty(issueId)) {
+			url += "/issueid/" + issueId;
+		}
+		if (!TextUtils.isEmpty(uid)) {
+			url += "/customer_uid/" + uid;
+		}
+		return url;
+	}
+
+	/**
+	 * 获取应用积分商城信息
+	 */
+	public static String getShopInfo() {
+		return COIN_URL + "shopinfo/" + UserConstData.getInitialAppId()
+				+ "?datatype=" + UserConstData.DATA_TYPE;
+	}
+
+	/**
+	 * 用户积分接口
+	 * 
+	 * @return
+	 */
+	public static String getUserCent(String uid) {
+		return COIN_URL + "cent/" + uid + "?datatype="
+				+ UserConstData.DATA_TYPE;
+	}
+
+	/**
+	 * 应用规则接口
+	 * 
+	 * @return
+	 */
+	public static String getAppActionRule() {
+		return COIN_URL + "actionrule/" + UserConstData.getInitialAppId()
+				+ "?datatype=" + UserConstData.DATA_TYPE;
+	}
+
+	/**
+	 * 应用商品列表
+	 * 
+	 * @return
+	 */
+	public static String getAppGoods() {
+		return COIN_URL + "goods/" + UserConstData.getInitialAppId()
+				+ "?datatype=" + UserConstData.DATA_TYPE;
+	}
+
+	/**
+	 * 用户添加积分
+	 * 
+	 * @return
+	 */
+	public static String getAddUserCent() {
+		return COIN_URL + "cent/add" + "?datatype=" + UserConstData.DATA_TYPE;
+	}
+
+	/**
+	 * 用户订购接口
+	 * 
+	 * @return
+	 */
+	public static String getUserOrder() {
+		return COIN_URL + "orders/finishOrders" + "?datatype="
+				+ UserConstData.DATA_TYPE;
+	}
+
+	/**
+	 * 获取用户在该应用下的订单接口（暂时不用）
+	 * 
+	 * @return
+	 */
+	public static String getUserAppOrder(String uid) {
+		return COIN_URL + "getorders/appid/" + UserConstData.getInitialAppId()
+				+ "/uid/" + uid + "?datatype=" + UserConstData.DATA_TYPE;
+	}
+
+	/**
+	 * 取用户订阅列表URL
+	 * 
+	 * @param uid
+	 * @return
+	 */
+	public static String getUserSubscribeList(String uid) {
+		return USER_MODEL_URL + "?m=subcribeColumn&a=getUserSubcribeList&uid="
+				+ uid + "&appid=" + UserConstData.getInitialAppId()
+				+ "&datatype=" + UserConstData.DATA_TYPE;
+	}
+
+	/**
+	 * 存用户订阅列表URL
+	 * 
+	 * @param uid
+	 * @return
+	 */
+	public static String getAddUserSubscribeList(String uid) {
+		return USER_MODEL_URL + "?m=subcribeColumn&a=saveUserSubcribeList&uid="
+				+ uid + "&appid=" + UserConstData.getInitialAppId()
+				+ "&datatype=" + UserConstData.DATA_TYPE;
 	}
 }

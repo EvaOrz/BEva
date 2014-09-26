@@ -22,6 +22,7 @@ import android.provider.MediaStore;
 import android.text.Html;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
+import android.view.View;
 import android.webkit.WebView;
 import android.widget.Toast;
 import cn.com.modernmedia.CommonApplication;
@@ -29,18 +30,19 @@ import cn.com.modernmedia.CommonArticleActivity;
 import cn.com.modernmedia.R;
 import cn.com.modernmedia.util.BitmapUtil;
 import cn.com.modernmedia.util.ConstData;
-import cn.com.modernmedia.util.ModernMediaTools;
 import cn.com.modernmedia.util.sina.SinaAPI;
 import cn.com.modernmedia.util.sina.SinaAuth;
 import cn.com.modernmedia.util.sina.SinaRequestListener;
+import cn.com.modernmedia.util.sina.UserModelAuthListener;
 import cn.com.modernmedia.widget.ArticleDetailItem;
+import cn.com.modernmediaslate.unit.Tools;
 
 public class ShareTool {
 	private Context mContext;
 	private static final String SHARE_IMAGE_PATH_NAME = "/"
-			+ ConstData.getAppName() + "/temp/";// 分享图片临时文件夹，退出应用删除
+			+ CommonApplication.mConfig.getCache_file_name() + "/temp/";// 分享图片临时文件夹，退出应用删除
 	private static final String SAVE_IMAGE_PATH_NAME = "/"
-			+ ConstData.getAppName() + "/";// 保存图片
+			+ CommonApplication.mConfig.getCache_file_name() + "/";// 保存图片
 	private String defaultPath = Environment.getExternalStorageDirectory()
 			.getPath();
 	private static final int MAX_HEIGHT = 3000;
@@ -171,7 +173,7 @@ public class ShareTool {
 		shareWidthSina(extraText, path);
 	}
 
-	private void shareWidthSina(String content, String path) {
+	private void shareWidthSina(final String content, final String path) {
 		SinaAuth auth = new SinaAuth(mContext);
 		if (auth.checkIsOAuthed()) {
 			SinaAPI.getInstance(mContext).sendTextAndImage(content, path,
@@ -179,18 +181,27 @@ public class ShareTool {
 
 						@Override
 						public void onSuccess(String response) {
-							ModernMediaTools.showToast(mContext,
+							Tools.showToast(mContext,
 									R.string.Weibo_Share_Success);
 						}
 
 						@Override
 						public void onFailed(String error) {
-							ModernMediaTools.showToast(mContext,
+							Tools.showToast(mContext,
 									R.string.Weibo_Share_Error);
 						}
 					});
 		} else {
 			auth.oAuth();
+			auth.setAuthListener(new UserModelAuthListener() {
+
+				@Override
+				public void onCallBack(boolean isSuccess) {
+					if (isSuccess) {
+						shareWidthSina(content, path);
+					}
+				}
+			});
 		}
 	}
 
@@ -276,11 +287,11 @@ public class ShareTool {
 	private String getScreen(int bottomResId) {
 		if (!(mContext instanceof CommonArticleActivity))
 			return null;
-		ArticleDetailItem detailItem = ((CommonArticleActivity) mContext)
-				.getCurrentDetailItem();
-		if (detailItem == null) {
+		View view = ((CommonArticleActivity) mContext).getCurrView();
+		if (!(view instanceof ArticleDetailItem)) {
 			return null;
 		}
+		ArticleDetailItem detailItem = (ArticleDetailItem) view;
 		WebView webView = detailItem.getWebView();
 		if (webView == null) {
 			return null;

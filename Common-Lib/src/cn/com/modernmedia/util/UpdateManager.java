@@ -23,6 +23,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import cn.com.modernmedia.BaseActivity;
 import cn.com.modernmedia.BaseFragmentActivity;
+import cn.com.modernmedia.CommonApplication;
 import cn.com.modernmedia.R;
 import cn.com.modernmedia.api.OperateController;
 import cn.com.modernmedia.listener.FetchEntryListener;
@@ -102,6 +103,16 @@ public class UpdateManager {
 	}
 
 	/**
+	 * 获取服务器数据
+	 */
+	public void checkVersion(Version version) {
+		if (!compareTime())
+			return;
+		this.version = version;
+		compare();
+	}
+
+	/**
 	 * 是否距离上一次点击取消超过一天(一天内部重复提示升级)
 	 * 
 	 * @return true提示；false不提示
@@ -135,7 +146,8 @@ public class UpdateManager {
 	private void update() {
 		Builder builder = new Builder(mContext);
 		builder.setTitle(R.string.update);
-		builder.setMessage(ConstData.APP_NAME + " " + version.getChangelog());
+		builder.setMessage(mContext.getString(R.string.app_name) + " "
+				+ version.getChangelog());
 		builder.setPositiveButton(R.string.download, new OnClickListener() {
 
 			@Override
@@ -200,8 +212,8 @@ public class UpdateManager {
 	 * 下载apk
 	 */
 	private void downLoadApk() {
-		apkName = new String(ConstData.getAppName() + version.getVersion()
-				+ ".apk");
+		apkName = new String(CommonApplication.mConfig.getCache_file_name()
+				+ version.getVersion() + ".apk");
 		new DownApkThread(version.getDownload_url()).start();
 	}
 

@@ -15,7 +15,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.http.SslError;
@@ -27,9 +26,7 @@ import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
 import android.view.MotionEvent;
 import android.view.View;
-import android.webkit.JsResult;
 import android.webkit.SslErrorHandler;
-import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebSettings.PluginState;
 import android.webkit.WebSettings.RenderPriority;
@@ -37,12 +34,9 @@ import android.webkit.WebSettings.TextSize;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import cn.com.modernmedia.CommonArticleActivity;
-import cn.com.modernmedia.api.OperateController;
 import cn.com.modernmedia.db.ReadDb;
-import cn.com.modernmedia.listener.FetchEntryListener;
 import cn.com.modernmedia.listener.WebProcessListener;
 import cn.com.modernmedia.model.ArticleItem;
-import cn.com.modernmedia.model.Atlas;
 import cn.com.modernmedia.util.AdvTools;
 import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmedia.util.DataHelper;
@@ -51,7 +45,7 @@ import cn.com.modernmedia.util.ModernMediaTools;
 import cn.com.modernmedia.util.UriParse;
 import cn.com.modernmedia.util.UseLocalDataUtil;
 import cn.com.modernmediaslate.model.Entry;
-import cn.com.modernmediaslate.model.Favorite.FavoriteItem;
+import cn.com.modernmediaslate.unit.ParseUtil;
 
 @SuppressLint("SetJavaScriptEnabled")
 public abstract class CommonWebView extends WebView {
@@ -61,7 +55,7 @@ public abstract class CommonWebView extends WebView {
 	private WebProcessListener listener;
 	private Timer timer;
 	private boolean loadOk = true;
-	private FavoriteItem detail;
+	private ArticleItem detail;
 	private Context mContext;
 	private boolean isChangeStatus = false;
 	private boolean isFetchNull = false;
@@ -196,8 +190,6 @@ public abstract class CommonWebView extends WebView {
 
 			@Override
 			public void onLongPress(MotionEvent e) {
-				// onLongClick((int) e.getX(), (int) (me.getScrollY() +
-				// e.getY()));
 				onLongClick((int) e.getX(), (int) e.getY());
 			}
 
@@ -226,7 +218,7 @@ public abstract class CommonWebView extends WebView {
 		s.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
 		s.setJavaScriptCanOpenWindowsAutomatically(true);
 		s.setPluginState(PluginState.ON);
-		s.setDefaultTextEncodingName("UTF -8");
+		s.setDefaultTextEncodingName("UTF-8");
 		s.setUserAgentString(s.getUserAgentString() + " Slate/1.0");
 		this.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);// 去掉白边
 		this.addJavascriptInterface(new InJavaScriptLocalObj(), "local_obj");
@@ -251,13 +243,15 @@ public abstract class CommonWebView extends WebView {
 					cancelTimer();
 					getSettings().setBlockNetworkImage(false);
 					if (mContext instanceof CommonArticleActivity) {
-						((CommonArticleActivity) mContext).addLoadOkUrl(url);
-						if (((CommonArticleActivity) mContext).getCurrentUrl()
-								.equals(url)) {
+						((CommonArticleActivity) mContext).addLoadOkIds(detail
+								.getArticleId());
+						if (((CommonArticleActivity) mContext)
+								.getCurrArticleId() == detail.getArticleId()) {
 							ReadDb.getInstance(mContext).addReadArticle(
-									detail.getId());
+									detail.getArticleId());
 							LogHelper.logAndroidShowArticle(mContext,
-									detail.getCatid() + "", detail.getId() + "");
+									detail.getTagName(), detail.getArticleId()
+											+ "");
 							AdvTools.requestImpression(detail);
 						}
 					}
@@ -335,33 +329,19 @@ public abstract class CommonWebView extends WebView {
 			// }
 
 		});
-		this.setWebChromeClient(new WebChromeClient() {
-
-			@Override
-			public boolean onJsAlert(WebView view, String url, String message,
-					JsResult result) {
-				if (message.length() != 0) {
-					AlertDialog.Builder builder = new AlertDialog.Builder(
-							mContext);
-					builder.setTitle("From JavaScript").setMessage(message)
-							.show();
-					result.cancel();
-					return true;
-				}
-				return false;
-			}
-
-		});
 	}
 
-	public void startLoad(FavoriteItem detail) {
+	public void startLoad(ArticleItem detail) {
 		hasLoadFromHttp = false;
+		loadOk = true;
 		if (detail == null)
 			return;
 		this.detail = detail;
-		String url = detail.getLink();
+		String url = "";
+		if (ParseUtil.listNotNull(detail.getPageUrlList())) {
+			url = detail.getPageUrlList().get(0).getUrl();
+		}
 		if (TextUtils.isEmpty(url) || !url.startsWith("http")) {
-			getArticleById(detail);
 			return;
 		}
 		if (!useUtil.getLocalHtml(url)) {
@@ -521,8 +501,9 @@ public abstract class CommonWebView extends WebView {
 	 * 长按选中段落
 	 */
 	private void onLongClick(int x, int y) {
-		this.loadUrl("javascript:window.make.make("
-				+ ModernMediaTools.getMakeCard(mContext, x, y) + ")");
+		if (detail != null && detail.getProperty().getHavecard() == 1)
+			this.loadUrl("javascript:window.make.make("
+					+ ModernMediaTools.getMakeCard(mContext, x, y) + ")");
 	}
 
 	/**
@@ -555,37 +536,11 @@ public abstract class CommonWebView extends WebView {
 			ArticleItem item = new ArticleItem();
 			item.setDesc(obj.optString("content"));
 			item.setArticleId(obj.optInt("articleid"));
-			item.setCatId(obj.optInt("catid"));
-			item.setIssueId(obj.optInt("issueid"));
 			return item;
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 		return null;
-	}
-
-	/**
-	 * 如果传进来的对象没有link，重新获取article
-	 * 
-	 * @param item
-	 */
-	private void getArticleById(FavoriteItem item) {
-		if (mContext instanceof CommonArticleActivity) {
-			OperateController.getInstance(mContext).getArticleById(item,
-					new FetchEntryListener() {
-
-						@Override
-						public void setData(Entry entry) {
-							if (entry instanceof Atlas) {
-								String link = ((Atlas) entry).getLink();
-								if (!TextUtils.isEmpty(link)
-										&& !useUtil.getLocalHtml(link)) {
-									loadUrl(link);
-								}
-							}
-						}
-					});
-		}
 	}
 
 	@Override
@@ -623,11 +578,15 @@ public abstract class CommonWebView extends WebView {
 			showErrorType(2);
 			return;
 		}
-		final String uri = detail.getLink();
+		String uri = "";
+		if (ParseUtil.listNotNull(detail.getPageUrlList())) {
+			uri = detail.getPageUrlList().get(0).getUrl();
+		}
 		if (TextUtils.isEmpty(uri)) {
 			showErrorType(2);
 			return;
 		}
+		final String url = uri;
 		HttpURLConnection conn = null;
 		URL mUrl = null;
 		try {
@@ -651,7 +610,7 @@ public abstract class CommonWebView extends WebView {
 
 					@Override
 					public void run() {
-						me.loadDataWithBaseURL(uri, data, "text/html",
+						me.loadDataWithBaseURL(url, data, "text/html",
 								HTTP.UTF_8, null);
 					}
 				});

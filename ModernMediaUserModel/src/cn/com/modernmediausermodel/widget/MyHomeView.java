@@ -8,8 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
-import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmedia.widget.CheckFooterListView;
+import cn.com.modernmediaslate.SlateApplication;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediausermodel.CardDetailActivity;
 import cn.com.modernmediausermodel.R;
@@ -70,7 +70,7 @@ public class MyHomeView implements OnClickListener, CardViewListener {
 	public View fetchView() {
 		return view;
 	}
-	
+
 	private void init() {
 		controller = UserOperateController.getInstance(mContext);
 
@@ -91,7 +91,7 @@ public class MyHomeView implements OnClickListener, CardViewListener {
 					boolean isPull) {
 				String uid = UserTools.getUid(mContext);
 				if (TextUtils.isEmpty(uid)
-						|| uid.equals(ConstData.UN_UPLOAD_UID)) {
+						|| uid.equals(SlateApplication.UN_UPLOAD_UID)) {
 					return;
 				}
 				super.getCardList(timelineId, isGetMore, isPull);

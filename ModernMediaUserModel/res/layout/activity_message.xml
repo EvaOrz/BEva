@@ -41,10 +41,11 @@
     <cn.com.modernmedia.widget.CheckScrollListview
         android:id="@+id/message_list_view"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:layout_alignBottom="@dimen/follow_all_height"
         android:layout_below="@id/message_bar_layout"
         android:cacheColorHint="@android:color/white"
+        android:divider="@drawable/list_item_divider"
         android:focusable="true"
         android:focusableInTouchMode="true" />
 

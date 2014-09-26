@@ -6,72 +6,42 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.ActivityManager;
+import android.app.AlertDialog;
+import android.content.ClipboardManager;
 import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
+import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.text.format.Time;
 import android.widget.Toast;
 import cn.com.modernmedia.BaseActivity;
 import cn.com.modernmedia.BaseFragmentActivity;
 import cn.com.modernmedia.CommonApplication;
+import cn.com.modernmedia.CommonMainActivity;
 import cn.com.modernmedia.R;
 import cn.com.modernmedia.breakpoint.BreakPointUtil;
-import cn.com.modernmedia.common.ShareDialog;
-import cn.com.modernmedia.db.FavDb;
+import cn.com.modernmedia.db.NewFavDb;
 import cn.com.modernmedia.listener.BindFavToUserListener;
 import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.model.BreakPoint;
-import cn.com.modernmedia.model.Cat;
-import cn.com.modernmedia.model.Issue;
-import cn.com.modernmedia.model.SoloColumn;
-import cn.com.modernmedia.model.SoloColumn.SoloColumnChild;
-import cn.com.modernmedia.model.SoloColumn.SoloColumnItem;
-import cn.com.modernmediaslate.model.Favorite.FavoriteItem;
+import cn.com.modernmedia.model.TagInfoList;
+import cn.com.modernmedia.model.TagInfoList.TagInfo;
+import cn.com.modernmedia.util.sina.SinaAPI;
+import cn.com.modernmedia.util.sina.SinaAuth;
+import cn.com.modernmedia.util.sina.SinaRequestListener;
+import cn.com.modernmedia.util.sina.UserModelAuthListener;
+import cn.com.modernmediaslate.unit.ParseUtil;
+import cn.com.modernmediaslate.unit.SlatePrintHelper;
+import cn.com.modernmediaslate.unit.Tools;
 
 public class ModernMediaTools {
 	private static String makeCard = "";
 	private static String imageSrc = "";// 点击对象的html属性
-
-	/**
-	 * 检测网络状态
-	 * 
-	 * @param context
-	 * @return
-	 */
-	public static boolean checkNetWork(Context context) {
-		ConnectivityManager connectivityManager = (ConnectivityManager) context
-				.getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo activeNetworkInfo = connectivityManager
-				.getActiveNetworkInfo();
-		return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-	}
-
-	/**
-	 * 当前service是否正在运行
-	 * 
-	 * @param mContext
-	 * @param className
-	 * @return
-	 */
-	public static boolean isServiceRunning(Context mContext, String className) {
-		boolean isRunning = false;
-		ActivityManager activityManager = (ActivityManager) mContext
-				.getSystemService(Context.ACTIVITY_SERVICE);
-		List<ActivityManager.RunningServiceInfo> serviceList = activityManager
-				.getRunningServices(50);
-		if (!(serviceList.size() > 0)) {
-			return false;
-		}
-		for (int i = 0; i < serviceList.size(); i++) {
-			if (serviceList.get(i).service.getClassName().equals(className) == true) {
-				isRunning = true;
-				break;
-			}
-		}
-		return isRunning;
-	}
+	private static final String EMAIL = "feedback@modernmedia.com.cn";
+	private static final String ASSESS_URL = "https://play.google.com/store/apps/details?id=";
 
 	/**
 	 * 获取系统时间(m-d h:m)
@@ -96,12 +66,7 @@ public class ModernMediaTools {
 			return -1;
 		int articleId = item.getArticleId();
 		String link = "";
-		// int type = item.getAdv().getAdvProperty().getIsadv();
-		// if (type == 1) {// 广告
-		// link = item.getAdv().getColumnAdv().getLink();
-		// } else {
 		link = item.getSlateLink();
-		// }
 		if (TextUtils.isEmpty(link))
 			if (link.toLowerCase().startsWith("slate://")) {
 				List<String> list = UriParse.parser(link);
@@ -114,113 +79,6 @@ public class ModernMediaTools {
 				}
 			}
 		return articleId;
-	}
-
-	/**
-	 * 文章分享
-	 * 
-	 * @param context
-	 * @param item
-	 * @param issue
-	 */
-	public static void shareFavoriteItem(final Context context,
-			FavoriteItem item, Issue issue) {
-		if (item == null || issue == null)
-			return;
-		new ShareDialog(context) {
-
-			@Override
-			public void logAndroidShareToSinaCount(String articleId,
-					String columnId) {
-				LogHelper.logShareArticleByWeibo(context, articleId, columnId);
-			}
-
-			@Override
-			public void logAndroidShareToMail(String articleId, String columnId) {
-				LogHelper.logShareArticleByEmail(context, articleId, columnId);
-			}
-
-			@Override
-			public void logAndroidSaveToImageAlbum() {
-			}
-		}.startShareDefault(issue, item.getCatid() + "", item.getId() + "");
-	}
-
-	/**
-	 * 首页列表中分享
-	 * 
-	 * @param context
-	 * @param item
-	 * @param issue
-	 */
-	public static void shareArticleItem(final Context context,
-			ArticleItem item, Issue issue) {
-		if (item == null || issue == null)
-			return;
-		String url = "";
-		if (ParseUtil.listNotNull(item.getPicList())) {
-			url = item.getPicList().get(0);
-		}
-		new ShareDialog(context) {
-
-			@Override
-			public void logAndroidShareToSinaCount(String articleId,
-					String columnId) {
-				LogHelper.logShareArticleByWeibo(context, articleId, columnId);
-			}
-
-			@Override
-			public void logAndroidShareToMail(String articleId, String columnId) {
-				LogHelper.logShareArticleByEmail(context, articleId, columnId);
-			}
-
-			@Override
-			public void logAndroidSaveToImageAlbum() {
-			}
-		}.startShareDefault(issue, item.getCatId() + "", item.getArticleId()
-				+ "", url);
-	}
-
-	/**
-	 * 显示loading dialog
-	 * 
-	 * @param context
-	 * @param flag
-	 */
-	public static void showLoading(Context context, boolean flag) {
-		if (context instanceof BaseActivity) {
-			((BaseActivity) context).showLoadingDialog(flag);
-		} else if (context instanceof BaseFragmentActivity) {
-			((BaseFragmentActivity) context).showLoadingDialog(flag);
-		}
-	}
-
-	/**
-	 * 显示toast
-	 * 
-	 * @param context
-	 * @param resId
-	 */
-	public static void showToast(Context context, int resId) {
-		if (context instanceof BaseActivity) {
-			((BaseActivity) context).showToast(resId);
-		} else if (context instanceof BaseFragmentActivity) {
-			((BaseFragmentActivity) context).showToast(resId);
-		}
-	}
-
-	/**
-	 * 显示toast
-	 * 
-	 * @param context
-	 * @param resId
-	 */
-	public static void showToast(Context context, String resStr) {
-		if (context instanceof BaseActivity) {
-			((BaseActivity) context).showToast(resStr);
-		} else if (context instanceof BaseFragmentActivity) {
-			((BaseFragmentActivity) context).showToast(resStr);
-		}
 	}
 
 	public static void showLoadView(Context context, int flag) {
@@ -283,26 +141,30 @@ public class ModernMediaTools {
 	 *            期信息
 	 * @param breakPointUtil
 	 */
-	public static void downloadPackage(Context context, Issue issue,
+	public static void downloadPackage(Context context, TagInfo tagInfo,
 			BreakPointUtil breakPointUtil) {
-		if (issue == null || TextUtils.isEmpty(issue.getFullPackage())) {
-			showToast(context, "无下载包。。。");
+		if (tagInfo == null
+				|| TextUtils.isEmpty(tagInfo.getIssueProperty()
+						.getFullPackage())) {
+			Tools.showToast(context, R.string.no_issue_zip);
 			return;
 		}
 		BreakPoint breakPoint = new BreakPoint();
-		if (FileManager.containThisPackageFolder(issue.getFullPackage())) {
+		if (FileManager.containThisPackageFolder(tagInfo.getIssueProperty()
+				.getFullPackage())) {
 			// TODO 如果包含解压包，则直接加载
 			breakPoint.setStatus(BreakPointUtil.DONE);
-		} else if (FileManager.containThisPackage(issue.getFullPackage())) {
+		} else if (FileManager.containThisPackage(tagInfo.getIssueProperty()
+				.getFullPackage())) {
 			// TODO 如果包含zip包,执行断点下载
 			breakPoint.setStatus(BreakPointUtil.BREAK);
 		} else {
 			breakPoint.setStatus(BreakPointUtil.NONE);
 		}
-		breakPoint.setId(issue.getId());
-		breakPoint.setUrl(issue.getFullPackage());
-		CommonApplication.addPreIssueDown(issue.getId(), breakPointUtil);
-		CommonApplication.notityDwonload(issue.getId(), 1);
+		breakPoint.setTagName(tagInfo.getTagName());
+		breakPoint.setUrl(tagInfo.getIssueProperty().getFullPackage());
+		CommonApplication.addPreIssueDown(tagInfo.getTagName(), breakPointUtil);
+		CommonApplication.notityDwonload(tagInfo.getTagName(), 1);
 		breakPointUtil.downLoad(breakPoint);
 	}
 
@@ -330,26 +192,15 @@ public class ModernMediaTools {
 	 * 
 	 * @return
 	 */
-	public static int getCatPosition(String catId, Cat cat) {
-		if (TextUtils.isEmpty(catId)) {
+	public static int getCatPosition(String tagName, TagInfoList tagInfoList) {
+		if (TextUtils.isEmpty(tagName)) {
 			return -1;
 		}
-		if (cat != null && ParseUtil.listNotNull(cat.getIdList())) {
-			return cat.getIdList().indexOf(catId);
-		}
-		if (CommonApplication.soloColumn != null
-				&& ParseUtil
-						.listNotNull(CommonApplication.soloColumn.getList())) {
-			int position = -1;
-			for (int i = 0; i < CommonApplication.soloColumn.getList().size(); i++) {
-				SoloColumnItem item = CommonApplication.soloColumn.getList()
-						.get(i);
-				if (catId.equals(item.getId() + "")) {
-					position = i;
-					break;
-				}
+		for (int i = 0; i < tagInfoList.getList().size(); i++) {
+			TagInfo tagInfo = tagInfoList.getList().get(i);
+			if (TextUtils.equals(tagName, tagInfo.getTagName())) {
+				return i;
 			}
-			return position;
 		}
 		return -1;
 	}
@@ -467,16 +318,16 @@ public class ModernMediaTools {
 	 * @param list
 	 * @param listener
 	 */
-	public static boolean addFav(Context context, FavoriteItem fav, String uid,
+	public static boolean addFav(Context context, ArticleItem fav, String uid,
 			BindFavToUserListener listener) {
 		if (fav == null)
 			return false;
-		FavDb db = FavDb.getInstance(context);
-		if (db.containThisFav(fav.getId(), uid)) {
+		NewFavDb db = NewFavDb.getInstance(context);
+		if (db.containThisFav(fav.getArticleId(), uid)) {
 			if (listener != null)
 				listener.deleteFav(fav, uid);
 			else
-				db.deleteFav(fav.getId());
+				db.deleteFav(fav.getArticleId(), uid);
 			Toast.makeText(context, R.string.delete_fav, ConstData.TOAST_LENGTH)
 					.show();
 		} else {
@@ -487,41 +338,117 @@ public class ModernMediaTools {
 			Toast.makeText(context, R.string.add_fav, ConstData.TOAST_LENGTH)
 					.show();
 		}
-		LogHelper.logAddFavoriteArticle(context, fav.getId() + "",
-				fav.getCatid() + "");
+		LogHelper.logAddFavoriteArticle(context, fav.getArticleId() + "",
+				fav.getTagName());
 		CommonApplication.notifyFav();
 		return true;
 	}
 
-	/**
-	 * 获取独立栏目item
-	 * 
-	 * @param parentId
-	 * @return
-	 */
-	public static SoloColumnItem getSoloColumnItem(int parentId) {
-		SoloColumnItem item = new SoloColumnItem();
-		SoloColumn soloColumn = CommonApplication.soloColumn;
-		if (soloColumn == null || !ParseUtil.listNotNull(soloColumn.getList()))
-			return item;
-		for (SoloColumnItem it : soloColumn.getList()) {
-			if (it == null)
-				continue;
-			if (it.getId() == parentId) {
-				item = it;
-				break;
-			}
-		}
-		return item;
+	public static void dismissLoad(Context context) {
+		showLoadView(context, 0);
+		if (context instanceof CommonMainActivity)
+			((CommonMainActivity) context).checkIndexLoading(0);
+		Tools.showLoading(context, false);
 	}
 
 	/**
-	 * 获取独立栏目child集合
+	 * 意见反馈
 	 * 
-	 * @param parentId
-	 * @return
+	 * @param context
 	 */
-	public static List<SoloColumnChild> getSoloChild(int parentId) {
-		return getSoloColumnItem(parentId).getList();
+	public static void feedBack(Context context) {
+		try {
+			Intent intent = new Intent(Intent.ACTION_SEND);
+			intent.setType("message/rfc822");
+			PackageManager packageManager = context.getPackageManager();
+			final PackageInfo info = packageManager.getPackageInfo(
+					context.getPackageName(), PackageManager.GET_META_DATA);
+			String subject = String.format(
+					context.getString(R.string.feedback_subject),
+					context.getString(R.string.app_name), info.versionName);
+			intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+			intent.putExtra(Intent.EXTRA_EMAIL, new String[] { EMAIL });
+			context.startActivity(intent);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 将官方微信信息放入剪贴板中以便微信应用直接搜索，同时给用户提示
+	 * 
+	 * @param context
+	 */
+	public static void followWeixin(Context context) {
+		if (TextUtils.isEmpty(CommonApplication.mConfig
+				.getWeixin_public_number()))
+			return;
+		ClipboardManager board = (ClipboardManager) context
+				.getSystemService(Context.CLIPBOARD_SERVICE);
+		board.setText(CommonApplication.mConfig.getWeixin_public_number());
+		new AlertDialog.Builder(context).setMessage(R.string.weixin_info)
+				.setPositiveButton(R.string.sure, null).create().show();
+	}
+
+	/**
+	 * 关注微博
+	 * 
+	 * @param context
+	 */
+	public static void followWeibo(final Context context) {
+		// 新浪微博认证
+		SinaAuth weiboAuth = new SinaAuth(context);
+		if (!weiboAuth.checkIsOAuthed()) {
+			weiboAuth.oAuth();
+		} else {
+			doAfterIsOAuthed(context);
+		}
+		weiboAuth.setAuthListener(new UserModelAuthListener() {
+
+			@Override
+			public void onCallBack(boolean isSuccess) {
+				if (isSuccess) {
+					doAfterIsOAuthed(context);
+				} else {
+					Tools.showToast(context, R.string.follow_failed);
+				}
+			}
+		});
+
+	}
+
+	private static void doAfterIsOAuthed(final Context context) {
+		SinaAPI sinaApi = SinaAPI.getInstance(context);
+		sinaApi.followUser(CommonApplication.mConfig.getWeibo_uid(),
+				new SinaRequestListener() {
+
+					@Override
+					public void onFailed(String error) {
+						Tools.showToast(context, R.string.follow_failed);
+						SlatePrintHelper.print(error);
+					}
+
+					@Override
+					public void onSuccess(String response) {
+						Looper.prepare();
+						new AlertDialog.Builder(context)
+								.setMessage(R.string.follow_success)
+								.setPositiveButton(R.string.msg_ok, null)
+								.create().show();
+						Looper.myLooper();
+						Looper.loop();
+					}
+				});
+	}
+
+	/**
+	 * 评价我们
+	 * 
+	 * @param context
+	 */
+	public static void assess(Context context) {
+		Uri uri = Uri.parse(ASSESS_URL + context.getPackageName());
+		Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+		context.startActivity(intent);
 	}
 }

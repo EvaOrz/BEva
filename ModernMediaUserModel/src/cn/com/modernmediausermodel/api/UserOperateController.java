@@ -8,13 +8,11 @@ import android.content.Context;
 import android.os.Handler;
 import cn.com.modernmediaslate.listener.DataCallBack;
 import cn.com.modernmediaslate.model.Entry;
-import cn.com.modernmediaslate.model.Favorite;
-import cn.com.modernmediaslate.model.Favorite.FavoriteItem;
 import cn.com.modernmediausermodel.listener.UserFetchEntryListener;
 import cn.com.modernmediausermodel.model.Card.CardItem;
 import cn.com.modernmediausermodel.model.MultiComment.CommentItem;
 import cn.com.modernmediausermodel.model.User;
-import cn.com.modernmediausermodel.util.UserTools;
+import cn.com.modernmediausermodel.model.UserCardInfoList.UserCardInfo;
 
 /**
  * 接口控制
@@ -68,7 +66,7 @@ public class UserOperateController {
 	 * @param listener
 	 *            view数据回调接口
 	 */
-	protected void login(String userName, String password,
+	public void login(String userName, String password,
 			final UserFetchEntryListener listener) {
 		final UserLoginOperate operate = new UserLoginOperate(userName,
 				password);
@@ -76,31 +74,33 @@ public class UserOperateController {
 		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
 
 			@Override
-			public void callback(boolean success) {
+			public void callback(boolean success, boolean fromHttp) {
 				sendMessage(success ? operate.getUser() : null, listener);
 			}
 		});
 	}
 
 	/**
-	 * 新浪微博用户登录
+	 * 开放平台(新浪微博、QQ等)账号登录
 	 * 
 	 * @param user
 	 *            用户信息
 	 * @param avatar
 	 *            服务器相对地址
+	 * @param type
+	 *            平台类型,目前0:普通登录；1：新浪微博；2：腾讯qq
 	 * @param listener
 	 *            view数据回调接口
 	 */
-	protected void sinaLogin(User user, String avatar,
+	public void openLogin(User user, String avatar, int type,
 			final UserFetchEntryListener listener) {
-		final SinaLoginOperate operate = new SinaLoginOperate(mContext, user,
-				avatar);
+		final OpenLoginOperate operate = new OpenLoginOperate(mContext, user,
+				avatar, type);
 		// http请求
 		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
 
 			@Override
-			public void callback(boolean success) {
+			public void callback(boolean success, boolean fromHttp) {
 				sendMessage(success ? operate.getUser() : null, listener);
 			}
 		});
@@ -116,7 +116,7 @@ public class UserOperateController {
 	 * @param listener
 	 *            view数据回调接口
 	 */
-	protected void register(String userName, String password,
+	public void register(String userName, String password,
 			final UserFetchEntryListener listener) {
 		final UserRegisterOperate operate = new UserRegisterOperate(userName,
 				password);
@@ -124,7 +124,7 @@ public class UserOperateController {
 		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
 
 			@Override
-			public void callback(boolean success) {
+			public void callback(boolean success, boolean fromHttp) {
 				sendMessage(success ? operate.getUser() : null, listener);
 			}
 		});
@@ -140,7 +140,7 @@ public class UserOperateController {
 	 * @param listener
 	 *            view数据回调接口
 	 */
-	protected void loginOut(String uid, String token,
+	public void loginOut(String uid, String token,
 			final UserFetchEntryListener listener) {
 
 		final UserLoginOutOperate operate = new UserLoginOutOperate(uid, token);
@@ -148,7 +148,7 @@ public class UserOperateController {
 		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
 
 			@Override
-			public void callback(boolean success) {
+			public void callback(boolean success, boolean fromHttp) {
 				sendMessage(success ? operate.getUser() : null, listener);
 			}
 		});
@@ -164,14 +164,14 @@ public class UserOperateController {
 	 * @param listener
 	 *            view数据回调接口
 	 */
-	protected void getInfoByIdAndToken(String uid, String token,
+	public void getInfoByIdAndToken(String uid, String token,
 			final UserFetchEntryListener listener) {
 		final GetUserInfoOperate operate = new GetUserInfoOperate(uid, token);
 		// http请求
 		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
 
 			@Override
-			public void callback(boolean success) {
+			public void callback(boolean success, boolean fromHttp) {
 				sendMessage(success ? operate.getUser() : null, listener);
 			}
 		});
@@ -187,7 +187,7 @@ public class UserOperateController {
 	 * @param listener
 	 *            view数据回调接口
 	 */
-	protected void getPassword(String userName,
+	public void getPassword(String userName,
 			final UserFetchEntryListener listener) {
 		final UserFindPasswordOperate operate = new UserFindPasswordOperate(
 				userName);
@@ -195,7 +195,7 @@ public class UserOperateController {
 		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
 
 			@Override
-			public void callback(boolean success) {
+			public void callback(boolean success, boolean fromHttp) {
 				sendMessage(success ? operate.getUser() : null, listener);
 			}
 		});
@@ -214,18 +214,21 @@ public class UserOperateController {
 	 *            昵称
 	 * @param url
 	 *            图片的相对地址(通过上传头像获得)
+	 * @param password
+	 *            用户登录密码
 	 * @param listener
 	 *            view数据回调接口
 	 */
-	protected void modifyUserInfo(String uid, String token, String userName,
-			String nickName, String url, final UserFetchEntryListener listener) {
+	public void modifyUserInfo(String uid, String token, String userName,
+			String nickName, String url, String password,
+			final UserFetchEntryListener listener) {
 		final ModifyUserInfoOperate operate = new ModifyUserInfoOperate(uid,
-				token, userName, nickName, url);
+				token, userName, nickName, url, password);
 		// http请求
 		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
 
 			@Override
-			public void callback(boolean success) {
+			public void callback(boolean success, boolean fromHttp) {
 				sendMessage(success ? operate.getUser() : null, listener);
 			}
 		});
@@ -247,7 +250,7 @@ public class UserOperateController {
 	 * @param listener
 	 *            view数据回调接口
 	 */
-	protected void modifyUserPassword(String uid, String token,
+	public void modifyUserPassword(String uid, String token,
 			String userName, String password, String newPassword,
 			final UserFetchEntryListener listener) {
 		final ModifyUserPasswordOperate operate = new ModifyUserPasswordOperate(
@@ -256,7 +259,7 @@ public class UserOperateController {
 		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
 
 			@Override
-			public void callback(boolean success) {
+			public void callback(boolean success, boolean fromHttp) {
 				sendMessage(success ? operate.getUser() : null, listener);
 			}
 		});
@@ -270,7 +273,7 @@ public class UserOperateController {
 	 * @param listener
 	 *            view数据回调接口
 	 */
-	protected void uploadUserAvatar(String imagePath,
+	public void uploadUserAvatar(String imagePath,
 			final UserFetchEntryListener listener) {
 		final UploadUserAvaterOperate operate = new UploadUserAvaterOperate(
 				imagePath);
@@ -278,52 +281,9 @@ public class UserOperateController {
 		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
 
 			@Override
-			public void callback(boolean success) {
+			public void callback(boolean success, boolean fromHttp) {
 				sendMessage(success ? operate.getUploadResult() : null,
 						listener);
-			}
-		});
-	}
-
-	/**
-	 * 获取服务器数据
-	 * 
-	 * @param uid
-	 * @param listener
-	 */
-	protected void getFav(String uid, final UserFetchEntryListener listener) {
-		final UserGetFavOperate operate = new UserGetFavOperate(uid);
-		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
-
-			@Override
-			public void callback(boolean success) {
-				sendMessage(success ? operate.getFavorite() : null, listener);
-			}
-		});
-	}
-
-	/**
-	 * 同步收藏
-	 * 
-	 * @param jsonStr
-	 * @param listener
-	 */
-	protected void updateFav(String uid, String appid, List<FavoriteItem> list,
-			final UserFetchEntryListener listener) {
-		if (list == null || list.size() == 0)
-			sendMessage(null, listener);
-		Favorite favorite = new Favorite();
-		favorite.setUid(uid);
-		favorite.setAppid(appid);
-		favorite.setList(list);
-		String jsonStr = UserTools.objectToJson(favorite);
-		final UserUpdateFavOperate operate = new UserUpdateFavOperate(uid,
-				appid, jsonStr);
-		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
-
-			@Override
-			public void callback(boolean success) {
-				sendMessage(success ? operate.getFavorite() : null, listener);
 			}
 		});
 	}
@@ -332,15 +292,16 @@ public class UserOperateController {
 	 * 获取推荐用户列表
 	 * 
 	 */
-	public void getRecommendUsers(String uid, int pageType,
-			final UserFetchEntryListener listener) {
+	public void getRecommendUsers(String uid, int pageType, String offsetId,
+			int lastDbId, Context context, final UserFetchEntryListener listener) {
 		final GetRecommendUsersOperate operate = new GetRecommendUsersOperate(
-				uid, pageType);
+				uid, pageType, offsetId, lastDbId, context);
 		operate.asyncRequest(mContext, false, new DataCallBack() {
 
 			@Override
-			public void callback(boolean success) {
-				sendMessage(success ? operate.getUsers() : null, listener);
+			public void callback(boolean success, boolean fromHttp) {
+				sendMessage(success ? operate.getUserCardInfoList() : null,
+						listener);
 			}
 		});
 	}
@@ -357,7 +318,7 @@ public class UserOperateController {
 		operate.asyncRequest(mContext, false, new DataCallBack() {
 
 			@Override
-			public void callback(boolean success) {
+			public void callback(boolean success, boolean fromHttp) {
 				sendMessage(success ? operate.getUsers() : null, listener);
 			}
 		});
@@ -377,7 +338,7 @@ public class UserOperateController {
 		operate.asyncRequest(mContext, false, new DataCallBack() {
 
 			@Override
-			public void callback(boolean success) {
+			public void callback(boolean success, boolean fromHttp) {
 				sendMessage(success ? operate.getUserCardInfo() : null,
 						listener);
 			}
@@ -393,14 +354,14 @@ public class UserOperateController {
 	 *            是否需要刷新朋友页
 	 * @param listener
 	 */
-	public void addFollow(String uid, List<User> user, boolean refreshList,
-			final UserFetchEntryListener listener) {
+	public void addFollow(String uid, List<UserCardInfo> user,
+			boolean refreshList, final UserFetchEntryListener listener) {
 		final AddFollowOperate operate = new AddFollowOperate(uid, user,
 				refreshList);
 		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
 
 			@Override
-			public void callback(boolean success) {
+			public void callback(boolean success, boolean fromHttp) {
 				sendMessage(success ? operate.getError() : null, listener);
 			}
 		});
@@ -415,14 +376,14 @@ public class UserOperateController {
 	 *            是否需要刷新朋友页
 	 * @param listener
 	 */
-	public void deleteFollow(String uid, List<User> users, boolean refreshList,
-			final UserFetchEntryListener listener) {
-		final DeleteFollowOperate operate = new DeleteFollowOperate(uid, users,
-				refreshList);
+	public void deleteFollow(String uid, List<UserCardInfo> userCardInfoList,
+			boolean refreshList, final UserFetchEntryListener listener) {
+		final DeleteFollowOperate operate = new DeleteFollowOperate(uid,
+				userCardInfoList, refreshList);
 		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
 
 			@Override
-			public void callback(boolean success) {
+			public void callback(boolean success, boolean fromHttp) {
 				sendMessage(success ? operate.getError() : null, listener);
 			}
 		});
@@ -440,7 +401,7 @@ public class UserOperateController {
 		operate.asyncRequest(mContext, false, new DataCallBack() {
 
 			@Override
-			public void callback(boolean success) {
+			public void callback(boolean success, boolean fromHttp) {
 				sendMessage(success ? operate.getCard() : null, listener);
 			}
 		});
@@ -458,7 +419,7 @@ public class UserOperateController {
 		operate.asyncRequest(mContext, false, new DataCallBack() {
 
 			@Override
-			public void callback(boolean success) {
+			public void callback(boolean success, boolean fromHttp) {
 				sendMessage(success ? operate.getCard() : null, listener);
 			}
 		});
@@ -475,7 +436,7 @@ public class UserOperateController {
 		operate.asyncRequest(mContext, false, new DataCallBack() {
 
 			@Override
-			public void callback(boolean success) {
+			public void callback(boolean success, boolean fromHttp) {
 				sendMessage(success ? operate.getComments() : null, listener);
 			}
 		});
@@ -491,7 +452,7 @@ public class UserOperateController {
 		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
 
 			@Override
-			public void callback(boolean success) {
+			public void callback(boolean success, boolean fromHttp) {
 				sendMessage(success ? operate.getError() : null, listener);
 			}
 		});
@@ -508,7 +469,24 @@ public class UserOperateController {
 		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
 
 			@Override
-			public void callback(boolean success) {
+			public void callback(boolean success, boolean fromHttp) {
+				sendMessage(success ? operate.getError() : null, listener);
+			}
+		});
+	}
+
+	/**
+	 * 添加卡片
+	 * 
+	 * @param data
+	 * @param listener
+	 */
+	public void addCard(String data, final UserFetchEntryListener listener) {
+		final AddCardOperate operate = new AddCardOperate(data);
+		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
+
+			@Override
+			public void callback(boolean success, boolean fromHttp) {
 				sendMessage(success ? operate.getError() : null, listener);
 			}
 		});
@@ -527,7 +505,7 @@ public class UserOperateController {
 		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
 
 			@Override
-			public void callback(boolean success) {
+			public void callback(boolean success, boolean fromHttp) {
 				sendMessage(success ? operate.getError() : null, listener);
 			}
 		});
@@ -547,7 +525,7 @@ public class UserOperateController {
 		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
 
 			@Override
-			public void callback(boolean success) {
+			public void callback(boolean success, boolean fromHttp) {
 				sendMessage(success ? operate.getError() : null, listener);
 			}
 		});
@@ -567,7 +545,7 @@ public class UserOperateController {
 		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
 
 			@Override
-			public void callback(boolean success) {
+			public void callback(boolean success, boolean fromHttp) {
 				sendMessage(success ? operate.getError() : null, listener);
 			}
 		});
@@ -587,7 +565,7 @@ public class UserOperateController {
 		operate.asyncRequest(mContext, false, new DataCallBack() {
 
 			@Override
-			public void callback(boolean success) {
+			public void callback(boolean success, boolean fromHttp) {
 				sendMessage(success ? operate.getCard() : null, listener);
 			}
 		});
@@ -606,7 +584,7 @@ public class UserOperateController {
 		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
 
 			@Override
-			public void callback(boolean success) {
+			public void callback(boolean success, boolean fromHttp) {
 				sendMessage(success ? operate.getMessage() : null, listener);
 			}
 		});
@@ -624,8 +602,123 @@ public class UserOperateController {
 		operate.asyncRequest(mContext, false, new DataCallBack() {
 
 			@Override
-			public void callback(boolean success) {
+			public void callback(boolean success, boolean fromHttp) {
 				sendMessage(success ? operate.getCard() : null, listener);
+			}
+		});
+	}
+
+	/**
+	 * 根据文章id获取相关的卡片
+	 * 
+	 * @param listener
+	 */
+	public void getCardListByArticleId(String articleId,
+			final UserFetchEntryListener listener) {
+		final GetCardByArticleIdOperate operate = new GetCardByArticleIdOperate(
+				mContext, articleId, "", "");
+		operate.asyncRequest(mContext, false, new DataCallBack() {
+
+			@Override
+			public void callback(boolean success, boolean fromHttp) {
+				sendMessage(success ? operate.getCard() : null, listener);
+			}
+		});
+
+	}
+
+	/**
+	 * 获取用户金币数量
+	 * 
+	 * @param uid
+	 * @param token
+	 * @param listener
+	 */
+	public void getUserCoinNumber(String uid, String token,
+			final UserFetchEntryListener listener) {
+		final GetUserCoinNumberOperate operate = new GetUserCoinNumberOperate(
+				uid, token);
+		operate.asyncRequest(mContext, false, new DataCallBack() {
+
+			@Override
+			public void callback(boolean success, boolean fromHttp) {
+				sendMessage(success ? operate.getUserCent() : null, listener);
+			}
+		});
+	}
+
+	/**
+	 * 获取应用规则列表
+	 * 
+	 * @param listener
+	 */
+	public void getActionRules(final UserFetchEntryListener listener) {
+		final GetAppActionRulesOperate operate = new GetAppActionRulesOperate();
+		operate.asyncRequest(mContext, true, new DataCallBack() {
+
+			@Override
+			public void callback(boolean success, boolean fromHttp) {
+				sendMessage(success ? operate.getActionRuleList() : null,
+						listener);
+			}
+		});
+	}
+
+	/**
+	 * 获取商品列表
+	 * 
+	 * @param listener
+	 */
+	public void getGoodsList(final UserFetchEntryListener listener) {
+		final GetGoodsListOperate operate = new GetGoodsListOperate();
+		operate.asyncRequest(mContext, false, new DataCallBack() {
+
+			@Override
+			public void callback(boolean success, boolean fromHttp) {
+				sendMessage(success ? operate.getGoodsList() : null, listener);
+			}
+		});
+	}
+
+	/**
+	 * 商品订购
+	 * 
+	 * @param uid
+	 * @param token
+	 * @param goodsId
+	 * @param listener
+	 */
+	public void addGoodsOrder(String uid, String token, String goodsId,
+			final UserFetchEntryListener listener) {
+		final AddGoodsOrderOperate operate = new AddGoodsOrderOperate(uid,
+				token, goodsId);
+		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
+
+			@Override
+			public void callback(boolean success, boolean fromHttp) {
+				sendMessage(success ? operate.getError() : null, listener);
+			}
+		});
+	}
+
+	/**
+	 * 增加积分
+	 * 
+	 * @param uid
+	 * @param token
+	 * @param actionRuleIds
+	 *            规则id,数组或者,号分割字符串
+	 * @param listener
+	 */
+	public void addUserCoinNumber(String uid, String token,
+			String actionRuleIds, final UserFetchEntryListener listener) {
+		final AddUserCoinNumberOperate operate = new AddUserCoinNumberOperate(
+				uid, token, actionRuleIds);
+		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
+
+			@Override
+			public void callback(boolean success, boolean fromHttp) {
+				sendMessage(success ? operate.getError() : null, listener);
 			}
 		});
 	}

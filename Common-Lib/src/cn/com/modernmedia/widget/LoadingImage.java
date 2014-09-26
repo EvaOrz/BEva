@@ -2,6 +2,7 @@ package cn.com.modernmedia.widget;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.NinePatchDrawable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import cn.com.modernmedia.CommonApplication;
 import cn.com.modernmedia.R;
-import cn.com.modernmedia.listener.ImageDownloadStateListener;
+import cn.com.modernmediaslate.listener.ImageDownloadStateListener;
 
 /**
  * 显示process的imageview
@@ -25,10 +26,9 @@ public class LoadingImage extends RelativeLayout implements
 	private String tag = "";
 	private int width, height;
 
-	public LoadingImage(Context context, String tag, int width, int height) {
+	public LoadingImage(Context context, int width, int height) {
 		super(context);
 		mContext = context;
-		this.tag = tag;
 		this.width = width;
 		this.height = height;
 		init();
@@ -41,6 +41,10 @@ public class LoadingImage extends RelativeLayout implements
 		process = (RedProcess) findViewById(R.id.loading_red_process);
 	}
 
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
+
 	public void setUrl(String url) {
 		imageView.setImageBitmap(null);
 		if (!TextUtils.isEmpty(tag)) {
@@ -49,8 +53,11 @@ public class LoadingImage extends RelativeLayout implements
 		loading();
 		if (TextUtils.isEmpty(url))
 			return;
-		CommonApplication.finalBitmap.display(imageView, url, width, height,
-				this);
+		if (width == -1 || height == -1)
+			CommonApplication.finalBitmap.display(imageView, url, this);
+		else
+			CommonApplication.finalBitmap.display(imageView, url, width,
+					height, this);
 	}
 
 	public RedProcess getProcess() {
@@ -64,10 +71,13 @@ public class LoadingImage extends RelativeLayout implements
 	}
 
 	@Override
-	public void loadOk(Bitmap bitmap) {
+	public void loadOk(Bitmap bitmap, NinePatchDrawable drawable) {
 		process.stop();
 		process.setVisibility(View.GONE);
-		imageView.setImageBitmap(bitmap);
+		if (drawable != null)
+			imageView.setImageDrawable(drawable);
+		else
+			imageView.setImageBitmap(bitmap);
 	}
 
 	@Override

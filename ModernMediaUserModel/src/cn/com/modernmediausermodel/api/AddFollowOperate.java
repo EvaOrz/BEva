@@ -9,13 +9,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import cn.com.modernmedia.util.ParseUtil;
 import cn.com.modernmediaslate.api.SlateBaseOperate;
 import cn.com.modernmediaslate.listener.FetchDataListener;
+import cn.com.modernmediaslate.model.ErrorMsg;
+import cn.com.modernmediaslate.unit.ParseUtil;
 import cn.com.modernmediaslate.unit.SlatePrintHelper;
 import cn.com.modernmediausermodel.UserApplication;
-import cn.com.modernmediausermodel.model.User;
-import cn.com.modernmediausermodel.model.User.Error;
+import cn.com.modernmediausermodel.model.UserCardInfoList.UserCardInfo;
 
 /**
  * 添加关注operate
@@ -24,26 +24,26 @@ import cn.com.modernmediausermodel.model.User.Error;
  * 
  */
 public class AddFollowOperate extends SlateBaseOperate {
-	private Error error;
+	private ErrorMsg error;
 	private ArrayList<NameValuePair> nameValuePairs; // post参数
 	private int num;
 	private boolean refreshList;// 是否需要刷新朋友页
 
-	public Error getError() {
+	public ErrorMsg getError() {
 		return error;
 	}
 
-	protected AddFollowOperate(String uid, List<User> followedUsers,
+	protected AddFollowOperate(String uid, List<UserCardInfo> followedUsers,
 			boolean refreshList) {
 		this.refreshList = refreshList;
-		this.error = new Error();
+		this.error = new ErrorMsg();
 		// post 参数设置
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		JSONObject postObject = new JSONObject();
 		try {
 			postObject.put("uid", uid);
 			JSONArray array = new JSONArray();
-			for (User user : followedUsers) {
+			for (UserCardInfo user : followedUsers) {
 				JSONObject object = new JSONObject();
 				object.put("uid", user.getUid());
 				array.put(object);
@@ -84,7 +84,7 @@ public class AddFollowOperate extends SlateBaseOperate {
 	@Override
 	protected void fetchLocalDataInBadNet(FetchDataListener mFetchDataListener) {
 		SlatePrintHelper.print("net error:" + getUrl());
-		mFetchDataListener.fetchData(false, null);
+		mFetchDataListener.fetchData(false, null, false);
 	}
 
 	@Override

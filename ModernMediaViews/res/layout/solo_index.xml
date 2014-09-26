@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/white_bg" >
 
-    <cn.com.modernmedia.widget.PullToRefreshListView
+    <cn.com.modernmedia.widget.CheckFooterListView
         android:id="@+id/solo_cat_listview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

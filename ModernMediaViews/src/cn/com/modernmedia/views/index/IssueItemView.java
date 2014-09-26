@@ -1,11 +1,6 @@
 package cn.com.modernmedia.views.index;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import android.content.Context;
-import android.graphics.Color;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -17,13 +12,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.com.modernmedia.CommonApplication;
 import cn.com.modernmedia.breakpoint.DownloadProcessView;
-import cn.com.modernmedia.mainprocess.MainProcessPreIssue.PreIssusType;
-import cn.com.modernmedia.model.IssueList.IssueListItem;
-import cn.com.modernmedia.util.ParseUtil;
+import cn.com.modernmedia.model.TagInfoList.IssueProperty;
+import cn.com.modernmedia.model.TagInfoList.TagInfo;
+import cn.com.modernmedia.newtag.mainprocess.TagMainProcessPreIssue.PreIssusType;
 import cn.com.modernmedia.views.R;
 import cn.com.modernmedia.views.adapter.IssueListAdapter;
-import cn.com.modernmedia.views.model.IssueListParm;
 import cn.com.modernmedia.views.util.V;
+import cn.com.modernmediaslate.unit.DateFormatTool;
+import cn.com.modernmediaslate.unit.ParseUtil;
 
 /**
  * 期刊列表单个期刊View
@@ -67,39 +63,34 @@ public class IssueItemView extends RelativeLayout {
 	 * @param parm
 	 * @param adapter
 	 */
-	public void setData(IssueListItem item, IssueListParm parm,
-			IssueListAdapter adapter) {
-		if (item == null || parm == null)
+	public void setData(final TagInfo item, IssueListAdapter adapter) {
+		if (item == null)
 			return;
 		// 设置占位图
+		IssueProperty issueProperty = item.getIssueProperty();
 		image.setScaleType(ScaleType.CENTER);
-		V.setImage(image, parm.getPlaceholder());
-		// 设置描述期刊标题及其时间的字体颜色
-		if (!TextUtils.isEmpty(parm.getItem_title_color()))
-			title.setTextColor(Color.parseColor(parm.getItem_title_color()));
-		if (!TextUtils.isEmpty(parm.getItem_desc_color()))
-			desc.setTextColor(Color.parseColor(parm.getItem_desc_color()));
+		V.setImage(image, "placeholder");
 		// 下载图片
-		if (ParseUtil.listNotNull(item.getIssuepicList())) {
-			CommonApplication.finalBitmap.display(image, item.getIssuepicList()
-					.get(0));
+		if (ParseUtil.listNotNull(issueProperty.getPictureList())) {
+			CommonApplication.finalBitmap.display(image, issueProperty
+					.getPictureList().get(0));
 		}
-		title.setText(item.getTitle());
-		desc.setText(getDate(item.getStartTime(), item.getEndTime()));
-		bar.setVisibility(pro.getStatus() == DownloadProcessView.HTTP ? View.VISIBLE
+		title.setText(issueProperty.getTitle());
+		desc.setText(getDate(issueProperty.getStartTime(),
+				issueProperty.getEndTime()));
+		bar.setVisibility(pro.getStatus() == DownloadProcessView.LOADING ? View.VISIBLE
 				: View.GONE);
 		// 设置下载进度
 		if (adapter != null) {
-			adapter.setProcess(pro, down, item.getId());
+			adapter.setProcess(pro, down, item.getTagName());
 		}
 
 		if (getVisibility() == View.VISIBLE) {
-			final int issueId = item.getId();
 			image.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
-					pro.onClick(issueId, PreIssusType.Zip_GO_TO_ARTICLE, bar);
+					pro.onClick(item, PreIssusType.Zip_GO_TO_ARTICLE, bar);
 				}
 			});
 		}
@@ -113,17 +104,8 @@ public class IssueItemView extends RelativeLayout {
 	 * @return
 	 */
 	protected String getDate(String startTime, String endTime) {
-		try {
-			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-			String start = format.format(new Date(
-					ParseUtil.stol(startTime) * 1000));
-			format.applyPattern("MM-dd");
-			String end = format
-					.format(new Date(ParseUtil.stol(endTime) * 1000));
-			return start + "~" + end;
-		} catch (Exception e) {
-			return "";
-		}
+		return DateFormatTool.format2(ParseUtil.stol(startTime) * 1000,
+				ParseUtil.stol(endTime) * 1000, "yyyy-MM-dd", "MM-dd", "~");
 	}
 
 	/**

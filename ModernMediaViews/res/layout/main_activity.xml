@@ -11,7 +11,7 @@
         android:gravity="right"
         android:visibility="invisible" />
 
-    <cn.com.modernmedia.views.column.ColumnView
+    <cn.com.modernmedia.views.column.NewColumnView
         android:id="@+id/main_column"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

@@ -1,21 +1,24 @@
 package cn.com.modernmedia.util;
 
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
+import org.htmlparser.Node;
+import org.htmlparser.NodeFilter;
+import org.htmlparser.Parser;
+import org.htmlparser.Tag;
+import org.htmlparser.util.NodeList;
 
 import android.content.Context;
 import android.os.Environment;
 import android.text.TextUtils;
 import android.webkit.WebView;
 import cn.com.modernmedia.CommonArticleActivity;
-import cn.com.modernmedia.util.PageTransfer.TransferArticle;
+import cn.com.modernmediaslate.unit.ParseUtil;
 
 //文章url:issue_截  加issue_
 //图片：issue_截  加pictures/issue_
@@ -24,17 +27,16 @@ public class UseLocalDataUtil {
 	public static final String SPLIT = "issue_";
 	public static final String RES_SPLIT = "statics";
 	public static final String PICTURES = "pictures/";
+	public static final String ENCODE = "UTF-8";
 
 	private WebView mWebView;
 	private String mFolderPath = "";
 
 	public UseLocalDataUtil(Context context, WebView view) {
 		if (context instanceof CommonArticleActivity) {
-			TransferArticle transferArticle = ((CommonArticleActivity) context)
-					.getBundle();
-			if (transferArticle != null)
-				mFolderPath = transferArticle.getFloderName();
-			// mFolderPath = "alldata-iphone-108-4_1362568368";
+			// test 文章
+			mFolderPath = ((CommonArticleActivity) context)
+					.getLocalArticlesFolder();
 		}
 		mWebView = view;
 	}
@@ -46,7 +48,7 @@ public class UseLocalDataUtil {
 	 * @return
 	 */
 	public boolean getLocalHtml(String link) {
-//		System.out.println(link);
+		// System.out.println(link);
 		String path = getUsefulPath(link, SPLIT);
 		if (!TextUtils.isEmpty(path)) {
 			path = SPLIT + path;
@@ -55,10 +57,10 @@ public class UseLocalDataUtil {
 			File file = new File(getDefaultPath(path));
 			if (file.exists()) {
 				// mWebView.loadUrl(getHtmlDefaultPath(path));
-				String html = replaceHttp(file);
+				String html = replaceHttp(file.getAbsolutePath());
 				if (!TextUtils.isEmpty(html)) {
 					mWebView.loadDataWithBaseURL(link, html, "text/html",
-							"UTF-8", null);
+							ENCODE, null);
 					// System.out.println("html true");
 					return true;
 				}
@@ -131,37 +133,59 @@ public class UseLocalDataUtil {
 				+ path;
 	}
 
-	private String replaceHttp(File file) {
+	private String openFile(String szFileName) {
+		BufferedReader bis = null;
+		try {
+			bis = new BufferedReader(new InputStreamReader(new FileInputStream(
+					new File(szFileName)), ENCODE));
+			String szContent = "";
+			String szTemp;
+
+			while ((szTemp = bis.readLine()) != null) {
+				szContent += szTemp + "\n";
+			}
+			return szContent;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (bis != null)
+				try {
+					bis.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+		}
+		return "";
+	}
+
+	private String replaceHttp(String filePath) {
 		String html = "";
 		try {
-			Document doc = Jsoup.parse(file, "UTF-8", "");
-			html = doc.html();
-
-			Elements links = doc.select("a[href]");
-			Elements media = doc.select("[src]");
-			Elements imports = doc.select("link[href]");
-			Elements data_original = doc.select("[data-original]");
-
 			List<String> list = new ArrayList<String>();
-			for (Element src : media) {
-				// System.out.println("medis==" + src.attr("abs:src"));
-				list.add(src.attr("abs:src"));
-			}
+			html = openFile(filePath);
+			Parser parser = Parser.createParser(html, ENCODE);
+			NodeList nodes = parser.extractAllNodesThatMatch(new NodeFilter() {
+				private static final long serialVersionUID = 1L;
 
-			for (Element link : imports) {
-				// System.out.println("imports==" + link.attr("abs:href"));
-				list.add(link.attr("abs:href"));
-			}
+				public boolean accept(Node node) {
+					return true;
+				}
+			});
 
-			for (Element link : links) {
-				// System.out.println("links==" + link.attr("abs:href"));
-				list.add(link.attr("abs:href"));
-			}
-
-			for (Element orgin : data_original) {
-				// System.out.println("data-original=="
-				// + orgin.attr("abs:data-original"));
-				list.add(orgin.attr("abs:data-original"));
+			for (int i = 0; i < nodes.size(); i++) {
+				Node nodet = nodes.elementAt(i);
+				if (nodet instanceof Tag) {
+					Tag tag = (Tag) nodet;
+					if (!TextUtils.isEmpty(tag.getAttribute("src"))) {
+						list.add(tag.getAttribute("src"));
+					}
+					if (!TextUtils.isEmpty(tag.getAttribute("data-original"))) {
+						list.add(tag.getAttribute("data-original"));
+					}
+					if (!TextUtils.isEmpty(tag.getAttribute("href"))) {
+						list.add(tag.getAttribute("href"));
+					}
+				}
 			}
 
 			if (ParseUtil.listNotNull(list)) {
@@ -180,10 +204,9 @@ public class UseLocalDataUtil {
 					}
 				}
 			}
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return html;
 	}
-
 }

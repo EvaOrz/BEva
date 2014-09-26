@@ -6,36 +6,32 @@ import android.content.Intent;
 import android.text.TextUtils;
 import cn.com.modernmedia.CommonArticleActivity.ArticleType;
 import cn.com.modernmedia.R;
+import cn.com.modernmediaslate.SlateApplication;
 import cn.com.modernmediaslate.model.Entry;
 
 public class PageTransfer {
 	public static final int REQUEST_CODE = 100;// 从文章页返回，刷新，设置已阅读文章
 
 	/**
-	 * 往期进入文章页
+	 * 进入文章页
 	 * 
-	 * @param artcleId
-	 * @param catId
-	 * @param articleType
-	 * @param issue
+	 * @param context
+	 * @param transferArticle
 	 */
-	public static void gotoArticleActivity(Context context, Class<?> cls,
+	public static void gotoArticleActivity(Context context,
 			TransferArticle transferArticle) {
-		initGotoArticleActivity(context, cls, transferArticle);
+		if (SlateApplication.articleCls != null)
+			initGotoArticleActivity(context, transferArticle);
 	}
 
 	/**
 	 * 跳转至文章页
-	 * 
-	 * @param artcleId
-	 * @param isIndex
-	 *            true:首页；false:收藏
 	 */
-	private static void initGotoArticleActivity(Context context, Class<?> cls,
+	private static void initGotoArticleActivity(Context context,
 			TransferArticle transferArticle) {
-		Intent intent = new Intent(context, cls);
+		Intent intent = new Intent(context, SlateApplication.articleCls);
 		if (TextUtils.isEmpty(transferArticle.getUid())) {
-			transferArticle.setUid(ConstData.UN_UPLOAD_UID);
+			transferArticle.setUid(SlateApplication.UN_UPLOAD_UID);
 		}
 		intent.putExtra(GenericConstant.TRANSFE_RARTICLE, transferArticle);
 		((Activity) context).startActivityForResult(intent, REQUEST_CODE);
@@ -46,11 +42,13 @@ public class PageTransfer {
 	public static class TransferArticle extends Entry {
 		private static final long serialVersionUID = 1L;
 		private int artcleId;
-		private int catId;
+		private String tagName;
+		private String parent;
 		private int advId;
 		private ArticleType articleType;
 		private String uid = "";
 		private String floderName = "";
+		private String publishTime = ""; // 期发布时间
 
 		public TransferArticle() {
 		}
@@ -60,18 +58,32 @@ public class PageTransfer {
 			this.uid = uid;
 		}
 
-		public TransferArticle(int artcleId, int catId, int advId,
-				ArticleType articleType) {
+		public TransferArticle(int artcleId, String tagName, String parent,
+				int advId, ArticleType articleType) {
 			this.artcleId = artcleId;
-			this.catId = catId;
+			this.tagName = tagName;
+			this.parent = parent;
 			this.articleType = articleType;
 			this.advId = advId;
 		}
 
-		public TransferArticle(int artcleId, int catId,
+		public TransferArticle(int artcleId, String tagName, String parent,
+				ArticleType articleType, String uid, String publishTime,
+				String floderName) {
+			this.artcleId = artcleId;
+			this.tagName = tagName;
+			this.parent = parent;
+			this.articleType = articleType;
+			this.uid = uid;
+			this.publishTime = publishTime;
+			this.floderName = floderName;
+		}
+
+		public TransferArticle(int artcleId, String tagName, String parent,
 				ArticleType articleType, String uid, String floderName) {
 			this.artcleId = artcleId;
-			this.catId = catId;
+			this.tagName = tagName;
+			this.parent = parent;
 			this.articleType = articleType;
 			this.uid = uid;
 			this.floderName = floderName;
@@ -85,12 +97,12 @@ public class PageTransfer {
 			this.artcleId = artcleId;
 		}
 
-		public int getCatId() {
-			return catId;
+		public String getTagName() {
+			return tagName;
 		}
 
-		public void setCatId(int catId) {
-			this.catId = catId;
+		public void setTagName(String tagName) {
+			this.tagName = tagName;
 		}
 
 		public ArticleType getArticleType() {
@@ -123,6 +135,22 @@ public class PageTransfer {
 
 		public void setAdvId(int advId) {
 			this.advId = advId;
+		}
+
+		public String getParent() {
+			return parent;
+		}
+
+		public void setParent(String parent) {
+			this.parent = parent;
+		}
+
+		public String getPublishTime() {
+			return publishTime;
+		}
+
+		public void setPublishTime(String publishTime) {
+			this.publishTime = publishTime;
 		}
 
 	}

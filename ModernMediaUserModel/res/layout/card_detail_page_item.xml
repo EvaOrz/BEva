@@ -6,7 +6,7 @@
     <cn.com.modernmedia.widget.CheckScrollListview
         android:id="@+id/card_detail_page_list_view"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:cacheColorHint="@android:color/white"
         android:divider="@null"
         android:listSelector="@android:color/transparent" />

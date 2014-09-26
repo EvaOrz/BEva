@@ -85,7 +85,8 @@ public class BreakPointUtil {
 			if (mCallBack != null) {
 				switch (msg.what) {
 				case SUCCESS_MSG:
-					CommonApplication.notityDwonload(breakPoint.getId(), 0);
+					CommonApplication
+							.notityDwonload(breakPoint.getTagName(), 0);
 					String zipName = ModernMediaTools
 							.getPackageFileName(breakPoint.getUrl());
 					final String foldName = ModernMediaTools
@@ -108,24 +109,24 @@ public class BreakPointUtil {
 													.deletePackageByName(breakPoint
 															.getUrl());
 											mCallBack.onSuccess(
-													breakPoint.getId(),
+													breakPoint.getTagName(),
 													foldName);
 										} else {
 											mCallBack.onFailed(breakPoint
-													.getId());
+													.getTagName());
 										}
 									}
 								});
 					} else {
 						// 解压成功，删除zip包
 						FileManager.deletePackageByName(breakPoint.getUrl());
-						mCallBack.onSuccess(breakPoint.getId(), foldName);
+						mCallBack.onSuccess(breakPoint.getTagName(), foldName);
 					}
 					reset();
 					break;
 				case FAILED_MSG:
-					mCallBack.onFailed(breakPoint.getId());
-					CommonApplication.notityDwonload(breakPoint.getId(), 2);
+					mCallBack.onFailed(breakPoint.getTagName());
+					CommonApplication.notityDwonload(breakPoint.getTagName(), 2);
 					reset();
 					break;
 				case DB_ADD_MSG:
@@ -174,26 +175,6 @@ public class BreakPointUtil {
 					connection.setReadTimeout(ConstData.READ_TIMEOUT);
 					connection.setRequestMethod("GET");
 					fileSize = connection.getContentLength();
-					// long range = fileSize / THEAD_COUNT;
-					// infoList = new ArrayList<ThreadInfo>();
-					// for (int i = 0; i < THEAD_COUNT; i++) {
-					// ThreadInfo info = new ThreadInfo();
-					// info.setThreadId(i);
-					// info.setIssueId(breakPoint.getId());
-					// info.setStartPos(i * range);
-					// if (i == THEAD_COUNT - 1) {
-					// info.setEndPos(fileSize - 1);
-					// } else {
-					// info.setEndPos((i + 1) * range - 1);
-					// }
-					// info.setUrl(ModernMediaTools
-					// .getPackageFileName(breakPoint.getUrl()));
-					// info.setComplete(0);
-					// info.setTotal(info.getEndPos() - info.getStartPos() + 1);
-					// infoList.add(info);
-					// current_complete = 0;
-					// }
-					// handler.sendEmptyMessage(DB_ADD_MSG);
 					handler.post(new Runnable() {
 
 						@Override
@@ -248,38 +229,14 @@ public class BreakPointUtil {
 	 * 从断点处开始下载
 	 */
 	private void downByBreak() {
-		// infoList = breakPointDb.getThreadInfoList(ModernMediaTools
-		// .getPackageFileName(breakPoint.getUrl()));
-		// if (ParseUtil.listNotNull(infoList)) {
-		// for (ThreadInfo info : infoList) {
-		// current_complete += info.getComplete();
-		// fileSize += info.getTotal();
-		// }
-		// System.out.println("break");
-		// startDownload();
-		// } else {
-		// firstDown();
-		// }
 		init();
 	}
 
 	private void startDownload() {
-		// if (ParseUtil.listNotNull(infoList)) {
 		if (download_status == DOWNLOADING) {
 			return;
 		}
 		download_status = DOWNLOADING;
-		// for (ThreadInfo info : infoList) {
-		// if (info.getTotal() <= 0 || info.getEndPos() <= 0
-		// || fileSize == 0) {
-		// firstDown();
-		// break;
-		// } else {
-		// DownAsyncTask task = new DownAsyncTask();
-		// task.execute(info);
-		// }
-		// }
-		// }
 		String zipName = ModernMediaTools.getPackageFileName(breakPoint
 				.getUrl());
 		String zipPath = FileManager.getPackageNameByUrl(zipName);
@@ -293,14 +250,14 @@ public class BreakPointUtil {
 	// 暂停下载
 	public void pause() {
 		if (mCallBack != null && breakPoint != null)
-			mCallBack.onPause(breakPoint.getId());
+			mCallBack.onPause(breakPoint.getTagName());
 		download_status = PAUSE;
 	}
 
 	// 恢复下载
 	public void reStart() {
-		CommonApplication.addPreIssueDown(breakPoint.getId(), this);
-		CommonApplication.notityDwonload(breakPoint.getId(), 1);
+		CommonApplication.addPreIssueDown(breakPoint.getTagName(), this);
+		CommonApplication.notityDwonload(breakPoint.getTagName(), 1);
 		startDownload();
 		download_status = INIT;
 	}
@@ -335,10 +292,8 @@ public class BreakPointUtil {
 
 		@Override
 		protected void onProgressUpdate(Void... values) {
-			mCallBack.onProcess(breakPoint.getId(), current_complete, fileSize);
-			// breakPointDb.updateComplete(info.getUrl(), info.getThreadId(),
-			// info.getComplete() + "");
-			CommonApplication.notifyDown(breakPoint.getId(), current_complete,
+			mCallBack.onProcess(breakPoint.getTagName(), current_complete, fileSize);
+			CommonApplication.notifyDown(breakPoint.getTagName(), current_complete,
 					fileSize);
 		}
 

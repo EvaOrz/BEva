@@ -1,10 +1,7 @@
 package cn.com.modernmediausermodel;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -16,9 +13,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
-import cn.com.modernmedia.BaseActivity;
-import cn.com.modernmedia.util.ParseUtil;
+import cn.com.modernmediaslate.SlateBaseActivity;
 import cn.com.modernmediaslate.model.Entry;
+import cn.com.modernmediaslate.model.ErrorMsg;
+import cn.com.modernmediaslate.unit.ParseUtil;
 import cn.com.modernmediausermodel.adapter.CardDetailPagerAdapter;
 import cn.com.modernmediausermodel.api.UserOperateController;
 import cn.com.modernmediausermodel.listener.UserFetchEntryListener;
@@ -28,12 +26,12 @@ import cn.com.modernmediausermodel.model.MultiComment;
 import cn.com.modernmediausermodel.model.MultiComment.Comment;
 import cn.com.modernmediausermodel.model.MultiComment.CommentItem;
 import cn.com.modernmediausermodel.model.User;
-import cn.com.modernmediausermodel.model.Users;
 import cn.com.modernmediausermodel.util.UserDataHelper;
 import cn.com.modernmediausermodel.util.UserPageTransfer;
 import cn.com.modernmediausermodel.util.UserTools;
 
-public class CardDetailActivity extends BaseActivity implements OnClickListener {
+public class CardDetailActivity extends SlateBaseActivity implements
+		OnClickListener {
 	public static final String KEY_CARD = "card"; // 卡片数据
 	public static final int REQUEST_CODE_COMMENT = 110; // 评论界面requescode
 	public static final int REQUEST_CODE_SELF = 111; // 启动当前界面的request code
@@ -197,13 +195,33 @@ public class CardDetailActivity extends BaseActivity implements OnClickListener 
 											.getCommentItemList()
 											.addAll(moreComment
 													.getCommentItemList());
+									mComments.getUserInfoMap().putAll(
+											multiComment.getUserInfoMap());
 								}
 							} else {
 								mComments = (MultiComment) entry;
 							}
+							checkCommonsIsNull();
+							if (isGetMore) { // 重新加载当前页的评论列表
+								pagerAdapter.getCurrentCardDetatilItem()
+										.setData(
+												mComments.getCommentList().get(
+														index),
+												mComments.getUserInfoMap());
+							} else {
+								pagerAdapter.setPagerData(mCard, mComments);
+								viewPager.setCurrentItem(index, false);
+							}
+						} else {
+							// 没有评论且不是加载更多数据时
+							if (!isGetMore) {
+								checkCommonsIsNull();
+								pagerAdapter.setPagerData(mCard, mComments);
+								viewPager.setCurrentItem(index, false);
+								showLoadingDialog(false);
+							}
 						}
-						checkCommonsIsNull();
-						getUsersInfo(isGetMore);
+						// getUsersInfo(isGetMore);
 					}
 				});
 	}
@@ -216,64 +234,6 @@ public class CardDetailActivity extends BaseActivity implements OnClickListener 
 			for (int i = 0; i < cardItemList.size(); i++) {
 				mComments.getCommentList().add(new Comment());
 			}
-		}
-	}
-
-	/**
-	 * 获得所有评论者的用户信息
-	 * 
-	 * @param users
-	 */
-	private void getUsersInfo(final boolean isGetMore) {
-		if (!isGetMore)
-			showLoadingDialog(true);
-		Map<String, User> map = mComments.getUserInfoMap();
-		Set<String> set = new HashSet<String>();
-		for (Comment comment : mComments.getCommentList()) {
-			if (ParseUtil.listNotNull(comment.getCommentItemList())) {
-				for (CommentItem item : comment.getCommentItemList()) {
-					if (map.get(item.getUid()) == null) {
-						set.add(item.getUid());
-					}
-				}
-			}
-		}
-		if (set.size() > 0) {
-			controller.getUsersInfo(set, new UserFetchEntryListener() {
-
-				@Override
-				public void setData(Entry entry) {
-					if (!isGetMore)
-						showLoadingDialog(false);
-					if (entry instanceof Users) {
-						Users users = (Users) entry;
-						// 将登录用户自己的信息存入map中
-						User curLoginUser = UserDataHelper
-								.getUserLoginInfo(CardDetailActivity.this);
-						Map<String, User> userInfos = users.getUserInfoMap();
-						if (curLoginUser != null
-								&& !userInfos.containsKey(curLoginUser.getUid())) {
-							userInfos.put(curLoginUser.getUid(), curLoginUser);
-						}
-						mComments.setUserInfoMap(userInfos);
-					}
-					if (isGetMore) { // 重新加载当前页的评论列表
-						pagerAdapter.getCurrentCardDetatilItem().setData(
-								mComments.getCommentList().get(index),
-								mComments.getUserInfoMap());
-					} else {
-						pagerAdapter.setPagerData(mCard, mComments);
-						viewPager.setCurrentItem(index, false);
-					}
-				}
-			});
-		} else {
-			// 没有评论且不是加载更多数据时
-			if (!isGetMore) {
-				pagerAdapter.setPagerData(mCard, mComments);
-				viewPager.setCurrentItem(index, false);
-			}
-			showLoadingDialog(false);
 		}
 	}
 
@@ -312,8 +272,8 @@ public class CardDetailActivity extends BaseActivity implements OnClickListener 
 			@Override
 			public void setData(Entry entry) {
 				showLoadingDialog(false);
-				if (entry instanceof User.Error) {
-					User.Error error = (User.Error) entry;
+				if (entry instanceof ErrorMsg) {
+					ErrorMsg error = (ErrorMsg) entry;
 					if (error.getNo() == 0) {
 						isDataModified = true;
 						cardItemList.get(index).setIsFav(1);
@@ -339,8 +299,8 @@ public class CardDetailActivity extends BaseActivity implements OnClickListener 
 			@Override
 			public void setData(Entry entry) {
 				showLoadingDialog(false);
-				if (entry instanceof User.Error) {
-					User.Error error = (User.Error) entry;
+				if (entry instanceof ErrorMsg) {
+					ErrorMsg error = (ErrorMsg) entry;
 					if (error.getNo() == 0) {
 						isDataModified = true;
 						cardItemList.get(index).setIsFav(0);
@@ -366,13 +326,17 @@ public class CardDetailActivity extends BaseActivity implements OnClickListener 
 			@Override
 			public void setData(Entry entry) {
 				showLoadingDialog(false);
-				if (entry instanceof User.Error) {
-					User.Error error = (User.Error) entry;
+				if (entry instanceof ErrorMsg) {
+					ErrorMsg error = (ErrorMsg) entry;
 					if (error.getNo() == 0) {
 						isDataModified = true;
 						mCard.getCardItemList().remove(index);
+						// 当前该卡片的所有评论
+						if (mComments.getCommentList().size() >= index) {
+							mComments.getCommentList().remove(index);
+						}
 						cardItemList = mCard.getCardItemList(); // 状态栏按钮设置用
-						setNavBtnStatus(); //更新状态栏按钮
+						setNavBtnStatus(); // 更新状态栏按钮
 						if (mCard.getCardItemList().size() != 0) { // 不是删除最后一个
 							pagerAdapter.setPagerData(mCard, mComments);
 							pagerAdapter.notifyDataSetChanged();
@@ -406,7 +370,9 @@ public class CardDetailActivity extends BaseActivity implements OnClickListener 
 					if (card.getError().getNo() == 0) {
 						mCard = card;
 						cardItemList = mCard.getCardItemList();
-						doAfterGetUserCard(cardId);
+						init();
+
+						// doAfterGetUserCard(cardId);
 					} else {
 						showLoadingDialog(false);
 					}
@@ -415,36 +381,6 @@ public class CardDetailActivity extends BaseActivity implements OnClickListener 
 				}
 			}
 		});
-	}
-
-	private void doAfterGetUserCard(String cardId) {
-		if (mCard == null)
-			return;
-		// 取得该用户卡片对应的用户信息
-		Set<String> set = new HashSet<String>();
-		for (CardItem item : mCard.getCardItemList()) {
-			if (item.getType() == 2) {
-				set.add(item.getFuid());
-			} else {
-				set.add(item.getUid());
-			}
-		}
-		controller.getUsersInfo(set, new UserFetchEntryListener() {
-
-			@Override
-			public void setData(Entry entry) {
-				showLoadingDialog(false);
-				if (entry instanceof Users) {
-					Users users = (Users) entry;
-					mCard.setUserInfoMap(users.getUserInfoMap());
-					init();
-				}
-			}
-		});
-	}
-
-	@Override
-	public void reLoadData() {
 	}
 
 	@Override

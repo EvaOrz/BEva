@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import cn.com.modernmediaslate.model.Entry;
+import cn.com.modernmediaslate.model.ErrorMsg;
 
 /**
  * 卡片
@@ -19,7 +20,7 @@ public class Card extends Entry {
 	private int articleId;
 	private String issueId = "";
 	private int count;
-	private User.Error error = new User.Error();
+	private ErrorMsg error = new ErrorMsg();
 	private Map<String, User> userInfoMap = new HashMap<String, User>();// key:uid;value:User对象
 	private List<CardItem> cardItemList = new ArrayList<CardItem>();
 
@@ -55,11 +56,11 @@ public class Card extends Entry {
 		this.count = count;
 	}
 
-	public User.Error getError() {
+	public ErrorMsg getError() {
 		return error;
 	}
 
-	public void setError(User.Error error) {
+	public void setError(ErrorMsg error) {
 		this.error = error;
 	}
 
@@ -292,7 +293,7 @@ public class Card extends Entry {
 	}
 
 	/**
-	 * 笔记中得图片资源
+	 * 笔记中的图片资源
 	 * 
 	 * @author jiancong
 	 * 

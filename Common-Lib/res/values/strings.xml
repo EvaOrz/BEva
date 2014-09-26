@@ -3,7 +3,6 @@
     <string name="app_name">ModernMediaCommon</string>
     <string name="fav">收藏夹</string>
     <string name="about">关于</string>
-    <string name="net_error">请检查网络</string>
     <string name="json_error">数据组装错误</string>
     <string name="add_fav">已收藏</string>
     <string name="delete_fav">取消收藏</string>
@@ -26,23 +25,11 @@
     <string name="share_by_email">邮件分享</string>
     <string name="read_issue">阅读杂志</string>
     <string name="app_recommend">应用推荐</string>
+    <string name="theme_magazine">主题杂志</string>
 
     <!-- red_process -->
     <string name="loading_pre">上一篇</string>
     <string name="loading_more">下一篇</string>
-
-    <!-- pull_to_refresh -->
-    <string name="pull_to_refresh_pull_label">下拉刷新...</string>
-    <string name="pull_to_refresh_release_label">松开刷新...</string>
-    <string name="pull_to_refresh_refreshing_label">正在刷新...</string>
-    <string name="pull_to_refresh_tap_label">点击刷新...</string>
-    <string name="pull_to_refresh_update_time">上次更新时间:%s</string>
-
-    <!-- pull_to_loadmore -->
-    <string name="pull_to_loadmore">上推加载...</string>
-    <string name="pull_to_release">松开加载...</string>
-    <string name="pull_to_loading">正在加载...</string>
-    <string name="click_to_load">点击加载</string>
 
     <!-- take photo -->
     <string name="camera">拍照</string>
@@ -63,6 +50,8 @@
         href=\"https://play.google.com/store/apps/details?id=com.rakutec.android.iweekly\">https://play.google.com/store/apps/details?id=com.rakutec.android.iweekly&lt;/a>&lt;/div></string>
     <string name="cover_share_message">%1$s - %2$s %3$s --分享来自@iWeekly周末画报 Android 版</string>
     <string name="entry_share_url">阅读全文:\u0020</string>
+    <string name="share_wp_content">【%1$s】%2$s %3$s</string>
+    <string name="share_by_email_title">我在%1$s看到了一篇文章，想要分享给你</string>
     <string name="fecthing_http">正在更新数据</string>
     <string name="fecthing_ok">更新成功</string>
     <string name="weixin_friend">微信好友</string>
@@ -76,10 +65,19 @@
     <string name="send">发送</string>
     <string name="enter_content">请输入内容！</string>
 
-    <item name="scale_type" type="id"/>
-
     <!-- 独立栏目 -->
     <string name="is_lastest">当前已是最新</string>
     <string name="nomore_data">暂时没有内容</string>
+    <!-- uri parse -->
+    <string name="dial_error">您的手机缺少所需的功能模块，无法继续操作。</string>
+    <!-- 往期 -->
+    <string name="read_issue_error">该期杂志读取失败</string>
+    <string name="no_issue_zip">该期杂志没有下载包</string>
+    <!-- modermediatools -->
+    <string name="feedback_subject">意见反馈(%1$s_%2$s)</string>
+    <string name="follow_failed">微博关注失败</string>
+    <string name="msg_ok">好的</string>
+    <string name="follow_success">微博关注成功</string>
+    <string name="weixin_info">已经将公众号账号复制到剪贴板，请到微信中粘贴并搜索关注。</string>
 
 </resources>

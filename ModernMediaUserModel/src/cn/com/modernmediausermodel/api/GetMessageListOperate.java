@@ -42,7 +42,6 @@ public class GetMessageListOperate extends SlateBaseOperate {
 			postObject.put("lastid", lastId);
 			params.add(new BasicNameValuePair("data", postObject.toString()));
 			setPostParams(params);
-			SlatePrintHelper.print("post values:" + postObject.toString());
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -119,7 +118,7 @@ public class GetMessageListOperate extends SlateBaseOperate {
 	@Override
 	protected void fetchLocalDataInBadNet(FetchDataListener mFetchDataListener) {
 		SlatePrintHelper.print("net error:" + getUrl());
-		mFetchDataListener.fetchData(false, null);
+		mFetchDataListener.fetchData(false, null, false);
 	}
 
 	@Override

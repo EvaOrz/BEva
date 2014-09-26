@@ -13,8 +13,10 @@ import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import cn.com.modernmedia.CommonApplication;
+import cn.com.modernmedia.R;
 import cn.com.modernmedia.model.ArticleItem;
-import cn.com.modernmedia.util.ParseUtil;
+import cn.com.modernmediaslate.unit.ImageScaleType;
+import cn.com.modernmediaslate.unit.ParseUtil;
 
 /**
  * 循环viewpager的适配器
@@ -24,13 +26,14 @@ import cn.com.modernmedia.util.ParseUtil;
  * @param <T>
  */
 public class MyPagerAdapter<T> extends PagerAdapter {
-	private List<T> list = new ArrayList<T>();
+	protected List<T> list = new ArrayList<T>();
 	private OnItemClickListener onItemClickListener;
-	private Context mContext;
+	protected Context mContext;
 	/**
 	 * 占位图资源
 	 */
 	private int placeholderRes;
+	private String scaleType;
 
 	public static interface OnItemClickListener {
 		public void onItemClick(View view, int position);
@@ -41,9 +44,15 @@ public class MyPagerAdapter<T> extends PagerAdapter {
 	}
 
 	public MyPagerAdapter(Context context, List<T> list, int placeholderRes) {
+		this(context, list, placeholderRes, ImageScaleType.FIT_XY);
+	}
+
+	public MyPagerAdapter(Context context, List<T> list, int placeholderRes,
+			String scaleType) {
 		mContext = context;
 		this.list = list;
 		this.placeholderRes = placeholderRes;
+		this.scaleType = scaleType;
 	}
 
 	public OnItemClickListener getOnItemClickListener() {
@@ -116,6 +125,9 @@ public class MyPagerAdapter<T> extends PagerAdapter {
 		if (placeholderRes > 0)
 			view.setImageResource(placeholderRes);
 		view.setScaleType(ScaleType.CENTER);
+		if (!TextUtils.isEmpty(scaleType)) {
+			view.setTag(R.id.scale_type, scaleType);
+		}
 		CommonApplication.finalBitmap.display(view, url);
 		return view;
 	};

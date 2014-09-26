@@ -17,21 +17,38 @@ import android.text.TextUtils;
  */
 public class ModifyUserInfoOperate extends UserModelBaseOperate {
 
+	/**
+	 * 修改用户资料 password为空时，更新用户昵称、头像；反之则更新邮箱
+	 * 
+	 * @param uid
+	 * @param token
+	 * @param userName
+	 * @param nickName
+	 * @param url
+	 * @param password
+	 */
 	protected ModifyUserInfoOperate(String uid, String token, String userName,
-			String nickName, String url) {
+			String nickName, String url, String password) {
 		// post 参数设置
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		JSONObject object = new JSONObject();
 		try {
 			object.put("uid", uid);
 			object.put("token", token);
-			object.put("username", userName);
-			if (!TextUtils.isEmpty(nickName)) {
-				nickName = URLEncoder.encode(nickName, "UTF-8");
-				object.put("nickname", nickName);
-			}
-			if (!TextUtils.isEmpty(url)) {
-				object.put("avatar", url);
+			if (!TextUtils.isEmpty(password)) {
+				object.put("password", password);
+				if (!TextUtils.isEmpty(userName)) {
+					userName = URLEncoder.encode(userName, "UTF-8");
+					object.put("username", userName);
+				}
+			} else {
+				if (!TextUtils.isEmpty(nickName)) {
+					nickName = URLEncoder.encode(nickName, "UTF-8");
+					object.put("nickname", nickName);
+				}
+				if (!TextUtils.isEmpty(url)) {
+					object.put("avatar", url);
+				}
 			}
 			params.add(new BasicNameValuePair("data", object.toString()));
 			setPostParams(params);

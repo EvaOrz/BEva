@@ -5,9 +5,11 @@ import java.util.List;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import cn.com.modernmedia.adapter.MyPagerAdapter;
 import cn.com.modernmedia.listener.NotifyArticleDesListener;
+import cn.com.modernmediaslate.unit.ImageScaleType;
 
 /**
  * 循环viewpager
@@ -25,6 +27,7 @@ public class CircularViewPager<T> extends ViewPager {
 	 * 占位图资源
 	 */
 	private int placeholderRes = -1;
+	private String scaleType = ImageScaleType.FIT_XY;
 
 	public CircularViewPager(Context context) {
 		this(context, null);
@@ -80,6 +83,17 @@ public class CircularViewPager<T> extends ViewPager {
 	}
 
 	/**
+	 * 设置图片scaletype,默认fit_xy
+	 * 
+	 * @param scaleType
+	 */
+	public void setScaleType(String scaleType) {
+		if (TextUtils.isEmpty(scaleType))
+			scaleType = ImageScaleType.FIT_XY;
+		this.scaleType = scaleType;
+	}
+
+	/**
 	 * 给viewpager设置，并且自动设置默认pageradapter
 	 * 
 	 * @param list
@@ -127,6 +141,6 @@ public class CircularViewPager<T> extends ViewPager {
 	}
 
 	public MyPagerAdapter<T> fetchAdapter(Context context, List<T> list) {
-		return new MyPagerAdapter<T>(context, list, placeholderRes);
+		return new MyPagerAdapter<T>(context, list, placeholderRes, scaleType);
 	}
 }

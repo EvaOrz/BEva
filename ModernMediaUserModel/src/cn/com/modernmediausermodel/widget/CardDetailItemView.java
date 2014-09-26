@@ -7,8 +7,8 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import cn.com.modernmedia.widget.BaseView;
 import cn.com.modernmedia.widget.CheckScrollListview;
 import cn.com.modernmediausermodel.R;
 import cn.com.modernmediausermodel.adapter.CardDetailListAdapter;
@@ -23,7 +23,7 @@ import cn.com.modernmediausermodel.util.UserTools;
  * @author jiancong
  * 
  */
-public class CardDetailItemView extends BaseView {
+public class CardDetailItemView extends RelativeLayout {
 
 	private Context mContext;
 	private CheckScrollListview listView;
@@ -106,7 +106,4 @@ public class CardDetailItemView extends BaseView {
 		adapter.notifyDataSetChanged();
 	}
 
-	@Override
-	protected void reLoad() {
-	}
 }

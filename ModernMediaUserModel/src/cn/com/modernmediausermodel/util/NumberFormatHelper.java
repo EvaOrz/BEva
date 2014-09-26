@@ -3,7 +3,7 @@ package cn.com.modernmediausermodel.util;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
-import cn.com.modernmedia.util.ParseUtil;
+import cn.com.modernmediaslate.unit.ParseUtil;
 
 public class NumberFormatHelper {
 	private static NumberFormatHelper instance;

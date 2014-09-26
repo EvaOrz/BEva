@@ -3,7 +3,7 @@ package cn.com.modernmediausermodel;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import cn.com.modernmedia.BaseActivity;
+import cn.com.modernmediaslate.SlateBaseActivity;
 import cn.com.modernmediausermodel.widget.MyHomeView;
 
 /**
@@ -12,7 +12,7 @@ import cn.com.modernmediausermodel.widget.MyHomeView;
  * @author user
  * 
  */
-public class MyHomePageActivity extends BaseActivity {
+public class MyHomePageActivity extends SlateBaseActivity {
 	private MyHomeView homeView;
 
 	@Override
@@ -41,9 +41,5 @@ public class MyHomePageActivity extends BaseActivity {
 	@Override
 	public Activity getActivity() {
 		return this;
-	}
-
-	@Override
-	public void reLoadData() {
 	}
 }

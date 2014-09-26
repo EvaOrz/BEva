@@ -56,6 +56,7 @@
         android:layout_marginTop="@dimen/issue_title_margintop"
         android:ellipsize="end"
         android:singleLine="true"
+        android:textColor="@color/issuelist_title_color"
         android:textSize="@dimen/dp14_textsize" />
 
     <TextView
@@ -68,6 +69,7 @@
         android:ellipsize="end"
         android:paddingBottom="@dimen/issue_desc_marginBottom"
         android:singleLine="true"
+        android:textColor="@color/issuelist_desc_color"
         android:textSize="@dimen/dp12_textsize" />
 
 </RelativeLayout>

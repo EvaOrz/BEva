@@ -1,7 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="cn.com.modernmedia.businessweek"
-    android:versionCode="12"
-    android:versionName="1.6.1" >
+    android:versionCode="13"
+    android:versionName="1.6.2" >
 
     <uses-sdk
         android:minSdkVersion="10"
@@ -15,9 +17,10 @@
 
     <application
         android:name=".MyApplication"
-        android:icon="@drawable/icon"
         android:debuggable="false"
-        android:label="@string/app_name" >
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        tools:ignore="HardcodedDebugMode" >
         <activity
             android:name=".SplashScreenActivity"
             android:screenOrientation="portrait" >
@@ -38,9 +41,19 @@
             android:name="cn.com.modernmedia.views.AboutActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="cn.com.modernmediausermodel.DefaultLoginActivity"
+            android:name="cn.com.modernmedia.views.SelectColumnActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="cn.com.modernmedia.views.SelectChildColumnActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="cn.com.modernmedia.views.FavoritesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="cn.com.modernmediausermodel.LoginActivity"
             android:launchMode="singleInstance"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
 
@@ -50,16 +63,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="cn.com.modernmediausermodel.DefaultUserInfoActivity"
+            android:name="cn.com.modernmediausermodel.UserInfoActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="cn.com.modernmedia.CommonAdvActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".TestActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="cn.com.modernmediausermodel.DefaultModifyPwdActivity"
+            android:name="cn.com.modernmediausermodel.ModifyPwdActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="cn.com.modernmediausermodel.RecommendUserActivity"
@@ -83,9 +93,6 @@
             android:name="cn.com.modernmediausermodel.MessageActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="cn.com.modernmediausermodel.FavoritesActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name="cn.com.modernmediausermodel.WriteCommentActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
@@ -105,23 +112,19 @@
             android:configChanges="keyboardHidden|orientation"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar" >
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <data
-                    android:mimeType="video/*"
-                    android:scheme="http" />
-                <data
-                    android:mimeType="video/*"
-                    android:scheme="file" />
-                <data
-                    android:mimeType="audio/*"
-                    android:scheme="http" />
-                <data
-                    android:mimeType="audio/*"
-                    android:scheme="file" />
-            </intent-filter>
         </activity>
+        <activity
+            android:name="cn.com.modernmediausermodel.MyCoinUseNoticeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="cn.com.modernmediausermodel.MyCoinActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="cn.com.modernmediausermodel.ModifyEmailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="cn.com.modernmediausermodel.ArticleCardListActivity"
+            android:screenOrientation="portrait" />
 
         <service android:name="com.parse.PushService" />
 
@@ -136,6 +139,24 @@
             android:name="UMENG_CHANNEL"
             android:value="CHANNEL_FLAG" >
         </meta-data>
+
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="tencent222222" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -149,6 +170,7 @@
     <uses-permission android:name="android.permission.PERMISSION_NAME" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
 </manifest>

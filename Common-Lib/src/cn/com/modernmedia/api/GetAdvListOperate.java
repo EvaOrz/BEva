@@ -31,6 +31,7 @@ public class GetAdvListOperate extends BaseOperate {
 		// AdvTest.addRuBanLohasTest(advList);
 		// AdvTest.addCatAdvTest(advList);
 		// AdvTest.addArticleAdvTest(advList);
+		// AdvTest.addFuDongAdvTest(advList);
 		return advList;
 	}
 
@@ -53,24 +54,14 @@ public class GetAdvListOperate extends BaseOperate {
 				advItem = new AdvItem();
 				advItem.setStartTime(obj.optString("startTime", ""));
 				advItem.setEndTime(obj.optString("endTime", ""));
-				// 等具体需要显示的时候再判断
-				// if (ModernMediaTools.advIsExpired(advItem.getStartTime(),
-				// advItem.getEndTime())) {
-				// continue;
-				// }
 				advItem.setAdvId(obj.optInt("advId", -1));
 				advItem.setAppId(obj.optInt("appId", -1));
 				advItem.setDeviceType(obj.optInt("deviceType", -1));
 				advItem.setAdvType(obj.optInt("advType", -1));
-				advItem.setIssueId(obj.optString("issueId", ""));
-				// if (advItem.getIssueId() != -1
-				// && advItem.getIssueId() != issue.getId()) {
-				// continue;
-				// }
-				advItem.setCatId(obj.optString("catId", ""));
+				advItem.setTagname(obj.optString("tagname", ""));
 				if (advItem.getAdvType() == AdvList.BETWEEN_ARTICLE
-						&& TextUtils.isEmpty(advItem.getCatId())) {
-					advItem.setCatId(AdvList.ARTICLE_NULL_CAT);
+						&& TextUtils.isEmpty(advItem.getTagname())) {
+					advItem.setTagname(AdvList.ARTICLE_NULL_CAT);
 				}
 
 				advItem.setPosId(obj.optString("posId", ""));
@@ -131,7 +122,6 @@ public class GetAdvListOperate extends BaseOperate {
 		if (!isNull(obj)) {
 			item.getPosInfo().setLeft(obj.optInt("left", -1));
 			item.getPosInfo().setTop(obj.optInt("top", -1));
-			item.getPosInfo().setTemplate(obj.optString("template", ""));
 		}
 	}
 

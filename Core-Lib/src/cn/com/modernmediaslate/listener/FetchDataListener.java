@@ -7,5 +7,5 @@ package cn.com.modernmediaslate.listener;
  * 
  */
 public interface FetchDataListener {
-	public void fetchData(boolean isSuccess, String data);
+	public void fetchData(boolean isSuccess, String data, boolean fromHttp);
 }

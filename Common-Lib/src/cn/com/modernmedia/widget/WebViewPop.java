@@ -8,10 +8,12 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnKeyListener;
 import android.view.ViewGroup.LayoutParams;
+import android.webkit.WebSettings;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import cn.com.modernmedia.R;
-import cn.com.modernmediaslate.model.Favorite.FavoriteItem;
+import cn.com.modernmedia.model.ArticleItem;
+import cn.com.modernmedia.model.ArticleItem.PhonePageList;
 
 public class WebViewPop {
 	private Context mContext;
@@ -19,6 +21,10 @@ public class WebViewPop {
 	private ArticleDetailItem view;
 
 	public WebViewPop(Context context, String link) {
+		this(context, link, true);
+	}
+
+	public WebViewPop(Context context, String link, boolean loadCache) {
 		mContext = context;
 		view = new ArticleDetailItem(mContext, false, true) {
 
@@ -31,8 +37,14 @@ public class WebViewPop {
 			}
 
 		};
-		FavoriteItem item = new FavoriteItem();
-		item.setLink(link);
+		if (!loadCache) {
+			view.getWebView().getSettings()
+					.setCacheMode(WebSettings.LOAD_NO_CACHE);
+		}
+		ArticleItem item = new ArticleItem();
+		PhonePageList page = new PhonePageList();
+		page.setUrl(link);
+		item.getPageUrlList().add(page);
 		view.setData(item);
 		view.getWebView().setOnKeyListener(new OnKeyListener() {
 

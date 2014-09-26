@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.text.TextUtils;
 import cn.com.modernmedia.CommonArticleActivity;
 import cn.com.modernmedia.R;
-import cn.com.modernmedia.common.ShareDialog.WeeklyArgs;
+import cn.com.modernmedia.model.ArticleItem;
 
 /**
  * iweekly分享
@@ -14,11 +14,10 @@ import cn.com.modernmedia.common.ShareDialog.WeeklyArgs;
  * 
  */
 public class WeeklyShare extends BaseShare {
-	private WeeklyArgs args;
 
-	public WeeklyShare(Context context, WeeklyArgs args, ShareDialog shareDialog) {
-		super(context, shareDialog);
-		this.args = args;
+	public WeeklyShare(Context context, ArticleItem item,
+			ShareDialog shareDialog) {
+		super(context, item, shareDialog);
 	}
 
 	@Override
@@ -31,7 +30,7 @@ public class WeeklyShare extends BaseShare {
 	 */
 	@Override
 	public void shareByFriend() {
-		shareTool.shareToFriend(getContentByWeiBo());
+		super.shareByFriend();
 	}
 
 	/**
@@ -39,7 +38,7 @@ public class WeeklyShare extends BaseShare {
 	 */
 	@Override
 	public void shareByFriends() {
-		shareTool.shareToMoments(mBitmap);
+		super.shareByFriends();
 	}
 
 	@Override
@@ -50,11 +49,9 @@ public class WeeklyShare extends BaseShare {
 
 	@Override
 	protected void shareToWeiBo(String content) {
-		if (args == null)
-			return;
 		if (mContext instanceof CommonArticleActivity) {
 			// iweekly文章分享，新浪微博文章截图
-			shareTool.shareWithScreen(content, args.bottomResId);
+			shareTool.shareWithScreen(content, item.getBottomResId());
 		} else {
 			shareTool.shareWithSina(content, mBitmap);
 		}
@@ -62,35 +59,26 @@ public class WeeklyShare extends BaseShare {
 
 	@Override
 	public void shareToOthers(Intent intent) {
-		if (intent == null || TextUtils.isEmpty(intent.getPackage())
-				|| args == null)
+		if (intent == null || TextUtils.isEmpty(intent.getPackage()))
 			return;
 		String pack = intent.getPackage();
 		String shareType = getShareType(intent, pack);
-		String emailBody = String.format(
-				mContext.getString(R.string.share_email_html), args.title,
-				args.desc);
-		String extraText = String.format(
-				mContext.getString(R.string.cover_share_message), args.title,
-				args.desc, "");
+		String emailBody = "";
+		String extraText = "";
+
+		emailBody = String.format(
+				mContext.getString(R.string.share_email_html), item.getTitle(),
+				item.getDesc());
+		extraText = String.format(
+				mContext.getString(R.string.cover_share_message),
+				item.getTitle(), item.getDesc(), "");
 
 		if (shareType.equals("01")) {
-			shareTool.shareByMail(intent, args.title, emailBody, mBitmap);
+			shareTool.shareByMail(intent, item.getTitle(), emailBody, mBitmap);
 			shareDialog.logAndroidShareToMail("", "");
 		} else {
 			shareTool.shareWithoutMail(intent, extraText, mBitmap);
 		}
-	}
-
-	/**
-	 * 获取微信分享内容
-	 * 
-	 * @return
-	 */
-	@SuppressWarnings("unused")
-	private String getContentByWeiXin() {
-		return String.format(mContext.getString(R.string.cover_share_message),
-				args.title, args.desc, "");
 	}
 
 	/**
@@ -99,13 +87,12 @@ public class WeeklyShare extends BaseShare {
 	 * @return
 	 */
 	private String getContentByWeiBo() {
-		if (args == null)
-			return "";
-		String webUrl = mContext.getString(R.string.entry_share_url)
-				+ args.webUrl;
+		String webUrl = TextUtils.isEmpty(item.getWeburl()) ? "" : mContext
+				.getString(R.string.entry_share_url) + item.getWeburl();
 		String extraText = String.format(
-				mContext.getString(R.string.cover_share_message), args.title,
-				args.desc, webUrl);
+				mContext.getString(R.string.cover_share_message),
+				item.getTitle(), item.getDesc(), webUrl);
 		return extraText;
 	}
+
 }

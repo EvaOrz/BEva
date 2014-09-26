@@ -3,7 +3,7 @@ package cn.com.modernmediausermodel;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import cn.com.modernmedia.BaseActivity;
+import cn.com.modernmediaslate.SlateBaseActivity;
 import cn.com.modernmediausermodel.model.User;
 import cn.com.modernmediausermodel.widget.UserCardView;
 
@@ -13,7 +13,7 @@ import cn.com.modernmediausermodel.widget.UserCardView;
  * @author jiancong
  * 
  */
-public class UserCardInfoActivity extends BaseActivity {
+public class UserCardInfoActivity extends SlateBaseActivity {
 	private User user; // 用户
 	private UserCardView userCardView;
 
@@ -44,10 +44,6 @@ public class UserCardInfoActivity extends BaseActivity {
 		if (resultCode == RESULT_OK) {
 			userCardView.onActivityResult(requestCode, resultCode, data);
 		}
-	}
-
-	@Override
-	public void reLoadData() {
 	}
 
 	@Override

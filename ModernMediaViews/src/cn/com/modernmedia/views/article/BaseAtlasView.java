@@ -4,25 +4,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
-import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.RelativeLayout;
 import cn.com.modernmedia.adapter.MyPagerAdapter.OnItemClickListener;
 import cn.com.modernmedia.listener.NotifyArticleDesListener;
 import cn.com.modernmedia.model.ArticleItem;
-import cn.com.modernmedia.model.Atlas;
-import cn.com.modernmedia.model.Atlas.AtlasPicture;
-import cn.com.modernmedia.util.ParseUtil;
+import cn.com.modernmedia.model.ArticleItem.PhonePageList;
 import cn.com.modernmedia.util.UriParse;
+import cn.com.modernmedia.views.R;
 import cn.com.modernmedia.views.adapter.AtlasAdapter;
-import cn.com.modernmedia.views.model.AtlasParm;
+import cn.com.modernmedia.views.model.TemplateAtlas;
 import cn.com.modernmedia.views.util.ParseProperties;
-import cn.com.modernmedia.views.util.V;
+import cn.com.modernmedia.views.xmlparse.XMLParse;
+import cn.com.modernmedia.views.xmlparse.article.XMLDataSetForAtlas;
 import cn.com.modernmedia.widget.AtlasViewPager;
 import cn.com.modernmedia.widget.CommonAtlasView;
 import cn.com.modernmediaslate.model.Entry;
+import cn.com.modernmediaslate.unit.ParseUtil;
 
 /**
  * 图集
@@ -30,28 +30,29 @@ import cn.com.modernmediaslate.model.Entry;
  * @author ZhuQiao
  * 
  */
-public abstract class BaseAtlasView extends CommonAtlasView {
+public class BaseAtlasView extends CommonAtlasView {
 	protected Context mContext;
 	protected AtlasViewPager pager;
-	protected TextView title, desc;
-	protected LinearLayout dotLl;
 	private List<ImageView> dots = new ArrayList<ImageView>();
-	private List<AtlasPicture> list;
+	private List<PhonePageList> list;
 	private AtlasAdapter adapter;
-	protected AtlasParm atlasParm;
+	private TemplateAtlas template;
+	private XMLDataSetForAtlas dataSet;
+	private ArticleItem item;
+
 	private NotifyArticleDesListener listener = new NotifyArticleDesListener() {
 
 		@Override
 		public void updateDes(int position) {
 			if (list == null || list.size() < position + 1)
 				return;
-			title.setText(list.get(position).getTitle());
-			desc.setText(list.get(position).getDesc());
+			dataSet.setData(list.get(position), item);
+			dataSet.anim(list, position);
 			for (int i = 0; i < dots.size(); i++) {
 				if (i == position % list.size()) {
-					V.setImage(dots.get(i), atlasParm.getImage_dot_active());
+					dots.get(i).setImageResource(R.drawable.dot_active);
 				} else {
-					V.setImage(dots.get(i), atlasParm.getImage_dot());
+					dots.get(i).setImageResource(R.drawable.dot);
 				}
 			}
 		}
@@ -61,32 +62,36 @@ public abstract class BaseAtlasView extends CommonAtlasView {
 		}
 	};
 
-	public BaseAtlasView(Context context) {
+	public BaseAtlasView(Context context, boolean isCurrApp) {
 		super(context);
 		mContext = context;
-		init();
+		init(isCurrApp);
 	}
 
-	public BaseAtlasView(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		mContext = context;
-		init();
+	protected void init(boolean isCurrApp) {
+		this.addView(LayoutInflater.from(mContext)
+				.inflate(R.layout.atlas, null));
+		initProcess();
+		RelativeLayout atlas = (RelativeLayout) findViewById(R.id.atlas_layout);
+		template = ParseProperties.getInstance(mContext).parseAtlas(isCurrApp);
+		XMLParse xmlParse = new XMLParse(mContext, null);
+		atlas.addView(xmlParse.inflate(template.getData(), null, ""));
+		dataSet = xmlParse.getDataSetForAtlas();
+		pager = dataSet.getViewPager();
 	}
 
-	protected void init() {
-		atlasParm = ParseProperties.getInstance(mContext).parseAtlas();
-	}
-
-	protected void setValuesForWidget(Atlas atlas) {
-		list = atlas.getList();
+	@Override
+	protected void setValuesForWidget(ArticleItem item) {
+		this.item = item;
+		list = item.getPageUrlList();
 		if (ParseUtil.listNotNull(list)) {
-			adapter = new AtlasAdapter(mContext, atlasParm);
+			adapter = new AtlasAdapter(mContext, template);
 			adapter.setData(list);
 			adapter.setOnItemClickListener(new OnItemClickListener() {
 
 				@Override
 				public void onItemClick(View view, int position) {
-					UriParse.clickSlate(mContext, list.get(position).getLink(),
+					UriParse.clickSlate(mContext, list.get(position).getUri(),
 							new Entry[] { new ArticleItem() },
 							BaseAtlasView.this);
 				}
@@ -94,35 +99,14 @@ public abstract class BaseAtlasView extends CommonAtlasView {
 			pager.setAdapter(adapter);
 			pager.setValue(list.size());
 			pager.setListener(listener);
-			initDot(list);
+			dataSet.dot(list, dots);
+			dataSet.initAnim(list);
 		}
 	}
 
-	/**
-	 * 初始化dot
-	 * 
-	 * @param list
-	 */
-	private void initDot(List<AtlasPicture> list) {
-		dotLl.removeAllViews();
-		dots.clear();
-		if (list.size() == 1)
-			return;
-		ImageView iv;
-		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-				LinearLayout.LayoutParams.WRAP_CONTENT,
-				LinearLayout.LayoutParams.WRAP_CONTENT);
-		lp.leftMargin = 5;
-		for (int i = 0; i < list.size(); i++) {
-			iv = new ImageView(mContext);
-			if (i == 0) {
-				V.setImage(iv, atlasParm.getImage_dot_active());
-			} else {
-				V.setImage(iv, atlasParm.getImage_dot());
-			}
-			dotLl.addView(iv, lp);
-			dots.add(iv);
-		}
+	@Override
+	public int getCurrentIndex() {
+		return adapter == null ? -1 : adapter.getCurr();
 	}
 
 	@Override

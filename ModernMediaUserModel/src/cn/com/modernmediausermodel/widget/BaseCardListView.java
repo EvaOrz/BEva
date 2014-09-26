@@ -1,23 +1,18 @@
 package cn.com.modernmediausermodel.widget;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
-import cn.com.modernmedia.util.ModernMediaTools;
-import cn.com.modernmedia.util.ParseUtil;
 import cn.com.modernmedia.widget.CheckFooterListView;
 import cn.com.modernmedia.widget.CheckFooterListView.FooterCallBack;
 import cn.com.modernmedia.widget.PullToRefreshListView.OnRefreshListener;
 import cn.com.modernmediaslate.model.Entry;
-import cn.com.modernmediausermodel.R;
+import cn.com.modernmediaslate.unit.ParseUtil;
+import cn.com.modernmediaslate.unit.Tools;
 import cn.com.modernmediausermodel.adapter.UserCardListAdapter;
-import cn.com.modernmediausermodel.api.UserOperateController;
 import cn.com.modernmediausermodel.db.UserInfoDb;
-import cn.com.modernmediausermodel.listener.UserFetchEntryListener;
 import cn.com.modernmediausermodel.model.Card;
 import cn.com.modernmediausermodel.model.Card.CardItem;
 import cn.com.modernmediausermodel.model.Users;
@@ -34,7 +29,6 @@ public abstract class BaseCardListView {
 	private Context mContext;
 	private CheckFooterListView listView;
 	protected UserCardListAdapter adapter;
-
 	private UserInfoDb userInfoDb;
 	private Card mCard = new Card();
 
@@ -130,11 +124,8 @@ public abstract class BaseCardListView {
 	public void getCardList(final String timelineId, final boolean isGetMore,
 			boolean isPull) {
 		setTipVisibility(false);
-		// if (adapter.getCount() < UserConstData.MAX_CARD_ITEM_COUNT)
-		// listView.dismissFooter();
 		if (!isGetMore && !isPull) {
-			ModernMediaTools.showLoading(mContext, true);
-			// adapter.clear();
+			Tools.showLoading(mContext, true);
 		}
 	}
 
@@ -158,107 +149,37 @@ public abstract class BaseCardListView {
 				if (isGetMore)
 					listView.loadOk(false);
 				else
-					ModernMediaTools.showLoading(mContext, false);
+					Tools.showLoading(mContext, false);
 				setTipVisibility(adapter.getCount() == 0);
 				return;
 			}
 			if (isGetMore) {
 				mCard.getCardItemList().addAll(list);
+				mCard.getUserInfoMap().putAll(card.getUserInfoMap());
 			} else {
 				mCard = card;
 			}
-			getUsersInfo(isGetMore, isPull, list);
-		} else if (isGetMore) {
-			// TODO 没有网络，读取数据库
-			if (!ModernMediaTools.checkNetWork(mContext)) {
-				card = getCardFromDb(timeLine);
-				if (ParseUtil.listNotNull(card.getCardItemList())) {
-					afterGetCardList(card, timeLine, isGetMore, isPull);
-				} else {
-					fecthDataError(isGetMore);
-				}
-			} else {
-				fecthDataError(isGetMore);
-			}
-		} else {
-			if (adapter.getCount() == 0)
-				ModernMediaTools.showToast(mContext, R.string.net_error);
-			ModernMediaTools.showLoading(mContext, false);
 			if (isPull)
 				listView.onRefreshComplete(false, -1);
-		}
-	}
+			else if (!isGetMore)
+				Tools.showLoading(mContext, false);
 
-	/**
-	 * 获得所有推荐卡片的用户信息
-	 * 
-	 * @param users
-	 */
-	private void getUsersInfo(final boolean isGetMore, final boolean isPull,
-			final List<CardItem> list) {
-		if (mCard == null)
-			return;
-		Set<String> set = new HashSet<String>();
-		for (CardItem item : mCard.getCardItemList()) {
-			if (item.getType() == 2) {
-				// TODO 收藏
-				set.add(item.getFuid());
-			} else {
-				set.add(item.getUid());
-			}
-		}
-		UserOperateController.getInstance(mContext).getUsersInfo(set,
-				new UserFetchEntryListener() {
-
-					@Override
-					public void setData(Entry entry) {
-						if (isPull)
-							listView.onRefreshComplete(false, -1);
-						else if (!isGetMore)
-							ModernMediaTools.showLoading(mContext, false);
-						afterGetUsersInfo(entry, list, isGetMore);
-					}
-				});
-	}
-
-	/**
-	 * 从服务器获取完用户信息列表之后
-	 * 
-	 * @param entry
-	 * @param list
-	 */
-	private void afterGetUsersInfo(Entry entry, List<CardItem> list,
-			boolean isGetMore) {
-		Users users;
-		if (entry instanceof Users) {
-			if (!isGetMore)
-				adapter.clear();
-			users = (Users) entry;
-			mCard.setUserInfoMap(users.getUserInfoMap());
+			adapter.clear();
 			adapter.setCard(mCard);
-			adapter.setData(list);
+			adapter.setData(mCard.getCardItemList());
 			listView.loadOk(true);
-			if (list.size() < UserConstData.MAX_CARD_ITEM_COUNT) {
+			if (mCard.getCardItemList().size() < UserConstData.MAX_CARD_ITEM_COUNT) {
 				listView.removeFooter();
 			} else {
 				listView.showFooter();
 			}
+
 		} else if (isGetMore) {
-			// TODO 没有网络，读取数据库
-			if (!ModernMediaTools.checkNetWork(mContext)) {
-				users = userInfoDb.getUsersInfo();
-				if (ParseUtil.listNotNull(users.getUserList())) {
-					afterGetUsersInfo(users, list, isGetMore);
-				} else {
-					fecthDataError(isGetMore);
-				}
-			} else {
-				fecthDataError(isGetMore);
-			}
+			listView.onLoadError();
 		} else {
-			if (adapter.getCount() == 0)
-				ModernMediaTools.showToast(mContext, R.string.net_error);
-			ModernMediaTools.showLoading(mContext, false);
+			Tools.showLoading(mContext, false);
+			if (isPull)
+				listView.onRefreshComplete(false, -1);
 		}
 	}
 
@@ -269,20 +190,6 @@ public abstract class BaseCardListView {
 	 * @return
 	 */
 	public abstract Card getCardFromDb(String timeLine);
-
-	/**
-	 * 显示错误信息
-	 * 
-	 * @param isLoad
-	 */
-	private void fecthDataError(boolean isGetMore) {
-		if (isGetMore) {
-			listView.onLoadError();
-		} else {
-			ModernMediaTools.showLoading(mContext, false);
-		}
-		ModernMediaTools.showToast(mContext, R.string.net_error);
-	}
 
 	/**
 	 * 当没有内容时,设置提示语

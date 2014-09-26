@@ -91,7 +91,7 @@ public class WeatherView implements FetchEntryListener, OnClickListener {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		if (resId != V.ID_ERROR && resId != V.ID_COLOR)
+		if (resId != V.ID_ERROR && resId != V.ID_COLOR && resId != V.ID_HTTP)
 			icon.setImageResource(resId);
 		if (isFirst) {
 			day.setText("TODAY");

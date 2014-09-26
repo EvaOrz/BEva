@@ -6,10 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import android.annotation.SuppressLint;
-import cn.com.modernmedia.util.ParseUtil;
+import cn.com.modernmedia.model.ArticleItem.PhonePageList;
 import cn.com.modernmediaslate.model.Entry;
-import cn.com.modernmediaslate.model.Favorite.FavoriteItem;
-import cn.com.modernmediaslate.model.Favorite.Thumb;
+import cn.com.modernmediaslate.unit.ParseUtil;
 
 /**
  * 广告列表
@@ -90,13 +89,13 @@ public class AdvList extends Entry {
 		 * @args 具体数字 特定期
 		 * @args L 最新一期 包含独立栏目
 		 */
-		private String issueId = "";// 所属期id
+		// private String issueId = "";// 所属期id
 		/**
 		 * @args 0 代表首页
 		 * @args * 代表所有栏目
 		 * @args * / 2 代表每两个栏目有一个广告...
 		 */
-		private String catId = "";// 所属栏目id
+		private String tagname = "";// 所属栏目id
 		/**
 		 * @args * 代表所有文章前面都带广告
 		 * @args * / 2 为每两篇文章有一个广告...
@@ -165,20 +164,20 @@ public class AdvList extends Entry {
 			this.advType = advType;
 		}
 
-		public String getIssueId() {
-			return issueId;
+		// public String getIssueId() {
+		// return issueId;
+		// }
+		//
+		// public void setIssueId(String issueId) {
+		// this.issueId = issueId;
+		// }
+
+		public String getTagname() {
+			return tagname;
 		}
 
-		public void setIssueId(String issueId) {
-			this.issueId = issueId;
-		}
-
-		public String getCatId() {
-			return catId;
-		}
-
-		public void setCatId(String catId) {
-			this.catId = catId;
+		public void setTagname(String tagname) {
+			this.tagname = tagname;
 		}
 
 		public String getArticleId() {
@@ -284,7 +283,7 @@ public class AdvList extends Entry {
 		}
 
 		public void setSort(String sort) {
-			if (ParseUtil.stoi(sort, -1) != -1) {
+			if (!sort.contains("*") && ParseUtil.stoi(sort, -1) != -1) {
 				sort = String.valueOf(ParseUtil.stoi(sort, -1) - 1);
 			}
 			this.sort = sort;
@@ -308,6 +307,8 @@ public class AdvList extends Entry {
 				item.getPicList().add(source.getUrl());
 				item.setSlateLink(source.getLink());
 				item.setAdvSource(source);
+				item.getPosition().setStyle(4);
+				item.setAppid(appId);
 			}
 			if (posInfo != null) {
 				item.getPosition().setId(ParseUtil.stoi(posId, 1));
@@ -316,33 +317,35 @@ public class AdvList extends Entry {
 			return item;
 		}
 
-		public List<FavoriteItem> convertToFavoriteItem() {
-			List<FavoriteItem> list = new ArrayList<FavoriteItem>();
-			FavoriteItem item;
-			for (AdvSource source : sourceList) {
-				item = new FavoriteItem();
-				item.setAdv(true);
-				item.setAdvId(advId);
-				item.setLink(source.getUrl());
-				item.setTitle(source.getTitle());
-				item.setDesc(source.getDesc());
-				if (showType == 0 && advType == BETWEEN_ARTICLE) {
-					// 组图
-					item.getProperty().setType(2);
-					Thumb thumb = new Thumb();
+		/**
+		 * 文章使用
+		 * 
+		 * @return
+		 */
+		public List<ArticleItem> convertToArticleItemList() {
+			List<ArticleItem> list = new ArrayList<ArticleItem>();
+			if (ParseUtil.listNotNull(sourceList)) {
+				for (AdvSource source : sourceList) {
+					ArticleItem item = new ArticleItem();
+					item.setAdv(true);
+					item.setAdvId(advId);
+					item.setSlateLink(source.getLink());
+					item.setTitle(source.getTitle());
+					item.setDesc(source.getDesc());
+					item.setAppid(appId);
+					if (showType == 0 && advType == BETWEEN_ARTICLE) {
+						// 组图
+						item.getProperty().setType(2);
+					}
+					PhonePageList thumb = new PhonePageList();
 					thumb.setUrl(source.getUrl());
 					thumb.setTitle(source.getTitle());
 					thumb.setDesc(source.getDesc());
-					thumb.setLink(source.getLink());
-					thumb.setWidth(source.getWidth());
-					thumb.setHeight(source.getHeight());
-					item.getThumb().add(thumb);
+					thumb.setUri(source.getLink());
+					item.getPageUrlList().add(thumb);
+					item.setAdvTracker(tracker);
+					list.add(item);
 				}
-				if (tracker != null) {
-					item.setImpressionUrl(tracker.getImpressionUrl());
-					item.setClickUrl(tracker.getClickUrl());
-				}
-				list.add(item);
 			}
 			return list;
 		}

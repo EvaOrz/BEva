@@ -15,14 +15,12 @@ import cn.com.modernmediausermodel.util.UserDataHelper;
  * 
  */
 public class GetRecommendCardOperate extends CardBaseOperate {
-	private String timelineId = "";
 	private RecommendCardDb db;
 	private Context mContext;
 
 	public GetRecommendCardOperate(Context context, String timelineId,
 			boolean isGetNewData) {
-		super(timelineId, isGetNewData);
-		this.timelineId = timelineId;
+		super(timelineId, isGetNewData, context);
 		db = RecommendCardDb.getInstance(context);
 		mContext = context;
 	}
@@ -47,6 +45,11 @@ public class GetRecommendCardOperate extends CardBaseOperate {
 			}
 			db.addCardItem(getCard());
 		}
+	}
+
+	@Override
+	protected Card getCardFromDb() {
+		return db.getCard(timelineId);
 	}
 
 }

@@ -28,129 +28,101 @@ public final class R {
         public static int right_in=0x7f040010;
         public static int right_out=0x7f040011;
         public static int shake=0x7f040012;
-        public static int webview_loading_progressbar_anim=0x7f040013;
-        public static int zoom_in=0x7f040014;
-        public static int zoom_out=0x7f040015;
-    }
-    public static final class array {
-        /**  share items 
-         */
-        public static int app_share_items=0x7f0a0000;
+        public static int up_in=0x7f040013;
+        public static int up_out=0x7f040014;
+        public static int webview_loading_progressbar_anim=0x7f040015;
+        public static int zoom_in=0x7f040016;
+        public static int zoom_out=0x7f040017;
     }
     public static final class attr {
     }
     public static final class color {
-        public static int black_bg=0x7f060004;
-        public static int card_info_num=0x7f060010;
+        public static int black_bg=0x7f060001;
+        public static int card_info_num=0x7f060006;
         public static int child_cat_bg=0x7f060014;
-        public static int column_bg=0x7f060002;
-        public static int column_head=0x7f06001f;
-        public static int column_head_bg=0x7f06001e;
-        public static int column_item_bg=0x7f060020;
-        public static int column_item_text=0x7f060021;
-        public static int column_left_logo_bg=0x7f06001d;
-        public static int control_back=0x7f060007;
-        public static int fav_bg=0x7f060006;
-        public static int follow_all=0x7f06000c;
-        public static int full_transparent=0x7f060001;
-        public static int full_transparent_black=0x7f06000e;
+        public static int column_head=0x7f06001b;
         /**  iweekly子栏目导航栏 
          */
-        public static int index_head_bg=0x7f06001a;
-        public static int index_head_bg_select=0x7f06001b;
-        public static int index_head_divider=0x7f06001c;
-        public static int index_item_desc=0x7f060005;
-        public static int listitem_des=0x7f06000d;
-        public static int login_desc=0x7f06000b;
-        public static int process_loading_red_ring=0x7f060009;
-        public static int process_loading_ring_bg=0x7f060008;
+        public static int column_head_bg=0x7f06001a;
+        public static int column_item_bg=0x7f06001c;
+        public static int column_item_text=0x7f06001d;
+        public static int confirm_email_text_color=0x7f06000b;
+        /**  dot 
+         */
+        public static int dot_active_color=0x7f06001e;
+        public static int dot_color=0x7f06001f;
+        public static int follow_all=0x7f060003;
+        /**  issue list 
+         */
+        public static int issuelist_bg=0x7f060020;
+        public static int issuelist_desc_color=0x7f060022;
+        public static int issuelist_title_color=0x7f060021;
+        public static int listitem_des=0x7f060004;
+        public static int login_btn_login_bg=0x7f060010;
+        public static int login_btn_register_bg=0x7f06000f;
+        public static int login_desc=0x7f060002;
+        public static int my_coin_green_color=0x7f06000c;
+        public static int my_coin_notice_color=0x7f06000a;
+        public static int my_coin_notice_cover_bg=0x7f06000e;
+        public static int my_coin_red_color=0x7f06000d;
+        public static int process_loading_red_ring=0x7f060012;
+        public static int process_loading_ring_bg=0x7f060011;
         public static int russet=0x7f060019;
-        public static int title_bar=0x7f06000f;
+        public static int title_bar=0x7f060005;
         /**  半透明黑色 
          */
-        public static int translucent_black=0x7f06000a;
-        public static int transparent=0x7f060000;
-        public static int user_center_dot=0x7f060011;
-        public static int user_center_message=0x7f060012;
-        public static int user_center_num_color=0x7f060013;
+        public static int translucent_black=0x7f060013;
+        public static int user_center_dot=0x7f060007;
+        public static int user_center_message=0x7f060008;
+        public static int user_center_num_color=0x7f060009;
         public static int weather_day_label=0x7f060016;
         public static int weather_day_shadow=0x7f060017;
         public static int weather_view_bg=0x7f060018;
         /**  iweekly焦点图 
          */
         public static int weekly_column_head_bg=0x7f060015;
-        /**  <color name="transparent">#00000000</color> 
-         */
-        public static int white_bg=0x7f060003;
+        public static int white_bg=0x7f060000;
     }
     public static final class dimen {
+        /**  订阅 
+         */
+        public static int add_column_bg_height=0x7f0700c6;
         /**  article 
          */
-        public static int article_bar_height=0x7f070025;
-        public static int article_button_height=0x7f070027;
-        public static int article_button_marginleft=0x7f070028;
-        public static int article_button_width=0x7f070026;
-        /**  atlas 
- atlas iladdy 
-         */
-        public static int atlas_dot_height=0x7f0700c1;
+        public static int article_bar_height=0x7f0700a1;
         /**  atlas lohas 
          */
-        public static int atlas_dot_size=0x7f0700c2;
-        public static int avatar_magin_top=0x7f070043;
+        public static int atlas_dot_size=0x7f0700a3;
+        public static int avatar_magin_top=0x7f07003a;
         /**  用户中心 
          */
-        public static int avatar_size=0x7f070042;
+        public static int avatar_size=0x7f070039;
         /**  推荐用户 
  卡片 
          */
-        public static int bar_height=0x7f07005a;
-        public static int bus_cat_index_marginTop=0x7f0700a0;
-        /**  column_bus 
-         */
-        public static int bus_column_item_height=0x7f0700a3;
-        public static int bus_column_item_name_paddingLeft=0x7f0700a4;
-        public static int bus_index_column_title_paddingLeft=0x7f070099;
-        public static int bus_index_desc_marginLeft=0x7f07009d;
-        public static int bus_index_desc_marginRight=0x7f07009e;
-        /**  index_head_bus 
-         */
-        public static int bus_index_dot_height=0x7f0700a2;
-        public static int bus_index_img_frame_size=0x7f07009a;
-        public static int bus_index_img_padding=0x7f07009b;
-        /**  index_item_bus 
-         */
-        public static int bus_index_marginLeft=0x7f070096;
-        public static int bus_index_marginRight=0x7f070097;
-        public static int bus_index_marginTop=0x7f070098;
-        public static int bus_index_more_height=0x7f0700a1;
-        public static int bus_index_more_padding_right=0x7f07009f;
-        public static int bus_index_rightRow_size=0x7f07009c;
-        public static int card_detail_head__comment_margin_top=0x7f070082;
-        public static int card_detail_head_margin_left=0x7f070083;
-        public static int card_detail_head_margin_top=0x7f070081;
-        public static int card_detail_item_head_user_name_marginLeft=0x7f07008a;
-        public static int card_detail_list_item_comment_size=0x7f070086;
-        public static int card_detail_list_item_name_size=0x7f070085;
-        public static int card_detail_list_view_margin_bottom=0x7f070084;
+        public static int bar_height=0x7f070052;
+        public static int card_detail_head__comment_margin_top=0x7f07007a;
+        public static int card_detail_head_margin_left=0x7f07007b;
+        public static int card_detail_head_margin_top=0x7f070079;
+        public static int card_detail_item_head_user_name_marginLeft=0x7f070082;
+        public static int card_detail_list_item_comment_size=0x7f07007e;
+        public static int card_detail_list_item_name_size=0x7f07007d;
+        public static int card_detail_list_view_margin_bottom=0x7f07007c;
         /**  详情 
          */
-        public static int card_detail_nav_margin_left=0x7f07007e;
-        public static int card_detail_page_write_comment_height=0x7f070089;
-        public static int card_detail_popup_window_edit_margin=0x7f070088;
-        public static int card_detail_popup_window_title_margin_top=0x7f070087;
-        public static int card_detail_write_comment_margin_left=0x7f07007f;
-        public static int card_detail_write_comment_padding_left=0x7f070080;
-        public static int card_margin_left=0x7f07004b;
-        public static int card_margin_top=0x7f070047;
-        public static int card_number_margin_left=0x7f070048;
-        public static int card_number_margin_top=0x7f070045;
-        public static int card_number_size=0x7f070046;
-        public static int card_size=0x7f07004e;
-        public static int dialog_bottom_margin=0x7f070018;
-        public static int dialog_left_margin=0x7f070015;
-        public static int dialog_right_margin=0x7f070017;
-        public static int dialog_top_margin=0x7f070016;
+        public static int card_detail_nav_margin_left=0x7f070076;
+        public static int card_detail_page_write_comment_height=0x7f070081;
+        public static int card_detail_popup_window_edit_margin=0x7f070080;
+        public static int card_detail_popup_window_title_margin_top=0x7f07007f;
+        public static int card_detail_write_comment_margin_left=0x7f070077;
+        public static int card_detail_write_comment_padding_left=0x7f070078;
+        public static int card_margin_left=0x7f070042;
+        public static int card_margin_top=0x7f07003e;
+        public static int card_number_margin_left=0x7f07003f;
+        public static int card_number_margin_top=0x7f07003c;
+        public static int card_number_size=0x7f07003d;
+        public static int card_size=0x7f070045;
+        public static int dp1=0x7f070011;
         public static int dp10=0x7f07000f;
         public static int dp10_textsize=0x7f07000c;
         public static int dp11_textsize=0x7f07000b;
@@ -163,1015 +135,1044 @@ public final class R {
         public static int dp17_textsize=0x7f070005;
         public static int dp18_textsize=0x7f070004;
         public static int dp19_textsize=0x7f070003;
-        public static int dp20=0x7f07002a;
+        public static int dp2=0x7f070012;
+        public static int dp20=0x7f07001a;
         public static int dp20_textsize=0x7f070002;
         public static int dp25_textsize=0x7f070001;
         public static int dp30_textsize=0x7f070000;
+        public static int dp40_text_size=0x7f07001b;
         public static int dp5=0x7f07000e;
         public static int dp8_textsize=0x7f07000d;
-        public static int fan_number_padding_left=0x7f07004a;
-        public static int fan_padding_left=0x7f07004d;
-        /**  fav_item 
-         */
-        public static int fav_item_height=0x7f0700bf;
-        public static int fav_item_name_paddingLeft=0x7f0700c0;
-        public static int favorites_list_item_height=0x7f070091;
+        public static int fan_number_padding_left=0x7f070041;
+        public static int fan_padding_left=0x7f070044;
+        public static int favorites_list_item_height=0x7f070089;
         /**  获取照片 
          */
-        public static int fetch_img_margin=0x7f070041;
-        public static int follow_all_height=0x7f070064;
-        public static int follow_all_magin=0x7f07005c;
-        public static int follow_all_size=0x7f070061;
-        public static int follow_number_padding_left=0x7f070049;
-        public static int follow_padding_left=0x7f07004c;
+        public static int fetch_img_margin=0x7f070038;
+        public static int follow_all_height=0x7f07005c;
+        public static int follow_all_magin=0x7f070054;
+        public static int follow_all_size=0x7f070059;
+        public static int follow_number_padding_left=0x7f070040;
+        public static int follow_padding_left=0x7f070043;
         /**  footer_view 
          */
-        public static int footer_height=0x7f070029;
-        public static int footer_paddingBottom=0x7f070020;
+        public static int footer_height=0x7f070019;
+        public static int footer_paddingBottom=0x7f070017;
         /**  pull to load footer 
          */
-        public static int footer_paddingTop=0x7f07001f;
-        public static int footer_textsize=0x7f070021;
+        public static int footer_paddingTop=0x7f070016;
+        public static int footer_textsize=0x7f070018;
         /**  gallery 
          */
-        public static int gallery_detail_content_height=0x7f0700ee;
+        public static int gallery_detail_content_height=0x7f0700c4;
+        public static int gallery_detail_link_size=0x7f0700c5;
         /**  pull to refresh header 
          */
-        public static int head_contentLayout_paddingLeft=0x7f07001c;
-        public static int head_lastUpdatedTextView_tSize=0x7f07001e;
-        public static int head_tipsTextView_tSize=0x7f07001d;
-        public static int index_child_titlebar_height=0x7f070095;
-        public static int index_titlebar_column_marginLeft=0x7f070093;
+        public static int head_contentLayout_paddingLeft=0x7f070013;
+        public static int head_lastUpdatedTextView_tSize=0x7f070015;
+        public static int head_tipsTextView_tSize=0x7f070014;
         /**  栏目index 
          */
-        public static int index_titlebar_height=0x7f070092;
-        public static int index_titlebar_title_textSize=0x7f070094;
-        public static int issue_desc_marginBottom=0x7f0700c5;
+        public static int index_titlebar_height=0x7f0700a2;
+        public static int issue_desc_marginBottom=0x7f0700a6;
         /**  issue_list lohas 
          */
-        public static int issue_pic_marginleft=0x7f0700c3;
-        public static int issue_pic_marginright=0x7f0700c6;
-        public static int issue_pic_spacing=0x7f0700c7;
-        public static int issue_process_margin=0x7f0700c8;
-        public static int issue_process_size=0x7f0700c9;
-        public static int issue_title_margintop=0x7f0700c4;
-        public static int item_collect_text_padding_left=0x7f07008e;
-        public static int item_comment_num_height=0x7f07008d;
-        public static int item_comment_num_width=0x7f07008c;
-        public static int iweekly_column_index_head_icon_height=0x7f0700f0;
-        /**  iweekly子栏目导航栏 
-         */
-        public static int iweekly_column_index_head_icon_width=0x7f0700ef;
-        public static int iweekly_column_index_head_title_marginLeft=0x7f0700f1;
-        /**  index_item_lady 
-         */
-        public static int lady_index_item_title_frame_marginBottom=0x7f0700aa;
-        public static int lady_index_item_title_marginLeft=0x7f0700ab;
-        public static int lady_index_item_title_marginTop=0x7f0700ac;
-        public static int list_item_avatar_margin_top=0x7f07006e;
-        public static int list_item_avatar_size=0x7f07006d;
-        public static int list_item_comment_margin_right=0x7f070077;
-        public static int list_item_content_margin_right=0x7f070072;
-        public static int list_item_content_margin_top=0x7f070070;
-        public static int list_item_fav_comment_margin=0x7f070079;
-        public static int list_item_fav_margin_bottom=0x7f070076;
-        public static int list_item_fav_margin_left=0x7f070074;
-        public static int list_item_fav_margin_top=0x7f070075;
-        public static int list_item_margin_left=0x7f07006c;
-        public static int list_item_name_margin_top=0x7f070071;
-        public static int list_item_sliding_button_margin_right=0x7f070073;
-        public static int list_item_time_margin_left=0x7f07006f;
-        public static int listitem_avatar_marginleft=0x7f07005f;
-        public static int listitem_des_size=0x7f070063;
-        public static int listitem_name_size=0x7f070062;
-        public static int listitem_username_marginleft=0x7f07005e;
-        public static int listitem_username_margintop=0x7f07005d;
+        public static int issue_pic_marginleft=0x7f0700a4;
+        public static int issue_pic_marginright=0x7f0700a7;
+        public static int issue_pic_spacing=0x7f0700a8;
+        public static int issue_process_margin=0x7f0700a9;
+        public static int issue_process_size=0x7f0700aa;
+        public static int issue_title_margintop=0x7f0700a5;
+        public static int item_collect_text_padding_left=0x7f070086;
+        public static int item_comment_num_height=0x7f070085;
+        public static int item_comment_num_width=0x7f070084;
+        public static int list_item_avatar_margin_top=0x7f070066;
+        public static int list_item_avatar_size=0x7f070065;
+        public static int list_item_comment_margin_right=0x7f07006f;
+        public static int list_item_content_margin_right=0x7f07006a;
+        public static int list_item_content_margin_top=0x7f070068;
+        public static int list_item_fav_comment_margin=0x7f070071;
+        public static int list_item_fav_margin_bottom=0x7f07006e;
+        public static int list_item_fav_margin_left=0x7f07006c;
+        public static int list_item_fav_margin_top=0x7f07006d;
+        public static int list_item_margin_left=0x7f070064;
+        public static int list_item_name_margin_top=0x7f070069;
+        public static int list_item_sliding_button_margin_right=0x7f07006b;
+        public static int list_item_time_margin_left=0x7f070067;
+        public static int listitem_avatar_marginleft=0x7f070057;
+        public static int listitem_des_size=0x7f07005b;
+        public static int listitem_name_size=0x7f07005a;
+        public static int listitem_username_marginleft=0x7f070056;
+        public static int listitem_username_margintop=0x7f070055;
         /**  用户资料 
          */
-        public static int listview_margin_top=0x7f07006b;
-        public static int login_btn_height=0x7f07003b;
-        public static int login_btn_width=0x7f07003a;
-        public static int login_button_margintop=0x7f070038;
-        public static int login_desc_marginLeft=0x7f070032;
-        public static int login_desc_marginRight=0x7f070033;
-        public static int login_desc_marginTop=0x7f070030;
-        public static int login_desc_textsize=0x7f070031;
+        public static int listview_margin_top=0x7f070063;
+        public static int login_btn_height=0x7f070030;
+        public static int login_btn_login_marginleft=0x7f07002e;
+        public static int login_btn_margintop=0x7f07002d;
+        public static int login_btn_qq_marginTop=0x7f070024;
+        public static int login_btn_weibo_height=0x7f070021;
+        public static int login_btn_weibo_marginLeft=0x7f070022;
+        public static int login_btn_weibo_marginTop=0x7f070023;
+        public static int login_btn_weibo_width=0x7f070020;
+        public static int login_btn_width=0x7f07002f;
+        public static int login_desc_marginLeft=0x7f070028;
+        /**  delete 
+         */
+        public static int login_desc_marginRight=0x7f070031;
+        public static int login_desc_marginTop=0x7f070027;
         /**  登录页面 
          */
-        public static int login_edittext_height=0x7f070036;
-        public static int login_edittext_margin=0x7f070035;
-        public static int login_image_clear_marginright=0x7f07002e;
-        public static int login_image_clear_width=0x7f07002f;
-        public static int login_image_close_marginright=0x7f07002d;
-        public static int login_image_close_margintop=0x7f07002c;
+        public static int login_edittext_height=0x7f07002b;
+        public static int login_edittext_margin=0x7f07002a;
+        public static int login_edittext_marginTop=0x7f070029;
+        public static int login_image_clear_marginright=0x7f070025;
+        public static int login_image_clear_width=0x7f070026;
+        public static int login_image_close_marginright=0x7f07001e;
+        public static int login_image_close_margintop=0x7f07001d;
         /**  登录页面 
          */
-        public static int login_image_close_width=0x7f07002b;
-        public static int login_img_marginTop=0x7f070039;
-        public static int login_psd_edittext_marginTop=0x7f070037;
-        public static int login_user_name_marginTop=0x7f070034;
-        public static int lohas_index_item_desc_marginTop=0x7f0700af;
-        /**  index_item_lohas 
+        public static int login_image_close_width=0x7f07001c;
+        public static int login_img_marginTop=0x7f070032;
+        public static int login_other_login_desc_marginTop=0x7f07001f;
+        public static int login_psd_edittext_marginTop=0x7f07002c;
+        public static int lohas_index_item_title_bar_height=0x7f0700ad;
+        public static int lohas_issue_list_item_margin_top=0x7f0700ac;
+        public static int modify_email_window_text_height=0x7f07008f;
+        public static int modify_email_window_title_margin_top=0x7f07008e;
+        public static int my_coin_item_button_width=0x7f07009a;
+        public static int my_coin_item_desc_margin_right=0x7f070098;
+        public static int my_coin_item_name_width=0x7f070097;
+        public static int my_coin_item_title_height=0x7f070099;
+        public static int my_coin_light_height=0x7f070095;
+        public static int my_coin_light_width=0x7f070094;
+        public static int my_coin_notice_content_margin_top=0x7f07008c;
+        public static int my_coin_notice_ok_height=0x7f070091;
+        public static int my_coin_notice_ok_margin_top=0x7f07008d;
+        public static int my_coin_notice_ok_width=0x7f070090;
+        public static int my_coin_notice_user_name_margin_left=0x7f07008b;
+        /**  金币商城使用须知 
          */
-        public static int lohas_index_item_img_margin=0x7f0700ad;
-        public static int lohas_index_item_title_bar_height=0x7f0700b1;
-        public static int lohas_index_item_title_marginTop=0x7f0700ae;
-        /**  index_outline_item lohas 
+        public static int my_coin_notice_user_name_margin_top=0x7f07008a;
+        /**  我的金币 
          */
-        public static int lohas_index_outline_item_img_margin=0x7f0700b2;
-        public static int lohas_issue_list_item_margin_top=0x7f0700b0;
-        public static int name_margin_top=0x7f070044;
-        public static int nav_button_margin_left=0x7f07005b;
-        public static int nav_title_size=0x7f070060;
-        public static int process_size=0x7f0700ca;
-        public static int recommend_user_item_avatar_height=0x7f070067;
-        public static int recommend_user_item_avatar_margintop=0x7f070066;
-        public static int recommend_user_item_des_margintop=0x7f070068;
-        public static int recommend_user_item_height=0x7f070065;
-        public static int recommend_user_item_image_height=0x7f070069;
-        public static int recommend_user_item_image_marginright=0x7f07006a;
-        public static int red_ring_size_large=0x7f07001b;
-        public static int red_ring_size_medium=0x7f07001a;
+        public static int my_coin_title_maigin_left=0x7f070096;
+        public static int my_coin_ufo_height=0x7f070093;
+        public static int my_coin_ufo_width=0x7f070092;
+        public static int name_margin_top=0x7f07003b;
+        public static int nav_button_margin_left=0x7f070053;
+        public static int nav_title_size=0x7f070058;
+        public static int process_size=0x7f0700ab;
+        public static int recommend_user_item_avatar_height=0x7f07005f;
+        public static int recommend_user_item_avatar_margintop=0x7f07005e;
+        public static int recommend_user_item_des_margintop=0x7f070060;
+        public static int recommend_user_item_height=0x7f07005d;
+        public static int recommend_user_item_image_height=0x7f070061;
+        public static int recommend_user_item_image_marginright=0x7f070062;
+        public static int red_ring_size_large=0x7f07009d;
+        public static int red_ring_size_medium=0x7f07009c;
         /**  red ring 
          */
-        public static int red_ring_size_small=0x7f070019;
+        public static int red_ring_size_small=0x7f07009b;
+        public static int select_child_column_list_item_img_size=0x7f0700cc;
         /**  share 
          */
-        public static int share_item_margin=0x7f070022;
-        public static int share_item_textsize=0x7f070023;
-        public static int share_list_fade_length=0x7f070024;
-        public static int share_to_weibo_layout_height=0x7f070090;
+        public static int share_item_margin=0x7f07009e;
+        public static int share_item_textsize=0x7f07009f;
+        public static int share_list_fade_length=0x7f0700a0;
+        public static int share_to_weibo_layout_height=0x7f070088;
         /**  写笔记 
          */
-        public static int share_to_weibo_size=0x7f07008f;
-        public static int solo_desc_marginLeft=0x7f0700d4;
-        public static int solo_desc_marginRight=0x7f0700d5;
-        public static int solo_desc_textSize=0x7f0700d2;
-        public static int solo_img_frame_size=0x7f0700cc;
-        public static int solo_img_padding=0x7f0700d0;
-        public static int solo_item_title_textSize=0x7f0700d7;
-        public static int solo_marginLeft=0x7f0700cd;
-        public static int solo_marginRight=0x7f0700ce;
-        public static int solo_marginTop=0x7f0700cf;
-        public static int solo_more_cat_textSize=0x7f0700d3;
-        public static int solo_more_padding_right=0x7f0700d6;
-        public static int solo_rightRow_size=0x7f0700d1;
-        /**  独立栏目 
-         */
-        public static int solo_titlebar_height=0x7f0700cb;
-        public static int user_card_info_avatar_marginLeft=0x7f07007b;
-        public static int user_card_info_avatar_marginTop=0x7f07007c;
-        public static int user_card_info_avatar_size=0x7f07007a;
-        public static int user_card_info_divider_marginTop=0x7f07007d;
-        public static int user_card_listview_magin_top=0x7f070078;
+        public static int share_to_weibo_size=0x7f070087;
+        public static int subcribe_cloud_height=0x7f0700cb;
+        public static int subcribe_cloud_width=0x7f0700ca;
+        public static int subcribe_ufo_height=0x7f0700c8;
+        public static int subcribe_ufo_marginLeft=0x7f0700c9;
+        public static int subcribe_ufo_width=0x7f0700c7;
+        public static int user_card_info_avatar_marginLeft=0x7f070073;
+        public static int user_card_info_avatar_marginTop=0x7f070074;
+        public static int user_card_info_avatar_size=0x7f070072;
+        public static int user_card_info_divider_marginTop=0x7f070075;
+        public static int user_card_listview_magin_top=0x7f070070;
         /**  首页 
          */
-        public static int user_card_sliding_button_width=0x7f07008b;
-        public static int user_center_btn_login_height=0x7f070057;
-        public static int user_center_btn_login_marginTop=0x7f070058;
-        public static int user_center_btn_login_width=0x7f070056;
-        public static int user_center_card_magin_left=0x7f070050;
-        public static int user_center_card_text_padding=0x7f070051;
-        public static int user_center_fav_margin_top=0x7f070053;
-        public static int user_center_head_height=0x7f07004f;
-        public static int user_center_homepage_magin_left=0x7f070052;
-        public static int user_center_item_height=0x7f070055;
-        public static int user_center_item_margin_top=0x7f070054;
-        public static int user_center_title_num_margin=0x7f070059;
+        public static int user_card_sliding_button_width=0x7f070083;
+        public static int user_center_btn_login_height=0x7f07004e;
+        public static int user_center_btn_login_marginTop=0x7f07004f;
+        public static int user_center_btn_login_width=0x7f07004d;
+        public static int user_center_card_magin_left=0x7f070047;
+        public static int user_center_card_text_padding=0x7f070048;
+        public static int user_center_fav_margin_top=0x7f07004a;
+        public static int user_center_head_height=0x7f070046;
+        public static int user_center_homepage_magin_left=0x7f070049;
+        public static int user_center_item_height=0x7f07004c;
+        public static int user_center_item_margin_top=0x7f07004b;
+        public static int user_center_message_number_marginRight=0x7f070051;
+        public static int user_center_title_num_margin=0x7f070050;
         /**  用户信息页面 
          */
-        public static int userinfo_avatar_marginTop=0x7f07003c;
-        public static int userinfo_avatar_size=0x7f07003d;
-        public static int userinfo_confirm_change_margintop=0x7f070040;
-        public static int userinfo_text_width=0x7f07003e;
-        public static int userinfo_textsize=0x7f07003f;
-        public static int weather_button_padding_left=0x7f0700dc;
-        public static int weather_day_height=0x7f0700de;
-        public static int weather_day_margin_left=0x7f0700df;
-        public static int weather_day_margin_top=0x7f0700e4;
-        public static int weather_day_text_height=0x7f0700e3;
-        public static int weather_day_text_width=0x7f0700e2;
-        public static int weather_day_width=0x7f0700dd;
-        public static int weather_high_margin_right=0x7f0700e9;
-        public static int weather_high_margin_top=0x7f0700e8;
-        public static int weather_high_text_size=0x7f0700e7;
-        public static int weather_high_width=0x7f0700e6;
-        public static int weather_icon_height=0x7f0700e1;
-        public static int weather_icon_width=0x7f0700e0;
-        public static int weather_low_margin_right=0x7f0700ed;
-        public static int weather_low_margin_top=0x7f0700ec;
-        public static int weather_low_text_size=0x7f0700eb;
-        public static int weather_low_width=0x7f0700ea;
-        public static int weather_text_size=0x7f0700e5;
-        public static int weather_view_bg_height=0x7f0700da;
-        public static int weather_view_height=0x7f0700d9;
-        public static int weather_view_margin_bottom=0x7f0700db;
+        public static int userinfo_avatar_marginTop=0x7f070033;
+        public static int userinfo_avatar_size=0x7f070034;
+        public static int userinfo_confirm_change_margintop=0x7f070037;
+        public static int userinfo_text_width=0x7f070035;
+        public static int userinfo_textsize=0x7f070036;
+        public static int weather_button_padding_left=0x7f0700b2;
+        public static int weather_day_height=0x7f0700b4;
+        public static int weather_day_margin_left=0x7f0700b5;
+        public static int weather_day_margin_top=0x7f0700ba;
+        public static int weather_day_text_height=0x7f0700b9;
+        public static int weather_day_text_width=0x7f0700b8;
+        public static int weather_day_width=0x7f0700b3;
+        public static int weather_high_margin_right=0x7f0700bf;
+        public static int weather_high_margin_top=0x7f0700be;
+        public static int weather_high_text_size=0x7f0700bd;
+        public static int weather_high_width=0x7f0700bc;
+        public static int weather_icon_height=0x7f0700b7;
+        public static int weather_icon_width=0x7f0700b6;
+        public static int weather_low_margin_right=0x7f0700c3;
+        public static int weather_low_margin_top=0x7f0700c2;
+        public static int weather_low_text_size=0x7f0700c1;
+        public static int weather_low_width=0x7f0700c0;
+        public static int weather_text_size=0x7f0700bb;
+        public static int weather_view_bg_height=0x7f0700b0;
+        public static int weather_view_height=0x7f0700af;
+        public static int weather_view_margin_bottom=0x7f0700b1;
         /**  weather 
          */
-        public static int weather_view_width=0x7f0700d8;
-        /**  column_weekly 
-         */
-        public static int weekly_column_index_item_img_size=0x7f0700a5;
-        public static int weekly_column_item_dot_size=0x7f0700a9;
-        public static int weekly_column_item_img_height=0x7f0700a7;
-        public static int weekly_column_item_img_marginTop=0x7f0700a8;
-        public static int weekly_column_item_img_width=0x7f0700a6;
-        public static int weekly_index_item_date_height=0x7f0700ba;
-        public static int weekly_index_item_image_bg_marginLeft=0x7f0700b8;
-        public static int weekly_index_item_img_bg_size=0x7f0700b7;
-        public static int weekly_index_item_img_height=0x7f0700b5;
-        public static int weekly_index_item_img_marginTop=0x7f0700b6;
-        /**  index_item_weekly 
-         */
-        public static int weekly_index_item_img_size=0x7f0700b3;
-        public static int weekly_index_item_img_video_size=0x7f0700b9;
-        public static int weekly_index_item_img_width=0x7f0700b4;
-        public static int weibosdk_dialog_bottom_margin=0x7f070014;
-        public static int weibosdk_dialog_left_margin=0x7f070011;
-        public static int weibosdk_dialog_right_margin=0x7f070013;
-        public static int weibosdk_dialog_top_margin=0x7f070012;
-        /**  index_item zhihuiyun 
-         */
-        public static int zhihuiyun_index_item_date_width=0x7f0700bb;
-        public static int zhihuiyun_index_item_day_margin_top=0x7f0700bc;
-        public static int zhihuiyun_index_item_divider_margin_top=0x7f0700be;
-        public static int zhihuiyun_index_item_title_margin_top=0x7f0700bd;
+        public static int weather_view_width=0x7f0700ae;
     }
     public static final class drawable {
         public static int avatar_placeholder=0x7f020000;
         public static int bg_btn=0x7f020001;
         public static int bg_btn_login=0x7f020002;
-        public static int bg_gallery_title_label=0x7f020003;
-        public static int bg_text_field=0x7f020004;
-        public static int bg_weather_view_close=0x7f020005;
-        public static int bg_weather_view_open=0x7f020006;
-        public static int card=0x7f020007;
-        public static int card_item_comment_select=0x7f020008;
-        public static int card_item_fav_select=0x7f020009;
-        public static int cardlist_comment=0x7f02000a;
-        public static int cardlist_comment_tapped=0x7f02000b;
-        public static int cardlist_fav=0x7f02000c;
-        public static int cardlist_fav_tapped=0x7f02000d;
-        public static int center_fav=0x7f02000e;
-        public static int center_login_bg=0x7f02000f;
+        public static int bg_entrycell_image=0x7f020003;
+        public static int bg_gallery_title_label=0x7f020004;
+        public static int bg_text_field=0x7f020005;
+        public static int bg_weather_view_close=0x7f020006;
+        public static int bg_weather_view_open=0x7f020007;
+        public static int card=0x7f020008;
+        public static int card_item_comment_select=0x7f020009;
+        public static int card_item_fav_select=0x7f02000a;
+        public static int cardlist_comment=0x7f02000b;
+        public static int cardlist_comment_tapped=0x7f02000c;
+        public static int cardlist_fav=0x7f02000d;
+        public static int cardlist_fav_tapped=0x7f02000e;
+        public static int center_fav=0x7f02000f;
         public static int center_setting=0x7f020010;
         public static int child_cat_bg=0x7f020011;
         public static int child_tool_bg=0x7f020012;
         public static int child_tool_cell=0x7f020013;
         public static int comment_bg=0x7f020014;
         public static int dialog_bg=0x7f020015;
-        public static int download=0x7f020016;
-        public static int ic_add_comment=0x7f020017;
-        public static int ic_add_follow=0x7f020018;
-        public static int ic_back=0x7f020019;
-        public static int ic_cancel=0x7f02001a;
-        public static int ic_close_login=0x7f02001b;
-        public static int ic_comment=0x7f02001c;
-        public static int ic_confirm=0x7f02001d;
-        public static int ic_delete=0x7f02001e;
-        public static int ic_fav=0x7f02001f;
-        public static int ic_fav_comment=0x7f020020;
-        public static int ic_launcher=0x7f020021;
-        public static int ic_pulltoload_arrow=0x7f020022;
-        public static int ic_pulltorefresh_arrow=0x7f020023;
-        public static int ic_random=0x7f020024;
-        public static int ic_share=0x7f020025;
-        public static int ic_text_field_clear=0x7f020026;
-        public static int ic_text_field_forget=0x7f020027;
-        public static int ic_write_card=0x7f020028;
-        public static int ico_gallery_new=0x7f020029;
-        public static int ico_video=0x7f02002a;
-        public static int img_weibo_normal=0x7f02002b;
-        public static int img_weibo_select=0x7f02002c;
-        public static int index_item_fav=0x7f02002d;
-        public static int list_item_divider=0x7f02002e;
-        public static int moments=0x7f02002f;
-        public static int nav_avatar=0x7f020030;
-        public static int nav_has_fav=0x7f020031;
-        public static int nav_un_fav=0x7f020032;
-        public static int network_error=0x7f020033;
-        public static int pause=0x7f020034;
-        public static int play=0x7f020035;
-        public static int pull_to_load_footer_background=0x7f020036;
-        public static int pull_to_refresh_header_background=0x7f020037;
-        public static int red_dialog_style=0x7f020038;
-        public static int shadow_left=0x7f020039;
-        public static int shadow_right=0x7f02003a;
-        public static int solo_navbar_shadow=0x7f02003b;
-        public static int stepbackward=0x7f02003c;
-        public static int stepforward=0x7f02003d;
-        public static int user_center_dot=0x7f02003e;
-        public static int user_center_message=0x7f02003f;
-        public static int webview_loading=0x7f020040;
-        public static int wechat=0x7f020041;
-        public static int weibo=0x7f020042;
-        public static int write_comment_bg=0x7f020043;
-        public static int write_comment_img=0x7f020044;
+        public static int dot=0x7f020016;
+        public static int dot_active=0x7f020017;
+        public static int download=0x7f020018;
+        public static int ic_add_comment=0x7f020019;
+        public static int ic_add_follow=0x7f02001a;
+        public static int ic_back=0x7f02001b;
+        public static int ic_cancel=0x7f02001c;
+        public static int ic_close_login=0x7f02001d;
+        public static int ic_comment=0x7f02001e;
+        public static int ic_confirm=0x7f02001f;
+        public static int ic_delete=0x7f020020;
+        public static int ic_fav=0x7f020021;
+        public static int ic_fav_comment=0x7f020022;
+        public static int ic_launcher=0x7f020023;
+        public static int ic_pulltoload_arrow=0x7f020024;
+        public static int ic_pulltorefresh_arrow=0x7f020025;
+        public static int ic_random=0x7f020026;
+        public static int ic_share=0x7f020027;
+        public static int ic_text_field_clear=0x7f020028;
+        public static int ic_text_field_forget=0x7f020029;
+        public static int ic_write_card=0x7f02002a;
+        public static int ico_gallery_new=0x7f02002b;
+        public static int ico_video=0x7f02002c;
+        public static int ico_video_large=0x7f02002d;
+        public static int icon=0x7f02002e;
+        public static int img_weibo_normal=0x7f02002f;
+        public static int img_weibo_select=0x7f020030;
+        public static int index_item_arrow=0x7f020031;
+        public static int index_item_fav=0x7f020032;
+        public static int index_nav_shadow=0x7f020033;
+        public static int line=0x7f020034;
+        public static int list_item_divider=0x7f020035;
+        public static int login_bg=0x7f020036;
+        public static int login_btn_login_bg=0x7f020037;
+        public static int login_btn_register_bg=0x7f020038;
+        public static int login_edittext_normal_bg=0x7f020039;
+        public static int login_edittext_pressed_bg=0x7f02003a;
+        public static int login_edittext_select=0x7f02003b;
+        public static int login_qq_bg=0x7f02003c;
+        public static int login_weibo_bg=0x7f02003d;
+        public static int moments=0x7f02003e;
+        public static int my_coin_coinstack=0x7f02003f;
+        public static int my_coin_light=0x7f020040;
+        public static int my_coin_line=0x7f020041;
+        public static int my_coin_ship=0x7f020042;
+        public static int my_coin_ufo=0x7f020043;
+        public static int nav_avatar=0x7f020044;
+        public static int nav_has_fav=0x7f020045;
+        public static int nav_un_fav=0x7f020046;
+        public static int network_error=0x7f020047;
+        public static int pause=0x7f020048;
+        public static int play=0x7f020049;
+        public static int pull_to_load_footer_background=0x7f02004a;
+        public static int pull_to_refresh_header_background=0x7f02004b;
+        public static int red_dialog_style=0x7f02004c;
+        public static int shadow_left=0x7f02004d;
+        public static int shadow_right=0x7f02004e;
+        public static int solo_navbar_shadow=0x7f02004f;
+        public static int stepbackward=0x7f020050;
+        public static int stepforward=0x7f020051;
+        public static int subcribe_column_img_bg=0x7f020052;
+        public static int subscribe_add=0x7f020053;
+        public static int subscribe_addcolumn_bg=0x7f020054;
+        public static int subscribe_bg=0x7f020055;
+        public static int subscribe_check=0x7f020056;
+        public static int subscribe_checked=0x7f020057;
+        public static int subscribe_cloud=0x7f020058;
+        public static int subscribe_header=0x7f020059;
+        public static int subscribe_line=0x7f02005a;
+        public static int subscribe_row=0x7f02005b;
+        public static int subscribe_ufo=0x7f02005c;
+        public static int user_center_dot=0x7f02005d;
+        public static int user_center_message=0x7f02005e;
+        public static int webview_loading=0x7f02005f;
+        public static int wechat=0x7f020060;
+        public static int weibo=0x7f020061;
+        public static int write_comment_bg=0x7f020062;
+        public static int write_comment_img=0x7f020063;
     }
     public static final class id {
-        public static int about_back=0x7f0b0002;
-        public static int about_bar=0x7f0b0001;
-        public static int about_bar_divider=0x7f0b0004;
-        public static int about_image=0x7f0b0005;
-        public static int about_title=0x7f0b0003;
-        public static int adv_flipper=0x7f0b0043;
-        public static int adv_image=0x7f0b0042;
-        public static int app_icon=0x7f0b0126;
-        public static int app_name=0x7f0b0127;
-        public static int atlas_picture=0x7f0b004e;
-        public static int bar_layout=0x7f0b001f;
-        public static int bus_atlas_desc=0x7f0b0048;
-        public static int bus_atlas_gallery=0x7f0b0046;
-        public static int bus_atlas_gallery_dot=0x7f0b0049;
-        public static int bus_atlas_title=0x7f0b0047;
-        public static int bus_cloumn_item_color=0x7f0b0052;
-        public static int bus_cloumn_margin=0x7f0b0050;
-        public static int bus_column_contain=0x7f0b004f;
-        public static int bus_column_item_name=0x7f0b0053;
-        public static int bus_column_item_right_arrow=0x7f0b0054;
-        public static int bus_column_item_row=0x7f0b0051;
-        public static int bus_index_gallery=0x7f0b0099;
-        public static int bus_index_gallery_dot=0x7f0b009a;
-        public static int bus_index_head_bar=0x7f0b009b;
-        public static int bus_index_head_title=0x7f0b009c;
-        public static int bus_index_item_adv_img=0x7f0b00aa;
-        public static int bus_index_item_column_title=0x7f0b00a9;
-        public static int bus_index_item_contain=0x7f0b00a8;
-        public static int bus_index_item_content=0x7f0b00ab;
-        public static int bus_index_item_desc=0x7f0b00af;
-        public static int bus_index_item_divider=0x7f0b00b0;
-        public static int bus_index_item_img=0x7f0b00ac;
-        public static int bus_index_item_more=0x7f0b00b3;
-        public static int bus_index_item_more_img=0x7f0b00b2;
-        public static int bus_index_item_more_rl=0x7f0b00b1;
-        public static int bus_index_item_rightRow=0x7f0b00ad;
-        public static int bus_index_item_title=0x7f0b00ae;
-        public static int button2=0x7f0b0075;
-        public static int button3=0x7f0b0076;
-        public static int button4=0x7f0b0077;
-        public static int button_back=0x7f0b0020;
-        public static int button_follow=0x7f0b002e;
-        public static int button_follow_all=0x7f0b0025;
-        public static int card=0x7f0b0013;
-        public static int card_detail_avatar=0x7f0b0060;
-        public static int card_detail_bar_layout=0x7f0b0006;
-        public static int card_detail_comment_content=0x7f0b0062;
-        public static int card_detail_item__head_avatar=0x7f0b005a;
-        public static int card_detail_item__head_user_name=0x7f0b005b;
-        public static int card_detail_item_divider=0x7f0b005f;
-        public static int card_detail_item_head_frame=0x7f0b0059;
-        public static int card_detail_item_head_time=0x7f0b005c;
-        public static int card_detail_nav_back=0x7f0b0007;
-        public static int card_detail_nav_delete=0x7f0b0009;
-        public static int card_detail_nav_fav=0x7f0b000a;
-        public static int card_detail_nav_share=0x7f0b0008;
-        public static int card_detail_page_card_content=0x7f0b005d;
-        public static int card_detail_page_divider=0x7f0b000c;
-        public static int card_detail_page_list_view=0x7f0b005e;
-        public static int card_detail_page_write_comment=0x7f0b000d;
-        public static int card_detail_user_name=0x7f0b0061;
-        public static int card_detail_viewpager=0x7f0b000b;
-        public static int card_info_layout_card=0x7f0b0011;
-        public static int card_info_layout_fans=0x7f0b0017;
-        public static int card_info_layout_follow=0x7f0b0014;
-        public static int card_info_title=0x7f0b002d;
-        public static int card_item_comment=0x7f0b0064;
-        public static int card_item_fav=0x7f0b0063;
-        public static int card_list_view=0x7f0b002f;
-        public static int card_number=0x7f0b0012;
-        public static int card_popup_window_bar_layout=0x7f0b0055;
-        public static int card_popup_window_cancel=0x7f0b0056;
-        public static int card_popup_window_complete=0x7f0b0057;
-        public static int card_popup_window_write_comment=0x7f0b0058;
-        public static int child_cat_frame=0x7f0b012c;
-        public static int column_head_shadow=0x7f0b0070;
-        public static int column_index_head_divider=0x7f0b0069;
-        public static int column_index_head_end_divider=0x7f0b006c;
-        public static int column_index_head_icon=0x7f0b006a;
-        public static int column_index_head_title=0x7f0b006b;
-        public static int column_left_item_contain=0x7f0b0170;
-        public static int column_left_item_divider=0x7f0b0175;
-        public static int column_left_item_img=0x7f0b0171;
-        public static int column_left_item_new=0x7f0b0173;
-        public static int column_left_item_row=0x7f0b0174;
-        public static int column_left_item_title=0x7f0b0172;
-        public static int column_list=0x7f0b0071;
-        public static int column_logo=0x7f0b006f;
-        public static int column_pager=0x7f0b009d;
-        public static int column_pager_title_text=0x7f0b009e;
-        public static int column_top_image=0x7f0b006e;
-        public static int column_view=0x7f0b006d;
-        public static int complete=0x7f0b0022;
-        public static int default_article_back_btn=0x7f0b007b;
-        public static int default_article_fav_btn=0x7f0b007d;
-        public static int default_article_font_btn=0x7f0b007e;
-        public static int default_article_share_btn=0x7f0b007c;
-        public static int default_article_toolbar=0x7f0b007a;
-        public static int default_article_view=0x7f0b0078;
-        public static int default_article_viewpager=0x7f0b0079;
-        public static int divider=0x7f0b012f;
-        public static int duration=0x7f0b0074;
-        public static int error=0x7f0b0115;
-        public static int error_activity=0x7f0b0118;
-        public static int fan=0x7f0b0019;
-        public static int fan_number=0x7f0b0018;
-        public static int fav_contain=0x7f0b008f;
-        public static int fav_head_shadow=0x7f0b0093;
-        public static int fav_item_contain=0x7f0b008b;
-        public static int fav_item_margin=0x7f0b008c;
-        public static int fav_item_name=0x7f0b008d;
-        public static int fav_item_right_arrow=0x7f0b008e;
-        public static int fav_list=0x7f0b0094;
-        public static int fav_title=0x7f0b0092;
-        public static int fav_titlebar=0x7f0b0091;
-        public static int fav_top_image=0x7f0b0090;
-        public static int favorites_button_back=0x7f0b0035;
-        public static int favorites_item_name=0x7f0b0095;
-        public static int favorites_list=0x7f0b0037;
-        public static int favorites_text=0x7f0b0036;
-        public static int favorites_titlebar=0x7f0b0034;
-        public static int fetch_image_cancel=0x7f0b0098;
-        public static int fetch_image_from_camear=0x7f0b0096;
-        public static int fetch_image_from_gallery=0x7f0b0097;
-        public static int follow=0x7f0b0016;
-        public static int follow_number=0x7f0b0015;
-        public static int footer_arrowImageView=0x7f0b011a;
-        public static int footer_contain=0x7f0b0119;
-        public static int footer_progressBar=0x7f0b011b;
-        public static int footer_text=0x7f0b011c;
-        public static int has_played=0x7f0b0072;
-        public static int head_arrowImageView=0x7f0b011e;
-        public static int head_default_line=0x7f0b00a5;
-        public static int head_lastUpdatedTextView=0x7f0b0121;
-        public static int head_progressBar=0x7f0b011f;
-        public static int head_right_line=0x7f0b00a6;
-        public static int head_tipsTextView=0x7f0b0120;
-        public static int ilady_atlas_desc=0x7f0b004c;
-        public static int ilady_atlas_gallery=0x7f0b004a;
-        public static int ilady_atlas_gallery_dot=0x7f0b004d;
-        public static int ilady_atlas_title=0x7f0b004b;
-        public static int index_bar_divider=0x7f0b00e8;
-        public static int index_contain=0x7f0b00e5;
-        public static int index_cover=0x7f0b00e9;
-        public static int index_issue_list_view=0x7f0b00e7;
-        public static int index_pager=0x7f0b00e6;
-        public static int index_titleBar=0x7f0b00df;
-        public static int index_titleBar_column=0x7f0b00e0;
-        public static int index_titleBar_fav=0x7f0b00e3;
-        public static int index_titleBar_readissue=0x7f0b00e4;
-        public static int index_titleBar_title=0x7f0b00e2;
-        public static int index_titleBar_title_img=0x7f0b00e1;
-        public static int issue_desc=0x7f0b00fc;
-        public static int issue_down=0x7f0b00f9;
-        public static int issue_frame=0x7f0b00f8;
-        public static int issue_list=0x7f0b00fd;
-        public static int issue_pic=0x7f0b00f6;
-        public static int issue_pro=0x7f0b00fa;
-        public static int issue_process=0x7f0b00f7;
-        public static int issue_rl=0x7f0b00f5;
-        public static int issue_title=0x7f0b00fb;
-        public static int issuelist_item_layout=0x7f0b00f1;
-        public static int issuelist_rl_center=0x7f0b00f3;
-        public static int issuelist_rl_left=0x7f0b00f2;
-        public static int issuelist_rl_right=0x7f0b00f4;
-        public static int item_avatar=0x7f0b0131;
-        public static int item_card_content=0x7f0b0134;
-        public static int item_user_name=0x7f0b0132;
-        public static int lady_index_item_adv_img=0x7f0b00b9;
-        public static int lady_index_item_desc=0x7f0b00b8;
-        public static int lady_index_item_image=0x7f0b00b5;
-        public static int lady_index_item_magin=0x7f0b00ba;
-        public static int lady_index_item_rl=0x7f0b00b4;
-        public static int lady_index_item_title=0x7f0b00b7;
-        public static int lady_index_item_title_frame=0x7f0b00b6;
-        public static int list_view=0x7f0b0023;
-        public static int loading=0x7f0b0114;
-        public static int loading_activity=0x7f0b0117;
-        public static int loading_image=0x7f0b00fe;
-        public static int loading_red_process=0x7f0b00ff;
-        public static int login_account=0x7f0b0082;
-        public static int login_btn_login=0x7f0b0088;
-        public static int login_btn_register=0x7f0b0087;
-        public static int login_btn_sina_login=0x7f0b0089;
-        public static int login_desc=0x7f0b0080;
-        public static int login_img=0x7f0b008a;
-        public static int login_img_clear=0x7f0b0083;
-        public static int login_img_close=0x7f0b007f;
-        public static int login_img_forget=0x7f0b0086;
-        public static int login_password=0x7f0b0085;
-        public static int lohas_index_item_adv_img=0x7f0b00c1;
-        public static int lohas_index_item_date=0x7f0b00bd;
-        public static int lohas_index_item_fav=0x7f0b00c0;
-        public static int lohas_index_item_image=0x7f0b00bc;
-        public static int lohas_index_item_rl=0x7f0b00bb;
-        public static int lohas_index_item_tilte_layout=0x7f0b00be;
-        public static int lohas_index_item_title=0x7f0b00bf;
-        public static int mScrollView=0x7f0b0102;
-        public static int main_column=0x7f0b0101;
-        public static int main_fav=0x7f0b0100;
-        public static int message_bar_layout=0x7f0b001a;
-        public static int message_bar_title=0x7f0b001c;
-        public static int message_button_back=0x7f0b001b;
-        public static int message_item_content=0x7f0b0103;
-        public static int message_list_view=0x7f0b001d;
-        public static int message_no_msg=0x7f0b001e;
-        public static int modify_pwd_close=0x7f0b0104;
-        public static int modify_pwd_desc=0x7f0b0105;
-        public static int modify_pwd_img=0x7f0b010d;
-        public static int modify_pwd_img_clear=0x7f0b0108;
-        public static int modify_pwd_img_forget=0x7f0b010b;
-        public static int modify_pwd_new=0x7f0b0109;
-        public static int modify_pwd_new_edit=0x7f0b010a;
-        public static int modify_pwd_old=0x7f0b0106;
-        public static int modify_pwd_old_edit=0x7f0b0107;
-        public static int modify_sure=0x7f0b010c;
-        public static int no_friend_tip=0x7f0b0026;
-        public static int open_close=0x7f0b00a0;
-        public static int pager_item_error=0x7f0b00ee;
-        public static int pager_item_frame=0x7f0b00eb;
-        public static int pager_item_head_frame=0x7f0b00ea;
-        public static int pager_item_layout=0x7f0b00ec;
-        public static int pager_item_layout_weekly=0x7f0b00ef;
-        public static int pager_item_loading=0x7f0b00ed;
-        public static int pager_item_loading_weekly=0x7f0b00f0;
-        public static int popupwindow_layout_myinfo=0x7f0b010e;
-        public static int popupwindow_myinfo_cancel=0x7f0b0111;
-        public static int popupwindow_myinfo_selectheadimage=0x7f0b0110;
-        public static int popupwindow_myinfo_takephoto=0x7f0b010f;
-        public static int processBar=0x7f0b0112;
-        public static int process_layout=0x7f0b0113;
-        public static int process_layout_activity=0x7f0b0116;
-        public static int pull_head_contain=0x7f0b011d;
-        public static int recommend_avatar=0x7f0b0122;
-        public static int recommend_checkbox=0x7f0b0125;
-        public static int recommend_divider=0x7f0b0024;
-        public static int recommend_user_bar_title=0x7f0b0021;
-        public static int recommend_user_info=0x7f0b0124;
-        public static int recommend_user_name=0x7f0b0123;
-        public static int relativelayout_account=0x7f0b0081;
-        public static int relativelayout_password=0x7f0b0084;
-        public static int scale_type=0x7f0b0000;
-        public static int seekbar=0x7f0b0073;
-        public static int share_to_weibo=0x7f0b003c;
-        public static int solo_cat_listview=0x7f0b0128;
-        public static int solo_img_ll=0x7f0b0066;
-        public static int solo_item_error=0x7f0b012b;
-        public static int solo_item_layout=0x7f0b0129;
-        public static int solo_item_loading=0x7f0b012a;
-        public static int solo_tag_bg=0x7f0b0067;
-        public static int solo_toolbar=0x7f0b0068;
-        public static int solo_viewpager=0x7f0b012d;
-        public static int square_back=0x7f0b0028;
-        public static int square_bar_layout=0x7f0b0027;
-        public static int square_bar_title=0x7f0b0029;
-        public static int square_list_view=0x7f0b002b;
-        public static int square_no_tip=0x7f0b002c;
-        public static int square_write_card=0x7f0b002a;
-        public static int tanc_index_item_adv_img=0x7f0b00ca;
-        public static int tanc_index_item_adv_line=0x7f0b00cb;
-        public static int tanc_index_item_desc=0x7f0b00c7;
-        public static int tanc_index_item_img=0x7f0b00c3;
-        public static int tanc_index_item_line=0x7f0b00c8;
-        public static int tanc_index_item_rl=0x7f0b00c2;
-        public static int tanc_index_item_row=0x7f0b00c6;
-        public static int tanc_index_item_title=0x7f0b00c5;
-        public static int tanc_index_item_title_rl=0x7f0b00c4;
-        public static int tanc_ndex_item_adv_ll=0x7f0b00c9;
-        public static int time=0x7f0b0133;
-        public static int tool_bg_ll=0x7f0b0065;
-        public static int update_process=0x7f0b012e;
-        public static int use_center_contain=0x7f0b0136;
-        public static int user_card_info_avatar=0x7f0b000e;
-        public static int user_card_info_no_tip=0x7f0b0030;
-        public static int user_card_info_user_frame=0x7f0b0010;
-        public static int user_card_info_user_name=0x7f0b000f;
-        public static int user_card_sliding_button=0x7f0b0135;
-        public static int user_center_back=0x7f0b0032;
-        public static int user_center_bar_layout=0x7f0b0031;
-        public static int user_center_btn_login=0x7f0b0138;
-        public static int user_center_business_icon=0x7f0b013b;
-        public static int user_center_card=0x7f0b014f;
-        public static int user_center_card_info=0x7f0b0139;
-        public static int user_center_card_number=0x7f0b014e;
-        public static int user_center_divider3=0x7f0b0140;
-        public static int user_center_fan=0x7f0b0154;
-        public static int user_center_fan_number=0x7f0b0153;
-        public static int user_center_fav_icon=0x7f0b0146;
-        public static int user_center_follow=0x7f0b0151;
-        public static int user_center_follow_number=0x7f0b0150;
-        public static int user_center_has_message=0x7f0b0144;
-        public static int user_center_info_avatar=0x7f0b0137;
-        public static int user_center_info_user_name=0x7f0b014b;
-        public static int user_center_item_text=0x7f0b0155;
-        public static int user_center_layout_business_card=0x7f0b013a;
-        public static int user_center_layout_card=0x7f0b014c;
-        public static int user_center_layout_fans=0x7f0b0152;
-        public static int user_center_layout_fav=0x7f0b0145;
-        public static int user_center_layout_find=0x7f0b013f;
-        public static int user_center_layout_follow=0x7f0b014d;
-        public static int user_center_layout_homepage=0x7f0b013d;
-        public static int user_center_layout_message_center=0x7f0b0142;
-        public static int user_center_layout_setting=0x7f0b0148;
-        public static int user_center_setting_icon=0x7f0b0149;
-        public static int user_center_text_business_card=0x7f0b013c;
-        public static int user_center_text_fav=0x7f0b0147;
-        public static int user_center_text_find=0x7f0b0141;
-        public static int user_center_text_message_center=0x7f0b0143;
-        public static int user_center_text_my_homepage=0x7f0b013e;
-        public static int user_center_text_setting=0x7f0b014a;
-        public static int user_center_view=0x7f0b0033;
-        public static int user_footer_progressBar=0x7f0b0163;
-        public static int user_footer_text=0x7f0b0164;
-        public static int user_info_layout=0x7f0b0130;
-        public static int userinfo_account_clear=0x7f0b015e;
-        public static int userinfo_account_rl=0x7f0b015c;
-        public static int userinfo_accout_edit=0x7f0b015d;
-        public static int userinfo_avatar=0x7f0b0158;
-        public static int userinfo_clear=0x7f0b015b;
-        public static int userinfo_complete=0x7f0b015f;
-        public static int userinfo_desc=0x7f0b0157;
-        public static int userinfo_img=0x7f0b0162;
-        public static int userinfo_img_close=0x7f0b0156;
-        public static int userinfo_logout_btn=0x7f0b0161;
-        public static int userinfo_modify_pwd_btn=0x7f0b0160;
-        public static int userinfo_name_edit=0x7f0b015a;
-        public static int userinfo_name_rl=0x7f0b0159;
-        public static int vertical_gallery_desc=0x7f0b0168;
-        public static int vertical_gallery_img=0x7f0b0165;
-        public static int vertical_gallery_new_img=0x7f0b0166;
-        public static int vertical_gallery_process=0x7f0b0169;
-        public static int vertical_gallery_title=0x7f0b0167;
-        public static int video_player_view=0x7f0b016a;
-        public static int vv=0x7f0b016b;
-        public static int weather_day=0x7f0b016d;
-        public static int weather_day1=0x7f0b00a1;
-        public static int weather_day2=0x7f0b00a2;
-        public static int weather_day3=0x7f0b00a3;
-        public static int weather_day4=0x7f0b00a4;
-        public static int weather_high=0x7f0b016f;
-        public static int weather_icon=0x7f0b016c;
-        public static int weather_low=0x7f0b016e;
-        public static int weather_view=0x7f0b009f;
-        public static int web_back=0x7f0b0044;
-        public static int web_contain=0x7f0b0045;
-        public static int weekly_index_gallery_dot=0x7f0b00a7;
-        public static int weekly_index_item_contain=0x7f0b00cc;
-        public static int weekly_index_item_date=0x7f0b00cd;
-        public static int weekly_index_item_desc=0x7f0b00d3;
-        public static int weekly_index_item_divider=0x7f0b00ce;
-        public static int weekly_index_item_fl=0x7f0b00cf;
-        public static int weekly_index_item_image=0x7f0b00d0;
-        public static int weekly_index_item_title=0x7f0b00d2;
-        public static int weekly_index_item_video=0x7f0b00d1;
-        public static int write_card_bar_layout=0x7f0b0038;
-        public static int write_card_cancel=0x7f0b0039;
-        public static int write_card_complete=0x7f0b003a;
-        public static int write_card_content=0x7f0b003d;
-        public static int write_card_weibo=0x7f0b003b;
-        public static int write_comment_bar_layout=0x7f0b003e;
-        public static int write_comment_cancel=0x7f0b003f;
-        public static int write_comment_complete=0x7f0b0040;
-        public static int write_comment_content=0x7f0b0041;
-        public static int zhihuiyun_index_item_adv_img=0x7f0b00dd;
-        public static int zhihuiyun_index_item_adv_line=0x7f0b00de;
-        public static int zhihuiyun_index_item_date_day=0x7f0b00d7;
-        public static int zhihuiyun_index_item_date_layout=0x7f0b00d6;
-        public static int zhihuiyun_index_item_date_month=0x7f0b00d8;
-        public static int zhihuiyun_index_item_desc=0x7f0b00da;
-        public static int zhihuiyun_index_item_img=0x7f0b00d5;
-        public static int zhihuiyun_index_item_line=0x7f0b00db;
-        public static int zhihuiyun_index_item_rl=0x7f0b00d4;
-        public static int zhihuiyun_index_item_title=0x7f0b00d9;
-        public static int zhihuiyun_ndex_item_adv_ll=0x7f0b00dc;
+        public static int add_column_frame=0x7f0800d8;
+        public static int add_column_text=0x7f0800d9;
+        public static int adv_flipper=0x7f080072;
+        public static int adv_image=0x7f080071;
+        public static int app_icon=0x7f08010e;
+        public static int app_name=0x7f08010f;
+        public static int articlecard_back=0x7f080010;
+        public static int articlecard_bar_layout=0x7f08000f;
+        public static int articlecard_bar_title=0x7f080011;
+        public static int articlecard_list_view=0x7f080012;
+        public static int articlecard_no_tip=0x7f080013;
+        public static int atlas_layout=0x7f080075;
+        public static int bar_layout=0x7f080052;
+        public static int button2=0x7f080089;
+        public static int button3=0x7f08008a;
+        public static int button4=0x7f08008b;
+        public static int button_back=0x7f080053;
+        public static int button_follow=0x7f080061;
+        public static int button_follow_all=0x7f080058;
+        public static int card=0x7f080021;
+        public static int card_detail_avatar=0x7f080081;
+        public static int card_detail_bar_layout=0x7f080014;
+        public static int card_detail_comment_content=0x7f080083;
+        public static int card_detail_item__head_avatar=0x7f08007b;
+        public static int card_detail_item__head_user_name=0x7f08007c;
+        public static int card_detail_item_divider=0x7f080080;
+        public static int card_detail_item_head_frame=0x7f08007a;
+        public static int card_detail_item_head_time=0x7f08007d;
+        public static int card_detail_nav_back=0x7f080015;
+        public static int card_detail_nav_delete=0x7f080017;
+        public static int card_detail_nav_fav=0x7f080018;
+        public static int card_detail_nav_share=0x7f080016;
+        public static int card_detail_page_card_content=0x7f08007e;
+        public static int card_detail_page_divider=0x7f08001a;
+        public static int card_detail_page_list_view=0x7f08007f;
+        public static int card_detail_page_write_comment=0x7f08001b;
+        public static int card_detail_user_name=0x7f080082;
+        public static int card_detail_viewpager=0x7f080019;
+        public static int card_info_layout_card=0x7f08001f;
+        public static int card_info_layout_fans=0x7f080025;
+        public static int card_info_layout_follow=0x7f080022;
+        public static int card_info_title=0x7f080060;
+        public static int card_item_comment=0x7f080085;
+        public static int card_item_fav=0x7f080084;
+        public static int card_list_view=0x7f080062;
+        public static int card_number=0x7f080020;
+        public static int card_popup_window_bar_layout=0x7f080076;
+        public static int card_popup_window_cancel=0x7f080077;
+        public static int card_popup_window_complete=0x7f080078;
+        public static int card_popup_window_write_comment=0x7f080079;
+        public static int child_cat_frame=0x7f080114;
+        /**  特殊点击 
+         */
+        public static int click=0x7f08000d;
+        public static int column_contain=0x7f0800d4;
+        public static int column_head=0x7f0800d5;
+        public static int column_list=0x7f0800d6;
+        public static int column_pager=0x7f080096;
+        public static int column_pager_title_text=0x7f080097;
+        public static int column_tip=0x7f0800d7;
+        public static int complete=0x7f080055;
+        public static int confirm_email_window_address=0x7f0800db;
+        public static int confirm_email_window_cancel=0x7f0800de;
+        public static int confirm_email_window_goto_shop=0x7f0800dc;
+        public static int confirm_email_window_modify_email=0x7f0800dd;
+        public static int confirm_email_window_title=0x7f0800da;
+        /**  日期格式 
+         */
+        public static int date_format=0x7f08000a;
+        /**  日期语言 
+         */
+        public static int date_format_language=0x7f08000b;
+        public static int default_article_toolbar=0x7f08008e;
+        public static int default_article_view=0x7f08008c;
+        public static int default_article_viewpager=0x7f08008d;
+        /**  描述是否需要在停止滑动时加载 
+         */
+        public static int desc_check_scroll=0x7f080005;
+        public static int divider=0x7f080117;
+        /**  dot大小 
+         */
+        public static int dot_size=0x7f08000e;
+        public static int duration=0x7f080088;
+        public static int error=0x7f0800e6;
+        public static int error_activity=0x7f0800e9;
+        public static int fan=0x7f080027;
+        public static int fan_number=0x7f080026;
+        public static int fav_contain=0x7f08008f;
+        public static int fav_list=0x7f080091;
+        public static int fav_nav_bar=0x7f080090;
+        public static int favorites_item_name=0x7f080092;
+        public static int fetch_image_cancel=0x7f080095;
+        public static int fetch_image_from_camear=0x7f080093;
+        public static int fetch_image_from_gallery=0x7f080094;
+        public static int follow=0x7f080024;
+        public static int follow_number=0x7f080023;
+        public static int footer_arrowImageView=0x7f0800eb;
+        public static int footer_contain=0x7f0800ea;
+        public static int footer_progressBar=0x7f0800ec;
+        public static int footer_text=0x7f0800ed;
+        public static int gallery_view_pager=0x7f080156;
+        public static int gallery_view_pager_frame=0x7f080155;
+        public static int has_played=0x7f080086;
+        public static int head_arrowImageView=0x7f0800ef;
+        public static int head_default_line=0x7f08009e;
+        public static int head_lastUpdatedTextView=0x7f0800f2;
+        public static int head_progressBar=0x7f0800f0;
+        public static int head_right_line=0x7f08009f;
+        public static int head_tipsTextView=0x7f0800f1;
+        /**  占位图 
+         */
+        public static int img_placeholder=0x7f080001;
+        /**  图片使用picture还是thumb 
+         */
+        public static int img_use=0x7f080002;
+        public static int index_contain=0x7f0800a4;
+        public static int index_cover=0x7f0800a5;
+        public static int index_pager=0x7f0800a2;
+        public static int index_titleBar=0x7f0800a3;
+        public static int issue_desc=0x7f0800b9;
+        public static int issue_down=0x7f0800b6;
+        public static int issue_frame=0x7f0800b5;
+        public static int issue_list=0x7f0800a1;
+        public static int issue_pic=0x7f0800b3;
+        public static int issue_pro=0x7f0800b7;
+        public static int issue_process=0x7f0800b4;
+        public static int issue_rl=0x7f0800b2;
+        public static int issue_title=0x7f0800b8;
+        public static int issuelist_item_layout=0x7f0800ae;
+        public static int issuelist_rl_center=0x7f0800b0;
+        public static int issuelist_rl_left=0x7f0800af;
+        public static int issuelist_rl_right=0x7f0800b1;
+        public static int item_avatar=0x7f080119;
+        public static int item_card_content=0x7f08011c;
+        public static int item_user_name=0x7f08011a;
+        public static int loading=0x7f0800e5;
+        public static int loading_activity=0x7f0800e8;
+        public static int loading_image=0x7f0800ba;
+        public static int loading_red_process=0x7f0800bb;
+        public static int login_account=0x7f08002e;
+        public static int login_btn_login=0x7f080035;
+        public static int login_btn_qq_login=0x7f08002b;
+        public static int login_btn_register=0x7f080034;
+        public static int login_btn_sina_login=0x7f08002a;
+        public static int login_desc=0x7f08002c;
+        public static int login_img_clear=0x7f08002f;
+        public static int login_img_close=0x7f080028;
+        public static int login_img_forget=0x7f080032;
+        public static int login_other_desc=0x7f080029;
+        public static int login_password=0x7f080031;
+        public static int mScrollView=0x7f0800be;
+        public static int main_column=0x7f0800bd;
+        public static int main_fav=0x7f0800bc;
+        public static int manage_curr_app=0x7f080105;
+        public static int manage_other_app=0x7f080106;
+        public static int message_bar_layout=0x7f080036;
+        public static int message_bar_title=0x7f080038;
+        public static int message_button_back=0x7f080037;
+        public static int message_item_content=0x7f0800bf;
+        public static int message_list_view=0x7f080039;
+        public static int message_no_msg=0x7f08003a;
+        public static int modify_email_address=0x7f08003f;
+        public static int modify_email_address_clear=0x7f080041;
+        public static int modify_email_address_edit=0x7f080040;
+        public static int modify_email_bar_layout=0x7f08003b;
+        public static int modify_email_bar_title=0x7f08003d;
+        public static int modify_email_button_back=0x7f08003c;
+        public static int modify_email_button_complete=0x7f08003e;
+        public static int modify_email_password=0x7f080042;
+        public static int modify_email_password_edit=0x7f080043;
+        public static int modify_email_pwd_clear=0x7f080044;
+        public static int modify_pwd_close=0x7f0800c0;
+        public static int modify_pwd_desc=0x7f0800c1;
+        public static int modify_pwd_img=0x7f0800c9;
+        public static int modify_pwd_img_clear=0x7f0800c4;
+        public static int modify_pwd_img_forget=0x7f0800c7;
+        public static int modify_pwd_new=0x7f0800c5;
+        public static int modify_pwd_new_edit=0x7f0800c6;
+        public static int modify_pwd_old=0x7f0800c2;
+        public static int modify_pwd_old_edit=0x7f0800c3;
+        public static int modify_sure=0x7f0800c8;
+        public static int my_coin_bar_layout=0x7f080045;
+        public static int my_coin_bar_title=0x7f080047;
+        public static int my_coin_button_back=0x7f080046;
+        public static int my_coin_image_coin=0x7f0800cb;
+        public static int my_coin_item_button=0x7f0800d2;
+        public static int my_coin_item_desc=0x7f0800d0;
+        public static int my_coin_item_divider=0x7f0800d3;
+        public static int my_coin_item_head_layout=0x7f0800cc;
+        public static int my_coin_item_head_title=0x7f0800cd;
+        public static int my_coin_item_layout=0x7f0800ce;
+        public static int my_coin_item_number=0x7f0800d1;
+        public static int my_coin_item_title=0x7f0800cf;
+        public static int my_coin_listview=0x7f080048;
+        public static int my_coin_notice_bar_layout=0x7f080049;
+        public static int my_coin_notice_bar_title=0x7f08004b;
+        public static int my_coin_notice_button_back=0x7f08004a;
+        public static int my_coin_notice_content=0x7f08004d;
+        public static int my_coin_notice_light=0x7f080051;
+        public static int my_coin_notice_ok=0x7f08004f;
+        public static int my_coin_notice_ship=0x7f080050;
+        public static int my_coin_notice_ufo=0x7f08004e;
+        public static int my_coin_notice_user_name=0x7f08004c;
+        public static int my_coin_number=0x7f0800ca;
+        /**  .9图片,在设置数据的时候使用 
+         */
+        public static int nine_patch_img=0x7f08000c;
+        public static int no_friend_tip=0x7f080059;
+        public static int open_close=0x7f080099;
+        public static int pager_item_error=0x7f0800ab;
+        public static int pager_item_frame=0x7f0800a8;
+        public static int pager_item_head_frame=0x7f0800a6;
+        public static int pager_item_head_frame_divider=0x7f0800a7;
+        public static int pager_item_layout=0x7f0800a9;
+        public static int pager_item_layout_weekly=0x7f0800ac;
+        public static int pager_item_loading=0x7f0800aa;
+        public static int pager_item_loading_weekly=0x7f0800ad;
+        public static int popupwindow_layout_myinfo=0x7f0800df;
+        public static int popupwindow_myinfo_cancel=0x7f0800e2;
+        public static int popupwindow_myinfo_selectheadimage=0x7f0800e1;
+        public static int popupwindow_myinfo_takephoto=0x7f0800e0;
+        public static int processBar=0x7f0800e3;
+        public static int process_layout=0x7f0800e4;
+        public static int process_layout_activity=0x7f0800e7;
+        public static int pull_head_contain=0x7f0800ee;
+        public static int recommend_avatar=0x7f0800f3;
+        public static int recommend_checkbox=0x7f0800f6;
+        public static int recommend_divider=0x7f080057;
+        public static int recommend_user_bar_title=0x7f080054;
+        public static int recommend_user_info=0x7f0800f5;
+        public static int recommend_user_list_view=0x7f080056;
+        public static int recommend_user_name=0x7f0800f4;
+        public static int relativelayout_account=0x7f08002d;
+        public static int relativelayout_btn=0x7f080033;
+        public static int relativelayout_password=0x7f080030;
+        public static int scale_type=0x7f080000;
+        public static int seekbar=0x7f080087;
+        /**  选中的背景 
+         */
+        public static int select_bg=0x7f080006;
+        public static int select_child_column_list=0x7f0800fb;
+        public static int select_child_column_list_item_check=0x7f0800ff;
+        public static int select_child_column_list_item_img=0x7f0800fd;
+        public static int select_child_column_list_item_img_frame=0x7f0800fc;
+        public static int select_child_column_list_item_name=0x7f0800fe;
+        public static int select_child_column_pager=0x7f0800fa;
+        public static int select_child_column_pager_frame=0x7f0800f9;
+        public static int select_child_column_pager_item_img=0x7f080100;
+        public static int select_child_column_pager_item_name=0x7f080101;
+        public static int select_child_column_sure=0x7f0800f8;
+        public static int select_child_column_title_frame=0x7f0800f7;
+        /**  选中的字体颜色 
+         */
+        public static int select_color=0x7f080008;
+        public static int select_column_item_contain=0x7f080109;
+        public static int select_column_item_img=0x7f08010a;
+        public static int select_column_item_name=0x7f08010b;
+        public static int select_column_item_row=0x7f08010d;
+        public static int select_column_item_select=0x7f08010c;
+        public static int select_column_list=0x7f080108;
+        public static int select_column_sure=0x7f080103;
+        public static int select_column_tab_frame=0x7f080104;
+        public static int select_column_title_frame=0x7f080102;
+        public static int select_column_ufo=0x7f080107;
+        public static int share_to_weibo=0x7f08006b;
+        public static int solo_cat_listview=0x7f080110;
+        public static int solo_item_error=0x7f080113;
+        public static int solo_item_layout=0x7f080111;
+        public static int solo_item_loading=0x7f080112;
+        public static int solo_viewpager=0x7f080115;
+        public static int square_back=0x7f08005b;
+        public static int square_bar_layout=0x7f08005a;
+        public static int square_bar_title=0x7f08005c;
+        public static int square_list_view=0x7f08005e;
+        public static int square_no_tip=0x7f08005f;
+        public static int square_write_card=0x7f08005d;
+        public static int time=0x7f08011b;
+        /**  标题默认颜色 
+         */
+        public static int title_default_color=0x7f080003;
+        /**  标题已读颜色 
+         */
+        public static int title_readed_color=0x7f080004;
+        /**  未选中的背景 
+         */
+        public static int unselect_bg=0x7f080007;
+        /**  未选中的字体颜色 
+         */
+        public static int unselect_color=0x7f080009;
+        public static int update_process=0x7f080116;
+        public static int use_center_contain=0x7f08011e;
+        public static int user_card_info_avatar=0x7f08001c;
+        public static int user_card_info_no_tip=0x7f080063;
+        public static int user_card_info_user_frame=0x7f08001e;
+        public static int user_card_info_user_name=0x7f08001d;
+        public static int user_card_sliding_button=0x7f08011d;
+        public static int user_center_back=0x7f080065;
+        public static int user_center_bar_layout=0x7f080064;
+        public static int user_center_btn_login=0x7f080120;
+        public static int user_center_business_icon=0x7f080124;
+        public static int user_center_card=0x7f08013f;
+        public static int user_center_card_info=0x7f080121;
+        public static int user_center_card_number=0x7f08013e;
+        public static int user_center_divider1=0x7f080123;
+        public static int user_center_divider2=0x7f080129;
+        public static int user_center_divider3=0x7f08012c;
+        public static int user_center_divider4=0x7f08012f;
+        public static int user_center_divider5=0x7f080135;
+        public static int user_center_divider6=0x7f080132;
+        public static int user_center_fan=0x7f080144;
+        public static int user_center_fan_number=0x7f080143;
+        public static int user_center_fav_icon=0x7f080136;
+        public static int user_center_follow=0x7f080141;
+        public static int user_center_follow_number=0x7f080140;
+        public static int user_center_info_avatar=0x7f08011f;
+        public static int user_center_info_user_name=0x7f08013b;
+        public static int user_center_item_text=0x7f080145;
+        public static int user_center_layout_business_card=0x7f080122;
+        public static int user_center_layout_card=0x7f08013c;
+        public static int user_center_layout_fans=0x7f080142;
+        public static int user_center_layout_fav=0x7f080134;
+        public static int user_center_layout_find=0x7f08012b;
+        public static int user_center_layout_follow=0x7f08013d;
+        public static int user_center_layout_homepage=0x7f080128;
+        public static int user_center_layout_message=0x7f08012e;
+        public static int user_center_layout_my_coin=0x7f080131;
+        public static int user_center_layout_setting=0x7f080138;
+        public static int user_center_message_dot=0x7f080126;
+        public static int user_center_message_number=0x7f080127;
+        public static int user_center_setting_icon=0x7f080139;
+        public static int user_center_text_business_card=0x7f080125;
+        public static int user_center_text_fav=0x7f080137;
+        public static int user_center_text_find=0x7f08012d;
+        public static int user_center_text_message=0x7f080130;
+        public static int user_center_text_my_coin=0x7f080133;
+        public static int user_center_text_my_homepage=0x7f08012a;
+        public static int user_center_text_setting=0x7f08013a;
+        public static int user_center_view=0x7f080066;
+        public static int user_footer_progressBar=0x7f080153;
+        public static int user_footer_text=0x7f080154;
+        public static int user_info_layout=0x7f080118;
+        public static int userinfo_account_clear=0x7f08014e;
+        public static int userinfo_account_rl=0x7f08014c;
+        public static int userinfo_accout_edit=0x7f08014d;
+        public static int userinfo_avatar=0x7f080148;
+        public static int userinfo_clear=0x7f08014b;
+        public static int userinfo_complete=0x7f08014f;
+        public static int userinfo_desc=0x7f080147;
+        public static int userinfo_img=0x7f080152;
+        public static int userinfo_img_close=0x7f080146;
+        public static int userinfo_logout_btn=0x7f080151;
+        public static int userinfo_modify_pwd_btn=0x7f080150;
+        public static int userinfo_name_edit=0x7f08014a;
+        public static int userinfo_name_rl=0x7f080149;
+        public static int vertical_gallery_desc=0x7f08015a;
+        public static int vertical_gallery_img=0x7f080157;
+        public static int vertical_gallery_new_img=0x7f080158;
+        public static int vertical_gallery_process=0x7f08015b;
+        public static int vertical_gallery_title=0x7f080159;
+        public static int video_player_view=0x7f08015c;
+        public static int vv=0x7f08015d;
+        public static int weather_day=0x7f08015f;
+        public static int weather_day1=0x7f08009a;
+        public static int weather_day2=0x7f08009b;
+        public static int weather_day3=0x7f08009c;
+        public static int weather_day4=0x7f08009d;
+        public static int weather_high=0x7f080161;
+        public static int weather_icon=0x7f08015e;
+        public static int weather_low=0x7f080160;
+        public static int weather_view=0x7f080098;
+        public static int web_back=0x7f080073;
+        public static int web_contain=0x7f080074;
+        public static int weekly_index_gallery_dot=0x7f0800a0;
+        public static int write_card_bar_layout=0x7f080067;
+        public static int write_card_cancel=0x7f080068;
+        public static int write_card_complete=0x7f080069;
+        public static int write_card_content=0x7f08006c;
+        public static int write_card_weibo=0x7f08006a;
+        public static int write_comment_bar_layout=0x7f08006d;
+        public static int write_comment_cancel=0x7f08006e;
+        public static int write_comment_complete=0x7f08006f;
+        public static int write_comment_content=0x7f080070;
     }
     public static final class interpolator {
         public static int decelerate_cubic=0x7f050000;
         public static int decelerate_quint=0x7f050001;
     }
     public static final class layout {
-        public static int about=0x7f030000;
+        public static int activity_article_cardlist=0x7f030000;
         public static int activity_card_detail=0x7f030001;
         public static int activity_card_info_head=0x7f030002;
-        public static int activity_message=0x7f030003;
-        public static int activity_recommenduser=0x7f030004;
-        public static int activity_square=0x7f030005;
-        public static int activity_user_card_info=0x7f030006;
-        public static int activity_user_center=0x7f030007;
-        public static int activity_user_favorites=0x7f030008;
-        public static int activity_write_card=0x7f030009;
-        public static int activity_write_comment=0x7f03000a;
-        public static int adv=0x7f03000b;
-        public static int article_detail=0x7f03000c;
-        public static int atlas_bus=0x7f03000d;
-        public static int atlas_ilady=0x7f03000e;
-        public static int atlas_item=0x7f03000f;
-        public static int bus_column_item=0x7f030010;
+        public static int activity_login=0x7f030003;
+        public static int activity_message=0x7f030004;
+        public static int activity_modify_email=0x7f030005;
+        public static int activity_my_coin=0x7f030006;
+        public static int activity_my_coin_notice=0x7f030007;
+        public static int activity_recommenduser=0x7f030008;
+        public static int activity_square=0x7f030009;
+        public static int activity_user_card_info=0x7f03000a;
+        public static int activity_user_center=0x7f03000b;
+        public static int activity_write_card=0x7f03000c;
+        public static int activity_write_comment=0x7f03000d;
+        public static int adv=0x7f03000e;
+        public static int article_detail=0x7f03000f;
+        public static int atlas=0x7f030010;
         public static int card_comment_popup_window=0x7f030011;
         public static int card_detail_list_head=0x7f030012;
         public static int card_detail_page_item=0x7f030013;
         public static int card_detatil_list_item=0x7f030014;
         public static int card_list_pop=0x7f030015;
-        public static int child_cat_head_bus=0x7f030016;
-        public static int child_cat_head_weekly=0x7f030017;
-        public static int column_view=0x7f030018;
-        public static int controler=0x7f030019;
-        public static int default_article_activity=0x7f03001a;
-        public static int default_login_activity=0x7f03001b;
-        public static int extral=0x7f03001c;
-        public static int fav_item=0x7f03001d;
-        public static int fav_view=0x7f03001e;
-        public static int favorites_item=0x7f03001f;
-        public static int fetch_image_popup=0x7f030020;
-        public static int index_head_bus=0x7f030021;
-        public static int index_head_weekly=0x7f030022;
-        public static int index_item_bus=0x7f030023;
-        public static int index_item_lady=0x7f030024;
-        public static int index_item_lohas=0x7f030025;
-        public static int index_item_tanc=0x7f030026;
-        public static int index_item_weekly=0x7f030027;
-        public static int index_item_zhihuiyun=0x7f030028;
-        public static int index_view=0x7f030029;
-        public static int index_view_pager_item=0x7f03002a;
-        public static int issue_list_item_lohas=0x7f03002b;
-        public static int issue_list_item_single=0x7f03002c;
-        public static int issue_list_view=0x7f03002d;
-        public static int loading_image=0x7f03002e;
-        public static int main_activity=0x7f03002f;
-        public static int message_list_item=0x7f030030;
-        public static int modify_pwd_activity=0x7f030031;
-        public static int popupwindow_myinfo_camera=0x7f030032;
-        public static int processbar=0x7f030033;
-        public static int progress=0x7f030034;
-        public static int progress_activity=0x7f030035;
-        public static int pull_to_load_footer=0x7f030036;
-        public static int pull_to_refresh_header=0x7f030037;
-        public static int recommenduser_list_item=0x7f030038;
-        public static int scroll_left=0x7f030039;
-        public static int scroll_right=0x7f03003a;
-        public static int share_item=0x7f03003b;
-        public static int solo_index=0x7f03003c;
-        public static int solo_view=0x7f03003d;
-        public static int update_progress=0x7f03003e;
-        public static int user_card_list_item=0x7f03003f;
-        public static int user_center=0x7f030040;
-        public static int user_center_head=0x7f030041;
-        public static int user_center_list_item=0x7f030042;
-        public static int user_info_activity=0x7f030043;
-        public static int user_list_footer=0x7f030044;
-        public static int vertical_gallery_item=0x7f030045;
-        public static int video=0x7f030046;
-        public static int weather_item=0x7f030047;
-        public static int weekly_column_item=0x7f030048;
+        public static int controler=0x7f030016;
+        public static int default_article_activity=0x7f030017;
+        public static int extral=0x7f030018;
+        public static int fav_view=0x7f030019;
+        public static int favorites_item=0x7f03001a;
+        public static int fetch_image_popup=0x7f03001b;
+        public static int index_head_weekly=0x7f03001c;
+        public static int index_issue_list_view=0x7f03001d;
+        public static int index_view=0x7f03001e;
+        public static int index_view_pager_item=0x7f03001f;
+        public static int issue_list_item_lohas=0x7f030020;
+        public static int issue_list_item_single=0x7f030021;
+        public static int loading_image=0x7f030022;
+        public static int main_activity=0x7f030023;
+        public static int message_list_item=0x7f030024;
+        public static int modify_pwd_activity=0x7f030025;
+        public static int my_coin_listview_footer=0x7f030026;
+        public static int my_coin_listview_head=0x7f030027;
+        public static int my_coin_listview_item=0x7f030028;
+        public static int new_column_view=0x7f030029;
+        public static int popup_window_confirm_email=0x7f03002a;
+        public static int popupwindow_myinfo_camera=0x7f03002b;
+        public static int processbar=0x7f03002c;
+        public static int progress=0x7f03002d;
+        public static int progress_activity=0x7f03002e;
+        public static int pull_to_load_footer=0x7f03002f;
+        public static int pull_to_refresh_header=0x7f030030;
+        public static int recommenduser_list_item=0x7f030031;
+        public static int scroll_left=0x7f030032;
+        public static int scroll_right=0x7f030033;
+        public static int select_child_column_activity=0x7f030034;
+        public static int select_child_column_list_item=0x7f030035;
+        public static int select_child_column_pager_item=0x7f030036;
+        public static int select_column_activity=0x7f030037;
+        public static int select_column_list_item=0x7f030038;
+        public static int share_item=0x7f030039;
+        public static int solo_index=0x7f03003a;
+        public static int solo_view=0x7f03003b;
+        public static int update_progress=0x7f03003c;
+        public static int user_card_list_item=0x7f03003d;
+        public static int user_center=0x7f03003e;
+        public static int user_center_head=0x7f03003f;
+        public static int user_center_list_item=0x7f030040;
+        public static int user_info_activity=0x7f030041;
+        public static int user_list_footer=0x7f030042;
+        public static int vertical_gallery=0x7f030043;
+        public static int vertical_gallery_item=0x7f030044;
+        public static int video=0x7f030045;
+        public static int weather_item=0x7f030046;
     }
     public static final class string {
-        public static int OAUTH_AccessToken_ACCESS=0x7f08002f;
-        public static int OAUTH_AccessToken_ERROR=0x7f080030;
-        public static int OAUTH_AccessToken_SXPIRED=0x7f080031;
+        public static int OAUTH_AccessToken_ACCESS=0x7f090006;
+        public static int OAUTH_AccessToken_ERROR=0x7f090007;
+        public static int OAUTH_AccessToken_SXPIRED=0x7f090008;
         /**  sina share message 
          */
-        public static int OAUTH_ERROR=0x7f08002c;
-        public static int OAUTH_RequestToken_ACCESS=0x7f08002d;
-        public static int OAUTH_RequestToken_ERROR=0x7f08002e;
-        public static int Weibo_Message_LONG=0x7f080033;
-        public static int Weibo_Message_NULL=0x7f080032;
-        public static int Weibo_Share_Error=0x7f080035;
-        public static int Weibo_Share_Repeat=0x7f080036;
-        public static int Weibo_Share_Success=0x7f080034;
-        public static int about=0x7f08003e;
-        public static int add_fav=0x7f080040;
-        public static int app_error=0x7f08000a;
-        public static int app_error_message=0x7f08000b;
-        public static int app_menu_surelogout=0x7f080009;
-        public static int app_name=0x7f080000;
-        public static int app_recommend=0x7f080054;
-        public static int app_run_code_error=0x7f080008;
-        public static int back=0x7f080094;
-        /**  用户中心 
+        public static int OAUTH_ERROR=0x7f090003;
+        public static int OAUTH_RequestToken_ACCESS=0x7f090004;
+        public static int OAUTH_RequestToken_ERROR=0x7f090005;
+        public static int Weibo_Message_LONG=0x7f09000a;
+        public static int Weibo_Message_NULL=0x7f090009;
+        public static int Weibo_Share_Error=0x7f09000c;
+        public static int Weibo_Share_Repeat=0x7f09000d;
+        public static int Weibo_Share_Success=0x7f09000b;
+        public static int about=0x7f090097;
+        public static int add=0x7f0900d1;
+        public static int add_coin_num=0x7f090093;
+        public static int add_column=0x7f0900cf;
+        public static int add_fav=0x7f090099;
+        public static int app_name=0x7f09000e;
+        public static int app_recommend=0x7f0900ab;
+        /**  文章摘要与评论 
          */
-        public static int business_card=0x7f08008e;
+        public static int article_card_and_comment=0x7f090094;
+        public static int back=0x7f090051;
         /**  take photo 
  take photo 
          */
-        public static int camera=0x7f080060;
-        public static int can_not_find_article=0x7f080046;
-        public static int cancel=0x7f080050;
-        public static int card=0x7f080098;
-        public static int card_add_failed_toast=0x7f0800a4;
-        public static int card_delete_toast=0x7f0800a0;
-        public static int card_not_allow_null_toast=0x7f0800a2;
-        public static int card_num=0x7f080096;
-        public static int choose_image=0x7f080018;
-        public static int clearwords=0x7f08001d;
-        public static int click_to_load=0x7f08005f;
-        public static int collect=0x7f0800aa;
-        public static int collect_failed=0x7f0800b3;
-        public static int collect_success=0x7f0800b2;
+        public static int camera=0x7f090030;
+        public static int can_not_find_article=0x7f09009f;
+        public static int cancel=0x7f090032;
+        public static int card=0x7f090055;
+        public static int card_add_failed_toast=0x7f090065;
+        public static int card_add_success=0x7f090066;
+        public static int card_delete_toast=0x7f090061;
+        /**  用户中心 
+         */
+        public static int card_name=0x7f09004a;
+        public static int card_not_allow_null_toast=0x7f090063;
+        public static int card_num=0x7f090053;
+        public static int click_to_load=0x7f090018;
+        public static int coin=0x7f090092;
+        public static int collect=0x7f09006c;
+        public static int collect_failed=0x7f090076;
+        public static int collect_success=0x7f090075;
         /**  详情 
          */
-        public static int comment=0x7f08009e;
-        public static int comment_delete_toast=0x7f0800a1;
-        public static int comment_not_allow_null_toast=0x7f0800a3;
-        public static int complete=0x7f080085;
-        public static int confirm_change=0x7f08008c;
-        public static int cover_share_message=0x7f08006a;
-        public static int create_time=0x7f0800bb;
-        public static int delete_blog=0x7f08001b;
-        public static int delete_card_failed=0x7f0800af;
-        public static int delete_fav=0x7f080041;
-        public static int delete_image=0x7f080019;
-        public static int delete_tweet=0x7f08001a;
-        public static int download=0x7f08004e;
-        public static int download_error=0x7f080051;
-        public static int download_later=0x7f08004f;
-        public static int enter_content=0x7f080077;
-        public static int entry_share_url=0x7f08006b;
-        public static int exit_app=0x7f080047;
-        public static int fans=0x7f08009b;
-        public static int fav=0x7f08003d;
-        public static int fav_error=0x7f080042;
-        public static int fecthing_http=0x7f08006c;
-        public static int fecthing_ok=0x7f08006d;
-        public static int follow=0x7f080099;
-        public static int follow_all=0x7f080095;
-        public static int follow_num=0x7f080097;
-        public static int followed=0x7f08009a;
-        public static int has_collected=0x7f0800ab;
-        public static int hello=0x7f08004a;
-        public static int his_fans=0x7f0800a9;
-        public static int his_friends=0x7f0800a8;
-        public static int http_exception_error=0x7f080006;
-        public static int http_status_code_error=0x7f080005;
-        public static int io_exception_error=0x7f080004;
+        public static int comment=0x7f09005f;
+        public static int comment_delete_toast=0x7f090062;
+        public static int comment_not_allow_null_toast=0x7f090064;
+        public static int complete=0x7f090042;
+        public static int confirm_change=0x7f090048;
+        public static int confirm_email=0x7f090086;
+        public static int cover_share_message=0x7f0900b6;
+        public static int create_time=0x7f09007e;
+        public static int delete_card_failed=0x7f090071;
+        public static int delete_card_success=0x7f090072;
+        public static int delete_fav=0x7f09009a;
+        /**  uri parse 
+         */
+        public static int dial_error=0x7f0900c8;
+        public static int download=0x7f0900a6;
+        public static int download_error=0x7f0900a8;
+        public static int download_later=0x7f0900a7;
+        public static int email_address_is=0x7f090087;
+        public static int enter_content=0x7f0900c5;
+        public static int entry_share_url=0x7f0900b7;
+        public static int exchange=0x7f09008e;
+        public static int exchange_failed=0x7f090090;
+        public static int exchange_success=0x7f09008f;
+        public static int exit_app=0x7f0900a0;
+        public static int fans=0x7f090058;
+        public static int fav=0x7f090096;
+        public static int fav_error=0x7f09009b;
+        public static int fecthing_http=0x7f0900ba;
+        public static int fecthing_ok=0x7f0900bb;
+        /**  modermediatools 
+         */
+        public static int feedback_subject=0x7f0900cb;
+        public static int follow=0x7f090056;
+        public static int follow_all=0x7f090052;
+        public static int follow_failed=0x7f09005a;
+        public static int follow_num=0x7f090054;
+        public static int follow_success=0x7f090059;
+        public static int followed=0x7f090057;
+        /**  我的金币 
+         */
+        public static int get_more_coin=0x7f09008d;
+        public static int goto_shop=0x7f090088;
+        public static int has_collected=0x7f09006d;
+        public static int hello=0x7f0900a3;
+        public static int his_fans=0x7f09006b;
+        public static int his_friends=0x7f09006a;
+        public static int input_email=0x7f09008a;
+        public static int input_password=0x7f09008b;
         /**  独立栏目 
          */
-        public static int is_lastest=0x7f080078;
-        public static int json_error=0x7f08003f;
-        public static int load_empty=0x7f080010;
-        public static int load_error=0x7f080011;
-        public static int load_full=0x7f08000f;
-        public static int load_ing=0x7f08000e;
-        public static int load_more=0x7f08000d;
-        public static int loading_more=0x7f080056;
+        public static int is_lastest=0x7f0900c6;
+        public static int json_error=0x7f090098;
+        public static int loading_more=0x7f0900ae;
         /**  red_process 
          */
-        public static int loading_pre=0x7f080055;
-        public static int login=0x7f08007f;
-        public static int login_out=0x7f08008a;
+        public static int loading_pre=0x7f0900ad;
+        public static int login=0x7f090036;
+        public static int login_out=0x7f090046;
+        public static int login_title_text=0x7f09003d;
         /**  默认登录页面 
          */
-        public static int mail_address=0x7f08007c;
-        public static int me=0x7f0800b1;
-        public static int message_card_is_recommended=0x7f0800b9;
-        public static int message_center=0x7f080090;
-        public static int message_new_comment=0x7f0800b8;
-        public static int message_new_fans=0x7f0800b7;
+        public static int mail_address=0x7f090033;
+        public static int manage_curr_column=0x7f0900d2;
+        public static int manage_other_column=0x7f0900d3;
+        public static int me=0x7f090074;
+        public static int message_card_is_recommended=0x7f09007c;
+        public static int message_center=0x7f09004c;
+        public static int message_new_comment=0x7f09007b;
+        public static int message_new_fans=0x7f09007a;
         /**  通知中心 
          */
-        public static int message_no_message=0x7f0800b6;
-        public static int message_user_is_recommended=0x7f0800ba;
+        public static int message_no_message=0x7f090079;
+        public static int message_user_is_recommended=0x7f09007d;
+        public static int moder_media_account_login=0x7f09003c;
+        public static int modify_email=0x7f090089;
         /**  修改密码 
          */
-        public static int modify_password=0x7f080082;
-        public static int modify_pwd=0x7f080089;
-        public static int modify_success=0x7f080086;
-        public static int more=0x7f080071;
-        public static int more_cat=0x7f0800bf;
-        public static int msg_avatar_upload_failed=0x7f08007b;
-        public static int msg_avatar_upload_success=0x7f08003c;
-        public static int msg_find_pwd_failed=0x7f080038;
-        public static int msg_find_pwd_success=0x7f080039;
-        public static int msg_load_image_fail=0x7f080026;
-        public static int msg_load_is_null=0x7f08001e;
-        public static int msg_load_userface_fail=0x7f080025;
-        public static int msg_login_email_error=0x7f08001f;
-        public static int msg_login_email_null=0x7f080020;
-        public static int msg_login_error=0x7f080024;
-        public static int msg_login_fail=0x7f080023;
-        public static int msg_login_pwd_null=0x7f080021;
-        public static int msg_login_success=0x7f080022;
-        public static int msg_modify_pwd_failed=0x7f08003b;
-        public static int msg_modify_success=0x7f08003a;
-        public static int msg_noaccess_delete=0x7f080028;
-        public static int msg_read_detail_fail=0x7f080027;
-        /**  用户模块 
-         */
-        public static int msg_register_failed=0x7f080037;
-        public static int msg_register_success=0x7f08007a;
-        public static int my_fans=0x7f0800a7;
-        public static int my_fav=0x7f080091;
-        public static int my_friends=0x7f0800a6;
+        public static int modify_password=0x7f09003f;
+        public static int modify_pwd=0x7f090045;
+        public static int more=0x7f0900bf;
+        public static int more_cat=0x7f0900ce;
+        public static int msg_avatar_get_failed=0x7f090029;
+        public static int msg_avatar_upload_failed=0x7f090028;
+        public static int msg_avatar_upload_success=0x7f090027;
+        public static int msg_find_pwd_failed=0x7f090021;
+        public static int msg_find_pwd_success=0x7f090022;
+        public static int msg_get_userinfo_failed=0x7f09002d;
+        public static int msg_has_error=0x7f09002b;
+        public static int msg_if_exchange=0x7f09002c;
+        public static int msg_login_email_error=0x7f090019;
+        public static int msg_login_email_null=0x7f09001a;
+        public static int msg_login_error=0x7f09001e;
+        public static int msg_login_fail=0x7f09001d;
+        public static int msg_login_pwd_null=0x7f09001b;
+        public static int msg_login_success=0x7f09001c;
+        public static int msg_modify_email_failed=0x7f090025;
+        public static int msg_modify_failed=0x7f090024;
+        public static int msg_modify_pwd_failed=0x7f090026;
+        public static int msg_modify_success=0x7f090023;
+        public static int msg_ok=0x7f0900cc;
+        public static int msg_register_failed=0x7f090020;
+        public static int msg_register_success=0x7f09001f;
+        public static int msg_your_coin_is_not_enough=0x7f09002a;
+        public static int my_coin=0x7f09004f;
+        public static int my_coin_footer_msg=0x7f090091;
+        public static int my_coin_ok=0x7f09008c;
+        public static int my_fans=0x7f090069;
+        public static int my_fav=0x7f09004d;
+        public static int my_friends=0x7f090068;
         /**  我的首页 
          */
-        public static int my_homepage=0x7f08009d;
-        public static int net_error=0x7f080001;
-        public static int network_not_connected=0x7f080002;
-        public static int new_card=0x7f0800a5;
-        public static int new_comment=0x7f0800ac;
-        public static int new_data_toast_message=0x7f080012;
-        public static int new_data_toast_none=0x7f080013;
-        public static int new_issue=0x7f080043;
-        public static int new_pwd=0x7f080084;
-        public static int no_fan_tip=0x7f0800be;
-        public static int no_friend_tip=0x7f0800bd;
-        public static int no_weixin=0x7f080073;
-        public static int nomore_data=0x7f080079;
-        public static int old_pwd=0x7f080083;
-        public static int password=0x7f08007d;
-        public static int password_digits=0x7f08008d;
-        public static int publishing=0x7f080017;
-        public static int pull_to_loading=0x7f08005e;
+        public static int my_homepage=0x7f09005e;
+        public static int net_error=0x7f09000f;
+        public static int new_card=0x7f090067;
+        public static int new_comment=0x7f09006e;
+        public static int new_issue=0x7f09009c;
+        public static int new_pwd=0x7f090041;
+        public static int no_article_card=0x7f090082;
+        public static int no_fan_tip=0x7f090081;
+        public static int no_friend_tip=0x7f090080;
+        public static int no_issue_zip=0x7f0900ca;
+        public static int no_weixin=0x7f0900c1;
+        public static int nomore_data=0x7f0900c7;
+        public static int notice_content=0x7f090085;
+        public static int old_pwd=0x7f090040;
+        public static int password=0x7f090034;
+        public static int password_digits=0x7f090049;
+        public static int pull_to_loading=0x7f090017;
         /**  pull_to_loadmore 
          */
-        public static int pull_to_loadmore=0x7f08005c;
+        public static int pull_to_loadmore=0x7f090015;
         /**  pull_to_refresh 
          */
-        public static int pull_to_refresh_pull_label=0x7f080057;
-        public static int pull_to_refresh_refreshing_label=0x7f080059;
-        public static int pull_to_refresh_release_label=0x7f080058;
-        public static int pull_to_refresh_tap_label=0x7f08005a;
-        public static int pull_to_refresh_update_time=0x7f08005b;
-        public static int pull_to_release=0x7f08005d;
-        public static int read_issue=0x7f080053;
+        public static int pull_to_refresh_pull_label=0x7f090010;
+        public static int pull_to_refresh_refreshing_label=0x7f090012;
+        public static int pull_to_refresh_release_label=0x7f090011;
+        public static int pull_to_refresh_tap_label=0x7f090013;
+        public static int pull_to_refresh_update_time=0x7f090014;
+        public static int pull_to_release=0x7f090016;
+        public static int qq_login=0x7f090039;
+        public static int qq_login_failed=0x7f09003a;
+        public static int read_issue=0x7f0900aa;
+        /**  往期 
+         */
+        public static int read_issue_error=0x7f0900c9;
         /**  推荐关注 
          */
-        public static int recommend_user=0x7f080093;
-        public static int register=0x7f08007e;
-        public static int republish_tweet=0x7f08001c;
-        public static int reset_password=0x7f080062;
-        public static int save_picture_fail=0x7f080067;
-        public static int save_picture_success=0x7f080066;
-        public static int search_card=0x7f08008f;
-        public static int select=0x7f080014;
-        public static int select_from_album=0x7f080061;
-        public static int send=0x7f080076;
-        public static int share=0x7f080015;
-        public static int share_by_email=0x7f080052;
-        public static int share_email_html=0x7f080069;
-        public static int share_none_component=0x7f080068;
-        public static int share_picture_fail=0x7f080064;
+        public static int recommend_user=0x7f090050;
+        public static int register=0x7f090035;
+        public static int reset_password=0x7f09002f;
+        public static int save_picture_fail=0x7f0900b3;
+        public static int save_picture_success=0x7f0900b2;
+        public static int search_card=0x7f09004b;
+        public static int select_column_title=0x7f0900d0;
+        public static int select_from_album=0x7f090031;
+        public static int send=0x7f0900c4;
+        public static int set_userinfo_desc=0x7f09003e;
+        public static int share=0x7f090095;
+        public static int share_by_email=0x7f0900a9;
+        public static int share_by_email_title=0x7f0900b9;
+        public static int share_email_html=0x7f0900b5;
+        public static int share_none_component=0x7f0900b4;
+        public static int share_picture_fail=0x7f0900b0;
         /**  share 
          */
-        public static int share_select=0x7f080063;
-        public static int share_to_gallery=0x7f080065;
-        public static int share_to_weibo=0x7f0800b0;
-        public static int share_to_weibo_title=0x7f080075;
-        public static int sharing=0x7f080016;
-        public static int sina_login=0x7f080080;
-        public static int sina_login_failed=0x7f080081;
-        public static int sina_weibo=0x7f080070;
+        public static int share_select=0x7f0900af;
+        public static int share_to_gallery=0x7f0900b1;
+        public static int share_to_weibo=0x7f090073;
+        public static int share_to_weibo_title=0x7f0900c3;
+        public static int share_wp_content=0x7f0900b8;
+        public static int shop_use_notice=0x7f090084;
+        public static int sina_login=0x7f090037;
+        public static int sina_login_failed=0x7f090038;
+        public static int sina_weibo=0x7f0900be;
         /**  LoginSina 
          */
-        public static int sinalogin_check_account=0x7f080029;
-        public static int sinalogin_check_pass=0x7f08002a;
-        public static int sinalogin_check_server=0x7f08002b;
-        public static int socket_exception_error=0x7f080007;
-        public static int sorry=0x7f080048;
+        public static int sinalogin_check_account=0x7f090000;
+        public static int sinalogin_check_pass=0x7f090001;
+        public static int sinalogin_check_server=0x7f090002;
+        public static int some_account_login=0x7f09003b;
+        public static int sorry=0x7f0900a1;
         /**  广场 
          */
-        public static int square=0x7f08009c;
-        public static int submit_report=0x7f08000c;
-        public static int sure=0x7f08004c;
-        public static int uncollect_failed=0x7f0800b5;
-        public static int uncollect_success=0x7f0800b4;
-        public static int update=0x7f08004d;
+        public static int square=0x7f09005d;
+        public static int sure=0x7f09002e;
+        public static int theme_magazine=0x7f0900ac;
+        public static int uncollect_failed=0x7f090078;
+        public static int uncollect_success=0x7f090077;
+        public static int unfollow_failed=0x7f09005c;
+        public static int unfollow_success=0x7f09005b;
+        public static int update=0x7f0900a5;
         /**  空数据提示 
          */
-        public static int user_no_card=0x7f0800bc;
-        public static int user_setting=0x7f080092;
+        public static int user_no_card=0x7f09007f;
+        public static int user_setting=0x7f09004e;
         /**  用户信息 
          */
-        public static int userinfo_desc=0x7f080087;
-        public static int userinfo_nickname=0x7f08008b;
-        public static int userinfo_username=0x7f080088;
-        public static int vew_later=0x7f080045;
-        public static int video_complete=0x7f08004b;
-        public static int video_error=0x7f080049;
-        public static int view_now=0x7f080044;
-        public static int weixin_friend=0x7f08006e;
-        public static int weixin_friends=0x7f08006f;
-        public static int weixin_register_error=0x7f080072;
-        public static int weixin_version_low=0x7f080074;
-        public static int write_failed=0x7f0800ae;
-        public static int write_some_comments=0x7f08009f;
-        public static int write_success=0x7f0800ad;
-        public static int xml_parser_failed=0x7f080003;
+        public static int userinfo_desc=0x7f090043;
+        public static int userinfo_nickname=0x7f090047;
+        public static int userinfo_username=0x7f090044;
+        public static int vew_later=0x7f09009e;
+        public static int video_complete=0x7f0900a4;
+        public static int video_error=0x7f0900a2;
+        public static int view_now=0x7f09009d;
+        public static int weixin_friend=0x7f0900bc;
+        public static int weixin_friends=0x7f0900bd;
+        public static int weixin_info=0x7f0900cd;
+        public static int weixin_register_error=0x7f0900c0;
+        public static int weixin_version_low=0x7f0900c2;
+        /**  金币商城使用须知 
+         */
+        public static int welcom_user=0x7f090083;
+        public static int write_failed=0x7f090070;
+        public static int write_some_comments=0x7f090060;
+        public static int write_success=0x7f09006f;
     }
     public static final class style {
+        public static int Animation=0x7f0a0008;
         /** 
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
 
-    
-
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-
-        
-
-        Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-
 
 
     
@@ -1200,6 +1201,25 @@ public final class R {
             backward-compatibility can go here.
 
 
+
+
+
+
+
+        
+
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+
+
+
+
+
+    
+
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
 
 
 
@@ -1216,7 +1236,7 @@ public final class R {
             backward-compatibility can go here.
         
          */
-        public static int AppBaseTheme=0x7f090000;
+        public static int AppBaseTheme=0x7f0a0000;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
  Application theme. 
@@ -1226,22 +1246,23 @@ public final class R {
  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static int AppTheme=0x7f090001;
+        public static int AppTheme=0x7f0a0001;
         /**  sina weibo 
          */
-        public static int ContentOverlay=0x7f090003;
+        public static int ContentOverlay=0x7f0a0005;
         /**  去掉背景Dialog 
  去掉背景Dialog 
          */
-        public static int NobackDialog=0x7f090002;
+        public static int NobackDialog=0x7f0a0002;
+        public static int Theme=0x7f0a0007;
         /**  card_list_pop 
          */
-        public static int card_list_popup_anim=0x7f090006;
+        public static int card_list_popup_anim=0x7f0a0004;
         /**  fecth_image_popupwindow 
          */
-        public static int fetch_image_popup_anim=0x7f090005;
+        public static int fetch_image_popup_anim=0x7f0a0003;
         /**  fecth_image_popupwindow 
          */
-        public static int webview_pop=0x7f090004;
+        public static int webview_pop=0x7f0a0006;
     }
 }

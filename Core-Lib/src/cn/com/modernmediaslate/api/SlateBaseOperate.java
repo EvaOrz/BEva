@@ -12,12 +12,11 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.text.TextUtils;
 import cn.com.modernmediaslate.R;
-import cn.com.modernmediaslate.SlateBaseActivity;
-import cn.com.modernmediaslate.SlateBaseFragmentActivity;
 import cn.com.modernmediaslate.api.HttpRequestController.RequestThread;
 import cn.com.modernmediaslate.listener.DataCallBack;
 import cn.com.modernmediaslate.listener.FetchDataListener;
 import cn.com.modernmediaslate.unit.SlatePrintHelper;
+import cn.com.modernmediaslate.unit.Tools;
 
 /**
  * 封装服务器返回数据父类
@@ -31,6 +30,7 @@ public abstract class SlateBaseOperate {
 	private Context mContext;
 	private boolean success = false;// 是否解析成功
 	private boolean showToast = true;
+	public DataCallBack callBack;
 
 	/**
 	 * 由子类提供
@@ -69,11 +69,12 @@ public abstract class SlateBaseOperate {
 	public void asyncRequest(Context context, boolean useLocalFirst,
 			DataCallBack callBack) {
 		mContext = context;
+		this.callBack = callBack;
 		if (TextUtils.isEmpty(getUrl()) || callBack == null) {
 			// TODO 提示错误信息
 			return;
 		}
-		request(useLocalFirst, false, callBack);
+		request(useLocalFirst, false);
 	}
 
 	/**
@@ -87,11 +88,12 @@ public abstract class SlateBaseOperate {
 	public void asyncRequestByPost(Context context, boolean useLocalFirst,
 			DataCallBack callBack) {
 		mContext = context;
+		this.callBack = callBack;
 		if (TextUtils.isEmpty(getUrl()) || callBack == null) {
 			// TODO 提示错误信息
 			return;
 		}
-		request(useLocalFirst, true, callBack);
+		request(useLocalFirst, true);
 	}
 
 	/**
@@ -100,9 +102,8 @@ public abstract class SlateBaseOperate {
 	 *            是否优先用本地数据
 	 * @param callBack
 	 */
-	private void request(boolean useLocalFirst, boolean isPost,
-			final DataCallBack callBack) {
-		if (useLocalFirst && fecthLocalData(getDefaultFileName(), callBack))
+	private void request(boolean useLocalFirst, boolean isPost) {
+		if (useLocalFirst && fecthLocalData(getDefaultFileName()))
 			return;
 		String url = getUrl();
 		RequestThread thread = new RequestThread(mContext, url, this);
@@ -116,8 +117,9 @@ public abstract class SlateBaseOperate {
 		thread.setmFetchDataListener(new FetchDataListener() {
 
 			@Override
-			public void fetchData(boolean isSuccess, String data) {
-				handlerData(isSuccess, data, callBack);
+			public void fetchData(boolean isSuccess, String data,
+					boolean fromHttp) {
+				handlerData(isSuccess, data, callBack, fromHttp);
 			}
 		});
 		mController.fetchHttpData(thread);
@@ -131,7 +133,7 @@ public abstract class SlateBaseOperate {
 	 * @param callBack
 	 */
 	private void handlerData(boolean isSuccess, String data,
-			DataCallBack callBack) {
+			DataCallBack callBack, boolean fromHttp) {
 		if (isSuccess) {
 			if (TextUtils.isEmpty(data)) {
 				showToast(R.string.net_error);
@@ -158,15 +160,15 @@ public abstract class SlateBaseOperate {
 		} else {
 			showToast(R.string.net_error);
 		}
-		callBack.callback(success);
+		callBack.callback(success, fromHttp);
 	}
 
-	private boolean fecthLocalData(String fileName, DataCallBack callBack) {
+	public boolean fecthLocalData(String fileName) {
 		if (TextUtils.isEmpty(fileName))
 			return false;
 		String localData = getLocalData(fileName);
 		if (!TextUtils.isEmpty(localData)) {
-			handlerData(true, localData, callBack);
+			handlerData(true, localData, callBack, false);
 			SlatePrintHelper.print("from sdcard:" + getUrl());
 			return true;
 		}
@@ -221,11 +223,7 @@ public abstract class SlateBaseOperate {
 	private void showToast(int resId) {
 		// 升级提示和统计不提示错误信息
 		if (showToast && mContext != null) {
-			if (mContext instanceof SlateBaseActivity) {
-				((SlateBaseActivity) mContext).showToast(resId);
-			} else if (mContext instanceof SlateBaseFragmentActivity) {
-				((SlateBaseFragmentActivity) mContext).showToast(resId);
-			}
+			Tools.showToast(mContext, resId);
 		}
 	}
 
@@ -264,7 +262,14 @@ public abstract class SlateBaseOperate {
 	 */
 	protected void addPostParams(JSONObject obj, String key, String value)
 			throws Exception {
-		if (!TextUtils.isEmpty(value))
-			obj.put(key, URLEncoder.encode(value, HTTP.UTF_8));
+		if (!TextUtils.isEmpty(value)) {
+			String encode = URLEncoder.encode(value, HTTP.UTF_8);
+			// 数据中含换行符时，不能编码，否则服务器端在解析该json时会无法解析
+			String br = URLEncoder.encode("\n", HTTP.UTF_8);
+			if (encode.contains(br)) {
+				encode = encode.replace(br, "\n");
+			}
+			obj.put(key, encode);
+		}
 	}
 }

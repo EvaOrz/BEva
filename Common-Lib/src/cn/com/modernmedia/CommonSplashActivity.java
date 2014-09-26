@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import cn.com.modernmedia.api.OperateController;
+import cn.com.modernmedia.db.NewFavDb;
 import cn.com.modernmedia.listener.FetchEntryListener;
 import cn.com.modernmedia.model.AdvList;
 import cn.com.modernmedia.model.AdvList.AdvItem;
@@ -17,8 +18,10 @@ import cn.com.modernmedia.util.AdvTools;
 import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmedia.util.DataHelper;
 import cn.com.modernmedia.util.GenericConstant;
-import cn.com.modernmedia.util.ParseUtil;
+import cn.com.modernmediaslate.SlateApplication;
 import cn.com.modernmediaslate.model.Entry;
+import cn.com.modernmediaslate.unit.FavObservable;
+import cn.com.modernmediaslate.unit.ParseUtil;
 
 /**
  * 进版首页
@@ -45,6 +48,13 @@ public abstract class CommonSplashActivity extends BaseActivity {
 			checkHasAdv(false, null, null, null);
 		} else {
 			getAdvList();
+		}
+		// 旧收藏数据迁移
+		if (!DataHelper.getDbChanged(mContext)) {
+			NewFavDb.getInstance(this).dataTransfer();
+			DataHelper.setDbChanged(mContext);
+			// 迁移服务器上的数据
+			SlateApplication.favObservable.setData(FavObservable.DATA_CHANGE);
 		}
 	}
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="child_cat_bg">#FFEB030D</color>
+    <color name="dot_color">#FFC0C0C0</color>
+    <color name="dot_active_color">#FF424242</color>
 </resources>

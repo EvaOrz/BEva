@@ -14,14 +14,12 @@ import cn.com.modernmediausermodel.model.Card;
  */
 public class GetUserTimeLineOperate extends CardBaseOperate {
 	private String uid;
-	private String timelineId = "";
 	private TimelineDb db;
 
 	public GetUserTimeLineOperate(Context context, String uid,
 			String timelineId, boolean isGetNewData) {
-		super(timelineId, isGetNewData);
+		super(timelineId, isGetNewData, context);
 		this.uid = uid;
-		this.timelineId = timelineId;
 		db = TimelineDb.getInstance(context);
 	}
 
@@ -40,6 +38,11 @@ public class GetUserTimeLineOperate extends CardBaseOperate {
 			}
 			db.addCardItem(getCard());
 		}
+	}
+
+	@Override
+	protected Card getCardFromDb() {
+		return db.getCard(timelineId);
 	}
 
 }
