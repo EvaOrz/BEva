@@ -42,6 +42,8 @@ import cn.com.modernmedia.widget.MainHorizontalScrollView.FecthViewSizeListener;
 import cn.com.modernmediaslate.SlateApplication;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.unit.ParseUtil;
+import cn.com.modernmediausermodel.api.UserOperateController;
+import cn.com.modernmediausermodel.listener.UserFetchEntryListener;
 import cn.com.modernmediausermodel.model.User;
 import cn.com.modernmediausermodel.util.UserCentManager;
 import cn.com.modernmediausermodel.util.UserDataHelper;
@@ -147,6 +149,15 @@ public abstract class ViewsMainActivity extends CommonMainActivity {
 			}
 		});
 		UserCentManager.getInstance(this).addLoginCoinCent();
+		if (SlateApplication.mConfig.getHas_coin() == 0) {
+			UserOperateController.getInstance(this).getActionRules(
+					new UserFetchEntryListener() {
+
+						@Override
+						public void setData(Entry entry) {
+						}
+					});
+		}
 	}
 
 	@Override
@@ -214,8 +225,7 @@ public abstract class ViewsMainActivity extends CommonMainActivity {
 	 * 显示期刊列表
 	 */
 	public void showIssueListView() {
-		if (CommonApplication.mConfig.getIs_index_pager() != 1)
-			indexView.setDataForIssueList();
+		indexView.setDataForIssueList();
 	}
 
 	/**

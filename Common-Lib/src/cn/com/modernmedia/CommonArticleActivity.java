@@ -8,6 +8,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.TextUtils;
@@ -66,6 +67,7 @@ public abstract class CommonArticleActivity extends BaseActivity {
 	private boolean isHide = false;
 	protected View currView;
 	private boolean singleArticle;// 只有一篇文章
+	private Handler handler = new Handler();
 
 	private HideTitleBarListener hideListener = new HideTitleBarListener() {
 
@@ -138,7 +140,14 @@ public abstract class CommonArticleActivity extends BaseActivity {
 					this, transferArticle);
 			lastHelper.doGetLastIssueAricles();
 		} else {
-			getArticleList();
+			showLoading();
+			handler.postDelayed(new Runnable() {
+
+				@Override
+				public void run() {
+					getArticleList();
+				}
+			}, 1000);
 		}
 	}
 

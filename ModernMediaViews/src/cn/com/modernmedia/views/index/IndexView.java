@@ -47,6 +47,7 @@ public class IndexView extends BaseView implements FetchEntryListener {
 	private Context mContext;
 	private RelativeLayout navBar;
 	private FrameLayout contain;
+	private FrameLayout issueListLayout;
 	private LinearLayout cover;
 	private int currTag;
 
@@ -95,6 +96,7 @@ public class IndexView extends BaseView implements FetchEntryListener {
 		initProcess();
 		navBar = (RelativeLayout) findViewById(R.id.index_titleBar);
 		contain = (FrameLayout) findViewById(R.id.index_contain);
+		issueListLayout = (FrameLayout) findViewById(R.id.index_issuelist);
 		indexViewPager = (IndexViewPager) findViewById(R.id.index_pager);
 		cover = (LinearLayout) findViewById(R.id.index_cover);
 		cover.setBackgroundColor(Color.TRANSPARENT);
@@ -129,8 +131,8 @@ public class IndexView extends BaseView implements FetchEntryListener {
 	public View getFav() {
 		return dataSetForIndexNav.getFav();
 	}
-	
-	public View getNav(){
+
+	public View getNav() {
 		return dataSetForIndexNav.getNavBar();
 	}
 
@@ -140,7 +142,6 @@ public class IndexView extends BaseView implements FetchEntryListener {
 	 * @param name
 	 */
 	public void setTitle(String name) {
-		// title.setText(name);
 		dataSetForIndexNav.setTitle(name);
 	}
 
@@ -166,6 +167,7 @@ public class IndexView extends BaseView implements FetchEntryListener {
 		indexListView = new TagIndexListView(mContext);
 		contain.removeAllViews();
 		contain.addView(indexListView.fetchView());
+		issueListLayout.setVisibility(View.GONE);
 		if (entry instanceof TagArticleList)
 			indexListView.setData((TagArticleList) entry, null);
 		currTag = LIST;
@@ -186,7 +188,7 @@ public class IndexView extends BaseView implements FetchEntryListener {
 		baseSoloIndexView.setData(childInfoList);
 		contain.addView(baseSoloIndexView.fetchView());
 		currTag = CHILD;
-
+		issueListLayout.setVisibility(View.GONE);
 		indexListView = null;
 		issueListView = null;
 	}
@@ -195,11 +197,14 @@ public class IndexView extends BaseView implements FetchEntryListener {
 	 * 设置期刊列表
 	 */
 	public void setDataForIssueList() {
-		contain.removeAllViews();
+		indexViewPager.setVisibility(View.GONE);
+		contain.setVisibility(View.GONE);
+		issueListLayout.setVisibility(View.VISIBLE);
 		issueListView = new IndexIssueListView(mContext);
+		issueListLayout.addView(issueListView.fetchView());
 		issueListView.setData(null);
-		contain.addView(issueListView.fetchView());
 		currTag = ISSUE_LIST;
+
 		baseSoloIndexView = null;
 		indexListView = null;
 	}
@@ -208,6 +213,7 @@ public class IndexView extends BaseView implements FetchEntryListener {
 	 * 显示首页滑屏view
 	 */
 	public void setDataForIndexPager() {
+		issueListLayout.setVisibility(View.GONE);
 		indexViewPager.setVisibility(View.VISIBLE);
 		indexViewPager.setCatList();
 	}
@@ -221,6 +227,8 @@ public class IndexView extends BaseView implements FetchEntryListener {
 	 */
 	public void checkPositionIfPager(String tagName, boolean isUri) {
 		if (indexViewPager != null) {
+			issueListLayout.setVisibility(View.GONE);
+			indexViewPager.setVisibility(View.VISIBLE);
 			indexViewPager.checkPosition(tagName, isUri);
 		}
 	}

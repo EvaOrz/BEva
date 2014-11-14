@@ -1,10 +1,12 @@
 package cn.com.modernmedia.views.index;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
 import android.graphics.Rect;
+import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -50,6 +52,17 @@ public class IndexViewPager extends CircularViewPager<TagInfo> implements
 	private void init() {
 		this.setOffscreenPageLimit(1);
 		setListener(this);
+		// 修改viewpager滑动响应的最小距离
+		try {
+			Field touchSlop = ViewPager.class.getDeclaredField("mTouchSlop");
+			touchSlop.setAccessible(true);
+			touchSlop.setInt(this, 20);
+			touchSlop.setAccessible(false);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	/**

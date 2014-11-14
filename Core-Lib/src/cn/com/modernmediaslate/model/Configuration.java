@@ -24,10 +24,6 @@ public class Configuration {
 	 */
 	private int is_index_pager = 0;
 	/**
-	 * 是否是wordprocess应用；0不是，1是；
-	 */
-	private int is_wp_app = 0;
-	/**
 	 * 是否包含金币系统；0不是，1是；商周包含
 	 */
 	private int has_coin = 0;
@@ -100,6 +96,12 @@ public class Configuration {
 	 * 导航栏（首页、文章页）根据栏目改变背景
 	 */
 	private int is_navbar_bg_change = 0;
+	/**
+	 * 友盟key
+	 * 
+	 * @return
+	 */
+	private String umeng_key = "";
 
 	public int getHas_sina() {
 		return has_sina;
@@ -131,14 +133,6 @@ public class Configuration {
 
 	public void setIs_index_pager(int is_index_pager) {
 		this.is_index_pager = is_index_pager;
-	}
-
-	public int getIs_wp_app() {
-		return is_wp_app;
-	}
-
-	public void setIs_wp_app(int is_wp_app) {
-		this.is_wp_app = is_wp_app;
 	}
 
 	public int getHas_coin() {
@@ -283,6 +277,14 @@ public class Configuration {
 
 	public void setIs_navbar_bg_change(int is_navbar_bg_change) {
 		this.is_navbar_bg_change = is_navbar_bg_change;
+	}
+
+	public String getUmeng_key() {
+		return umeng_key;
+	}
+
+	public void setUmeng_key(String umeng_key) {
+		this.umeng_key = umeng_key;
 	}
 
 }

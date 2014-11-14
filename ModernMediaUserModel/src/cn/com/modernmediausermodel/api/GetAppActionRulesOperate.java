@@ -3,10 +3,10 @@ package cn.com.modernmediausermodel.api;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import cn.com.modernmediaslate.unit.ParseUtil;
+import cn.com.modernmediausermodel.UserApplication;
 import cn.com.modernmediausermodel.model.ActionRuleList;
 import cn.com.modernmediausermodel.model.ActionRuleList.ActionRuleItem;
-import cn.com.modernmediausermodel.util.UserConstData;
-import cn.com.modernmediausermodel.util.UserFileManager;
 
 /**
  * 应用规则接口operate
@@ -47,16 +47,18 @@ public class GetAppActionRulesOperate extends UserBaseOperate {
 				}
 			}
 		}
+		if (ParseUtil.listNotNull(actionRuleList.getList())) {
+			UserApplication.actionRuleList = actionRuleList;
+		}
 	}
 
 	@Override
 	protected void saveData(String data) {
-		UserFileManager.saveApiData(UserConstData.getActionRulesFileName(), data);
 	}
 
 	@Override
 	protected String getDefaultFileName() {
-		return UserConstData.getActionRulesFileName();
+		return null;
 	}
 
 	protected ActionRuleList getActionRuleList() {

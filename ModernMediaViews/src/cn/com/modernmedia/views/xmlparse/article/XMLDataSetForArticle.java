@@ -184,7 +184,7 @@ public class XMLDataSetForArticle extends BaseXMLDataSet {
 		for (String key : keySets) {
 			if (FunctionArticle.FONT_IMG.equals(key)
 					|| FunctionArticle.SHARE_IMG.equals(key)
-					|| FunctionXML.FAV.equals(key)) {
+					|| FunctionXML.FAV.equals(key) || FunctionArticle.ACRTICLE_CARD.equals(key)) {
 				View view = map.get(key);
 				if (!(view instanceof View))
 					continue;

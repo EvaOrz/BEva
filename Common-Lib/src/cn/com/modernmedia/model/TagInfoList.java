@@ -535,6 +535,7 @@ public class TagInfoList extends Entry {
 		private Version version = new Version();// 检查更新
 		private String appJson = "";
 		private String updatetime = "";
+		private String splash = "";// iweekly splash图
 
 		public String getTagName() {
 			return tagName;
@@ -615,6 +616,14 @@ public class TagInfoList extends Entry {
 
 		public void setUpdatetime(String updatetime) {
 			this.updatetime = updatetime;
+		}
+
+		public String getSplash() {
+			return splash;
+		}
+
+		public void setSplash(String splash) {
+			this.splash = splash;
 		}
 
 	}

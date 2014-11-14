@@ -30,7 +30,7 @@ public class ConstData {
 	/** toast显示时间 **/
 	public static final int TOAST_LENGTH = 1000;
 	/** 版本号 **/
-	public static final int VERSION = 162;
+	public static final int VERSION = 220;
 	/** splash停留时间 **/
 	public static int SPLASH_DELAY_TIME = 1000;
 	/** 文件保存地址 **/

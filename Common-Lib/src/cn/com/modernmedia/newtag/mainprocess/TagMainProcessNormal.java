@@ -4,19 +4,23 @@ import java.util.List;
 import java.util.Map;
 
 import android.content.Context;
+import android.text.TextUtils;
 import cn.com.modernmedia.CommonApplication;
 import cn.com.modernmedia.api.OperateController;
+import cn.com.modernmedia.breakpoint.BreakPointUtil;
+import cn.com.modernmedia.breakpoint.DownloadPackageCallBack;
 import cn.com.modernmedia.listener.FetchEntryListener;
 import cn.com.modernmedia.model.AdvList;
 import cn.com.modernmedia.model.AdvList.AdvItem;
 import cn.com.modernmedia.model.AdvList.AdvSource;
+import cn.com.modernmedia.model.BreakPoint;
 import cn.com.modernmedia.model.TagArticleList;
 import cn.com.modernmedia.model.TagInfoList;
+import cn.com.modernmedia.model.TagInfoList.TagInfo;
 import cn.com.modernmedia.newtag.mainprocess.TagProcessManage.MainProcessParseCallBack;
 import cn.com.modernmedia.util.ConstData;
+import cn.com.modernmedia.util.FileManager;
 import cn.com.modernmedia.util.PrintHelper;
-import cn.com.modernmedia.util.UpdateManager;
-import cn.com.modernmedia.util.UpdateManager.CheckVersionListener;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.unit.ParseUtil;
 
@@ -43,7 +47,10 @@ public class TagMainProcessNormal extends TagBaseMainProcess {
 					public void setData(Entry entry) {
 						if (entry instanceof AdvList) {
 							CommonApplication.advList = (AdvList) entry;
-							downloadRuBan(CommonApplication.advList);
+							if (ConstData.getAppId() == 20)
+								downloadRuBanForWeekly(CommonApplication.advList);
+							else
+								downloadRuBan(CommonApplication.advList);
 							getAppInfo();
 						} else {
 							showError();
@@ -55,29 +62,12 @@ public class TagMainProcessNormal extends TagBaseMainProcess {
 	@Override
 	protected void doAfterFecthAppInfo(final TagInfoList appInfo,
 			final boolean success) {
+		super.doAfterFecthAppInfo(appInfo, success);
 		if (success) {
-			if (ConstData.getInitialAppId() == 1
-					&& CommonApplication.CHANNEL.equals("googleplay")) {
-				doAfterFecthAppInfo(appInfo);
-				return;
-			}
-			UpdateManager manager = new UpdateManager(mContext,
-					new CheckVersionListener() {
-
-						@Override
-						public void checkEnd() {
-							doAfterFecthAppInfo(appInfo);
-						}
-					});
-			manager.checkVersion(appInfo.getList().get(0).getAppProperty()
-					.getVersion());
+			downloadSplash(appInfo.getList().get(0));
 		} else {
 			showError();
 		}
-	}
-
-	private void doAfterFecthAppInfo(TagInfoList appInfo) {
-		super.doAfterFecthAppInfo(appInfo, true);
 	}
 
 	@Override
@@ -108,7 +98,7 @@ public class TagMainProcessNormal extends TagBaseMainProcess {
 				callBack.afterFecthHttp();
 		}
 	}
-	
+
 	/**
 	 * 下载入版广告
 	 * 
@@ -126,6 +116,103 @@ public class TagMainProcessNormal extends TagBaseMainProcess {
 				}
 			}
 		}
+	}
+
+	private void downloadRuBanForWeekly(AdvList advList) {
+		Map<Integer, List<AdvItem>> advMap = advList.getAdvMap();
+		if (ParseUtil.mapContainsKey(advMap, AdvList.RU_BAN)) {
+			if (ParseUtil.listNotNull(advMap.get(AdvList.RU_BAN))) {
+				for (AdvItem item : advMap.get(AdvList.RU_BAN)) {
+					if (ParseUtil.listNotNull(item.getSourceList()))
+						downloadRuBanForWeekly(item);
+				}
+			}
+		}
+	}
+
+	/**
+	 * 下载入版广告
+	 */
+	private void downloadRuBanForWeekly(AdvItem item) {
+		BreakPointUtil util = new BreakPointUtil(mContext,
+				new DownloadPackageCallBack() {
+
+					@Override
+					public void onSuccess(String tagName, String folderName) {
+						System.out.println("weekly success");
+					}
+
+					@Override
+					public void onPause(String tagName) {
+					}
+
+					@Override
+					public void onFailed(String tagName) {
+					}
+
+					@Override
+					public void onProcess(String tagName, long complete,
+							long total) {
+					}
+				});
+		downloadPackage(item.getSourceList().get(0).getUrl(), util);
+	}
+
+	/**
+	 * 下载iweekly启动图
+	 */
+	private void downloadSplash(TagInfo info) {
+		if (ConstData.getAppId() != 20)
+			return;
+		PrintHelper.print("start down splash");
+		BreakPointUtil util = new BreakPointUtil(mContext,
+				new DownloadPackageCallBack() {
+
+					@Override
+					public void onSuccess(String tagName, String folderName) {
+						System.out.println("success");
+					}
+
+					@Override
+					public void onPause(String tagName) {
+					}
+
+					@Override
+					public void onFailed(String tagName) {
+					}
+
+					@Override
+					public void onProcess(String tagName, long complete,
+							long total) {
+					}
+				});
+		downloadPackage(info.getAppProperty().getSplash(), util);
+	}
+
+	/**
+	 * iweekly入版广告下载、启动图
+	 * 
+	 * @param context
+	 * @param url
+	 * @param breakPointUtil
+	 */
+	private void downloadPackage(String url, BreakPointUtil breakPointUtil) {
+		if (TextUtils.isEmpty(url)) {
+			return;
+		}
+		BreakPoint breakPoint = new BreakPoint();
+		if (FileManager.containThisPackageFolder(url)) {
+			// TODO 如果包含解压包，则直接加载
+			breakPoint.setStatus(BreakPointUtil.DONE);
+		} else if (FileManager.containThisPackage(url)) {
+			// TODO 如果包含zip包,执行断点下载
+			breakPoint.setStatus(BreakPointUtil.BREAK);
+		} else {
+			breakPoint.setStatus(BreakPointUtil.NONE);
+		}
+		breakPoint.setTagName("1");// 无用
+		breakPoint.setUrl(url);
+		breakPointUtil.downLoad(breakPoint);
 	}
 
 }

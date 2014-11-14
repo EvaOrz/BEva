@@ -13,8 +13,8 @@ import cn.com.modernmedia.CommonMainActivity;
 import cn.com.modernmedia.common.ShareHelper;
 import cn.com.modernmedia.listener.NotifyArticleDesListener;
 import cn.com.modernmedia.model.ArticleItem;
+import cn.com.modernmedia.model.TagInfoList.TagInfo;
 import cn.com.modernmedia.util.AdvTools;
-import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmedia.util.LogHelper;
 import cn.com.modernmedia.views.R;
 import cn.com.modernmedia.views.ViewsMainActivity;
@@ -40,6 +40,7 @@ public abstract class BaseIndexHeadView extends BaseView implements
 	private boolean isAuto;
 	private boolean shouldScroll;// 如果只有一张图，那么不监听滑动
 	protected Template template;
+	private TagInfo tagInfo;
 
 	private Handler handler = new Handler() {
 
@@ -102,15 +103,6 @@ public abstract class BaseIndexHeadView extends BaseView implements
 	}
 
 	/**
-	 * 独立栏目
-	 * 
-	 * @param soloHeadIndex
-	 */
-	public void setSoloData(List<ArticleItem> soloHeadIndex) {
-		setDataToGallery(soloHeadIndex);
-	}
-
-	/**
 	 * 获取当前list;当是独立栏目时，如果从服务器上返会的list。size为0，而当前headview不为空，那么不删除headview
 	 * 
 	 * @return
@@ -119,8 +111,9 @@ public abstract class BaseIndexHeadView extends BaseView implements
 		return mList;
 	}
 
-	public void setData(List<ArticleItem> list) {
+	public void setData(List<ArticleItem> list, TagInfo tagInfo) {
 		setDataToGallery(list);
+		this.tagInfo = tagInfo;
 	}
 
 	/**
@@ -168,8 +161,10 @@ public abstract class BaseIndexHeadView extends BaseView implements
 	}
 
 	private void startChange() {
-		if (mList == null || mList.size() < 2 || !isAuto
-				|| ConstData.getAppId() == 20) {
+		if (mList == null || mList.size() < 2 || !isAuto) {
+			return;
+		}
+		if (tagInfo != null && tagInfo.getAppId() == 20) {
 			return;
 		}
 		Message msg = handler.obtainMessage();

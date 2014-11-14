@@ -7,6 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import android.os.Environment;
 import android.text.TextUtils;
@@ -266,5 +268,34 @@ public class FileManager {
 		// TODO 解压完的文件夹暂时不考虑了，因为如果暂停了再进来是没有文件夹的，如果判断了，会把压缩包也删了
 		File flod = new File(path + ModernMediaTools.getPackageFolderName(name));
 		return flod.exists();
+	}
+
+	public static List<String> getFoldChildNames(String name) {
+		String path = getDefaultPath() + ConstData.DEFAULT_PACKAGE_PATH;
+		File flod = new File(path + ModernMediaTools.getPackageFolderName(name));
+		if (!flod.exists())
+			return null;
+		List<String> result = new ArrayList<String>();
+		File list[] = flod.listFiles();
+		for (int i = 0; i < list.length; i++) {
+			if (list[i].isFile()) {
+				result.add(list[i].getName());
+			}
+		}
+		return result;
+	}
+
+	public static String getHtmlName(String name) {
+		String path = getDefaultPath() + ConstData.DEFAULT_PACKAGE_PATH;
+		File flod = new File(path + ModernMediaTools.getPackageFolderName(name));
+		if (!flod.exists())
+			return null;
+		File list[] = flod.listFiles();
+		for (int i = 0; i < list.length; i++) {
+			if (list[i].isFile() && list[i].getName().endsWith(".html")) {
+				return list[i].getName();
+			}
+		}
+		return null;
 	}
 }

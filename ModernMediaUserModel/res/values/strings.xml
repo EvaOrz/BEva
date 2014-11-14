@@ -42,7 +42,7 @@
     <string name="message_center">通知中心</string>
     <string name="my_fav">我的收藏</string>
     <string name="user_setting">设置</string>
-    <string name="my_coin">我的金币</string>
+    <string name="my_coin">积分商城</string>
 
     <!-- 推荐关注 -->
     <string name="recommend_user">推荐用户</string>
@@ -104,10 +104,10 @@
     <string name="no_fan_tip">你还没有任何人关注</string>
     <string name="no_article_card">没有该文章的摘要</string>
 
-    <!-- 金币商城使用须知 -->
+    <!-- 积分商城使用须知 -->
     <string name="welcom_user">你好，%s!</string>
-    <string name="shop_use_notice">金币商城使用须知</string>
-    <string name="notice_content">InNote社区金币商城会经常为你推荐新鲜有趣的玩意，大部分虚拟物品都需要通过电子邮件发送给你。\n\n在兑换任何物品之前，请务必确认你注册时是否填写了正确的邮箱地址。现在点击下面的按钮，即可确认邮箱地址。\n\n祝你玩得开心！</string>
+    <string name="shop_use_notice">积分商城使用须知</string>
+    <string name="notice_content">现代社区积分商城会经常为你推荐新鲜有趣的玩意，大部分虚拟物品都需要通过电子邮件发送给你。\n\n在兑换任何物品之前，请务必确认你注册时是否填写了正确的邮箱地址。现在点击下面的按钮，即可确认邮箱地址。\n\n祝你玩得开心！</string>
     <string name="confirm_email">确认邮箱</string>
     <string name="email_address_is">你的邮箱地址是</string>
     <string name="goto_shop">确认进入商城</string>
@@ -116,14 +116,14 @@
     <string name="input_password">请输入你的密码</string>
     <string name="my_coin_ok">好的</string>
 
-    <!-- 我的金币 -->
-    <string name="get_more_coin">获取更多金币</string>
+    <!-- 我的积分 -->
+    <string name="get_more_coin">获取更多积分</string>
     <string name="exchange">兑换</string>
     <string name="exchange_success">兑换成功</string>
     <string name="exchange_failed">兑换失败</string>
-    <string name="my_coin_footer_msg">您积累的所有金币在InNote ID登陆的APP中都可以使用</string>
-    <string name="coin">%1$s&#160;金币</string>
-    <string name="add_coin_num">%1$s&#160;+%2$s金币</string>
+    <string name="my_coin_footer_msg">您积累的所有积分在现代社区账号登陆的APP中都可以使用</string>
+    <string name="coin">%1$s&#160;积分</string>
+    <string name="add_coin_num">%1$s&#160;+%2$s积分</string>
 
     <!-- 文章摘要与评论 -->
     <string name="article_card_and_comment">文章摘要与评论</string>

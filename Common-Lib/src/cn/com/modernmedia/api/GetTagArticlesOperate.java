@@ -41,6 +41,7 @@ public class GetTagArticlesOperate extends BaseIndexAdvOperate {
 	protected String top;
 	protected boolean isCatIndex;
 	private String limited;
+	private TagInfo tagInfo;
 
 	// 排序用
 	private List<String> groupList = new ArrayList<String>();
@@ -49,6 +50,7 @@ public class GetTagArticlesOperate extends BaseIndexAdvOperate {
 	public GetTagArticlesOperate(TagInfo info, String top, String limited,
 			TagArticleList _articleList) {
 		reSetPosition();
+		this.tagInfo = info;
 		tagName = info.getMergeName(true);
 		if (TextUtils.isEmpty(tagName)) {
 			tagName = info.getTagName();
@@ -189,7 +191,11 @@ public class GetTagArticlesOperate extends BaseIndexAdvOperate {
 		item.setArticleId(obj.optInt("articleid", -1));
 		item.setTitle(obj.optString("title", ""));
 		item.setDesc(obj.optString("desc", ""));
-		item.setAppid(obj.optInt("appid", ConstData.getInitialAppId()));
+		if (tagInfo != null) {
+			item.setAppid(tagInfo.getAppId());
+		} else {
+			item.setAppid(obj.optInt("appid", ConstData.getInitialAppId()));
+		}
 		item.setOffset(obj.optString("offset", ""));
 		JSONArray links = obj.optJSONArray("links");
 		if (!isNull(links)) {

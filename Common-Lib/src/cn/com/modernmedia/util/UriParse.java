@@ -316,7 +316,7 @@ public class UriParse {
 				link = item.getAdvSource().getLink();
 				if (TextUtils.isEmpty(link))
 					return;
-				if (link.startsWith("slate://adv/tagname")) {
+				if (link.startsWith("slate://adv/")) {
 					// TODO 跳转到广告文章
 					AdvUriParse.clickSlate(context, link, entries, view, cls);
 					return;

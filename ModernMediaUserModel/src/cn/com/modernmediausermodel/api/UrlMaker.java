@@ -387,28 +387,4 @@ public class UrlMaker {
 		return COIN_URL + "getorders/appid/" + UserConstData.getInitialAppId()
 				+ "/uid/" + uid + "?datatype=" + UserConstData.DATA_TYPE;
 	}
-
-	/**
-	 * 取用户订阅列表URL
-	 * 
-	 * @param uid
-	 * @return
-	 */
-	public static String getUserSubscribeList(String uid) {
-		return USER_MODEL_URL + "?m=subcribeColumn&a=getUserSubcribeList&uid="
-				+ uid + "&appid=" + UserConstData.getInitialAppId()
-				+ "&datatype=" + UserConstData.DATA_TYPE;
-	}
-
-	/**
-	 * 存用户订阅列表URL
-	 * 
-	 * @param uid
-	 * @return
-	 */
-	public static String getAddUserSubscribeList(String uid) {
-		return USER_MODEL_URL + "?m=subcribeColumn&a=saveUserSubcribeList&uid="
-				+ uid + "&appid=" + UserConstData.getInitialAppId()
-				+ "&datatype=" + UserConstData.DATA_TYPE;
-	}
 }

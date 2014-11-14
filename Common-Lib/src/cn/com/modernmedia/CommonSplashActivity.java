@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import cn.com.modernmedia.api.OperateController;
 import cn.com.modernmedia.db.NewFavDb;
 import cn.com.modernmedia.listener.FetchEntryListener;
@@ -23,6 +24,9 @@ import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.unit.FavObservable;
 import cn.com.modernmediaslate.unit.ParseUtil;
 
+import com.umeng.analytics.AnalyticsConfig;
+import com.umeng.analytics.MobclickAgent;
+
 /**
  * 进版首页
  * 
@@ -36,6 +40,22 @@ public abstract class CommonSplashActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		init();
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if (!TextUtils.isEmpty(SlateApplication.mConfig.getUmeng_key())) {
+			MobclickAgent.onResume(this);
+		}
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		if (!TextUtils.isEmpty(SlateApplication.mConfig.getUmeng_key())) {
+			MobclickAgent.onPause(this);
+		}
 	}
 
 	protected void init() {
@@ -100,6 +120,12 @@ public abstract class CommonSplashActivity extends BaseActivity {
 	 * 统计装机量
 	 */
 	private void down() {
+		// 初始化友盟
+		if (!TextUtils.isEmpty(SlateApplication.mConfig.getUmeng_key())) {
+			AnalyticsConfig.setAppkey(SlateApplication.mConfig.getUmeng_key());
+			// MobclickAgent.setDebugMode(true);
+		}
+
 		if (DataHelper.getDown(this))
 			return;
 		OperateController.getInstance(this).getDown(new FetchEntryListener() {

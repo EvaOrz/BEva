@@ -8,6 +8,7 @@ import android.content.Context;
 import android.os.Handler;
 import cn.com.modernmediaslate.listener.DataCallBack;
 import cn.com.modernmediaslate.model.Entry;
+import cn.com.modernmediausermodel.UserApplication;
 import cn.com.modernmediausermodel.listener.UserFetchEntryListener;
 import cn.com.modernmediausermodel.model.Card.CardItem;
 import cn.com.modernmediausermodel.model.MultiComment.CommentItem;
@@ -250,8 +251,8 @@ public class UserOperateController {
 	 * @param listener
 	 *            view数据回调接口
 	 */
-	public void modifyUserPassword(String uid, String token,
-			String userName, String password, String newPassword,
+	public void modifyUserPassword(String uid, String token, String userName,
+			String password, String newPassword,
 			final UserFetchEntryListener listener) {
 		final ModifyUserPasswordOperate operate = new ModifyUserPasswordOperate(
 				uid, token, userName, password, newPassword);
@@ -653,6 +654,10 @@ public class UserOperateController {
 	 * @param listener
 	 */
 	public void getActionRules(final UserFetchEntryListener listener) {
+		if (UserApplication.actionRuleList != null) {
+			sendMessage(UserApplication.actionRuleList, listener);
+			return;
+		}
 		final GetAppActionRulesOperate operate = new GetAppActionRulesOperate();
 		operate.asyncRequest(mContext, true, new DataCallBack() {
 

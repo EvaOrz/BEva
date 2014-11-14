@@ -165,10 +165,11 @@ public class OperateController {
 	 * 
 	 * @param listener
 	 */
-	public void getWeeklyInApp(boolean useLocalData, FetchEntryListener listener) {
-		GetInAppAdvOperate operate = new GetInAppAdvOperate();
-		doRequest(operate, operate.getInAppAdv(), useLocalData, listener);
-	}
+	// public void getWeeklyInApp(boolean useLocalData, FetchEntryListener
+	// listener) {
+	// GetInAppAdvOperate operate = new GetInAppAdvOperate();
+	// doRequest(operate, operate.getInAppAdv(), useLocalData, listener);
+	// }
 
 	/**
 	 * 获取应用信息

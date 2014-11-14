@@ -54,10 +54,6 @@ public class UrlMaker {
 		} else if (ConstData.IS_DEBUG == 8) {
 			HOST = "http://content.editor.bbwc.cn";
 		}
-		// wp
-		if (CommonApplication.mConfig.getIs_wp_app() == 1)
-			HOST += "/wp";
-
 		if (SLATE_BASE_URL == "")
 			SLATE_BASE_URL = HOST + "/slateInterface";
 		MODEL_URL = HOST + "/v" + ConstData.API_VERSION + "/app"
@@ -135,8 +131,6 @@ public class UrlMaker {
 				: "http://adver.cdn.bbwc.cn";
 		return host + "/adv/v2/list/" + ConstData.getInitialAppId() + "-"
 				+ ConstData.DEVICE_TYPE + "-" + ConstData.DATA_TYPE + ".html";
-		// return host + "/adv/list/" + ConstData.getInitialAppId() + "-"
-		// + ConstData.DEVICE_TYPE + "-" + ConstData.DATA_TYPE + ".html";
 	}
 
 	/**
@@ -144,12 +138,12 @@ public class UrlMaker {
 	 * 
 	 * @return
 	 */
-	protected static String getWeeklyInApp() {
-		if (ConstData.IS_DEBUG == 0)
-			return "http://beta.iweek.ly/api/json/intro";
-		else
-			return "http://iw-cdn-test.iweek.ly/api/json/intro";
-	}
+	// protected static String getWeeklyInApp() {
+	// if (ConstData.IS_DEBUG == 0)
+	// return "http://beta.iweek.ly/api/json/intro";
+	// else
+	// return "http://iw-cdn-test.iweek.ly/api/json/intro";
+	// }
 
 	/**
 	 * 获取某tag信息URL
@@ -360,8 +354,9 @@ public class UrlMaker {
 	 * @return
 	 */
 	public static String getUserSubscribeList(String uid, String token) {
-		return USER_MODEL_URL + "?m=subcribeColumn&a=getUserSubcribeList&uid="
-				+ uid + "&appid=" + ConstData.getInitialAppId() + "&datatype="
+		return USER_MODEL_URL
+				+ "?m=subscribeColumn&a=getUserSubscribeList&uid=" + uid
+				+ "&appid=" + ConstData.getInitialAppId() + "&datatype="
 				+ ConstData.DATA_TYPE + "&token=" + token;
 	}
 
@@ -372,8 +367,9 @@ public class UrlMaker {
 	 * @return
 	 */
 	public static String getAddUserSubscribeList(String uid) {
-		return USER_MODEL_URL + "?m=subcribeColumn&a=saveUserSubcribeList&uid="
-				+ uid + "&appid=" + ConstData.getInitialAppId() + "&datatype="
+		return USER_MODEL_URL
+				+ "?m=subscribeColumn&a=saveUserSubscribeList&uid=" + uid
+				+ "&appid=" + ConstData.getInitialAppId() + "&datatype="
 				+ ConstData.DATA_TYPE;
 	}
 
@@ -384,7 +380,7 @@ public class UrlMaker {
 	 */
 	public static String getUpdateFav(String uid) {
 		return SLATE_BASE_URL + "/Favorites/save?datatype="
-				+ ConstData.DATA_TYPE + "&uid=" + uid + "&appid="
+				+ ConstData.DATA_TYPE + "&uid=" + uid + "&appId="
 				+ ConstData.getInitialAppId() + "&deviceType="
 				+ ConstData.DEVICE_TYPE;
 	}
@@ -396,7 +392,7 @@ public class UrlMaker {
 	 */
 	public static String getFav(String uid) {
 		return SLATE_BASE_URL + "/Favorites/get?datatype="
-				+ ConstData.DATA_TYPE + "&uid=" + uid + "&appid="
+				+ ConstData.DATA_TYPE + "&uid=" + uid + "&appId="
 				+ ConstData.getInitialAppId() + "&deviceType="
 				+ ConstData.DEVICE_TYPE;
 	}

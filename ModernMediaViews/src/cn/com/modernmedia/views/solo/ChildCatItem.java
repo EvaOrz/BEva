@@ -398,7 +398,7 @@ public class ChildCatItem extends RelativeLayout implements
 		if (headView != null) {
 			headView.setPadding(0, 0, 0, 0);
 			headView.invalidate();
-			headView.setData(headList);
+			headView.setData(headList, tagInfo);
 		}
 	}
 

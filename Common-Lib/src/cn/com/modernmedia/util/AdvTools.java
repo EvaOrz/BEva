@@ -3,6 +3,7 @@ package cn.com.modernmedia.util;
 import java.util.List;
 
 import android.text.TextUtils;
+import cn.com.modernmedia.model.AdvList;
 import cn.com.modernmedia.model.AdvList.AdvItem;
 import cn.com.modernmedia.model.AppValue;
 import cn.com.modernmedia.model.ArticleItem;
@@ -70,7 +71,9 @@ public class AdvTools {
 	 */
 	private static boolean parseStarPosition(AdvItem item, String star,
 			int position, String value) {
-		if (position == -1 || TextUtils.isEmpty(star)
+		if (item.getAdvType() == AdvList.BETWEEN_CAT && position == -1)// 只有栏目间广告需要判断position
+			return false;
+		if (TextUtils.isEmpty(star)
 				|| advIsExpired(item.getStartTime(), item.getEndTime()))
 			return false;
 		if (!TextUtils.isEmpty(star)) {

@@ -297,8 +297,7 @@ public class NewFavDb extends SQLiteOpenHelper {
 			cv.put(UID, favorite.getDbData().getUid());
 		else
 			cv.put(UID, uid);
-		cv.put(APPID, favorite.getAppid() == 0 ? ConstData.getInitialAppId()
-				+ "" : favorite.getAppid() + "");
+		cv.put(APPID, ConstData.getInitialAppId() + "");
 		cv.put(DESC, favorite.getDesc());
 		cv.put(FAVDEL, favorite.getFavDel() == 0 ? 0 : 1);
 		if (isDataTransfer)

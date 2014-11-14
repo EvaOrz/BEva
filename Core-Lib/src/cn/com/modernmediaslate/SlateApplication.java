@@ -172,7 +172,6 @@ public class SlateApplication extends Application {
 			mConfig.setHas_qq(ParseUtil.getIntValue(rootDic, "has_qq", 0));
 			mConfig.setIs_index_pager(ParseUtil.getIntValue(rootDic,
 					"is_index_pager", 1));
-			mConfig.setIs_wp_app(ParseUtil.getIntValue(rootDic, "is_wp_app", 0));
 			mConfig.setHas_coin(ParseUtil.getIntValue(rootDic, "has_coin", 0));
 			mConfig.setHas_single_view(ParseUtil.getIntValue(rootDic,
 					"has_single_view", 0));
@@ -205,6 +204,8 @@ public class SlateApplication extends Application {
 					"weixin_public_number", ""));
 			mConfig.setIs_navbar_bg_change(ParseUtil.getIntValue(rootDic,
 					"is_navbar_bg_change", 0));
+			mConfig.setUmeng_key(ParseUtil.getStringValue(rootDic, "umeng_key",
+					""));
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

@@ -168,6 +168,7 @@ public class GetTagInfoOperate extends BaseOperate {
 			property.getVersion().setChangelog(object.optString("changelog"));
 			property.getVersion().setDownload_url(
 					object.optString("download_url"));
+			property.setSplash(object.optString("splash"));
 		}
 		return property;
 	}

@@ -127,6 +127,7 @@ public class AdvList extends Entry {
 		private String sort = "";// 广告类型3对应位置下的顺序，广告类型为2时，代表栏目顺序，广告类型为5时代表文章顺序
 		// "section":2//当广告投放在商周的首页，今日焦点下面的列表时所需的字段，2表示第二个栏目
 		private int section = -1;
+		private int autoClose;
 
 		public int getAdvId() {
 			return advId;
@@ -297,6 +298,14 @@ public class AdvList extends Entry {
 			this.section = section - 1;
 		}
 
+		public int getAutoClose() {
+			return autoClose;
+		}
+
+		public void setAutoClose(int autoClose) {
+			this.autoClose = autoClose;
+		}
+
 		public ArticleItem convertToArticleItem() {
 			ArticleItem item = new ArticleItem();
 			item.setAdv(true);
@@ -306,6 +315,7 @@ public class AdvList extends Entry {
 				item.setDesc(source.getDesc());
 				item.getPicList().add(source.getUrl());
 				item.setSlateLink(source.getLink());
+				item.setSlateLinkList(source.getLinks());
 				item.setAdvSource(source);
 				item.getPosition().setStyle(4);
 				item.setAppid(appId);
@@ -365,6 +375,7 @@ public class AdvList extends Entry {
 		private String link = "";// 资源跳转链接 string
 		private int width;// 资源宽 int
 		private int height;// 资源高 int
+		private List<String> links = new ArrayList<String>();// iweekly视野
 
 		public String getUrl() {
 			return url;
@@ -412,6 +423,14 @@ public class AdvList extends Entry {
 
 		public void setHeight(int height) {
 			this.height = height;
+		}
+
+		public List<String> getLinks() {
+			return links;
+		}
+
+		public void setLinks(List<String> links) {
+			this.links = links;
 		}
 
 	}

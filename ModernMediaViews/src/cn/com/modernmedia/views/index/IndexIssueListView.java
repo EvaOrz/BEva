@@ -4,8 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AbsListView;
-import android.widget.AbsListView.OnScrollListener;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -39,7 +37,6 @@ public class IndexIssueListView implements FetchEntryListener {
 	private int status = DONE;
 	private LayoutInflater inflater;
 	private IssueListAdapter mAdapter;
-	// private IssueListParm mParm;
 	private View view;
 
 	public IndexIssueListView(Context context) {
@@ -55,32 +52,9 @@ public class IndexIssueListView implements FetchEntryListener {
 		initFooter();
 		mAdapter = new IssueListAdapter(mContext);
 		mListView.setAdapter(mAdapter);
-		mListView.setOnScrollListener(new OnScrollListener() {
-
-			@Override
-			public void onScrollStateChanged(AbsListView view, int scrollState) {
-				if (mListView.getFooterViewsCount() == 0)
-					return;
-				if (scrollState == SCROLL_STATE_IDLE) {
-					if (view.getLastVisiblePosition() == (view.getCount() - 1)) {
-						// if (mTagInfoList.getList().size() <
-						// mIssueList.getTotal()
-						// && status == DONE) {
-						// getIssueList(true);
-						// }
-					}
-				}
-			}
-
-			@Override
-			public void onScroll(AbsListView view, int firstVisibleItem,
-					int visibleItemCount, int totalItemCount) {
-			}
-		});
 	}
 
 	private void initFooter() {
-		// mParm = ParseProperties.getInstance(mContext).parseIssueList();
 		mFootView = inflater.inflate(R.layout.pull_to_load_footer, null);
 		foot_text = (TextView) mFootView.findViewById(R.id.footer_text);
 		foot_text.setText(R.string.pull_to_loading);
@@ -89,7 +63,6 @@ public class IndexIssueListView implements FetchEntryListener {
 		mProgressBar = (ProgressBar) mFootView
 				.findViewById(R.id.footer_progressBar);
 		mProgressBar.setVisibility(View.VISIBLE);
-		// mListView.addFooterView(mFootView);
 		mFootView.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -119,15 +92,6 @@ public class IndexIssueListView implements FetchEntryListener {
 		return view;
 	}
 
-	// /**
-	// * 清除首页scrollview设置需要拦截的子scrollview
-	// */
-	// public void removeScroll() {
-	// if (mContext instanceof CommonMainActivity) {
-	// ((CommonMainActivity) mContext).setScrollView(3, null);
-	// }
-	// }
-
 	/**
 	 * 获取往期列表
 	 * 
@@ -152,10 +116,6 @@ public class IndexIssueListView implements FetchEntryListener {
 			// mIssueList.setTotal(issueList.getTotal());
 			mTagInfoList.getList().addAll(issueList.getList());
 			status = DONE;
-			// 所有数据加载完成,移除底部view
-			// if (mTagInfoList.getList().size() == mIssueList.getTotal()) {
-			// mListView.removeFooterView(mFootView);
-			// }
 			if (!isGetMore)
 				((CommonMainActivity) mContext).checkIndexLoading(0);
 			if (ParseUtil.listNotNull(issueList.getList())) {

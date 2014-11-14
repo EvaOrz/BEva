@@ -2,14 +2,15 @@ package cn.com.modernmedia.util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
-import cn.com.modernmedia.CommonArticleActivity;
+import cn.com.modernmedia.CommonApplication;
 import cn.com.modernmedia.CommonArticleActivity.ArticleType;
+import cn.com.modernmedia.model.AdvList.AdvItem;
 import cn.com.modernmedia.util.PageTransfer.TransferArticle;
-import cn.com.modernmedia.widget.CommonWebView;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.unit.ParseUtil;
 
@@ -23,7 +24,7 @@ public class AdvUriParse {
 	public static final String GOTO_ADV_ARTICLE = "goto_adv_article";
 
 	/**
-	 * 跳转到广告文章 slate://adv/tagname/cat_xxx/advId
+	 * 跳转到广告文章 slate://adv/advid
 	 * 
 	 * @param uri
 	 * @return
@@ -32,8 +33,8 @@ public class AdvUriParse {
 		ArrayList<String> list = new ArrayList<String>();
 		if (TextUtils.isEmpty(uri))
 			return list;
-		if (uri.startsWith("slate://adv/tagname")) {
-			String[] array = uri.split("slate://adv/tagname");
+		if (uri.startsWith("slate://adv/")) {
+			String[] array = uri.split("slate://adv/");
 			parseArray(uri, array, list);
 		}
 		return list;
@@ -43,12 +44,28 @@ public class AdvUriParse {
 			ArrayList<String> list) {
 		if (array.length > 1) {
 			String[] param = array[1].split("/");
-			if (param.length == 2) {
+			if (param.length == 1) {
+				if (CommonApplication.advList == null)
+					return;
 				list.add(GOTO_ADV_ARTICLE);
+				AdvItem item = getAdvById(ParseUtil.stoi(param[0]));
+				list.add(item.getTagname());
 				list.add(param[0]);
-				list.add(param[1]);
 			}
 		}
+	}
+
+	private static AdvItem getAdvById(int advId) {
+		Map<Integer, List<AdvItem>> advMap = CommonApplication.advList
+				.getAdvMap();
+		for (int key : advMap.keySet()) {
+			List<AdvItem> list = advMap.get(key);
+			for (AdvItem item : list) {
+				if (item.getAdvId() == advId)
+					return item;
+			}
+		}
+		return null;
 	}
 
 	/**
@@ -76,14 +93,14 @@ public class AdvUriParse {
 
 	private static void doLinkAdv(Context context, List<String> list,
 			Entry[] entries, View view, Class<?>... cls) {
-		int advId = ParseUtil.stoi(list.get(2), -1);
-		if (context instanceof CommonArticleActivity) {
-			if (view instanceof CommonWebView) {
-				((CommonWebView) view).gotoAdv(advId);
-				return;
-			}
-		}
-		TransferArticle tr = new TransferArticle(-1, list.get(1), "", advId,
+		// int advId = ParseUtil.stoi(list.get(2), -1);
+		// if (context instanceof CommonArticleActivity) {
+		// if (view instanceof CommonWebView) {
+		// ((CommonWebView) view).gotoAdv(advId);
+		// return;
+		// }
+		// }
+		TransferArticle tr = new TransferArticle(-1, list.get(1), "", -1,
 				ArticleType.Default);
 		TransferArticle transferArticle = entries.length > 1 ? (TransferArticle) entries[1]
 				: null;

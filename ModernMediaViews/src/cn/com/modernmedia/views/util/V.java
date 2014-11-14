@@ -305,6 +305,11 @@ public class V {
 				// GOODLIFE
 				imageView.setBackgroundColor(DataHelper.columnColorMap.get(info
 						.getTagName()));
+			} else if (info.getAppId() == 12) {
+				// 艺术新闻
+				imageView.setScaleType(ScaleType.CENTER);
+				imageView.setImageBitmap(getCircleBitmap(context,
+						Color.parseColor("#F90000")));
 			} else {
 				imageView.setScaleType(ScaleType.CENTER);
 				imageView.setImageBitmap(getCircleBitmap(context,
@@ -491,33 +496,33 @@ public class V {
 		return new IndexViewHead(context, template);
 	}
 
-//	/**
-//	 * 根据比例获取正确的值
-//	 * 
-//	 * @param value
-//	 * @return
-//	 */
-//	public static int getSize(String value) {
-//		if (TextUtils.isEmpty(value))
-//			return 1;
-//		if (value.contains("width")) {
-//			if (value.contains("*")) {
-//				String[] arr = value.split("\\*");
-//				if (arr.length == 2)
-//					return (int) (CommonApplication.width * ParseUtil
-//							.stof(arr[1]));
-//			}
-//		}
-//		if (value.contains("height")) {
-//			if (value.contains("*")) {
-//				String[] arr = value.split("\\*");
-//				if (arr.length == 2)
-//					return (int) (CommonApplication.height * ParseUtil
-//							.stof(arr[1]));
-//			}
-//		}
-//		return 1;
-//	}
+	// /**
+	// * 根据比例获取正确的值
+	// *
+	// * @param value
+	// * @return
+	// */
+	// public static int getSize(String value) {
+	// if (TextUtils.isEmpty(value))
+	// return 1;
+	// if (value.contains("width")) {
+	// if (value.contains("*")) {
+	// String[] arr = value.split("\\*");
+	// if (arr.length == 2)
+	// return (int) (CommonApplication.width * ParseUtil
+	// .stof(arr[1]));
+	// }
+	// }
+	// if (value.contains("height")) {
+	// if (value.contains("*")) {
+	// String[] arr = value.split("\\*");
+	// if (arr.length == 2)
+	// return (int) (CommonApplication.height * ParseUtil
+	// .stof(arr[1]));
+	// }
+	// }
+	// return 1;
+	// }
 
 	public static Bitmap getCircleBitmap(Context context, int color) {
 		int size = context.getResources().getDimensionPixelSize(R.dimen.dp10);

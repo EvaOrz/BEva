@@ -16,7 +16,9 @@ import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Handler;
 import android.os.Message;
@@ -26,6 +28,7 @@ import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
 import android.view.MotionEvent;
 import android.view.View;
+import android.webkit.DownloadListener;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebSettings;
 import android.webkit.WebSettings.PluginState;
@@ -43,7 +46,6 @@ import cn.com.modernmedia.util.DataHelper;
 import cn.com.modernmedia.util.LogHelper;
 import cn.com.modernmedia.util.ModernMediaTools;
 import cn.com.modernmedia.util.UriParse;
-import cn.com.modernmedia.util.UseLocalDataUtil;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.unit.ParseUtil;
 
@@ -59,7 +61,7 @@ public abstract class CommonWebView extends WebView {
 	private Context mContext;
 	private boolean isChangeStatus = false;
 	private boolean isFetchNull = false;
-	private UseLocalDataUtil useUtil;
+	// private UseLocalDataUtil useUtil;
 	private GestureDetector gestureDetector;
 	private int x, y;
 	private List<String> urlList = new ArrayList<String>();// 图片列表
@@ -160,7 +162,7 @@ public abstract class CommonWebView extends WebView {
 			boolean bgIsTransparent) {
 		super(context, attrs);
 		mContext = context;
-		useUtil = new UseLocalDataUtil(context, this);
+		// useUtil = new UseLocalDataUtil(context, this);
 		init(bgIsTransparent);
 	}
 
@@ -329,6 +331,17 @@ public abstract class CommonWebView extends WebView {
 			// }
 
 		});
+		setDownloadListener(new DownloadListener() {
+
+			@Override
+			public void onDownloadStart(String url, String userAgent,
+					String contentDisposition, String mimetype,
+					long contentLength) {
+				Uri uri = Uri.parse(url);
+				Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+				mContext.startActivity(intent);
+			}
+		});
 	}
 
 	public void startLoad(ArticleItem detail) {
@@ -344,9 +357,9 @@ public abstract class CommonWebView extends WebView {
 		if (TextUtils.isEmpty(url) || !url.startsWith("http")) {
 			return;
 		}
-		if (!useUtil.getLocalHtml(url)) {
-			loadUrl(url);
-		}
+		// if (!useUtil.getLocalHtml(url)) {
+		loadUrl(url);
+		// }
 	}
 
 	@Override

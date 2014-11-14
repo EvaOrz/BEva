@@ -1,6 +1,7 @@
 package cn.com.modernmedia.api;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -99,9 +100,24 @@ public class GetAdvListOperate extends BaseOperate {
 				source.setLink(obj.optString("link", ""));
 				source.setWidth(obj.optInt("width"));
 				source.setHeight(obj.optInt("height"));
+				source.setLinks(parseAdvLinks(obj.optJSONArray("links")));
 				item.getSourceList().add(source);
 			}
 		}
+	}
+
+	private List<String> parseAdvLinks(JSONArray arr) {
+		List<String> links = new ArrayList<String>();
+		if (isNull(arr))
+			return links;
+		int length = arr.length();
+		JSONObject obj;
+		for (int i = 0; i < length; i++) {
+			obj = arr.optJSONObject(i);
+			if (!isNull(obj))
+				links.add(obj.optString("url"));
+		}
+		return links;
 	}
 
 	private void parseTrackerUrl(JSONObject obj, AdvItem item) {

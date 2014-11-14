@@ -54,6 +54,7 @@ public class TagIndexListView implements LoadCallBack, OnScrollListener {
 	private Template template;
 	private String tagName = "";
 	private String top = "";
+	private TagInfo tagInfo;
 	private List<ArticleItem> headList = new ArrayList<ArticleItem>();
 	private boolean hasInitTemplate = false;
 
@@ -227,8 +228,8 @@ public class TagIndexListView implements LoadCallBack, OnScrollListener {
 	 */
 	private void checkShouldInsertSubscribe(TagArticleList dArticleList,
 			boolean loadMore) {
-		TagInfo tagInfo = TagInfoListDb.getInstance(mContext).getTagInfoByName(
-				tagName, "", true);
+		tagInfo = TagInfoListDb.getInstance(mContext).getTagInfoByName(tagName,
+				"", true);
 		if (!loadMore
 				&& V.checkShouldInsertSubscribeArticle(mContext,
 						tagInfo.getTagName())) {
@@ -370,7 +371,7 @@ public class TagIndexListView implements LoadCallBack, OnScrollListener {
 		if (headView != null) {
 			headView.setPadding(0, 0, 0, 0);
 			headView.invalidate();
-			headView.setData(headList);
+			headView.setData(headList, tagInfo);
 			if (!headView.isShouldScroll()
 					&& selfScrollViews.contains(headView)) {
 				selfScrollViews.remove(headView);

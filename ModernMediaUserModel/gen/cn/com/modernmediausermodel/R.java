@@ -634,7 +634,7 @@ public final class R {
         public static int follow_num=0x7f090054;
         public static int follow_success=0x7f090059;
         public static int followed=0x7f090057;
-        /**  我的金币 
+        /**  我的积分 
          */
         public static int get_more_coin=0x7f09008d;
         public static int goto_shop=0x7f090088;
@@ -755,7 +755,7 @@ public final class R {
         public static int userinfo_desc=0x7f090043;
         public static int userinfo_nickname=0x7f090047;
         public static int userinfo_username=0x7f090044;
-        /**  金币商城使用须知 
+        /**  积分商城使用须知 
          */
         public static int welcom_user=0x7f090083;
         public static int write_failed=0x7f090070;
