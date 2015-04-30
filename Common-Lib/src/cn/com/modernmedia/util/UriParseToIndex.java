@@ -89,7 +89,7 @@ public class UriParseToIndex {
 	 */
 	private void getTagInfo(String tagName) {
 		Tools.showLoading(mContext, true);
-		OperateController.getInstance(mContext).getTagInfo(tagName,
+		OperateController.getInstance(mContext).getTagInfo(tagName, true,
 				new FetchEntryListener() {
 
 					@Override

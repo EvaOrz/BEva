@@ -197,6 +197,9 @@ public class CardDetailActivity extends SlateBaseActivity implements
 													.getCommentItemList());
 									mComments.getUserInfoMap().putAll(
 											multiComment.getUserInfoMap());
+								} else { // 没有更多评论项
+									checkCommonsIsNull();
+									return;
 								}
 							} else {
 								mComments = (MultiComment) entry;
@@ -221,7 +224,6 @@ public class CardDetailActivity extends SlateBaseActivity implements
 								showLoadingDialog(false);
 							}
 						}
-						// getUsersInfo(isGetMore);
 					}
 				});
 	}

@@ -56,7 +56,8 @@ public class UriParse {
 	public static final String VIDEO = "video";
 	public static final String ARTICLE = "article";
 	public static final String GALLERY = "gallery";
-	public static final String WEB = "web";
+	public static final String WEB = "web";// 外部浏览器打开
+	public static final String WEBNOSHARE = "webNoShare";// 内部浏览器打开
 
 	// public static final String TAGNAME = "tagname";
 
@@ -158,6 +159,20 @@ public class UriParse {
 	}
 
 	/**
+	 * slate://webNoShare/http://www.standardchartered.com.cn/nextgen/index.html
+	 * 
+	 * @param uri
+	 * @return
+	 */
+	private static String webNoShare(String uri) {
+		String[] Array = uri.split("webNoShare/");
+		if (Array.length == 2) {
+			return Array[1];
+		}
+		return null;
+	}
+
+	/**
 	 * slate://tagname/cat_xxx 跳转到某个栏目
 	 * 
 	 * @param uri
@@ -243,6 +258,11 @@ public class UriParse {
 				list.addAll(gallery(uri));
 			} else if (param[0].equals(WEB)) {
 				String url = web(uri);
+				if (!TextUtils.isEmpty(url)) {
+					list.add(url);
+				}
+			} else if (param[0].equals(WEBNOSHARE)) {
+				String url = webNoShare(uri);
 				if (!TextUtils.isEmpty(url)) {
 					list.add(url);
 				}
@@ -362,8 +382,10 @@ public class UriParse {
 					list.remove(0);
 					doLinkGallery(list, view);
 				} else if (key.equals(WEB)) {
+					// doLinkWeb(context, list.get(1));
+					doLinkHttp(context, list.get(1));
+				} else if (key.equals(WEBNOSHARE)) {
 					doLinkWeb(context, list.get(1));
-					// doLinkHttp(context, list.get(1));
 				} else if (key.equals(COLUMN)) {
 					doTagname(context, list.get(1));
 				} else if (key.equals(FOLLOW)) { // 微博、微信关注

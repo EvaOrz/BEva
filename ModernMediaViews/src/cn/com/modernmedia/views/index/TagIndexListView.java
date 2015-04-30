@@ -450,19 +450,67 @@ public class TagIndexListView implements LoadCallBack, OnScrollListener {
 	}
 
 	/**
+	 * 下拉刷新，获取当前taginfo的更新时间是否变化
+	 */
+	private void getTagInfo() {
+		OperateController.getInstance(mContext).getTagInfo(tagName, false,
+				new FetchEntryListener() {
+
+					@Override
+					public void setData(Entry entry) {
+						if (entry instanceof TagInfoList) {
+							TagInfoList list = (TagInfoList) entry;
+							if (ParseUtil.listNotNull(list.getList())) {
+								checkUpdatetimeIsChanged(list.getList().get(0));
+							} else {
+								onRefreshed(false);
+							}
+						} else {
+							onRefreshed(false);
+						}
+					}
+				});
+	}
+
+	/**
+	 * 判断更新时间是否改变,如果改变了，那么执行刷新
+	 * 
+	 * @param tagInfo
+	 */
+	private void checkUpdatetimeIsChanged(TagInfo tagInfo) {
+		String columnUpdateTime = tagInfo.getColoumnupdatetime();
+		String articleUpdateTime = tagInfo.getArticleupdatetime();
+		String columnUpdateTimeCache = TagDataHelper.getCatIndexUpdateTime(
+				mContext, tagName);
+		String articleUpdateTimeCache = TagDataHelper.getCatArticleUpdateTime(
+				mContext, tagName);
+		if (TextUtils.equals(columnUpdateTimeCache, columnUpdateTime)
+				&& TextUtils.equals(articleUpdateTimeCache, articleUpdateTime)) {
+			// NOTE 未改变
+			onRefreshed(true);
+		} else {
+			AppValue.updateTagInfoUpdateTime(tagInfo);
+			if (indexViewPagerItem != null
+					&& indexViewPagerItem.getTagInfo() != null) {
+				indexViewPagerItem.getTagInfo().setColoumnupdatetime(
+						articleUpdateTime);
+				indexViewPagerItem.getTagInfo().setArticleupdatetime(
+						articleUpdateTime);
+			}
+			if (indexViewPagerItem != null) {
+				indexViewPagerItem.refresh(this);
+			} else if (AppValue.mainProcess != null) {
+				AppValue.mainProcess.getArticleList(
+						AppValue.mainProcess.getCurrTagInfo(), null);
+			}
+		}
+	}
+
+	/**
 	 * 刷新
 	 */
 	private void refresh() {
-		// TODO 清除缓存更新时间
-		TagDataHelper.setCatIndexUpdateTime(mContext, tagName, "");
-		TagDataHelper.setCatArticleUpdateTime(mContext, tagName, "");
-
-		if (indexViewPagerItem != null) {
-			indexViewPagerItem.refresh(this);
-		} else if (AppValue.mainProcess != null) {
-			AppValue.mainProcess.getArticleList(
-					AppValue.mainProcess.getCurrTagInfo(), null);
-		}
+		getTagInfo();
 	}
 
 	/**

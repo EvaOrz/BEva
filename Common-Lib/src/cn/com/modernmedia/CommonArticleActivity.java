@@ -62,7 +62,7 @@ public abstract class CommonArticleActivity extends BaseActivity {
 	private int needDeleteHidden = -1;
 	@SuppressLint("UseSparseArrays")
 	private HashMap<Integer, CallWebStatusChangeListener> listenerMap = new HashMap<Integer, CallWebStatusChangeListener>();
-	protected int currentPosition;
+	protected int currentPosition = -1;
 	private BindFavToUserListener bindFavToUserListener;
 	private boolean isHide = false;
 	protected View currView;
@@ -218,7 +218,7 @@ public abstract class CommonArticleActivity extends BaseActivity {
 	 */
 	private void getTagInfo() {
 		OperateController.getInstance(this).getTagInfo(
-				transferArticle.getTagName(), new FetchEntryListener() {
+				transferArticle.getTagName(), true, new FetchEntryListener() {
 
 					@Override
 					public void setData(Entry entry) {
@@ -742,18 +742,41 @@ public abstract class CommonArticleActivity extends BaseActivity {
 		@Override
 		public void setPrimaryItem(ViewGroup container, int position,
 				Object object) {
+			if (currentPosition == position)
+				return;
+			changePage(currView, false);
+
 			if (object instanceof CommonAtlasView) {
 				viewPager.setPager(getAtlasViewPager(object));
 				currView = (View) object;
 			} else if (object instanceof ArticleDetailItem) {
 				currView = (View) object;
 				viewPager.setArticleDetailItem((ArticleDetailItem) object);
+				changePage(currView, true);
 			} else {
 				currView = null;
 				viewPager.setPager(null);
 				viewPager.setArticleDetailItem(null);
 			}
 			currentPosition = position;
+		}
+
+		private void changePage(View view, boolean push) {
+			if (!(view instanceof ArticleDetailItem))
+				return;
+			ArticleDetailItem detailView = (ArticleDetailItem) view;
+			if (detailView == null
+					|| detailView.getDetail() == null
+					|| detailView.getWebView() == null
+					|| !loadOkIds.contains(detailView.getDetail()
+							.getArticleId())) {
+				return;
+			}
+			if (push) {
+				detailView.getWebView().push();
+			} else {
+				detailView.getWebView().pop();
+			}
 		}
 
 	}
@@ -795,6 +818,8 @@ public abstract class CommonArticleActivity extends BaseActivity {
 	protected abstract AtlasViewPager getAtlasViewPager(Object object);
 
 	protected ArticleItem getArticleByPosition(int position) {
+		if (position == -1)
+			return null;
 		if (list != null && list.size() > position) {
 			return list.get(position);
 		}

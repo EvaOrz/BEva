@@ -53,18 +53,19 @@
             android:src="@drawable/list_item_divider" />
     </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/write_card_weibo"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/bar_height"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="@dimen/dp10"
         android:orientation="horizontal" >
 
         <TextView
+            android:id="@+id/write_card_text_share_weibo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp10"
             android:text="@string/share_to_weibo"
             android:textColor="@android:color/darker_gray"
             android:textSize="@dimen/dp10_textsize" />
@@ -73,10 +74,34 @@
             android:id="@+id/share_to_weibo"
             android:layout_width="@dimen/share_to_weibo_size"
             android:layout_height="@dimen/share_to_weibo_size"
-            android:layout_gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/write_card_text_share_weibo"
             android:contentDescription="@null"
             android:src="@drawable/img_weibo_normal" />
-    </LinearLayout>
+
+        <TextView
+            android:id="@+id/write_card_copy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp10"
+            android:text="@string/copy_text"
+            android:textColor="@color/follow_all"
+            android:textSize="@dimen/dp16_textsize" />
+
+        <TextView
+            android:id="@+id/write_card_copy_article"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp10"
+            android:text="@string/copy_text_to_clipborad"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="@dimen/dp10_textsize"
+            android:visibility="gone" />
+    </RelativeLayout>
 
     <EditText
         android:id="@+id/write_card_content"

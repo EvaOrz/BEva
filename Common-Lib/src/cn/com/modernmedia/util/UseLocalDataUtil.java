@@ -4,7 +4,7 @@ package cn.com.modernmedia.util;
 //文章url:issue_截  加issue_
 //图片：issue_截  加pictures/issue_
 //css,js statics截  加statics/
-public class UseLocalDataUtil {
+//public class UseLocalDataUtil {
 //	public static final String SPLIT = "issue_";
 //	public static final String RES_SPLIT = "statics";
 //	public static final String PICTURES = "pictures/";
@@ -190,4 +190,4 @@ public class UseLocalDataUtil {
 //		}
 //		return html;
 //	}
-}
+//}

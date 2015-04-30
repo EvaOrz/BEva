@@ -1,5 +1,6 @@
 package cn.com.modernmedia.model;
 
+import android.text.TextUtils;
 import cn.com.modernmedia.model.TagInfoList.AppProperty;
 import cn.com.modernmedia.model.TagInfoList.TagInfo;
 import cn.com.modernmedia.newtag.mainprocess.TagBaseMainProcess;
@@ -54,5 +55,27 @@ public class AppValue {
 		mainProcess = null;
 		currColumn = null;
 		uriTagInfoList = new TagInfoList();
+	}
+
+	/**
+	 * 更新tag时间
+	 * 
+	 * @param info
+	 */
+	public static void updateTagInfoUpdateTime(TagInfo info) {
+		updateList(info, defaultColumnList);
+		updateList(info, ensubscriptColumnList);
+		updateList(info, uriTagInfoList);
+	}
+
+	private static void updateList(TagInfo info, TagInfoList list) {
+		String tagName = info.getTagName();
+		for (TagInfo _info : list.getList()) {
+			if (TextUtils.equals(tagName, _info.getTagName())) {
+				_info.setColoumnupdatetime(info.getColoumnupdatetime());
+				_info.setArticleupdatetime(info.getArticleupdatetime());
+				break;
+			}
+		}
 	}
 }

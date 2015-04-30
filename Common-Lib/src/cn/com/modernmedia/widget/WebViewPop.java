@@ -11,6 +11,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.webkit.WebSettings;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.PopupWindow.OnDismissListener;
 import cn.com.modernmedia.R;
 import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.model.ArticleItem.PhonePageList;
@@ -64,6 +65,15 @@ public class WebViewPop {
 		window.setAnimationStyle(R.style.webview_pop);
 		window.update();
 		window.showAtLocation(view, Gravity.BOTTOM, 0, 0);
+
+		window.setOnDismissListener(new OnDismissListener() {
+
+			@Override
+			public void onDismiss() {
+				if (view != null && view.getWebView() != null)
+					view.getWebView().pop();
+			}
+		});
 	}
 
 }

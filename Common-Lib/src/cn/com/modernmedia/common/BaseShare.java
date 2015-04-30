@@ -20,6 +20,10 @@ import cn.com.modernmediaslate.unit.Tools;
 /**
  * app分享基类
  * 
+ * @flag 微博：【文章标题】文章摘要[空格]weburl
+ * @flag 微信（好友/朋友圈）：标题就用文章标题，描述就是文章描述，图就是缩略图，如果文章描述为空，就用文章标题；如果没有缩略图，就用 app icon
+ * @flag 邮件：主题：我在$appname看到了一篇文章，想要分享给你
+ * 
  * @author user
  * 
  */
@@ -63,7 +67,8 @@ public class BaseShare {
 	protected Context mContext;
 	protected ShareTool shareTool;
 	protected ShareDialog shareDialog;
-	protected Bitmap mBitmap;
+	protected Bitmap serverBitmap;// 服务器端的图片
+	protected Bitmap iconBitmap;// icon图片 只有微信微博在没有服务器端图片的情况下可以使用icon代替
 	protected ArticleItem item;
 
 	public BaseShare(Context context, ArticleItem articleItem,
@@ -85,7 +90,7 @@ public class BaseShare {
 	 */
 	protected void prepareShareAfterFetchBitmap(String url) {
 		if (TextUtils.isEmpty(url)) {
-			mBitmap = getAppIcon();
+			iconBitmap = getAppIcon();
 			afterFetchBitmap();
 			return;
 		}
@@ -99,13 +104,13 @@ public class BaseShare {
 
 					@Override
 					public void loadOk(Bitmap bitmap, NinePatchDrawable drawable) {
-						mBitmap = bitmap;
+						serverBitmap = bitmap;
 						afterFetchBitmap();
 					}
 
 					@Override
 					public void loadError() {
-						mBitmap = getAppIcon();
+						iconBitmap = getAppIcon();
 						afterFetchBitmap();
 					}
 				});
@@ -132,8 +137,9 @@ public class BaseShare {
 			shareTool.shareToFriend(item.getDesc());
 		} else {
 			checkIfShreByWeixin();
+			Bitmap bitmap = serverBitmap == null ? iconBitmap : serverBitmap;
 			WeixinShare.getInstance(mContext).shareImageAndTextToWeixin(
-					item.getTitle(), item.getDesc(), item.getWeburl(), mBitmap,
+					item.getTitle(), item.getDesc(), item.getWeburl(), bitmap,
 					false);
 		}
 	}
@@ -142,12 +148,13 @@ public class BaseShare {
 	 * 微信朋友圈分享
 	 */
 	public void shareByFriends() {
+		Bitmap bitmap = serverBitmap == null ? iconBitmap : serverBitmap;
 		if (CommonApplication.mConfig.getHas_weixin() != 1) {
-			shareTool.shareToMoments(mBitmap);
+			shareTool.shareToMoments(bitmap);
 		} else {
 			checkIfShreByWeixin();
 			WeixinShare.getInstance(mContext).shareImageAndTextToWeixin(
-					item.getTitle(), item.getDesc(), item.getWeburl(), mBitmap,
+					item.getTitle(), item.getDesc(), item.getWeburl(), bitmap,
 					true);
 		}
 	}

@@ -68,6 +68,7 @@ public abstract class CommonWebView extends WebView {
 	private boolean hasLoadFromHttp = false;// 防止无限获取http
 	private boolean isError = false;// 因为disProcess会延迟0.5S,所以判断一下
 	private boolean isSlateWeb = false;// 是否是slate内部浏览器，true,拦截http请求
+	private boolean hasPush;
 
 	final class InJavaScriptLocalObj {
 		public void showSource(final String html) {
@@ -244,6 +245,9 @@ public abstract class CommonWebView extends WebView {
 				if (loadOk) {
 					cancelTimer();
 					getSettings().setBlockNetworkImage(false);
+					if (isSlateWeb) {
+						push();
+					}
 					if (mContext instanceof CommonArticleActivity) {
 						((CommonArticleActivity) mContext).addLoadOkIds(detail
 								.getArticleId());
@@ -255,6 +259,8 @@ public abstract class CommonWebView extends WebView {
 									detail.getTagName(), detail.getArticleId()
 											+ "");
 							AdvTools.requestImpression(detail);
+							if (!isSlateWeb)
+								push();
 						}
 					}
 					changeFont();
@@ -506,6 +512,34 @@ public abstract class CommonWebView extends WebView {
 		}
 		String url = "javascript:setLineHeight("
 				+ DataHelper.getLineHeight(mContext) + ");";
+		isChangeStatus = true;
+		this.loadUrl(url);
+	}
+
+	/**
+	 * push动画
+	 */
+	public void push() {
+		if (!loadOk || hasPush) {
+			isChangeStatus = true;
+			return;
+		}
+		String url = "javascript:iSlate.push()";
+		isChangeStatus = true;
+		hasPush = true;
+		this.loadUrl(url);
+	}
+
+	/**
+	 * pop动画
+	 */
+	public void pop() {
+		if (!loadOk) {
+			isChangeStatus = true;
+			return;
+		}
+		hasPush = false;
+		String url = "javascript:iSlate.pop()";
 		isChangeStatus = true;
 		this.loadUrl(url);
 	}

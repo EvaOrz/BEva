@@ -41,8 +41,8 @@
     <string name="share_picture_fail">图片分享失败</string>
     <string name="share_to_gallery">保存到相册</string>
     <string name="save_picture_success">图片已保存</string>
-    <string name="save_picture_fail">图片保存失败</string>
-    <string name="share_none_component">分享失败</string>
+    <string name="save_picture_fail">图片保存失败,请检查网络</string>
+    <string name="share_none_component">分享失败,请检查网络</string>
     <string name="share_email_html">&lt;div style=\"wi&lt;dth:300px;font-size:14px;\">Hi，&lt;br />我在iWeekly·周末画报 for
         Android中发现了这篇文章，想与你分享:&lt;br />&lt;br />&lt;strong>%1$s&lt;/strong>&lt;br />&lt;br />%2$s&lt;br />&lt;br
         />=======================&lt;br/>本文来自全球领先的时尚生活方式媒体&lt;br />&lt;strong>iWeekly·周末画报 for Android&lt;/strong>&lt;br/>您可以访问我们的官方网站获取详情

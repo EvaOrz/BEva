@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +25,6 @@ public class IndexViewPagerAdapter extends MyPagerAdapter<TagInfo> {
 	private Context mContext;
 	private int currentPosition = -1;
 	// 保存已经获得的列表数据
-	@SuppressLint("UseSparseArrays")
 	private Map<String, Entry> indexMap = new HashMap<String, Entry>();
 	private Map<String, Entry> articleMap = new HashMap<String, Entry>();
 	private IndexViewPagerItem currentIndexViewPagerItem;

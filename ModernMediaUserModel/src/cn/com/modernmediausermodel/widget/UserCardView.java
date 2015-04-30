@@ -14,6 +14,7 @@ import android.widget.TextView;
 import cn.com.modernmedia.widget.CheckFooterListView;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.model.ErrorMsg;
+import cn.com.modernmediaslate.unit.ParseUtil;
 import cn.com.modernmediaslate.unit.Tools;
 import cn.com.modernmediausermodel.CardDetailActivity;
 import cn.com.modernmediausermodel.R;
@@ -22,6 +23,7 @@ import cn.com.modernmediausermodel.db.UserCardInfoDb;
 import cn.com.modernmediausermodel.listener.CardViewListener;
 import cn.com.modernmediausermodel.listener.UserFetchEntryListener;
 import cn.com.modernmediausermodel.model.Card;
+import cn.com.modernmediausermodel.model.Card.CardItem;
 import cn.com.modernmediausermodel.model.User;
 import cn.com.modernmediausermodel.model.UserCardInfoList;
 import cn.com.modernmediausermodel.model.UserCardInfoList.UserCardInfo;
@@ -108,6 +110,20 @@ public class UserCardView implements OnClickListener, CardViewListener {
 					boolean isPull) {
 				super.getCardList(timelineId, isGetMore, isPull);
 				myGetCardList(timelineId, isGetMore, isPull);
+			}
+
+			@Override
+			public void afterGetCardList(Entry entry, String timeLine,
+					boolean isGetMore, boolean isPull) {
+				super.afterGetCardList(entry, timeLine, isGetMore, isPull);
+				boolean isPullOrDown = isPull || isGetMore;// 下拉刷新或者加载更多时，同时更新用户卡片信息
+				if (isPullOrDown && entry instanceof Card) {
+					List<CardItem> list = ((Card) entry).getCardItemList();
+					if (ParseUtil.listNotNull(list)) {
+						getUserCardInfo(true);
+					}
+				}
+
 			}
 
 		};

@@ -20,6 +20,7 @@ import cn.com.modernmedia.R;
 import cn.com.modernmedia.adapter.ShareAdapter;
 import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.model.ShareDialogItem;
+import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmediaslate.unit.ParseUtil;
 import cn.com.modernmediaslate.unit.Tools;
 
@@ -147,7 +148,7 @@ public abstract class ShareDialog {
 		initDefaultApps(false);
 		packList.clear();
 		Intent shareIntent = new Intent(Intent.ACTION_SEND);
-		shareIntent.setType(bitmap == null ? "text/*" : "image/*");
+		shareIntent.setType("text/*");
 		List<ResolveInfo> resInfo = mContext.getPackageManager()
 				.queryIntentActivities(shareIntent, 0);
 		if (!resInfo.isEmpty()) {
@@ -155,7 +156,7 @@ public abstract class ShareDialog {
 				addIntent(info, Intent.ACTION_SEND);
 			}
 		}
-		if (bitmap != null) {
+		if (bitmap != null && ConstData.getAppId() == 20) {
 			// 记录能浏览、保存图片的app
 			Intent galleryIntent = new Intent(Intent.ACTION_VIEW);
 			galleryIntent.setType("image/*");

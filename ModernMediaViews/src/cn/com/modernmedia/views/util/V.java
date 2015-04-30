@@ -1,5 +1,6 @@
 package cn.com.modernmedia.views.util;
 
+import java.lang.ref.SoftReference;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.NinePatchDrawable;
 import android.text.TextUtils;
+import android.util.SparseArray;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
@@ -64,6 +66,11 @@ public class V {
 	public static final int ID_HTTP = -3;
 
 	public static final int RADIUS = 19;
+
+	/**
+	 * 保存自己创建的bitmap
+	 */
+	public static SparseArray<SoftReference<Bitmap>> bitmapCache = new SparseArray<SoftReference<Bitmap>>();
 
 	/**
 	 * 列表点击
@@ -241,6 +248,29 @@ public class V {
 				&& DataHelper.columnColorMap.containsKey(tagName)) {
 			color = DataHelper.columnColorMap.get(tagName);
 		}
+
+		SoftReference<Bitmap> srBitmap = bitmapCache.get(color);
+		if (srBitmap != null) {
+			if (srBitmap.get() != null) {
+				imageView.setImageBitmap(srBitmap.get());
+				return;
+			}
+			bitmapCache.remove(color);
+		}
+		Bitmap bitmap = createRowBitmap(color);
+		if (bitmap != null) {
+			bitmapCache.put(color, new SoftReference<Bitmap>(bitmap));
+			imageView.setImageBitmap(bitmap);
+		}
+	}
+
+	/**
+	 * 创建箭头图片
+	 * 
+	 * @param color
+	 * @return
+	 */
+	private static Bitmap createRowBitmap(int color) {
 		Bitmap output = Bitmap.createBitmap(RADIUS * 2, RADIUS * 2,
 				Config.ARGB_8888);
 		Canvas canvas = new Canvas(output);
@@ -262,7 +292,7 @@ public class V {
 		path.lineTo(RADIUS - 10, RADIUS + 2);
 		path.close();
 		canvas.drawPath(path, paint);
-		imageView.setImageBitmap(output);
+		return output;
 	}
 
 	/**
@@ -495,34 +525,6 @@ public class V {
 			Template template) {
 		return new IndexViewHead(context, template);
 	}
-
-	// /**
-	// * 根据比例获取正确的值
-	// *
-	// * @param value
-	// * @return
-	// */
-	// public static int getSize(String value) {
-	// if (TextUtils.isEmpty(value))
-	// return 1;
-	// if (value.contains("width")) {
-	// if (value.contains("*")) {
-	// String[] arr = value.split("\\*");
-	// if (arr.length == 2)
-	// return (int) (CommonApplication.width * ParseUtil
-	// .stof(arr[1]));
-	// }
-	// }
-	// if (value.contains("height")) {
-	// if (value.contains("*")) {
-	// String[] arr = value.split("\\*");
-	// if (arr.length == 2)
-	// return (int) (CommonApplication.height * ParseUtil
-	// .stof(arr[1]));
-	// }
-	// }
-	// return 1;
-	// }
 
 	public static Bitmap getCircleBitmap(Context context, int color) {
 		int size = context.getResources().getDimensionPixelSize(R.dimen.dp10);

@@ -217,6 +217,27 @@ public class TagInfoListDb extends TagDbListenerImplement {
 		}
 	}
 
+	/**
+	 * 更新taginfo
+	 * 
+	 * @param entry
+	 * @param type
+	 */
+	public void updateEntry(Entry entry, TAG_TYPE type) {
+		if (!(entry instanceof TagInfo))
+			return;
+		TagInfo info = (TagInfo) entry;
+		SQLiteDatabase db = this.getWritableDatabase();
+		try {
+			ContentValues cv = createContentValues(info, type);
+			db.update(TABLE_NAME, cv, TAG_NAME + "=? and " + PARENT_TAG + "=?",
+					new String[] { info.getTagName(), info.getParent() });
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+		}
+	}
+
 	@Override
 	public ContentValues createContentValues(Object... obj) throws Exception {
 		ContentValues cv = new ContentValues();

@@ -149,4 +149,8 @@ public abstract class ArticleDetailItem extends BaseView implements
 		return errorType;
 	}
 
+	public ArticleItem getDetail() {
+		return detail;
+	}
+
 }

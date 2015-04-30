@@ -32,7 +32,7 @@
         android:layout_below="@+id/pager_item_head_frame_divider"
         android:background="@color/white_bg"
         android:visibility="gone" >
-
+ 
         <ProgressBar
             android:id="@+id/pager_item_loading"
             android:layout_width="wrap_content"

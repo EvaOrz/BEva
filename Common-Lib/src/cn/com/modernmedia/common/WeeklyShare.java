@@ -2,6 +2,7 @@ package cn.com.modernmedia.common;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.text.TextUtils;
 import cn.com.modernmedia.CommonArticleActivity;
 import cn.com.modernmedia.R;
@@ -22,7 +23,7 @@ public class WeeklyShare extends BaseShare {
 
 	@Override
 	protected void afterFetchBitmap() {
-		shareDialog.showShareDialog(mBitmap);
+		shareDialog.showShareDialog(serverBitmap);
 	}
 
 	/**
@@ -53,7 +54,8 @@ public class WeeklyShare extends BaseShare {
 			// iweekly文章分享，新浪微博文章截图
 			shareTool.shareWithScreen(content, item.getBottomResId());
 		} else {
-			shareTool.shareWithSina(content, mBitmap);
+			Bitmap bitmap = serverBitmap == null ? iconBitmap : serverBitmap;
+			shareTool.shareWithSina(content, bitmap);
 		}
 	}
 
@@ -74,10 +76,10 @@ public class WeeklyShare extends BaseShare {
 				item.getTitle(), item.getDesc(), "");
 
 		if (shareType.equals("01")) {
-			shareTool.shareByMail(intent, item.getTitle(), emailBody, mBitmap);
+			shareTool.shareByMail(intent, item.getTitle(), emailBody, null);
 			shareDialog.logAndroidShareToMail("", "");
 		} else {
-			shareTool.shareWithoutMail(intent, extraText, mBitmap);
+			shareTool.shareWithoutMail(intent, extraText, null);
 		}
 	}
 

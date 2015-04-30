@@ -89,6 +89,9 @@
     <string name="collect_failed">收藏失败</string>
     <string name="uncollect_success">取消收藏成功</string>
     <string name="uncollect_failed">取消收藏失败</string>
+    <string name="copy_text_success">已复制</string>
+    <string name="copy_text">复制文字</string>
+    <string name="copy_text_to_clipborad">已复制到剪贴板</string>
 
     <!-- 通知中心 -->
     <string name="message_no_message">没有未读通知</string>

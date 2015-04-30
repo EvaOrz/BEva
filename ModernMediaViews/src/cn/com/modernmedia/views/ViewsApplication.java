@@ -19,6 +19,7 @@ import cn.com.modernmedia.views.listener.ChildCatClickListener;
 import cn.com.modernmedia.views.listener.ColumnChangedListener;
 import cn.com.modernmedia.views.listener.FlowPositionChangedListener;
 import cn.com.modernmedia.views.listener.NotifyLastestChangeListener;
+import cn.com.modernmedia.views.util.V;
 import cn.com.modernmediausermodel.UserApplication;
 import cn.com.modernmediausermodel.db.CardListByArtilceIdDb;
 import cn.com.modernmediausermodel.db.RecommendCardDb;
@@ -88,5 +89,6 @@ public class ViewsApplication extends CommonApplication {
 		TagBaseMainProcess.clear();
 		columnChangedListener = null;
 		navObservable.deleteObservers();
+		V.bitmapCache.clear();
 	}
 }

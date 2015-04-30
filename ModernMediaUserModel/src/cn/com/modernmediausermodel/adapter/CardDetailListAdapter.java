@@ -85,6 +85,9 @@ public class CardDetailListAdapter extends CheckScrollAdapter<CommentItem> {
 	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem,
 			int visibleItemCount, int totalItemCount) {
+		View lastChild = view.getChildAt(visibleItemCount - 1);
+		if (lastChild == null || lastChild.getBottom() != view.getBottom())
+			return;
 		// 滑动到底部时，加载更多
 		if (firstVisibleItem + visibleItemCount == totalItemCount
 				&& totalItemCount >= UserConstData.MAX_CARD_ITEM_COUNT
@@ -100,5 +103,4 @@ public class CardDetailListAdapter extends CheckScrollAdapter<CommentItem> {
 			}
 		}
 	}
-
 }

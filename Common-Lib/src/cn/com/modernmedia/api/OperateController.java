@@ -181,14 +181,15 @@ public class OperateController {
 	}
 
 	/**
-	 * 获取tag信息 默认取缓存，如果应用更新时间变了，会统一清缓存
+	 * 获取tag信息 默认取缓存，如果应用更新时间变了，会统一清缓存(下拉刷新不使用缓存)
 	 * 
 	 * @param listener
 	 */
-	public void getTagInfo(String tagName, FetchEntryListener listener) {
+	public void getTagInfo(String tagName, boolean useCache,
+			FetchEntryListener listener) {
 		GetTagInfoOperate operate = new GetTagInfoOperate("", tagName, "", "",
 				TAG_TYPE.TAG_INFO);
-		doRequest(operate, operate.getTagInfoList(), true, listener);
+		doRequest(operate, operate.getTagInfoList(), useCache, listener);
 	}
 
 	/**

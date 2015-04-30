@@ -2,6 +2,7 @@ package cn.com.modernmedia.common;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.text.TextUtils;
 import cn.com.modernmedia.R;
 import cn.com.modernmedia.model.ArticleItem;
@@ -13,6 +14,7 @@ import cn.com.modernmediaslate.unit.ParseUtil;
  * @flag 微博：【文章标题】文章摘要[空格]weburl
  * @flag 微信（好友/朋友圈）：标题就用文章标题，描述就是文章描述，图就是缩略图，如果文章描述为空，就用文章标题；如果没有缩略图，就用 app icon
  * @flag 邮件：主题：我在$appname看到了一篇文章，想要分享给你
+ * @flag 除了微信、微博、保存图片,其他分享都不传图片
  * 
  * @author user
  * 
@@ -26,7 +28,7 @@ public class NormalShare extends BaseShare {
 
 	@Override
 	protected void afterFetchBitmap() {
-		shareDialog.showShareDialog(mBitmap);
+		shareDialog.showShareDialog(serverBitmap);
 	}
 
 	@Override
@@ -48,7 +50,8 @@ public class NormalShare extends BaseShare {
 
 	@Override
 	protected void shareToWeiBo(String content) {
-		shareTool.shareWithSina(content, mBitmap);
+		Bitmap bitmap = serverBitmap == null ? iconBitmap : serverBitmap;
+		shareTool.shareWithSina(content, bitmap);
 	}
 
 	@Override
@@ -59,11 +62,11 @@ public class NormalShare extends BaseShare {
 		String shareType = getShareType(intent, pack);
 		if (shareType.equals("01")) {
 			shareTool.shareByMail(intent, getEmailTitle(), getWeiBoContent(),
-					mBitmap);
+					null);
 			shareDialog.logAndroidShareToMail(item.getArticleId() + "",
 					item.getTagName());
 		} else {
-			shareTool.shareWithoutMail(intent, getWeiBoContent(), mBitmap);
+			shareTool.shareWithoutMail(intent, getWeiBoContent(), null);
 		}
 	}
 

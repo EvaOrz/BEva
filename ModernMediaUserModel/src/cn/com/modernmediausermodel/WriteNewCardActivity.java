@@ -3,16 +3,21 @@ package cn.com.modernmediausermodel;
 import java.util.Calendar;
 
 import android.app.Activity;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import cn.com.modernmedia.util.sina.SinaAPI;
 import cn.com.modernmedia.util.sina.SinaAuth;
 import cn.com.modernmedia.util.sina.SinaRequestListener;
@@ -51,6 +56,8 @@ public class WriteNewCardActivity extends SlateBaseActivity implements
 	private SinaAuth weiboAuth;
 	private SinaAPI sinaAPI;
 	private String articleId; // 文章摘要分享时使用
+	private TextView weiboText, copyText, copyArticleText;
+	private boolean isCopied = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +81,9 @@ public class WriteNewCardActivity extends SlateBaseActivity implements
 						content = content.replace("{:" + articleId + ":}", "");
 					}
 					contentEdit.setText(content);
+					if (!TextUtils.isEmpty(articleId)) {
+						showMessage(content);
+					}
 					contentEdit.setSelection(content.length());
 				}
 			}
@@ -91,14 +101,17 @@ public class WriteNewCardActivity extends SlateBaseActivity implements
 		completeBtn = (Button) findViewById(R.id.write_card_complete);
 		contentEdit = (EditText) findViewById(R.id.write_card_content);
 		shareBtn = (ImageView) findViewById(R.id.share_to_weibo);
+		weiboText = (TextView) findViewById(R.id.write_card_text_share_weibo);
+		copyText = (TextView) findViewById(R.id.write_card_copy);
+		copyArticleText = (TextView) findViewById(R.id.write_card_copy_article);
 		cancelBtn.setOnClickListener(this);
 		completeBtn.setOnClickListener(this);
 		shareBtn.setOnClickListener(this);
-		contentEdit.requestFocus();
 		// 分享到微博栏，当应用不支持微博时，隐藏
-		View weiBoLayout = findViewById(R.id.write_card_weibo);
 		if (SlateApplication.mConfig.getHas_sina() != 1) {
-			weiBoLayout.setVisibility(View.GONE);
+			// weiBoLayout.setVisibility(View.GONE);
+			weiboText.setVisibility(View.GONE);
+			shareBtn.setVisibility(View.GONE);
 		} else {
 			weiboAuth = new SinaAuth(this);
 			User user = UserDataHelper.getUserLoginInfo(this);
@@ -118,6 +131,56 @@ public class WriteNewCardActivity extends SlateBaseActivity implements
 				}
 			});
 		}
+		contentEdit.addTextChangedListener(new MyTextWatcher());
+		contentEdit.requestFocus();
+		copyText.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				doCopy(!isCopied);
+			}
+		});
+	}
+
+	private void showMessage(String content) {
+		ClipboardManager board = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+		board.setText(content);
+		copyArticleText.setVisibility(View.VISIBLE);
+		copyText.setVisibility(View.GONE);
+		new Handler().postDelayed(new Runnable() {
+
+			@Override
+			public void run() {
+				copyArticleText.setVisibility(View.GONE);
+				copyText.setVisibility(View.VISIBLE);
+				doCopy(true);
+			}
+		}, 2000);
+	}
+
+	private void doCopy(boolean copy) {
+		ClipboardManager board = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+		if (copy) { // 复制
+			String text = contentEdit.getText().toString();
+			if (TextUtils.isEmpty(text)) {
+				return;
+			}
+
+			board.setText(text);
+			contentEdit.selectAll();
+			copyText.setText(R.string.copy_text_success);
+			copyText.setTextColor(getResources().getColor(
+					android.R.color.darker_gray));
+			isCopied = true;
+			copyText.setClickable(false);
+		} else {
+			copyText.setText(R.string.copy_text);
+			copyText.setTextColor(getResources().getColor(R.color.follow_all));
+			contentEdit.setSelection(0);
+			isCopied = false;
+			copyText.setClickable(true);
+		}
+
 	}
 
 	@Override
@@ -223,5 +286,31 @@ public class WriteNewCardActivity extends SlateBaseActivity implements
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
+	}
+
+	class MyTextWatcher implements TextWatcher {
+
+		@Override
+		public void beforeTextChanged(CharSequence s, int start, int count,
+				int after) {
+			setTextVisible(s);
+		}
+
+		@Override
+		public void onTextChanged(CharSequence s, int start, int before,
+				int count) {
+			if (isCopied)
+				doCopy(false);
+		}
+
+		@Override
+		public void afterTextChanged(Editable s) {
+			setTextVisible(contentEdit.getText().toString());
+		}
+
+		private void setTextVisible(CharSequence s) {
+			int visibility = TextUtils.isEmpty(s) ? View.GONE : View.VISIBLE;
+			copyText.setVisibility(visibility);
+		}
 	}
 }
