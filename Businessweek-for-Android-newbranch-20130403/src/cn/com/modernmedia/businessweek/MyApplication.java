@@ -34,6 +34,7 @@ public class MyApplication extends ViewsApplication {
 
 		PushService.subscribe(this, "businessweek_" + ConstData.VERSION,
 				MainActivity.class, R.drawable.icon_36);
+
 		PushService.setDefaultPushCallback(this, MainActivity.class);
 		mContext = this.getApplicationContext();
 	}

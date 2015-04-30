@@ -109,9 +109,6 @@ public class IndexViewPager extends CircularViewPager<TagInfo> implements
 				break;
 			}
 		}
-		if (position == 0) {
-			position = catItems.size() - 2;
-		}
 		if (position == -1 && isUri) {
 			new UriParseToIndex(mContext, new UriParseToIndexListener() {
 
@@ -126,7 +123,7 @@ public class IndexViewPager extends CircularViewPager<TagInfo> implements
 				}
 			}).findTagWhenDidnotFind(tagName);
 		} else {
-			position = position == -1 ? 1 : position;
+			position = position == -1 ? 0 : position;
 			this.setCurrentItem(position, false);
 			setTitle(position);
 		}
@@ -177,7 +174,7 @@ public class IndexViewPager extends CircularViewPager<TagInfo> implements
 			Rect rect = new Rect();
 			// 获取该gallery相对于全局的坐标点
 			view.getGlobalVisibleRect(rect);
-			if (rect.contains((int) ev.getX(), (int) ev.getY())) {
+			if (rect.contains((int) ev.getRawX(), (int) ev.getRawY())) {
 				return true;
 			}
 		}

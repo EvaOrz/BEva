@@ -54,7 +54,8 @@
             android:layout_weight="1"
             android:background="#0000003D"
             android:scaleType="fitCenter"
-            android:src="@drawable/stepbackward" />
+            android:src="@drawable/stepbackward"
+            android:visibility="gone" />
 
         <ImageButton
             android:id="@+id/button3"
@@ -73,7 +74,8 @@
             android:layout_weight="1"
             android:background="#0000003D"
             android:scaleType="fitCenter"
-            android:src="@drawable/stepforward" />
+            android:src="@drawable/stepforward"
+            android:visibility="gone" />
     </LinearLayout>
 
 </LinearLayout>

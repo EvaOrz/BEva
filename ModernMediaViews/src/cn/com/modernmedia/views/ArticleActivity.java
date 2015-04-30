@@ -172,7 +172,7 @@ public class ArticleActivity extends CommonArticleActivity {
 		dArticleList.insertSubscribeArticle(this, sArticleList, false);
 		list = dArticleList.getArticleList();
 		if (ParseUtil.listNotNull(list)) {
-			getPosition(true);
+			getPosition();
 		}
 	}
 

@@ -55,10 +55,11 @@ public class IndexViewPagerAdapter extends MyPagerAdapter<TagInfo> {
 	}
 
 	@Override
-	public void setPrimaryItem(ViewGroup container, int position, Object object) {
-		if (currentPosition == position)
+	public void setPrimaryItem(ViewGroup container, int loopPosition,
+			int realPosition, Object object) {
+		if (currentPosition == loopPosition)
 			return;
-		currentPosition = position;
+		currentPosition = loopPosition;
 		if (object instanceof View
 				&& ((View) object).getTag() instanceof IndexViewPagerItem) {
 			currentIndexViewPagerItem = (IndexViewPagerItem) ((View) object)
@@ -76,29 +77,29 @@ public class IndexViewPagerAdapter extends MyPagerAdapter<TagInfo> {
 	 */
 	public void addArticleListToMap(String tagName, TagArticleList articleList,
 			boolean more, boolean isIndex) {
-		Map<String, Entry> map = isIndex ? indexMap : articleMap;
-		if (!more) {
-			if (map.containsKey(tagName)) {
-				map.remove(tagName);
-			}
-		} else {
-			if (map.containsKey(tagName)) {
-				if (map.get(tagName) instanceof TagArticleList) {
-					TagArticleList curr = (TagArticleList) map.get(tagName);
-					for (int key : curr.getMap().keySet()) {
-						if (articleList.hasData(key)) {
-							curr.getMap().get(key)
-									.addAll(articleList.getMap().get(key));
-						}
-					}
-					curr.setEndOffset(articleList.getEndOffset());
-					map.remove(tagName);
-					map.put(tagName, curr);
-					return;
-				}
-			}
-		}
-		map.put(tagName, articleList);
+		// Map<String, Entry> map = isIndex ? indexMap : articleMap;
+		// if (!more) {
+		// if (map.containsKey(tagName)) {
+		// map.remove(tagName);
+		// }
+		// } else {
+		// if (map.containsKey(tagName)) {
+		// if (map.get(tagName) instanceof TagArticleList) {
+		// TagArticleList curr = (TagArticleList) map.get(tagName);
+		// for (int key : curr.getMap().keySet()) {
+		// if (articleList.hasData(key)) {
+		// curr.getMap().get(key)
+		// .addAll(articleList.getMap().get(key));
+		// }
+		// }
+		// curr.setEndOffset(articleList.getEndOffset());
+		// map.remove(tagName);
+		// map.put(tagName, curr);
+		// return;
+		// }
+		// }
+		// }
+		// map.put(tagName, articleList);
 	}
 
 	/**
@@ -109,26 +110,26 @@ public class IndexViewPagerAdapter extends MyPagerAdapter<TagInfo> {
 	 */
 	public void addChildrenTopMap(String tagName, TagInfoList tagInfoList,
 			boolean isIndex) {
-		Map<String, Entry> map = isIndex ? indexMap : articleMap;
-		if (map.containsKey(tagName)) {
-			map.remove(tagName);
-		}
-		map.put(tagName, tagInfoList);
+		// Map<String, Entry> map = isIndex ? indexMap : articleMap;
+		// if (map.containsKey(tagName)) {
+		// map.remove(tagName);
+		// }
+		// map.put(tagName, tagInfoList);
 	}
 
 	public Entry getEntryFromMap(String tagName, boolean isIndex) {
-		Map<String, Entry> map = isIndex ? indexMap : articleMap;
-		if (map.containsKey(tagName)) {
-			return map.get(tagName);
-		}
+		// Map<String, Entry> map = isIndex ? indexMap : articleMap;
+		// if (map.containsKey(tagName)) {
+		// return map.get(tagName);
+		// }
 		return null;
 	}
 
 	public void removeEntryFromMap(String tagName, boolean isIndex) {
-		Map<String, Entry> map = isIndex ? indexMap : articleMap;
-		if (map.containsKey(tagName)) {
-			map.remove(tagName);
-		}
+		// Map<String, Entry> map = isIndex ? indexMap : articleMap;
+		// if (map.containsKey(tagName)) {
+		// map.remove(tagName);
+		// }
 	}
 
 	public List<View> getSelfScrollViews() {

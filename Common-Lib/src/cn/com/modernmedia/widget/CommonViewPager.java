@@ -1,11 +1,11 @@
 package cn.com.modernmedia.widget;
 
 import android.content.Context;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
 import android.view.MotionEvent;
+import cn.com.modernmedia.model.ArticleItem;
 
 /**
  * 自定义viewpager，拦截gallery滑动事件
@@ -13,7 +13,7 @@ import android.view.MotionEvent;
  * @author ZhuQiao
  * 
  */
-public class CommonViewPager extends ViewPager {
+public class CommonViewPager extends CircularViewPager<ArticleItem> {
 	private AtlasViewPager pager;// 图集
 	private ArticleDetailItem articleDetailItem;// 文章
 	private float lastX;
@@ -98,4 +98,5 @@ public class CommonViewPager extends ViewPager {
 		}
 		return super.onInterceptTouchEvent(event);
 	}
+
 }

@@ -230,6 +230,75 @@ public class TagInfoList extends Entry {
 	}
 
 	/**
+	 * 判断订阅状态是否一致
+	 * 
+	 * @param o
+	 * @return
+	 */
+	public boolean checkStatusIsSame(TagInfoList o) {
+		List<TagInfo> list = o.getList();
+		List<TagInfo> currList = getList();
+		for (int i = 0; i < list.size(); i++) {
+			TagInfo info = list.get(i);
+			if (info.getTagLevel() != 1)
+				continue;
+			if (info.getHaveChildren() == 1) {
+				// 父栏目，那么判断子栏目订阅状态是否一致
+				if (!checkChildStatusIsSame(o, info.getTagName()))
+					return false;
+			} else {
+				// 只有不是父栏目的一级栏目才判断isFix
+				if (info.getIsFix() == 1)
+					continue;
+				if (info.getColumnProperty().getNoColumn() == 1)
+					continue;
+				// 普通一级栏目，直接判断订阅状态是否一致
+				if (currList.size() > i) {
+					TagInfo curr = currList.get(i);
+					if (curr.getHasSubscribe() != info.getHasSubscribe())
+						return false;
+				} else {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * 判断所有子栏目订阅状态是否一致
+	 * 
+	 * @return
+	 */
+	private boolean checkChildStatusIsSame(TagInfoList o, String parentName) {
+		if (!ParseUtil.mapContainsKey(o.getChildMap(), parentName))
+			// 顺序别反，o为临时列表!!!如果临时列表不包含这个parent，那么默认没有操作
+			return true;
+
+		if (!ParseUtil.mapContainsKey(getChildMap(), parentName))
+			return false;
+
+		List<TagInfo> list = o.getChildMap().get(parentName);
+		List<TagInfo> currList = getChildMap().get(parentName);
+		for (int i = 0; i < list.size(); i++) {
+			TagInfo info = list.get(i);
+			if (info.getColumnProperty().getNoColumn() == 1)
+				continue;
+			if (info.getIsFix() == 1)
+				continue;
+			if (currList.size() > i) {
+				TagInfo curr = currList.get(i);
+				// 比较子栏目订阅状态是否一致
+				if (curr.getHasSubscribe() != info.getHasSubscribe())
+					return false;
+			} else {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
 	 * tag 信息类
 	 * 
 	 * @author jiancong

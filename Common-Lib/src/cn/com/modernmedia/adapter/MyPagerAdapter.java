@@ -95,6 +95,24 @@ public class MyPagerAdapter<T> extends PagerAdapter {
 	}
 
 	/**
+	 * 
+	 * @param container
+	 * @param loopPosition
+	 *            循环中的位置
+	 * @param realPosition
+	 *            正确的位置
+	 * @param object
+	 */
+	public void setPrimaryItem(ViewGroup container, int loopPosition,
+			int realPosition, Object object) {
+	}
+
+	@Deprecated
+	@Override
+	public void setPrimaryItem(ViewGroup container, int position, Object object) {
+	}
+
+	/**
 	 * 获取view.默认只有只有imageview，如果是特殊view,请重载此方法
 	 * 
 	 * @param item

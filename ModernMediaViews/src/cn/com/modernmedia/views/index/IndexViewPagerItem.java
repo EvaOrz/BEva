@@ -59,6 +59,8 @@ public class IndexViewPagerItem implements Observer {
 	private BaseChildCatHead childHead;
 	private Template template;
 
+	private int catHeadOffset;
+
 	public IndexViewPagerItem(Context context, TagInfo tagInfo,
 			IndexViewPagerAdapter adapter) {
 		mContext = context;
@@ -140,9 +142,11 @@ public class IndexViewPagerItem implements Observer {
 
 	/**
 	 * 获取指定的子栏目数据
+	 * 
 	 */
-	public void fecthSpecificChildData(int position) {
+	public void fecthSpecificChildData(int position, int catHeadOffset) {
 		hasSetData = false;
+		this.catHeadOffset = catHeadOffset;
 		if (childInfoList.getList().size() > position) {
 			getCatIndex(childInfoList.getList().get(position));
 		}
@@ -224,8 +228,8 @@ public class IndexViewPagerItem implements Observer {
 			final boolean isRefresh, final boolean isLoadMore,
 			final LoadCallBack callBack, final TagArticleList tagArticleList) {
 		final String tagName = getApiTagName();
-		if (adapter.getEntryFromMap(tagName, false) != null && !isLoadMore) {
-			getTemplate(adapter.getEntryFromMap(tagName, false), isLoadMore);
+		Entry cache = adapter.getEntryFromMap(tagName, false);
+		if (cache instanceof TagArticleList && !isLoadMore) {
 			getCatIndex(tagInfo, top, isRefresh, isLoadMore, callBack,
 					tagArticleList);
 			return;
@@ -274,8 +278,9 @@ public class IndexViewPagerItem implements Observer {
 		this.tagInfo = tagInfo;
 		AppValue.currColumn = tagInfo;
 		String tagName = getApiTagName();
-		if (adapter.getEntryFromMap(tagName, true) != null && !isLoadMore) {
-			getTemplate(adapter.getEntryFromMap(tagName, true), isLoadMore);
+		Entry cache = adapter.getEntryFromMap(tagName, true);
+		if (cache instanceof TagArticleList && !isLoadMore) {
+			getTemplate((TagArticleList) cache, isLoadMore);
 			return;
 		}
 		OperateController.getInstance(mContext).getTagIndex(tagInfo, top, "",
@@ -286,7 +291,7 @@ public class IndexViewPagerItem implements Observer {
 						boolean success = false;
 						if (entry instanceof TagArticleList) {
 							success = true;
-							getTemplate(entry, isLoadMore);
+							getTemplate((TagArticleList) entry, isLoadMore);
 						} else {
 							if (!isRefresh && !isLoadMore)
 								showError();
@@ -351,10 +356,8 @@ public class IndexViewPagerItem implements Observer {
 	 * @param entry
 	 * @param loadMore
 	 */
-	private void getTemplate(Entry entry, final boolean loadMore) {
-		if (!(entry instanceof TagArticleList))
-			return;
-		final TagArticleList articleList = (TagArticleList) entry;
+	private void getTemplate(final TagArticleList articleList,
+			final boolean loadMore) {
 		if (template != null) {
 			setValueForIndex(articleList, loadMore);
 			return;
@@ -422,6 +425,9 @@ public class IndexViewPagerItem implements Observer {
 
 	public void destory() {
 		hasSetData = false;
+		if (indexListView != null && indexListView.getHeadView() != null) {
+			indexListView.getHeadView().stopRefresh();
+		}
 		if (SlateApplication.mConfig.getNav_hide() == 1)
 			ViewsApplication.navObservable.deleteObserver(this);
 	}
@@ -437,6 +443,10 @@ public class IndexViewPagerItem implements Observer {
 		} else if (galleryView != null) {
 			galleryView.setSelection(IndexView.height);
 		}
+	}
+
+	public int getCatHeadOffset() {
+		return catHeadOffset;
 	}
 
 }

@@ -2,7 +2,6 @@ package cn.com.modernmediaslate.unit;
 
 import android.util.Log;
 
-
 /**
  * �������������
  * 
@@ -13,8 +12,8 @@ public class SlatePrintHelper {
 	public static boolean is_debug = false;
 
 	public static void print(String msg) {
-//		if (is_debug)
-//			System.out.println(msg);
+		// if (is_debug)
+		// System.out.println(msg);
 	}
 
 	public static void logE(String tag, String msg) {

@@ -90,6 +90,7 @@ public class SelectColumnAdapter extends CheckScrollAdapter<TagInfo> {
 		TextView name = holder.getView(R.id.select_column_item_name);
 		ImageView select = holder.getView(R.id.select_column_item_select);
 		final ImageView row = holder.getView(R.id.select_column_item_row);
+		View divider = holder.getView(R.id.select_column_item_name_divider);
 
 		// view.setPadding(0, position == 0 ? 0 : padTop, 0, 0);
 		imageView.getLayoutParams().width = width;
@@ -100,6 +101,10 @@ public class SelectColumnAdapter extends CheckScrollAdapter<TagInfo> {
 		name.setText(info.getColumnProperty().getCname());
 		row.setVisibility(info.getHaveChildren() == 1 ? View.VISIBLE
 				: View.GONE);
+		select.setVisibility(info.getHaveChildren() == 1 ? View.GONE
+				: View.VISIBLE);
+		divider.setVisibility(info.getHaveChildren() == 1 ? View.GONE
+				: View.VISIBLE);
 		select.setImageResource(checkIsSelect(info) ? R.drawable.subscribe_checked
 				: R.drawable.subscribe_check);
 

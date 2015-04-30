@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
-import android.os.Handler;
-import android.os.Message;
 import android.view.View;
 import android.widget.ImageView;
 import cn.com.modernmedia.CommonArticleActivity.ArticleType;
@@ -30,34 +28,27 @@ import cn.com.modernmediaslate.unit.ParseUtil;
  */
 public abstract class BaseIndexHeadView extends BaseView implements
 		NotifyArticleDesListener {
-	private static final int CHANGE = 1;
-	private static final int CHANGE_DELAY = 5000;
-
 	protected Context mContext;
 	protected IndexHeadCircularViewPager viewPager;
 	private List<ImageView> dots = new ArrayList<ImageView>();
 	protected List<ArticleItem> mList = new ArrayList<ArticleItem>();
-	private boolean isAuto;
 	private boolean shouldScroll;// 如果只有一张图，那么不监听滑动
 	protected Template template;
-	private TagInfo tagInfo;
 
-	private Handler handler = new Handler() {
-
-		@Override
-		public void handleMessage(Message msg) {
-			if (msg.what == CHANGE) {
-				viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true);
-				startChange();
-			}
-		}
-
-	};
+	private AutoScrollHandler handler;
 
 	public BaseIndexHeadView(Context context, Template template) {
 		super(context);
 		mContext = context;
 		this.template = template;
+		handler = new AutoScrollHandler() {
+
+			@Override
+			public void next() {
+				if (viewPager != null)
+					viewPager.next();
+			}
+		};
 		init();
 		initProperties();
 	}
@@ -79,13 +70,6 @@ public abstract class BaseIndexHeadView extends BaseView implements
 		if (mList != null && mList.size() > position && mList.size() > 1) {
 			ArticleItem item = mList.get(position);
 			updateTitle(item);
-			if (position == 0) {
-				position = dots.size() - 1;
-			} else if (position == mList.size() - 1) {
-				position = 0;
-			} else {
-				position--;
-			}
 			for (int i = 0; i < dots.size(); i++) {
 				if (i == position) {
 					dots.get(i).setImageResource(R.drawable.dot_active);
@@ -113,7 +97,6 @@ public abstract class BaseIndexHeadView extends BaseView implements
 
 	public void setData(List<ArticleItem> list, TagInfo tagInfo) {
 		setDataToGallery(list);
-		this.tagInfo = tagInfo;
 	}
 
 	/**
@@ -131,7 +114,7 @@ public abstract class BaseIndexHeadView extends BaseView implements
 		if (!ParseUtil.listNotNull(mList))
 			return;
 		if (mContext instanceof CommonMainActivity) {
-			if (mList.size() == 1) {
+			if (mList.size() == 0) {
 				shouldScroll = false;
 			} else {
 				((CommonMainActivity) mContext).setScrollView(this);
@@ -140,7 +123,6 @@ public abstract class BaseIndexHeadView extends BaseView implements
 			}
 		}
 		updateTitle(mList.get(0));
-		// addOutline(list.get(0).getOutline(), parm.getItem_outline_img());
 		viewPager.setDataForPager(mList);
 		initDot(mList, dots);
 	}
@@ -160,39 +142,20 @@ public abstract class BaseIndexHeadView extends BaseView implements
 		}
 	}
 
-	private void startChange() {
-		if (mList == null || mList.size() < 2 || !isAuto) {
-			return;
-		}
-		if (tagInfo != null && tagInfo.getAppId() == 20) {
-			return;
-		}
-		Message msg = handler.obtainMessage();
-		if (handler.hasMessages(CHANGE)) {
-			handler.removeMessages(CHANGE);
-		}
-		msg.what = 1;
-		handler.sendMessageDelayed(msg, CHANGE_DELAY);
-	}
-
 	/**
 	 * 开始自动切换
 	 */
 	public void startRefresh() {
-		if (viewPager == null)
+		if (viewPager == null || !ParseUtil.listNotNull(mList))
 			return;
-		isAuto = true;
-		startChange();
+		handler.startChange();
 	}
 
 	/**
 	 * 停止后台自动切换
 	 */
 	public void stopRefresh() {
-		if (handler.hasMessages(1)) {
-			handler.removeMessages(1);
-		}
-		isAuto = false;
+		handler.stopChange();
 	}
 
 	protected void updateTitle(ArticleItem item) {
@@ -219,4 +182,5 @@ public abstract class BaseIndexHeadView extends BaseView implements
 	@Override
 	protected void reLoad() {
 	}
+
 }

@@ -3,6 +3,9 @@ package cn.com.modernmedia.views;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.content.DialogInterface;
 import android.content.Intent;
 import cn.com.modernmedia.BaseActivity;
 import cn.com.modernmedia.api.OperateController;
@@ -21,6 +24,8 @@ import cn.com.modernmediausermodel.util.UserDataHelper;
 
 public abstract class BaseSelectColumnActivity extends BaseActivity {
 	private String parent = "";
+	private boolean isSaving = false;// 是否正在保存订阅列表
+	private boolean hasShowTip = false;
 
 	/**
 	 * 订阅栏目
@@ -100,12 +105,14 @@ public abstract class BaseSelectColumnActivity extends BaseActivity {
 		if (user == null)
 			return;
 		showLoadingDialog(true);
+		isSaving = true;
 		OperateController.getInstance(this).saveSubscribeColumnList(
 				user.getUid(), user.getToken(), list, new FetchEntryListener() {
 
 					@Override
 					public void setData(Entry entry) {
 						showLoadingDialog(false);
+						isSaving = false;
 						if (entry instanceof ErrorMsg) {
 							ErrorMsg error = (ErrorMsg) entry;
 							if (error.getNo() == 0) {
@@ -130,6 +137,45 @@ public abstract class BaseSelectColumnActivity extends BaseActivity {
 		intent.putExtra("PARENT", parent);
 		setResult(RESULT_OK, intent);
 		finish();
+	}
+
+	protected boolean interceptKeyBack(String parent) {
+		if (isSaving || hasShowTip)
+			return false;
+		boolean hasChanged = !AppValue.ensubscriptColumnList
+				.checkStatusIsSame(AppValue.tempColumnList);
+		if (!hasChanged)
+			return false;
+		showTip(parent);
+		return true;
+	}
+
+	private void showTip(final String parent) {
+		hasShowTip = true;
+		AlertDialog.Builder builder = new Builder(this);
+		builder.setTitle(R.string.subscribe_tip_title);
+		builder.setMessage(R.string.subscribe_tip_message);
+		builder.setPositiveButton(R.string.subscribe_save,
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int whichButton) {
+						addColumns(parent);
+					}
+				});
+		builder.setNegativeButton(R.string.cancel,
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int whichButton) {
+						if (dialog != null)
+							dialog.dismiss();
+						finish();
+					}
+				});
+
+		try {
+			AlertDialog dialog = builder.create();
+			dialog.show();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

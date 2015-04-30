@@ -95,9 +95,9 @@ public class XMLDataSetForHead extends BaseXMLDataSet {
 				dot_size);
 
 		lp.leftMargin = 5;
-		for (int i = 1; i < itemList.size() - 1; i++) {
+		for (int i = 0; i < itemList.size(); i++) {
 			iv = new ImageView(mContext);
-			if (i == 1) {
+			if (i == 0) {
 				iv.setImageResource(R.drawable.dot_active);
 			} else {
 				iv.setImageResource(R.drawable.dot);
@@ -134,19 +134,9 @@ public class XMLDataSetForHead extends BaseXMLDataSet {
 		View view = map.get(FunctionXMLHead.ANIM);
 		if (!ParseUtil.listNotNull(mList))
 			return;
-		if (mList.size() > 2) {
-			int timeWidth = 0;
-			if (position == 0) {
-				timeWidth = mList.size() - 2;
-			} else if (position == mList.size() - 1) {
-				timeWidth = 1;
-			} else {
-				timeWidth = position;
-			}
-			lineEndX = Math.round((CommonApplication.width - padding)
-					* timeWidth / (mList.size() - 2));
-			MyAnimate.startTranslateAnimation(view, lineStartX, lineEndX);
-			lineStartX = lineEndX;
-		}
+		lineEndX = Math.round((CommonApplication.width - padding)
+				* (position + 1) / mList.size());
+		MyAnimate.startTranslateAnimation(view, lineStartX, lineEndX);
+		lineStartX = lineEndX;
 	}
 }

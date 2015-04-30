@@ -118,7 +118,7 @@ public class TagIndexListView implements LoadCallBack, OnScrollListener {
 
 			@Override
 			public void onLoad() {
-				if (!TextUtils.isEmpty(top)) {
+				if (!TextUtils.isEmpty(top) && adapter != null) {
 					load();
 				}
 			}

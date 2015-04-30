@@ -9,13 +9,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout.LayoutParams;
+import cn.com.modernmedia.adapter.MyPagerAdapter;
 import cn.com.modernmedia.api.OperateController;
 import cn.com.modernmedia.db.NewFavDb;
 import cn.com.modernmedia.db.ReadDb;
@@ -23,6 +22,7 @@ import cn.com.modernmedia.listener.BindFavToUserListener;
 import cn.com.modernmedia.listener.CallWebStatusChangeListener;
 import cn.com.modernmedia.listener.FetchEntryListener;
 import cn.com.modernmedia.listener.HideTitleBarListener;
+import cn.com.modernmedia.listener.NotifyArticleDesListener;
 import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.model.ArticleItem.PhonePageList;
 import cn.com.modernmedia.model.TagArticleList;
@@ -75,12 +75,8 @@ public abstract class CommonArticleActivity extends BaseActivity {
 		public void hide() {
 			if (isHide) {
 				isHide = false;
-				// getWindow().clearFlags(
-				// WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
 			} else {
 				isHide = true;
-				// getWindow().addFlags(
-				// WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
 			}
 		}
 	};
@@ -263,9 +259,8 @@ public abstract class CommonArticleActivity extends BaseActivity {
 								ArticleItem item = tagArticleList
 										.getArticleList().get(0);
 								list.addAll(checkMultiplePage(item));
-								buildCycleList(true, list.size()
-										- item.getPageUrlList().size(),
-										list.size());
+								setDataForAdapter(list, list.size()
+										- item.getPageUrlList().size());
 							}
 							disProcess();
 						} else {
@@ -289,36 +284,27 @@ public abstract class CommonArticleActivity extends BaseActivity {
 	private void getFavList() {
 		disProcess();
 		list = db.getUserFav(transferArticle.getUid());
-		getPosition(true);
+		getPosition();
 	}
 
 	private void initViewpager() {
 		db = NewFavDb.getInstance(this);
 		readDb = ReadDb.getInstance(this);
 		lastClickTime = System.currentTimeMillis() / 1000;
-		viewPager.setOnPageChangeListener(new OnPageChangeListener() {
-			/**
-			 * 当一个页面即将被加载时，调用此方法 Position index of the new selected page
-			 */
+		viewPager.setListener(new NotifyArticleDesListener() {
+
 			@Override
-			public void onPageSelected(int position) {
+			public void updatePage(int state) {
+			}
+
+			@Override
+			public void updateDes(int position) {
 				if (list.size() <= position)
 					return;
 
 				if (needDeleteHidden != -1) {
 					if (Math.abs(position - needDeleteHidden) > 1) {
-						// pos = i == 0 ? length - 2 : i;
-						if (needDeleteHidden == list.size() - 2
-								|| needDeleteHidden == 0) {
-							list.remove(list.size() - 2);
-							list.remove(0);
-						} else if (needDeleteHidden == 1
-								|| needDeleteHidden == list.size() - 1) {
-							list.remove(list.size() - 1);
-							list.remove(1);
-						} else {
-							list.remove(list.get(needDeleteHidden));
-						}
+						list.remove(list.get(needDeleteHidden));
 						adapter.destroyItem(viewPager, position,
 								viewPager.findViewWithTag(1));
 						needDeleteHidden = -1;
@@ -326,13 +312,6 @@ public abstract class CommonArticleActivity extends BaseActivity {
 					}
 				}
 
-				if (list.size() != 1) {
-					if (position == 0) {
-						viewPager.setCurrentItem(list.size() - 2, false);// 其实是最后一个view
-					} else if (position == list.size() - 1) {
-						viewPager.setCurrentItem(1, false);// 其实是第一个view
-					}
-				}
 				ArticleItem item = list.get(position);
 				int type = item.getProperty().getType();
 				hideFont(type == 2);
@@ -346,21 +325,6 @@ public abstract class CommonArticleActivity extends BaseActivity {
 							transferArticle.getTagName(), item.getArticleId()
 									+ "");
 				}
-			}
-
-			/**
-			 * 当在一个页面滚动时，调用此方法postion:要滑向页面索引
-			 */
-			@Override
-			public void onPageScrolled(int position, float positionOffset,
-					int positionOffsetPixels) {
-			}
-
-			/**
-			 * 状态有三个0空闲，1是增在滑行中，2目标加载完毕
-			 */
-			@Override
-			public void onPageScrollStateChanged(int state) {
 			}
 		});
 	}
@@ -420,18 +384,16 @@ public abstract class CommonArticleActivity extends BaseActivity {
 	/**
 	 * 获取当前文章所在索引
 	 * 
-	 * @param changeList
-	 *            是否需要更改list(如果是从别的页面进来的，需要添加头尾；如果是改变整体的字体，那么不需要)
 	 * @return
 	 */
-	protected void getPosition(boolean changeList) {
+	protected void getPosition() {
 		if (!ParseUtil.listNotNull(list)) {
 			return;
 		}
 
 		int length = list.size();
 		if (length == 1) {
-			setDataForAdapter(list, 0, true);
+			setDataForAdapter(list, 0);
 			return;
 		}
 
@@ -450,7 +412,8 @@ public abstract class CommonArticleActivity extends BaseActivity {
 		// ------------
 
 		int pos = -1;
-		if (transferArticle.getArtcleId() == -1) {
+		if (transferArticle.getArtcleId() == -1
+				&& transferArticle.getAdvId() == -1) {
 			pos = 0;
 		} else {
 			length = list.size();
@@ -477,45 +440,14 @@ public abstract class CommonArticleActivity extends BaseActivity {
 		}
 
 		pos = pos == -1 ? 0 : pos;
-		buildCycleList(changeList, pos, length);
+		checkHidden();
+		setDataForAdapter(list, pos);
 	}
 
-	/**
-	 * 封装成可循环的列表
-	 * 
-	 * @param changeList
-	 * @param pos
-	 * @param defaultLength
-	 */
-	private void buildCycleList(boolean changeList, int pos, int defaultLength) {
-		if (changeList && list.size() != 1) {
-			List<ArticleItem> newList1 = new ArrayList<ArticleItem>();
-			newList1.add(list.get(list.size() - 1));
-			newList1.addAll(list);
-			newList1.add(list.get(0));
-			list.clear();
-			list.addAll(newList1);
-			newList1 = null;
-			if (pos == 0) {
-				pos = 1;
-			} else if (pos == defaultLength - 1) {
-				pos = list.size() - 2;
-			} else {
-				pos++;
-			}
-			checkHidden();
-		}
-
-		setDataForAdapter(list, pos, true);
-	}
-
-	private void setDataForAdapter(List<ArticleItem> list, int position,
-			boolean changeList) {
+	private void setDataForAdapter(List<ArticleItem> list, int position) {
 		if (ParseUtil.listNotNull(list)) {
-			adapter = new ViewPageAdapter();
-			adapter.setData(list);
-			viewPager.setAdapter(adapter);
-			viewPager.setCurrentItem(position, false);
+			adapter = new ViewPageAdapter(mContext, list);
+			viewPager.setDataForPager(list, position, adapter);
 			changeFav(position);
 		}
 	}
@@ -642,7 +574,7 @@ public abstract class CommonArticleActivity extends BaseActivity {
 		ArticleItem detail = list.get(position);
 		LogHelper.logChangeArticleFontSize(this, detail.getArticleId() + "",
 				transferArticle.getTagName());
-		setDataForAdapter(list, position, false);
+		setDataForAdapter(list, position);
 	}
 
 	/**
@@ -697,22 +629,10 @@ public abstract class CommonArticleActivity extends BaseActivity {
 				R.anim.activity_open_exit);
 	}
 
-	private class ViewPageAdapter extends PagerAdapter {
-		private List<ArticleItem> list = new ArrayList<ArticleItem>();
+	private class ViewPageAdapter extends MyPagerAdapter<ArticleItem> {
 
-		public void setData(List<ArticleItem> list) {
-			this.list = list;
-			notifyDataSetChanged();
-		}
-
-		@Override
-		public void notifyDataSetChanged() {
-			super.notifyDataSetChanged();
-		}
-
-		@Override
-		public int getCount() {
-			return list.size();
+		public ViewPageAdapter(Context context, List<ArticleItem> list) {
+			super(context, list);
 		}
 
 		@Override
@@ -722,7 +642,7 @@ public abstract class CommonArticleActivity extends BaseActivity {
 
 		@Override
 		public void destroyItem(ViewGroup container, int position, Object object) {
-			container.removeView((View) object);
+			super.destroyItem(container, position, object);
 			if (listenerMap.containsKey(position))
 				listenerMap.remove(position);
 		}
@@ -740,9 +660,14 @@ public abstract class CommonArticleActivity extends BaseActivity {
 		}
 
 		@Override
-		public void setPrimaryItem(ViewGroup container, int position,
-				Object object) {
-			if (currentPosition == position)
+		public View fetchView(ArticleItem t) {
+			return CommonArticleActivity.this.fetchView(t);
+		}
+
+		@Override
+		public void setPrimaryItem(ViewGroup container, int loopPosition,
+				int realPosition, Object object) {
+			if (currentPosition == realPosition)
 				return;
 			changePage(currView, false);
 
@@ -758,7 +683,7 @@ public abstract class CommonArticleActivity extends BaseActivity {
 				viewPager.setPager(null);
 				viewPager.setArticleDetailItem(null);
 			}
-			currentPosition = position;
+			currentPosition = realPosition;
 		}
 
 		private void changePage(View view, boolean push) {

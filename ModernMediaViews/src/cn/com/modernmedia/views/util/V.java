@@ -586,10 +586,14 @@ public class V {
 	 */
 	public static boolean checkShouldInsertSubscribeArticle(Context context,
 			String tagName) {
-		if (ConstData.getAppId() != 20 && ConstData.getAppId() != 1) {
-			return false;
-		}
-		if (ConstData.getAppId() == 20 && !tagName.equals("cat_192")) {
+		// 去掉iweekly
+		// if (ConstData.getAppId() != 20 && ConstData.getAppId() != 1) {
+		// return false;
+		// }
+		// if (ConstData.getAppId() == 20 && !tagName.equals("cat_192")) {
+		// return false;
+		// }
+		if (ConstData.getAppId() != 1) {
 			return false;
 		}
 		if (ConstData.getInitialAppId() == 1 && !tagName.equals("cat_15")) {

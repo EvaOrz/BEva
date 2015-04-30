@@ -8,9 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,6 +29,7 @@ import cn.com.modernmediausermodel.api.UserOperateController;
 import cn.com.modernmediausermodel.listener.UserFetchEntryListener;
 import cn.com.modernmediausermodel.model.Card.CardItem;
 import cn.com.modernmediausermodel.model.User;
+import cn.com.modernmediausermodel.util.CopyTextHelper;
 import cn.com.modernmediausermodel.util.UserCentManager;
 import cn.com.modernmediausermodel.util.UserConstData;
 import cn.com.modernmediausermodel.util.UserDataHelper;
@@ -57,7 +56,7 @@ public class WriteNewCardActivity extends SlateBaseActivity implements
 	private SinaAPI sinaAPI;
 	private String articleId; // 文章摘要分享时使用
 	private TextView weiboText, copyText, copyArticleText;
-	private boolean isCopied = false;
+	private CopyTextHelper mCopyHelper;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +83,7 @@ public class WriteNewCardActivity extends SlateBaseActivity implements
 					if (!TextUtils.isEmpty(articleId)) {
 						showMessage(content);
 					}
-					contentEdit.setSelection(content.length());
+//					contentEdit.setSelection(content.length());
 				}
 			}
 		}
@@ -131,20 +130,13 @@ public class WriteNewCardActivity extends SlateBaseActivity implements
 				}
 			});
 		}
-		contentEdit.addTextChangedListener(new MyTextWatcher());
-		contentEdit.requestFocus();
-		copyText.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				doCopy(!isCopied);
-			}
-		});
+		mCopyHelper = new CopyTextHelper(this, contentEdit, copyText);
 	}
 
 	private void showMessage(String content) {
 		ClipboardManager board = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-		board.setText(content);
+		board.setText(contentEdit.getText().toString());
+		contentEdit.selectAll();
 		copyArticleText.setVisibility(View.VISIBLE);
 		copyText.setVisibility(View.GONE);
 		new Handler().postDelayed(new Runnable() {
@@ -153,34 +145,10 @@ public class WriteNewCardActivity extends SlateBaseActivity implements
 			public void run() {
 				copyArticleText.setVisibility(View.GONE);
 				copyText.setVisibility(View.VISIBLE);
-				doCopy(true);
+				// 更新显示状态
+				mCopyHelper.doCopy(true);
 			}
 		}, 2000);
-	}
-
-	private void doCopy(boolean copy) {
-		ClipboardManager board = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-		if (copy) { // 复制
-			String text = contentEdit.getText().toString();
-			if (TextUtils.isEmpty(text)) {
-				return;
-			}
-
-			board.setText(text);
-			contentEdit.selectAll();
-			copyText.setText(R.string.copy_text_success);
-			copyText.setTextColor(getResources().getColor(
-					android.R.color.darker_gray));
-			isCopied = true;
-			copyText.setClickable(false);
-		} else {
-			copyText.setText(R.string.copy_text);
-			copyText.setTextColor(getResources().getColor(R.color.follow_all));
-			contentEdit.setSelection(0);
-			isCopied = false;
-			copyText.setClickable(true);
-		}
-
 	}
 
 	@Override
@@ -286,31 +254,5 @@ public class WriteNewCardActivity extends SlateBaseActivity implements
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
-	}
-
-	class MyTextWatcher implements TextWatcher {
-
-		@Override
-		public void beforeTextChanged(CharSequence s, int start, int count,
-				int after) {
-			setTextVisible(s);
-		}
-
-		@Override
-		public void onTextChanged(CharSequence s, int start, int before,
-				int count) {
-			if (isCopied)
-				doCopy(false);
-		}
-
-		@Override
-		public void afterTextChanged(Editable s) {
-			setTextVisible(contentEdit.getText().toString());
-		}
-
-		private void setTextVisible(CharSequence s) {
-			int visibility = TextUtils.isEmpty(s) ? View.GONE : View.VISIBLE;
-			copyText.setVisibility(visibility);
-		}
 	}
 }

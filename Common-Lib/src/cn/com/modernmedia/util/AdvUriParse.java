@@ -100,7 +100,7 @@ public class AdvUriParse {
 		// return;
 		// }
 		// }
-		TransferArticle tr = new TransferArticle(-1, list.get(1), "", -1,
+		TransferArticle tr = new TransferArticle(-1, list.get(1), "", ParseUtil.stoi(list.get(2), -1),
 				ArticleType.Default);
 		TransferArticle transferArticle = entries.length > 1 ? (TransferArticle) entries[1]
 				: null;

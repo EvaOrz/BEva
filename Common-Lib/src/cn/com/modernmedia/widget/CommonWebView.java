@@ -524,6 +524,7 @@ public abstract class CommonWebView extends WebView {
 			isChangeStatus = true;
 			return;
 		}
+		// System.out.println(detail.getTitle() + "===push");
 		String url = "javascript:iSlate.push()";
 		isChangeStatus = true;
 		hasPush = true;
@@ -538,6 +539,7 @@ public abstract class CommonWebView extends WebView {
 			isChangeStatus = true;
 			return;
 		}
+		// System.out.println(detail.getTitle() + "===pop");
 		hasPush = false;
 		String url = "javascript:iSlate.pop()";
 		isChangeStatus = true;

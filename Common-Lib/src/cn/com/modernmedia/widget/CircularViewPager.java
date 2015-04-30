@@ -1,6 +1,5 @@
 package cn.com.modernmedia.widget;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -17,9 +16,7 @@ import cn.com.modernmediaslate.unit.ImageScaleType;
  * @author ZhuQiao
  * 
  */
-public class CircularViewPager<T> extends ViewPager {
-	private CircularViewPager<T> me;
-	private MyPagerAdapter<T> adapter;
+public class CircularViewPager<T> extends LoopViewPager {
 	private Context mContext;
 	private NotifyArticleDesListener listener;
 	private List<T> list;
@@ -40,27 +37,22 @@ public class CircularViewPager<T> extends ViewPager {
 	}
 
 	private void init() {
-		me = this;
 		this.setOnPageChangeListener(new OnPageChangeListener() {
 
 			@Override
 			public void onPageSelected(int position) {
+				if (getAdapter() instanceof LoopPagerAdapter) {
+					LoopPagerAdapter infAdapter = (LoopPagerAdapter) getAdapter();
+					position = position % infAdapter.getRealCount();
+				}
 				if (list == null || list.size() <= position)
 					return;
-				if (list.size() != 1) {
-					if (position == 0) {
-						me.setCurrentItem(list.size() - 2, false);// 其实是最后一个view
-					} else if (position == list.size() - 1) {
-						me.setCurrentItem(1, false);// 其实是第一个view
-					}
-				}
 				if (listener != null)
 					listener.updateDes(position);
 			}
 
 			@Override
 			public void onPageScrolled(int position, float arg1, int arg2) {
-
 			}
 
 			@Override
@@ -103,41 +95,22 @@ public class CircularViewPager<T> extends ViewPager {
 	}
 
 	public void setDataForPager(List<T> list, int position) {
-		int length = list.size();
-		buildData(list);
-		adapter = fetchAdapter(mContext, list);
-		this.setAdapter(adapter);
-		if (list.size() <= 1)
-			return;
-		if (position == length - 1) {
-			position = list.size() - 2;
-		} else {
-			position++;
-		}
-		this.setCurrentItem(position, false);
+		setDataForPager(list, position, fetchAdapter(mContext, list));
 	}
 
-	private void buildData(List<T> list) {
-		/**
-		 * 创建一个新的list,循环滑动：头部添加一个和原尾部相同的view，尾部添加一个和原头部相同的view
-		 * 当滑动到第一个的时候，其实显示的是本来的最后一个view，这时把显示位置移到最后第二个，即本来的最后一个view
-		 * 同理，当滑到最后一个的时候，其实现实的是本来的第一个view，这时把位置移到第一个，即本来的第一个view
-		 */
-		if (list.size() > 1) {
-			List<T> newList = new ArrayList<T>();
-			newList.add(list.get(list.size() - 1));
-			newList.addAll(list);
-			newList.add(list.get(0));
-			list.clear();
-			list.addAll(newList);
-			newList = null;
-		}
+	public void setDataForPager(List<T> list, int position,
+			MyPagerAdapter<T> adapter) {
+		LoopPagerAdapter _adapter = new LoopPagerAdapter(adapter);
 		this.list = list;
+		this.setAdapter(_adapter);
+		this.setCurrentItem(position, false);
+		if (position == 0 && listener != null) {
+			listener.updateDes(0);
+		}
 	}
 
 	public void setListener(NotifyArticleDesListener listener) {
 		this.listener = listener;
-		listener.updateDes(0);
 	}
 
 	public MyPagerAdapter<T> fetchAdapter(Context context, List<T> list) {

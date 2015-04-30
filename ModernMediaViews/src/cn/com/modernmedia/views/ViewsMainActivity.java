@@ -177,8 +177,10 @@ public abstract class ViewsMainActivity extends CommonMainActivity {
 
 	@Override
 	public void setDataForIndex(TagArticleList articleList) {
-		if (CommonApplication.mConfig.getIs_index_pager() != 1)
+		if (CommonApplication.mConfig.getIs_index_pager() != 1) {
+			ViewsApplication.autoScrollObservable.clearAll();
 			indexView.setData(articleList);
+		}
 	}
 
 	/**
@@ -192,6 +194,7 @@ public abstract class ViewsMainActivity extends CommonMainActivity {
 
 	@Override
 	public void showIndexPager() {
+		ViewsApplication.autoScrollObservable.clearAll();
 		indexView.setDataForIndexPager();
 	}
 

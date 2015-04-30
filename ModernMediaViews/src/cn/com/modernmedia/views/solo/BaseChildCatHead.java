@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.HorizontalScrollView;
 import cn.com.modernmedia.model.TagInfoList;
 import cn.com.modernmedia.model.TagInfoList.TagInfo;
 import cn.com.modernmedia.views.ViewsApplication;
@@ -25,8 +26,8 @@ import cn.com.modernmediaslate.unit.ParseUtil;
 public class BaseChildCatHead {
 	public static final int DURATION = 250;
 	protected Context mContext;
-	protected View view;
-	private IndexViewPagerItem indexViewPagerItem;
+	protected HorizontalScrollView view;
+	protected IndexViewPagerItem indexViewPagerItem;
 	protected ViewGroup frame;
 	protected Template template = new Template();
 	/**
@@ -73,6 +74,15 @@ public class BaseChildCatHead {
 				setSelectedItemForChild(currTag);
 			}
 		}, DURATION);
+		if (indexViewPagerItem != null && view != null) { // 定位到上次选中的位置
+			view.post(new Runnable() {
+
+				@Override
+				public void run() {
+					view.scrollTo(indexViewPagerItem.getCatHeadOffset(), 0);
+				}
+			});
+		}
 	}
 
 	protected void clickItem(final TagInfo tagInfo, final int position) {
@@ -96,7 +106,8 @@ public class BaseChildCatHead {
 			V.setIndexTitle(mContext, tagInfo);
 			// TODO 独立栏目只走catClickListener
 			if (indexViewPagerItem != null) {
-				indexViewPagerItem.fecthSpecificChildData(position);
+				int offset = view == null ? 0 : view.getScrollX();
+				indexViewPagerItem.fecthSpecificChildData(position, offset);
 			} else if (ViewsApplication.catClickListener != null) {
 				ViewsApplication.catClickListener.onClick(position, tagInfo);
 			}
@@ -135,7 +146,7 @@ public class BaseChildCatHead {
 	protected void setSelectedItemForSolo(TagInfo tagInfo) {
 	}
 
-	public void setView(View view) {
+	public void setView(HorizontalScrollView view) {
 		this.view = view;
 	}
 

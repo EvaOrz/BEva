@@ -15,6 +15,7 @@ import cn.com.modernmedia.util.PrintHelper;
 import cn.com.modernmedia.views.column.NewColumnView.ColumnFooterItemIsSeletedListener;
 import cn.com.modernmedia.views.fav.FavObserver;
 import cn.com.modernmedia.views.index.IndexView.NavObservable;
+import cn.com.modernmedia.views.index.head.AutoScrollObservable;
 import cn.com.modernmedia.views.listener.ChildCatClickListener;
 import cn.com.modernmedia.views.listener.ColumnChangedListener;
 import cn.com.modernmedia.views.listener.FlowPositionChangedListener;
@@ -40,6 +41,7 @@ public class ViewsApplication extends CommonApplication {
 	public static ColumnChangedListener columnChangedListener;
 	public static NavObservable navObservable = new NavObservable();
 	public static Class<?> articleGalleryCls; // 文章详情显示
+	public static AutoScrollObservable autoScrollObservable = new AutoScrollObservable();
 
 	@Override
 	public void onCreate() {
@@ -90,5 +92,6 @@ public class ViewsApplication extends CommonApplication {
 		columnChangedListener = null;
 		navObservable.deleteObservers();
 		V.bitmapCache.clear();
+		autoScrollObservable.clearAll();
 	}
 }

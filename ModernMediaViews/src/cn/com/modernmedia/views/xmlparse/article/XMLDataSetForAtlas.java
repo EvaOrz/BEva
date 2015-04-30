@@ -179,11 +179,9 @@ public class XMLDataSetForAtlas extends BaseXMLDataSet {
 		View view = map.get(FunctionXMLHead.ANIM);
 		if (!ParseUtil.listNotNull(mList))
 			return;
-		if (mList.size() > 2) {
-			lineEndX = Math.round(CommonApplication.width * (position + 1)
-					/ mList.size());
-			MyAnimate.startTranslateAnimation(view, lineStartX, lineEndX);
-			lineStartX = lineEndX;
-		}
+		lineEndX = Math.round(CommonApplication.width * (position + 1)
+				/ mList.size());
+		MyAnimate.startTranslateAnimation(view, lineStartX, lineEndX);
+		lineStartX = lineEndX;
 	}
 }

@@ -45,12 +45,6 @@ public class IndexHeadPagerAdapter extends MyPagerAdapter<ArticleItem> {
 		XMLParse parse = new XMLParse(mContext, null);
 		View view = parse.inflate(template.getHeadItem().getData(), null,
 				template.getHost());
-		if (position == 0)
-			position = list.size() - 1;
-		else if (position == list.size() - 1)
-			position = 0;
-		else
-			position--;
 		parse.setDataForHeadItem(item, position, articleType);
 		return view;
 	}

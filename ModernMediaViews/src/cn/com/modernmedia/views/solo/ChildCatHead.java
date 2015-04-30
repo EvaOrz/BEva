@@ -67,8 +67,8 @@ public class ChildCatHead extends BaseChildCatHead {
 			final TagInfo tagInfo = list.get(i);
 			final int position = i;
 			XMLParse parse = new XMLParse(mContext, null);
-			View child = parse.inflate(template.getCatHead().getData(), null,
-					template.getHost());
+			final View child = parse.inflate(template.getCatHead().getData(),
+					null, template.getHost());
 			parse.setDataForCatHead(tagInfo, position, list.size());
 			child.setTag(tagInfo);
 			child.setOnClickListener(new OnClickListener() {

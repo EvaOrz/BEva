@@ -10,12 +10,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import cn.com.modernmediaslate.SlateBaseActivity;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.model.ErrorMsg;
 import cn.com.modernmediausermodel.api.UserOperateController;
 import cn.com.modernmediausermodel.listener.UserFetchEntryListener;
 import cn.com.modernmediausermodel.model.MultiComment.CommentItem;
+import cn.com.modernmediausermodel.util.CopyTextHelper;
 import cn.com.modernmediausermodel.util.UserTools;
 
 public class WriteCommentActivity extends SlateBaseActivity implements
@@ -28,6 +30,7 @@ public class WriteCommentActivity extends SlateBaseActivity implements
 	private EditText contentEdit;
 	private String cardId;
 	private boolean isShowToast = true;
+	private TextView copyText;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +52,12 @@ public class WriteCommentActivity extends SlateBaseActivity implements
 		cancelBtn = (Button) findViewById(R.id.write_comment_cancel);
 		completeBtn = (Button) findViewById(R.id.write_comment_complete);
 		contentEdit = (EditText) findViewById(R.id.write_comment_content);
+		copyText = (TextView) findViewById(R.id.write_comment_copy);
 		cancelBtn.setOnClickListener(this);
 		completeBtn.setOnClickListener(WriteCommentActivity.this);
 		contentEdit.requestFocus();
+
+		new CopyTextHelper(this, contentEdit, copyText);
 	}
 
 	@Override

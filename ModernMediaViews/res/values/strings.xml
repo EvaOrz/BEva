@@ -8,4 +8,8 @@
     <string name="add">添加</string>
     <string name="manage_curr_column">管理栏目</string>
     <string name="manage_other_column">管理主题杂志</string>
+    
+    <string name="subscribe_tip_title">微杂志</string>
+    <string name="subscribe_tip_message">您修改了订阅的微杂志，要保存吗？</string>
+    <string name="subscribe_save">保存</string>
 </resources>

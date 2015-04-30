@@ -69,4 +69,15 @@
         android:textCursorDrawable="@null"
         android:textSize="@dimen/dp15_textsize" />
 
+    <TextView
+        android:id="@+id/write_comment_copy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/write_comment_content"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/dp10"
+        android:text="@string/copy_text"
+        android:textColor="@color/follow_all"
+        android:textSize="@dimen/dp16_textsize" />
+
 </RelativeLayout>
