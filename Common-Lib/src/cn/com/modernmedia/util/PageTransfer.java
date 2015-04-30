@@ -114,7 +114,8 @@ public class PageTransfer {
 		}
 
 		public String getUid() {
-			return uid;
+			return TextUtils.isEmpty(uid) ? SlateApplication.UN_UPLOAD_UID
+					: uid;
 		}
 
 		public void setUid(String uid) {

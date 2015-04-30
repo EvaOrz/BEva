@@ -58,7 +58,8 @@ public class GetTagInfoOperate extends BaseOperate {
 		} else if (type == TAG_TYPE.TAG_INFO) {
 			url = UrlMaker.getTagInfo(tagName);
 		} else if (type == TAG_TYPE.TREE_CAT) {
-			url = UrlMaker.getTagChild("", tagName, group, top, false);
+			// url = UrlMaker.getTagChild("", tagName, group, top, false);
+			url = UrlMaker.getCatList(tagName);
 		} else if (type == TAG_TYPE.ISSUE_LIST) {
 			url = UrlMaker.getTagChild("", tagName, group, top, true);
 		} else if (type == TAG_TYPE.CHILD_CAT) {
@@ -72,6 +73,10 @@ public class GetTagInfoOperate extends BaseOperate {
 		return url;
 	}
 
+	public TAG_TYPE getType() {
+		return type;
+	}
+
 	@Override
 	protected void handler(JSONObject jsonObject) {
 		parseTagInfo(jsonObject);
@@ -81,21 +86,19 @@ public class GetTagInfoOperate extends BaseOperate {
 	}
 
 	@Override
-	public boolean fecthLocalData(String fileName) {
+	protected CallBackData fetchDataFromDB() {
+		CallBackData callBackData = new CallBackData();
 		Entry entry = TagInfoListDb.getInstance(getmContext()).getEntry(this,
 				parentTagName, tagName, group, top, type);
 		if (entry instanceof TagInfoList) {
 			TagInfoList list = (TagInfoList) entry;
 			if (ParseUtil.listNotNull(list.getList())) {
 				tagInfoList = (TagInfoList) entry;
-				if (callBack != null) {
-					PrintHelper.print("from db:" + "====" + url);
-					callBack.callback(true, false);
-					return true;
-				}
+				callBackData.success = true;
+				PrintHelper.print("from db:" + "====" + url);
 			}
 		}
-		return false;
+		return callBackData;
 	}
 
 	/**
@@ -113,8 +116,7 @@ public class GetTagInfoOperate extends BaseOperate {
 					TagInfo tagInfo = new TagInfo();
 					tagInfo.setAppId(object.optInt("appid"));
 					tagInfo.setTagName(object.optString("tagname"));
-					String parent = object.optString("parent");
-					tagInfo.setParent(parent);
+					tagInfo.setParent(object.optString("parent"));
 					tagInfo.setLink(object.optString("link"));
 					tagInfo.setGroup(object.optInt("group"));
 					tagInfo.setHaveChildren(object.optInt("haveChildren"));
@@ -132,6 +134,8 @@ public class GetTagInfoOperate extends BaseOperate {
 							.optJSONObject("appProperty")));
 					tagInfo.getAppProperty().setUpdatetime(
 							object.optString("updatetime"));
+					tagInfo.getAppProperty().setAdvUpdateTime(
+							object.optString("advUpdateTime"));
 					tagInfo.setIssueProperty(parseIssueProperty(object
 							.optJSONObject("issueProperty")));
 					tagInfo.setColumnProperty(parseColumnProperty(

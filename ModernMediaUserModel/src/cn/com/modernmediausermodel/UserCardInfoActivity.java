@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import cn.com.modernmediaslate.SlateBaseActivity;
-import cn.com.modernmediausermodel.model.User;
+import cn.com.modernmediaslate.model.User;
 import cn.com.modernmediausermodel.widget.UserCardView;
 
 /**

@@ -7,6 +7,12 @@ import cn.com.modernmedia.views.index.IndexView;
 import cn.com.modernmedia.widget.CheckFooterListView;
 import cn.com.modernmediaslate.SlateApplication;
 
+/**
+ * 隐藏导航栏listview
+ * 
+ * @author zhuqiao
+ *
+ */
 public class HideNavListView extends CheckFooterListView {
 
 	public HideNavListView(Context context) {

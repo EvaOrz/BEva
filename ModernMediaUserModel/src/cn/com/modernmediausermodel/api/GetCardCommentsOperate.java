@@ -6,13 +6,11 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import cn.com.modernmediaslate.api.SlateBaseOperate;
-import cn.com.modernmediaslate.listener.FetchDataListener;
-import cn.com.modernmediaslate.unit.SlatePrintHelper;
+import cn.com.modernmediaslate.model.User;
 import cn.com.modernmediausermodel.model.Card.CardItem;
 import cn.com.modernmediausermodel.model.MultiComment;
 import cn.com.modernmediausermodel.model.MultiComment.Comment;
 import cn.com.modernmediausermodel.model.MultiComment.CommentItem;
-import cn.com.modernmediausermodel.model.User;
 
 public class GetCardCommentsOperate extends SlateBaseOperate {
 	private ArrayList<CardItem> cardItemList;
@@ -81,12 +79,6 @@ public class GetCardCommentsOperate extends SlateBaseOperate {
 	protected String getDefaultFileName() {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	protected void fetchLocalDataInBadNet(FetchDataListener mFetchDataListener) {
-		SlatePrintHelper.print("net error:" + getUrl());
-		mFetchDataListener.fetchData(false, null, false);
 	}
 
 	private Comment parseComment(JSONObject jsonObject) {

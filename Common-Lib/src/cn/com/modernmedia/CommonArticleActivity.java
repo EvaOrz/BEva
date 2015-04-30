@@ -39,6 +39,7 @@ import cn.com.modernmedia.widget.ArticleDetailItem;
 import cn.com.modernmedia.widget.AtlasViewPager;
 import cn.com.modernmedia.widget.CommonAtlasView;
 import cn.com.modernmedia.widget.CommonViewPager;
+import cn.com.modernmediaslate.api.SlateBaseOperate.FetchApiType;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.unit.ParseUtil;
 
@@ -111,7 +112,7 @@ public abstract class CommonArticleActivity extends BaseActivity {
 		init();
 		initProcess();
 		initViewpager();
-		fetchData();
+		fetchData(true);
 	}
 
 	protected void init() {
@@ -128,7 +129,7 @@ public abstract class CommonArticleActivity extends BaseActivity {
 	/**
 	 * 获取文章数据
 	 */
-	private void fetchData() {
+	private void fetchData(boolean delay) {
 		if (transferArticle.getArticleType() == ArticleType.Fav) { // 收藏
 			getFavList();
 		} else if (transferArticle.getArticleType() == ArticleType.Last) { // 往期
@@ -137,13 +138,17 @@ public abstract class CommonArticleActivity extends BaseActivity {
 			lastHelper.doGetLastIssueAricles();
 		} else {
 			showLoading();
-			handler.postDelayed(new Runnable() {
+			if (delay) {
+				handler.postDelayed(new Runnable() {
 
-				@Override
-				public void run() {
-					getArticleList();
-				}
-			}, 1000);
+					@Override
+					public void run() {
+						getArticleList();
+					}
+				}, 1000);
+			} else {
+				getArticleList();
+			}
 		}
 	}
 
@@ -179,7 +184,8 @@ public abstract class CommonArticleActivity extends BaseActivity {
 		// TODO 因为在请求index时候已经请求了articlelist，所有每次都从数据库取，如果数据库没有，那么从服务器上获取
 		if (useCache) {
 			OperateController.getInstance(this).getTagArticles(tagInfo, "", "",
-					null, true, new FetchEntryListener() {
+					null, FetchApiType.USE_CACHE_FIRST,
+					new FetchEntryListener() {
 
 						@Override
 						public void setData(Entry entry) {
@@ -214,7 +220,8 @@ public abstract class CommonArticleActivity extends BaseActivity {
 	 */
 	private void getTagInfo() {
 		OperateController.getInstance(this).getTagInfo(
-				transferArticle.getTagName(), true, new FetchEntryListener() {
+				transferArticle.getTagName(), FetchApiType.USE_CACHE_FIRST,
+				new FetchEntryListener() {
 
 					@Override
 					public void setData(Entry entry) {
@@ -244,7 +251,7 @@ public abstract class CommonArticleActivity extends BaseActivity {
 	 * 
 	 * @param articleId
 	 */
-	private void getArticle(int articleId) {
+	private void getArticle(int articleId, final boolean resetAdapter) {
 		showLoading();
 		OperateController.getInstance(this).getArticleDetails(articleId,
 				new FetchEntryListener() {
@@ -259,8 +266,13 @@ public abstract class CommonArticleActivity extends BaseActivity {
 								ArticleItem item = tagArticleList
 										.getArticleList().get(0);
 								list.addAll(checkMultiplePage(item));
-								setDataForAdapter(list, list.size()
-										- item.getPageUrlList().size());
+								final int pos = list.size()
+										- item.getPageUrlList().size();
+								if (resetAdapter) {
+									setDataForAdapter(list, pos);
+								} else {
+									viewPager.setCurrentItem(pos, false);
+								}
 							}
 							disProcess();
 						} else {
@@ -433,9 +445,9 @@ public abstract class CommonArticleActivity extends BaseActivity {
 		}
 
 		if (pos == -1 && !singleArticle) {
-			// TODO 找不到这篇文章
+			// NOTE 找不到这篇文章
 			singleArticle = true;
-			getArticle(transferArticle.getArtcleId());
+			getArticle(transferArticle.getArtcleId(), true);
 			return;
 		}
 
@@ -580,18 +592,26 @@ public abstract class CommonArticleActivity extends BaseActivity {
 	/**
 	 * 从文章跳转到指定文章
 	 */
-	public void moveToArticle(int id) {
-		int pos = -1;
-		int length = list.size();
-		for (int i = 0; i < length; i++) {
-			if (list.get(i).getArticleId() == id) {
-				pos = i;
-				break;
+	public void moveToArticle(TransferArticle _tr) {
+		if (_tr.getTagName().equals(transferArticle.getTagName())) {
+			int pos = -1;
+			int length = list.size();
+			int aId = _tr.getArtcleId();
+			for (int i = 0; i < length; i++) {
+				if (list.get(i).getArticleId() == aId) {
+					pos = i;
+					break;
+				}
 			}
-		}
-		if (pos != -1) {
-			changeFav(pos);
-			viewPager.setCurrentItem(pos, false);
+			if (pos != -1) {
+				changeFav(pos);
+				viewPager.setCurrentItem(pos, false);
+			} else {
+				getArticle(aId, false);
+			}
+		} else {
+			transferArticle = _tr;
+			fetchData(false);
 		}
 	}
 
@@ -643,8 +663,10 @@ public abstract class CommonArticleActivity extends BaseActivity {
 		@Override
 		public void destroyItem(ViewGroup container, int position, Object object) {
 			super.destroyItem(container, position, object);
-			if (listenerMap.containsKey(position))
+			if (listenerMap.containsKey(position)
+					&& position != currentPosition) {
 				listenerMap.remove(position);
+			}
 		}
 
 		@Override
@@ -775,7 +797,7 @@ public abstract class CommonArticleActivity extends BaseActivity {
 	@Override
 	public void reLoadData() {
 		singleArticle = false;
-		fetchData();
+		fetchData(false);
 	}
 
 	@Override

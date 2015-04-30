@@ -67,19 +67,16 @@ public class GetUserSubscribeListOpertate extends BaseOperate {
 	}
 
 	@Override
-	public boolean fecthLocalData(String fileName) {
+	protected CallBackData fetchDataFromDB() {
+		CallBackData callBackData = new CallBackData();
 		Entry entry = UserSubscribeListDb.getInstance(getmContext()).getEntry(
 				this, uid);
 		if (entry instanceof SubscribeOrderList) {
 			subScribeOrderList = (SubscribeOrderList) entry;
-			if (callBack != null) {
-				PrintHelper
-						.print("from db:getUserSubscribeList====" + getUrl());
-				callBack.callback(true, false);
-				return true;
-			}
+			callBackData.success = true;
+			PrintHelper.print("from db:getUserSubscribeList====" + getUrl());
 		}
-		return false;
+		return callBackData;
 	}
 
 	@Override

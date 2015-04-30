@@ -7,10 +7,10 @@ import android.content.Context;
 import android.text.TextUtils;
 import cn.com.modernmediaslate.unit.ParseUtil;
 import cn.com.modernmediaslate.unit.SlatePrintHelper;
+import cn.com.modernmediaslate.unit.Tools;
 import cn.com.modernmediausermodel.db.UserListDb;
 import cn.com.modernmediausermodel.model.UserCardInfoList;
 import cn.com.modernmediausermodel.model.UserCardInfoList.UserCardInfo;
-import cn.com.modernmediausermodel.util.UserTools;
 import cn.com.modernmediausermodel.widget.RecommendUserView;
 
 public class GetRecommendUsersOperate extends UserBaseOperate {
@@ -24,7 +24,7 @@ public class GetRecommendUsersOperate extends UserBaseOperate {
 	public UserCardInfoList getUserCardInfoList() {
 		return userCardInfoList;
 	}
- 
+
 	public GetRecommendUsersOperate(String uid, int pageType, String offsetId,
 			int lastDbId, Context context) {
 		this.userCardInfoList = new UserCardInfoList();
@@ -53,7 +53,7 @@ public class GetRecommendUsersOperate extends UserBaseOperate {
 			break;
 		}
 		if (!TextUtils.isEmpty(url)) {
-			url += "/customer_uid/" + UserTools.getUid(getmContext());
+			url += "/customer_uid/" + Tools.getUid(getmContext());
 			// 加载更多时，必须带有pages参数
 			if (!TextUtils.isEmpty(offsetId)) {
 				url += "/pages/0/offsetid/" + offsetId;
@@ -103,18 +103,16 @@ public class GetRecommendUsersOperate extends UserBaseOperate {
 	}
 
 	@Override
-	public boolean fecthLocalData(String fileName) {
+	protected CallBackData fetchDataFromDB() {
+		CallBackData callBackData = new CallBackData();
 		UserCardInfoList infoList = db.getUserInfoList(pageType + "", uid,
 				lastDbId);
 		if (ParseUtil.listNotNull(infoList.getList())) {
 			userCardInfoList = infoList;
-			if (callBack != null) {
-				SlatePrintHelper.print("from db:" + "====" + getUrl());
-				callBack.callback(true, false);
-				return true;
-			}
+			callBackData.success = true;
+			SlatePrintHelper.print("from db:" + "====" + getUrl());
 		}
-		return false;
+		return callBackData;
 	}
 
 	@Override

@@ -35,7 +35,7 @@ public class TagDataHelper {
 	}
 
 	/**
-	 * 保存最近一次获取到的issueid
+	 * 保存最近一次获取到的栏目文章更新时间
 	 * 
 	 * @param context
 	 * @param issueId
@@ -48,7 +48,7 @@ public class TagDataHelper {
 	}
 
 	/**
-	 * 获取当前栏目文章更新时间
+	 * 获取当前栏目更新时间
 	 * 
 	 * @param context
 	 * @return
@@ -58,7 +58,7 @@ public class TagDataHelper {
 	}
 
 	/**
-	 * 保存最近一次获取到的issueid
+	 * 保存最近一次获取到的栏目更新时间
 	 * 
 	 * @param context
 	 * @param issueId

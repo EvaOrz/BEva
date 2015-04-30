@@ -3,10 +3,10 @@ package cn.com.modernmediausermodel.api;
 import org.json.JSONObject;
 
 import android.content.Context;
+import cn.com.modernmediaslate.model.User;
+import cn.com.modernmediaslate.unit.SlateDataHelper;
 import cn.com.modernmediausermodel.db.RecommendCardDb;
 import cn.com.modernmediausermodel.model.Card;
-import cn.com.modernmediausermodel.model.User;
-import cn.com.modernmediausermodel.util.UserDataHelper;
 
 /**
  * 广场
@@ -28,7 +28,7 @@ public class GetRecommendCardOperate extends CardBaseOperate {
 	@Override
 	protected String getUrl() {
 		String url = UrlMaker.getRecommentCard() + getParam;
-		User user = UserDataHelper.getUserLoginInfo(mContext);
+		User user = SlateDataHelper.getUserLoginInfo(mContext);
 		if (user != null) { // 未登录
 			url += "/customer_uid/" + user.getUid();
 		}

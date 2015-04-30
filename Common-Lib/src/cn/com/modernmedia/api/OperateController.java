@@ -12,6 +12,7 @@ import cn.com.modernmedia.model.SubscribeOrderList.SubscribeColumn;
 import cn.com.modernmedia.model.TagArticleList;
 import cn.com.modernmedia.model.TagInfoList.TagInfo;
 import cn.com.modernmedia.util.TagDataHelper;
+import cn.com.modernmediaslate.api.SlateBaseOperate.FetchApiType;
 import cn.com.modernmediaslate.listener.DataCallBack;
 import cn.com.modernmediaslate.model.Entry;
 
@@ -42,15 +43,15 @@ public class OperateController {
 		public void afterCallBack(Entry entry, boolean fromHttp);
 	}
 
-	private void doRequest(BaseOperate operate, Entry entry, boolean useCache,
+	private void doRequest(BaseOperate operate, Entry entry, FetchApiType type,
 			FetchEntryListener listener) {
-		doRequest(operate, entry, useCache, listener, null);
+		doRequest(operate, entry, type, listener, null);
 	}
 
 	private void doRequest(BaseOperate operate, final Entry entry,
-			boolean useCache, final FetchEntryListener listener,
+			FetchApiType type, final FetchEntryListener listener,
 			final AfterCallBack afterCallBack) {
-		operate.asyncRequest(mContext, useCache, new DataCallBack() {
+		operate.asyncRequest(mContext, type, new DataCallBack() {
 
 			@Override
 			public void callback(boolean success, boolean fromHttp) {
@@ -61,14 +62,14 @@ public class OperateController {
 	}
 
 	private void doPostRequest(BaseOperate operate, Entry entry,
-			boolean useCache, FetchEntryListener listener) {
-		doPostRequest(operate, entry, useCache, listener, null);
+			FetchApiType type, FetchEntryListener listener) {
+		doPostRequest(operate, entry, type, listener, null);
 	}
 
 	private void doPostRequest(BaseOperate operate, final Entry entry,
-			boolean useCache, final FetchEntryListener listener,
+			FetchApiType type, final FetchEntryListener listener,
 			final AfterCallBack afterCallBack) {
-		operate.asyncRequestByPost(mContext, useCache, new DataCallBack() {
+		operate.asyncRequestByPost(mContext, type, new DataCallBack() {
 
 			@Override
 			public void callback(boolean success, boolean fromHttp) {
@@ -109,7 +110,8 @@ public class OperateController {
 	 */
 	public void getDown(FetchEntryListener listener) {
 		DownOperate operate = new DownOperate(mContext);
-		doRequest(operate, operate.getDown(), false, listener);
+		doRequest(operate, operate.getDown(), FetchApiType.USE_HTTP_ONLY,
+				listener);
 	}
 
 	/**
@@ -119,7 +121,8 @@ public class OperateController {
 	 */
 	public void checkVersion(FetchEntryListener listener) {
 		CheckVersionOperate operate = new CheckVersionOperate();
-		doRequest(operate, operate.getVersion(), false, listener);
+		doRequest(operate, operate.getVersion(), FetchApiType.USE_HTTP_ONLY,
+				listener);
 	}
 
 	/**
@@ -133,7 +136,8 @@ public class OperateController {
 	public void getWeather(double longitude, double latitude,
 			FetchEntryListener listener) {
 		GetWeatherOperate operate = new GetWeatherOperate(longitude, latitude);
-		doRequest(operate, operate.getWeather(), false, listener);
+		doRequest(operate, operate.getWeather(), FetchApiType.USE_HTTP_ONLY,
+				listener);
 	}
 
 	/**
@@ -141,43 +145,32 @@ public class OperateController {
 	 * 
 	 * @param listener
 	 */
-	public void getLastestArticleIds(String tagName, boolean useLocalData,
+	public void getLatestArticleIds(String tagName, FetchApiType type,
 			FetchEntryListener listener) {
-		GetLastestArticleIdOperate operate = new GetLastestArticleIdOperate(
+		GetLatestArticleIdOperate operate = new GetLatestArticleIdOperate(
 				mContext, tagName);
-		doRequest(operate, operate.getmLastestArticleId(), useLocalData,
-				listener);
+		doRequest(operate, operate.getmLastestArticleId(), type, listener);
 	}
 
 	/**
 	 * 获取广告列表
 	 * 
-	 * @param useLocal
+	 * @param type
 	 * @param listener
 	 */
-	public void getAdvList(boolean useLocal, FetchEntryListener listener) {
+	public void getAdvList(FetchApiType type, FetchEntryListener listener) {
 		GetAdvListOperate operate = new GetAdvListOperate();
-		doRequest(operate, operate.getAdvList(), useLocal, listener);
+		operate.setShowToast(type != FetchApiType.USE_CACHE_ONLY);
+		doRequest(operate, operate.getAdvList(), type, listener);
 	}
-
-	/**
-	 * 获取iWeekly入版广告
-	 * 
-	 * @param listener
-	 */
-	// public void getWeeklyInApp(boolean useLocalData, FetchEntryListener
-	// listener) {
-	// GetInAppAdvOperate operate = new GetInAppAdvOperate();
-	// doRequest(operate, operate.getInAppAdv(), useLocalData, listener);
-	// }
 
 	/**
 	 * 获取应用信息
 	 * 
 	 * @param listener
 	 */
-	public void getAppInfo(FetchEntryListener listener) {
-		getTagInfo("", "", "1", "", TAG_TYPE.APP_INFO, listener);
+	public void getAppInfo(FetchApiType type, FetchEntryListener listener) {
+		getTagInfo("", "", "1", "", TAG_TYPE.APP_INFO, type, listener);
 	}
 
 	/**
@@ -185,11 +178,11 @@ public class OperateController {
 	 * 
 	 * @param listener
 	 */
-	public void getTagInfo(String tagName, boolean useCache,
+	public void getTagInfo(String tagName, FetchApiType type,
 			FetchEntryListener listener) {
 		GetTagInfoOperate operate = new GetTagInfoOperate("", tagName, "", "",
 				TAG_TYPE.TAG_INFO);
-		doRequest(operate, operate.getTagInfoList(), useCache, listener);
+		doRequest(operate, operate.getTagInfoList(), type, listener);
 	}
 
 	/**
@@ -201,7 +194,8 @@ public class OperateController {
 			FetchEntryListener listener) {
 		GetTagInfoOperate operate = new GetTagInfoOperate(parentTagName, "",
 				"", "", TAG_TYPE.CHILD_CAT);
-		doRequest(operate, operate.getTagInfoList(), true, listener);
+		doRequest(operate, operate.getTagInfoList(),
+				FetchApiType.USE_CACHE_FIRST, listener);
 	}
 
 	/**
@@ -218,10 +212,11 @@ public class OperateController {
 	 * @param listener
 	 */
 	public void getTagInfo(String parentTagName, String tagName, String group,
-			String top, TAG_TYPE type, FetchEntryListener listener) {
+			String top, TAG_TYPE type, FetchApiType fetchType,
+			FetchEntryListener listener) {
 		GetTagInfoOperate operate = new GetTagInfoOperate(parentTagName,
 				tagName, group, top, type);
-		doRequest(operate, operate.getTagInfoList(), false, listener);
+		doRequest(operate, operate.getTagInfoList(), fetchType, listener);
 	}
 
 	/**
@@ -232,7 +227,8 @@ public class OperateController {
 	 */
 	public void getLastIssueList(String top, FetchEntryListener listener) {
 		GetLastIssueListOperate operate = new GetLastIssueListOperate(top);
-		doRequest(operate, operate.getTagInfoList(), false, listener);
+		doRequest(operate, operate.getTagInfoList(),
+				FetchApiType.USE_HTTP_FIRST, listener);
 	}
 
 	/**
@@ -243,7 +239,8 @@ public class OperateController {
 	 */
 	public void getLastIssueCats(String tagName, FetchEntryListener listener) {
 		GetTagInfoOperate operate = new GetLastIssueCatsOperate(tagName);
-		doRequest(operate, operate.getTagInfoList(), false, listener);
+		doRequest(operate, operate.getTagInfoList(),
+				FetchApiType.USE_HTTP_FIRST, listener);
 	}
 
 	/**
@@ -265,15 +262,17 @@ public class OperateController {
 						tagInfo.getArticleupdatetime(),
 						TagDataHelper.getCatArticleUpdateTime(mContext,
 								tagInfo.getTagName()));
-		getTagArticles(tagInfo, top, limited, articleList, useCache, listener);
+		FetchApiType type = useCache ? FetchApiType.USE_CACHE_FIRST
+				: FetchApiType.USE_HTTP_FIRST;
+		getTagArticles(tagInfo, top, limited, articleList, type, listener);
 	}
 
 	public void getTagArticles(final TagInfo tagInfo, String top,
-			String limited, TagArticleList articleList, boolean useCache,
+			String limited, TagArticleList articleList, FetchApiType type,
 			FetchEntryListener listener) {
 		final GetTagArticlesOperate operate = new GetTagArticlesOperate(
 				tagInfo, top, limited, articleList);
-		doRequest(operate, operate.getArticleList(), useCache, listener,
+		doRequest(operate, operate.getArticleList(), type, listener,
 				new AfterCallBack() {
 
 					@Override
@@ -300,11 +299,11 @@ public class OperateController {
 	 * @param listener
 	 */
 	public void getLastIssueArticles(String lastIssueTag, String tagName,
-			String top, String publishTime, boolean useCache,
+			String top, String publishTime, FetchApiType type,
 			FetchEntryListener listener) {
 		GetLastIssueArticlesOperate operate = new GetLastIssueArticlesOperate(
 				lastIssueTag, tagName, top, publishTime);
-		doRequest(operate, operate.getArticleList(), useCache, listener);
+		doRequest(operate, operate.getArticleList(), type, listener);
 	}
 
 	/**
@@ -315,14 +314,32 @@ public class OperateController {
 	 */
 	public void getTagIndex(final TagInfo tagInfo, String top, String limited,
 			TagArticleList articleList, FetchEntryListener listener) {
-		GetTagIndexOperate operate = new GetTagIndexOperate(tagInfo, top,
-				limited, articleList);
 		boolean useCache = !TextUtils.equals(limited, "5")
 				&& TextUtils.equals(
 						tagInfo.getColoumnupdatetime(),
 						TagDataHelper.getCatIndexUpdateTime(mContext,
 								tagInfo.getTagName()));
-		doRequest(operate, operate.getArticleList(), useCache, listener,
+		FetchApiType type = useCache ? FetchApiType.USE_CACHE_FIRST
+				: FetchApiType.USE_HTTP_FIRST;
+		getTagIndex(tagInfo, top, limited, articleList, type, listener);
+	}
+
+	/**
+	 * 获取栏目首页数据
+	 * 
+	 * @param tagInfo
+	 * @param top
+	 * @param limited
+	 * @param articleList
+	 * @param type
+	 * @param listener
+	 */
+	public void getTagIndex(final TagInfo tagInfo, String top, String limited,
+			TagArticleList articleList, FetchApiType type,
+			FetchEntryListener listener) {
+		GetTagIndexOperate operate = new GetTagIndexOperate(tagInfo, top,
+				limited, articleList);
+		doRequest(operate, operate.getArticleList(), type, listener,
 				new AfterCallBack() {
 
 					@Override
@@ -343,10 +360,10 @@ public class OperateController {
 	 * @param listene
 	 */
 	public void getSubscribeOrderList(String uid, String token,
-			FetchEntryListener listener) {
+			FetchApiType type, FetchEntryListener listener) {
 		GetUserSubscribeListOpertate operate = new GetUserSubscribeListOpertate(
 				uid, token);
-		doRequest(operate, operate.getSubscribeOrderList(), false, listener);
+		doRequest(operate, operate.getSubscribeOrderList(), type, listener);
 	}
 
 	/**
@@ -360,7 +377,8 @@ public class OperateController {
 			List<SubscribeColumn> list, FetchEntryListener listener) {
 		SaveUserSubscribeListOpertate operate = new SaveUserSubscribeListOpertate(
 				uid, token, list);
-		doPostRequest(operate, operate.getError(), false, listener);
+		doPostRequest(operate, operate.getError(), FetchApiType.USE_HTTP_ONLY,
+				listener);
 	}
 
 	/**
@@ -371,8 +389,8 @@ public class OperateController {
 	 */
 	public void getFav(String uid, FetchEntryListener listener) {
 		final UserGetFavOperate operate = new UserGetFavOperate(uid);
-		// doPostRequest(operate, operate.getFavorite(), false, listener);
-		doRequest(operate, operate.getFavorite(), false, listener);
+		doRequest(operate, operate.getFavorite(), FetchApiType.USE_HTTP_FIRST,
+				listener);
 	}
 
 	/**
@@ -385,7 +403,8 @@ public class OperateController {
 			sendMessage(null, listener, false, null);
 		final UserUpdateFavOperate operate = new UserUpdateFavOperate(uid,
 				appid, list);
-		doPostRequest(operate, operate.getFavorite(), false, listener);
+		doPostRequest(operate, operate.getFavorite(),
+				FetchApiType.USE_HTTP_ONLY, listener);
 	}
 
 	/**
@@ -397,6 +416,7 @@ public class OperateController {
 	public void getArticleDetails(int articleId, FetchEntryListener listener) {
 		GetArticleDetailsOperate operate = new GetArticleDetailsOperate(
 				articleId);
-		doRequest(operate, operate.getArticleList(), false, listener);
+		doRequest(operate, operate.getArticleList(),
+				FetchApiType.USE_HTTP_FIRST, listener);
 	}
 }

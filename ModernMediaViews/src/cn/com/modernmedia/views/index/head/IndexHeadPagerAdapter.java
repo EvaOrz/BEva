@@ -34,7 +34,9 @@ public class IndexHeadPagerAdapter extends MyPagerAdapter<ArticleItem> {
 	public Object instantiateItem(ViewGroup container, final int position) {
 		if (ConstData.getAppId() == 20)
 			WeeklyLogEvent.logAndroidColumnHeadviewShowCount();
-		View view = fetchView(list.get(position), position);
+
+		int newPosition = position % list.size();
+		View view = fetchView(list.get(newPosition), newPosition);
 		container.addView(view);
 		return view;
 	}

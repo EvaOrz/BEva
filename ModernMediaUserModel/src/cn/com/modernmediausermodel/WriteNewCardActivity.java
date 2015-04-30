@@ -24,16 +24,16 @@ import cn.com.modernmediaslate.SlateApplication;
 import cn.com.modernmediaslate.SlateBaseActivity;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.model.ErrorMsg;
+import cn.com.modernmediaslate.model.User;
 import cn.com.modernmediaslate.unit.ParseUtil;
+import cn.com.modernmediaslate.unit.SlateDataHelper;
+import cn.com.modernmediaslate.unit.Tools;
 import cn.com.modernmediausermodel.api.UserOperateController;
 import cn.com.modernmediausermodel.listener.UserFetchEntryListener;
 import cn.com.modernmediausermodel.model.Card.CardItem;
-import cn.com.modernmediausermodel.model.User;
 import cn.com.modernmediausermodel.util.CopyTextHelper;
 import cn.com.modernmediausermodel.util.UserCentManager;
 import cn.com.modernmediausermodel.util.UserConstData;
-import cn.com.modernmediausermodel.util.UserDataHelper;
-import cn.com.modernmediausermodel.util.UserTools;
 
 /**
  * 新建笔记页
@@ -83,7 +83,7 @@ public class WriteNewCardActivity extends SlateBaseActivity implements
 					if (!TextUtils.isEmpty(articleId)) {
 						showMessage(content);
 					}
-//					contentEdit.setSelection(content.length());
+					// contentEdit.setSelection(content.length());
 				}
 			}
 		}
@@ -113,7 +113,7 @@ public class WriteNewCardActivity extends SlateBaseActivity implements
 			shareBtn.setVisibility(View.GONE);
 		} else {
 			weiboAuth = new SinaAuth(this);
-			User user = UserDataHelper.getUserLoginInfo(this);
+			User user = SlateDataHelper.getUserLoginInfo(this);
 			if (user != null && !TextUtils.isEmpty(user.getSinaId())) { // 微博登录时同步微博
 				shareBtn.setImageResource(R.drawable.img_weibo_select);
 				isShareToWeibo = true;
@@ -188,7 +188,7 @@ public class WriteNewCardActivity extends SlateBaseActivity implements
 
 	private void addCard() {
 		CardItem item = new CardItem();
-		item.setUid(UserTools.getUid(this));
+		item.setUid(Tools.getUid(this));
 		item.setAppId(UserConstData.getInitialAppId());
 		item.setTime(Calendar.getInstance().getTimeInMillis() + "");
 		item.setContents(contentEdit.getText().toString());

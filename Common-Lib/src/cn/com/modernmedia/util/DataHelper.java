@@ -26,6 +26,7 @@ public class DataHelper {
 	private static final String COLUMN_UPDATE_TIME = "columnUpdateTime_";
 	private static final String ARTICLE_UPDATE_TIME = "articleUpdateTime_";
 	private static final String APP_UPDATETIME = "app_updatetime";
+	private static final String ADV_UPDATETIME = "adv_updatetime";
 	private static final String DOWN = "down";
 	private static final String UPDATE = "update";
 	private static final String LINE_HEIGHT = "line_height";// webview行间距
@@ -186,6 +187,29 @@ public class DataHelper {
 		editor.putString(APP_UPDATETIME, time);
 		editor.commit();
 	}
+	
+	/**
+	 * 获取最近一次更新的ADV_UPDATETIME
+	 * 
+	 * @param context
+	 * @return
+	 */
+	public static String getAdvUpdateTime(Context context) {
+		return getPref(context).getString(ADV_UPDATETIME, "");
+	}
+
+	/**
+	 * 保存最近一次获取的ADV_UPDATETIME
+	 * 
+	 * @param context
+	 * @param time
+	 */
+	public static void setAdvUpdateTime(Context context, String time) {
+		Editor editor = getPref(context).edit();
+		editor.putString(ADV_UPDATETIME, time);
+		editor.commit();
+	}
+	
 
 	/**
 	 * 统计渠道

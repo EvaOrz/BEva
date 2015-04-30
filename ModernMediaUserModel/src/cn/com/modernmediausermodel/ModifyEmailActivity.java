@@ -13,10 +13,10 @@ import android.widget.TextView;
 import cn.com.modernmediaslate.SlateBaseActivity;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.model.ErrorMsg;
+import cn.com.modernmediaslate.model.User;
+import cn.com.modernmediaslate.unit.SlateDataHelper;
 import cn.com.modernmediausermodel.api.UserOperateController;
 import cn.com.modernmediausermodel.listener.UserFetchEntryListener;
-import cn.com.modernmediausermodel.model.User;
-import cn.com.modernmediausermodel.util.UserDataHelper;
 import cn.com.modernmediausermodel.util.UserPageTransfer;
 import cn.com.modernmediausermodel.util.UserTools;
 
@@ -80,7 +80,7 @@ public class ModifyEmailActivity extends SlateBaseActivity implements
 	 *            新的密码
 	 */
 	private void doModifyEmail(final String email, String password) {
-		User user = UserDataHelper.getUserLoginInfo(this);
+		User user = SlateDataHelper.getUserLoginInfo(this);
 		if (user == null)
 			return;
 		user.setUserName(email);
@@ -101,7 +101,7 @@ public class ModifyEmailActivity extends SlateBaseActivity implements
 							if (error.getNo() == 0) {
 								showToast(R.string.msg_modify_success);
 								// 更新本地存储的用户名
-								UserDataHelper.saveUserName(
+								SlateDataHelper.saveUserName(
 										ModifyEmailActivity.this, email);
 								// 跳转到金币页面
 								UserPageTransfer.gotoMyCoinActivity(

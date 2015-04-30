@@ -10,10 +10,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.com.modernmedia.widget.CheckScrollListview;
+import cn.com.modernmediaslate.model.User;
 import cn.com.modernmediausermodel.R;
 import cn.com.modernmediausermodel.adapter.CardDetailListAdapter;
 import cn.com.modernmediausermodel.model.MultiComment.Comment;
-import cn.com.modernmediausermodel.model.User;
 import cn.com.modernmediausermodel.util.UserPageTransfer;
 import cn.com.modernmediausermodel.util.UserTools;
 

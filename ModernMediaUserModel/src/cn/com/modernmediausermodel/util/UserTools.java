@@ -34,10 +34,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import cn.com.modernmediaslate.SlateApplication;
 import cn.com.modernmediaslate.listener.ImageDownloadStateListener;
+import cn.com.modernmediaslate.model.User;
 import cn.com.modernmediaslate.unit.DateFormatTool;
 import cn.com.modernmediaslate.unit.ParseUtil;
 import cn.com.modernmediausermodel.R;
-import cn.com.modernmediausermodel.model.User;
 
 public class UserTools {
 	public static final int REQUEST_ZOOM = 111;
@@ -236,17 +236,6 @@ public class UserTools {
 	 */
 	private static void doAnim(View view, Animation animation) {
 		view.startAnimation(animation);
-	}
-
-	/**
-	 * 获取uid
-	 * 
-	 * @param context
-	 * @return
-	 */
-	public static String getUid(Context context) {
-		User user = UserDataHelper.getUserLoginInfo(context);
-		return user == null ? SlateApplication.UN_UPLOAD_UID : user.getUid();
 	}
 
 	/**

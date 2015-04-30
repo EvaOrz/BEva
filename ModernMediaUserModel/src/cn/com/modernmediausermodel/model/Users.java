@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import cn.com.modernmediaslate.model.Entry;
+import cn.com.modernmediaslate.model.User;
 import cn.com.modernmediausermodel.model.UserCardInfoList.UserCardInfo;
 
 /**

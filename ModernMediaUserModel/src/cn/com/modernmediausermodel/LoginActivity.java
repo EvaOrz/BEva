@@ -22,9 +22,10 @@ import cn.com.modernmediaslate.SlateApplication;
 import cn.com.modernmediaslate.SlateBaseActivity;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.model.ErrorMsg;
+import cn.com.modernmediaslate.model.User;
+import cn.com.modernmediaslate.unit.SlateDataHelper;
 import cn.com.modernmediausermodel.api.UserOperateController;
 import cn.com.modernmediausermodel.listener.UserFetchEntryListener;
-import cn.com.modernmediausermodel.model.User;
 import cn.com.modernmediausermodel.util.QQLoginUtil;
 import cn.com.modernmediausermodel.util.UserCentManager;
 import cn.com.modernmediausermodel.util.UserDataHelper;
@@ -56,7 +57,8 @@ public class LoginActivity extends SlateBaseActivity implements OnClickListener 
 		super.onCreate(savedInstanceState);
 		mContext = this;
 		mController = UserOperateController.getInstance(mContext);
-		if (checkIsShare() && UserDataHelper.getUserLoginInfo(mContext) != null) {
+		if (checkIsShare()
+				&& SlateDataHelper.getUserLoginInfo(mContext) != null) {
 			UserPageTransfer.gotoWriteCardActivity(this, shareData, false);
 			shouldFinish = true;
 		}
@@ -233,7 +235,7 @@ public class LoginActivity extends SlateBaseActivity implements OnClickListener 
 	}
 
 	private void doAfterSinaIsOAuthed() {
-		User user = UserDataHelper.getUserLoginInfo(mContext);
+		User user = SlateDataHelper.getUserLoginInfo(mContext);
 		String sinaId = SinaAPI.getInstance(mContext).getSinaId();
 		if (user != null && !TextUtils.isEmpty(user.getSinaId())
 				&& user.getSinaId().equals(sinaId)) { // 已经用新浪微博账号在本应用上登录
@@ -249,7 +251,7 @@ public class LoginActivity extends SlateBaseActivity implements OnClickListener 
 	}
 
 	private void doAfterQQIsAuthed() {
-		User user = UserDataHelper.getUserLoginInfo(mContext);
+		User user = SlateDataHelper.getUserLoginInfo(mContext);
 		String qqId = QQLoginUtil.getInstance(mContext).getOpenId();
 		if (user != null && !TextUtils.isEmpty(user.getQqId())
 				&& user.getQqId().equals(qqId)) { // 已经用QQ账号在本应用上登录
@@ -333,7 +335,7 @@ public class LoginActivity extends SlateBaseActivity implements OnClickListener 
 									user.setPassword(password);
 									user.setLogined(true);
 									// 将相关信息用SharedPreferences存储
-									UserDataHelper.saveUserLoginInfo(mContext,
+									SlateDataHelper.saveUserLoginInfo(mContext,
 											user);
 									// 返回上一级界面
 									afterRegister(user, shareData);
@@ -368,7 +370,7 @@ public class LoginActivity extends SlateBaseActivity implements OnClickListener 
 					User mUser = (User) entry;
 					ErrorMsg error = mUser.getError();
 					if (error.getNo() == 0) {
-						UserDataHelper.saveUserLoginInfo(mContext, mUser);
+						SlateDataHelper.saveUserLoginInfo(mContext, mUser);
 						if (type == 1) { // 新浪微博
 							UserDataHelper.saveSinaLoginedName(mContext,
 									mUser.getSinaId(), mUser.getUserName());
@@ -376,7 +378,7 @@ public class LoginActivity extends SlateBaseActivity implements OnClickListener 
 							UserDataHelper.saveQqLoginedName(mContext,
 									mUser.getQqId(), mUser.getUserName());
 						}
-						UserDataHelper.saveAvatarUrl(mContext,
+						SlateDataHelper.saveAvatarUrl(mContext,
 								mUser.getUserName(), mUser.getAvatar());
 						afterLogin(mUser);
 						return;
@@ -437,13 +439,14 @@ public class LoginActivity extends SlateBaseActivity implements OnClickListener 
 					if (entry instanceof User) {
 						User user = (User) entry;
 						ErrorMsg error = user.getError();
-						if (error.getNo() == 0) {
+						if (error.getNo() == 0
+								&& !TextUtils.isEmpty(user.getUid())) {
 							// 登录成功
 							user.setPassword(password);
 							user.setLogined(true);
 							// 将相关信息用SharedPreferences存储
-							UserDataHelper.saveUserLoginInfo(mContext, user);
-							UserDataHelper.saveAvatarUrl(mContext,
+							SlateDataHelper.saveUserLoginInfo(mContext, user);
+							SlateDataHelper.saveAvatarUrl(mContext,
 									user.getUserName(), user.getAvatar());
 							afterLogin(user);
 							return;
@@ -480,7 +483,7 @@ public class LoginActivity extends SlateBaseActivity implements OnClickListener 
 
 	@Override
 	public void finish() {
-		if (UserDataHelper.getUserLoginInfo(this) != null)
+		if (SlateDataHelper.getUserLoginInfo(this) != null)
 			setResult(RESULT_OK);
 		super.finish();
 		overridePendingTransition(R.anim.activity_close_enter,

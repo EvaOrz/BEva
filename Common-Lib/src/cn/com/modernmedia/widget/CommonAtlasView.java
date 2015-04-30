@@ -8,6 +8,7 @@ import cn.com.modernmedia.db.ReadDb;
 import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.util.AdvTools;
 import cn.com.modernmedia.util.LogHelper;
+import cn.com.modernmedia.util.PageTransfer.TransferArticle;
 
 /**
  * 图集
@@ -65,9 +66,9 @@ public abstract class CommonAtlasView extends BaseView {
 		}
 	}
 
-	public void gotoArticle(int articleId) {
-		if (mContext instanceof CommonArticleActivity && articleId != -1) {
-			((CommonArticleActivity) mContext).moveToArticle(articleId);
+	public void gotoArticle(TransferArticle transferArticle) {
+		if (mContext instanceof CommonArticleActivity && transferArticle != null) {
+			((CommonArticleActivity) mContext).moveToArticle(transferArticle);
 		}
 	}
 

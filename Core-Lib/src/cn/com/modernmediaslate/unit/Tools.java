@@ -90,4 +90,14 @@ public class Tools {
 			((SlateBaseFragmentActivity) context).showToast(resStr);
 		}
 	}
+
+	/**
+	 * 获取uid
+	 * 
+	 * @param context
+	 * @return
+	 */
+	public static String getUid(Context context) {
+		return SlateDataHelper.getUid(context);
+	}
 }

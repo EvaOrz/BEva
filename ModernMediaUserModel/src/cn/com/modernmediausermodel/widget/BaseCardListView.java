@@ -17,7 +17,6 @@ import cn.com.modernmediausermodel.model.Card;
 import cn.com.modernmediausermodel.model.Card.CardItem;
 import cn.com.modernmediausermodel.model.Users;
 import cn.com.modernmediausermodel.util.UserConstData;
-import cn.com.modernmediausermodel.util.UserTools;
 
 /**
  * 卡片列表页基础类
@@ -199,6 +198,6 @@ public abstract class BaseCardListView {
 	public abstract void setTipVisibility(boolean show);
 
 	protected String getUId() {
-		return UserTools.getUid(mContext);
+		return Tools.getUid(mContext);
 	}
 }

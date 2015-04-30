@@ -19,7 +19,7 @@ import cn.com.modernmedia.util.FileManager;
  * @author ZhuQiao
  * 
  */
-public class GetLastestArticleIdOperate extends BaseOperate {
+public class GetLatestArticleIdOperate extends BaseOperate {
 	private static final String FILE_NAME = ConstData
 			.getLastestArticleIdFileName();
 	private String url;
@@ -27,8 +27,8 @@ public class GetLastestArticleIdOperate extends BaseOperate {
 	private LastestArticleId mLastestArticleId;
 	private String mTagName;
 
-	protected GetLastestArticleIdOperate(Context context, String tagName) {
-		url = UrlMaker.getWeeklyLastestArticleId(tagName);
+	protected GetLatestArticleIdOperate(Context context, String tagName) {
+		url = UrlMaker.getWeeklyLatestArticleId(tagName);
 		readDb = ReadDb.getInstance(context);
 		mLastestArticleId = new LastestArticleId();
 		this.mTagName = tagName;

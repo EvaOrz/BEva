@@ -2,6 +2,8 @@ package cn.com.modernmediausermodel.widget;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,12 +15,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.com.modernmediaslate.SlateApplication;
 import cn.com.modernmediaslate.model.Entry;
+import cn.com.modernmediaslate.model.ErrorMsg;
+import cn.com.modernmediaslate.model.User;
 import cn.com.modernmediaslate.unit.ParseUtil;
+import cn.com.modernmediaslate.unit.SlateDataHelper;
+import cn.com.modernmediaslate.unit.Tools;
 import cn.com.modernmediausermodel.R;
 import cn.com.modernmediausermodel.api.UserOperateController;
 import cn.com.modernmediausermodel.listener.UserFetchEntryListener;
 import cn.com.modernmediausermodel.model.Message;
-import cn.com.modernmediausermodel.model.User;
 import cn.com.modernmediausermodel.model.UserCardInfoList.UserCardInfo;
 import cn.com.modernmediausermodel.util.UserDataHelper;
 import cn.com.modernmediausermodel.util.UserPageTransfer;
@@ -42,6 +47,7 @@ public class UserCenterView extends RelativeLayout implements OnClickListener {
 			messageLayout;
 	private RelativeLayout cardInfoLayout;
 	private Button login;
+	private boolean accountHasChecked = false;
 	private Message mMessage = new Message();
 
 	public UserCenterView(Context context) {
@@ -55,7 +61,7 @@ public class UserCenterView extends RelativeLayout implements OnClickListener {
 	}
 
 	private void init() {
-		user = UserDataHelper.getUserLoginInfo(mContext);
+		user = SlateDataHelper.getUserLoginInfo(mContext);
 
 		LayoutInflater inflater = LayoutInflater.from(mContext);
 		this.addView(inflater.inflate(R.layout.user_center, null),
@@ -103,6 +109,8 @@ public class UserCenterView extends RelativeLayout implements OnClickListener {
 			myCoin.setVisibility(View.GONE);
 			messageLayout.setVisibility(View.VISIBLE);
 		}
+		cardInfoLayout.setVisibility(View.GONE);
+		initHeadView();
 	}
 
 	/**
@@ -149,7 +157,7 @@ public class UserCenterView extends RelativeLayout implements OnClickListener {
 	 * 
 	 */
 	public void getMessageList() {
-		controller.getMessageList(UserTools.getUid(mContext),
+		controller.getMessageList(Tools.getUid(mContext),
 				UserDataHelper.getMessageLastId(mContext),
 				new UserFetchEntryListener() {
 
@@ -179,20 +187,62 @@ public class UserCenterView extends RelativeLayout implements OnClickListener {
 	}
 
 	public void reLoad() {
-		user = UserDataHelper.getUserLoginInfo(mContext);
+		user = SlateDataHelper.getUserLoginInfo(mContext);
 		if (user == null) {
 			login.setVisibility(View.VISIBLE);
 			cardInfoLayout.setVisibility(View.GONE);
 			msgCenter.setVisibility(View.GONE);
-		} else {
+			initHeadView();
+		} else if (accountHasChecked) {
 			login.setVisibility(View.GONE);
 			cardInfoLayout.setVisibility(View.VISIBLE);
 			// 获取头部用数据
 			getUserCardInfo();
 			// 获取消息列表
 			getMessageList();
+			initHeadView();
+		} else if (Tools.checkNetWork(mContext)) {
+			checkAccountIsValid();
+			accountHasChecked = true;
 		}
-		initHeadView();
+	}
+
+	private void checkAccountIsValid() {
+		controller.getInfoByIdAndToken(user.getUid(), user.getToken(),
+				new UserFetchEntryListener() {
+
+					@Override
+					public void setData(Entry entry) {
+						if (entry instanceof User) {
+							User tempUser = (User) entry;
+							ErrorMsg error = tempUser.getError();
+							// 取得成功
+							if (error.getNo() == 0
+									&& !TextUtils.isEmpty(tempUser.getUid())) {
+								user.setLogined(true);
+								user = tempUser;
+								SlateDataHelper.saveUserLoginInfo(mContext,
+										user);
+								SlateDataHelper.saveAvatarUrl(mContext,
+										user.getUserName(), user.getAvatar());
+							} else {
+								// 无效用户，清掉缓存
+								SlateDataHelper.clearLoginInfo(mContext);
+							}
+						} else {
+							// 无效用户，清掉缓存
+							SlateDataHelper.clearLoginInfo(mContext);
+						}
+						new Handler().post(new Runnable() {
+
+							@Override
+							public void run() {
+								reLoad();
+							}
+						});
+					}
+				});
+
 	}
 
 	@Override

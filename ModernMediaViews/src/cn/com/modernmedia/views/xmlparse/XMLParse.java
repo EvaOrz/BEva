@@ -37,6 +37,7 @@ import cn.com.modernmedia.views.util.V;
 import cn.com.modernmedia.views.xmlparse.article.AtlasViewPagerParse;
 import cn.com.modernmedia.views.xmlparse.article.XMLDataSetForArticle;
 import cn.com.modernmedia.views.xmlparse.article.XMLDataSetForAtlas;
+import cn.com.modernmedia.views.xmlparse.article.XMLDataSetForPushArticle;
 import cn.com.modernmedia.views.xmlparse.column.XMLDataSetForColumn;
 import cn.com.modernmedia.views.xmlparse.fav.XMLDataSetForFav;
 import cn.com.modernmedia.views.xmlparse.widget.ButtonParse;
@@ -245,6 +246,16 @@ public class XMLParse {
 	 */
 	public XMLDataSetForArticle getDataSetForArticle() {
 		return new XMLDataSetForArticle(mContext, map, clickViewList,
+				ninePatchViewList);
+	}
+
+	/**
+	 * 获取push文章设置
+	 * 
+	 * @return
+	 */
+	public XMLDataSetForPushArticle getDataSetForPushArticle() {
+		return new XMLDataSetForPushArticle(mContext, map, clickViewList,
 				ninePatchViewList);
 	}
 

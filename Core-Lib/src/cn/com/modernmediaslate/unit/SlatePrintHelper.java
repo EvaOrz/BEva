@@ -3,7 +3,7 @@ package cn.com.modernmediaslate.unit;
 import android.util.Log;
 
 /**
- * �������������
+ * 打印调试日志
  * 
  * @author ZhuQiao
  * 
@@ -14,6 +14,11 @@ public class SlatePrintHelper {
 	public static void print(String msg) {
 		// if (is_debug)
 		// System.out.println(msg);
+	}
+
+	public static void printErr(String msg) {
+		// if (is_debug)
+		System.err.println(msg);
 	}
 
 	public static void logE(String tag, String msg) {

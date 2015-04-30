@@ -18,9 +18,9 @@ import cn.com.modernmedia.newtag.db.UserSubscribeListDb;
 import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.model.ErrorMsg;
+import cn.com.modernmediaslate.model.User;
 import cn.com.modernmediaslate.unit.ParseUtil;
-import cn.com.modernmediausermodel.model.User;
-import cn.com.modernmediausermodel.util.UserDataHelper;
+import cn.com.modernmediaslate.unit.SlateDataHelper;
 
 public abstract class BaseSelectColumnActivity extends BaseActivity {
 	private String parent = "";
@@ -101,7 +101,7 @@ public abstract class BaseSelectColumnActivity extends BaseActivity {
 	 * 保存订阅栏目
 	 */
 	private void saveSubscribeColumnList(final List<SubscribeColumn> list) {
-		final User user = UserDataHelper.getUserLoginInfo(this);
+		final User user = SlateDataHelper.getUserLoginInfo(this);
 		if (user == null)
 			return;
 		showLoadingDialog(true);

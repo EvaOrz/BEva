@@ -3,10 +3,10 @@ package cn.com.modernmediausermodel.api;
 import org.json.JSONObject;
 
 import android.content.Context;
+import cn.com.modernmediaslate.model.User;
+import cn.com.modernmediaslate.unit.SlateDataHelper;
 import cn.com.modernmediausermodel.db.UserCardInfoDb;
 import cn.com.modernmediausermodel.model.Card;
-import cn.com.modernmediausermodel.model.User;
-import cn.com.modernmediausermodel.util.UserDataHelper;
 
 /**
  * 用户卡片列表
@@ -24,7 +24,7 @@ public class GetUserCardOperate extends CardBaseOperate {
 		super(timelineId, isGetNewData, context);
 		this.uid = uid;
 		db = UserCardInfoDb.getInstance(context);
-		User user = UserDataHelper.getUserLoginInfo(context);
+		User user = SlateDataHelper.getUserLoginInfo(context);
 		if (user != null) {
 			this.customerId = user.getUid();
 		}

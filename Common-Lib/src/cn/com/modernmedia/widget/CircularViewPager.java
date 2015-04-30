@@ -91,7 +91,7 @@ public class CircularViewPager<T> extends LoopViewPager {
 	 * @param list
 	 */
 	public void setDataForPager(List<T> list) {
-		setDataForPager(list, 0);
+		setDataForPager(list, list.size());
 	}
 
 	public void setDataForPager(List<T> list, int position) {

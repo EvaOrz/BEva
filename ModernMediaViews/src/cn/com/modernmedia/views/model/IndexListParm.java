@@ -392,7 +392,6 @@ public class IndexListParm {
 			return pic;
 		String arr[] = pic.split(HTTP_START);
 		if (arr != null && arr.length == 2) {
-			// test
 			if (ConstData.IS_DEBUG == 1) {
 				return host + arr[1] + "?11";
 			}

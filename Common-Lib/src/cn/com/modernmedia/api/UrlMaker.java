@@ -88,12 +88,10 @@ public class UrlMaker {
 	 * @return
 	 */
 	protected static String download(Context context) {
-		CommonApplication app = (CommonApplication) context
-				.getApplicationContext();
 		return "http://android.bbwc.cn/interface/index.php?m=down&res="
-				+ CommonApplication.CHANNEL + "&uuid=" + app.getMyUUID()
-				+ "&appid=" + ConstData.getInitialAppId() + "&version="
-				+ ConstData.VERSION;
+				+ CommonApplication.CHANNEL + "&uuid="
+				+ CommonApplication.getMyUUID() + "&appid="
+				+ ConstData.getInitialAppId() + "&version=" + ConstData.VERSION;
 	}
 
 	/**
@@ -119,7 +117,7 @@ public class UrlMaker {
 	 * @param tagName
 	 * @return
 	 */
-	protected static String getWeeklyLastestArticleId(String tagName) {
+	protected static String getWeeklyLatestArticleId(String tagName) {
 		String str = TextUtils.isEmpty(tagName) ? "/tag" : "/tag/" + tagName;
 		String url = SLATE_BASE_URL + "/v" + ConstData.API_VERSION
 				+ "/app_20/android";
@@ -127,10 +125,20 @@ public class UrlMaker {
 	}
 
 	protected static String getAdvList() {
-		String host = ConstData.IS_DEBUG != 0 ? "http://adver.develop.bbwc.cn"
-				: "http://adver.cdn.bbwc.cn";
-		return host + "/adv/v2/list/" + ConstData.getInitialAppId() + "-"
+		String host = "";
+		if (ConstData.IS_DEBUG == 0) {
+			host = "http://adver.cdn.bbwc.cn";
+		} else if (ConstData.IS_DEBUG == 8) {
+			host = "http://adver.editor.bbwc.cn";
+		} else {
+			host = "http://adver.develop.bbwc.cn";
+		}
+		String url = host + "/adv/v2/list/" + ConstData.getInitialAppId() + "-"
 				+ ConstData.DEVICE_TYPE + "-" + ConstData.DATA_TYPE + ".html";
+		if (!TextUtils.isEmpty(AppValue.appInfo.getAdvUpdateTime())) {
+			return url + "?updatetime=" + AppValue.appInfo.getAdvUpdateTime();
+		}
+		return url;
 	}
 
 	/**
@@ -152,7 +160,7 @@ public class UrlMaker {
 	 *            tag统一标识，可以传多个tagname,用逗号隔开
 	 * @return
 	 */
-	protected static String getTagInfo(String tagName) {
+	public static String getTagInfo(String tagName) {
 		return SLATE_URL + "/tag/" + tagName;
 	}
 
@@ -200,7 +208,26 @@ public class UrlMaker {
 		return url;
 	}
 
-	private static String addUpdatetime(String url) {
+	/**
+	 * 获取栏目列表
+	 * 
+	 * @param url
+	 * @return
+	 */
+	public static String getCatList(String tagName) {
+		String url = SLATE_URL + "/tag";
+		if (!TextUtils.isEmpty(tagName)) {
+			url += "/" + tagName;
+		}
+		url += "/subscribelist";
+		if (!TextUtils.isEmpty(AppValue.appInfo.getUpdatetime())) {
+			url += "?";
+			return addUpdatetime(url);
+		}
+		return url;
+	}
+
+	public static String addUpdatetime(String url) {
 		String and = url.endsWith("?") ? "" : "&";
 		url += and + "updatetime=" + AppValue.appInfo.getUpdatetime();
 		return url;
@@ -395,5 +422,20 @@ public class UrlMaker {
 				+ ConstData.DATA_TYPE + "&uid=" + uid + "&appId="
 				+ ConstData.getInitialAppId() + "&deviceType="
 				+ ConstData.DEVICE_TYPE;
+	}
+
+	/**
+	 * 获取push文章地址
+	 * 
+	 * @param articleId
+	 * @return
+	 */
+	public static String getPushArticle(String articleId) {
+		String url = SLATE_URL + "/push/" + articleId;
+		if (!TextUtils.isEmpty(AppValue.appInfo.getUpdatetime())) {
+			url += "?";
+			return addUpdatetime(url);
+		}
+		return url;
 	}
 }

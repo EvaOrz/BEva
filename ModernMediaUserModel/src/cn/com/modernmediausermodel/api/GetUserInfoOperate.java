@@ -10,6 +10,7 @@ import org.json.JSONObject;
 public class GetUserInfoOperate extends UserModelBaseOperate {
 
 	protected GetUserInfoOperate(String uid, String token) {
+		super();
 		// post 参数设置
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		JSONObject object = new JSONObject();

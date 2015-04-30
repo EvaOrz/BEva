@@ -6,13 +6,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import cn.com.modernmediaslate.SlateApplication;
+import cn.com.modernmediaslate.model.User;
 import cn.com.modernmediaslate.unit.FavObservable;
+import cn.com.modernmediaslate.unit.SlateDataHelper;
+import cn.com.modernmediaslate.unit.Tools;
 import cn.com.modernmediausermodel.ArticleCardListActivity;
 import cn.com.modernmediausermodel.CardDetailActivity;
-import cn.com.modernmediausermodel.ModifyPwdActivity;
-import cn.com.modernmediausermodel.UserInfoActivity;
 import cn.com.modernmediausermodel.MessageActivity;
 import cn.com.modernmediausermodel.ModifyEmailActivity;
+import cn.com.modernmediausermodel.ModifyPwdActivity;
 import cn.com.modernmediausermodel.MyCoinActivity;
 import cn.com.modernmediausermodel.MyCoinUseNoticeActivity;
 import cn.com.modernmediausermodel.MyHomePageActivity;
@@ -21,11 +23,11 @@ import cn.com.modernmediausermodel.RecommendUserActivity;
 import cn.com.modernmediausermodel.SquareActivity;
 import cn.com.modernmediausermodel.UserApplication;
 import cn.com.modernmediausermodel.UserCardInfoActivity;
+import cn.com.modernmediausermodel.UserInfoActivity;
 import cn.com.modernmediausermodel.WriteCommentActivity;
 import cn.com.modernmediausermodel.WriteNewCardActivity;
 import cn.com.modernmediausermodel.model.Card;
 import cn.com.modernmediausermodel.model.Message;
-import cn.com.modernmediausermodel.model.User;
 import cn.com.modernmediausermodel.widget.MessageView;
 import cn.com.modernmediausermodel.widget.RecommendUserView;
 import cn.com.modernmediausermodel.widget.UserCardView;
@@ -58,7 +60,7 @@ public class UserPageTransfer {
 	 * @return
 	 */
 	private static boolean isLogin(Context context) {
-		return UserDataHelper.getUserLoginInfo(context) != null;
+		return SlateDataHelper.getUserLoginInfo(context) != null;
 	}
 
 	@SuppressWarnings("unused")
@@ -345,8 +347,7 @@ public class UserPageTransfer {
 	public static void gotoUserInfoActivity(Context context, int from,
 			String content, int gotoPage) {
 		// 检查是否登录过，通过开放平台（如新浪微博、qq等）第一次登录进入信息页面时无需检查
-		if (!isLogin(context)
-				&& from != UserInfoActivity.FROM_SINA_LOGIN
+		if (!isLogin(context) && from != UserInfoActivity.FROM_SINA_LOGIN
 				&& from != UserInfoActivity.FROM_QQ_LOGIN) {
 			gotoLoginActivity(context, 0);
 			return;
@@ -401,7 +402,7 @@ public class UserPageTransfer {
 			boolean isFromNotice) {
 		if (isLogin(context)) {
 			// 如果是第一次进入并且不是从说明页而来，则进入商城使用说明页面
-			String uid = UserTools.getUid(context);
+			String uid = Tools.getUid(context);
 			if (!TextUtils.isEmpty(uid)
 					&& UserDataHelper.getIsFirstUseCoin(context, uid)
 					&& !isFromNotice) {

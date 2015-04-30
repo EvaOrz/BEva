@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import cn.com.modernmedia.widget.CheckFooterListView;
 import cn.com.modernmediaslate.model.Entry;
+import cn.com.modernmediaslate.model.User;
+import cn.com.modernmediaslate.unit.SlateDataHelper;
 import cn.com.modernmediausermodel.CardDetailActivity;
 import cn.com.modernmediausermodel.R;
 import cn.com.modernmediausermodel.api.UserOperateController;
@@ -15,8 +17,6 @@ import cn.com.modernmediausermodel.db.RecommendCardDb;
 import cn.com.modernmediausermodel.listener.CardViewListener;
 import cn.com.modernmediausermodel.listener.UserFetchEntryListener;
 import cn.com.modernmediausermodel.model.Card;
-import cn.com.modernmediausermodel.model.User;
-import cn.com.modernmediausermodel.util.UserDataHelper;
 import cn.com.modernmediausermodel.util.UserPageTransfer;
 
 /**
@@ -111,7 +111,7 @@ public class SquareView implements OnClickListener, CardViewListener {
 	 * @return
 	 */
 	public String checkUid() {
-		User user = UserDataHelper.getUserLoginInfo(mContext);
+		User user = SlateDataHelper.getUserLoginInfo(mContext);
 		if (user == null) {
 			UserPageTransfer.gotoLoginActivityRequest(mContext, TO_LOGIN);
 			return "";

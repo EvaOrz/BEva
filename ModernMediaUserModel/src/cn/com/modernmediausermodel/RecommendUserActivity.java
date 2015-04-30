@@ -6,10 +6,10 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import cn.com.modernmediaslate.SlateBaseActivity;
-import cn.com.modernmediausermodel.model.User;
-import cn.com.modernmediausermodel.util.UserDataHelper;
+import cn.com.modernmediaslate.model.User;
+import cn.com.modernmediaslate.unit.SlateDataHelper;
+import cn.com.modernmediaslate.unit.Tools;
 import cn.com.modernmediausermodel.util.UserPageTransfer;
-import cn.com.modernmediausermodel.util.UserTools;
 import cn.com.modernmediausermodel.widget.RecommendUserView;
 
 /**
@@ -44,7 +44,7 @@ public class RecommendUserActivity extends SlateBaseActivity implements
 
 		// 默认设置USER为当前登录用户
 		if (mUser == null) {
-			mUser = UserDataHelper.getUserLoginInfo(this);
+			mUser = SlateDataHelper.getUserLoginInfo(this);
 		}
 	}
 
@@ -68,7 +68,7 @@ public class RecommendUserActivity extends SlateBaseActivity implements
 	 */
 	private void doBack() {
 		if (userView.getAdapter().isHasModify() && mUser != null
-				&& mUser.getUid().equals(UserTools.getUid(this)))
+				&& mUser.getUid().equals(Tools.getUid(this)))
 			setResult(RESULT_OK);
 		finish();
 	}

@@ -31,11 +31,11 @@ public class MyApplication extends ViewsApplication {
 			SinaConstants.APP_KEY = mConfig.getWeibo_app_id_goole();
 			WeixinShare.APP_ID = mConfig.getWeixin_app_id_google();
 		}
-
+		
 		PushService.subscribe(this, "businessweek_" + ConstData.VERSION,
 				MainActivity.class, R.drawable.icon_36);
 
-		PushService.setDefaultPushCallback(this, MainActivity.class);
+		PushService.setDefaultPushCallback(this, SplashScreenActivity.class);
 		mContext = this.getApplicationContext();
 	}
 

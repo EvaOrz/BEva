@@ -22,11 +22,8 @@ import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 import cn.com.modernmedia.adapter.MyPagerAdapter;
-import cn.com.modernmedia.util.PrintHelper;
 
 public class LoopPagerAdapter extends PagerAdapter {
-	private static final boolean DEBUG = false;
-
 	private PagerAdapter adapter;
 
 	public LoopPagerAdapter(PagerAdapter adapter) {
@@ -45,24 +42,31 @@ public class LoopPagerAdapter extends PagerAdapter {
 		return adapter.getCount();
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public Object instantiateItem(ViewGroup container, int position) {
 		int virtualPosition = position % getRealCount();
-		debug("instantiateItem: real position: " + position);
-		debug("instantiateItem: virtual position: " + virtualPosition);
-
-		// only expose virtual position to the inner adapter
+		if (adapter instanceof MyPagerAdapter) {
+			if (position > 0) {
+				return ((MyPagerAdapter) adapter).instantiateItem(container,
+						virtualPosition);
+			}
+		}
 		return adapter.instantiateItem(container, virtualPosition);
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public void destroyItem(ViewGroup container, int position, Object object) {
 		int virtualPosition = position % getRealCount();
-		debug("destroyItem: real position: " + position);
-		debug("destroyItem: virtual position: " + virtualPosition);
-
-		// only expose virtual position to the inner adapter
-		adapter.destroyItem(container, virtualPosition, object);
+		if (adapter instanceof MyPagerAdapter) {
+			if (position > 0) {
+				((MyPagerAdapter) adapter).destroyItem(container,
+						virtualPosition, object);
+			}
+		} else {
+			adapter.destroyItem(container, virtualPosition, object);
+		}
 	}
 
 	/*
@@ -139,9 +143,4 @@ public class LoopPagerAdapter extends PagerAdapter {
 		return adapter.getItemPosition(object);
 	}
 
-	private void debug(String message) {
-		if (DEBUG) {
-			PrintHelper.print(message);
-		}
-	}
 }

@@ -164,5 +164,4 @@ public class BaseChildCatHead {
 	 */
 	public void setStatusBySelect(View view, boolean select, int index) {
 	}
-
 }

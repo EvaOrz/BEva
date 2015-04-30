@@ -11,8 +11,6 @@ import org.json.JSONObject;
 
 import android.text.TextUtils;
 import cn.com.modernmediaslate.api.SlateBaseOperate;
-import cn.com.modernmediaslate.listener.FetchDataListener;
-import cn.com.modernmediaslate.unit.SlatePrintHelper;
 import cn.com.modernmediausermodel.model.Message;
 import cn.com.modernmediausermodel.model.Message.MessageItem;
 import cn.com.modernmediausermodel.util.UserConstData;
@@ -113,12 +111,6 @@ public class GetMessageListOperate extends SlateBaseOperate {
 		}
 		// 将MAP数据转成ArrayList
 		message.getMessageList().addAll(messageMap.values());
-	}
-
-	@Override
-	protected void fetchLocalDataInBadNet(FetchDataListener mFetchDataListener) {
-		SlatePrintHelper.print("net error:" + getUrl());
-		mFetchDataListener.fetchData(false, null, false);
 	}
 
 	@Override

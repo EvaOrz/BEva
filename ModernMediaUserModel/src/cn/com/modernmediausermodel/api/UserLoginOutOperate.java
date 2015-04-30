@@ -12,6 +12,7 @@ import cn.com.modernmediausermodel.util.UserConstData;
 public class UserLoginOutOperate extends UserModelBaseOperate {
 
 	protected UserLoginOutOperate(String uid, String token) {
+		super();
 		// post 参数设置
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		JSONObject object = new JSONObject();

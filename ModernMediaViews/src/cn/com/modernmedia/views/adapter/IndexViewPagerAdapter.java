@@ -4,16 +4,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import cn.com.modernmedia.adapter.MyPagerAdapter;
-import cn.com.modernmedia.model.TagArticleList;
-import cn.com.modernmedia.model.TagInfoList;
 import cn.com.modernmedia.model.TagInfoList.TagInfo;
 import cn.com.modernmedia.views.index.IndexViewPagerItem;
 import cn.com.modernmedia.views.index.IndexViewPagerItemUri;
-import cn.com.modernmediaslate.model.Entry;
 
 /**
  * 可滑动的首页适配器
@@ -24,16 +22,20 @@ import cn.com.modernmediaslate.model.Entry;
 public class IndexViewPagerAdapter extends MyPagerAdapter<TagInfo> {
 	private Context mContext;
 	private int currentPosition = -1;
-	// 保存已经获得的列表数据
-	private Map<String, Entry> indexMap = new HashMap<String, Entry>();
-	private Map<String, Entry> articleMap = new HashMap<String, Entry>();
 	private IndexViewPagerItem currentIndexViewPagerItem;
+	@SuppressLint("UseSparseArrays")
+	private Map<Integer, CheckNavHideListener> listenerMap = new HashMap<Integer, CheckNavHideListener>();
+
+	public static interface CheckNavHideListener {
+		public void onResume();
+
+		public void onPause();
+	}
 
 	public IndexViewPagerAdapter(Context context, List<TagInfo> tagList) {
 		super(context, tagList);
 		mContext = context;
-		indexMap.clear();
-		articleMap.clear();
+		listenerMap.clear();
 	}
 
 	@Override
@@ -45,10 +47,25 @@ public class IndexViewPagerAdapter extends MyPagerAdapter<TagInfo> {
 	}
 
 	@Override
+	public Object instantiateItem(ViewGroup container, int position) {
+		Object obj = super.instantiateItem(container, position);
+		if (obj instanceof View) {
+			View view = (View) obj;
+			if (view.getTag() instanceof CheckNavHideListener) {
+				listenerMap.put(position,
+						((CheckNavHideListener) view.getTag()));
+			}
+		}
+		return obj;
+	}
+
+	@Override
 	public void destroyItem(ViewGroup container, int position, Object object) {
 		if (object instanceof View) {
-			if (((View) object).getTag() instanceof IndexViewPagerItem) {
-				((IndexViewPagerItem) ((View) object).getTag()).destory();
+			View view = (View) object;
+			if (view.getTag() instanceof IndexViewPagerItem) {
+				((IndexViewPagerItem) view.getTag()).destory();
+				listenerMap.remove(position);
 			}
 		}
 		super.destroyItem(container, position, object);
@@ -57,9 +74,10 @@ public class IndexViewPagerAdapter extends MyPagerAdapter<TagInfo> {
 	@Override
 	public void setPrimaryItem(ViewGroup container, int loopPosition,
 			int realPosition, Object object) {
-		if (currentPosition == loopPosition)
+		if (currentPosition == realPosition)
 			return;
-		currentPosition = loopPosition;
+		currentPosition = realPosition;
+		stopCheckNav();
 		if (object instanceof View
 				&& ((View) object).getTag() instanceof IndexViewPagerItem) {
 			currentIndexViewPagerItem = (IndexViewPagerItem) ((View) object)
@@ -68,68 +86,17 @@ public class IndexViewPagerAdapter extends MyPagerAdapter<TagInfo> {
 		}
 	}
 
-	/**
-	 * 添加文章列表
-	 * 
-	 * @param tagName
-	 * @param articleList
-	 * @param more
-	 */
-	public void addArticleListToMap(String tagName, TagArticleList articleList,
-			boolean more, boolean isIndex) {
-		// Map<String, Entry> map = isIndex ? indexMap : articleMap;
-		// if (!more) {
-		// if (map.containsKey(tagName)) {
-		// map.remove(tagName);
-		// }
-		// } else {
-		// if (map.containsKey(tagName)) {
-		// if (map.get(tagName) instanceof TagArticleList) {
-		// TagArticleList curr = (TagArticleList) map.get(tagName);
-		// for (int key : curr.getMap().keySet()) {
-		// if (articleList.hasData(key)) {
-		// curr.getMap().get(key)
-		// .addAll(articleList.getMap().get(key));
-		// }
-		// }
-		// curr.setEndOffset(articleList.getEndOffset());
-		// map.remove(tagName);
-		// map.put(tagName, curr);
-		// return;
-		// }
-		// }
-		// }
-		// map.put(tagName, articleList);
-	}
-
-	/**
-	 * 添加子栏目列表
-	 * 
-	 * @param tagName
-	 * @param tagInfoList
-	 */
-	public void addChildrenTopMap(String tagName, TagInfoList tagInfoList,
-			boolean isIndex) {
-		// Map<String, Entry> map = isIndex ? indexMap : articleMap;
-		// if (map.containsKey(tagName)) {
-		// map.remove(tagName);
-		// }
-		// map.put(tagName, tagInfoList);
-	}
-
-	public Entry getEntryFromMap(String tagName, boolean isIndex) {
-		// Map<String, Entry> map = isIndex ? indexMap : articleMap;
-		// if (map.containsKey(tagName)) {
-		// return map.get(tagName);
-		// }
-		return null;
-	}
-
-	public void removeEntryFromMap(String tagName, boolean isIndex) {
-		// Map<String, Entry> map = isIndex ? indexMap : articleMap;
-		// if (map.containsKey(tagName)) {
-		// map.remove(tagName);
-		// }
+	private void stopCheckNav() {
+		for (int key : listenerMap.keySet()) {
+			CheckNavHideListener listener = listenerMap.get(key);
+			if (listener == null)
+				continue;
+			if (key != currentPosition) {
+				listener.onPause();
+			} else {
+				listener.onResume();
+			}
+		}
 	}
 
 	public List<View> getSelfScrollViews() {

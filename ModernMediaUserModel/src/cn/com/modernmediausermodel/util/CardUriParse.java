@@ -11,11 +11,12 @@ import cn.com.modernmediaslate.SlateApplication;
 import cn.com.modernmediaslate.listener.CardUriListener;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.model.ErrorMsg;
+import cn.com.modernmediaslate.model.User;
+import cn.com.modernmediaslate.unit.SlateDataHelper;
 import cn.com.modernmediaslate.unit.Tools;
 import cn.com.modernmediausermodel.R;
 import cn.com.modernmediausermodel.api.UserOperateController;
 import cn.com.modernmediausermodel.listener.UserFetchEntryListener;
-import cn.com.modernmediausermodel.model.User;
 import cn.com.modernmediausermodel.model.UserCardInfoList.UserCardInfo;
 import cn.com.modernmediausermodel.widget.RecommendUserView;
 
@@ -81,7 +82,7 @@ public class CardUriParse {
 			UserPageTransfer.gotoLoginActivity(context, 0);
 		} else if (arr[0].equals(RECOMMENDCARDS)) {
 			UserPageTransfer.gotoSquareActivity(context, false);
-		} else if (UserDataHelper.getUserLoginInfo(context) == null) {// 未登录
+		} else if (SlateDataHelper.getUserLoginInfo(context) == null) {// 未登录
 			UserPageTransfer.gotoLoginActivity(context, 0);
 		} else if (arr[0].equals(PASSWORD)) {
 			UserPageTransfer.gotoModifyPasswordActivity(context);
@@ -153,8 +154,7 @@ public class CardUriParse {
 	 */
 	private void doDeleteCard(final Context context, String cardId) {
 		UserOperateController.getInstance(context).deleteCard(
-				UserTools.getUid(context), cardId,
-				new UserFetchEntryListener() {
+				Tools.getUid(context), cardId, new UserFetchEntryListener() {
 
 					@Override
 					public void setData(Entry entry) {
@@ -178,8 +178,7 @@ public class CardUriParse {
 	 */
 	private void doAddFavortite(final Context context, String cardId) {
 		UserOperateController.getInstance(context).addCardFav(
-				UserTools.getUid(context), cardId,
-				new UserFetchEntryListener() {
+				Tools.getUid(context), cardId, new UserFetchEntryListener() {
 
 					@Override
 					public void setData(Entry entry) {
@@ -203,8 +202,7 @@ public class CardUriParse {
 	 */
 	private void doUnFavorite(final Context context, String cardId) {
 		UserOperateController.getInstance(context).cancelCardFav(
-				UserTools.getUid(context), cardId,
-				new UserFetchEntryListener() {
+				Tools.getUid(context), cardId, new UserFetchEntryListener() {
 
 					@Override
 					public void setData(Entry entry) {
@@ -232,7 +230,7 @@ public class CardUriParse {
 		userCardInfo.setUid(uid);
 		list.add(userCardInfo);
 		UserOperateController.getInstance(context).addFollow(
-				UserTools.getUid(context), list, false,
+				Tools.getUid(context), list, false,
 				new UserFetchEntryListener() {
 
 					@Override

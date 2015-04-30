@@ -29,10 +29,9 @@ public class GetAdvListOperate extends BaseOperate {
 	public AdvList getAdvList() {
 		// test
 		// advList = new AdvList();
-		// AdvTest.addRuBanLohasTest(advList);
-		// AdvTest.addCatAdvTest(advList);
-		// AdvTest.addArticleAdvTest(advList);
-		// AdvTest.addFuDongAdvTest(advList);
+		// AdvTest.addRuBanWeeklyTest(advList);
+		// AdvTest.addRuBanZipTest(advList);
+		// AdvTest.addRuBanIBBTest(advList);
 		return advList;
 	}
 

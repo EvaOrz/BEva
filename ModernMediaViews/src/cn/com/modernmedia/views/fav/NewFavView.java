@@ -22,7 +22,7 @@ import cn.com.modernmedia.views.xmlparse.XMLParse;
 import cn.com.modernmedia.widget.BaseView;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.unit.ParseUtil;
-import cn.com.modernmediausermodel.util.UserTools;
+import cn.com.modernmediaslate.unit.Tools;
 
 /**
  * 收藏列表view
@@ -86,7 +86,7 @@ public class NewFavView extends BaseView implements FetchEntryListener {
 	public void setData(Entry entry) {
 		adapter.clear();
 		List<ArticleItem> list = NewFavDb.getInstance(mContext).getUserFav(
-				UserTools.getUid(mContext));
+				Tools.getUid(mContext));
 		if (ParseUtil.listNotNull(list)) {
 			adapter.setData(list);
 		}

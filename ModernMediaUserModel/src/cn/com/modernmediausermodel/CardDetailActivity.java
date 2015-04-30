@@ -16,7 +16,10 @@ import android.widget.ImageView;
 import cn.com.modernmediaslate.SlateBaseActivity;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.model.ErrorMsg;
+import cn.com.modernmediaslate.model.User;
 import cn.com.modernmediaslate.unit.ParseUtil;
+import cn.com.modernmediaslate.unit.SlateDataHelper;
+import cn.com.modernmediaslate.unit.Tools;
 import cn.com.modernmediausermodel.adapter.CardDetailPagerAdapter;
 import cn.com.modernmediausermodel.api.UserOperateController;
 import cn.com.modernmediausermodel.listener.UserFetchEntryListener;
@@ -25,8 +28,6 @@ import cn.com.modernmediausermodel.model.Card.CardItem;
 import cn.com.modernmediausermodel.model.MultiComment;
 import cn.com.modernmediausermodel.model.MultiComment.Comment;
 import cn.com.modernmediausermodel.model.MultiComment.CommentItem;
-import cn.com.modernmediausermodel.model.User;
-import cn.com.modernmediausermodel.util.UserDataHelper;
 import cn.com.modernmediausermodel.util.UserPageTransfer;
 import cn.com.modernmediausermodel.util.UserTools;
 
@@ -150,7 +151,7 @@ public class CardDetailActivity extends SlateBaseActivity implements
 				// 当前显示的card为登录用户时，隐藏收藏功能；反之，则隐藏删除功能
 				String uid = item.getType() == 2 ? item.getFuid() : item
 						.getUid();
-				if (uid.equals(UserTools.getUid(this))) {
+				if (uid.equals(Tools.getUid(this))) {
 					favBtn.setVisibility(View.GONE);
 					deleteBtn.setVisibility(View.VISIBLE);
 				} else {
@@ -249,7 +250,7 @@ public class CardDetailActivity extends SlateBaseActivity implements
 		if (mComments.getCommentList().size() <= index)
 			return;
 		// 将登录用户自己的信息存入map中
-		User curLoginUser = UserDataHelper.getUserLoginInfo(this);
+		User curLoginUser = SlateDataHelper.getUserLoginInfo(this);
 		if (!mComments.getUserInfoMap().containsKey(curLoginUser.getUid())) {
 			mComments.getUserInfoMap().put(curLoginUser.getUid(), curLoginUser);
 		}
@@ -411,8 +412,8 @@ public class CardDetailActivity extends SlateBaseActivity implements
 			UserTools.shareCard(this, content);
 		} else {
 			if (view.getId() == R.id.card_detail_nav_delete) { // 删除
-				deleteCard(UserTools.getUid(CardDetailActivity.this),
-						cardItemList.get(index).getId() + "");
+				deleteCard(Tools.getUid(this), cardItemList.get(index)
+						.getId() + "");
 			} else if (view.getId() == R.id.card_detail_nav_fav) { // 收藏、取消收藏
 				if (checkLogin(REQUEST_ADD_FAV)) {
 					changeFavStatus();
@@ -433,7 +434,7 @@ public class CardDetailActivity extends SlateBaseActivity implements
 	 * @return
 	 */
 	private boolean checkLogin(int requestCode) {
-		if (UserDataHelper.getUserLoginInfo(this) == null) {
+		if (SlateDataHelper.getUserLoginInfo(this) == null) {
 			UserPageTransfer.gotoLoginActivityRequest(this, requestCode);
 			return false;
 		}
@@ -441,7 +442,7 @@ public class CardDetailActivity extends SlateBaseActivity implements
 	}
 
 	private void changeFavStatus() {
-		String uid = UserTools.getUid(this);
+		String uid = Tools.getUid(this);
 		CardItem cardItem = cardItemList.get(index);
 		if (cardItem.getIsFav() == 0) { // 未收藏
 			addCardFav(uid, cardItem.getId() + "");

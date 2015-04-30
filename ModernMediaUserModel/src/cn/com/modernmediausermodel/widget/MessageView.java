@@ -9,13 +9,14 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import cn.com.modernmedia.widget.CheckScrollListview;
+import cn.com.modernmediaslate.model.User;
 import cn.com.modernmediaslate.unit.ParseUtil;
+import cn.com.modernmediaslate.unit.SlateDataHelper;
 import cn.com.modernmediausermodel.R;
 import cn.com.modernmediausermodel.adapter.CheckScrollAdapter;
 import cn.com.modernmediausermodel.listener.CardViewListener;
 import cn.com.modernmediausermodel.model.Message;
 import cn.com.modernmediausermodel.model.Message.MessageItem;
-import cn.com.modernmediausermodel.model.User;
 import cn.com.modernmediausermodel.util.UserDataHelper;
 import cn.com.modernmediausermodel.util.UserPageTransfer;
 
@@ -162,11 +163,11 @@ public class MessageView implements CardViewListener {
 			switch (messageItem.getType()) {
 			case 2: // 前往粉丝页面
 				UserPageTransfer.gotoUserListActivity(mContext,
-						UserDataHelper.getUserLoginInfo(mContext),
+						SlateDataHelper.getUserLoginInfo(mContext),
 						RecommendUserView.PAGE_FANS, finish);
 				break;
 			case 3: // 前往用户卡片页
-				User user = UserDataHelper.getUserLoginInfo(mContext);
+				User user = SlateDataHelper.getUserLoginInfo(mContext);
 				UserPageTransfer.gotoUserCardInfoActivity(mContext, user,
 						finish);
 			case 1:

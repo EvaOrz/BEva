@@ -9,10 +9,10 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import cn.com.modernmediaslate.unit.ParseUtil;
+import cn.com.modernmediaslate.unit.Tools;
 import cn.com.modernmediausermodel.model.Card;
 import cn.com.modernmediausermodel.model.Card.CardItem;
 import cn.com.modernmediausermodel.util.UserConstData;
-import cn.com.modernmediausermodel.util.UserTools;
 
 /**
  * 我的首页db
@@ -51,7 +51,7 @@ public class TimelineDb extends SQLiteOpenHelper {
 	}
 
 	public static synchronized TimelineDb getInstance(Context context) {
-		bind_uid = UserTools.getUid(context);
+		bind_uid = Tools.getUid(context);
 		if (null == instance) {
 			instance = new TimelineDb(context);
 		}

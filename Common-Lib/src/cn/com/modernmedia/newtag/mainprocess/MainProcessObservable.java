@@ -12,7 +12,7 @@ import cn.com.modernmediaslate.unit.ParseUtil;
  * 首页主流程被观察者
  * 
  * @author zhuqiao
- *
+ * 
  */
 public class MainProcessObservable extends Observable {
 	/**
@@ -20,12 +20,13 @@ public class MainProcessObservable extends Observable {
 	 */
 	public static final int SET_DATA_TO_COLUMN = 1;
 	/**
-	 * 设置栏目首页
+	 * 设置栏目首页(目前只有视野使用)
 	 */
-	public static final int SET_DATA_TO_INDEX = 2;
+	public static final int SET_DATA_TO_SHIYE = 2;
 	/**
-	 * 显示子栏目
+	 * 显示子栏目(无用)
 	 */
+	@Deprecated
 	public static final int SHOW_CHILD_CAT = 3;
 	/**
 	 * 显示首页滑屏
@@ -36,7 +37,7 @@ public class MainProcessObservable extends Observable {
 	 * 观察者数据model
 	 * 
 	 * @author zhuqiao
-	 *
+	 * 
 	 */
 	public static class ObserverItem {
 		public int flag;
@@ -58,7 +59,7 @@ public class MainProcessObservable extends Observable {
 		super.addObserver(observer);
 		map.put(className, observer);
 	}
-	
+
 	/**
 	 * 通知刷新
 	 * 

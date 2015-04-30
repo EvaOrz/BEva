@@ -285,10 +285,12 @@ public class UpdateManager {
 		if (!apkfile.exists()) {
 			return;
 		}
-		Intent i = new Intent(Intent.ACTION_VIEW);
-		i.setDataAndType(Uri.parse("file://" + apkfile.toString()),
+		Intent intent = new Intent(Intent.ACTION_VIEW);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		intent.setAction(android.content.Intent.ACTION_VIEW);
+		intent.setDataAndType(Uri.fromFile(apkfile),
 				"application/vnd.android.package-archive");
-		mContext.startActivity(i);
+		mContext.startActivity(intent);
 	}
 
 	private void showToast() {

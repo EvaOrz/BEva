@@ -2,6 +2,8 @@ package cn.com.modernmediaslate.api;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.protocol.HTTP;
@@ -16,6 +18,7 @@ import cn.com.modernmediaslate.api.HttpRequestController.RequestThread;
 import cn.com.modernmediaslate.listener.DataCallBack;
 import cn.com.modernmediaslate.listener.FetchDataListener;
 import cn.com.modernmediaslate.unit.SlatePrintHelper;
+import cn.com.modernmediaslate.unit.TimeCollectUtil;
 import cn.com.modernmediaslate.unit.Tools;
 
 /**
@@ -30,7 +33,47 @@ public abstract class SlateBaseOperate {
 	private Context mContext;
 	private boolean success = false;// 是否解析成功
 	private boolean showToast = true;
-	public DataCallBack callBack;
+	private DataCallBack callBack;
+	protected FetchApiType mFetchApiType = FetchApiType.USE_HTTP_FIRST;
+
+	/**
+	 * 缓存文件是否为数据库
+	 */
+	protected boolean cacheIsDb = false;
+
+	public static enum FetchApiType {
+		/**
+		 * 优先获取服务器数据
+		 */
+		USE_HTTP_FIRST,
+		/**
+		 * 优先获取缓存
+		 */
+		USE_CACHE_FIRST,
+		/**
+		 * 只获取服务器数据
+		 */
+		USE_HTTP_ONLY,
+		/**
+		 * 只获取缓存数据
+		 */
+		USE_CACHE_ONLY
+	}
+
+	public static class CallBackData {
+		public boolean success = false;
+		public String data = "";
+	}
+
+	/**
+	 * 缓存数据回调接口
+	 * 
+	 * @author zhuqiao
+	 *
+	 */
+	protected static interface CacheCallBack {
+		public void onCallBack(CallBackData callBackData);
+	}
 
 	/**
 	 * 由子类提供
@@ -54,6 +97,15 @@ public abstract class SlateBaseOperate {
 		return null;
 	}
 
+	/**
+	 * 获取要添加的头部信息
+	 * 
+	 * @return
+	 */
+	protected Map<String, String> getHeader() {
+		return new HashMap<String, String>();
+	}
+
 	public void setShowToast(boolean showToast) {
 		this.showToast = showToast;
 	}
@@ -66,7 +118,7 @@ public abstract class SlateBaseOperate {
 	 *            是否优先使用本地数据
 	 * @param callBack
 	 */
-	public void asyncRequest(Context context, boolean useLocalFirst,
+	public void asyncRequest(Context context, FetchApiType fetchApiType,
 			DataCallBack callBack) {
 		mContext = context;
 		this.callBack = callBack;
@@ -74,7 +126,7 @@ public abstract class SlateBaseOperate {
 			// TODO 提示错误信息
 			return;
 		}
-		request(useLocalFirst, false);
+		requestCache(fetchApiType, false);
 	}
 
 	/**
@@ -85,7 +137,7 @@ public abstract class SlateBaseOperate {
 	 *            是否优先使用本地数据
 	 * @param callBack
 	 */
-	public void asyncRequestByPost(Context context, boolean useLocalFirst,
+	public void asyncRequestByPost(Context context, FetchApiType fetchApiType,
 			DataCallBack callBack) {
 		mContext = context;
 		this.callBack = callBack;
@@ -93,18 +145,56 @@ public abstract class SlateBaseOperate {
 			// TODO 提示错误信息
 			return;
 		}
-		request(useLocalFirst, true);
+		requestCache(fetchApiType, true);
 	}
 
 	/**
+	 * 请求缓存数据
 	 * 
-	 * @param useLocalFirst
-	 *            是否优先用本地数据
-	 * @param callBack
+	 * @param fetchApiType
+	 * @param isPost
 	 */
-	private void request(boolean useLocalFirst, boolean isPost) {
-		if (useLocalFirst && fecthLocalData(getDefaultFileName()))
+	private void requestCache(final FetchApiType fetchApiType,
+			final boolean isPost) {
+		mFetchApiType = fetchApiType;
+
+		if (mFetchApiType == FetchApiType.USE_HTTP_FIRST
+				|| mFetchApiType == FetchApiType.USE_HTTP_ONLY) {
+			requestHttp(fetchApiType, isPost);
 			return;
+		}
+
+		fetchDataFromCache(new CacheCallBack() {
+
+			@Override
+			public void onCallBack(CallBackData callBackData) {
+				if (callBackData == null) {
+					requestHttp(fetchApiType, isPost);
+					return;
+				}
+				if (callBackData.success) {
+					// 有效的缓存数据, 回调
+					doCacheCallBack(true, callBackData.data);
+					return;
+				}
+				if (mFetchApiType == FetchApiType.USE_CACHE_ONLY) {
+					// 缓存无效，并且只取缓存的形式，那么回调错误
+					doCacheCallBack(false, null);
+				} else {
+					requestHttp(fetchApiType, isPost);
+				}
+			}
+		});
+	}
+
+	/**
+	 * 请求服务器数据
+	 * 
+	 * @param fetchApiType
+	 *            获取接口数据形式
+	 * @param isPost
+	 */
+	private void requestHttp(FetchApiType fetchApiType, boolean isPost) {
 		String url = getUrl();
 		RequestThread thread = new RequestThread(mContext, url, this);
 
@@ -113,13 +203,17 @@ public abstract class SlateBaseOperate {
 			thread.setPostParams(getPostParams());
 			thread.setImagePath(getPostImagePath());
 		}
-
+		thread.setHeaderMap(getHeader());
 		thread.setmFetchDataListener(new FetchDataListener() {
 
 			@Override
 			public void fetchData(boolean isSuccess, String data,
 					boolean fromHttp) {
-				handlerData(isSuccess, data, callBack, fromHttp);
+				if (isSuccess && !TextUtils.isEmpty(data)) {
+					// NOTE
+					// 如果获取成功，那么执行handler;否则，会去执行fetchDataFromCacheByNetError这个方法
+					handlerData(isSuccess, data, fromHttp);
+				}
 			}
 		});
 		mController.fetchHttpData(thread);
@@ -132,8 +226,7 @@ public abstract class SlateBaseOperate {
 	 * @param data
 	 * @param callBack
 	 */
-	private void handlerData(boolean isSuccess, String data,
-			DataCallBack callBack, boolean fromHttp) {
+	private void handlerData(boolean isSuccess, String data, boolean fromHttp) {
 		if (isSuccess) {
 			if (TextUtils.isEmpty(data)) {
 				showToast(R.string.net_error);
@@ -160,42 +253,124 @@ public abstract class SlateBaseOperate {
 		} else {
 			showToast(R.string.net_error);
 		}
-		callBack.callback(success, fromHttp);
-	}
-
-	public boolean fecthLocalData(String fileName) {
-		if (TextUtils.isEmpty(fileName))
-			return false;
-		String localData = getLocalData(fileName);
-		if (!TextUtils.isEmpty(localData)) {
-			handlerData(true, localData, callBack, false);
-			SlatePrintHelper.print("from sdcard:" + getUrl());
-			return true;
-		}
-		return false;
+		if (callBack != null)
+			callBack.callback(success, fromHttp);
 	}
 
 	/**
-	 * 获取本地数据
+	 * 从缓存中获取数据(优先使用或者只能使用缓存)
 	 * 
-	 * @param fileName
-	 *            文件名
 	 * @return
 	 */
-	protected String getLocalData(String fileName) {
-		return "";
+	private void fetchDataFromCache(CacheCallBack cacheCallBack) {
+		if (cacheCallBack == null)
+			return;
+		if (cacheIsDb) {
+			fetchDataFromDB(cacheCallBack);
+		} else {
+			fetchDataFromSD(cacheCallBack);
+		}
 	}
 
 	/**
-	 * 网络不好的情况下获取本地数据
+	 * 接口请求失败，尝试获取缓存
 	 */
-	protected void fetchLocalDataInBadNet(FetchDataListener mFetchDataListener) {
+	protected void fetchDataFromCacheByNetError(int responseCode) {
+		TimeCollectUtil collect = TimeCollectUtil.getInstance();
+		if (mFetchApiType == FetchApiType.USE_HTTP_ONLY) {
+			collect.saveRequestTime(getUrl(), false, responseCode, false);
+			// 如果只能从网络获取，那么直接返回错误
+			SlatePrintHelper.printErr("net error:" + getUrl());
+			doCacheCallBack(false, null);
+			return;
+		}
+		if (mFetchApiType == FetchApiType.USE_CACHE_FIRST) {
+			collect.saveRequestTime(getUrl(), false, responseCode, false);
+			// 如果缓存优先，说明一开始已经获取过缓存了，那么直接返回错误
+			SlatePrintHelper.printErr("net error:" + getUrl());
+			doCacheCallBack(false, null);
+			return;
+		}
+		// NOTE 本身已经在子线程中了，所以不需要重新开启子线程了
+		CallBackData result = cacheIsDb ? fetchDataFromDB() : fetchDataFromSD();
+		doCacheCallBack(result.success, result.data);
+
+		collect.saveRequestTime(getUrl(), false, responseCode, result.success);
 	}
 
 	/**
-	 * 开始判定的更新时间变化了,如果从HTTP请求成功的，那么设置为不变化
+	 * 缓存回调给调用者
+	 * 
+	 * @param success
+	 * @param cache
 	 */
-	protected void reSetUpdateTime() {
+	private void doCacheCallBack(boolean success, String data) {
+		if (cacheIsDb) {
+			if (!success) {
+				showToast(R.string.net_error);
+			}
+			if (callBack != null) {
+				callBack.callback(success, false);
+			}
+		} else {
+			handlerData(success, data, false);
+		}
+	}
+
+	/**
+	 * 从sd卡获取数据
+	 * 
+	 * @param cacheCallBack
+	 */
+	private void fetchDataFromSD(final CacheCallBack cacheCallBack) {
+		if (cacheCallBack == null)
+			return;
+		Thread thread = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				cacheCallBack.onCallBack(fetchDataFromSD());
+			}
+		});
+		thread.start();
+		thread = null;
+	}
+
+	/**
+	 * 从数据库获取数据
+	 * 
+	 * @param cacheCallBack
+	 */
+	private void fetchDataFromDB(final CacheCallBack cacheCallBack) {
+		if (cacheCallBack == null)
+			return;
+		Thread thread = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				cacheCallBack.onCallBack(fetchDataFromDB());
+			}
+		});
+		thread.start();
+		thread = null;
+	}
+
+	/**
+	 * 从sd卡获取数据(由统一的子类提供)
+	 * 
+	 * @return
+	 */
+	protected CallBackData fetchDataFromSD() {
+		return new CallBackData();
+	}
+
+	/**
+	 * 从数据库获取数据(由特定的子类提供)
+	 * 
+	 * @return
+	 */
+	protected CallBackData fetchDataFromDB() {
+		return new CallBackData();
 	}
 
 	/**

@@ -7,6 +7,7 @@ import java.util.Map;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,13 +23,8 @@ import cn.com.modernmedia.listener.SizeCallBackForButton;
 import cn.com.modernmedia.model.AppValue;
 import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.model.SubscribeOrderList;
-import cn.com.modernmedia.model.TagArticleList;
-import cn.com.modernmedia.model.TagInfoList;
-import cn.com.modernmedia.model.TagInfoList.TagInfo;
 import cn.com.modernmedia.newtag.db.TagArticleListDb;
 import cn.com.modernmedia.newtag.db.TagIndexDb;
-import cn.com.modernmedia.newtag.db.TagInfoListDb;
-import cn.com.modernmedia.newtag.db.UserSubscribeListDb;
 import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmedia.util.DataHelper;
 import cn.com.modernmedia.util.EnsubscriptHelper;
@@ -40,14 +36,14 @@ import cn.com.modernmedia.widget.BaseView;
 import cn.com.modernmedia.widget.MainHorizontalScrollView;
 import cn.com.modernmedia.widget.MainHorizontalScrollView.FecthViewSizeListener;
 import cn.com.modernmediaslate.SlateApplication;
+import cn.com.modernmediaslate.api.SlateBaseOperate.FetchApiType;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.unit.ParseUtil;
+import cn.com.modernmediaslate.unit.SlateDataHelper;
+import cn.com.modernmediaslate.unit.Tools;
 import cn.com.modernmediausermodel.api.UserOperateController;
 import cn.com.modernmediausermodel.listener.UserFetchEntryListener;
-import cn.com.modernmediausermodel.model.User;
 import cn.com.modernmediausermodel.util.UserCentManager;
-import cn.com.modernmediausermodel.util.UserDataHelper;
-import cn.com.modernmediausermodel.util.UserTools;
 import cn.com.modernmediausermodel.widget.UserCenterView;
 
 /**
@@ -67,6 +63,7 @@ public abstract class ViewsMainActivity extends CommonMainActivity {
 	private View columnButton, favButton;
 	private FrameLayout userView;
 	protected UserCenterView userCenterView; // 用户中心页，默认右边页
+	private int currentPage = 0; // 当期处于第几屏
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -82,16 +79,16 @@ public abstract class ViewsMainActivity extends CommonMainActivity {
 			indexView.setAuto(true);
 		}
 		if (SlateApplication.loginStatusChange) {
-			if (TextUtils.isEmpty(getUid())
-					|| TextUtils.equals(getUid(),
-							SlateApplication.UN_UPLOAD_UID))
+			String uid = Tools.getUid(this);
+			if (TextUtils.isEmpty(uid)
+					|| TextUtils.equals(uid, SlateApplication.UN_UPLOAD_UID))
 				refreshSubscript("", -1);
 			else
 				getUserSubscript("", -1);
 			SlateApplication.loginStatusChange = false;
 		}
 		// 用户中心页数据变化时，刷新页面
-		if (userCenterView != null) {
+		if (userCenterView != null && currentPage == 2) {
 			userCenterView.reLoad();
 		}
 	}
@@ -148,7 +145,14 @@ public abstract class ViewsMainActivity extends CommonMainActivity {
 				setViewWidth(width);
 			}
 		});
-		UserCentManager.getInstance(this).addLoginCoinCent();
+		new Handler().postDelayed(new Runnable() {
+
+			@Override
+			public void run() {
+				UserCentManager.getInstance(ViewsMainActivity.this)
+						.addLoginCoinCent();
+			}
+		}, 3000);
 		if (SlateApplication.mConfig.getHas_coin() == 0) {
 			UserOperateController.getInstance(this).getActionRules(
 					new UserFetchEntryListener() {
@@ -173,23 +177,6 @@ public abstract class ViewsMainActivity extends CommonMainActivity {
 	protected View fetchRightView() {
 		userCenterView = new UserCenterView(this);
 		return userCenterView;
-	}
-
-	@Override
-	public void setDataForIndex(TagArticleList articleList) {
-		if (CommonApplication.mConfig.getIs_index_pager() != 1) {
-			ViewsApplication.autoScrollObservable.clearAll();
-			indexView.setData(articleList);
-		}
-	}
-
-	/**
-	 * 显示独立栏目
-	 */
-	@Override
-	public void showChildCat(TagInfoList childInfoList) {
-		if (CommonApplication.mConfig.getIs_index_pager() != 1)
-			indexView.setDataForChild(childInfoList);
 	}
 
 	@Override
@@ -243,20 +230,6 @@ public abstract class ViewsMainActivity extends CommonMainActivity {
 		indexView.checkPositionIfPager(tagName, isUri);
 	}
 
-	@Override
-	public String getUid() {
-		return UserTools.getUid(this);
-	}
-
-	@Override
-	public String getToken() {
-		User user = UserDataHelper.getUserLoginInfo(this);
-		if (user != null) {
-			return user.getToken();
-		}
-		return "";
-	}
-
 	public void setShadowAlpha(int alpha) {
 		indexView.setShadowAlpha(alpha);
 	}
@@ -267,6 +240,10 @@ public abstract class ViewsMainActivity extends CommonMainActivity {
 	 * @param index
 	 */
 	protected void showView(int index) {
+		currentPage = index;
+		if (index == 2 && userCenterView != null) {
+			userCenterView.reLoad();
+		}
 	}
 
 	/**
@@ -351,8 +328,9 @@ public abstract class ViewsMainActivity extends CommonMainActivity {
 
 	public void getUserSubscript(final String currTag, final int code) {
 		showLoadingDialog(true);
-		OperateController.getInstance(this).getSubscribeOrderList(getUid(),
-				getToken(), new FetchEntryListener() {
+		OperateController.getInstance(this).getSubscribeOrderList(
+				Tools.getUid(this), SlateDataHelper.getToken(this),
+				FetchApiType.USE_HTTP_FIRST, new FetchEntryListener() {
 
 					@Override
 					public void setData(Entry entry) {
@@ -373,28 +351,16 @@ public abstract class ViewsMainActivity extends CommonMainActivity {
 	private void refreshSubscript(String currTag, int code) {
 		TagIndexDb.getInstance(this).clearSubscribeTopArticle();
 		TagArticleListDb.getInstance(this).clearSubscribeTopArticle();
-		EnsubscriptHelper.addEnsubscriptColumn(this, getUid(), getToken());
+		EnsubscriptHelper.addEnsubscriptColumn(this);
 		setDataForColumn();
 		if (ViewsApplication.columnChangedListener != null)
 			ViewsApplication.columnChangedListener.changed();
-		if (SlateApplication.mConfig.getIs_index_pager() == 1
-				|| ConstData.getAppId() == 20) {
+
+		if (SlateApplication.mConfig.getIs_index_pager() == 1) {
 			showIndexPager();
 			if (!TextUtils.isEmpty(currTag)) {
 				clickItemIfPager(currTag, false);
 			}
-		} else if (AppValue.mainProcess != null) {
-			if (!TextUtils.isEmpty(currTag)) {
-				if (UserSubscribeListDb.getInstance(this).hasSubscribe(currTag,
-						"")) {
-					// TODO 如果UserSubscribeListDb里面存在这个tagname，代表已经订阅
-					TagInfo tagInfo = TagInfoListDb.getInstance(this)
-							.getTagInfoByName(currTag, "", false);
-					AppValue.mainProcess.getChild(tagInfo);
-					return;
-				}
-			}
-			AppValue.mainProcess.checkFirstItem();
 		}
 
 		if (code == SELECT_COLUMN_LOGIN_REQUEST_CODE) {

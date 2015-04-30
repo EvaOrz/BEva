@@ -7,8 +7,8 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import cn.com.modernmediaslate.api.SlateBaseOperate;
+import cn.com.modernmediaslate.model.User;
 import cn.com.modernmediausermodel.db.UserInfoDb;
-import cn.com.modernmediausermodel.model.User;
 import cn.com.modernmediausermodel.model.Users;
 
 /**

@@ -273,6 +273,20 @@ public class ModernMediaTools {
 		return imageSrc.replace("##x", x + "").replace("##y", y + "");
 	}
 
+	public static String getMeta() {
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("function(){\n");
+		buffer.append("  var m = document.getElementsByTagName('meta');\n");
+		buffer.append("  for(var i in m) { \n");
+		buffer.append("    if(m[i].name == 'sharemessage') {\n");
+		buffer.append("      return m[i].content;\n");
+		buffer.append("    }\n");
+		buffer.append("  }\n");
+		buffer.append("  return '';\n");
+		buffer.append("}()");
+		return buffer.toString();
+	}
+
 	/**
 	 * 独立栏目数据库where条件
 	 * 

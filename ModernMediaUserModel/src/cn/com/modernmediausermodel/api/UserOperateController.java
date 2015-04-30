@@ -6,13 +6,15 @@ import java.util.Set;
 
 import android.content.Context;
 import android.os.Handler;
+import cn.com.modernmediaslate.api.SlateBaseOperate;
+import cn.com.modernmediaslate.api.SlateBaseOperate.FetchApiType;
 import cn.com.modernmediaslate.listener.DataCallBack;
 import cn.com.modernmediaslate.model.Entry;
+import cn.com.modernmediaslate.model.User;
 import cn.com.modernmediausermodel.UserApplication;
 import cn.com.modernmediausermodel.listener.UserFetchEntryListener;
 import cn.com.modernmediausermodel.model.Card.CardItem;
 import cn.com.modernmediausermodel.model.MultiComment.CommentItem;
-import cn.com.modernmediausermodel.model.User;
 import cn.com.modernmediausermodel.model.UserCardInfoList.UserCardInfo;
 
 /**
@@ -38,6 +40,28 @@ public class UserOperateController {
 		return instance;
 	}
 
+	private void doRequest(SlateBaseOperate operate, final Entry entry,
+			FetchApiType type, final UserFetchEntryListener listener) {
+		operate.asyncRequest(mContext, type, new DataCallBack() {
+
+			@Override
+			public void callback(boolean success, boolean fromHttp) {
+				sendMessage(success ? entry : null, listener, fromHttp);
+			}
+		});
+	}
+
+	private void doPostRequest(SlateBaseOperate operate, final Entry entry,
+			FetchApiType type, final UserFetchEntryListener listener) {
+		operate.asyncRequestByPost(mContext, type, new DataCallBack() {
+
+			@Override
+			public void callback(boolean success, boolean fromHttp) {
+				sendMessage(success ? entry : null, listener, fromHttp);
+			}
+		});
+	}
+
 	/**
 	 * 通过handler返回数据
 	 * 
@@ -45,7 +69,7 @@ public class UserOperateController {
 	 * @param listener
 	 */
 	private void sendMessage(final Entry entry,
-			final UserFetchEntryListener listener) {
+			final UserFetchEntryListener listener, boolean fromHttp) {
 		synchronized (mHandler) {
 			mHandler.post(new Runnable() {
 
@@ -68,17 +92,10 @@ public class UserOperateController {
 	 *            view数据回调接口
 	 */
 	public void login(String userName, String password,
-			final UserFetchEntryListener listener) {
-		final UserLoginOperate operate = new UserLoginOperate(userName,
-				password);
-		// http请求
-		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
-
-			@Override
-			public void callback(boolean success, boolean fromHttp) {
-				sendMessage(success ? operate.getUser() : null, listener);
-			}
-		});
+			UserFetchEntryListener listener) {
+		UserLoginOperate operate = new UserLoginOperate(userName, password);
+		doPostRequest(operate, operate.getUser(), FetchApiType.USE_HTTP_ONLY,
+				listener);
 	}
 
 	/**
@@ -94,17 +111,11 @@ public class UserOperateController {
 	 *            view数据回调接口
 	 */
 	public void openLogin(User user, String avatar, int type,
-			final UserFetchEntryListener listener) {
-		final OpenLoginOperate operate = new OpenLoginOperate(mContext, user,
-				avatar, type);
-		// http请求
-		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
-
-			@Override
-			public void callback(boolean success, boolean fromHttp) {
-				sendMessage(success ? operate.getUser() : null, listener);
-			}
-		});
+			UserFetchEntryListener listener) {
+		OpenLoginOperate operate = new OpenLoginOperate(mContext, user, avatar,
+				type);
+		doPostRequest(operate, operate.getUser(), FetchApiType.USE_HTTP_ONLY,
+				listener);
 	}
 
 	/**
@@ -118,17 +129,11 @@ public class UserOperateController {
 	 *            view数据回调接口
 	 */
 	public void register(String userName, String password,
-			final UserFetchEntryListener listener) {
-		final UserRegisterOperate operate = new UserRegisterOperate(userName,
+			UserFetchEntryListener listener) {
+		UserRegisterOperate operate = new UserRegisterOperate(userName,
 				password);
-		// http请求
-		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
-
-			@Override
-			public void callback(boolean success, boolean fromHttp) {
-				sendMessage(success ? operate.getUser() : null, listener);
-			}
-		});
+		doPostRequest(operate, operate.getUser(), FetchApiType.USE_HTTP_ONLY,
+				listener);
 	}
 
 	/**
@@ -142,17 +147,10 @@ public class UserOperateController {
 	 *            view数据回调接口
 	 */
 	public void loginOut(String uid, String token,
-			final UserFetchEntryListener listener) {
-
-		final UserLoginOutOperate operate = new UserLoginOutOperate(uid, token);
-		// http请求
-		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
-
-			@Override
-			public void callback(boolean success, boolean fromHttp) {
-				sendMessage(success ? operate.getUser() : null, listener);
-			}
-		});
+			UserFetchEntryListener listener) {
+		UserLoginOutOperate operate = new UserLoginOutOperate(uid, token);
+		doPostRequest(operate, operate.getUser(), FetchApiType.USE_HTTP_ONLY,
+				listener);
 	}
 
 	/**
@@ -166,16 +164,27 @@ public class UserOperateController {
 	 *            view数据回调接口
 	 */
 	public void getInfoByIdAndToken(String uid, String token,
-			final UserFetchEntryListener listener) {
-		final GetUserInfoOperate operate = new GetUserInfoOperate(uid, token);
-		// http请求
-		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
+			UserFetchEntryListener listener) {
+		getInfoByIdAndToken(uid, token, FetchApiType.USE_HTTP_FIRST, listener);
+	}
 
-			@Override
-			public void callback(boolean success, boolean fromHttp) {
-				sendMessage(success ? operate.getUser() : null, listener);
-			}
-		});
+	/**
+	 * 获取当前用户的信息 通过uid和token获取当前用户信息，uid和token用pb格式post方式接收(可检测用户登录状态) url
+	 * 
+	 * @param uid
+	 *            uid
+	 * @param token
+	 *            用户token
+	 * @param type
+	 *            取数据方式
+	 * @param listener
+	 *            view数据回调接口
+	 */
+	public void getInfoByIdAndToken(String uid, String token,
+			FetchApiType type, UserFetchEntryListener listener) {
+		GetUserInfoOperate operate = new GetUserInfoOperate(uid, token);
+		doPostRequest(operate, operate.getUser(), FetchApiType.USE_HTTP_ONLY,
+				listener);
 	}
 
 	/**
@@ -188,18 +197,10 @@ public class UserOperateController {
 	 * @param listener
 	 *            view数据回调接口
 	 */
-	public void getPassword(String userName,
-			final UserFetchEntryListener listener) {
-		final UserFindPasswordOperate operate = new UserFindPasswordOperate(
-				userName);
-		// http请求
-		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
-
-			@Override
-			public void callback(boolean success, boolean fromHttp) {
-				sendMessage(success ? operate.getUser() : null, listener);
-			}
-		});
+	public void getPassword(String userName, UserFetchEntryListener listener) {
+		UserFindPasswordOperate operate = new UserFindPasswordOperate(userName);
+		doPostRequest(operate, operate.getUser(), FetchApiType.USE_HTTP_ONLY,
+				listener);
 	}
 
 	/**
@@ -222,17 +223,11 @@ public class UserOperateController {
 	 */
 	public void modifyUserInfo(String uid, String token, String userName,
 			String nickName, String url, String password,
-			final UserFetchEntryListener listener) {
-		final ModifyUserInfoOperate operate = new ModifyUserInfoOperate(uid,
-				token, userName, nickName, url, password);
-		// http请求
-		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
-
-			@Override
-			public void callback(boolean success, boolean fromHttp) {
-				sendMessage(success ? operate.getUser() : null, listener);
-			}
-		});
+			UserFetchEntryListener listener) {
+		ModifyUserInfoOperate operate = new ModifyUserInfoOperate(uid, token,
+				userName, nickName, url, password);
+		doPostRequest(operate, operate.getUser(), FetchApiType.USE_HTTP_ONLY,
+				listener);
 	}
 
 	/**
@@ -252,18 +247,11 @@ public class UserOperateController {
 	 *            view数据回调接口
 	 */
 	public void modifyUserPassword(String uid, String token, String userName,
-			String password, String newPassword,
-			final UserFetchEntryListener listener) {
-		final ModifyUserPasswordOperate operate = new ModifyUserPasswordOperate(
-				uid, token, userName, password, newPassword);
-		// http请求
-		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
-
-			@Override
-			public void callback(boolean success, boolean fromHttp) {
-				sendMessage(success ? operate.getUser() : null, listener);
-			}
-		});
+			String password, String newPassword, UserFetchEntryListener listener) {
+		ModifyUserPasswordOperate operate = new ModifyUserPasswordOperate(uid,
+				token, userName, password, newPassword);
+		doPostRequest(operate, operate.getUser(), FetchApiType.USE_HTTP_ONLY,
+				listener);
 	}
 
 	/**
@@ -275,18 +263,10 @@ public class UserOperateController {
 	 *            view数据回调接口
 	 */
 	public void uploadUserAvatar(String imagePath,
-			final UserFetchEntryListener listener) {
-		final UploadUserAvaterOperate operate = new UploadUserAvaterOperate(
-				imagePath);
-		// http请求
-		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
-
-			@Override
-			public void callback(boolean success, boolean fromHttp) {
-				sendMessage(success ? operate.getUploadResult() : null,
-						listener);
-			}
-		});
+			UserFetchEntryListener listener) {
+		UploadUserAvaterOperate operate = new UploadUserAvaterOperate(imagePath);
+		doPostRequest(operate, operate.getUploadResult(),
+				FetchApiType.USE_HTTP_ONLY, listener);
 	}
 
 	/**
@@ -294,35 +274,23 @@ public class UserOperateController {
 	 * 
 	 */
 	public void getRecommendUsers(String uid, int pageType, String offsetId,
-			int lastDbId, Context context, final UserFetchEntryListener listener) {
-		final GetRecommendUsersOperate operate = new GetRecommendUsersOperate(
-				uid, pageType, offsetId, lastDbId, context);
-		operate.asyncRequest(mContext, false, new DataCallBack() {
-
-			@Override
-			public void callback(boolean success, boolean fromHttp) {
-				sendMessage(success ? operate.getUserCardInfoList() : null,
-						listener);
-			}
-		});
+			int lastDbId, Context context, UserFetchEntryListener listener) {
+		GetRecommendUsersOperate operate = new GetRecommendUsersOperate(uid,
+				pageType, offsetId, lastDbId, context);
+		doRequest(operate, operate.getUserCardInfoList(),
+				FetchApiType.USE_HTTP_FIRST, listener);
 	}
 
 	/**
 	 * 获取多用户信息列表
 	 * 
 	 */
-	public void getUsersInfo(Set<String> uidSet,
-			final UserFetchEntryListener listener) {
-		final GetUsersInfoOperate operate = new GetUsersInfoOperate(mContext);
+	public void getUsersInfo(Set<String> uidSet, UserFetchEntryListener listener) {
+		GetUsersInfoOperate operate = new GetUsersInfoOperate(mContext);
 		operate.setUids(uidSet);
 		operate.setShowToast(false);
-		operate.asyncRequest(mContext, false, new DataCallBack() {
-
-			@Override
-			public void callback(boolean success, boolean fromHttp) {
-				sendMessage(success ? operate.getUsers() : null, listener);
-			}
-		});
+		doRequest(operate, operate.getUsers(), FetchApiType.USE_HTTP_FIRST,
+				listener);
 	}
 
 	/**
@@ -333,17 +301,11 @@ public class UserOperateController {
 	 * @param listener
 	 */
 	public void getUserCardInfo(String uid, String customerUid,
-			final UserFetchEntryListener listener) {
-		final GetUserCardInfoOperate operate = new GetUserCardInfoOperate(uid,
+			UserFetchEntryListener listener) {
+		GetUserCardInfoOperate operate = new GetUserCardInfoOperate(uid,
 				customerUid);
-		operate.asyncRequest(mContext, false, new DataCallBack() {
-
-			@Override
-			public void callback(boolean success, boolean fromHttp) {
-				sendMessage(success ? operate.getUserCardInfo() : null,
-						listener);
-			}
-		});
+		doRequest(operate, operate.getUserCardInfo(),
+				FetchApiType.USE_HTTP_FIRST, listener);
 	}
 
 	/**
@@ -356,16 +318,10 @@ public class UserOperateController {
 	 * @param listener
 	 */
 	public void addFollow(String uid, List<UserCardInfo> user,
-			boolean refreshList, final UserFetchEntryListener listener) {
-		final AddFollowOperate operate = new AddFollowOperate(uid, user,
-				refreshList);
-		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
-
-			@Override
-			public void callback(boolean success, boolean fromHttp) {
-				sendMessage(success ? operate.getError() : null, listener);
-			}
-		});
+			boolean refreshList, UserFetchEntryListener listener) {
+		AddFollowOperate operate = new AddFollowOperate(uid, user, refreshList);
+		doPostRequest(operate, operate.getError(), FetchApiType.USE_HTTP_ONLY,
+				listener);
 	}
 
 	/**
@@ -378,16 +334,11 @@ public class UserOperateController {
 	 * @param listener
 	 */
 	public void deleteFollow(String uid, List<UserCardInfo> userCardInfoList,
-			boolean refreshList, final UserFetchEntryListener listener) {
-		final DeleteFollowOperate operate = new DeleteFollowOperate(uid,
+			boolean refreshList, UserFetchEntryListener listener) {
+		DeleteFollowOperate operate = new DeleteFollowOperate(uid,
 				userCardInfoList, refreshList);
-		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
-
-			@Override
-			public void callback(boolean success, boolean fromHttp) {
-				sendMessage(success ? operate.getError() : null, listener);
-			}
-		});
+		doPostRequest(operate, operate.getError(), FetchApiType.USE_HTTP_ONLY,
+				listener);
 	}
 
 	/**
@@ -395,17 +346,12 @@ public class UserOperateController {
 	 * 
 	 */
 	public void getUserCard(String uid, String timelineId,
-			boolean isGetNewData, final UserFetchEntryListener listener) {
-		final GetUserCardOperate operate = new GetUserCardOperate(mContext,
-				uid, timelineId, isGetNewData);
+			boolean isGetNewData, UserFetchEntryListener listener) {
+		GetUserCardOperate operate = new GetUserCardOperate(mContext, uid,
+				timelineId, isGetNewData);
 		operate.setShowToast(false);
-		operate.asyncRequest(mContext, false, new DataCallBack() {
-
-			@Override
-			public void callback(boolean success, boolean fromHttp) {
-				sendMessage(success ? operate.getCard() : null, listener);
-			}
-		});
+		doRequest(operate, operate.getCard(), FetchApiType.USE_HTTP_FIRST,
+				listener);
 	}
 
 	/**
@@ -413,17 +359,12 @@ public class UserOperateController {
 	 * 
 	 */
 	public void getRecommendCard(String timelineId, boolean isGetNewData,
-			final UserFetchEntryListener listener) {
-		final GetRecommendCardOperate operate = new GetRecommendCardOperate(
-				mContext, timelineId, isGetNewData);
+			UserFetchEntryListener listener) {
+		GetRecommendCardOperate operate = new GetRecommendCardOperate(mContext,
+				timelineId, isGetNewData);
 		operate.setShowToast(false);
-		operate.asyncRequest(mContext, false, new DataCallBack() {
-
-			@Override
-			public void callback(boolean success, boolean fromHttp) {
-				sendMessage(success ? operate.getCard() : null, listener);
-			}
-		});
+		doRequest(operate, operate.getCard(), FetchApiType.USE_HTTP_FIRST,
+				listener);
 	}
 
 	/**
@@ -431,16 +372,11 @@ public class UserOperateController {
 	 * 
 	 */
 	public void getCardComments(ArrayList<CardItem> cardItems, int commentId,
-			boolean isGetNewData, final UserFetchEntryListener listener) {
-		final GetCardCommentsOperate operate = new GetCardCommentsOperate(
-				cardItems, commentId, isGetNewData);
-		operate.asyncRequest(mContext, false, new DataCallBack() {
-
-			@Override
-			public void callback(boolean success, boolean fromHttp) {
-				sendMessage(success ? operate.getComments() : null, listener);
-			}
-		});
+			boolean isGetNewData, UserFetchEntryListener listener) {
+		GetCardCommentsOperate operate = new GetCardCommentsOperate(cardItems,
+				commentId, isGetNewData);
+		doRequest(operate, operate.getComments(), FetchApiType.USE_HTTP_FIRST,
+				listener);
 	}
 
 	/**
@@ -448,15 +384,10 @@ public class UserOperateController {
 	 * 
 	 */
 	public void addCardComment(CommentItem comment,
-			final UserFetchEntryListener listener) {
-		final CardAddCommentOperate operate = new CardAddCommentOperate(comment);
-		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
-
-			@Override
-			public void callback(boolean success, boolean fromHttp) {
-				sendMessage(success ? operate.getError() : null, listener);
-			}
-		});
+			UserFetchEntryListener listener) {
+		CardAddCommentOperate operate = new CardAddCommentOperate(comment);
+		doPostRequest(operate, operate.getError(), FetchApiType.USE_HTTP_ONLY,
+				listener);
 	}
 
 	/**
@@ -465,15 +396,10 @@ public class UserOperateController {
 	 * @param cardItem
 	 * @param listener
 	 */
-	public void addCard(CardItem cardItem, final UserFetchEntryListener listener) {
-		final AddCardOperate operate = new AddCardOperate(cardItem);
-		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
-
-			@Override
-			public void callback(boolean success, boolean fromHttp) {
-				sendMessage(success ? operate.getError() : null, listener);
-			}
-		});
+	public void addCard(CardItem cardItem, UserFetchEntryListener listener) {
+		AddCardOperate operate = new AddCardOperate(cardItem);
+		doPostRequest(operate, operate.getError(), FetchApiType.USE_HTTP_ONLY,
+				listener);
 	}
 
 	/**
@@ -482,15 +408,10 @@ public class UserOperateController {
 	 * @param data
 	 * @param listener
 	 */
-	public void addCard(String data, final UserFetchEntryListener listener) {
-		final AddCardOperate operate = new AddCardOperate(data);
-		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
-
-			@Override
-			public void callback(boolean success, boolean fromHttp) {
-				sendMessage(success ? operate.getError() : null, listener);
-			}
-		});
+	public void addCard(String data, UserFetchEntryListener listener) {
+		AddCardOperate operate = new AddCardOperate(data);
+		doPostRequest(operate, operate.getError(), FetchApiType.USE_HTTP_ONLY,
+				listener);
 	}
 
 	/**
@@ -501,15 +422,10 @@ public class UserOperateController {
 	 * @param listener
 	 */
 	public void deleteCard(String uid, String cardId,
-			final UserFetchEntryListener listener) {
-		final DeleteCardOperate operate = new DeleteCardOperate(uid, cardId);
-		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
-
-			@Override
-			public void callback(boolean success, boolean fromHttp) {
-				sendMessage(success ? operate.getError() : null, listener);
-			}
-		});
+			UserFetchEntryListener listener) {
+		DeleteCardOperate operate = new DeleteCardOperate(uid, cardId);
+		doPostRequest(operate, operate.getError(), FetchApiType.USE_HTTP_ONLY,
+				listener);
 	}
 
 	/**
@@ -520,16 +436,11 @@ public class UserOperateController {
 	 * @param listener
 	 */
 	public void addCardFav(String uid, String cardId,
-			final UserFetchEntryListener listener) {
-		final CardFavOperate operate = new CardFavOperate(uid, cardId,
+			UserFetchEntryListener listener) {
+		CardFavOperate operate = new CardFavOperate(uid, cardId,
 				CardFavOperate.TYPE_ADD);
-		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
-
-			@Override
-			public void callback(boolean success, boolean fromHttp) {
-				sendMessage(success ? operate.getError() : null, listener);
-			}
-		});
+		doPostRequest(operate, operate.getError(), FetchApiType.USE_HTTP_ONLY,
+				listener);
 	}
 
 	/**
@@ -540,16 +451,11 @@ public class UserOperateController {
 	 * @param listener
 	 */
 	public void cancelCardFav(String uid, String cardId,
-			final UserFetchEntryListener listener) {
-		final CardFavOperate operate = new CardFavOperate(uid, cardId,
+			UserFetchEntryListener listener) {
+		CardFavOperate operate = new CardFavOperate(uid, cardId,
 				CardFavOperate.TYPE_DELTE);
-		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
-
-			@Override
-			public void callback(boolean success, boolean fromHttp) {
-				sendMessage(success ? operate.getError() : null, listener);
-			}
-		});
+		doPostRequest(operate, operate.getError(), FetchApiType.USE_HTTP_ONLY,
+				listener);
 	}
 
 	/**
@@ -559,17 +465,12 @@ public class UserOperateController {
 	 * @param listener
 	 */
 	public void getUserTimeLine(String uid, String timelineId,
-			boolean isGetNewData, final UserFetchEntryListener listener) {
-		final GetUserTimeLineOperate operate = new GetUserTimeLineOperate(
-				mContext, uid, timelineId, isGetNewData);
+			boolean isGetNewData, UserFetchEntryListener listener) {
+		GetUserTimeLineOperate operate = new GetUserTimeLineOperate(mContext,
+				uid, timelineId, isGetNewData);
 		operate.setShowToast(false);
-		operate.asyncRequest(mContext, false, new DataCallBack() {
-
-			@Override
-			public void callback(boolean success, boolean fromHttp) {
-				sendMessage(success ? operate.getCard() : null, listener);
-			}
-		});
+		doRequest(operate, operate.getCard(), FetchApiType.USE_HTTP_FIRST,
+				listener);
 	}
 
 	/**
@@ -579,16 +480,10 @@ public class UserOperateController {
 	 * @param listener
 	 */
 	public void getMessageList(String uid, int lastId,
-			final UserFetchEntryListener listener) {
-		final GetMessageListOperate operate = new GetMessageListOperate(uid,
-				lastId);
-		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
-
-			@Override
-			public void callback(boolean success, boolean fromHttp) {
-				sendMessage(success ? operate.getMessage() : null, listener);
-			}
-		});
+			UserFetchEntryListener listener) {
+		GetMessageListOperate operate = new GetMessageListOperate(uid, lastId);
+		doPostRequest(operate, operate.getMessage(),
+				FetchApiType.USE_HTTP_FIRST, listener);
 	}
 
 	/**
@@ -597,16 +492,10 @@ public class UserOperateController {
 	 * @param cardId
 	 * @param listener
 	 */
-	public void getCardDetail(String cardId,
-			final UserFetchEntryListener listener) {
-		final GetCardDetailOperate operate = new GetCardDetailOperate(cardId);
-		operate.asyncRequest(mContext, false, new DataCallBack() {
-
-			@Override
-			public void callback(boolean success, boolean fromHttp) {
-				sendMessage(success ? operate.getCard() : null, listener);
-			}
-		});
+	public void getCardDetail(String cardId, UserFetchEntryListener listener) {
+		GetCardDetailOperate operate = new GetCardDetailOperate(cardId);
+		doRequest(operate, operate.getCard(), FetchApiType.USE_HTTP_FIRST,
+				listener);
 	}
 
 	/**
@@ -615,17 +504,11 @@ public class UserOperateController {
 	 * @param listener
 	 */
 	public void getCardListByArticleId(String articleId,
-			final UserFetchEntryListener listener) {
-		final GetCardByArticleIdOperate operate = new GetCardByArticleIdOperate(
+			UserFetchEntryListener listener) {
+		GetCardByArticleIdOperate operate = new GetCardByArticleIdOperate(
 				mContext, articleId, "", "");
-		operate.asyncRequest(mContext, false, new DataCallBack() {
-
-			@Override
-			public void callback(boolean success, boolean fromHttp) {
-				sendMessage(success ? operate.getCard() : null, listener);
-			}
-		});
-
+		doRequest(operate, operate.getCard(), FetchApiType.USE_HTTP_FIRST,
+				listener);
 	}
 
 	/**
@@ -636,16 +519,11 @@ public class UserOperateController {
 	 * @param listener
 	 */
 	public void getUserCoinNumber(String uid, String token,
-			final UserFetchEntryListener listener) {
-		final GetUserCoinNumberOperate operate = new GetUserCoinNumberOperate(
-				uid, token);
-		operate.asyncRequest(mContext, false, new DataCallBack() {
-
-			@Override
-			public void callback(boolean success, boolean fromHttp) {
-				sendMessage(success ? operate.getUserCent() : null, listener);
-			}
-		});
+			UserFetchEntryListener listener) {
+		GetUserCoinNumberOperate operate = new GetUserCoinNumberOperate(uid,
+				token);
+		doRequest(operate, operate.getUserCent(), FetchApiType.USE_HTTP_FIRST,
+				listener);
 	}
 
 	/**
@@ -653,20 +531,14 @@ public class UserOperateController {
 	 * 
 	 * @param listener
 	 */
-	public void getActionRules(final UserFetchEntryListener listener) {
+	public void getActionRules(UserFetchEntryListener listener) {
 		if (UserApplication.actionRuleList != null) {
-			sendMessage(UserApplication.actionRuleList, listener);
+			sendMessage(UserApplication.actionRuleList, listener, false);
 			return;
 		}
-		final GetAppActionRulesOperate operate = new GetAppActionRulesOperate();
-		operate.asyncRequest(mContext, true, new DataCallBack() {
-
-			@Override
-			public void callback(boolean success, boolean fromHttp) {
-				sendMessage(success ? operate.getActionRuleList() : null,
-						listener);
-			}
-		});
+		GetAppActionRulesOperate operate = new GetAppActionRulesOperate();
+		doRequest(operate, operate.getActionRuleList(),
+				FetchApiType.USE_CACHE_FIRST, listener);
 	}
 
 	/**
@@ -674,15 +546,10 @@ public class UserOperateController {
 	 * 
 	 * @param listener
 	 */
-	public void getGoodsList(final UserFetchEntryListener listener) {
-		final GetGoodsListOperate operate = new GetGoodsListOperate();
-		operate.asyncRequest(mContext, false, new DataCallBack() {
-
-			@Override
-			public void callback(boolean success, boolean fromHttp) {
-				sendMessage(success ? operate.getGoodsList() : null, listener);
-			}
-		});
+	public void getGoodsList(UserFetchEntryListener listener) {
+		GetGoodsListOperate operate = new GetGoodsListOperate();
+		doRequest(operate, operate.getGoodsList(), FetchApiType.USE_HTTP_FIRST,
+				listener);
 	}
 
 	/**
@@ -694,16 +561,11 @@ public class UserOperateController {
 	 * @param listener
 	 */
 	public void addGoodsOrder(String uid, String token, String goodsId,
-			final UserFetchEntryListener listener) {
-		final AddGoodsOrderOperate operate = new AddGoodsOrderOperate(uid,
-				token, goodsId);
-		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
-
-			@Override
-			public void callback(boolean success, boolean fromHttp) {
-				sendMessage(success ? operate.getError() : null, listener);
-			}
-		});
+			UserFetchEntryListener listener) {
+		AddGoodsOrderOperate operate = new AddGoodsOrderOperate(uid, token,
+				goodsId);
+		doPostRequest(operate, operate.getError(), FetchApiType.USE_HTTP_ONLY,
+				listener);
 	}
 
 	/**
@@ -716,15 +578,10 @@ public class UserOperateController {
 	 * @param listener
 	 */
 	public void addUserCoinNumber(String uid, String token,
-			String actionRuleIds, final UserFetchEntryListener listener) {
-		final AddUserCoinNumberOperate operate = new AddUserCoinNumberOperate(
-				uid, token, actionRuleIds);
-		operate.asyncRequestByPost(mContext, false, new DataCallBack() {
-
-			@Override
-			public void callback(boolean success, boolean fromHttp) {
-				sendMessage(success ? operate.getError() : null, listener);
-			}
-		});
+			String actionRuleIds, UserFetchEntryListener listener) {
+		AddUserCoinNumberOperate operate = new AddUserCoinNumberOperate(uid,
+				token, actionRuleIds);
+		doPostRequest(operate, operate.getError(), FetchApiType.USE_HTTP_ONLY,
+				listener);
 	}
 }

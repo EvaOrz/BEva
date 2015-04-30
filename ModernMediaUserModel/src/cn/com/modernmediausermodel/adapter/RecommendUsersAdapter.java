@@ -13,11 +13,11 @@ import android.widget.TextView;
 import cn.com.modernmediaslate.adapter.ViewHolder;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.model.ErrorMsg;
+import cn.com.modernmediaslate.model.User;
 import cn.com.modernmediaslate.unit.Tools;
 import cn.com.modernmediausermodel.R;
 import cn.com.modernmediausermodel.api.UserOperateController;
 import cn.com.modernmediausermodel.listener.UserFetchEntryListener;
-import cn.com.modernmediausermodel.model.User;
 import cn.com.modernmediausermodel.model.UserCardInfoList;
 import cn.com.modernmediausermodel.model.UserCardInfoList.UserCardInfo;
 import cn.com.modernmediausermodel.util.UserPageTransfer;
@@ -42,7 +42,7 @@ public class RecommendUsersAdapter extends CheckScrollAdapter<UserCardInfo> {
 		super(context);
 		this.mContext = context;
 		this.pageType = pageType;
-		currUid = UserTools.getUid(mContext);
+		currUid = Tools.getUid(mContext);
 		controller = UserOperateController.getInstance(mContext);
 		mUser = user;
 	}
@@ -134,7 +134,7 @@ public class RecommendUsersAdapter extends CheckScrollAdapter<UserCardInfo> {
 		UserCardInfoList list = new UserCardInfoList();
 		list.getList().add(userCardInfo);
 		Tools.showLoading(mContext, true);
-		controller.addFollow(UserTools.getUid(mContext), list.getList(), false,
+		controller.addFollow(Tools.getUid(mContext), list.getList(), false,
 				new UserFetchEntryListener() {
 
 					@Override
@@ -174,7 +174,7 @@ public class RecommendUsersAdapter extends CheckScrollAdapter<UserCardInfo> {
 		UserCardInfoList list = new UserCardInfoList();
 		list.getList().add(userCardInfo);
 		Tools.showLoading(mContext, true);
-		controller.deleteFollow(UserTools.getUid(mContext), list.getList(),
+		controller.deleteFollow(Tools.getUid(mContext), list.getList(),
 				false, new UserFetchEntryListener() {
 
 					@Override

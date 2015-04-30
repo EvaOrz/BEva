@@ -6,6 +6,7 @@ import cn.com.modernmedia.listener.FetchEntryListener;
 import cn.com.modernmedia.model.AppValue;
 import cn.com.modernmedia.model.TagInfoList;
 import cn.com.modernmedia.model.TagInfoList.TagInfo;
+import cn.com.modernmediaslate.api.SlateBaseOperate.FetchApiType;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.unit.ParseUtil;
 import cn.com.modernmediaslate.unit.Tools;
@@ -89,8 +90,8 @@ public class UriParseToIndex {
 	 */
 	private void getTagInfo(String tagName) {
 		Tools.showLoading(mContext, true);
-		OperateController.getInstance(mContext).getTagInfo(tagName, true,
-				new FetchEntryListener() {
+		OperateController.getInstance(mContext).getTagInfo(tagName,
+				FetchApiType.USE_CACHE_FIRST, new FetchEntryListener() {
 
 					@Override
 					public void setData(Entry entry) {

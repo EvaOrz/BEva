@@ -11,18 +11,17 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Toast;
 import cn.com.modernmedia.listener.NotifyAdapterListener;
-import cn.com.modernmedia.model.TagArticleList;
-import cn.com.modernmedia.model.TagInfoList;
+import cn.com.modernmedia.model.AppValue;
+import cn.com.modernmedia.newtag.mainprocess.DownloadAvdRes;
 import cn.com.modernmedia.newtag.mainprocess.MainProcessObservable;
 import cn.com.modernmedia.newtag.mainprocess.MainProcessObservable.ObserverItem;
 import cn.com.modernmedia.newtag.mainprocess.TagProcessManage;
 import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmedia.util.PageTransfer;
+import cn.com.modernmedia.util.UpdateManager;
+import cn.com.modernmedia.util.UpdateManager.CheckVersionListener;
 import cn.com.modernmedia.widget.BaseView;
 import cn.com.modernmedia.widget.MainHorizontalScrollView;
-import cn.com.modernmediaslate.SlateApplication;
-
-import com.parse.ParseAnalytics;
 
 /**
  * 公共首页
@@ -36,7 +35,6 @@ public abstract class CommonMainActivity extends BaseFragmentActivity implements
 	protected int pushArticleId = -1;
 	protected MainHorizontalScrollView scrollView;
 	private List<NotifyAdapterListener> listenerList = new ArrayList<NotifyAdapterListener>();
-	private TagProcessManage manage;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,22 +42,14 @@ public abstract class CommonMainActivity extends BaseFragmentActivity implements
 		CommonApplication.mainProcessObservable.addObserver(this,
 				getActivityName());
 		init();
-		startMainProcess(getIntent(), true);
+		checkVersion();
+		downLoadAdvRes();
+		startMainProcess(getIntent());
 	}
 
-	protected void startMainProcess(Intent intent, boolean track) {
-		if (track)
-			ParseAnalytics.trackAppOpened(intent);
-		if (intent == null)
-			return;
-		manage = new TagProcessManage(this);
-		manage.checkIntent(intent);
-	}
-
-	@Override
-	protected void onNewIntent(Intent intent) {
-		super.onNewIntent(intent);
-		startMainProcess(intent, false);
+	protected void startMainProcess(Intent intent) {
+		if (intent != null)
+			TagProcessManage.getInstance(this).onStart(intent, null);
 	}
 
 	/**
@@ -76,14 +66,8 @@ public abstract class CommonMainActivity extends BaseFragmentActivity implements
 		case MainProcessObservable.SET_DATA_TO_COLUMN:
 			setDataForColumn();
 			break;
-		case MainProcessObservable.SET_DATA_TO_INDEX:
-			if (item.entry instanceof TagArticleList)
-				setDataForIndex((TagArticleList) item.entry);
-			break;
-		case MainProcessObservable.SHOW_CHILD_CAT:
-			if (item.entry instanceof TagInfoList) {
-				showChildCat((TagInfoList) item.entry);
-			}
+		case MainProcessObservable.SET_DATA_TO_SHIYE:
+			// TODO time collect
 			break;
 		case MainProcessObservable.SHOW_INDEX_PAGER:
 			showIndexPager();
@@ -99,38 +83,11 @@ public abstract class CommonMainActivity extends BaseFragmentActivity implements
 	protected abstract void setDataForColumn();
 
 	/**
-	 * 初始化index
-	 * 
-	 * @param entry
-	 */
-	protected abstract void setDataForIndex(TagArticleList articleList);
-
-	/**
-	 * 子栏目
-	 * 
-	 * @param childInfoList
-	 */
-	protected abstract void showChildCat(TagInfoList childInfoList);
-
-	/**
 	 * 显示首页滑屏view
 	 */
 	protected abstract void showIndexPager();
 
 	public abstract MainHorizontalScrollView getScrollView();
-
-	/**
-	 * 如果继承的应用包含用户模块，需要重载此方法
-	 * 
-	 * @return
-	 */
-	public String getUid() {
-		return SlateApplication.UN_UPLOAD_UID;
-	}
-
-	public String getToken() {
-		return "";
-	}
 
 	/**
 	 * indexview 显示loading
@@ -226,13 +183,42 @@ public abstract class CommonMainActivity extends BaseFragmentActivity implements
 
 	@Override
 	public void reLoadData() {
-		if (manage != null)
-			manage.reLoadData();
+		TagProcessManage.getInstance(this).reLoadData();
+	}
+
+	/**
+	 * 更新版本
+	 */
+	private void checkVersion() {
+		if (ConstData.getInitialAppId() == 1
+				&& CommonApplication.CHANNEL.equals("googleplay")) {
+			return;
+		}
+		UpdateManager manager = new UpdateManager(this,
+				new CheckVersionListener() {
+
+					@Override
+					public void checkEnd() {
+					}
+				});
+		manager.checkVersion();
+	}
+
+	/**
+	 * 下载广告资源
+	 */
+	private void downLoadAdvRes() {
+		DownloadAvdRes downloadAvdRes = new DownloadAvdRes(this);
+		// 下载splash图
+		downloadAvdRes.downloadSplash(AppValue.appInfo.getSplash());
+		// 下载广告资源
+		downloadAvdRes.downloadRunBan();
 	}
 
 	@Override
 	protected void exitApp() {
 		super.exitApp();
+		TagProcessManage.getInstance(this).destory();
 		CommonApplication.exit();
 	}
 

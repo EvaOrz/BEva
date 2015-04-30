@@ -15,11 +15,8 @@ import cn.com.modernmedia.CommonArticleActivity.ArticleType;
 import cn.com.modernmedia.CommonMainActivity;
 import cn.com.modernmedia.R;
 import cn.com.modernmedia.VideoPlayerActivity;
-import cn.com.modernmedia.model.AppValue;
 import cn.com.modernmedia.model.ArticleItem;
-import cn.com.modernmedia.model.TagInfoList.TagInfo;
 import cn.com.modernmedia.util.PageTransfer.TransferArticle;
-import cn.com.modernmedia.util.UriParseToIndex.UriParseToIndexListener;
 import cn.com.modernmedia.widget.CommonAtlasView;
 import cn.com.modernmedia.widget.CommonWebView;
 import cn.com.modernmedia.widget.WebViewPop;
@@ -474,17 +471,6 @@ public class UriParse {
 	 */
 	public static void doLinkArticle(Context context, List<String> list,
 			Entry[] entries, View view, Class<?>... cls) {
-		if (context instanceof CommonArticleActivity) {
-			if (view instanceof CommonWebView) {
-				((CommonWebView) view).gotoArticle(ParseUtil.stoi(list.get(3),
-						-1));
-				return;
-			} else if (view instanceof CommonAtlasView) {
-				((CommonAtlasView) view).gotoArticle(ParseUtil.stoi(
-						list.get(3), -1));
-				return;
-			}
-		}
 		TransferArticle tr = new TransferArticle(
 				ParseUtil.stoi(list.get(3), -1), list.get(2), "", -1,
 				ArticleType.Default);
@@ -492,6 +478,17 @@ public class UriParse {
 				: null;
 		if (transferArticle != null)
 			tr.setUid(transferArticle.getUid());
+
+		if (context instanceof CommonArticleActivity) {
+			tr.setUid(Tools.getUid(context));
+			if (view instanceof CommonWebView) {
+				((CommonWebView) view).gotoArticle(tr);
+				return;
+			} else if (view instanceof CommonAtlasView) {
+				((CommonAtlasView) view).gotoArticle(tr);
+				return;
+			}
+		}
 		PageTransfer.gotoArticleActivity(context, tr);
 	}
 
@@ -546,36 +543,6 @@ public class UriParse {
 		if (CommonApplication.mConfig.getIs_index_pager() == 1) {
 			if (context instanceof CommonMainActivity)
 				((CommonMainActivity) context).clickItemIfPager(tagName, true);
-			return;
-		}
-		if (AppValue.mainProcess != null
-				&& context instanceof CommonMainActivity) {
-			UriParseToIndex uriParseToIndex = new UriParseToIndex(context,
-					new UriParseToIndexListener() {
-
-						@Override
-						public void fetchTagInfo(TagInfo info) {
-							if (info != null) {
-								if (info.getHaveChildren() == 1) {
-									AppValue.mainProcess.getChild(info);
-								} else {
-									AppValue.mainProcess.getArticleList(info,
-											null);
-								}
-							}
-						}
-					});
-			TagInfo tagInfo = uriParseToIndex.findTagInSubscriptList(tagName);
-			if (tagInfo != null) {
-				((CommonMainActivity) context).checkIndexLoading(1);
-				if (tagInfo.getHaveChildren() == 1) {
-					AppValue.mainProcess.getChild(tagInfo);
-				} else {
-					AppValue.mainProcess.getArticleList(tagInfo, null);
-				}
-			} else {
-				uriParseToIndex.findTagWhenDidnotFind(tagName);
-			}
 		}
 	}
 

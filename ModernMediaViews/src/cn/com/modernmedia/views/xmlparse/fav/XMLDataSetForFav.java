@@ -22,7 +22,7 @@ import cn.com.modernmedia.views.xmlparse.BaseXMLDataSet;
 import cn.com.modernmedia.views.xmlparse.FunctionXML;
 import cn.com.modernmedia.views.xmlparse.article.FunctionArticle;
 import cn.com.modernmediaslate.unit.ParseUtil;
-import cn.com.modernmediausermodel.util.UserTools;
+import cn.com.modernmediaslate.unit.Tools;
 
 /**
  * 收藏设置数据
@@ -141,7 +141,7 @@ public class XMLDataSetForFav extends BaseXMLDataSet {
 				item.getArticleId() + "", "");
 		TransferArticle transferArticle = new TransferArticle(
 				item.getArticleId(), "", "", ArticleType.Fav,
-				UserTools.getUid(mContext), null);
+				Tools.getUid(mContext), null);
 		PageTransfer.gotoArticleActivity(mContext, transferArticle);
 	}
 

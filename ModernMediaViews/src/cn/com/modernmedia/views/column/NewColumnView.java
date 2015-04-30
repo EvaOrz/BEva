@@ -37,9 +37,9 @@ import cn.com.modernmedia.widget.WebViewPop;
 import cn.com.modernmediaslate.SlateApplication;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.unit.ParseUtil;
+import cn.com.modernmediaslate.unit.SlateDataHelper;
 import cn.com.modernmediausermodel.UserApplication;
 import cn.com.modernmediausermodel.listener.AfterLoginListener;
-import cn.com.modernmediausermodel.util.UserDataHelper;
 import cn.com.modernmediausermodel.util.UserPageTransfer;
 
 /**
@@ -128,7 +128,7 @@ public class NewColumnView extends BaseView implements FetchEntryListener {
 
 			@Override
 			public void onClick(View v) {
-				if (UserDataHelper.getUserLoginInfo(mContext) == null) {
+				if (SlateDataHelper.getUserLoginInfo(mContext) == null) {
 					UserApplication.afterLoginListener = new AfterLoginListener() {
 
 						@Override

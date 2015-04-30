@@ -20,11 +20,11 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import cn.com.modernmediaslate.SlateApplication;
+import cn.com.modernmediaslate.model.User;
+import cn.com.modernmediaslate.unit.SlateDataHelper;
 import cn.com.modernmediausermodel.MyCoinUseNoticeActivity;
 import cn.com.modernmediausermodel.R;
 import cn.com.modernmediausermodel.listener.CardViewListener;
-import cn.com.modernmediausermodel.model.User;
-import cn.com.modernmediausermodel.util.UserDataHelper;
 import cn.com.modernmediausermodel.util.UserPageTransfer;
 
 /**
@@ -52,7 +52,7 @@ public class MyCoinUseNoticeView implements CardViewListener {
 		ufoImage = view.findViewById(R.id.my_coin_notice_ufo);
 		ufoShip = view.findViewById(R.id.my_coin_notice_ship);
 		ufoLight = view.findViewById(R.id.my_coin_notice_light);
-		user = UserDataHelper.getUserLoginInfo(mContext);
+		user = SlateDataHelper.getUserLoginInfo(mContext);
 		if (user != null) {
 			TextView name = (TextView) view
 					.findViewById(R.id.my_coin_notice_user_name);

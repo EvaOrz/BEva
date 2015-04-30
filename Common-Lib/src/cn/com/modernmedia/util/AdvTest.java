@@ -8,22 +8,36 @@ import cn.com.modernmedia.model.AdvList.AdvItem;
 import cn.com.modernmedia.model.AdvList.AdvSource;
 
 public class AdvTest {
+	private static String startTime = "1415773385";
+	private static String endTime = "1422607825";
+
+	public static void addRuBanIBBTest(AdvList advList) {
+		AdvItem item = new AdvItem();
+		AdvSource advSource = new AdvSource();
+		advSource
+				.setUrl("http://s1.cdn.imlady.bbwc.cn/issue_255/articles/22151/2013/0904/20130904032300880_640x0.jpg");
+		item.getSourceList().add(advSource);
+		item.setStartTime(startTime);
+		item.setEndTime(endTime);
+		item.setAdvType(1);
+		item.setEffects(AdvList.IBB);
+		item.setAutoClose(3);
+
+		List<AdvItem> list = new ArrayList<AdvItem>();
+		list.add(item);
+		advList.getAdvMap().put(item.getAdvType(), list);
+	}
+
 	public static void addRuBanLohasTest(AdvList advList) {
 		AdvItem item = new AdvItem();
 		AdvSource advSource = new AdvSource();
 		advSource
 				.setUrl("http://s1.cdn.imlady.bbwc.cn/issue_255/articles/22248/2013/0829/20130829064015896_640x0.jpg");
 		item.getSourceList().add(advSource);
-		item.setStartTime("1374728191");
-		item.setEndTime("1424728191");
-		// case 1-3
+		item.setStartTime(startTime);
+		item.setEndTime(endTime);
 		item.setAdvType(1);
-		// case 1
-		// item.setEffects(AdvList.IBB);
-		// // case 2
-		// item.setEffects(AdvList.ILOHAS);
-		// case 3
-		item.setEffects(AdvList.IWEEKLY);
+		item.setEffects(AdvList.ILOHAS);
 		AdvSource advSource2 = new AdvSource();
 		advSource2
 				.setUrl("http://s1.cdn.imlady.bbwc.cn/issue_255/articles/22151/2013/0904/20130904032300880_640x0.jpg");
@@ -35,23 +49,40 @@ public class AdvTest {
 	}
 
 	public static void addRuBanWeeklyTest(AdvList advList) {
-		// AdvItem item = new AdvItem();
-		// item.setAdvType(1);
-		// item.setIssueId("*");
-		// item.setEffects(AdvList.IWEEKLY);
-		// item.setStartTime("1378200121");
-		// item.setEndTime("1378372945");
-		// item.getPicList().add(new AdvPic());
-		// item.getPicList().add(new AdvPic());
-		// item.getPicList()
-		// .get(0)
-		// .setUrl("http://s1.cdn.imlady.bbwc.cn/issue_255/articles/22248/2013/0829/20130829064015896_640x0.jpg");
-		// item.getPicList()
-		// .get(1)
-		// .setUrl("http://s1.cdn.imlady.bbwc.cn/issue_255/articles/22151/2013/0904/20130904032300880_640x0.jpg");
-		// List<AdvItem> list = new ArrayList<AdvItem>();
-		// list.add(item);
-		// advList.getAdvMap().put(item.getAdvType(), list);
+		AdvItem item = new AdvItem();
+		item.setAdvType(1);
+		item.setEffects(AdvList.IWEEKLY);
+		item.setStartTime(startTime);
+		item.setEndTime(endTime);
+		AdvSource source = new AdvSource();
+		source.setUrl("http://s3.cdn.bbwc.cn/issue_0/articles/0/2015/0123/54c20d7b793ee.jpg");
+		item.getSourceList().add(source);
+		source = new AdvSource();
+		source.setUrl("http://s3.cdn.bbwc.cn/issue_0/articles/0/2014/1119/546c05c2208ff.jpg");
+		item.getSourceList().add(source);
+		source = new AdvSource();
+		source.setUrl("http://s1.cdn.bbwc.cn/issue_0/category/2015/0127/54c79950ec350_640x0.jpg");
+		item.getSourceList().add(source);
+		item.setShowType(0);
+		item.setAutoClose(2);
+		List<AdvItem> list = new ArrayList<AdvItem>();
+		list.add(item);
+		advList.getAdvMap().put(item.getAdvType(), list);
+	}
+
+	public static void addRuBanZipTest(AdvList advList) {
+		AdvItem item = new AdvItem();
+		item.setAdvType(1);
+		item.setEffects(AdvList.IWEEKLY);
+		item.setStartTime(startTime);
+		item.setEndTime(endTime);
+		AdvSource source = new AdvSource();
+		source.setUrl("http://s3.cdn.bbwc.cn/issue_0/articles/0/2015/0116/54b880ef09e3c.zip");
+		item.getSourceList().add(source);
+		item.setShowType(1);
+		List<AdvItem> list = new ArrayList<AdvItem>();
+		list.add(item);
+		advList.getAdvMap().put(item.getAdvType(), list);
 	}
 
 	public static void addCatAdvTest(AdvList advList) {
@@ -229,7 +260,7 @@ public class AdvTest {
 		AdvSource source = new AdvSource();
 		source.setUrl("http://develop.bbwc.cn/dev/issue_434/articles/0/2014/0516/20140516163833825_2048x1536.jpg");
 		item.getSourceList().add(source);
-		
+
 		list.add(item);
 		advList.getAdvMap().put(4, list);
 	}

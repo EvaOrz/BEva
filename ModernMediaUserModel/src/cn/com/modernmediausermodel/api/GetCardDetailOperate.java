@@ -1,9 +1,9 @@
 package cn.com.modernmediausermodel.api;
 
+import cn.com.modernmediaslate.model.User;
+import cn.com.modernmediaslate.unit.SlateDataHelper;
 import cn.com.modernmediausermodel.model.Card;
-import cn.com.modernmediausermodel.model.User;
 import cn.com.modernmediausermodel.util.UserConstData;
-import cn.com.modernmediausermodel.util.UserDataHelper;
 import cn.com.modernmediausermodel.util.UserFileManager;
 
 /**
@@ -23,7 +23,7 @@ public class GetCardDetailOperate extends CardBaseOperate {
 	@Override
 	protected String getUrl() {
 		String url = UrlMaker.getCardDetail(cardId);
-		User user = UserDataHelper.getUserLoginInfo(getmContext());
+		User user = SlateDataHelper.getUserLoginInfo(getmContext());
 		if (user != null) { // 未登录
 			url += "/customer_uid/" + user.getUid();
 		}

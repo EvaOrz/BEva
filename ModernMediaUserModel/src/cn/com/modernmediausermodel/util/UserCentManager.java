@@ -8,7 +8,9 @@ import cn.com.modernmedia.db.ReadDb;
 import cn.com.modernmediaslate.SlateApplication;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.model.ErrorMsg;
+import cn.com.modernmediaslate.model.User;
 import cn.com.modernmediaslate.unit.ParseUtil;
+import cn.com.modernmediaslate.unit.SlateDataHelper;
 import cn.com.modernmediaslate.unit.Tools;
 import cn.com.modernmediausermodel.R;
 import cn.com.modernmediausermodel.api.UserOperateController;
@@ -16,7 +18,6 @@ import cn.com.modernmediausermodel.listener.UserCentChangeListener;
 import cn.com.modernmediausermodel.listener.UserFetchEntryListener;
 import cn.com.modernmediausermodel.model.ActionRuleList;
 import cn.com.modernmediausermodel.model.ActionRuleList.ActionRuleItem;
-import cn.com.modernmediausermodel.model.User;
 
 /**
  * 当前登录用户金币积分管理类 主要负责添加积分、规则获取
@@ -49,7 +50,7 @@ public class UserCentManager {
 		if (instance == null) {
 			instance = new UserCentManager(context);
 		}
-		mUser = UserDataHelper.getUserLoginInfo(context);
+		mUser = SlateDataHelper.getUserLoginInfo(context);
 		return instance;
 	}
 
@@ -128,10 +129,13 @@ public class UserCentManager {
 						if (num == -1) {
 							UserDataHelper.clearLoginDate(mContext,
 									mUser.getUid());
-						} else if (showToast) {
-							Tools.showToast(mContext, ParseUtil.parseString(
-									mContext, R.string.add_coin_num, ruleTitle,
-									num + ""));
+						} else {
+							if (showToast) {
+								Tools.showToast(mContext, ParseUtil
+										.parseString(mContext,
+												R.string.add_coin_num,
+												ruleTitle, num + ""));
+							}
 						}
 						if (listener != null)
 							listener.change(num);

@@ -20,9 +20,10 @@ import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.ViewFlipper;
 import cn.com.modernmedia.model.AdvList;
+import cn.com.modernmedia.model.AdvList.AdvItem;
 import cn.com.modernmedia.util.AdvTools;
-import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmedia.util.GenericConstant;
+import cn.com.modernmediaslate.unit.ParseUtil;
 
 /**
  * 广告页面
@@ -31,6 +32,10 @@ import cn.com.modernmedia.util.GenericConstant;
  * 
  */
 public class CommonAdvActivity extends BaseActivity {
+	public static final int IBB_DURATION = 1000;
+	public static final int ILOHAS_DURATION = 2000;// 乐活默认时间(其实是3s，动画完了还有1s延迟)
+	public static final int IWEEKLY_DURATION = 2000;
+
 	public static final List<String> EFFECT_LIST = new ArrayList<String>() {
 		private static final long serialVersionUID = 1L;
 		{
@@ -42,8 +47,8 @@ public class CommonAdvActivity extends BaseActivity {
 	private ImageView imageView;
 	private ViewFlipper flipper;
 	private ArrayList<String> picList;
+	private AdvItem advItem;
 	private String effect;
-	private String impressionUrl;
 	private AlphaAnimation alphaOut;
 	private AlphaAnimation alphaIn;
 	private int current;
@@ -53,7 +58,7 @@ public class CommonAdvActivity extends BaseActivity {
 		@Override
 		public void handleMessage(Message msg) {
 			if (msg.what == 100) {
-				switchActivity();
+				gotoMainActivity();
 			}
 		}
 
@@ -63,26 +68,41 @@ public class CommonAdvActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.adv);
-		init();
+		if (fetchDataFromIntent())
+			init();
+		else
+			gotoMainActivity();
+	}
+
+	private boolean fetchDataFromIntent() {
+		if (getIntent() == null || getIntent().getExtras() == null) {
+			return false;
+		}
+		picList = getIntent().getExtras().getStringArrayList(
+				GenericConstant.PIC_LIST);
+		if (!ParseUtil.listNotNull(picList))
+			return false;
+		Object object = getIntent().getExtras().get(GenericConstant.ADV_ITEM);
+		if (object instanceof AdvItem) {
+			advItem = (AdvItem) object;
+			return true;
+		}
+		return false;
 	}
 
 	private void init() {
 		imageView = (ImageView) findViewById(R.id.adv_image);
 		flipper = (ViewFlipper) findViewById(R.id.adv_flipper);
-		picList = getIntent().getExtras().getStringArrayList(
-				GenericConstant.PIC_LIST);
-		effect = getIntent().getExtras().getString(GenericConstant.EFFECTS);
-		impressionUrl = getIntent().getExtras().getString(
-				GenericConstant.IMPRESSION_URL);
-		AdvTools.requestImpression(impressionUrl);
+		AdvTools.requestImpression(advItem.getTracker().getImpressionUrl());
+		effect = advItem.getEffects();
 		if (TextUtils.isEmpty(effect) || !EFFECT_LIST.contains(effect))
 			effect = EFFECT_LIST.get(0);
 		alphaOut = new AlphaAnimation(0.5f, 1.0f);
 		alphaOut.setFillAfter(true);
-		alphaOut.setDuration(1000);
+		alphaOut.setDuration(getDuration(EFFECT_LIST.get(2)));
 		alphaOut.setInterpolator(new LinearInterpolator());
 		alphaIn = new AlphaAnimation(.2f, 0.0f);
-		alphaIn.setDuration(1000);
+		alphaIn.setDuration(getDuration(EFFECT_LIST.get(2)));
 		alphaIn.setInterpolator(new LinearInterpolator());
 		alphaOut.setAnimationListener(new AnimationListener() {
 
@@ -101,7 +121,7 @@ public class CommonAdvActivity extends BaseActivity {
 					doFlipper();
 					current++;
 				} else {
-					switchActivity();
+					gotoMainActivity();
 				}
 			}
 		});
@@ -109,18 +129,17 @@ public class CommonAdvActivity extends BaseActivity {
 	}
 
 	private void doEffect() {
-		// imageView.setImageResource(R.drawable.ca9601);
 		if (effect.equals(EFFECT_LIST.get(0))) {
 			imageView.setImageBitmap(CommonApplication.finalBitmap
 					.getBitmapFromDiskCache(picList.get(0)));
-			gotoMainActivity();
+			doHoldAnim(effect);
 		} else if (effect.equals(EFFECT_LIST.get(1))) {
 			imageView.setImageBitmap(CommonApplication.finalBitmap
 					.getBitmapFromDiskCache(picList.get(0)));
 			ScaleAnimation scaleAnimation = new ScaleAnimation(1.2f, 1f, 1.2f,
 					1f, Animation.RELATIVE_TO_SELF, .5f,
 					Animation.RELATIVE_TO_SELF, .5f);
-			scaleAnimation.setDuration(2000);
+			scaleAnimation.setDuration(getDuration(effect));
 			scaleAnimation.setInterpolator(new LinearInterpolator());
 			scaleAnimation.setFillAfter(true);
 			scaleAnimation.setAnimationListener(new AnimationListener() {
@@ -154,7 +173,7 @@ public class CommonAdvActivity extends BaseActivity {
 			if (flipper.getChildCount() > 0)
 				flipper.getChildAt(0).startAnimation(alphaOut);
 			else
-				gotoMainActivity();
+				doHoldAnim(effect);
 		}
 	}
 
@@ -165,28 +184,46 @@ public class CommonAdvActivity extends BaseActivity {
 	}
 
 	/**
-	 * 显示完入版广告后进入首页
+	 * 执行hold动画
 	 */
-	private void gotoMainActivity() {
+	private void doHoldAnim(final String effect) {
 		new Handler().postDelayed(new Runnable() {
 
 			@Override
 			public void run() {
-				switchActivity();
+				gotoMainActivity();
 			}
-		}, ConstData.SPLASH_DELAY_TIME);
+		}, getDuration(effect));
 	};
 
-	private void switchActivity() {
+	/**
+	 * 进入首页
+	 */
+	private void gotoMainActivity() {
 		if (CommonApplication.mainCls == null)
 			return;
-		Intent intent = new Intent(CommonAdvActivity.this,
-				CommonApplication.mainCls);
+		Intent intent = new Intent(this, CommonApplication.mainCls);
 		intent.putExtra(GenericConstant.FROM_ACTIVITY,
 				GenericConstant.FROM_ACTIVITY_VALUE);
 		startActivity(intent);
 		finish();
 		overridePendingTransition(R.anim.alpha_out_1s, R.anim.alpha_in_1s);
+	}
+
+	/**
+	 * 获取动画持续时间
+	 * 
+	 * @param effect
+	 * @return
+	 */
+	private int getDuration(String effect) {
+		int close = advItem.getAutoClose() * 1000;
+		if (TextUtils.equals(effect, EFFECT_LIST.get(0))) {
+			return close == 0 ? IBB_DURATION : close;
+		} else if (TextUtils.equals(effect, EFFECT_LIST.get(1))) {
+			return close == 0 ? ILOHAS_DURATION : close;
+		}
+		return close == 0 ? IWEEKLY_DURATION : close;
 	}
 
 	@Override

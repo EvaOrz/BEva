@@ -25,6 +25,7 @@ import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmedia.views.R;
 import cn.com.modernmedia.views.ViewsApplication;
 import cn.com.modernmedia.views.adapter.IndexViewPagerAdapter;
+import cn.com.modernmedia.views.adapter.IndexViewPagerAdapter.CheckNavHideListener;
 import cn.com.modernmedia.views.listener.LoadCallBack;
 import cn.com.modernmedia.views.model.Template;
 import cn.com.modernmedia.views.solo.BaseChildCatHead;
@@ -36,6 +37,7 @@ import cn.com.modernmedia.widget.RedProcess;
 import cn.com.modernmediaslate.SlateApplication;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.unit.ParseUtil;
+import cn.com.modernmediaslate.unit.TimeCollectUtil;
 
 /**
  * 可滑动的首页view item
@@ -43,7 +45,7 @@ import cn.com.modernmediaslate.unit.ParseUtil;
  * @author user
  * 
  */
-public class IndexViewPagerItem implements Observer {
+public class IndexViewPagerItem implements Observer, CheckNavHideListener {
 	protected Context mContext;
 	private RelativeLayout view;
 	private FrameLayout headFrame, frame;
@@ -110,6 +112,8 @@ public class IndexViewPagerItem implements Observer {
 			LoadCallBack callBack, TagArticleList tagArticleList) {
 		if (hasSetData)
 			return;
+		TimeCollectUtil.getInstance().savePageTime(
+				TimeCollectUtil.EVENT_OPEN_COLUMN + tagInfo.getTagName(), true);
 		if (tagInfo.showChildren()) {
 			getChildren();
 		} else {
@@ -123,8 +127,6 @@ public class IndexViewPagerItem implements Observer {
 	 */
 	public void refresh(LoadCallBack callBack) {
 		hasSetData = false;
-		adapter.removeEntryFromMap(getApiTagName(), true);
-		adapter.removeEntryFromMap(getApiTagName(), false);
 		fetchData("", true, false, callBack, null);
 	}
 
@@ -148,6 +150,9 @@ public class IndexViewPagerItem implements Observer {
 		hasSetData = false;
 		this.catHeadOffset = catHeadOffset;
 		if (childInfoList.getList().size() > position) {
+			TimeCollectUtil.getInstance().savePageTime(
+					TimeCollectUtil.EVENT_OPEN_COLUMN + tagInfo.getTagName(),
+					true);
 			getCatIndex(childInfoList.getList().get(position));
 		}
 	}
@@ -227,13 +232,6 @@ public class IndexViewPagerItem implements Observer {
 	protected void getArticleList(final TagInfo tagInfo, final String top,
 			final boolean isRefresh, final boolean isLoadMore,
 			final LoadCallBack callBack, final TagArticleList tagArticleList) {
-		final String tagName = getApiTagName();
-		Entry cache = adapter.getEntryFromMap(tagName, false);
-		if (cache instanceof TagArticleList && !isLoadMore) {
-			getCatIndex(tagInfo, top, isRefresh, isLoadMore, callBack,
-					tagArticleList);
-			return;
-		}
 		if (!isRefresh && !isLoadMore)
 			showLoading();
 		OperateController.getInstance(mContext).getTagArticles(tagInfo, top,
@@ -245,9 +243,6 @@ public class IndexViewPagerItem implements Observer {
 							TagArticleList articleList = (TagArticleList) entry;
 							if (ParseUtil.listNotNull(articleList
 									.getArticleList())) {
-								adapter.addArticleListToMap(tagName,
-										(TagArticleList) entry, isLoadMore,
-										false);
 								getCatIndex(tagInfo, top, isRefresh,
 										isLoadMore, callBack, tagArticleList);
 							} else {
@@ -276,13 +271,6 @@ public class IndexViewPagerItem implements Observer {
 			final boolean isRefresh, final boolean isLoadMore,
 			final LoadCallBack callBack, TagArticleList tagArticleList) {
 		this.tagInfo = tagInfo;
-		AppValue.currColumn = tagInfo;
-		String tagName = getApiTagName();
-		Entry cache = adapter.getEntryFromMap(tagName, true);
-		if (cache instanceof TagArticleList && !isLoadMore) {
-			getTemplate((TagArticleList) cache, isLoadMore);
-			return;
-		}
 		OperateController.getInstance(mContext).getTagIndex(tagInfo, top, "",
 				tagArticleList, new FetchEntryListener() {
 
@@ -332,6 +320,9 @@ public class IndexViewPagerItem implements Observer {
 			galleryView = new VerticalGallery(mContext);
 			frame.addView(galleryView.getView());
 			galleryView.setData(articleList, template);
+			TimeCollectUtil.getInstance().savePageTime(
+					TimeCollectUtil.EVENT_OPEN_COLUMN + tagInfo.getTagName(),
+					false);
 		} else {
 			// TODO 列表
 			if (indexListView != null && loadMore) {
@@ -345,8 +336,6 @@ public class IndexViewPagerItem implements Observer {
 						template);
 			}
 		}
-		adapter.addArticleListToMap(getApiTagName(), articleList, loadMore,
-				true);
 		hasSetData = true;
 	}
 
@@ -447,6 +436,24 @@ public class IndexViewPagerItem implements Observer {
 
 	public int getCatHeadOffset() {
 		return catHeadOffset;
+	}
+
+	@Override
+	public void onResume() {
+		if (indexListView != null) {
+			indexListView.setStopCheckNav(false);
+		} else if (galleryView != null) {
+			galleryView.setStopCheckNav(false);
+		}
+	}
+
+	@Override
+	public void onPause() {
+		if (indexListView != null) {
+			indexListView.setStopCheckNav(true);
+		} else if (galleryView != null) {
+			galleryView.setStopCheckNav(true);
+		}
 	}
 
 }

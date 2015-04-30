@@ -7,13 +7,13 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.content.Context;
+import cn.com.modernmediaslate.model.User;
 import cn.com.modernmediaslate.unit.ParseUtil;
 import cn.com.modernmediaslate.unit.SlatePrintHelper;
 import cn.com.modernmediausermodel.db.UserInfoDb;
 import cn.com.modernmediausermodel.model.Card;
 import cn.com.modernmediausermodel.model.Card.CardItem;
 import cn.com.modernmediausermodel.model.Card.CardPicture;
-import cn.com.modernmediausermodel.model.User;
 import cn.com.modernmediausermodel.model.Users;
 
 public abstract class CardBaseOperate extends UserBaseOperate {
@@ -161,18 +161,16 @@ public abstract class CardBaseOperate extends UserBaseOperate {
 	}
 
 	@Override
-	public boolean fecthLocalData(String fileName) {
+	protected CallBackData fetchDataFromDB() {
+		CallBackData callBackData = new CallBackData();
 		card = getCardFromDb();
 		if (card != null && ParseUtil.listNotNull(card.getCardItemList())) {
 			Users users = userInfoDb.getUsersInfo();
 			card.setUserInfoMap(users.getUserInfoMap());
-			if (callBack != null) {
-				SlatePrintHelper.print("from db:" + "====" + getUrl());
-				callBack.callback(true, false);
-				return true;
-			}
+			callBackData.success = true;
+			SlatePrintHelper.print("from db:" + "====" + getUrl());
 		}
-		return super.fecthLocalData(fileName);
+		return callBackData;
 	}
 
 	/**

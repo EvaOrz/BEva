@@ -11,11 +11,11 @@ import cn.com.modernmedia.listener.FetchEntryListener;
 import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmediaslate.model.Entry;
+import cn.com.modernmediaslate.model.User;
 import cn.com.modernmediaslate.unit.FavObservable;
 import cn.com.modernmediaslate.unit.ParseUtil;
-import cn.com.modernmediausermodel.model.User;
-import cn.com.modernmediausermodel.util.UserDataHelper;
-import cn.com.modernmediausermodel.util.UserTools;
+import cn.com.modernmediaslate.unit.SlateDataHelper;
+import cn.com.modernmediaslate.unit.Tools;
 
 /**
  * 收藏模块观察者
@@ -40,7 +40,7 @@ public class FavObserver implements Observer {
 				break;
 			case FavObservable.AFTER_LOGIN:
 				List<ArticleItem> list = NewFavDb.getInstance(mContext)
-						.getUserUnUpdateFav(UserTools.getUid(mContext));
+						.getUserUnUpdateFav(Tools.getUid(mContext));
 				if (ParseUtil.listNotNull(list)) {
 					updateFav();
 				} else {
@@ -62,21 +62,20 @@ public class FavObserver implements Observer {
 	 * @param context
 	 */
 	private void updateFav() {
-		User user = UserDataHelper.getUserLoginInfo(mContext);
-		if (user != null) {
-			List<ArticleItem> list = NewFavDb.getInstance(mContext)
-					.getUserUnUpdateFav(user.getUid());
-			OperateController.getInstance(mContext).updateFav(user.getUid(),
-					ConstData.getInitialAppId(), list,
-					new FetchEntryListener() {
+		User user = SlateDataHelper.getUserLoginInfo(mContext);
+		if (user == null)
+			return;
+		List<ArticleItem> list = NewFavDb.getInstance(mContext)
+				.getUserUnUpdateFav(user.getUid());
+		OperateController.getInstance(mContext).updateFav(user.getUid(),
+				ConstData.getInitialAppId(), list, new FetchEntryListener() {
 
-						@Override
-						public void setData(Entry entry) {
-							NewFavDb.getInstance(mContext).fetchDataFromHttp(
-									entry, UserTools.getUid(mContext));
-						}
-					});
-		}
+					@Override
+					public void setData(Entry entry) {
+						NewFavDb.getInstance(mContext).fetchDataFromHttp(entry,
+								Tools.getUid(mContext));
+					}
+				});
 	}
 
 	/**
@@ -87,7 +86,7 @@ public class FavObserver implements Observer {
 	 *            是否存取得的数据
 	 */
 	private void getFav(final boolean isSaveData) {
-		User user = UserDataHelper.getUserLoginInfo(mContext);
+		User user = SlateDataHelper.getUserLoginInfo(mContext);
 		if (user != null) {
 			OperateController.getInstance(mContext).getFav(user.getUid(),
 					new FetchEntryListener() {
@@ -97,7 +96,7 @@ public class FavObserver implements Observer {
 							if (isSaveData)
 								NewFavDb.getInstance(mContext)
 										.fetchDataFromHttp(entry,
-												UserTools.getUid(mContext));
+												Tools.getUid(mContext));
 						}
 					});
 		}

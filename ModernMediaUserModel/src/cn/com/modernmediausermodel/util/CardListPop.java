@@ -13,13 +13,14 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout.LayoutParams;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.model.ErrorMsg;
+import cn.com.modernmediaslate.model.User;
+import cn.com.modernmediaslate.unit.SlateDataHelper;
 import cn.com.modernmediaslate.unit.Tools;
 import cn.com.modernmediausermodel.R;
 import cn.com.modernmediausermodel.adapter.UserCardListAdapter;
 import cn.com.modernmediausermodel.api.UserOperateController;
 import cn.com.modernmediausermodel.listener.UserFetchEntryListener;
 import cn.com.modernmediausermodel.model.Card.CardItem;
-import cn.com.modernmediausermodel.model.User;
 
 /**
  * 卡片列表弹出收藏、评论pop
@@ -102,13 +103,13 @@ public class CardListPop {
 	 * @return
 	 */
 	private String checkUid() {
-		User user = UserDataHelper.getUserLoginInfo(mContext);
+		User user = SlateDataHelper.getUserLoginInfo(mContext);
 		if (user == null) {
 			UserPageTransfer.gotoLoginActivityRequest(mContext,
 					UserCardListAdapter.TO_LOGIN);
 			return "";
 		}
-		return UserTools.getUid(mContext);
+		return Tools.getUid(mContext);
 	}
 
 	/**
@@ -122,7 +123,7 @@ public class CardListPop {
 			return;
 		Tools.showLoading(mContext, true);
 		UserOperateController.getInstance(mContext).addCardFav(
-				UserTools.getUid(mContext), item.getId(),
+				Tools.getUid(mContext), item.getId(),
 				new UserFetchEntryListener() {
 
 					@Override
@@ -156,7 +157,7 @@ public class CardListPop {
 			return;
 		Tools.showLoading(mContext, true);
 		UserOperateController.getInstance(mContext).cancelCardFav(
-				UserTools.getUid(mContext), item.getId(),
+				Tools.getUid(mContext), item.getId(),
 				new UserFetchEntryListener() {
 
 					@Override

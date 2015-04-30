@@ -5,7 +5,6 @@ import org.json.JSONObject;
 
 import android.text.TextUtils;
 import cn.com.modernmediaslate.api.SlateBaseOperate;
-import cn.com.modernmediaslate.listener.FetchDataListener;
 import cn.com.modernmediaslate.unit.SlatePrintHelper;
 import cn.com.modernmediausermodel.util.UserFileManager;
 
@@ -17,13 +16,31 @@ import cn.com.modernmediausermodel.util.UserFileManager;
  */
 public abstract class UserBaseOperate extends SlateBaseOperate {
 
-	/**
-	 * 缓存文件是否为数据库
-	 */
-	protected boolean cacheIsDb = false;
-
 	@Override
-	protected String getLocalData(String name) {
+	protected CallBackData fetchDataFromSD() {
+		CallBackData callBackData = new CallBackData();
+
+		String cache = getDataFromSD(getDefaultFileName());
+		if (TextUtils.isEmpty(cache)) {
+			SlatePrintHelper.print("fetch cache from sd error:" + getUrl());
+			callBackData.success = false;
+			callBackData.data = null;
+		} else {
+			SlatePrintHelper.print("fetch cache from sd success:" + getUrl());
+			callBackData.success = true;
+			callBackData.data = cache;
+		}
+
+		return callBackData;
+	}
+
+	/**
+	 * 获取文件数据
+	 * 
+	 * @param name
+	 * @return
+	 */
+	private String getDataFromSD(String name) {
 		if (TextUtils.isEmpty(name) || !UserFileManager.containFile(name))
 			return null;
 		String data = UserFileManager.getApiData(name);
@@ -39,23 +56,4 @@ public abstract class UserBaseOperate extends SlateBaseOperate {
 		}
 		return data;
 	}
-
-	@Override
-	protected void fetchLocalDataInBadNet(FetchDataListener mFetchDataListener) {
-		if (cacheIsDb) {
-			if (!fecthLocalData(null))
-				mFetchDataListener.fetchData(false, null, false);
-		} else {
-			String localData = getLocalData(getDefaultFileName());
-			if (!TextUtils.isEmpty(localData)) {
-				mFetchDataListener.fetchData(true, localData, false);
-				SlatePrintHelper.print("from sdcard by bad net:" + getUrl());
-			} else {
-				SlatePrintHelper.print("net error:" + getUrl());
-				mFetchDataListener.fetchData(false, null, false);
-			}
-		}
-		super.fetchLocalDataInBadNet(mFetchDataListener);
-	}
-
 }

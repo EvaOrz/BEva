@@ -22,7 +22,6 @@ import cn.com.modernmedia.model.AdvList;
 import cn.com.modernmedia.model.AppValue;
 import cn.com.modernmedia.model.LastestArticleId;
 import cn.com.modernmedia.newtag.mainprocess.MainProcessObservable;
-import cn.com.modernmedia.newtag.mainprocess.TagBaseMainProcess;
 import cn.com.modernmedia.util.CommonCrashHandler;
 import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmedia.util.DataHelper;
@@ -49,6 +48,8 @@ public class CommonApplication extends SlateApplication {
 	public static AdvList advList;
 	public static LastestArticleId lastestArticleId;
 	public static MainProcessObservable mainProcessObservable = new MainProcessObservable();
+
+	public static Class<?> pushArticleCls;// PushArticleActivity
 
 	/**
 	 * 渠道
@@ -156,13 +157,14 @@ public class CommonApplication extends SlateApplication {
 	 * 
 	 * @return
 	 */
-	public String getMyUUID() {
-		final TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+	public static String getMyUUID() {
+		final TelephonyManager tm = (TelephonyManager) mContext
+				.getSystemService(Context.TELEPHONY_SERVICE);
 		String imie = "" + tm.getDeviceId();
 		String tmSerial = "" + tm.getSimSerialNumber();
 		String androidId = ""
 				+ android.provider.Settings.Secure.getString(
-						getContentResolver(),
+						mContext.getContentResolver(),
 						android.provider.Settings.Secure.ANDROID_ID);
 
 		UUID deviceUuid = new UUID(androidId.hashCode(),
@@ -201,7 +203,6 @@ public class CommonApplication extends SlateApplication {
 		breakMap.clear();
 		new ShareTool(mContext).deleteShareImages();
 		DataHelper.clear();
-		TagBaseMainProcess.clear();
 		mainProcessObservable.deleteObservers();
 	}
 

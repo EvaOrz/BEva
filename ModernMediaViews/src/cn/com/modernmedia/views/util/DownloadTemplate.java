@@ -113,12 +113,6 @@ public class DownloadTemplate {
 						return null;
 					}
 
-					@Override
-					protected void fetchLocalDataInBadNet(
-							FetchDataListener mFetchDataListener) {
-						mFetchDataListener.fetchData(false, null, false);
-					}
-
 				});
 		thread.setmFetchDataListener(new FetchDataListener() {
 

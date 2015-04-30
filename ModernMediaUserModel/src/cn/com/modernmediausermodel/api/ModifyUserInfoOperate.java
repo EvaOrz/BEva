@@ -29,6 +29,7 @@ public class ModifyUserInfoOperate extends UserModelBaseOperate {
 	 */
 	protected ModifyUserInfoOperate(String uid, String token, String userName,
 			String nickName, String url, String password) {
+		super();
 		// post 参数设置
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		JSONObject object = new JSONObject();

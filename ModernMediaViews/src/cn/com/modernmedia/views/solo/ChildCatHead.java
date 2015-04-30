@@ -19,9 +19,9 @@ import cn.com.modernmedia.views.model.Template;
 import cn.com.modernmedia.views.xmlparse.XMLParse;
 import cn.com.modernmediaslate.SlateApplication;
 import cn.com.modernmediaslate.unit.ParseUtil;
+import cn.com.modernmediaslate.unit.SlateDataHelper;
 import cn.com.modernmediausermodel.UserApplication;
 import cn.com.modernmediausermodel.listener.AfterLoginListener;
-import cn.com.modernmediausermodel.util.UserDataHelper;
 import cn.com.modernmediausermodel.util.UserPageTransfer;
 
 /**
@@ -93,7 +93,7 @@ public class ChildCatHead extends BaseChildCatHead {
 
 				@Override
 				public void onClick(View v) {
-					if (UserDataHelper.getUserLoginInfo(mContext) == null) {
+					if (SlateDataHelper.getUserLoginInfo(mContext) == null) {
 						UserApplication.afterLoginListener = new AfterLoginListener() {
 
 							@Override
@@ -128,7 +128,7 @@ public class ChildCatHead extends BaseChildCatHead {
 	}
 
 	@Override
-	public void setStatusBySelect(View view, boolean select, int index) {
+	public void setStatusBySelect(View child, boolean select, int index) {
 		if (ParseUtil.listNotNull(parseList)) {
 			for (int i = 0; i < parseList.size(); i++) {
 				XMLParse parse = parseList.get(i);

@@ -7,8 +7,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import org.apache.http.protocol.HTTP;
 import org.json.JSONException;
@@ -40,22 +38,23 @@ import cn.com.modernmedia.CommonArticleActivity;
 import cn.com.modernmedia.db.ReadDb;
 import cn.com.modernmedia.listener.WebProcessListener;
 import cn.com.modernmedia.model.ArticleItem;
+import cn.com.modernmedia.model.ArticleItem.Picture;
 import cn.com.modernmedia.util.AdvTools;
 import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmedia.util.DataHelper;
 import cn.com.modernmedia.util.LogHelper;
 import cn.com.modernmedia.util.ModernMediaTools;
+import cn.com.modernmedia.util.PageTransfer.TransferArticle;
 import cn.com.modernmedia.util.UriParse;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.unit.ParseUtil;
+import cn.com.modernmediaslate.unit.TimeCollectUtil;
 
 @SuppressLint("SetJavaScriptEnabled")
 public abstract class CommonWebView extends WebView {
 	private CommonWebView me;
-	private static final int TIME_OUT = 20 * 1000;// 设置超时时间
 	private static final int TIME_OUT_MSG = 100;
 	private WebProcessListener listener;
-	private Timer timer;
 	private boolean loadOk = true;
 	private ArticleItem detail;
 	private Context mContext;
@@ -69,6 +68,7 @@ public abstract class CommonWebView extends WebView {
 	private boolean isError = false;// 因为disProcess会延迟0.5S,所以判断一下
 	private boolean isSlateWeb = false;// 是否是slate内部浏览器，true,拦截http请求
 	private boolean hasPush;
+	private boolean isPushArticle;// 是否是push文章
 
 	final class InJavaScriptLocalObj {
 		public void showSource(final String html) {
@@ -76,31 +76,7 @@ public abstract class CommonWebView extends WebView {
 
 				@Override
 				public void run() {
-					if (TextUtils.isEmpty(html)) {
-						isFetchNull = true;
-						me.getSettings()
-								.setCacheMode(WebSettings.LOAD_NO_CACHE);
-						if (!hasLoadFromHttp) {
-							hasLoadFromHttp = true;
-							showErrorType(1);
-							new Thread() {
-
-								@Override
-								public void run() {
-									getHtmlIfNull();
-								}
-
-							}.start();
-						} else {
-							showErrorType(2);
-						}
-					} else {
-						if (isFetchNull) {
-							isFetchNull = false;
-							me.getSettings().setCacheMode(
-									WebSettings.LOAD_CACHE_ELSE_NETWORK);
-						}
-					}
+					checkHtmlIsNull(html);
 				}
 			});
 		}
@@ -135,6 +111,24 @@ public abstract class CommonWebView extends WebView {
 				public void run() {
 					String currentUrl = TextUtils.isEmpty(result) ? "" : result;
 					gotoGalleryActivity(urlList, currentUrl);
+				}
+			});
+		}
+	}
+
+	/**
+	 * 获取分享内容
+	 * 
+	 * @author zhuqiao
+	 * 
+	 */
+	final class GetShareMsg {
+		public void getShareMsg(final String result) {
+			handler.post(new Runnable() {
+
+				@Override
+				public void run() {
+					parseShareMessage(result);
 				}
 			});
 		}
@@ -227,6 +221,7 @@ public abstract class CommonWebView extends WebView {
 		this.addJavascriptInterface(new InJavaScriptLocalObj(), "local_obj");
 		this.addJavascriptInterface(new MakeCard(), "make");
 		this.addJavascriptInterface(new GetImageSrc(), "get_src");
+		this.addJavascriptInterface(new GetShareMsg(), "getShareMsg");
 		this.setWebViewClient(new WebViewClient() {
 
 			/**
@@ -243,28 +238,12 @@ public abstract class CommonWebView extends WebView {
 			@Override
 			public void onPageFinished(WebView view, String url) {
 				if (loadOk) {
-					cancelTimer();
 					getSettings().setBlockNetworkImage(false);
-					if (isSlateWeb) {
+					if (isSlateWeb || isPushArticle) {
 						push();
+					} else if (mContext instanceof CommonArticleActivity) {
+						onPageSelected();
 					}
-					if (mContext instanceof CommonArticleActivity) {
-						((CommonArticleActivity) mContext).addLoadOkIds(detail
-								.getArticleId());
-						if (((CommonArticleActivity) mContext)
-								.getCurrArticleId() == detail.getArticleId()) {
-							ReadDb.getInstance(mContext).addReadArticle(
-									detail.getArticleId());
-							LogHelper.logAndroidShowArticle(mContext,
-									detail.getTagName(), detail.getArticleId()
-											+ "");
-							AdvTools.requestImpression(detail);
-							if (!isSlateWeb)
-								push();
-						}
-					}
-					changeFont();
-					changeLineHeight();
 					handler.postDelayed(new Runnable() {
 
 						@Override
@@ -274,6 +253,9 @@ public abstract class CommonWebView extends WebView {
 						}
 					}, 500);
 					view.loadUrl("javascript:window.local_obj.showSource(document.getElementsByTagName('head')[0].innerHTML)");
+					if (isPushArticle) {
+						getShareMessage();
+					}
 				}
 			}
 
@@ -307,10 +289,8 @@ public abstract class CommonWebView extends WebView {
 			public void onReceivedSslError(WebView view,
 					SslErrorHandler handler, SslError error) {
 				loadOk = false;
-				cancelTimer();
 				showErrorType(2);
 				handler.cancel();// 不支持ssl
-				// PrintHelper.print("onReceivedSslError");
 				super.onReceivedSslError(view, handler, error);
 			}
 
@@ -319,8 +299,6 @@ public abstract class CommonWebView extends WebView {
 					String description, String failingUrl) {
 				loadOk = false;
 				showErrorType(2);
-				cancelTimer();
-				// PrintHelper.print("onReceivedError");
 				super.onReceivedError(view, errorCode, description, failingUrl);
 			}
 
@@ -375,52 +353,68 @@ public abstract class CommonWebView extends WebView {
 			isChangeStatus = false;
 			showErrorType(1);
 		}
-		// startTimer();
 	}
 
 	@Override
 	public void reload() {
 		super.reload();
 		showErrorType(1);
-		// startTimer();
 	}
 
 	@Override
 	public void goBack() {
 		super.goBack();
-		// listener.showProcess(false);
-		// listener.showError(false);
 	}
 
-	@SuppressWarnings("unused")
-	private void startTimer() {
-		timer = new Timer();
-		TimerTask tt = new TimerTask() {
-			@Override
-			public void run() {
-				/*
-				 * 超时后,首先判断页面加载进度,超时并且进度小于100,就执行超时后的动作
-				 */
-				handler.post(new Runnable() {
+	private void onPageSelected() {
+		if (detail == null)
+			return;
+		((CommonArticleActivity) mContext).addLoadOkIds(detail.getArticleId());
+		if (((CommonArticleActivity) mContext).getCurrArticleId() == detail
+				.getArticleId()) {
+			ReadDb.getInstance(mContext).addReadArticle(detail.getArticleId());
+			LogHelper.logAndroidShowArticle(mContext, detail.getTagName(),
+					detail.getArticleId() + "");
+			AdvTools.requestImpression(detail);
+			push();
+		}
+		changeFont();
+		changeLineHeight();
+	}
+
+	/**
+	 * 判断加载完的html是否为空
+	 * 
+	 * @param html
+	 */
+	private void checkHtmlIsNull(String html) {
+		if (TextUtils.isEmpty(html)) {
+			isFetchNull = true;
+			me.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+			if (!hasLoadFromHttp) {
+				hasLoadFromHttp = true;
+				showErrorType(1);
+				new Thread() {
 
 					@Override
 					public void run() {
-						if (me.getProgress() < 100 || !loadOk) {
-							handler.sendEmptyMessage(TIME_OUT_MSG);
-							cancelTimer();
-						}
+						getHtmlIfNull();
 					}
-				});
-			}
-		};
-		timer.schedule(tt, TIME_OUT);
-	}
 
-	private void cancelTimer() {
-		if (timer == null)
-			return;
-		timer.cancel();
-		timer.purge();
+				}.start();
+			} else {
+				showErrorType(2);
+			}
+		} else {
+			if (isFetchNull) {
+				isFetchNull = false;
+				me.getSettings().setCacheMode(
+						WebSettings.LOAD_CACHE_ELSE_NETWORK);
+			}
+			if (isPushArticle)
+				TimeCollectUtil.getInstance().savePageTime(
+						TimeCollectUtil.EVENT_OPEN_PUSH, false);
+		}
 	}
 
 	public void setListener(WebProcessListener listener) {
@@ -432,9 +426,12 @@ public abstract class CommonWebView extends WebView {
 	 * 
 	 * @param articleId
 	 */
-	public void gotoArticle(int articleId) {
-		if (mContext instanceof CommonArticleActivity && articleId != -1) {
-			((CommonArticleActivity) mContext).moveToArticle(articleId);
+	public void gotoArticle(TransferArticle transferArticle) {
+		if (isSlateWeb || isPushArticle)
+			return;
+		if (mContext instanceof CommonArticleActivity
+				&& transferArticle != null) {
+			((CommonArticleActivity) mContext).moveToArticle(transferArticle);
 		}
 	}
 
@@ -444,6 +441,8 @@ public abstract class CommonWebView extends WebView {
 	 * @param articleId
 	 */
 	public void gotoAdv(int advId) {
+		if (isSlateWeb || isPushArticle)
+			return;
 		if (mContext instanceof CommonArticleActivity && advId != -1) {
 			((CommonArticleActivity) mContext).moveToAdv(advId);
 		}
@@ -474,6 +473,36 @@ public abstract class CommonWebView extends WebView {
 	 * 跳转至写卡片页
 	 */
 	public void gotoWriteNewCardActivity(ArticleItem item) {
+	}
+
+	private void parseShareMessage(String message) {
+		if (detail == null)
+			return;
+		if (TextUtils.isEmpty(message))
+			return;
+		String[] arr = message.split(", ");
+		if (arr == null || arr.length == 0)
+			return;
+		for (String str : arr) {
+			if (TextUtils.isEmpty(str))
+				continue;
+			String[] items = str.split("=");
+			if (items == null || items.length != 2)
+				continue;
+			String before = items[0];
+			String value = items[1];
+			if (TextUtils.equals(before, "title")) {
+				detail.setTitle(value);
+			} else if (TextUtils.equals(before, "thumb")) {
+				Picture picture = new Picture();
+				picture.setUrl(value);
+				detail.getThumbList().add(picture);
+			} else if (TextUtils.equals(before, "link")) {
+				detail.setWeburl(value);
+			} else if (TextUtils.equals(before, "desc")) {
+				detail.setDesc(value);
+			}
+		}
 	}
 
 	/**
@@ -569,6 +598,14 @@ public abstract class CommonWebView extends WebView {
 	}
 
 	/**
+	 * 获取分享信息
+	 */
+	private void getShareMessage() {
+		this.loadUrl("javascript:window.getShareMsg.getShareMsg("
+				+ ModernMediaTools.getMeta() + ")");
+	}
+
+	/**
 	 * 把段落转成文章
 	 * 
 	 * @param json
@@ -617,6 +654,10 @@ public abstract class CommonWebView extends WebView {
 
 	public void setSlateWeb(boolean isSlateWeb) {
 		this.isSlateWeb = isSlateWeb;
+	}
+
+	public void setPushArticle(boolean isPushArticle) {
+		this.isPushArticle = isPushArticle;
 	}
 
 	/**

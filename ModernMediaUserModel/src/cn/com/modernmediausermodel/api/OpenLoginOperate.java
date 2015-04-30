@@ -8,7 +8,7 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.text.TextUtils;
-import cn.com.modernmediausermodel.model.User;
+import cn.com.modernmediaslate.model.User;
 import cn.com.modernmediausermodel.util.UserConstData;
 import cn.com.modernmediausermodel.util.UserTools;
 
@@ -23,6 +23,7 @@ public class OpenLoginOperate extends UserModelBaseOperate {
 
 	protected OpenLoginOperate(Context context, User user, String avatar,
 			int type) {
+		super();
 		mType = type;
 		// post 参数设置
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -56,12 +57,11 @@ public class OpenLoginOperate extends UserModelBaseOperate {
 	}
 
 	@Override
-	protected User parseUser(JSONObject object) {
-		User tempUser = super.parseUser(object);
-		if (!TextUtils.isEmpty(tempUser.getSinaId()) && mType == 2) { // QQ账号登录
-			tempUser.setQqId(tempUser.getSinaId());
-			tempUser.setSinaId("");
+	protected void parseUser(JSONObject object) {
+		super.parseUser(object);
+		if (!TextUtils.isEmpty(user.getSinaId()) && mType == 2) { // QQ账号登录
+			user.setQqId(user.getSinaId());
+			user.setSinaId("");
 		}
-		return tempUser;
 	}
 }

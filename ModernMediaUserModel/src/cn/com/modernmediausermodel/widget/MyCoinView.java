@@ -13,7 +13,9 @@ import android.widget.TextView;
 import cn.com.modernmedia.widget.CheckScrollListview;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.model.ErrorMsg;
+import cn.com.modernmediaslate.model.User;
 import cn.com.modernmediaslate.unit.ParseUtil;
+import cn.com.modernmediaslate.unit.SlateDataHelper;
 import cn.com.modernmediaslate.unit.Tools;
 import cn.com.modernmediausermodel.R;
 import cn.com.modernmediausermodel.adapter.MyCoinListAdapter;
@@ -24,10 +26,8 @@ import cn.com.modernmediausermodel.listener.UserFetchEntryListener;
 import cn.com.modernmediausermodel.model.ActionRuleList;
 import cn.com.modernmediausermodel.model.Goods;
 import cn.com.modernmediausermodel.model.Goods.GoodsItem;
-import cn.com.modernmediausermodel.model.User;
 import cn.com.modernmediausermodel.model.UserCent;
 import cn.com.modernmediausermodel.util.UserCentManager;
-import cn.com.modernmediausermodel.util.UserDataHelper;
 
 /**
  * 我的金币
@@ -56,7 +56,7 @@ public class MyCoinView implements CardViewListener {
 	private void init() {
 		controller = UserOperateController.getInstance(mContext);
 		inflater = LayoutInflater.from(mContext);
-		mUser = UserDataHelper.getUserLoginInfo(mContext);
+		mUser = SlateDataHelper.getUserLoginInfo(mContext);
 		if (mUser == null)
 			return;
 		view = inflater.inflate(R.layout.activity_my_coin, null);
@@ -212,7 +212,7 @@ public class MyCoinView implements CardViewListener {
 	 * @param number
 	 */
 	private void exchange(String goodsId, final int number) {
-		User user = UserDataHelper.getUserLoginInfo(mContext);
+		User user = SlateDataHelper.getUserLoginInfo(mContext);
 		if (user == null)
 			return;
 		Tools.showLoading(mContext, true);

@@ -76,6 +76,7 @@ public class GetTagArticlesOperate extends BaseIndexAdvOperate {
 	}
 
 	public GetTagArticlesOperate() {
+		articleList = new TagArticleList();
 	}
 
 	@Override
@@ -460,13 +461,12 @@ public class GetTagArticlesOperate extends BaseIndexAdvOperate {
 	}
 
 	@Override
-	public boolean fecthLocalData(String fileName) {
-		if (!cacheIsDb) {
-			return super.fecthLocalData(fileName);
-		}
+	protected CallBackData fetchDataFromDB() {
 		// TODO 有网的时候，缓存只拿第一页数据
-		if (Tools.checkNetWork(getmContext()) && !TextUtils.isEmpty(top))
-			return false;
+		CallBackData callBackData = new CallBackData();
+		if (Tools.checkNetWork(getmContext()) && !TextUtils.isEmpty(top)) {
+			return callBackData;
+		}
 		Entry entry;
 		if (isCatIndex) {
 			entry = TagIndexDb.getInstance(getmContext()).getEntry(this,
@@ -485,20 +485,16 @@ public class GetTagArticlesOperate extends BaseIndexAdvOperate {
 			}
 			if (hasData) {
 				addLarger();
-				if (callBack != null) {
-					PrintHelper.print("from db:getTagArticleList=" + tagName
-							+ "====" + url);
-					callBack.callback(true, false);
-					return true;
-				}
+				PrintHelper.print("from db:getTagArticleList=" + tagName
+						+ "====" + url);
+				callBackData.success = true;
 			}
 		}
-		return false;
+		return callBackData;
 	}
 
 	@Override
 	protected void saveData(String data) {
-
 	}
 
 	@Override

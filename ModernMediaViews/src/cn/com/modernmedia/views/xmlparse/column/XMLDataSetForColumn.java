@@ -328,15 +328,6 @@ public class XMLDataSetForColumn extends BaseXMLDataSet {
 					if (CommonApplication.mConfig.getIs_index_pager() == 1) {
 						((ViewsMainActivity) mContext).clickItemIfPager(
 								item.getTagName(), false);
-						return;
-					}
-					if (AppValue.mainProcess != null) {
-						((CommonMainActivity) mContext).checkIndexLoading(1);
-						if (item.showChildren()) {
-							AppValue.mainProcess.getChild(item);
-						} else {
-							AppValue.mainProcess.getArticleList(item, null);
-						}
 					}
 				}
 			}, 200);

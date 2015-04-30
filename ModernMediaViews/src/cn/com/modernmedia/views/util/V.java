@@ -48,9 +48,9 @@ import cn.com.modernmediaslate.SlateApplication;
 import cn.com.modernmediaslate.listener.ImageDownloadStateListener;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.unit.ParseUtil;
+import cn.com.modernmediaslate.unit.SlateDataHelper;
+import cn.com.modernmediaslate.unit.Tools;
 import cn.com.modernmediausermodel.util.CardUriParse;
-import cn.com.modernmediausermodel.util.UserDataHelper;
-import cn.com.modernmediausermodel.util.UserTools;
 
 public class V {
 	public static final String BUSINESS = "business";
@@ -85,7 +85,7 @@ public class V {
 			ArticleItem item, ArticleType articleType, Class<?>... cls) {
 		CardUriParse.getInstance();
 		TransferArticle transferArticle = new TransferArticle(articleType,
-				UserTools.getUid(context));
+				Tools.getUid(context));
 		view.clickSlate(new Entry[] { item, transferArticle }, cls);
 	}
 
@@ -101,7 +101,7 @@ public class V {
 			ArticleType articleType, Class<?>... cls) {
 		CardUriParse.getInstance();
 		TransferArticle transferArticle = new TransferArticle(articleType,
-				UserTools.getUid(context));
+				Tools.getUid(context));
 		UriParse.clickSlate(context, new Entry[] { item, transferArticle }, cls);
 	}
 
@@ -602,7 +602,7 @@ public class V {
 		if (ConstData.getInitialAppId() == 18 && !tagName.equals("cat_167")) {
 			return false;
 		}
-		if (UserDataHelper.getUserLoginInfo(context) == null
+		if (SlateDataHelper.getUserLoginInfo(context) == null
 				|| AppValue.ensubscriptColumnList.getColumnTagList(true, false)
 						.size() == 0) {
 			return false;

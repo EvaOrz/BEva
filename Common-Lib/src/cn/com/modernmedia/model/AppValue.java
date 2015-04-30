@@ -3,7 +3,6 @@ package cn.com.modernmedia.model;
 import android.text.TextUtils;
 import cn.com.modernmedia.model.TagInfoList.AppProperty;
 import cn.com.modernmedia.model.TagInfoList.TagInfo;
-import cn.com.modernmedia.newtag.mainprocess.TagBaseMainProcess;
 
 /**
  * 应用使用的变量
@@ -34,15 +33,6 @@ public class AppValue {
 	public static TagInfoList tempColumnList = new TagInfoList();
 
 	/**
-	 * 主页流程
-	 */
-	public static TagBaseMainProcess mainProcess;
-	/**
-	 * 当前选中栏目
-	 */
-	public static TagInfo currColumn;
-
-	/**
 	 * uri生成的栏目列表信息
 	 */
 	public static TagInfoList uriTagInfoList = new TagInfoList();
@@ -52,8 +42,6 @@ public class AppValue {
 		appInfo = new AppProperty();
 		defaultColumnList = new TagInfoList();
 		ensubscriptColumnList = new TagInfoList();
-		mainProcess = null;
-		currColumn = null;
 		uriTagInfoList = new TagInfoList();
 	}
 
@@ -78,4 +66,6 @@ public class AppValue {
 			}
 		}
 	}
+	
+	
 }

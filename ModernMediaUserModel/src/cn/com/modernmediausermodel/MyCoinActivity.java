@@ -5,9 +5,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import cn.com.modernmediaslate.SlateBaseActivity;
+import cn.com.modernmediaslate.unit.Tools;
 import cn.com.modernmediausermodel.model.Goods.GoodsItem;
 import cn.com.modernmediausermodel.util.UserDataHelper;
-import cn.com.modernmediausermodel.util.UserTools;
 import cn.com.modernmediausermodel.widget.MyCoinView;
 
 public class MyCoinActivity extends SlateBaseActivity {
@@ -30,7 +30,7 @@ public class MyCoinActivity extends SlateBaseActivity {
 			}
 		});
 		// 标识已进入到金币页面
-		UserDataHelper.saveIsFirstUseCoin(this, UserTools.getUid(this), false);
+		UserDataHelper.saveIsFirstUseCoin(this, Tools.getUid(this), false);
 	}
 
 	/**

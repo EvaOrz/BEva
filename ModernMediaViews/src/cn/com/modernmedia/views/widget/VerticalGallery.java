@@ -49,6 +49,8 @@ public class VerticalGallery {
 
 	private int width, height, space;
 
+	private boolean stopCheckNav = false;
+
 	public VerticalGallery(Context context) {
 		mContext = context;
 		init();
@@ -115,6 +117,8 @@ public class VerticalGallery {
 
 			@Override
 			public void scroll(int y) {
+				if (stopCheckNav)
+					return;
 				((ViewsMainActivity) mContext).callNavPadding(-y);
 				if (currY != -1)
 					currY = IndexView.height;
@@ -153,6 +157,10 @@ public class VerticalGallery {
 		} else {
 			viewPager.scrollTo(0, IndexView.BAR_HEIGHT);
 		}
+	}
+
+	public void setStopCheckNav(boolean stopCheckNav) {
+		this.stopCheckNav = stopCheckNav;
 	}
 
 	@SuppressLint("InflateParams")

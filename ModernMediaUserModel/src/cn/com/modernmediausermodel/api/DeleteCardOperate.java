@@ -7,9 +7,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
 import cn.com.modernmediaslate.api.SlateBaseOperate;
-import cn.com.modernmediaslate.listener.FetchDataListener;
 import cn.com.modernmediaslate.model.ErrorMsg;
-import cn.com.modernmediaslate.unit.SlatePrintHelper;
 import cn.com.modernmediausermodel.UserApplication;
 
 /**
@@ -59,12 +57,6 @@ public class DeleteCardOperate extends SlateBaseOperate {
 				UserApplication.infoChangeListener.deleteCard(1);
 			}
 		}
-	}
-
-	@Override
-	protected void fetchLocalDataInBadNet(FetchDataListener mFetchDataListener) {
-		SlatePrintHelper.print("net error:" + getUrl());
-		mFetchDataListener.fetchData(false, null, false);
 	}
 
 	@Override

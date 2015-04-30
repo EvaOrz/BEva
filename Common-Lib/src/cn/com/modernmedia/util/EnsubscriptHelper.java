@@ -13,6 +13,8 @@ import cn.com.modernmedia.newtag.db.UserSubscribeListDb;
 import cn.com.modernmediaslate.SlateApplication;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.unit.ParseUtil;
+import cn.com.modernmediaslate.unit.SlateDataHelper;
+import cn.com.modernmediaslate.unit.Tools;
 
 public class EnsubscriptHelper {
 	/**
@@ -24,10 +26,11 @@ public class EnsubscriptHelper {
 	 * 添加已订阅栏目
 	 * 
 	 * @param context
-	 * @param uid
 	 */
-	public static void addEnsubscriptColumn(Context context, String uid,
-			String token) {
+	public static void addEnsubscriptColumn(Context context) {
+		String uid = Tools.getUid(context);
+		String token = SlateDataHelper.getToken(context);
+
 		initSubscriptList();
 		if (AppValue.appInfo.getHaveSubscribe() == 0
 				|| SlateApplication.mConfig.getHas_subscribe() == 0) {

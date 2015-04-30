@@ -14,6 +14,7 @@ import android.widget.TextView;
 import cn.com.modernmedia.widget.CheckFooterListView;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.model.ErrorMsg;
+import cn.com.modernmediaslate.model.User;
 import cn.com.modernmediaslate.unit.ParseUtil;
 import cn.com.modernmediaslate.unit.Tools;
 import cn.com.modernmediausermodel.CardDetailActivity;
@@ -24,7 +25,6 @@ import cn.com.modernmediausermodel.listener.CardViewListener;
 import cn.com.modernmediausermodel.listener.UserFetchEntryListener;
 import cn.com.modernmediausermodel.model.Card;
 import cn.com.modernmediausermodel.model.Card.CardItem;
-import cn.com.modernmediausermodel.model.User;
 import cn.com.modernmediausermodel.model.UserCardInfoList;
 import cn.com.modernmediausermodel.model.UserCardInfoList.UserCardInfo;
 import cn.com.modernmediausermodel.util.UserPageTransfer;
@@ -129,7 +129,7 @@ public class UserCardView implements OnClickListener, CardViewListener {
 		};
 		cardListHelp.initListView(true, headView);
 		// 显示登录用户自己时，隐藏关注按钮
-		if (UserTools.getUid(mContext).equals(user.getUid())) {
+		if (Tools.getUid(mContext).equals(user.getUid())) {
 			follow.setVisibility(View.GONE);
 			avatar.setOnClickListener(this);
 			cardLayout.setOnClickListener(this);
@@ -141,7 +141,7 @@ public class UserCardView implements OnClickListener, CardViewListener {
 		fansLayout.setOnClickListener(this);
 
 		// 设置提示语
-		if (!user.getUid().equals(UserTools.getUid(mContext))) {
+		if (!user.getUid().equals(Tools.getUid(mContext))) {
 			tipText.setText(user.getNickName()
 					+ mContext.getString(R.string.user_no_card).substring(1));
 		}
@@ -158,7 +158,7 @@ public class UserCardView implements OnClickListener, CardViewListener {
 		if (!isRefresh)
 			Tools.showLoading(mContext, true);
 		String customerUid = "";
-		String uid = UserTools.getUid(mContext);
+		String uid = Tools.getUid(mContext);
 		if (uid != null && !uid.equals(user.getUid())) { // 登录用户自己
 			customerUid = uid;
 		}
@@ -224,7 +224,7 @@ public class UserCardView implements OnClickListener, CardViewListener {
 	 */
 	private void addFollow(List<UserCardInfo> users) {
 		Tools.showLoading(mContext, true);
-		controller.addFollow(UserTools.getUid(mContext), users, true,
+		controller.addFollow(Tools.getUid(mContext), users, true,
 				new UserFetchEntryListener() {
 
 					@Override
@@ -246,7 +246,7 @@ public class UserCardView implements OnClickListener, CardViewListener {
 	 */
 	private void deleteFollow(List<UserCardInfo> users) {
 		Tools.showLoading(mContext, true);
-		controller.deleteFollow(UserTools.getUid(mContext), users, true,
+		controller.deleteFollow(Tools.getUid(mContext), users, true,
 				new UserFetchEntryListener() {
 
 					@Override
@@ -309,7 +309,7 @@ public class UserCardView implements OnClickListener, CardViewListener {
 				}
 			}
 		} else if (v.getId() == R.id.user_card_info_avatar) {
-			if (user.getUid().equals(UserTools.getUid(mContext))) {
+			if (user.getUid().equals(Tools.getUid(mContext))) {
 				UserPageTransfer.gotoUserInfoActivity(mContext, 0, null, 0);
 			}
 		} else if (v.getId() == R.id.card_info_layout_follow) {

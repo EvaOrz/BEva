@@ -47,6 +47,7 @@ public class TagInfoListDb extends TagDbListenerImplement {
 	private static final String TAG_TAG_TYPE = "tag_type";// 17
 
 	private static TagInfoListDb instance = null;
+	private Context mContext;
 
 	private TagInfoListDb(Context context) {
 		super(context, DATABASE_NAME, DATABASE_VERSION, TABLE_NAME);
@@ -56,7 +57,12 @@ public class TagInfoListDb extends TagDbListenerImplement {
 		if (null == instance) {
 			instance = new TagInfoListDb(context);
 		}
+		instance.setContext(context);
 		return instance;
+	}
+
+	public void setContext(Context c) {
+		mContext = c;
 	}
 
 	@Override
@@ -167,6 +173,12 @@ public class TagInfoListDb extends TagDbListenerImplement {
 				e.printStackTrace();
 			}
 		}
+		if (operate != null && operate.getType() == TAG_TYPE.APP_INFO) {
+			tagInfo.getAppProperty().setUpdatetime(
+					DbLoseColumn.getUpdatetime(mContext));
+			tagInfo.getAppProperty().setAdvUpdateTime(
+					DbLoseColumn.getAdvUpdatetime(mContext));
+		}
 		return tagInfo;
 	}
 
@@ -262,7 +274,14 @@ public class TagInfoListDb extends TagDbListenerImplement {
 		cv.put(TAG_LEVEL, tagInfo.getTagLevel());
 		cv.put(COLUMN_UPDATETIME, tagInfo.getColoumnupdatetime());
 		if (obj.length > 1 && (obj[1] instanceof TAG_TYPE)) {
-			cv.put(TAG_TAG_TYPE, getType((TAG_TYPE) obj[1]));
+			int type = getType((TAG_TYPE) obj[1]);
+			cv.put(TAG_TAG_TYPE, type);
+			if (type == 0) {
+				DbLoseColumn.setUpdatetime(mContext, tagInfo.getAppProperty()
+						.getUpdatetime());
+				DbLoseColumn.setAdvUpdatetime(mContext, tagInfo
+						.getAppProperty().getAdvUpdateTime());
+			}
 		}
 		return cv;
 	}
@@ -318,7 +337,7 @@ public class TagInfoListDb extends TagDbListenerImplement {
 	}
 
 	private int getType(TAG_TYPE type) {
-		if (type == TAG_TYPE.TAG_INFO) {
+		if (type == TAG_TYPE.APP_INFO) {
 			return 0;
 		} else if (type == TAG_TYPE.TAG_INFO) {
 			return 1;

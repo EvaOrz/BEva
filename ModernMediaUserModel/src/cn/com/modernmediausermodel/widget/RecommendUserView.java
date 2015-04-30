@@ -16,6 +16,7 @@ import cn.com.modernmedia.widget.CheckFooterListView.FooterCallBack;
 import cn.com.modernmediaslate.SlateApplication;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.model.ErrorMsg;
+import cn.com.modernmediaslate.model.User;
 import cn.com.modernmediaslate.unit.ParseUtil;
 import cn.com.modernmediaslate.unit.Tools;
 import cn.com.modernmediausermodel.LoginActivity;
@@ -27,12 +28,10 @@ import cn.com.modernmediausermodel.db.UserListDb;
 import cn.com.modernmediausermodel.listener.CardViewListener;
 import cn.com.modernmediausermodel.listener.UserFetchEntryListener;
 import cn.com.modernmediausermodel.listener.UserInfoChangeListener;
-import cn.com.modernmediausermodel.model.User;
 import cn.com.modernmediausermodel.model.UserCardInfoList;
 import cn.com.modernmediausermodel.model.UserCardInfoList.UserCardInfo;
 import cn.com.modernmediausermodel.util.UserConstData;
 import cn.com.modernmediausermodel.util.UserPageTransfer;
-import cn.com.modernmediausermodel.util.UserTools;
 
 /**
  * 推荐关注、粉丝、好友页面
@@ -68,8 +67,8 @@ public class RecommendUserView implements OnClickListener, CardViewListener {
 		// TODO微博登陆成功后弹框可能在登录页面finish后才dismiss,所以等跳转了页面再把登录页面finish掉
 		if (ParseUtil.mapContainsKey(SlateApplication.activityMap,
 				LoginActivity.class.getName())) {
-			SlateApplication.activityMap.get(
-					LoginActivity.class.getName()).finish();
+			SlateApplication.activityMap.get(LoginActivity.class.getName())
+					.finish();
 		}
 	}
 
@@ -191,8 +190,7 @@ public class RecommendUserView implements OnClickListener, CardViewListener {
 	}
 
 	private void showPageContent(boolean showLoading) {
-		boolean isCurrentUser = mUser.getUid().equals(
-				UserTools.getUid(mContext)); // 是否显示当前用户的相关信息
+		boolean isCurrentUser = mUser.getUid().equals(Tools.getUid(mContext)); // 是否显示当前用户的相关信息
 		switch (pageType) {
 		case PAGE_RECOMMEND_FRIEND:
 			followAll.setVisibility(View.VISIBLE);
@@ -298,7 +296,7 @@ public class RecommendUserView implements OnClickListener, CardViewListener {
 	 */
 	private void addFollow(List<UserCardInfo> list) {
 		Tools.showLoading(mContext, true);
-		controller.addFollow(UserTools.getUid(mContext), list, false,
+		controller.addFollow(Tools.getUid(mContext), list, false,
 				new UserFetchEntryListener() {
 
 					@Override
@@ -333,7 +331,7 @@ public class RecommendUserView implements OnClickListener, CardViewListener {
 			if (UserApplication.logOutListener != null) {
 				UserApplication.logOutListener.onLogout();
 			}
-				((Activity) mContext).finish();
+			((Activity) mContext).finish();
 		}
 		UserPageTransfer.gotoMyHomePageActivity(mContext, true);
 	}

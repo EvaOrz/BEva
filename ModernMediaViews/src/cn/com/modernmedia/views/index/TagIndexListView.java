@@ -42,8 +42,10 @@ import cn.com.modernmedia.views.xmlparse.XMLParse;
 import cn.com.modernmedia.widget.CheckFooterListView.FooterCallBack;
 import cn.com.modernmedia.widget.PullToRefreshListView.OnRefreshListener;
 import cn.com.modernmediaslate.SlateApplication;
+import cn.com.modernmediaslate.api.SlateBaseOperate.FetchApiType;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.unit.ParseUtil;
+import cn.com.modernmediaslate.unit.TimeCollectUtil;
 import cn.com.modernmediaslate.unit.Tools;
 
 public class TagIndexListView implements LoadCallBack, OnScrollListener {
@@ -65,6 +67,7 @@ public class TagIndexListView implements LoadCallBack, OnScrollListener {
 
 	private View defaultView;
 	private int defaultY, currY = -1;
+	private boolean stopCheckNav = false;
 
 	public TagIndexListView(Context context) {
 		this(context, null);
@@ -150,7 +153,7 @@ public class TagIndexListView implements LoadCallBack, OnScrollListener {
 			listHead.setLayoutParams(new AbsListView.LayoutParams(
 					AbsListView.LayoutParams.FILL_PARENT,
 					AbsListView.LayoutParams.WRAP_CONTENT));
-			parse.setDataForListHead(AppValue.currColumn);
+			parse.setDataForListHead(tagInfo);
 			listView.addHeaderView(listHead);
 		}
 		BaseChildCatHead childHead = null;
@@ -195,6 +198,8 @@ public class TagIndexListView implements LoadCallBack, OnScrollListener {
 			final TagInfoList childList, final boolean loadMore, Template temp) {
 		template = temp;
 		tagName = articleList.getTagName();
+		tagInfo = TagInfoListDb.getInstance(mContext).getTagInfoByName(tagName,
+				"", true);
 		if (template != null) {
 			disPro();
 			initProperties(articleList.getTagName(), childList);
@@ -228,8 +233,6 @@ public class TagIndexListView implements LoadCallBack, OnScrollListener {
 	 */
 	private void checkShouldInsertSubscribe(TagArticleList dArticleList,
 			boolean loadMore) {
-		tagInfo = TagInfoListDb.getInstance(mContext).getTagInfoByName(tagName,
-				"", true);
 		if (!loadMore
 				&& V.checkShouldInsertSubscribeArticle(mContext,
 						tagInfo.getTagName())) {
@@ -360,6 +363,11 @@ public class TagIndexListView implements LoadCallBack, OnScrollListener {
 				}
 			}
 		}, 100);
+
+		if (tagInfo != null)
+			TimeCollectUtil.getInstance().savePageTime(
+					TimeCollectUtil.EVENT_OPEN_COLUMN + tagInfo.getTagName(),
+					false);
 	}
 
 	/**
@@ -453,8 +461,8 @@ public class TagIndexListView implements LoadCallBack, OnScrollListener {
 	 * 下拉刷新，获取当前taginfo的更新时间是否变化
 	 */
 	private void getTagInfo() {
-		OperateController.getInstance(mContext).getTagInfo(tagName, false,
-				new FetchEntryListener() {
+		OperateController.getInstance(mContext).getTagInfo(tagName,
+				FetchApiType.USE_HTTP_ONLY, new FetchEntryListener() {
 
 					@Override
 					public void setData(Entry entry) {
@@ -499,9 +507,6 @@ public class TagIndexListView implements LoadCallBack, OnScrollListener {
 			}
 			if (indexViewPagerItem != null) {
 				indexViewPagerItem.refresh(this);
-			} else if (AppValue.mainProcess != null) {
-				AppValue.mainProcess.getArticleList(
-						AppValue.mainProcess.getCurrTagInfo(), null);
 			}
 		}
 	}
@@ -523,8 +528,6 @@ public class TagIndexListView implements LoadCallBack, OnScrollListener {
 				indexViewPagerItem.loadMore(this, top, _articleList);
 			else
 				indexViewPagerItem.loadMore(this, top, null);
-		} else if (AppValue.mainProcess != null) {
-			loadMoreArticleList(AppValue.mainProcess.getCurrTagInfo());
 		}
 	}
 
@@ -624,14 +627,13 @@ public class TagIndexListView implements LoadCallBack, OnScrollListener {
 
 	@Override
 	public void onScrollStateChanged(AbsListView view, int scrollState) {
-
 	}
 
 	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem,
 			int visibleItemCount, int totalItemCount) {
 		if (listView.isHeadShow()
-				|| SlateApplication.mConfig.getNav_hide() == 0) {
+				|| SlateApplication.mConfig.getNav_hide() == 0 || stopCheckNav) {
 			return;
 		}
 		// TODO 有默认的下拉刷新headview
@@ -654,6 +656,10 @@ public class TagIndexListView implements LoadCallBack, OnScrollListener {
 
 	public HideNavListView getListView() {
 		return listView;
+	}
+
+	public void setStopCheckNav(boolean stopCheckNav) {
+		this.stopCheckNav = stopCheckNav;
 	}
 
 }

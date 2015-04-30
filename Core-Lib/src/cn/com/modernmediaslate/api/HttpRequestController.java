@@ -8,7 +8,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -25,6 +28,7 @@ import android.content.Context;
 import android.text.TextUtils;
 import cn.com.modernmediaslate.listener.FetchDataListener;
 import cn.com.modernmediaslate.unit.SlatePrintHelper;
+import cn.com.modernmediaslate.unit.TimeCollectUtil;
 
 import com.parse.entity.mime.MultipartEntity;
 import com.parse.entity.mime.content.FileBody;
@@ -105,6 +109,8 @@ public class HttpRequestController {
 		private String imagePath; // 要上传的图片存储路径(目前仅支持post方式)
 		private SlateBaseOperate mOperate;
 		private String userAgent = "";// iweekly统计广告使用
+		private Map<String, String> headerMap = new HashMap<String, String>();
+		private int responseCode = -1;
 
 		public RequestThread(Context context, String url,
 				SlateBaseOperate baseOperate) {
@@ -128,7 +134,7 @@ public class HttpRequestController {
 			return isPost;
 		}
 
-		protected void setPost(boolean isPost) {
+		public void setPost(boolean isPost) {
 			this.isPost = isPost;
 		}
 
@@ -144,104 +150,155 @@ public class HttpRequestController {
 			this.userAgent = userAgent;
 		}
 
+		public void setHeaderMap(Map<String, String> headerMap) {
+			if (headerMap != null && !headerMap.isEmpty()) {
+				this.headerMap = headerMap;
+			}
+		}
+
 		@Override
 		public void run() {
 			if (mUrl == null) {
 				return;
 			}
-			if (!isPost) {
-				HttpURLConnection conn = null;
-				try {
-					conn = (HttpURLConnection) mUrl.openConnection();
-					if (!TextUtils.isEmpty(userAgent)) {
-						conn.addRequestProperty("User-Agent", userAgent);
+			// time collect
+			TimeCollectUtil.getInstance().saveRequestTime(url, true, 0, false);
+
+			if (isPost) {
+				doPost();
+			} else {
+				doGet();
+			}
+		}
+
+		private void doGet() {
+			HttpURLConnection conn = null;
+			try {
+				conn = (HttpURLConnection) mUrl.openConnection();
+				if (!TextUtils.isEmpty(userAgent)) {
+					conn.addRequestProperty("User-Agent", userAgent);
+				}
+				conn.setConnectTimeout(CONNECT_TIMEOUT);
+				conn.setReadTimeout(READ_TIMEOUT);
+
+				// 添加头部信息
+				Iterator<String> iterator = headerMap.keySet().iterator();
+				while (iterator.hasNext()) {
+					String key = iterator.next();
+					String value = headerMap.get(key);
+					if (!TextUtils.isEmpty(key)) {
+						conn.setRequestProperty(key, value);
 					}
-					conn.setConnectTimeout(CONNECT_TIMEOUT);
-					conn.setReadTimeout(READ_TIMEOUT);
-					int status = conn.getResponseCode();
-					if (status == 200) {
-						InputStream is = conn.getInputStream();
-						if (is == null) {
-							fetchLocalDataInBadNet();
-							return;
-						}
-						String data = receiveData(is);
-						if (TextUtils.isEmpty(data)) {
-							fetchLocalDataInBadNet();
-							return;
-						}
-						showToast("from http:" + url);
+				}
+				responseCode = conn.getResponseCode();
+				if (responseCode == HttpStatus.SC_OK) {
+					InputStream is = conn.getInputStream();
+					if (is == null) {
+						fetchLocalDataInBadNet();
+						return;
+					}
+					String data = receiveData(is);
+					if (TextUtils.isEmpty(data)) {
+						fetchLocalDataInBadNet();
+						return;
+					}
+					// time collect
+					TimeCollectUtil.getInstance().saveRequestTime(url, false,
+							HttpStatus.SC_OK, false);
+
+					showToast("from http:" + url);
+					if (mFetchDataListener != null)
 						mFetchDataListener.fetchData(true, data, true);
-						reSetUpdateTime();
-						SlatePrintHelper.print("from http:" + url);
-					} else {
-						fetchLocalDataInBadNet();
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
+					reSetUpdateTime();
+					SlatePrintHelper.print("from http:" + url);
+				} else {
 					fetchLocalDataInBadNet();
-				} finally {
-					if (conn != null)
-						conn.disconnect();
 				}
-			} else { // post方式
-				if ((params != null && !params.isEmpty())
-						|| !TextUtils.isEmpty(imagePath)) {
-					HttpPost httpPost = null;
-					HttpClient httpClient = null;
-					try {
-						httpPost = new HttpPost(url);
-						MultipartEntity reqEntity = new MultipartEntity();
-						// 上传图片处理
-						if (!TextUtils.isEmpty(imagePath)) {
-							FileBody fileBody = new FileBody(
-									new File(imagePath), "image/png");
-							reqEntity.addPart("image", fileBody);
-						}
-						// 参数设置
-						if (params != null) {
-							for (NameValuePair param : params) {
-								String value = param.getValue();
-								if (!TextUtils.isEmpty(value)) {
-									reqEntity.addPart(param.getName(),
-											new StringBody(value));
-								}
-							}
-						}
-						httpPost.setEntity(reqEntity);
-						httpClient = new DefaultHttpClient();
-						// 请求超时
-						httpClient.getParams().setParameter(
-								CoreConnectionPNames.CONNECTION_TIMEOUT,
-								CONNECT_TIMEOUT);
-						// 读取超时
-						httpClient.getParams().setParameter(
-								CoreConnectionPNames.SO_TIMEOUT, READ_TIMEOUT);
-						HttpResponse response = httpClient.execute(httpPost);
-						String resData = null;
-						if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-							HttpEntity resEntity = response.getEntity();
-							resData = (resEntity == null) ? null : EntityUtils
-									.toString(resEntity, HTTP.UTF_8);
-						}
-						if (resData == null) {
-							fetchLocalDataInBadNet();
-							return;
-						}
-						showToast("from http:" + url);
-						mFetchDataListener.fetchData(true, resData, true);
-						reSetUpdateTime();
-						SlatePrintHelper.print("from http:" + url);
-					} catch (Exception e) {
-						fetchLocalDataInBadNet();
-						e.printStackTrace();
-					} finally {
-						if (httpPost != null)
-							httpPost.abort();
-						if (httpClient != null)
-							httpClient.getConnectionManager().shutdown();
+			} catch (Exception e) {
+				fetchLocalDataInBadNet();
+				if (e != null && !TextUtils.isEmpty(e.getMessage()))
+					SlatePrintHelper.logE("HTTP", e.getMessage());
+			} finally {
+				if (conn != null)
+					conn.disconnect();
+			}
+		}
+
+		private void doPost() {
+			// if ((params != null && !params.isEmpty())
+			// || !TextUtils.isEmpty(imagePath)) {
+			// }
+
+			HttpPost httpPost = null;
+			HttpClient httpClient = null;
+			try {
+				httpPost = new HttpPost(url);
+				// 添加头部信息
+				Iterator<String> iterator = headerMap.keySet().iterator();
+				while (iterator.hasNext()) {
+					String key = iterator.next();
+					String value = headerMap.get(key);
+					if (!TextUtils.isEmpty(key)) {
+						httpPost.addHeader(key, value);
 					}
 				}
+
+				MultipartEntity reqEntity = new MultipartEntity();
+				// 上传图片处理
+				if (!TextUtils.isEmpty(imagePath)) {
+					FileBody fileBody = new FileBody(new File(imagePath),
+							"image/png");
+					reqEntity.addPart("image", fileBody);
+				}
+				// 参数设置
+				if (params != null) {
+					for (NameValuePair param : params) {
+						String value = param.getValue();
+						if (!TextUtils.isEmpty(value)) {
+							reqEntity.addPart(param.getName(), new StringBody(
+									value));
+						}
+					}
+				}
+				httpPost.setEntity(reqEntity);
+				httpClient = new DefaultHttpClient();
+				// 请求超时
+				httpClient.getParams().setParameter(
+						CoreConnectionPNames.CONNECTION_TIMEOUT,
+						CONNECT_TIMEOUT);
+				// 读取超时
+				httpClient.getParams().setParameter(
+						CoreConnectionPNames.SO_TIMEOUT, READ_TIMEOUT);
+				HttpResponse response = httpClient.execute(httpPost);
+				String resData = null;
+				responseCode = response.getStatusLine().getStatusCode();
+				if (responseCode == HttpStatus.SC_OK) {
+					HttpEntity resEntity = response.getEntity();
+					resData = (resEntity == null) ? null : EntityUtils
+							.toString(resEntity, HTTP.UTF_8);
+				}
+				if (resData == null) {
+					fetchLocalDataInBadNet();
+					return;
+				}
+
+				TimeCollectUtil.getInstance().saveRequestTime(url, false,
+						HttpStatus.SC_OK, false);
+
+				showToast("from http:" + url);
+				if (mFetchDataListener != null)
+					mFetchDataListener.fetchData(true, resData, true);
+				reSetUpdateTime();
+				SlatePrintHelper.print("from http:" + url);
+			} catch (Exception e) {
+				fetchLocalDataInBadNet();
+				if (e != null && !TextUtils.isEmpty(e.getMessage()))
+					SlatePrintHelper.logE("HTTP", e.getMessage());
+			} finally {
+				if (httpPost != null)
+					httpPost.abort();
+				if (httpClient != null)
+					httpClient.getConnectionManager().shutdown();
 			}
 		}
 
@@ -267,12 +324,13 @@ public class HttpRequestController {
 
 		private void fetchLocalDataInBadNet() {
 			if (mOperate != null)
-				mOperate.fetchLocalDataInBadNet(mFetchDataListener);
+				mOperate.fetchDataFromCacheByNetError(responseCode);
+			// 给除了SlateBaseOperate之外的别的可能需要调用http请求的方法回调
+			if (mFetchDataListener != null)
+				mFetchDataListener.fetchData(false, null, false);
 		}
 
 		private void reSetUpdateTime() {
-			if (mOperate != null)
-				mOperate.reSetUpdateTime();
 		}
 
 		private void showToast(String str) {

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import cn.com.modernmedia.widget.CheckFooterListView;
 import cn.com.modernmediaslate.SlateApplication;
 import cn.com.modernmediaslate.model.Entry;
+import cn.com.modernmediaslate.unit.Tools;
 import cn.com.modernmediausermodel.CardDetailActivity;
 import cn.com.modernmediausermodel.R;
 import cn.com.modernmediausermodel.api.UserOperateController;
@@ -19,7 +20,6 @@ import cn.com.modernmediausermodel.listener.CardViewListener;
 import cn.com.modernmediausermodel.listener.UserFetchEntryListener;
 import cn.com.modernmediausermodel.model.Card;
 import cn.com.modernmediausermodel.util.UserPageTransfer;
-import cn.com.modernmediausermodel.util.UserTools;
 
 /**
  * 我的首页
@@ -89,7 +89,7 @@ public class MyHomeView implements OnClickListener, CardViewListener {
 			@Override
 			public void getCardList(String timelineId, boolean isGetMore,
 					boolean isPull) {
-				String uid = UserTools.getUid(mContext);
+				String uid = Tools.getUid(mContext);
 				if (TextUtils.isEmpty(uid)
 						|| uid.equals(SlateApplication.UN_UPLOAD_UID)) {
 					return;

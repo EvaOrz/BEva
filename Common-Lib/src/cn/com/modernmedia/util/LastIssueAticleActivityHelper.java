@@ -10,6 +10,7 @@ import cn.com.modernmedia.model.TagArticleList;
 import cn.com.modernmedia.model.TagInfoList;
 import cn.com.modernmedia.model.TagInfoList.TagInfo;
 import cn.com.modernmedia.util.PageTransfer.TransferArticle;
+import cn.com.modernmediaslate.api.SlateBaseOperate.FetchApiType;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.unit.ParseUtil;
 
@@ -92,9 +93,11 @@ public class LastIssueAticleActivityHelper {
 	 *            栏目列表名称
 	 */
 	private void getLastArticleList(String name, final boolean useCache) {
+		FetchApiType type = useCache ? FetchApiType.USE_CACHE_FIRST
+				: FetchApiType.USE_HTTP_FIRST;
 		OperateController.getInstance(mContext).getLastIssueArticles(
 				transferArticle.getTagName(), name, "",
-				transferArticle.getPublishTime(), useCache,
+				transferArticle.getPublishTime(), type,
 				new FetchEntryListener() {
 
 					@Override

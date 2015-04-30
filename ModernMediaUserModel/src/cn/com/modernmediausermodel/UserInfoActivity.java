@@ -32,11 +32,12 @@ import cn.com.modernmediaslate.SlateBaseActivity;
 import cn.com.modernmediaslate.listener.ImageDownloadStateListener;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.model.ErrorMsg;
+import cn.com.modernmediaslate.model.User;
 import cn.com.modernmediaslate.unit.ImgFileManager;
+import cn.com.modernmediaslate.unit.SlateDataHelper;
 import cn.com.modernmediausermodel.api.UserOperateController;
 import cn.com.modernmediausermodel.listener.UserFetchEntryListener;
 import cn.com.modernmediausermodel.model.UploadAvatarResult;
-import cn.com.modernmediausermodel.model.User;
 import cn.com.modernmediausermodel.util.FetchPhotoManager;
 import cn.com.modernmediausermodel.util.QQLoginUtil;
 import cn.com.modernmediausermodel.util.UserDataHelper;
@@ -164,7 +165,7 @@ public class UserInfoActivity extends SlateBaseActivity implements
 		} else if (actionFrom == FROM_QQ_LOGIN) { // QQ首次登录
 			getQqUserInfo();
 		} else {
-			User user = UserDataHelper.getUserLoginInfo(this);
+			User user = SlateDataHelper.getUserLoginInfo(this);
 			if (user != null) {
 				getUserInfo(user.getUid(), user.getToken());
 			}
@@ -237,14 +238,14 @@ public class UserInfoActivity extends SlateBaseActivity implements
 							// 取得成功
 							if (error.getNo() == 0) {
 								mUser.setLogined(true);
-								UserDataHelper.saveUserLoginInfo(mContext,
+								SlateDataHelper.saveUserLoginInfo(mContext,
 										mUser);
-								UserDataHelper.saveAvatarUrl(mContext,
+								SlateDataHelper.saveAvatarUrl(mContext,
 										mUser.getUserName(), mUser.getAvatar());
 								setDataForWidget(mUser);
 								// 由于getUserInfo接口没返回token，所以用本地保存的
-								if (UserDataHelper.getUserLoginInfo(mContext) != null) {
-									mUser.setToken(UserDataHelper
+								if (SlateDataHelper.getUserLoginInfo(mContext) != null) {
+									mUser.setToken(SlateDataHelper
 											.getUserLoginInfo(mContext)
 											.getToken());
 								}
@@ -256,7 +257,7 @@ public class UserInfoActivity extends SlateBaseActivity implements
 						showToast(TextUtils.isEmpty(toast) ? getString(R.string.msg_get_userinfo_failed)
 								: toast);
 						// token过期或者其他的情况，把本地保存的用户信息删除
-						UserDataHelper.clearLoginInfo(mContext);
+						SlateDataHelper.clearLoginInfo(mContext);
 						// 当验证错误，跳至登陆页重新登录
 						finish();
 					}
@@ -284,7 +285,7 @@ public class UserInfoActivity extends SlateBaseActivity implements
 					mUser.setUserName(object.optString("name"));
 					mUser.setAvatar(object.optString("profile_image_url"));// 用户头像地址（中图），50×50像素
 					mUser.setToken(sinaAPI.getToken());
-					UserDataHelper.saveAvatarUrl(mContext, mUser.getUserName(),
+					SlateDataHelper.saveAvatarUrl(mContext, mUser.getUserName(),
 							mUser.getAvatar());
 					// 设置昵称
 					mHandler.post(new Runnable() {
@@ -404,9 +405,9 @@ public class UserInfoActivity extends SlateBaseActivity implements
 							mUser = (User) entry;
 							ErrorMsg error = mUser.getError();
 							if (error.getNo() == 0) {
-								UserDataHelper
-										.saveUserLoginInfo(mContext, mUser);
-								UserDataHelper.saveAvatarUrl(mContext,
+								SlateDataHelper.saveUserLoginInfo(mContext,
+										mUser);
+								SlateDataHelper.saveAvatarUrl(mContext,
 										mUser.getUserName(), mUser.getAvatar());
 								// 用于判定是否用开放平台账号登录过
 								if (actionFrom == FROM_SINA_LOGIN) { // 新浪微博
@@ -479,7 +480,7 @@ public class UserInfoActivity extends SlateBaseActivity implements
 			}
 		}
 		// 清除存储的登录信息
-		UserDataHelper.clearLoginInfo(mContext);
+		SlateDataHelper.clearLoginInfo(mContext);
 		// 清除金币信息
 		if (mUser != null) {
 			UserDataHelper.saveIsFirstUseCoin(mContext, mUser.getUid(), true);
@@ -547,7 +548,7 @@ public class UserInfoActivity extends SlateBaseActivity implements
 							if (actionFrom == FROM_SINA_LOGIN
 									|| actionFrom == FROM_QQ_LOGIN) {
 								// 将得到的头像下载地址存储到本地
-								UserDataHelper.saveAvatarUrl(mContext,
+								SlateDataHelper.saveAvatarUrl(mContext,
 										mUser.getUserName(),
 										result.getAvatarPath());
 								afterFetchPicture(mUser, result.getAvatarPath());
@@ -602,7 +603,7 @@ public class UserInfoActivity extends SlateBaseActivity implements
 								} else {
 									showToast(R.string.msg_avatar_upload_success);
 									// 将得到的头像下载地址存储到本地
-									UserDataHelper.saveAvatarUrl(mContext,
+									SlateDataHelper.saveAvatarUrl(mContext,
 											mUser.getUserName(), avatar_url);
 									afterFetchPicture(mUser, avatar_url);
 								}
@@ -633,7 +634,7 @@ public class UserInfoActivity extends SlateBaseActivity implements
 	protected void afterSetNickName() {
 		showToast(R.string.msg_modify_success);
 		if (mUser != null)
-			UserDataHelper.saveUserLoginInfo(this, mUser);
+			SlateDataHelper.saveUserLoginInfo(this, mUser);
 		if (actionFrom == FROM_REGISTER)
 			finish();
 	}

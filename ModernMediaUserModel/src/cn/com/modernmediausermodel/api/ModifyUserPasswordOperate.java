@@ -11,6 +11,7 @@ public class ModifyUserPasswordOperate extends UserModelBaseOperate {
 
 	protected ModifyUserPasswordOperate(String uid, String token,
 			String userName, String password, String newPassword) {
+		super();
 		// post 参数设置
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		JSONObject object = new JSONObject();

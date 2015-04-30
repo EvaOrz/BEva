@@ -6,7 +6,7 @@ import cn.com.modernmedia.views.ViewsApplication;
 
 public abstract class AutoScrollHandler extends Handler {
 	private static final int CHANGE = 1;
-	private static final int CHANGE_DELAY = 5000;// test
+	private static final int CHANGE_DELAY = 5000;
 
 	private boolean isAuto;
 

@@ -6,9 +6,7 @@ import org.apache.http.NameValuePair;
 import org.json.JSONObject;
 
 import cn.com.modernmediaslate.api.SlateBaseOperate;
-import cn.com.modernmediaslate.listener.FetchDataListener;
-import cn.com.modernmediaslate.unit.SlatePrintHelper;
-import cn.com.modernmediausermodel.model.User;
+import cn.com.modernmediaslate.model.User;
 
 /**
  * 用户模块基础operate
@@ -17,26 +15,20 @@ import cn.com.modernmediausermodel.model.User;
  * 
  */
 public abstract class UserModelBaseOperate extends SlateBaseOperate {
-	private User user;
+	protected User user;
 	private ArrayList<NameValuePair> nameValuePairs; // post参数
+
+	public UserModelBaseOperate() {
+		user = new User();
+	}
 
 	public User getUser() {
 		return user;
 	}
 
-	protected UserModelBaseOperate() {
-		this.user = new User();
-	}
-
 	@Override
 	protected void handler(JSONObject jsonObject) {
-		user = parseUser(jsonObject);
-	}
-
-	@Override
-	protected void fetchLocalDataInBadNet(FetchDataListener mFetchDataListener) {
-		SlatePrintHelper.print("net error:" + getUrl());
-		mFetchDataListener.fetchData(false, null, false);
+		parseUser(jsonObject);
 	}
 
 	@Override
@@ -64,8 +56,7 @@ public abstract class UserModelBaseOperate extends SlateBaseOperate {
 	 *            待解析的JSON对象
 	 * @return User对象
 	 */
-	protected User parseUser(JSONObject object) {
-		User user = new User();
+	protected void parseUser(JSONObject object) {
 		user.setUid(object.optString("uid", ""));
 		user.setUserName(object.optString("username", ""));
 		user.setPassword(object.optString("password", ""));
@@ -84,6 +75,5 @@ public abstract class UserModelBaseOperate extends SlateBaseOperate {
 			user.getError().setNo(errorObject.optInt("no", -1));
 			user.getError().setDesc(errorObject.optString("desc", ""));
 		}
-		return user;
 	}
 }

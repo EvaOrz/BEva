@@ -10,7 +10,6 @@ import cn.com.modernmedia.newtag.db.TagArticleListDb;
 import cn.com.modernmedia.newtag.db.TagIndexDb;
 import cn.com.modernmedia.newtag.db.TagInfoListDb;
 import cn.com.modernmedia.newtag.db.UserSubscribeListDb;
-import cn.com.modernmedia.newtag.mainprocess.TagBaseMainProcess;
 import cn.com.modernmedia.util.PrintHelper;
 import cn.com.modernmedia.views.column.NewColumnView.ColumnFooterItemIsSeletedListener;
 import cn.com.modernmedia.views.fav.FavObserver;
@@ -47,6 +46,7 @@ public class ViewsApplication extends CommonApplication {
 	public void onCreate() {
 		super.onCreate();
 		articleCls = ArticleActivity.class;
+		pushArticleCls = PushArticleActivity.class;
 		UserApplication.favActivity = FavoritesActivity.class;
 		favObservable.deleteObservers();
 		favObservable.addObserver(new FavObserver(mContext));
@@ -88,7 +88,6 @@ public class ViewsApplication extends CommonApplication {
 		positionChangedListener = null;
 		clearListener();
 		readedArticles.clear();
-		TagBaseMainProcess.clear();
 		columnChangedListener = null;
 		navObservable.deleteObservers();
 		V.bitmapCache.clear();

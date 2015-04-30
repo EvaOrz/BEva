@@ -14,10 +14,10 @@ import android.widget.ImageView;
 import cn.com.modernmediaslate.SlateBaseActivity;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.model.ErrorMsg;
+import cn.com.modernmediaslate.model.User;
+import cn.com.modernmediaslate.unit.SlateDataHelper;
 import cn.com.modernmediausermodel.api.UserOperateController;
 import cn.com.modernmediausermodel.listener.UserFetchEntryListener;
-import cn.com.modernmediausermodel.model.User;
-import cn.com.modernmediausermodel.util.UserDataHelper;
 import cn.com.modernmediausermodel.util.UserTools;
 
 /**
@@ -78,7 +78,7 @@ public class ModifyPwdActivity extends SlateBaseActivity implements
 		if (id == R.id.modify_pwd_img_clear) {
 			doClear();
 		} else if (id == R.id.modify_pwd_img_forget) {
-			User user = UserDataHelper.getUserLoginInfo(mContext);
+			User user = SlateDataHelper.getUserLoginInfo(mContext);
 			if (user != null && !TextUtils.isEmpty(user.getUserName())) {
 				doForgetPwd(user.getUserName());
 			}
@@ -156,7 +156,7 @@ public class ModifyPwdActivity extends SlateBaseActivity implements
 	 *            新密码
 	 */
 	protected void doModifyPwd(String oldPwd, String newPassword) {
-		User user = UserDataHelper.getUserLoginInfo(mContext);
+		User user = SlateDataHelper.getUserLoginInfo(mContext);
 		if (UserTools.checkPasswordFormat(mContext, newPassword)
 				&& user != null) {
 			showLoadingDialog(true);

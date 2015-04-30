@@ -7,6 +7,7 @@ import java.util.Map;
 
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.model.ErrorMsg;
+import cn.com.modernmediaslate.model.User;
 
 public class MultiComment extends Entry {
 	private static final long serialVersionUID = 1L;

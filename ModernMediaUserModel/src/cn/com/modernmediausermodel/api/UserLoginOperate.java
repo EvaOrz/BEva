@@ -11,6 +11,7 @@ import cn.com.modernmediausermodel.util.UserConstData;
 public class UserLoginOperate extends UserModelBaseOperate {
 
 	protected UserLoginOperate(String userName, String password) {
+		super();
 		// post 参数设置
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		JSONObject object = new JSONObject();

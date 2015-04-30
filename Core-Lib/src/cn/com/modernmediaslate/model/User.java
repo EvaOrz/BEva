@@ -1,4 +1,4 @@
-package cn.com.modernmediausermodel.model;
+package cn.com.modernmediaslate.model;
 
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.model.ErrorMsg;

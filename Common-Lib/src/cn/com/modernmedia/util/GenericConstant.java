@@ -14,6 +14,5 @@ public class GenericConstant {
 
 	// 进入广告页
 	public static final String PIC_LIST = "pic_list";
-	public static final String EFFECTS = "effects";
-	public static final String IMPRESSION_URL = "impressionUrl";
+	public static final String ADV_ITEM = "adv_item";
 }

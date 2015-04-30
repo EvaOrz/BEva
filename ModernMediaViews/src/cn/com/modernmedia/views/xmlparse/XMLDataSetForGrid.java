@@ -25,7 +25,7 @@ import cn.com.modernmedia.views.model.Template.GridItem;
 import cn.com.modernmedia.views.util.V;
 import cn.com.modernmediaslate.unit.DateFormatTool;
 import cn.com.modernmediaslate.unit.ParseUtil;
-import cn.com.modernmediausermodel.util.UserTools;
+import cn.com.modernmediaslate.unit.Tools;
 
 /**
  * grid类型列表设置数据
@@ -492,9 +492,9 @@ public class XMLDataSetForGrid extends BaseXMLDataSet {
 
 				@Override
 				public void onClick(View v) {
-					ModernMediaTools.addFav(mContext, item,
-							UserTools.getUid(mContext),
-							new BindFavToUserImplement(mContext));
+					ModernMediaTools.addFav(mContext, item, Tools
+							.getUid(mContext), new BindFavToUserImplement(
+							mContext));
 					changeFav(v, item);
 				}
 			});
@@ -509,7 +509,7 @@ public class XMLDataSetForGrid extends BaseXMLDataSet {
 	 */
 	private void changeFav(View view, ArticleItem item) {
 		boolean faved = NewFavDb.getInstance(mContext).containThisFav(
-				item.getArticleId(), UserTools.getUid(mContext));
+				item.getArticleId(), Tools.getUid(mContext));
 		if (faved) {
 			if (view.getTag(R.id.select_bg) instanceof String) {
 				V.setImage(view, view.getTag(R.id.select_bg).toString());

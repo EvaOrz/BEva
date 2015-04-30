@@ -12,6 +12,7 @@ import cn.com.modernmediausermodel.util.UserConstData;
 public class UserFindPasswordOperate extends UserModelBaseOperate {
 
 	protected UserFindPasswordOperate(String userName) {
+		super();
 		// post 参数设置
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		JSONObject object = new JSONObject();

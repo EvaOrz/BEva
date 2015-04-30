@@ -14,11 +14,11 @@ import android.widget.TextView;
 import cn.com.modernmediaslate.SlateBaseActivity;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.model.ErrorMsg;
+import cn.com.modernmediaslate.unit.Tools;
 import cn.com.modernmediausermodel.api.UserOperateController;
 import cn.com.modernmediausermodel.listener.UserFetchEntryListener;
 import cn.com.modernmediausermodel.model.MultiComment.CommentItem;
 import cn.com.modernmediausermodel.util.CopyTextHelper;
-import cn.com.modernmediausermodel.util.UserTools;
 
 public class WriteCommentActivity extends SlateBaseActivity implements
 		OnClickListener {
@@ -89,7 +89,7 @@ public class WriteCommentActivity extends SlateBaseActivity implements
 		// 创建属于当前卡片的一个评论对象
 		final CommentItem item = new CommentItem();
 		item.setContent(contentEdit.getText().toString());
-		item.setUid(UserTools.getUid(this));
+		item.setUid(Tools.getUid(this));
 		item.setCardId(cardId);
 		item.setTime(Calendar.getInstance().getTimeInMillis() / 1000 + "");
 		showLoadingDialog(true);

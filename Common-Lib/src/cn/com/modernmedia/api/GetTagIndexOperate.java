@@ -7,7 +7,7 @@ import cn.com.modernmedia.model.TagInfoList.TagInfo;
  * 获取栏目首页列表
  * 
  * @author zhuqiao
- *
+ * 
  */
 public class GetTagIndexOperate extends GetTagArticlesOperate {
 

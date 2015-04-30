@@ -19,6 +19,7 @@ import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmedia.util.DataHelper;
 import cn.com.modernmedia.util.WeeklyLogEvent;
 import cn.com.modernmedia.views.ArticleActivity;
+import cn.com.modernmedia.views.PushArticleActivity;
 import cn.com.modernmedia.views.R;
 import cn.com.modernmedia.views.util.V;
 import cn.com.modernmedia.views.xmlparse.BaseXMLDataSet;
@@ -51,7 +52,7 @@ public class XMLDataSetForArticle extends BaseXMLDataSet {
 	protected void onClick(View view, ArticleItem item, ArticleType articleType) {
 		if (!(view.getTag(R.id.click) instanceof String))
 			return;
-		if (!(mContext instanceof ArticleActivity))
+		if (!((mContext instanceof ArticleActivity) || (mContext instanceof PushArticleActivity)))
 			return;
 		String click = view.getTag(R.id.click).toString();
 		if (click.equals(FunctionArticle.BACK)) {
@@ -91,7 +92,7 @@ public class XMLDataSetForArticle extends BaseXMLDataSet {
 	/**
 	 * 返回
 	 */
-	private void back() {
+	protected void back() {
 		((ArticleActivity) mContext).back();
 	}
 
@@ -107,14 +108,14 @@ public class XMLDataSetForArticle extends BaseXMLDataSet {
 	/**
 	 * 收藏
 	 */
-	private void share() {
+	protected void share() {
 		((ArticleActivity) mContext).showShare();
 	}
 
 	/**
 	 * 字体
 	 */
-	private void font() {
+	protected void font() {
 		if (isSettingBarExist()) { // 存在设置栏
 			if (isShowingSettings()) {
 				disSetting(300);
@@ -178,13 +179,19 @@ public class XMLDataSetForArticle extends BaseXMLDataSet {
 	 * 广告时是否隐藏导航栏功能按钮
 	 * 
 	 * @param hide
+	 *            是否隐藏
+	 * @param isPush
+	 *            是否是推送文章
 	 */
-	public void hideIfAdv(boolean hide) {
+	public void hideIfAdv(boolean hide, boolean isPush) {
 		Set<String> keySets = map.keySet();
 		for (String key : keySets) {
-			if (FunctionArticle.FONT_IMG.equals(key)
-					|| FunctionArticle.SHARE_IMG.equals(key)
-					|| FunctionXML.FAV.equals(key) || FunctionArticle.ACRTICLE_CARD.equals(key)) {
+			boolean inKeys = FunctionArticle.FONT_IMG.equals(key)
+					|| FunctionXML.FAV.equals(key)
+					|| FunctionArticle.ACRTICLE_CARD.equals(key);
+			if (!isPush)
+				inKeys = inKeys || FunctionArticle.SHARE_IMG.equals(key);
+			if (inKeys) {
 				View view = map.get(key);
 				if (!(view instanceof View))
 					continue;
@@ -249,7 +256,7 @@ public class XMLDataSetForArticle extends BaseXMLDataSet {
 	/**
 	 * 减小字体
 	 */
-	private void fontMinus(View v) {
+	protected void fontMinus(View v) {
 		((ArticleActivity) mContext).clickFont(false);
 		afterSettingsFont();
 	}
@@ -257,7 +264,7 @@ public class XMLDataSetForArticle extends BaseXMLDataSet {
 	/**
 	 * 增加字体
 	 */
-	private void fontPlus(View v) {
+	protected void fontPlus(View v) {
 		((ArticleActivity) mContext).clickFont(true);
 		afterSettingsFont();
 	}
@@ -265,7 +272,7 @@ public class XMLDataSetForArticle extends BaseXMLDataSet {
 	/**
 	 * 减小行距
 	 */
-	private void spacingMinus(View v) {
+	protected void spacingMinus(View v) {
 		((CommonArticleActivity) mContext).changeLineHeight(false);
 		afterSettingsLine();
 	}
@@ -273,7 +280,7 @@ public class XMLDataSetForArticle extends BaseXMLDataSet {
 	/**
 	 * 增加行距
 	 */
-	private void spacingPlus(View v) {
+	protected void spacingPlus(View v) {
 		((CommonArticleActivity) mContext).changeLineHeight(true);
 		afterSettingsLine();
 	}
@@ -281,7 +288,7 @@ public class XMLDataSetForArticle extends BaseXMLDataSet {
 	/**
 	 * 更新字体按钮状态
 	 */
-	private void afterSettingsFont() {
+	protected void afterSettingsFont() {
 		int now = DataHelper.getFontSize(mContext);
 		if (map.containsKey(FunctionArticle.FONT_PLUS)) {
 			View plus = map.get(FunctionArticle.FONT_PLUS);
@@ -308,7 +315,7 @@ public class XMLDataSetForArticle extends BaseXMLDataSet {
 	/**
 	 * 更新行距按钮状态
 	 */
-	private void afterSettingsLine() {
+	protected void afterSettingsLine() {
 		int now = DataHelper.getLineHeight(mContext);
 		if (map.containsKey(FunctionArticle.SPACING_PLUS)) {
 			View plus = map.get(FunctionArticle.SPACING_PLUS);

@@ -17,7 +17,7 @@ public class ConstData {
 	/** 接口版本号 **/
 	public static String API_VERSION = "5";
 	/** 设备号 **/
-	// test xiaomihezi=9
+	// NOTE xiaomihezi=9
 	public static String DEVICE_TYPE = "10";
 	/** 数据类型（1 protobuf格式 2 json格式） **/
 	public static final String DATA_TYPE = "2";
@@ -30,7 +30,7 @@ public class ConstData {
 	/** toast显示时间 **/
 	public static final int TOAST_LENGTH = 1000;
 	/** 版本号 **/
-	public static final int VERSION = 251;
+	public static final int VERSION = 260;
 	/** splash停留时间 **/
 	public static int SPLASH_DELAY_TIME = 1000;
 	/** 文件保存地址 **/

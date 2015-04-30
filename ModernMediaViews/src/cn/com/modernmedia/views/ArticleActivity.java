@@ -48,7 +48,7 @@ import cn.com.modernmediausermodel.util.UserPageTransfer;
  * 
  */
 public class ArticleActivity extends CommonArticleActivity {
-	private TemplateAriticle template;
+	protected TemplateAriticle template;
 	private XMLDataSetForArticle dataSet;
 
 	public static boolean fix_buf_article;// iweekly推送会出错？
@@ -183,7 +183,7 @@ public class ArticleActivity extends CommonArticleActivity {
 
 	@Override
 	protected void hideIfAdv(boolean hide) {
-		dataSet.hideIfAdv(hide);
+		dataSet.hideIfAdv(hide, false);
 	}
 
 	@Override
@@ -242,26 +242,24 @@ public class ArticleActivity extends CommonArticleActivity {
 
 				@Override
 				public void showGallery(List<String> urlList, String currentUrl) {
-					if (ParseUtil.listNotNull(urlList)
-							&& ViewsApplication.articleGalleryCls != null) {
-						Intent intent = new Intent(ArticleActivity.this,
-								ViewsApplication.articleGalleryCls);
-						Bundle bundle = new Bundle();
-						bundle.putStringArrayList("URL_LIST",
-								(ArrayList<String>) urlList);
-						bundle.putString(
-								"TITLE",
-								detail.getTitle() == null ? "" : detail
-										.getTitle());
-						bundle.putString("DESC", detail.getDesc() == null ? ""
-								: detail.getDesc());
-						int index = urlList.indexOf(currentUrl);
-						if (index < 0 || index >= urlList.size())
-							index = 0;
-						bundle.putInt("INDEX", index);
-						intent.putExtras(bundle);
-						startActivity(intent);
-					}
+					if (!ParseUtil.listNotNull(urlList)
+							|| ViewsApplication.articleGalleryCls == null)
+						return;
+					Intent intent = new Intent(ArticleActivity.this,
+							ViewsApplication.articleGalleryCls);
+					Bundle bundle = new Bundle();
+					bundle.putStringArrayList("URL_LIST",
+							(ArrayList<String>) urlList);
+					bundle.putString("TITLE", detail.getTitle() == null ? ""
+							: detail.getTitle());
+					bundle.putString("DESC", detail.getDesc() == null ? ""
+							: detail.getDesc());
+					int index = urlList.indexOf(currentUrl);
+					if (index < 0 || index >= urlList.size())
+						index = 0;
+					bundle.putInt("INDEX", index);
+					intent.putExtras(bundle);
+					startActivity(intent);
 				}
 
 			};
