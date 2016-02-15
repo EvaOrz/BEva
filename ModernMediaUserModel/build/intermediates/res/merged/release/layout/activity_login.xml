@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white_bg" >
+
+    <ImageView
+        android:id="@+id/login_img_close"
+        android:layout_width="@dimen/login_image_close_width"
+        android:layout_height="@dimen/login_image_close_width"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/login_image_close_marginright"
+        android:layout_marginTop="@dimen/login_image_close_margintop"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_close_login" />
+
+    <TextView
+        android:id="@+id/login_other_desc"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/login_btn_weibo_height"
+        android:layout_below="@id/login_img_close"
+        android:layout_marginLeft="@dimen/login_desc_marginLeft"
+        android:layout_marginTop="@dimen/login_other_login_desc_marginTop"
+        android:text="@string/some_account_login"
+        android:textColor="@color/login_desc"
+        android:textSize="@dimen/dp12_textsize" />
+
+    <ImageView
+        android:id="@+id/login_btn_weixin_login"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/login_btn_weibo_height"
+        android:layout_below="@+id/login_other_desc"
+        android:layout_marginLeft="@dimen/login_btn_weibo_marginLeft"
+        android:layout_marginRight="@dimen/login_btn_weibo_marginLeft"
+        android:layout_marginTop="@dimen/login_btn_weibo_marginTop"
+        android:contentDescription="@null"
+        android:scaleType="fitXY"
+        android:src="@drawable/login_weixin_bg" />
+
+    <ImageView
+        android:id="@+id/login_btn_sina_login"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/login_btn_weibo_height"
+        android:layout_below="@+id/login_btn_weixin_login"
+        android:layout_marginLeft="@dimen/login_btn_weibo_marginLeft"
+        android:layout_marginRight="@dimen/login_btn_weibo_marginLeft"
+        android:layout_marginTop="@dimen/login_btn_qq_marginTop"
+        android:contentDescription="@null"
+        android:scaleType="fitXY"
+        android:src="@drawable/login_weibo_bg" />
+
+    <ImageView
+        android:id="@+id/login_btn_qq_login"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/login_btn_weibo_height"
+        android:layout_below="@+id/login_btn_sina_login"
+        android:layout_marginLeft="@dimen/login_btn_weibo_marginLeft"
+        android:layout_marginRight="@dimen/login_btn_weibo_marginLeft"
+        android:layout_marginTop="@dimen/login_btn_qq_marginTop"
+        android:contentDescription="@null"
+        android:scaleType="fitXY"
+        android:src="@drawable/login_qq_bg" />
+
+    <TextView
+        android:id="@+id/login_desc"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/login_btn_qq_login"
+        android:layout_marginLeft="@dimen/login_desc_marginLeft"
+        android:layout_marginTop="@dimen/login_desc_marginTop"
+        android:text="@string/moder_media_account_login"
+        android:textColor="@color/login_desc"
+        android:textSize="@dimen/dp12_textsize" />
+
+    <RelativeLayout
+        android:id="@+id/relativelayout_account"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/login_desc"
+        android:layout_marginLeft="@dimen/login_desc_marginLeft"
+        android:layout_marginRight="@dimen/login_desc_marginLeft"
+        android:layout_marginTop="@dimen/login_edittext_marginTop" >
+
+        <EditText
+            android:id="@+id/login_account"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/login_edittext_select"
+            android:gravity="center_vertical"
+            android:hint="@string/mail_address"
+            android:inputType="textEmailAddress"
+            android:singleLine="true"
+            android:textColor="@color/black_bg"
+            android:textColorHint="@color/login_desc"
+            android:textCursorDrawable="@null" />
+
+        <ImageView
+            android:id="@+id/login_img_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@null"
+            android:padding="@dimen/dp5"
+            android:src="@drawable/ic_text_field_clear" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativelayout_password"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/relativelayout_account"
+        android:layout_marginLeft="@dimen/login_desc_marginLeft"
+        android:layout_marginRight="@dimen/login_desc_marginLeft"
+        android:layout_marginTop="@dimen/login_btn_margintop" >
+
+        <EditText
+            android:id="@+id/login_password"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/login_edittext_select"
+            android:digits="@string/password_digits"
+            android:gravity="center_vertical"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:singleLine="true"
+            android:textColor="@color/black_bg"
+            android:textColorHint="@color/login_desc"
+            android:textCursorDrawable="@null" />
+
+        <ImageView
+            android:id="@+id/login_img_forget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@null"
+            android:padding="@dimen/dp5"
+            android:src="@drawable/ic_text_field_forget" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativelayout_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativelayout_password"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/login_btn_margintop" >
+
+        <Button
+            android:id="@+id/login_btn_register"
+            android:layout_width="@dimen/login_btn_width"
+            android:layout_height="@dimen/login_btn_height"
+            android:background="@drawable/login_btn_register_bg"
+            android:text="@string/register"
+            android:textColor="@color/login_desc"
+            android:textSize="@dimen/dp15_textsize" />
+
+        <Button
+            android:id="@+id/login_btn_login"
+            android:layout_width="@dimen/login_btn_width"
+            android:layout_height="@dimen/login_btn_height"
+            android:layout_marginLeft="@dimen/login_btn_login_marginleft"
+            android:layout_toRightOf="@id/login_btn_register"
+            android:background="@drawable/login_btn_login_bg"
+            android:text="@string/login"
+            android:textColor="@color/white_bg"
+            android:textSize="@dimen/dp15_textsize" />
+    </RelativeLayout>
+
+</RelativeLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaUserModel/src/main/res/layout/activity_login.xml -->

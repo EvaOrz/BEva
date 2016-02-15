@@ -1,0 +1,5 @@
+include ':coreLib'
+include ':commonLib'
+include ':modernMediaUserModel'
+include ':modernMediaViews'
+include ':businessweekforAndroidnewbranch20130403'

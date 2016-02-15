@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<lint>
-    <issue id="InflateParams">
-        <ignore path="src/cn/com/modernmedia/util/UpdateManager.java" />
-        <ignore path="src/cn/com/modernmedia/widget/ArticleDetailItem.java" />
-    </issue>
-</lint>

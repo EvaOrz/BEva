@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <RelativeLayout
+        android:id="@+id/select_child_column_list_item_img_frame"
+        android:layout_width="@dimen/select_child_column_list_item_img_size"
+        android:layout_height="@dimen/select_child_column_list_item_img_size"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/dp20"
+        android:layout_marginTop="@dimen/dp20" >
+
+        <ImageView
+            android:id="@+id/select_child_column_list_item_img"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerInParent="true"
+            android:contentDescription="@null"
+            android:scaleType="center" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/select_child_column_list_item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="12dp"
+        android:layout_toRightOf="@+id/select_child_column_list_item_img_frame"
+        android:textColor="@color/black_bg"
+        android:textSize="@dimen/dp18_textsize" />
+
+    <ImageView
+        android:id="@+id/select_child_column_list_item_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/dp15"
+        android:contentDescription="@null"
+        android:src="@drawable/subscribe_check" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/select_child_column_list_item_img_frame"
+        android:layout_marginLeft="25dp"
+        android:background="@drawable/subscribe_line" />
+
+</RelativeLayout><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaViews/src/main/res/layout/select_child_column_list_item.xml --><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaViews/build/intermediates/bundles/debug/res/layout/select_child_column_list_item.xml -->

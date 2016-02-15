@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white_bg" >
+
+    <ImageView
+        android:id="@+id/userinfo_img_close"
+        android:layout_width="@dimen/login_image_close_width"
+        android:layout_height="@dimen/login_image_close_width"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/login_image_close_marginright"
+        android:layout_marginTop="@dimen/login_image_close_margintop"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_close_login" />
+
+    <TextView
+        android:id="@+id/userinfo_desc"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/login_desc_marginLeft"
+        android:layout_marginRight="@dimen/login_desc_marginRight"
+        android:layout_marginTop="@dimen/login_desc_marginTop"
+        android:layout_toLeftOf="@+id/userinfo_img_close"
+        android:text="@string/set_userinfo_desc"
+        android:textColor="@color/login_desc"
+        android:textSize="@dimen/dp12_textsize" />
+
+    <ImageView
+        android:id="@+id/userinfo_avatar"
+        android:layout_width="@dimen/userinfo_avatar_size"
+        android:layout_height="@dimen/userinfo_avatar_size"
+        android:layout_below="@+id/userinfo_desc"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/userinfo_avatar_marginTop"
+        android:contentDescription="@null"
+        android:scaleType="fitXY" />
+
+    <RelativeLayout
+        android:id="@+id/userinfo_name_rl"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/login_edittext_height"
+        android:layout_below="@+id/userinfo_avatar"
+        android:layout_marginLeft="@dimen/login_edittext_margin"
+        android:layout_marginRight="@dimen/login_edittext_margin"
+        android:layout_marginTop="@dimen/userinfo_avatar_marginTop" >
+
+        <EditText
+            android:id="@+id/userinfo_name_edit"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/login_edittext_select"
+            android:hint="@string/userinfo_nickname"
+            android:inputType="textEmailAddress"
+            android:singleLine="true"
+            android:textColor="@color/black_bg"
+            android:textCursorDrawable="@null" />
+
+        <ImageView
+            android:id="@+id/userinfo_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@null"
+            android:padding="@dimen/dp5"
+            android:src="@drawable/ic_text_field_clear" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/userinfo_account_rl"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/login_edittext_height"
+        android:layout_alignLeft="@id/userinfo_name_rl"
+        android:layout_alignRight="@id/userinfo_name_rl"
+        android:layout_below="@+id/userinfo_name_rl"
+        android:layout_marginTop="@dimen/login_psd_edittext_marginTop"
+        android:visibility="gone" >
+
+        <EditText
+            android:id="@+id/userinfo_accout_edit"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/login_edittext_select"
+            android:hint="@string/mail_address"
+            android:inputType="textEmailAddress"
+            android:singleLine="true"
+            android:textColor="@color/black_bg"
+            android:textCursorDrawable="@null" />
+
+        <ImageView
+            android:id="@+id/userinfo_account_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@null"
+            android:padding="@dimen/dp5"
+            android:src="@drawable/ic_text_field_clear" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/userinfo_verify_code"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/login_edittext_height"
+        android:layout_alignLeft="@id/userinfo_name_rl"
+        android:layout_alignRight="@id/userinfo_name_rl"
+        android:layout_below="@+id/userinfo_account_rl"
+        android:layout_marginTop="@dimen/login_psd_edittext_marginTop"
+        android:orientation="horizontal"
+        android:visibility="gone" >
+
+        <EditText
+            android:id="@+id/userinfo_verify_edit"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/login_edittext_select"
+            android:hint="@string/verify_code"
+            android:inputType="number"
+            android:singleLine="true"
+            android:textColor="@color/black_bg"
+            android:textCursorDrawable="@null" />
+
+        <Button
+            android:id="@+id/userinfo_get_verify"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/login_btn_register_bg"
+            android:contentDescription="@null"
+            android:padding="@dimen/dp5"
+            android:text="@string/get_verify_code"
+            android:textColor="@color/black_bg"
+            android:textSize="@dimen/dp13_textsize" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/userinfo_complete"
+        android:layout_width="@dimen/login_btn_width"
+        android:layout_height="@dimen/login_btn_height"
+        android:layout_alignRight="@+id/userinfo_name_rl"
+        android:layout_below="@+id/userinfo_verify_code"
+        android:layout_marginTop="@dimen/login_btn_margintop"
+        android:background="@drawable/login_btn_login_bg"
+        android:text="@string/complete"
+        android:textColor="@color/white_bg"
+        android:textSize="@dimen/dp13_textsize" />
+
+    <TextView
+        android:id="@+id/userinfo_modify_pwd_btn"
+        android:layout_width="@dimen/userinfo_text_width"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/userinfo_name_rl"
+        android:layout_below="@+id/userinfo_complete"
+        android:layout_marginTop="@dimen/login_btn_margintop"
+        android:gravity="center_horizontal"
+        android:text="@string/modify_pwd"
+        android:textColor="@color/login_desc"
+        android:textSize="@dimen/userinfo_textsize" />
+
+    <TextView
+        android:id="@+id/userinfo_logout_btn"
+        android:layout_width="@dimen/userinfo_text_width"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/userinfo_name_rl"
+        android:layout_alignTop="@+id/userinfo_modify_pwd_btn"
+        android:gravity="center_horizontal"
+        android:text="@string/login_out"
+        android:textColor="@color/login_desc"
+        android:textSize="@dimen/userinfo_textsize" />
+
+    <ImageView
+        android:id="@+id/userinfo_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/userinfo_modify_pwd_btn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/login_img_marginTop"
+        android:contentDescription="@null" />
+
+</RelativeLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaUserModel/src/main/res/layout/user_info_activity.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/layout/user_info_activity.xml -->

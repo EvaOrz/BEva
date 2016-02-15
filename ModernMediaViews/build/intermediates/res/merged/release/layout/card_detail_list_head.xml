@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white_bg" >
+
+    <RelativeLayout
+        android:id="@+id/card_detail_item_head_frame"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/list_item_avatar_margin_top" >
+
+        <ImageView
+            android:id="@+id/card_detail_item__head_avatar"
+            android:layout_width="@dimen/list_item_avatar_size"
+            android:layout_height="@dimen/list_item_avatar_size"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp10"
+            android:layout_marginTop="@dimen/dp20"
+            android:contentDescription="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/avatar_placeholder" />
+
+        <TextView
+            android:id="@+id/card_detail_item__head_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/card_detail_item_head_user_name_marginLeft"
+            android:textColor="@color/black_bg"
+            android:textSize="@dimen/dp13_textsize" />
+
+        <TextView
+            android:id="@+id/card_detail_item_head_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/list_item_time_margin_left"
+            android:layout_toRightOf="@id/card_detail_item__head_user_name"
+            android:textColor="@color/listitem_des"
+            android:textSize="@dimen/card_size" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/card_detail_page_card_content"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/card_detail_item_head_frame"
+        android:layout_marginLeft="@dimen/card_detail_item_head_user_name_marginLeft"
+        android:layout_marginRight="@dimen/list_item_content_margin_right"
+        android:layout_marginTop="@dimen/list_item_content_margin_top"
+        android:singleLine="false"
+        android:textColor="@color/black_bg"
+        android:textSize="@dimen/follow_all_size" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:layout_below="@id/card_detail_page_card_content" />
+
+</RelativeLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaUserModel/src/main/res/layout/card_detail_list_head.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/layout/card_detail_list_head.xml -->

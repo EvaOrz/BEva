@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+
+    <ImageView
+        android:id="@+id/vertical_gallery_img"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:contentDescription="@null" />
+
+    <ImageView
+        android:id="@+id/vertical_gallery_new_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/vertical_gallery_img"
+        android:layout_alignTop="@+id/vertical_gallery_img"
+        android:contentDescription="@null"
+        android:src="@drawable/ico_gallery_new" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_alignRight="@+id/vertical_gallery_img"
+        android:layout_alignTop="@+id/vertical_gallery_img"
+        android:layout_marginRight="-5dp"
+        android:layout_marginTop="@dimen/dp10"
+        android:background="@drawable/bg_gallery_title_label" >
+
+        <TextView
+            android:id="@+id/vertical_gallery_title"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="-3dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dp10"
+            android:paddingRight="@dimen/dp15"
+            android:textColor="@color/white_bg"
+            android:textSize="@dimen/dp10_textsize" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/vertical_gallery_desc"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/gallery_detail_content_height"
+        android:layout_alignBottom="@+id/vertical_gallery_img"
+        android:layout_alignLeft="@+id/vertical_gallery_img"
+        android:layout_alignRight="@+id/vertical_gallery_img"
+        android:background="@color/translucent_black"
+        android:padding="@dimen/dp10"
+        android:textColor="@color/white_bg"
+        android:textSize="@dimen/dp13_textsize" />
+
+    <cn.com.modernmedia.widget.RedProcess
+        android:id="@+id/vertical_gallery_process"
+        android:layout_width="@dimen/red_ring_size_medium"
+        android:layout_height="@dimen/red_ring_size_medium"
+        android:layout_centerInParent="true" />
+
+</RelativeLayout><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaViews/src/main/res/layout/vertical_gallery_item.xml -->

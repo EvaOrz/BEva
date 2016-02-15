@@ -1,0 +1,264 @@
+package cn.com.modernmedia.api;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import android.content.Context;
+import cn.com.modernmedia.db.SoloDb;
+import cn.com.modernmedia.model.Adv;
+import cn.com.modernmedia.model.ArticleItem;
+import cn.com.modernmedia.model.IndexArticle.Position;
+import cn.com.modernmedia.model.SoloColumn;
+import cn.com.modernmedia.model.SoloColumn.SoloColumnChild;
+import cn.com.modernmedia.model.SoloColumn.SoloColumnItem;
+import cn.com.modernmedia.model.SoloColumnIndex;
+import cn.com.modernmedia.model.SoloColumnIndex.SoloColumnIndexItem;
+import cn.com.modernmedia.util.ConstData;
+import cn.com.modernmedia.util.DataHelper;
+import cn.com.modernmedia.util.ParseUtil;
+
+/**
+ * 独立栏目index
+ * 
+ * @author ZhuQiao
+ * 
+ */
+public class GetSoloColumnIndexOperate extends BaseOperate {
+	private Context mContext;
+	private SoloColumnIndex index;
+	private String url;
+	/**
+	 * 是否是网络请求(false：读取数据库数据，不执行addToDb操作)
+	 */
+	private boolean mFromNet = true;
+
+	/**
+	 * 需要装载全部数据的栏目名称(self的栏目动态根据自己名称加载)
+	 */
+	private List<String> fullKey = new ArrayList<String>();
+	private SoloDb soloDb;
+	private boolean mFecthNew;
+	private String mFromOffset, mToOffset;
+
+	/**
+	 * 
+	 * @param context
+	 * @param catId
+	 * @param fromOffset
+	 * @param toOffset
+	 * @param soloColumn
+	 * @param fromNet
+	 * @param fetchNew
+	 *            是否获取新的:true,只保存lasttooffset,false,只保存lastfromoffset(当0_0时两个都保存
+	 *            )
+	 */
+	public GetSoloColumnIndexOperate(Context context, String catId,
+			String fromOffset, String toOffset, SoloColumn soloColumn,
+			boolean fromNet, boolean fetchNew) {
+		mContext = context;
+		index = new SoloColumnIndex();
+		mFromOffset = fromOffset;
+		mToOffset = toOffset;
+		mFromNet = fromNet;
+		mFecthNew = fetchNew;
+		if (fromNet)
+			soloDb = SoloDb.getInstance(context);
+		SoloColumnItem mColumnItem = null;
+		if (ParseUtil.listNotNull(soloColumn.getList())) {
+			for (SoloColumnItem it : soloColumn.getList()) {
+				if (String.valueOf(it.getId()).equals(catId)) {
+					mColumnItem = it;
+					break;
+				}
+			}
+		}
+		if (mColumnItem != null && ParseUtil.listNotNull(mColumnItem.getList())) {
+			for (SoloColumnChild child : mColumnItem.getList()) {
+				index.getListMap().put(child.getName(),
+						new ArrayList<ArticleItem>());
+				index.getHeadMap().put(child.getName(),
+						new ArrayList<ArticleItem>());
+				if (child.getType().equals(SoloColumnChild.FULL_TYPE)) {
+					fullKey.add(child.getName());
+				}
+			}
+		}
+		url = UrlMaker.getSoloCatIndex(catId, fromOffset, toOffset);
+	}
+
+	public SoloColumnIndex getIndex() {
+		return index;
+	}
+
+	@Override
+	protected String getUrl() {
+		return url;
+	}
+
+	@Override
+	protected void handler(JSONObject jsonObject) {
+		index.setId(jsonObject.optInt("id", -1));
+		JSONArray array = jsonObject.optJSONArray("article");
+		if (isNull(array)) {
+			index.setHasData(false);
+			return;
+		}
+		JSONObject articleObj;
+		int length = array.length();
+		for (int i = 0; i < length; i++) {
+			articleObj = array.optJSONObject(i);
+			if (isNull(articleObj))
+				continue;
+			parseArticle(articleObj, i == 0, i == length - 1);
+		}
+	}
+
+	public void parseArticle(JSONObject jsonObject, boolean isFirst,
+			boolean isLast) {
+		ArticleItem item = new ArticleItem();
+		item.setSoloItem(new SoloColumnIndexItem());
+		item.setArticleId(jsonObject.optInt("id", -1));
+		item.setTitle(jsonObject.optString("title"));
+		item.setDesc(jsonObject.optString("desc", ""));
+		item.getSoloItem().setTag(jsonObject.optString("tag", ""));
+		item.setCatId(jsonObject.optInt("catid", -1));
+
+		// 如果当前文章的catid不在columnlist中，不添加
+		if (DataHelper.columnTitleMap == null
+				|| !DataHelper.columnTitleMap.containsKey(item.getCatId())) {
+			return;
+		}
+
+		item.getSoloItem().setLink(jsonObject.optString("link", ""));
+		JSONObject positionObj = jsonObject.optJSONObject("position");
+		if (!isNull(positionObj))
+			item.setPosition(parseTitlePosition(positionObj));
+		item.getSoloItem().setPagenum(jsonObject.optInt("pagenum", -1));
+		item.getSoloItem()
+				.setUpdateTime(jsonObject.optString("updateTime", ""));
+		item.getSoloItem().setAuthor(jsonObject.optString("author", ""));
+		item.getSoloItem().setOutline(jsonObject.optString("outline", ""));
+
+		// 大图解析
+		JSONArray picArr = jsonObject.optJSONArray("picture");
+		if (!isNull(picArr)) {
+			item.setPictureList(parseThumb(picArr));
+		}
+
+		// 列表图解析
+		JSONArray thumbArr = jsonObject.optJSONArray("thumb");
+		if (!isNull(thumbArr))
+			item.setPictureList(parseThumb(thumbArr));
+		item.getSoloItem().setInputtime(jsonObject.optString("inputtime", ""));
+		item.getSoloItem().setOffset(jsonObject.optString("offset", "0"));
+
+		Adv adv = parseAdv(jsonObject);
+		if (adv.getAdvProperty().getIsadv() == 1 && !adv.isExpired())
+			item.setAdv(adv);
+
+		if (mFromNet && soloDb != null)
+			soloDb.updateSoloItem(index.getId(), item, jsonObject.toString());
+
+		addDataToMap(item);
+		saveOffset(item, isFirst, isLast);
+	}
+
+	private void addDataToMap(ArticleItem item) {
+		if (fullKey == null)
+			return;
+		for (String full_key : fullKey) {
+			if (item.getPosition().getId() == 1)
+				index.getHeadMap().get(full_key).add(item);
+			else if (ConstData.getAppId() != 1
+					|| item.getAdv().getAdvProperty().getIsadv() != 1)
+				// 商周列表过滤掉广告
+				index.getListMap().get(full_key).add(item);
+		}
+
+		String key = item.getSoloItem().getTag();
+		if (!fullKey.contains(key)) {
+			if (item.getPosition().getId() == 1) {
+				if (index.getHeadMap().containsKey(key)) {
+					index.getHeadMap().get(key).add(item);
+				}
+			} else {
+				if (index.getListMap().containsKey(key)) {
+					if (ConstData.getAppId() != 1
+							|| item.getAdv().getAdvProperty().getIsadv() != 1)
+						// 商周列表过滤掉广告
+						index.getListMap().get(key).add(item);
+				}
+			}
+		}
+	}
+
+	/**
+	 * 保存最新的offset
+	 * 
+	 * @param item
+	 * @param isFirst
+	 * @param isLast
+	 */
+	private void saveOffset(ArticleItem item, boolean isFirst, boolean isLast) {
+		if (mFromOffset.equals("0") && mToOffset.equals("0")) {
+			if (isFirst)
+				DataHelper.setLastToOffset(mContext, item.getSoloItem()
+						.getOffset());
+			else if (isLast)
+				DataHelper.setLastFromOffset(mContext, item.getSoloItem()
+						.getOffset());
+		} else {
+			if (isFirst && mFecthNew)
+				DataHelper.setLastToOffset(mContext, item.getSoloItem()
+						.getOffset());
+			else if (isLast && !mFecthNew)
+				DataHelper.setLastFromOffset(mContext, item.getSoloItem()
+						.getOffset());
+		}
+	}
+
+	/**
+	 * 解析焦点图片位置
+	 * 
+	 * @param obj
+	 * @return
+	 */
+	private Position parseTitlePosition(JSONObject obj) {
+		Position position = new Position();
+		position.setId(obj.optInt("id", -1));
+		position.setStyle(obj.optInt("style", -1));
+		return position;
+	}
+
+	/**
+	 * 解析文章对于的图片
+	 * 
+	 * @param array
+	 * @return
+	 */
+	private List<String> parseThumb(JSONArray array) {
+		List<String> thumbList = new ArrayList<String>();
+		JSONObject object;
+		for (int i = 0; i < array.length(); i++) {
+			object = array.optJSONObject(i);
+			if (isNull(object))
+				continue;
+			thumbList.add(object.optString("url", ""));
+		}
+		return thumbList;
+	}
+
+	@Override
+	protected void saveData(String data) {
+
+	}
+
+	@Override
+	protected String getDefaultFileName() {
+		return null;
+	}
+
+}

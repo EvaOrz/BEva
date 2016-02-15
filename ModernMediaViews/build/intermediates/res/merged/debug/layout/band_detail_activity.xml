@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_bg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/bar_height"
+        android:layout_marginBottom="10dp"
+        android:background="@color/title_bar" >
+
+        <ImageView
+            android:id="@+id/band_back"
+            android:layout_width="@dimen/bar_height"
+            android:layout_height="@dimen/bar_height"
+            android:layout_marginLeft="@dimen/nav_button_margin_left"
+            android:contentDescription="@null"
+            android:scaleType="center"
+            android:src="@drawable/ic_back" />
+
+        <TextView
+            android:id="@+id/band_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="绑定账号"
+            android:textColor="@color/black_bg"
+            android:textSize="@dimen/nav_title_size" />
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:contentDescription="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/list_item_divider" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_band"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="15dp" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/login_edittext_height"
+            android:layout_marginTop="15dp" >
+
+            <EditText
+                android:id="@+id/forget_phone"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/login_edittext_select"
+                android:hint="手机号"
+                android:inputType="textEmailAddress"
+                android:singleLine="true"
+                android:textColor="@color/black_bg"
+                android:textCursorDrawable="@null" />
+
+            <ImageView
+                android:id="@+id/forget_phone_clear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:contentDescription="@null"
+                android:padding="@dimen/dp5"
+                android:src="@drawable/ic_text_field_clear" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_verify"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/login_edittext_height"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/forget_verify_edit"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/login_edittext_select"
+                android:hint="@string/verify_code"
+                android:inputType="number"
+                android:singleLine="true"
+                android:textColor="@color/black_bg"
+                android:textCursorDrawable="@null" />
+
+            <Button
+                android:id="@+id/forget_get_verify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/login_btn_register_bg"
+                android:contentDescription="@null"
+                android:padding="@dimen/dp5"
+                android:text="@string/get_verify_code"
+                android:textColor="@color/black_bg"
+                android:textSize="@dimen/dp13_textsize" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/forget_complete"
+            android:layout_width="@dimen/login_btn_width"
+            android:layout_height="@dimen/login_btn_height"
+            android:layout_gravity="right"
+            android:layout_marginTop="@dimen/userinfo_avatar_marginTop"
+            android:background="@drawable/login_btn_login_bg"
+            android:text="@string/complete"
+            android:textColor="@color/white_bg"
+            android:textSize="@dimen/dp13_textsize" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_shouhuo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="15dp" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/login_edittext_height"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:text="姓名"
+                android:textColor="@color/black_bg"
+                android:textSize="@dimen/dp15_textsize" />
+
+            <EditText
+                android:id="@+id/name_edit"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/login_edittext_select"
+                android:singleLine="true"
+                android:textColor="@color/black_bg"
+                android:textCursorDrawable="@null" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/login_edittext_height"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:text="电话"
+                android:textColor="@color/black_bg"
+                android:textSize="@dimen/dp15_textsize" />
+
+            <EditText
+                android:id="@+id/phone_edit"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/login_edittext_select"
+                android:singleLine="true"
+                android:textColor="@color/black_bg"
+                android:textCursorDrawable="@null" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/login_edittext_height"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:text="省市"
+                android:textColor="@color/black_bg"
+                android:textSize="@dimen/dp15_textsize" />
+
+            <EditText
+                android:id="@+id/city_edit"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/login_edittext_select"
+                android:singleLine="true"
+                android:textColor="@color/black_bg"
+                android:textCursorDrawable="@null" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/login_edittext_height"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:text="详细地址"
+                android:textColor="@color/black_bg"
+                android:textSize="@dimen/dp15_textsize" />
+
+            <EditText
+                android:id="@+id/detail_edit"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/login_edittext_select"
+                android:singleLine="true"
+                android:textColor="@color/black_bg"
+                android:textCursorDrawable="@null" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/login_edittext_height"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:text="邮编"
+                android:textColor="@color/black_bg"
+                android:textSize="@dimen/dp15_textsize" />
+
+            <EditText
+                android:id="@+id/bian_edit"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/login_edittext_select"
+                android:singleLine="true"
+                android:textColor="@color/black_bg"
+                android:textCursorDrawable="@null" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/band_save"
+            android:layout_width="@dimen/login_btn_width"
+            android:layout_height="@dimen/login_btn_height"
+            android:layout_gravity="right"
+            android:layout_marginTop="@dimen/userinfo_avatar_marginTop"
+            android:background="@drawable/login_btn_login_bg"
+            android:text="保存"
+            android:textColor="@color/white_bg"
+            android:textSize="@dimen/dp13_textsize" />
+    </LinearLayout>
+
+</LinearLayout><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/layout/band_detail_activity.xml --><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaViews/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/unspecified/res/layout/band_detail_activity.xml -->

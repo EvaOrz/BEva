@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle" >
+
+    <solid android:color="@color/login_btn_login_bg" />
+
+    <corners android:radius="@dimen/dp5" />
+
+    <size
+        android:height="@dimen/login_btn_width"
+        android:width="@dimen/login_btn_height" />
+
+</shape><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaUserModel/src/main/res/drawable/login_btn_login_bg.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/drawable/login_btn_login_bg.xml -->

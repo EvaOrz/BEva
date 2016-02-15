@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fafafa" >
+
+    <RelativeLayout
+        android:id="@+id/select_column_title_frame"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/select_column_title"
+            android:textColor="@color/black_bg"
+            android:textSize="@dimen/dp18_textsize" />
+
+        <TextView
+            android:id="@+id/select_column_sure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp5"
+            android:layout_marginTop="@dimen/dp5"
+            android:padding="@dimen/dp10"
+            android:text="@string/sure"
+            android:textColor="@color/black_bg"
+            android:textSize="@dimen/dp15_textsize" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/select_column_tab_frame"
+        android:layout_width="213dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/select_column_title_frame"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp15"
+        android:baselineAligned="false"
+        android:orientation="horizontal" >
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="#c8c8c8" >
+
+            <TextView
+                android:id="@+id/manage_curr_app"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginBottom="1dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="0.5dp"
+                android:layout_marginTop="1dp"
+                android:background="#fafafa"
+                android:gravity="center"
+                android:text="@string/manage_curr_column"
+                android:textColor="#333333"
+                android:textSize="@dimen/dp12_textsize" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="#c8c8c8" >
+
+            <TextView
+                android:id="@+id/manage_other_app"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginBottom="1dp"
+                android:layout_marginLeft="0.5dp"
+                android:layout_marginRight="1dp"
+                android:layout_marginTop="1dp"
+                android:background="#4691dc"
+                android:gravity="center"
+                android:text="@string/manage_other_column"
+                android:textColor="@color/white_bg"
+                android:textSize="@dimen/dp12_textsize" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="@dimen/subcribe_cloud_width"
+        android:layout_height="@dimen/subcribe_cloud_height"
+        android:layout_below="@+id/select_column_title_frame"
+        android:layout_marginLeft="@dimen/dp15"
+        android:layout_marginTop="@dimen/dp10"
+        android:contentDescription="@null"
+        android:src="@drawable/subscribe_cloud"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/select_column_ufo"
+        android:layout_width="@dimen/subcribe_ufo_width"
+        android:layout_height="@dimen/subcribe_ufo_height"
+        android:layout_below="@+id/select_column_title_frame"
+        android:layout_marginLeft="@dimen/subcribe_ufo_marginLeft"
+        android:contentDescription="@null"
+        android:src="@drawable/subscribe_ufo"
+        android:visibility="gone" />
+
+    <ImageView
+        android:layout_width="@dimen/subcribe_cloud_width"
+        android:layout_height="@dimen/subcribe_cloud_height"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/select_column_title_frame"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="@dimen/dp15"
+        android:contentDescription="@null"
+        android:src="@drawable/subscribe_cloud"
+        android:visibility="gone" />
+
+    <ImageView
+        android:layout_width="@dimen/subcribe_cloud_width"
+        android:layout_height="@dimen/subcribe_cloud_height"
+        android:layout_below="@+id/select_column_title_frame"
+        android:layout_marginLeft="33dp"
+        android:layout_marginTop="60dp"
+        android:contentDescription="@null"
+        android:src="@drawable/subscribe_cloud"
+        android:visibility="gone" />
+
+    <ImageView
+        android:layout_width="@dimen/subcribe_cloud_width"
+        android:layout_height="@dimen/subcribe_cloud_height"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/select_column_title_frame"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="150dp"
+        android:contentDescription="@null"
+        android:src="@drawable/subscribe_cloud"
+        android:visibility="gone" />
+
+    <ImageView
+        android:layout_width="@dimen/subcribe_cloud_width"
+        android:layout_height="@dimen/subcribe_cloud_height"
+        android:layout_below="@+id/select_column_title_frame"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="185dp"
+        android:contentDescription="@null"
+        android:src="@drawable/subscribe_cloud"
+        android:visibility="gone" />
+
+    <ListView
+        android:id="@+id/select_column_list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/select_column_tab_frame"
+        android:cacheColorHint="@null"
+        android:divider="@null"
+        android:fadingEdge="none" />
+
+</RelativeLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/layout/select_column_activity.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/modernMediaViews/unspecified/res/layout/select_column_activity.xml -->

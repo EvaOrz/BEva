@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/btn_browser_settings_size_minus_2" android:state_selected="true" />
+    <item android:drawable="@drawable/btn_browser_settings_size_minus_2" android:state_pressed="true" />
+    <item android:drawable="@drawable/btn_browser_settings_size_minus_1" />
+</selector>
+<!-- From: file:/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/res/drawable/btn_browser_settings_size_minus.xml -->
