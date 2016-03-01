@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import android.content.Context;
-import android.util.Log;
 import cn.com.modernmedia.CommonApplication;
 import cn.com.modernmediaslate.unit.Tools;
 

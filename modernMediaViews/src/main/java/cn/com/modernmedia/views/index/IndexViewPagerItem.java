@@ -9,7 +9,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -459,13 +458,18 @@ public class IndexViewPagerItem implements Observer, CheckNavHideListener {
 					public void setData(Entry entry) {
 						if (entry instanceof TagArticleList) {
 							TagArticleList index = (TagArticleList) entry;
-							Log.e("获取头条点击slate_url", index.getLink());
 							if (ParseUtil.listNotNull(index.getArticleList())) {
 								ArticleItem marqueeItem = index
 										.getArticleList().get(0);
 								marqueeItem.setSlateLink(index.getLink());// 跑马灯栏目塞整体外链
 								marqueeItem.getPosition().setStyle(7);
-								if (articleList.getMap().containsKey(2)
+								if (articleList.getMap().containsKey(3)
+										&& ParseUtil.listNotNull(articleList
+												.getMap().get(3))) {// ibloomberg临时修复
+									// 把跑马灯文章添加到栏目首页列表第一篇
+									articleList.getMap().get(2)
+											.add(0, marqueeItem);
+								} else if (articleList.getMap().containsKey(2)
 										&& ParseUtil.listNotNull(articleList
 												.getMap().get(2))) {
 									// 把跑马灯文章添加到栏目首页列表第一篇

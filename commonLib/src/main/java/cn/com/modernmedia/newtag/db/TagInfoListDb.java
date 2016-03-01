@@ -27,7 +27,7 @@ import cn.com.modernmediaslate.unit.ParseUtil;
  */
 public class TagInfoListDb extends TagDbListenerImplement {
 	private static final String DATABASE_NAME = "tag_info_list.db";
-	private static final int DATABASE_VERSION = 1;
+	private static final int DATABASE_VERSION = 3;
 	private static final String TABLE_NAME = "tag_info_list";
 
 	// column name
@@ -45,6 +45,8 @@ public class TagInfoListDb extends TagDbListenerImplement {
 	private static final String TAG_LEVEL = "tagLevel";// 15
 	private static final String COLUMN_UPDATETIME = "coloumnupdatetime";// 16
 	private static final String TAG_TAG_TYPE = "tag_type";// 17
+	private static final String IS_RADIO = "isRadio";// 18
+	private static final String TYPE = "type";// 19
 
 	private static TagInfoListDb instance = null;
 	private Context mContext;
@@ -86,6 +88,8 @@ public class TagInfoListDb extends TagDbListenerImplement {
 		helper.addColumn(TAG_LEVEL, "INTEGER");
 		helper.addColumn(COLUMN_UPDATETIME, "TEXT");
 		helper.addColumn(TAG_TAG_TYPE, "INTEGER");
+		helper.addColumn(IS_RADIO, "INTEGER");
+		helper.addColumn(TYPE, "INTEGER");
 		db.execSQL(helper.getSql());
 	}
 
@@ -145,6 +149,8 @@ public class TagInfoListDb extends TagDbListenerImplement {
 		tagInfo.setHasSubscribe(cursor.getInt(14));
 		tagInfo.setTagLevel(cursor.getInt(15));
 		tagInfo.setColoumnupdatetime(cursor.getString(16));
+		tagInfo.setIsRadio(cursor.getInt(18));
+		tagInfo.setType(cursor.getInt(19));
 		String columnJson = cursor.getString(11);
 		if (!TextUtils.isEmpty(columnJson)) {
 			try {
@@ -273,6 +279,8 @@ public class TagInfoListDb extends TagDbListenerImplement {
 		cv.put(HAS_SUBSCRIBE, tagInfo.getHasSubscribe());
 		cv.put(TAG_LEVEL, tagInfo.getTagLevel());
 		cv.put(COLUMN_UPDATETIME, tagInfo.getColoumnupdatetime());
+		cv.put(IS_RADIO, tagInfo.getIsRadio());
+		cv.put(TYPE, tagInfo.getType());
 		if (obj.length > 1 && (obj[1] instanceof TAG_TYPE)) {
 			int type = getType((TAG_TYPE) obj[1]);
 			cv.put(TAG_TAG_TYPE, type);

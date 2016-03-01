@@ -28,99 +28,99 @@ public final class R {
 		public static final int zoom_out = 0x7f040012;
 	}
 	public static final class color {
-		public static final int black_bg = 0x7f060000;
-		public static final int white_bg = 0x7f060004;
+		public static final int black_bg = 0x7f070000;
+		public static final int white_bg = 0x7f070009;
 	}
 	public static final class dimen {
-		public static final int dp1 = 0x7f070001;
-		public static final int dp10 = 0x7f070002;
-		public static final int dp10_textsize = 0x7f070003;
-		public static final int dp11_textsize = 0x7f070004;
-		public static final int dp12_textsize = 0x7f070005;
-		public static final int dp13_textsize = 0x7f070006;
-		public static final int dp14_textsize = 0x7f070007;
-		public static final int dp15 = 0x7f070008;
-		public static final int dp15_textsize = 0x7f070009;
-		public static final int dp16_textsize = 0x7f07000a;
-		public static final int dp17_textsize = 0x7f07000b;
-		public static final int dp18_textsize = 0x7f07000c;
-		public static final int dp19_textsize = 0x7f07000d;
-		public static final int dp2 = 0x7f07000e;
-		public static final int dp20_textsize = 0x7f07000f;
-		public static final int dp25_textsize = 0x7f070010;
-		public static final int dp30_textsize = 0x7f070011;
-		public static final int dp5 = 0x7f070012;
-		public static final int dp8_textsize = 0x7f070013;
-		public static final int footer_height = 0x7f070014;
-		public static final int footer_paddingBottom = 0x7f070015;
-		public static final int footer_paddingTop = 0x7f070016;
-		public static final int footer_textsize = 0x7f070017;
-		public static final int head_contentLayout_paddingLeft = 0x7f070018;
-		public static final int head_lastUpdatedTextView_tSize = 0x7f070019;
-		public static final int head_tipsTextView_tSize = 0x7f07001a;
+		public static final int dp1 = 0x7f080001;
+		public static final int dp10 = 0x7f080002;
+		public static final int dp10_textsize = 0x7f080003;
+		public static final int dp11_textsize = 0x7f080004;
+		public static final int dp12_textsize = 0x7f080005;
+		public static final int dp13_textsize = 0x7f080006;
+		public static final int dp14_textsize = 0x7f080007;
+		public static final int dp15 = 0x7f080008;
+		public static final int dp15_textsize = 0x7f080009;
+		public static final int dp16_textsize = 0x7f08000a;
+		public static final int dp17_textsize = 0x7f08000b;
+		public static final int dp18_textsize = 0x7f08000c;
+		public static final int dp19_textsize = 0x7f08000d;
+		public static final int dp2 = 0x7f08000e;
+		public static final int dp20_textsize = 0x7f08000f;
+		public static final int dp25_textsize = 0x7f080010;
+		public static final int dp30_textsize = 0x7f080011;
+		public static final int dp5 = 0x7f080012;
+		public static final int dp8_textsize = 0x7f080013;
+		public static final int footer_height = 0x7f080014;
+		public static final int footer_paddingBottom = 0x7f080015;
+		public static final int footer_paddingTop = 0x7f080016;
+		public static final int footer_textsize = 0x7f080017;
+		public static final int head_contentLayout_paddingLeft = 0x7f080018;
+		public static final int head_lastUpdatedTextView_tSize = 0x7f080019;
+		public static final int head_tipsTextView_tSize = 0x7f08001a;
 	}
 	public static final class drawable {
 		public static final int ic_launcher = 0x7f020002;
 		public static final int ic_pulltoload_arrow = 0x7f020003;
 		public static final int ic_pulltorefresh_arrow = 0x7f020004;
-		public static final int pull_to_load_footer_background = 0x7f020012;
-		public static final int pull_to_refresh_header_background = 0x7f020013;
+		public static final int pull_to_load_footer_background = 0x7f020021;
+		public static final int pull_to_refresh_header_background = 0x7f020022;
 	}
 	public static final class id {
-		public static final int footer_arrowImageView = 0x7f080024;
-		public static final int footer_contain = 0x7f080023;
-		public static final int footer_progressBar = 0x7f080025;
-		public static final int footer_text = 0x7f080026;
-		public static final int head_arrowImageView = 0x7f080028;
-		public static final int head_lastUpdatedTextView = 0x7f08002b;
-		public static final int head_progressBar = 0x7f080029;
-		public static final int head_tipsTextView = 0x7f08002a;
-		public static final int processBar = 0x7f08001c;
-		public static final int pull_head_contain = 0x7f080027;
-		public static final int scale_type = 0x7f080000;
-		public static final int user_footer_progressBar = 0x7f08002f;
-		public static final int user_footer_text = 0x7f080030;
+		public static final int footer_arrowImageView = 0x7f09003a;
+		public static final int footer_contain = 0x7f090039;
+		public static final int footer_progressBar = 0x7f09003b;
+		public static final int footer_text = 0x7f09003c;
+		public static final int head_arrowImageView = 0x7f09003e;
+		public static final int head_lastUpdatedTextView = 0x7f090041;
+		public static final int head_progressBar = 0x7f09003f;
+		public static final int head_tipsTextView = 0x7f090040;
+		public static final int processBar = 0x7f090032;
+		public static final int pull_head_contain = 0x7f09003d;
+		public static final int scale_type = 0x7f090000;
+		public static final int user_footer_progressBar = 0x7f090045;
+		public static final int user_footer_text = 0x7f090046;
 	}
 	public static final class interpolator {
 		public static final int decelerate_cubic = 0x7f050000;
 		public static final int decelerate_quint = 0x7f050001;
 	}
 	public static final class layout {
-		public static final int processbar = 0x7f03000b;
-		public static final int pull_to_load_footer = 0x7f03000e;
-		public static final int pull_to_refresh_header = 0x7f03000f;
-		public static final int user_list_footer = 0x7f030012;
+		public static final int processbar = 0x7f03000d;
+		public static final int pull_to_load_footer = 0x7f030010;
+		public static final int pull_to_refresh_header = 0x7f030011;
+		public static final int user_list_footer = 0x7f030014;
 	}
 	public static final class string {
-		public static final int OAUTH_AccessToken_ACCESS = 0x7f090000;
-		public static final int OAUTH_AccessToken_ERROR = 0x7f090001;
-		public static final int OAUTH_AccessToken_SXPIRED = 0x7f090002;
-		public static final int OAUTH_ERROR = 0x7f090003;
-		public static final int OAUTH_RequestToken_ACCESS = 0x7f090004;
-		public static final int OAUTH_RequestToken_ERROR = 0x7f090005;
-		public static final int Weibo_Message_LONG = 0x7f090006;
-		public static final int Weibo_Message_NULL = 0x7f090007;
-		public static final int Weibo_Share_Error = 0x7f090008;
-		public static final int Weibo_Share_Repeat = 0x7f090009;
-		public static final int Weibo_Share_Success = 0x7f09000a;
-		public static final int app_name = 0x7f09000d;
-		public static final int click_to_load = 0x7f090017;
-		public static final int net_error = 0x7f090030;
-		public static final int pull_to_loading = 0x7f090039;
-		public static final int pull_to_loadmore = 0x7f09003a;
-		public static final int pull_to_refresh_pull_label = 0x7f09003b;
-		public static final int pull_to_refresh_refreshing_label = 0x7f09003c;
-		public static final int pull_to_refresh_release_label = 0x7f09003d;
-		public static final int pull_to_refresh_tap_label = 0x7f09003e;
-		public static final int pull_to_refresh_update_time = 0x7f09003f;
-		public static final int pull_to_release = 0x7f090040;
-		public static final int sinalogin_check_account = 0x7f090052;
-		public static final int sinalogin_check_pass = 0x7f090053;
-		public static final int sinalogin_check_server = 0x7f090054;
+		public static final int OAUTH_AccessToken_ACCESS = 0x7f0a0000;
+		public static final int OAUTH_AccessToken_ERROR = 0x7f0a0001;
+		public static final int OAUTH_AccessToken_SXPIRED = 0x7f0a0002;
+		public static final int OAUTH_ERROR = 0x7f0a0003;
+		public static final int OAUTH_RequestToken_ACCESS = 0x7f0a0004;
+		public static final int OAUTH_RequestToken_ERROR = 0x7f0a0005;
+		public static final int Weibo_Message_LONG = 0x7f0a0006;
+		public static final int Weibo_Message_NULL = 0x7f0a0007;
+		public static final int Weibo_Share_Error = 0x7f0a0008;
+		public static final int Weibo_Share_Repeat = 0x7f0a0009;
+		public static final int Weibo_Share_Success = 0x7f0a000a;
+		public static final int app_name = 0x7f0a000d;
+		public static final int click_to_load = 0x7f0a0017;
+		public static final int net_error = 0x7f0a0031;
+		public static final int pull_to_loading = 0x7f0a003a;
+		public static final int pull_to_loadmore = 0x7f0a003b;
+		public static final int pull_to_refresh_pull_label = 0x7f0a003c;
+		public static final int pull_to_refresh_refreshing_label = 0x7f0a003d;
+		public static final int pull_to_refresh_release_label = 0x7f0a003e;
+		public static final int pull_to_refresh_tap_label = 0x7f0a003f;
+		public static final int pull_to_refresh_update_time = 0x7f0a0040;
+		public static final int pull_to_release = 0x7f0a0041;
+		public static final int sinalogin_check_account = 0x7f0a0053;
+		public static final int sinalogin_check_pass = 0x7f0a0054;
+		public static final int sinalogin_check_server = 0x7f0a0055;
 	}
 	public static final class style {
-		public static final int AppBaseTheme = 0x7f0a0001;
-		public static final int AppTheme = 0x7f0a0002;
-		public static final int NobackDialog = 0x7f0a0004;
+		public static final int AppBaseTheme = 0x7f0b0001;
+		public static final int AppTheme = 0x7f0b0002;
+		public static final int NobackDialog = 0x7f0b0004;
 	}
 }

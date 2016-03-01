@@ -31,6 +31,7 @@ public class IndexHeadPagerAdapter extends MyPagerAdapter<ArticleItem> {
 	public IndexHeadPagerAdapter(Context context, List<ArticleItem> list,
 			Template template, ArticleType articleType) {
 		super(context, list);
+		this.context = context;
 		this.template = template;
 		this.articleType = articleType;
 	}

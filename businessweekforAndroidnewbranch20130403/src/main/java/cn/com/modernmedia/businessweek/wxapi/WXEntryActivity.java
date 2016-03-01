@@ -27,7 +27,7 @@ import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
  * 微信登陆返回
  * 
  * @author lusiyuan
- *
+ * 
  */
 public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
@@ -72,7 +72,8 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 										+ SlateApplication.mConfig
 												.getWeixin_app_id()
 										+ "&secret="
-										+ SlateApplication.mConfig.getWeixin_app_secret()
+										+ SlateApplication.mConfig
+												.getWeixin_app_secret()
 										+ "&code=" + re.code
 										+ "&grant_type=authorization_code");
 						HttpURLConnection conn = null;

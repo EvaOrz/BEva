@@ -27,6 +27,25 @@ import cn.com.modernmediaslate.unit.Tools;
 /*
  * uri转换类
  * 转换规则
+ <<<<<<< HEAD
+ * 
+ * 支持的
+ *      打开文章 slate://article/tagname/{tagname}/{articleId}/{page}/
+ *      跳转到外部浏览器 slate://web/{http_url}
+ *      跳转到内部浏览器 slate://webNoShare/{http_url}
+ *      打开视频 slate://video/{videoUrl}
+ *      跳转拨号页面 slate://tel:/{telNumber}
+ *      关注微博，微信 slate://follow/{weibo||weixin}
+ * 
+ * 不支持的：
+ *      图集slate://gallery/pic,pic,pic（需要commonWebview上下文）
+ *      打开大图 slate://image/{imageUrl}（需要commonWebview上下文）
+ *      打开栏目slate://column/tagname/{tagname}（需要首页CommonMainActivity上下文）
+ *      打开当期栏目首页 slate://column/{columnId}/{issueId}/  无用
+ *      打开当期今日焦点 slate://column/home/{issueId}/  无用
+ *      打开某期 slate://issue/{issueId}/   无用
+ *      打开最新期 slate://issue/latest/{appid}/  无用
+ =======
  * 打开文章 slate://article/tagname/{tagname}/{articleId}/{page}/
  * 跳转到外部浏览器 slate://web/{http_url}
  * 跳转到内部浏览器 slate://webNoShare/{http_url}
@@ -42,6 +61,7 @@ import cn.com.modernmediaslate.unit.Tools;
  * 打开当期今日焦点 slate://column/home/{issueId}/  无用
  * 打开某期 slate://issue/{issueId}/   无用
  * 打开最新期 slate://issue/latest/{appid}/  无用
+ >>>>>>> feature-new-ibloomberg
  * 
  */
 public class UriParse {
@@ -59,6 +79,7 @@ public class UriParse {
 	public static final String IMAGE = "image";
 	public static final String VIDEO = "video";
 	public static final String ARTICLE = "article";
+	public static final String TAGARTICLE = "tagArticle";// v6版本之后的文章跳转标示
 	public static final String GALLERY = "gallery";
 	public static final String WEB = "web";// 外部浏览器打开
 	public static final String WEBNOSHARE = "webOnlyClose";// 内部浏览器打开
@@ -72,6 +93,25 @@ public class UriParse {
 		// slate://article/tagname/cat_19/46204/1
 		ArrayList<String> list = new ArrayList<String>();
 		String[] Array = uri.split("article/");
+		if (Array.length == 2) {
+			String[] param = Array[1].split("/");
+			for (int i = 0; i < param.length; i++) {
+				if (param[i] != null) {
+					list.add(param[i]);
+				}
+			}
+
+		}
+		return list;
+	}
+
+	/*
+	 * @param String uri
+	 */
+	private static ArrayList<String> tagArticle(String uri) {
+		// slate://tagArticle/latest/cat_1383/200051351
+		ArrayList<String> list = new ArrayList<String>();
+		String[] Array = uri.split("tagArticle/");
 		if (Array.length == 2) {
 			String[] param = Array[1].split("/");
 			for (int i = 0; i < param.length; i++) {
@@ -258,6 +298,8 @@ public class UriParse {
 				list.addAll(video(uri));
 			} else if (param[0].equals(ARTICLE)) {
 				list.addAll(article(uri));
+			} else if (param[0].equals(TAGARTICLE)) {
+				list.addAll(tagArticle(uri));
 			} else if (param[0].equals(GALLERY)) {
 				list.addAll(gallery(uri));
 			} else if (param[0].equals(WEB)) {
@@ -378,7 +420,7 @@ public class UriParse {
 				if (key.equals(VIDEO)) {
 					String path = list.get(1).replace(".m3u8", ".mp4");
 					doLinkVideo(context, path);
-				} else if (key.equals(ARTICLE)) {
+				} else if (key.equals(ARTICLE) || key.equals("tagarticle")) {
 					if (list.size() > 3) {
 						doLinkArticle(context, list, entries, view, cls);
 					}

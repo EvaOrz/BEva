@@ -8,11 +8,13 @@ import android.content.Context;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import cn.com.modernmedia.CommonArticleActivity.ArticleType;
 import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.views.R;
 import cn.com.modernmedia.views.ViewsMainActivity;
+import cn.com.modernmedia.views.column.book.TopMenuHorizontalScrollView;
 import cn.com.modernmedia.views.index.IndexView;
 import cn.com.modernmediaslate.SlateApplication;
 
@@ -88,7 +90,7 @@ public class XMLDataSetForIndexNav extends BaseXMLDataSet {
 		if (!(v instanceof ImageView))
 			return;
 		ImageView logo = (ImageView) v;
-		if (text.equals("好消息")||text.equals("Good News")) {
+		if (text.equals("好消息") || text.equals("Good News")) {
 
 			title.setVisibility(View.GONE);
 			logo.setVisibility(View.VISIBLE);
@@ -180,4 +182,19 @@ public class XMLDataSetForIndexNav extends BaseXMLDataSet {
 			((ViewsMainActivity) mContext).showIssueListView();
 		}
 	}
+
+	/**
+	 * 设置top_menu
+	 */
+	public void setTopMenuData(TopMenuHorizontalScrollView top) {
+		if (!map.containsKey(FunctionIndexNav.TOP_MENU))
+			return;
+		View top_menu = map.get(FunctionIndexNav.TOP_MENU);
+		if (!(top_menu instanceof LinearLayout))
+			return;
+		((LinearLayout) top_menu).removeAllViews();
+		((LinearLayout) top_menu).addView(top);
+	}
+	
+
 }

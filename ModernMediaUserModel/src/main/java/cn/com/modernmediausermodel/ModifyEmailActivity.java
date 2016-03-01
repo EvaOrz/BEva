@@ -88,7 +88,8 @@ public class ModifyEmailActivity extends SlateBaseActivity implements
 		showLoadingDialog(true);
 		UserOperateController.getInstance(this).modifyUserInfo(user.getUid(),
 				user.getToken(), user.getUserName(), user.getNickName(), "",
-				user.getPassword(), new UserFetchEntryListener() {
+				user.getPassword(), user.getDesc(),
+				new UserFetchEntryListener() {
 
 					@Override
 					public void setData(final Entry entry) {

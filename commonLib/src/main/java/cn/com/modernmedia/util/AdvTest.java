@@ -9,7 +9,7 @@ import cn.com.modernmedia.model.AdvList.AdvSource;
 
 public class AdvTest {
 	private static String startTime = "1374728191";
-	private static String endTime = "2422607825";
+	private static String endTime = "1487692800";
 
 	public static void addRuBanIBBTest(AdvList advList) {
 		AdvItem item = new AdvItem();
@@ -21,7 +21,7 @@ public class AdvTest {
 		item.setEndTime(endTime);
 		item.setAdvType(1);
 		item.setEffects(AdvList.IBB);
-		item.setAutoClose(3);
+		item.setAutoClose(30);
 
 		List<AdvItem> list = new ArrayList<AdvItem>();
 		list.add(item);
@@ -64,7 +64,7 @@ public class AdvTest {
 		source.setUrl("http://s1.cdn.bbwc.cn/issue_0/category/2015/0127/54c79950ec350_640x0.jpg");
 		item.getSourceList().add(source);
 		item.setShowType(0);
-		item.setAutoClose(2);
+		item.setAutoClose(4);
 		List<AdvItem> list = new ArrayList<AdvItem>();
 		list.add(item);
 		advList.getAdvMap().put(item.getAdvType(), list);
@@ -77,7 +77,7 @@ public class AdvTest {
 		item.setStartTime(startTime);
 		item.setEndTime(endTime);
 		AdvSource source = new AdvSource();
-		source.setUrl("http://s3.cdn.bbwc.cn/issue_0/articles/0/2015/0116/54b880ef09e3c.zip");
+		source.setUrl("http://s1.cdn.bbwc.cn/issue_0/articles/0/2016/0218/56c588c613144.zip");
 		item.getSourceList().add(source);
 		item.setShowType(1);
 		List<AdvItem> list = new ArrayList<AdvItem>();

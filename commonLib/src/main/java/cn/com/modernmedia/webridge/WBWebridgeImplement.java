@@ -12,7 +12,6 @@ import cn.com.modernmedia.common.ShareHelper;
 import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.model.ArticleItem.Picture;
 import cn.com.modernmedia.webridge.WBWebridge.AsynExecuteCommandListener;
-import cn.com.modernmediaslate.model.User;
 
 /**
  * 根据js发送的command注册的方法

@@ -3,6 +3,7 @@ package cn.com.modernmedia.views.column.book;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +14,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ScrollView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import cn.com.modernmedia.BaseActivity;
 import cn.com.modernmedia.api.OperateController;
@@ -22,6 +23,7 @@ import cn.com.modernmedia.model.AppValue;
 import cn.com.modernmedia.model.SubscribeOrderList.SubscribeColumn;
 import cn.com.modernmedia.model.TagInfoList.TagInfo;
 import cn.com.modernmedia.newtag.db.UserSubscribeListDb;
+import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmedia.util.EnsubscriptHelper;
 import cn.com.modernmedia.util.LogHelper;
 import cn.com.modernmedia.views.R;
@@ -36,15 +38,16 @@ import cn.com.modernmediausermodel.LoginActivity;
  * 栏目订阅页面
  * 
  * @author lusiyuan
- *
+ * 
  */
+@SuppressLint("ResourceAsColor")
 public class BookActivity extends BaseActivity implements OnClickListener {
 	private List<TagInfo> allTags = new ArrayList<TagInfo>();
 	private List<TagInfo> myTags = new ArrayList<TagInfo>();
-	private ScrollView scroll;
 	private DragGridView bookedGridView, bookingGridView;
 	private GridViewAdapter allAdapter, myAdapter;
 	private TextView order;// 删除排序
+	private ImageView iweeklyTitle, back;// iweekly图片
 	public boolean ischeck = false;// 删除状态
 
 	@Override
@@ -80,7 +83,7 @@ public class BookActivity extends BaseActivity implements OnClickListener {
 			initTags();
 	}
 
- 	private void initTags() {
+	private void initTags() {
 		allTags.clear();
 		myTags.clear();
 		for (int i = 0; i < AppValue.ensubscriptColumnList.getList().size(); i++) {
@@ -95,11 +98,20 @@ public class BookActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void initView() {
-		findViewById(R.id.book_back).setOnClickListener(this);
 		order = (TextView) findViewById(R.id.orderordelete);
 		order.setOnClickListener(this);
+		back = (ImageView) findViewById(R.id.book_back);
+		back.setOnClickListener(this);
 
-		scroll = (ScrollView) findViewById(R.id.book_scrollview);
+		iweeklyTitle = (ImageView) findViewById(R.id.iweekly_book_title_img);
+		if (ConstData.getAppId() == 20) {
+			findViewById(R.id.select_column_title_frame).setBackgroundColor(
+					getResources().getColor(R.color.column_head));
+			back.setImageResource(R.drawable.book_back_weekly);
+			findViewById(R.id.book_weekly_nav_bar).setVisibility(View.VISIBLE);
+		} else {
+			findViewById(R.id.book_nav_bar).setVisibility(View.VISIBLE);
+		}
 		bookedGridView = (DragGridView) findViewById(R.id.booked_gridview);
 		bookingGridView = (DragGridView) findViewById(R.id.booking_gridview);
 
@@ -171,14 +183,17 @@ public class BookActivity extends BaseActivity implements OnClickListener {
 		String log = "";
 		List<SubscribeColumn> cs = new ArrayList<SubscribeColumn>();
 		for (TagInfo tt : AppValue.ensubscriptColumnList.getList()) {// 遍历可订阅列表
-			SubscribeColumn sub = new SubscribeColumn(tt.getTagName(), null, 1);
-			for (TagInfo t : myTags) {// 遍历已订阅列表
-				if (TextUtils.equals(tt.getTagName(), t.getTagName())) {// 如果已订阅
-					sub.setIsDelete(0);
-					log += t.getTagName() + ",";
+			if (tt.getIsFix() != 1) {// 3.1.4 固定栏目要删除
+				SubscribeColumn sub = new SubscribeColumn(tt.getTagName(),
+						null, 1);
+				for (TagInfo t : myTags) {// 遍历已订阅列表
+					if (TextUtils.equals(tt.getTagName(), t.getTagName())) {// 如果已订阅
+						sub.setIsDelete(0);
+						log += t.getTagName() + ",";
+					}
 				}
+				cs.add(sub);
 			}
-			cs.add(sub);
 		}
 
 		LogHelper.subcribeColumn(this, log);// flurry

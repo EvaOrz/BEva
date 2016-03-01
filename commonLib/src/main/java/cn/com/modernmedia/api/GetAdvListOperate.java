@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import cn.com.modernmedia.model.AdvList;
 import cn.com.modernmedia.model.AdvList.AdvItem;
 import cn.com.modernmedia.model.AdvList.AdvSource;
+import cn.com.modernmedia.util.AdvTest;
 import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmedia.util.FileManager;
 
@@ -74,7 +75,7 @@ public class GetAdvListOperate extends BaseOperate {
 				advItem.setArticleId(obj.optString("articleId", ""));
 				advItem.setPage(obj.optString("page", ""));
 				advItem.setEffects(obj.optString("effects", ""));
-				advItem.setShowType(obj.optInt("showType", -1));
+				advItem.setShowType(Integer.valueOf(obj.optString("showType")));
 				parseAdvSource(obj.optJSONArray("sourceH"), advItem);
 				parseTrackerUrl(obj.optJSONObject("trackerUrl"), advItem);
 				parsePosInfo(obj.optJSONObject("posInfoV"), advItem);

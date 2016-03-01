@@ -2,13 +2,13 @@
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
+            backward-compatibility can go here.
         -->
     </style>
 
@@ -26,6 +26,20 @@
     <!-- card_list_pop -->
     <style name="card_list_popup_anim" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/card_list_right_in</item>
+    </style>
+
+    <style name="CustomDialog" parent="android:style/Theme.Dialog">
+
+        <!-- 背景颜色及透明程度 -->
+        <item name="android:windowBackground">@color/translucent_black</item>
+        <!-- 是否有标题 -->
+        <!-- <item name="android:windowNoTitle">true</item> -->
+        <!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 是否模糊 -->
+        <item name="android:backgroundDimEnabled">false</item>
+        <!-- 不显示边框 -->
+        <!-- <item name="android:windowFrame">@null</item> -->
     </style>
 
 </resources>

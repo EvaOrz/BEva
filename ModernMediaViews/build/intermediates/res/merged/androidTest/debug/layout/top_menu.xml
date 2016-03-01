@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="44dp"
     android:orientation="vertical" >
 
     <ImageView
@@ -16,10 +16,9 @@
     <HorizontalScrollView
         android:id="@+id/book_horizantal_scrollview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="44dp"
         android:layout_toLeftOf="@id/subscribe_add"
         android:scrollbars="none" />
-
     <!--
          <View
         android:layout_width="fill_parent"
@@ -28,4 +27,4 @@
         android:background="@drawable/line" />
     -->
 
-</RelativeLayout><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaViews/src/main/res/layout/top_menu.xml --><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaViews/build/intermediates/bundles/debug/res/layout/top_menu.xml -->
+</RelativeLayout><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaViews/src/main/res/layout/top_menu.xml --><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaViews/build/intermediates/bundles/debug/res/layout/top_menu.xml -->

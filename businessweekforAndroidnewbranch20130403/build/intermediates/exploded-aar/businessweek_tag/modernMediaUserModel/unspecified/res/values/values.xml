@@ -10,7 +10,6 @@
     <color name="gray_line">#dbdbdb</color>
     <color name="listitem_des">#8E8E93</color>
     <color name="login_btn_login_bg">#FB1F25</color>
-    <color name="login_btn_register_bg">#E4E4E4</color>
     <color name="login_desc">#676767</color>
     <color name="my_coin_green_color">#4cd863</color>
     <color name="my_coin_notice_color">#808080</color>
@@ -21,9 +20,9 @@
     <color name="user_center_dot">#FF0072B8</color>
     <color name="user_center_message">#FF0000</color>
     <color name="user_center_num_color">#818181</color>
+    <color name="yellow">#fdba2d</color>
     <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaUserModel/src/main/res/values/strings.xml -->
     <eat-comment/>
-    <string name="account_hint">Email</string>
     <string name="add_coin_num">%1$s +%2$s积分</string>
     <string name="app_name">ModernMediaUserModel</string>
     <string name="article_card_and_comment">文章摘要与评论</string>
@@ -33,9 +32,9 @@
     <string name="band_email">绑定邮箱</string>
     <string name="band_phone">绑定手机</string>
     <string name="band_qq">QQ</string>
-    <string name="band_wait_email">待绑定</string>
     <string name="band_weibo">微博</string>
     <string name="band_weixin">微信</string>
+    <string name="band_yet">未绑定</string>
     <string name="banded">去绑定</string>
     <string name="camera">拍照</string>
     <string name="cancel">取消</string>
@@ -62,6 +61,7 @@
     <string name="create_time">创建于%s</string>
     <string name="delete_card_failed">删除笔记失败</string>
     <string name="delete_card_success">删除笔记成功</string>
+    <string name="email">Email</string>
     <string name="email_address_is">你的邮箱地址是</string>
     <string name="exchange">兑换</string>
     <string name="exchange_failed">兑换失败</string>
@@ -73,6 +73,8 @@
     <string name="follow_num">%s人关注</string>
     <string name="follow_success">关注成功</string>
     <string name="followed">已关注</string>
+    <string name="forget_password">忘记密码</string>
+    <string name="get_account_error">账号格式错误</string>
     <string name="get_more_coin">获取更多积分</string>
     <string name="get_verify_code">获取验证码</string>
     <string name="goto_shop">确认进入商城</string>
@@ -83,8 +85,7 @@
     <string name="input_password">请输入你的密码</string>
     <string name="login">登录</string>
     <string name="login_out">退出登录</string>
-    <string name="login_title_text">请用你的现代移动社区账号登录。</string>
-    <string name="mail_address">Email或者手机号码</string>
+    <string name="mail_address">Email/手机号</string>
     <string name="me">我</string>
     <string name="message_card_is_recommended">笔记「%s」被收入每日精选</string>
     <string name="message_center">通知中心</string>
@@ -92,10 +93,12 @@
     <string name="message_new_fans">有%s个人关注了你</string>
     <string name="message_no_message">没有未读通知</string>
     <string name="message_user_is_recommended">你成为了推荐用户</string>
-    <string name="moder_media_account_login">或用现代移动社区账号登录</string>
+    <string name="moder_media_account_login">用InNote社区账号登录</string>
     <string name="modify_email">修改邮箱</string>
     <string name="modify_password">请输入您的旧密码和新密码，如果没有设置过密码，旧密码请留空。</string>
     <string name="modify_pwd">修改密码</string>
+    <string name="motify_nickname">修改昵称</string>
+    <string name="motify_sign">修改个人签名</string>
     <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaUserModel/src/main/res/values/message.xml -->
     <eat-comment/>
     <string name="msg_avatar_get_failed">头像取得失败</string>
@@ -128,9 +131,11 @@
     <string name="my_fav">我的收藏</string>
     <string name="my_friends">我的朋友</string>
     <string name="my_homepage">我的首页</string>
+    <string name="my_music">电台</string>
     <string name="new_card">新笔记</string>
     <string name="new_comment">新评论</string>
     <string name="new_pwd">新密码</string>
+    <string name="new_register">新用户注册</string>
     <string name="no_article_card">没有该文章的摘要</string>
     <string name="no_fan_tip">你还没有任何人关注</string>
     <string name="no_friend_tip">你还没有关注任何人</string>
@@ -139,6 +144,10 @@
     <string name="old_pwd">旧密码</string>
     <string name="password">密码</string>
     <string name="password_digits">_0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+    <string name="password_safety">密码安全性</string>
+    <string name="password_safety_high">高</string>
+    <string name="password_safety_mid">中</string>
+    <string name="password_safety_weak">弱</string>
     <string name="pay_alread">您已是付费用户。</string>
     <string name="phone_number">手机号码</string>
     <string name="preference_recommend_subject">[应用推荐]iWeekly·周末画报 for Android</string>
@@ -147,10 +156,10 @@
     <string name="qq_login_failed">QQ账号登录失败</string>
     <string name="recommend_user">推荐用户</string>
     <string name="register">注册</string>
+    <string name="register_title">注册InNote社区账号</string>
     <string name="reset_password">重置密码</string>
     <string name="search_card">浏览发现</string>
     <string name="select_from_album">从手机相册选择</string>
-    <string name="set_userinfo_desc">加入现代移动社区，即可在云端保存你的收藏夹，并在现代传播出品的各大app中享受各种用户权益。</string>
     <string name="setting_auto_loop">首页焦点图自动轮播</string>
     <string name="setting_book_preference">会员与订阅</string>
     <string name="setting_book_single">订阅</string>
@@ -171,16 +180,18 @@
     <string name="shop_use_notice">积分商城使用须知</string>
     <string name="sina_login">用微博账号登录</string>
     <string name="sina_login_failed">微博登录失败</string>
-    <string name="some_account_login">你可以用以下账号登录</string>
+    <string name="some_account_login">可以用以下账号登录</string>
     <string name="square">广场</string>
     <string name="sure">确认</string>
-    <string name="title_hint">用现代移动社区账号登录</string>
     <string name="uncollect_failed">取消收藏失败</string>
     <string name="uncollect_success">取消收藏成功</string>
     <string name="unfollow_failed">取消关注失败</string>
     <string name="unfollow_success">取消关注成功</string>
+    <string name="user_email">电子邮箱</string>
     <string name="user_no_card">你还没记录过笔记</string>
     <string name="user_setting">设置</string>
+    <string name="user_shejiaozhanghao">社交账号</string>
+    <string name="user_sign">个人签名</string>
     <string name="userinfo_desc">您的用户信息如下：</string>
     <string name="userinfo_nickname">昵称</string>
     <string name="userinfo_username">$用户名</string>
@@ -203,10 +214,31 @@
 
 
 
+
+
+
+
+
+
+
+
         -->
     </style>
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+    <style name="CustomDialog" parent="android:style/Theme.Dialog">
+
+        <!-- 背景颜色及透明程度 -->
+        <item name="android:windowBackground">@color/translucent_black</item>
+        <!-- 是否有标题 -->
+        <!-- <item name="android:windowNoTitle">true</item> -->
+        <!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 是否模糊 -->
+        <item name="android:backgroundDimEnabled">false</item>
+        <!-- 不显示边框 -->
+        <!-- <item name="android:windowFrame">@null</item> -->
     </style>
     <style name="card_list_popup_anim" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/card_list_right_in</item>

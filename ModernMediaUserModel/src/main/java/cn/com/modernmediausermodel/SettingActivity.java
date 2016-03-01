@@ -57,7 +57,6 @@ public class SettingActivity extends Activity implements OnClickListener,
 
 	private void initView() {
 		findViewById(R.id.setting_back).setOnClickListener(this);
-		findViewById(R.id.setting_band).setOnClickListener(this);
 		bookStatus = (TextView) findViewById(R.id.setting_book_single);
 		bookStatus.setOnClickListener(this);
 		initBookStatus();
@@ -76,12 +75,9 @@ public class SettingActivity extends Activity implements OnClickListener,
 		wifiVedio.setOnChangeListener(this);
 	}
 
-
 	@Override
 	public void onClick(View v) {
-		if (v.getId() == R.id.setting_band) // 绑定账号
-			setupBandPreference();
-		else if (v.getId() == R.id.setting_book_single) {// 订阅
+		if (v.getId() == R.id.setting_book_single) {// 订阅
 			if (canBook) {
 				setupBookPreference();
 			}
@@ -113,21 +109,6 @@ public class SettingActivity extends Activity implements OnClickListener,
 						active = (Active) entry;
 					}
 				});
-	}
-
-	/**
-	 * 绑定账号
-	 * 
-	 * @param screen
-	 */
-	private void setupBandPreference() {
-		if (SlateDataHelper.getUserLoginInfo(SettingActivity.this) != null) {
-			Intent i = new Intent(getApplicationContext(), BandActivity.class);
-			startActivity(i);
-		} else {
-			Intent i = new Intent(getApplicationContext(), LoginActivity.class);
-			startActivity(i);
-		}
 	}
 
 	/**
@@ -259,7 +240,7 @@ public class SettingActivity extends Activity implements OnClickListener,
 		} else if (buttonView.getId() == R.id.wifi_auto_vedio_switch) {
 			DataHelper.setWiFiAutoPlayVedio(SettingActivity.this, isChecked);
 		}
-		
+
 	}
 
 }

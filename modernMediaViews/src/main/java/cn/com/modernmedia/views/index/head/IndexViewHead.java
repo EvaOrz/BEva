@@ -3,8 +3,6 @@ package cn.com.modernmedia.views.index.head;
 import java.util.HashMap;
 import java.util.List;
 
-import com.alipay.sdk.auth.h;
-
 import android.content.Context;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
@@ -23,7 +21,6 @@ import cn.com.modernmedia.views.xmlparse.XMLDataSetForHead;
 import cn.com.modernmedia.views.xmlparse.XMLParse;
 import cn.com.modernmedia.widget.LoopPagerAdapter;
 import cn.com.modernmediaslate.unit.ParseUtil;
-import cn.com.modernmediaslate.unit.Tools;
 
 /**
  * 首页焦点图

@@ -8,9 +8,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.TextView;
 import cn.com.modernmediaslate.SlateBaseActivity;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.model.ErrorMsg;
@@ -25,14 +24,13 @@ import cn.com.modernmediausermodel.util.UserTools;
  * 手机注册忘记密码
  * 
  * @author lusiyuan
- *
+ * 
  */
 public class ForgetPwdActivity extends SlateBaseActivity implements
 		OnClickListener {
 
 	private EditText phoneEdit, codeEdit, passwordEdit;
-	private ImageView close, phoneClear, pwdClear;
-	private Button complete, getCode;
+	private TextView getCode;
 	private String phoneNum;
 	private boolean canGetVerify = true;// 是否可获取验证码
 	private UserOperateController mController;
@@ -49,50 +47,35 @@ public class ForgetPwdActivity extends SlateBaseActivity implements
 
 	private void initView() {
 		shakeAnim = AnimationUtils.loadAnimation(this, R.anim.shake);
-		close = (ImageView) findViewById(R.id.forget_img_close);// 退出
-		phoneEdit = (EditText) findViewById(R.id.forget_phone);
-		codeEdit = (EditText) findViewById(R.id.forget_verify_edit);
-		passwordEdit = (EditText) findViewById(R.id.forget_new_pwd);
-		phoneClear = (ImageView) findViewById(R.id.forget_phone_clear);
-		pwdClear = (ImageView) findViewById(R.id.forget_new_pwd_clear);
-		complete = (Button) findViewById(R.id.forget_complete);
-		getCode = (Button) findViewById(R.id.forget_get_verify);
+		phoneEdit = (EditText) findViewById(R.id.forget_account);
+		codeEdit = (EditText) findViewById(R.id.forget_verify);
+		passwordEdit = (EditText) findViewById(R.id.forget_password);
 
-		close.setOnClickListener(this);
-		// phoneEdit.setOnClickListener(this);
-		// codeEdit.setOnClickListener(this);
-		// passwordEdit.setOnClickListener(this);
-		phoneClear.setOnClickListener(this);
-		pwdClear.setOnClickListener(this);
-		complete.setOnClickListener(this);
+		findViewById(R.id.forget_account_clear).setOnClickListener(this);
+		findViewById(R.id.forget_pwd_clear).setOnClickListener(this);
+		findViewById(R.id.forget_confirm).setOnClickListener(this);
+		getCode = (TextView) findViewById(R.id.forget_verify_get);
+
+		findViewById(R.id.forget_close).setOnClickListener(this);
 		getCode.setOnClickListener(this);
-
-		phoneEdit.setText(phoneNum + "");
-
 	}
 
 	@Override
 	public void onClick(View v) {
 		String newPass = "", code = "";
-		if (phoneEdit != null) {
-			phoneNum = phoneEdit.getText().toString();
-		}
-		if (codeEdit != null) {
-			code = phoneEdit.getText().toString();
-		}
-		if (passwordEdit != null) {
-			newPass = passwordEdit.getText().toString();
-		}
+		phoneNum = phoneEdit.getText().toString();
+		code = phoneEdit.getText().toString();
+		newPass = passwordEdit.getText().toString();
 
-		if (v.getId() == R.id.forget_img_close) {
+		if (v.getId() == R.id.forget_close) {// 关闭
 			finish();
-		} else if (v.getId() == R.id.forget_phone_clear) {
+		} else if (v.getId() == R.id.forget_account_clear) {// 清除账号
 			doClear(phoneEdit);
-		} else if (v.getId() == R.id.forget_new_pwd_clear) {
+		} else if (v.getId() == R.id.forget_pwd_clear) {// 清除密码
 			doClear(passwordEdit);
-		} else if (v.getId() == R.id.forget_complete) {//
+		} else if (v.getId() == R.id.forget_confirm) {// 完成
 			doForgetPwd(phoneNum, newPass, code);
-		} else if (v.getId() == R.id.forget_get_verify) {// 获取验证码
+		} else if (v.getId() == R.id.forget_verify_get) {// 获取验证码
 			doGetVerifyCode();
 		}
 	}

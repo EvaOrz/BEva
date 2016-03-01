@@ -2,7 +2,9 @@ package cn.com.modernmedia.businessweek;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.util.Log;
 import cn.com.modernmedia.CommonSplashActivity;
+import cn.com.modernmedia.util.DESCoder;
 
 /**
  * 应用启动页

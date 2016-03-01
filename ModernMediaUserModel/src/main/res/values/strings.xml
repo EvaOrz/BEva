@@ -3,41 +3,47 @@
 
     <string name="app_name">ModernMediaUserModel</string>
     <string name="sure">确认</string>
-    <string name="reset_password">重置密码</string>
     <!-- take photo -->
     <string name="camera">拍照</string>
     <string name="select_from_album">从手机相册选择</string>
     <string name="cancel">取消</string>
     <!-- 默认登录页面 -->
-    <string name="mail_address">Email或者手机号码</string>
+    <string name="mail_address">Email/手机号</string>
+    <string name="email">Email</string>
     <string name="verify_code">验证码</string>
     <string name="password">密码</string>
     <string name="register">注册</string>
+    <string name="new_register">新用户注册</string>
     <string name="login">登录</string>
+    <string name="forget_password">忘记密码</string>
     <string name="sina_login">用微博账号登录</string>
     <string name="sina_login_failed">微博登录失败</string>
     <string name="qq_login">用QQ账号登录</string>
     <string name="qq_login_failed">QQ账号登录失败</string>
-    <string name="some_account_login">你可以用以下账号登录</string>
-    <string name="moder_media_account_login">或用现代移动社区账号登录</string>
-    <string name="login_title_text">请用你的现代移动社区账号登录。</string>
-    <string name="set_userinfo_desc">加入现代移动社区，即可在云端保存你的收藏夹，并在现代传播出品的各大app中享受各种用户权益。</string>
-
-    <!-- New LoginActivity -->
-    <string name="title_hint">用现代移动社区账号登录</string>
-    <string name="account_hint">Email</string>
-
+    <string name="some_account_login">可以用以下账号登录</string>
+    <string name="moder_media_account_login">用InNote社区账号登录</string>
+    <string name="register_title">注册InNote社区账号</string>
+    <string name="password_safety">密码安全性</string>
+    <string name="password_safety_weak">弱</string>
+    <string name="password_safety_mid">中</string>
+    <string name="password_safety_high">高</string>
+    <string name="get_account_error">账号格式错误</string>
     <!-- 修改密码 -->
     <string name="modify_password">请输入您的旧密码和新密码，如果没有设置过密码，旧密码请留空。</string>
     <string name="old_pwd">旧密码</string>
     <string name="new_pwd">新密码</string>
     <string name="complete">完成</string>
     <string name="get_verify_code">获取验证码</string>
+    <string name="reset_password">重置密码</string>
 
     <!-- 用户信息 -->
     <string name="userinfo_desc">您的用户信息如下：</string>
     <string name="userinfo_username">$用户名</string>
     <string name="modify_pwd">修改密码</string>
+    <string name="user_sign">个人签名</string>
+    <string name="user_email">电子邮箱</string>
+    <string name="motify_sign">修改个人签名</string>
+    <string name="motify_nickname">修改昵称</string>
     <string name="login_out">退出登录</string>
     <string name="userinfo_nickname">昵称</string>
     <string name="confirm_change">确认修改</string>
@@ -50,6 +56,7 @@
     <string name="my_fav">我的收藏</string>
     <string name="user_setting">设置</string>
     <string name="my_coin">积分商城</string>
+    <string name="user_shejiaozhanghao">社交账号</string>
 
     <!-- 推荐关注 -->
     <string name="recommend_user">推荐用户</string>
@@ -69,6 +76,8 @@
     <string name="square">广场</string>
     <!-- 我的首页 -->
     <string name="my_homepage">我的首页</string>
+    <!-- 电台 -->
+    <string name="my_music">电台</string>
     <!-- 详情 -->
     <string name="comment">评论</string>
     <string name="write_some_comments">写几句评论</string>
@@ -149,7 +158,7 @@
     <string name="band_qq">QQ</string>
     <string name="band_address">收货地址</string>
     <string name="banded">去绑定</string>
-    <string name="band_wait_email">待绑定</string>
+    <string name="band_yet">未绑定</string>
     <string name="settings_general">通用设置</string>
     <string name="settings_mark_all_read">全部标记为已读</string>
     <string name="settings_clear_cache">清空所有缓存</string>

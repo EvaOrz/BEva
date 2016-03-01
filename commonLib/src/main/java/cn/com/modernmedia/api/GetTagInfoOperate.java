@@ -76,6 +76,7 @@ public class GetTagInfoOperate extends BaseOperate {
 
 	@Override
 	protected String getUrl() {
+		Log.e("type && url", type + "    " + url);
 		return url;
 	}
 
@@ -147,7 +148,9 @@ public class GetTagInfoOperate extends BaseOperate {
 					tagInfo.setColumnProperty(parseColumnProperty(
 							object.optJSONObject("phoneColumnProperty"),
 							tagInfo.getTagName()));
-
+					tagInfo.setIsRadio(object.optInt("isRadio"));
+					tagInfo.setType(object.optInt("type"));
+					
 					if (tagInfo.getTagLevel() == 1)
 						tagInfoList.getTopLevelList().add(tagInfo.getTagName());
 

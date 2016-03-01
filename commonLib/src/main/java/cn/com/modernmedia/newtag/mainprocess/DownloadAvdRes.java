@@ -21,7 +21,7 @@ import cn.com.modernmediaslate.unit.ParseUtil;
  * 下载广告、splash资源
  * 
  * @author user
- *
+ * 
  */
 public class DownloadAvdRes {
 	private Context mContext;
@@ -94,7 +94,6 @@ public class DownloadAvdRes {
 	 */
 	private void downloadRuBanForPic(AdvItem item) {
 		for (AdvSource pic : item.getSourceList()) {
-			PrintHelper.print("======download ruban pic======");
 			CommonApplication.finalBitmap.display(pic.getUrl());
 		}
 	}

@@ -102,6 +102,40 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/user_center_music"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/user_center_item_height" >
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/user_center_card_magin_left"
+                    android:contentDescription="@null"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/list_item_divider" />
+
+                <ImageView
+                    android:id="@+id/user_center_music_icon"
+                    android:layout_width="@dimen/dp20"
+                    android:layout_height="@dimen/dp20"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/user_center_card_magin_left"
+                    android:contentDescription="@null"
+                    android:src="@drawable/card" />
+
+                <TextView
+                    android:id="@+id/user_center_text_music"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/user_center_card_text_padding"
+                    android:layout_toRightOf="@id/user_center_music_icon"
+                    android:text="@string/my_music"
+                    android:textColor="@color/black_bg"
+                    android:textSize="@dimen/dp15" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:id="@+id/user_center_layout_homepage"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/user_center_item_height" >
@@ -115,14 +149,22 @@
                     android:scaleType="fitXY"
                     android:src="@drawable/list_item_divider" />
 
+                <ImageView
+                    android:id="@+id/user_center_guangchang_icon"
+                    android:layout_width="@dimen/dp20"
+                    android:layout_height="@dimen/dp20"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/user_center_card_magin_left"
+                    android:contentDescription="@null"
+                    android:src="@drawable/card" />
+
                 <TextView
                     android:id="@+id/user_center_text_my_homepage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/user_center_homepage_magin_left"
-                    android:drawableLeft="@drawable/user_center_dot"
-                    android:drawablePadding="@dimen/dp10"
+                    android:layout_marginLeft="@dimen/user_center_card_text_padding"
+                    android:layout_toRightOf="@id/user_center_guangchang_icon"
                     android:text="@string/my_homepage"
                     android:textColor="@color/black_bg"
                     android:textSize="@dimen/dp15" />
@@ -260,8 +302,8 @@
                     android:layout_width="@dimen/dp20"
                     android:layout_height="@dimen/dp20"
                     android:layout_centerVertical="true"
-                     android:src="@drawable/user_center_setting_icon" 
-                    android:contentDescription="@null" />
+                    android:contentDescription="@null"
+                    android:src="@drawable/user_center_setting_icon" />
 
                 <TextView
                     android:id="@+id/user_center_text_setting"
@@ -277,4 +319,4 @@
         </LinearLayout>
     </ScrollView>
 
-</RelativeLayout><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/layout/user_center.xml --><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/bundles/debug/res/layout/user_center.xml -->
+</RelativeLayout><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/layout/user_center.xml --><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/bundles/debug/res/layout/user_center.xml -->

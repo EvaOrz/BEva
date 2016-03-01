@@ -3,7 +3,7 @@
 
     <!-- 栏目index -->
     <!-- + top_menu height -->
-    <dimen name="index_titlebar_height">79.5dp</dimen>
+    <dimen name="index_titlebar_height">88dp</dimen>
 
     <!-- atlas lohas -->
     <dimen name="atlas_dot_size">5dp</dimen>

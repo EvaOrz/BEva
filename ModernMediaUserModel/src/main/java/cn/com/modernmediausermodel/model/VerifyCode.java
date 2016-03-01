@@ -14,7 +14,7 @@ public class VerifyCode extends Entry {
 	private String code;
 
 	public VerifyCode(JSONObject json) {
-		if (json.isNull("phone")) {
+		if (!json.isNull("phone")) {
 			setCode(json.optString("phone"));
 		}
 	}

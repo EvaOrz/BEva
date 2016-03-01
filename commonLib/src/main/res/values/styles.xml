@@ -2,13 +2,13 @@
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
+            backward-compatibility can go here.
         -->
     </style>
 
@@ -41,6 +41,15 @@
         <item name="android:windowAnimationStyle">@style/Animation</item>
     </style>
 
+    <style name="Play_SeekBar" parent="@android:style/Widget.SeekBar">
+        <item name="android:maxHeight">6.0dip</item>
+        <item name="android:minHeight">6.0dip</item>
+        <item name="android:height">6.0dip</item>
+        <item name="android:progressDrawable">@drawable/layer_list_seekbar_play</item>
+        <item name="android:thumb">@drawable/shape_seekbar_thumb</item>
+        <item name="android:thumbOffset">0dp</item>
+    </style>
+
     <style name="Animation">
         <item name="android:activityOpenEnterAnimation">@null</item>
         <item name="android:activityOpenExitAnimation">@null</item>
@@ -55,5 +64,7 @@
         <item name="android:taskToBackEnterAnimation">@null</item>
         <item name="android:taskToBackExitAnimation">@null</item>
     </style>
+
+    <style name="Widget.GifView" parent="@android:style/Widget"></style>
 
 </resources>

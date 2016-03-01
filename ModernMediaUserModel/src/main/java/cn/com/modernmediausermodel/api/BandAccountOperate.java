@@ -15,7 +15,7 @@ import cn.com.modernmediausermodel.util.UserConstData;
  * 绑定账号： 手机、邮箱、微博、微信、QQ
  * 
  * @author lusiyuan
- *
+ * 
  */
 public class BandAccountOperate extends UserModelBaseOperate {
 	private ErrorMsg error;
@@ -40,7 +40,7 @@ public class BandAccountOperate extends UserModelBaseOperate {
 			if (bindType == PHONE) {
 				addPostParams(postObject, "phone", userName);
 				addPostParams(postObject, "bindtype", "phone");
-				addPostParams(postObject, "code", "code");
+				addPostParams(postObject, "code", code);
 			} else if (bindType == EMAIL) {
 				addPostParams(postObject, "username", userName);
 				addPostParams(postObject, "bindtype", "email");
@@ -100,8 +100,7 @@ public class BandAccountOperate extends UserModelBaseOperate {
 
 	@Override
 	protected void getIssueLevel() {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 }

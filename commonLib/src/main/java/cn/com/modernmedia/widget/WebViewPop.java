@@ -13,7 +13,6 @@ import android.view.View.OnKeyListener;
 import android.view.ViewGroup.LayoutParams;
 import android.webkit.WebSettings;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;

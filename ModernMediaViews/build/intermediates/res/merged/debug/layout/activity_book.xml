@@ -15,15 +15,44 @@
             android:id="@+id/book_back"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_centerVertical="true"
             android:src="@drawable/book_back" />
 
         <TextView
+            android:id="@+id/book_nav_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:padding="12dp"
             android:text="@string/book_manage"
             android:textColor="@color/black_bg"
-            android:textSize="@dimen/dp18_textsize" />
+            android:textSize="@dimen/dp16_textsize"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/book_weekly_nav_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingBottom="5dp"
+            android:visibility="gone" >
+
+            <ImageView
+                android:id="@+id/iweekly_book_title_img"
+                android:layout_width="80dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/bg_navbar_title" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/book_manage"
+                android:textColor="@color/white_bg"
+                android:textSize="@dimen/dp12_textsize" />
+        </LinearLayout>
     </RelativeLayout>
 
     <View
@@ -34,26 +63,32 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/book_bac"
-        android:padding="10dp" >
+        android:background="@color/book_bac" >
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:text="@string/my_books" />
+            android:layout_marginLeft="20dp"
+            android:background="@color/book_bac"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:text="@string/my_books"
+            android:textColor="@color/black_bg"
+            android:textSize="@dimen/dp14_textsize" />
 
         <TextView
             android:id="@+id/orderordelete"
-            android:layout_width="80dp"
+            android:layout_width="70dp"
             android:layout_height="30dp"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:background="@drawable/book_order_bac"
             android:gravity="center"
             android:text="@string/book_edit"
-            android:textColor="#cd3333" />
+            android:textColor="#cd3333"
+            android:textSize="@dimen/dp14_textsize" />
     </RelativeLayout>
 
     <View
@@ -97,7 +132,9 @@
                 android:paddingBottom="10dp"
                 android:paddingLeft="20dp"
                 android:paddingTop="10dp"
-                android:text="@string/more_books" />
+                android:text="@string/more_books"
+                android:textColor="@color/black_bg"
+                android:textSize="@dimen/dp14_textsize" />
 
             <View
                 android:layout_width="match_parent"
@@ -120,4 +157,4 @@
         </LinearLayout>
     </ScrollView>
 
-</LinearLayout><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaViews/src/main/res/layout/activity_book.xml -->
+</LinearLayout><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaViews/src/main/res/layout/activity_book.xml -->

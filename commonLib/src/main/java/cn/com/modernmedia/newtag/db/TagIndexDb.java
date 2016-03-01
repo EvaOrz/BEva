@@ -27,7 +27,7 @@ import cn.com.modernmediaslate.unit.ParseUtil;
  */
 public class TagIndexDb extends TagDbListenerImplement {
 	private static final String DATABASE_NAME = "tag_index.db";
-	private static final int DATABASE_VERSION = 2;
+	private static final int DATABASE_VERSION = 3;
 	private static final String TABLE_NAME = "tag_index";
 	public static final String SUBSCRIBE_TOP_ARTICLE = "subscribe_top_article";// 所有订阅栏目的前5篇文章
 
@@ -43,6 +43,7 @@ public class TagIndexDb extends TagDbListenerImplement {
 	private static final String VIEW_BY_GROUP = "viewbygroup";// 6
 	private static final String IS_RADIO = "isRadio";// 7
 	private static final String LINK = "link";// 8
+	private static final String TYPE = "type";// 9
 	private static final String SPECIAL_TAG = "special_tag";
 
 	private static TagIndexDb instance = null;
@@ -69,6 +70,7 @@ public class TagIndexDb extends TagDbListenerImplement {
 		helper.addColumn(VALUE, "TEXT");
 		helper.addColumn(VIEW_BY_GROUP, "TEXT");
 		helper.addColumn(IS_RADIO, "INTEGER");
+		helper.addColumn(TYPE, "INTEGER");
 		helper.addColumn(LINK, "TEXT");
 		helper.addColumn(SPECIAL_TAG, "TEXT");
 		db.execSQL(helper.getSql());
@@ -87,7 +89,8 @@ public class TagIndexDb extends TagDbListenerImplement {
 		String viewbygroup = articleList.getViewbygroup();
 		String tagName = articleList.getTagName();
 		String link = articleList.getLink();
-		int isRadio = -1;
+		int isRadio = articleList.getIsRadio();
+		int type = articleList.getType();
 
 		SQLiteDatabase db = this.getWritableDatabase();
 		try {
@@ -98,7 +101,7 @@ public class TagIndexDb extends TagDbListenerImplement {
 					continue;
 				for (ArticleItem item : list) {
 					ContentValues cv = createContentValues(appid, columnJson,
-							item, viewbygroup, tagName, isRadio, link);
+							item, viewbygroup, tagName, isRadio, link, type);
 					db.insert(TABLE_NAME, null, cv);
 				}
 			}
@@ -126,11 +129,12 @@ public class TagIndexDb extends TagDbListenerImplement {
 		cv.put(OFFSET, item.getOffset());
 		cv.put(VALUE, item.getJsonObject());
 		cv.put(VIEW_BY_GROUP, obj[3].toString());
-		if (obj.length == 8) {
-			cv.put(SPECIAL_TAG, obj[7].toString());
+		if (obj.length == 9) {
+			cv.put(SPECIAL_TAG, obj[8].toString());
 		}
 		cv.put(IS_RADIO, ParseUtil.stoi(obj[5].toString()));
 		cv.put(LINK, obj[6].toString());
+		cv.put(TYPE, ParseUtil.stoi(obj[7].toString()));
 		return cv;
 	}
 
@@ -217,7 +221,6 @@ public class TagIndexDb extends TagDbListenerImplement {
 		String columnJson = articleList.getColumnJson();
 		String viewbygroup = articleList.getViewbygroup();
 		String tagName = articleList.getTagName();
-		// int isRadio = articleList.getTagName();
 		String link = articleList.getLink();
 
 		SQLiteDatabase db = this.getWritableDatabase();

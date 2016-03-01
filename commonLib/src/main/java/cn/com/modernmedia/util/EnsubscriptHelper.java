@@ -1,5 +1,6 @@
 package cn.com.modernmedia.util;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -16,8 +17,7 @@ public class EnsubscriptHelper {
 	/**
 	 * 父栏目列表；添加完所有栏目之后，根据子栏目重新判断父栏目是否已订阅
 	 */
-	// private static List<TagInfo> parentTagInfoList = new
-	// ArrayList<TagInfo>();
+	private static List<TagInfo> parentTagInfoList = new ArrayList<TagInfo>();
 
 	/**
 	 * 添加已订阅栏目
@@ -38,8 +38,13 @@ public class EnsubscriptHelper {
 		List<String> subscribeTagList = subscribeOrderList.getTagNameList();
 		/**
 		 * 用户已订阅列表初始化
+		 * 
+		 * 电台列表初始化
 		 */
 		for (TagInfo t : AppValue.ensubscriptColumnList.getList()) {// 循环全部订阅列表
+			if (t.getIsRadio() == 1 || t.getType() == 11) { // 电台栏目
+				AppValue.musicColumnLIst.getList().add(t);
+			}
 			if (t.getIsFix() == 1)// 固定订阅--》加入用户订阅临时列表
 				AppValue.bookColumnList.getList().add(t);
 			else if (subscribeTagList != null && subscribeTagList.size() > 0) {
@@ -88,6 +93,7 @@ public class EnsubscriptHelper {
 		AppValue.ensubscriptColumnList.getChildMap().clear();
 		AppValue.ensubscriptColumnList.getParentList().clear();
 		AppValue.bookColumnList.getList().clear();
+		AppValue.musicColumnLIst.getList().clear();
 		// parentTagInfoList.clear();
 	}
 

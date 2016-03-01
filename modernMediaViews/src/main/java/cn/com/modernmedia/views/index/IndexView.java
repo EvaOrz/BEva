@@ -12,7 +12,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import cn.com.modernmedia.CommonMainActivity;
 import cn.com.modernmedia.listener.FetchEntryListener;
 import cn.com.modernmedia.model.TagArticleList;
@@ -47,7 +46,7 @@ public class IndexView extends BaseView implements FetchEntryListener {
 	public static int height;
 
 	private Context mContext;
-	private RelativeLayout navBar;
+	private LinearLayout navBar;
 	private FrameLayout contain;
 	private FrameLayout issueListLayout;
 	private LinearLayout cover;
@@ -93,11 +92,12 @@ public class IndexView extends BaseView implements FetchEntryListener {
 	private void init() {
 		BAR_HEIGHT = mContext.getResources().getDimensionPixelSize(
 				R.dimen.index_titlebar_height);
+
 		addView(LayoutInflater.from(mContext)
 				.inflate(R.layout.index_view, null), new LayoutParams(
 				LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
 		initProcess();
-		navBar = (RelativeLayout) findViewById(R.id.index_titleBar);
+		navBar = (LinearLayout) findViewById(R.id.index_titleBar);
 		contain = (FrameLayout) findViewById(R.id.index_contain);
 		issueListLayout = (FrameLayout) findViewById(R.id.index_issuelist);
 		indexViewPager = (IndexViewPager) findViewById(R.id.index_pager);
@@ -105,13 +105,14 @@ public class IndexView extends BaseView implements FetchEntryListener {
 		cover.setBackgroundColor(Color.TRANSPARENT);
 		cover.setBackgroundDrawable(null);
 		// top menu
-		topMenu = (TopMenuHorizontalScrollView) findViewById(R.id.book_menu);
+//		topMenu = (TopMenuHorizontalScrollView) findViewById(R.id.book_menu);
+		topMenu = new TopMenuHorizontalScrollView(mContext);
 
 		initRes();
 		if (SlateApplication.mConfig.getNav_hide() == 0
 				&& SlateApplication.mConfig.getAlign_bar() == 0) {
 			((LayoutParams) indexViewPager.getLayoutParams()).topMargin = BAR_HEIGHT;
-		} else {
+		} else {// nav_bar 移动时，top_menu在indexviewpager之上
 			callNavPadding(0);
 		}
 	}
@@ -123,6 +124,7 @@ public class IndexView extends BaseView implements FetchEntryListener {
 	 */
 	public void setTopMenuData(TagInfoList list) {
 		topMenu.setData(list.getList());
+		dataSetForIndexNav.setTopMenuData(topMenu);
 	}
 
 	/**
@@ -134,8 +136,10 @@ public class IndexView extends BaseView implements FetchEntryListener {
 		XMLParse xmlParse = new XMLParse(mContext, null);
 		View view = xmlParse.inflate(template.getData(), null, "");
 		navBar.addView(view);
+//		navBar.addView(topMenu);// 添加topmenu
 		dataSetForIndexNav = xmlParse.getDataSetForIndexNav();
 		dataSetForIndexNav.setData();
+		
 	}
 
 	public View getColumn() {

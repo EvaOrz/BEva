@@ -26,9 +26,10 @@ public class ModifyUserInfoOperate extends UserModelBaseOperate {
 	 * @param nickName
 	 * @param url
 	 * @param password
+	 * @param desc
 	 */
 	protected ModifyUserInfoOperate(String uid, String token, String userName,
-			String nickName, String url, String password) {
+			String nickName, String url, String password, String desc) {
 		super();
 		// post 参数设置
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -47,9 +48,10 @@ public class ModifyUserInfoOperate extends UserModelBaseOperate {
 					nickName = URLEncoder.encode(nickName, "UTF-8");
 					object.put("nickname", nickName);
 				}
-				if (!TextUtils.isEmpty(url)) {
+				if (!TextUtils.isEmpty(url))
 					object.put("avatar", url);
-				}
+				if (!TextUtils.isEmpty(desc))
+					object.put("desc", URLEncoder.encode(desc, "UTF-8"));
 			}
 			params.add(new BasicNameValuePair("data", object.toString()));
 			setPostParams(params);
@@ -66,8 +68,7 @@ public class ModifyUserInfoOperate extends UserModelBaseOperate {
 
 	@Override
 	protected void getIssueLevel() {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 }

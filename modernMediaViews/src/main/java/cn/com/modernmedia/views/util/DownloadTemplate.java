@@ -61,32 +61,32 @@ public class DownloadTemplate {
 	 * 获取模板
 	 */
 	public void getTemplate() {
-		callback(null);
-		// if (SlateApplication.mConfig.getHas_subscribe() == 0
-		// || AppValue.appInfo.getHaveSubscribe() == 0) {
-		// // TODO 如果不支持订阅，那么只取本地默认模板
 		// callback(null);
-		// return;
-		// }
-		// String name = getTemplateName();
-		// if (TextUtils.isEmpty(name)) {
-		// callback(null);
-		// } else {
-		// String data = getTemplateData(name);
-		// if (!TextUtils.isEmpty(data)) {
-		// try {
-		// new JSONObject(data);
-		// callback(ParseProperties.getInstance(mContext).parseIndex(
-		// data, getTemplateHost()));
-		// } catch (JSONException e) {
-		// e.printStackTrace();
-		// deleteFile(name);
-		// callback(null);
-		// }
-		// } else {
-		// download();
-		// }
-		// }
+		if (SlateApplication.mConfig.getHas_subscribe() == 0
+				|| AppValue.appInfo.getHaveSubscribe() == 0) {
+			// TODO 如果不支持订阅，那么只取本地默认模板
+			callback(null);
+			return;
+		}
+		String name = getTemplateName();
+		if (TextUtils.isEmpty(name)) {
+			callback(null);
+		} else {
+			String data = getTemplateData(name);
+			if (!TextUtils.isEmpty(data)) {
+				try {
+					new JSONObject(data);
+					callback(ParseProperties.getInstance(mContext).parseIndex(
+							data, getTemplateHost()));
+				} catch (JSONException e) {
+					e.printStackTrace();
+					deleteFile(name);
+					callback(null);
+				}
+			} else {
+				download();
+			}
+		}
 	}
 
 	/**

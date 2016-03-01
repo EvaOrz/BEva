@@ -7,9 +7,9 @@ import android.content.Context;
 import android.content.Intent;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.model.User;
-import cn.com.modernmediausermodel.BandActivity;
 import cn.com.modernmediausermodel.BandDetailActivity;
 import cn.com.modernmediausermodel.LoginActivity;
+import cn.com.modernmediausermodel.api.BandAccountOperate;
 import cn.com.modernmediausermodel.api.UserOperateController;
 import cn.com.modernmediausermodel.listener.UserFetchEntryListener;
 import cn.com.modernmediausermodel.webridge.WBWebridge.AsynExecuteCommandListener;
@@ -129,27 +129,27 @@ public class WBWebridgeImplement implements WBWebridgeListener {
 					if (ifGetStatus && user.isBandPhone())
 						paramObject.put("bindResult", true);
 					else
-						i.putExtra("band_type", BandActivity.BAND_PHONE);
+						i.putExtra("band_type", BandAccountOperate.PHONE);
 				} else if (type.equals("email")) {
 					if (ifGetStatus && user.isBandEmail())
 						paramObject.put("bindResult", true);
 					else
-						i.putExtra("band_type", BandActivity.BAND_EMAIL);
+						i.putExtra("band_type", BandAccountOperate.EMAIL);
 				} else if (type.equals("weibo")) {
 					if (ifGetStatus && user.isBandWeibo())
 						paramObject.put("bindResult", true);
 					else
-						i.putExtra("band_type", BandActivity.BAND_WEIBO);
+						i.putExtra("band_type", BandAccountOperate.WEIBO);
 				} else if (type.equals("weixin")) {
 					if (ifGetStatus && user.isBandWeixin())
 						paramObject.put("bindResult", true);
 					else
-						i.putExtra("band_type", BandActivity.BAND_WEIXIN);
+						i.putExtra("band_type", BandAccountOperate.WEIXIN);
 				} else if (type.equals("qq")) {
 					if (ifGetStatus && user.isBandQQ())
 						paramObject.put("bindResult", true);
 					else
-						i.putExtra("band_type", BandActivity.BAND_QQ);
+						i.putExtra("band_type", BandAccountOperate.QQ);
 				}
 				listener.onCallBack(paramObject.toString());
 				mContext.startActivity(i);

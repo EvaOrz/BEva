@@ -147,9 +147,10 @@ public class UserOperateController {
 	 * @param listener
 	 *            view数据回调接口
 	 */
-	public void loginOut(Context context ,String uid, String token,
+	public void loginOut(Context context, String uid, String token,
 			UserFetchEntryListener listener) {
-		UserLoginOutOperate operate = new UserLoginOutOperate(context,uid, token);
+		UserLoginOutOperate operate = new UserLoginOutOperate(context, uid,
+				token);
 		doPostRequest(operate, operate.getUser(), FetchApiType.USE_HTTP_ONLY,
 				listener);
 	}
@@ -221,14 +222,16 @@ public class UserOperateController {
 	 *            图片的相对地址(通过上传头像获得)
 	 * @param password
 	 *            用户登录密码
+	 * @param desc
+	 *            用户登录密码
 	 * @param listener
 	 *            view数据回调接口
 	 */
 	public void modifyUserInfo(String uid, String token, String userName,
-			String nickName, String url, String password,
+			String nickName, String url, String password, String desc,
 			UserFetchEntryListener listener) {
 		ModifyUserInfoOperate operate = new ModifyUserInfoOperate(uid, token,
-				userName, nickName, url, password);
+				userName, nickName, url, password, desc);
 		doPostRequest(operate, operate.getUser(), FetchApiType.USE_HTTP_ONLY,
 				listener);
 	}

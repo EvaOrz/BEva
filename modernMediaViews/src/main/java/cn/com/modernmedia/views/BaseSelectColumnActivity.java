@@ -36,6 +36,9 @@ public abstract class BaseSelectColumnActivity extends BaseActivity {
 		this.parent = parent;
 		List<SubscribeColumn> list = new ArrayList<SubscribeColumn>();
 		for (TagInfo info : AppValue.tempColumnList.getList()) {
+			// 3.1.4 订阅去除固定栏目
+			if (info.getIsFix() == 0)
+				continue;
 			// TODO 提交主栏目 (兼容ios，如果是一级栏目，那么parent传他自己)
 			if (info.getTagLevel() != 1)
 				continue;
@@ -108,6 +111,7 @@ public abstract class BaseSelectColumnActivity extends BaseActivity {
 			return;
 		showLoadingDialog(true);
 		isSaving = true;
+
 		OperateController.getInstance(this).saveSubscribeColumnList(
 				user.getUid(), user.getToken(), list, new FetchEntryListener() {
 

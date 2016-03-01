@@ -108,10 +108,11 @@ public class V {
 		CardUriParse.getInstance();
 		TransferArticle transferArticle = new TransferArticle(articleType,
 				Tools.getUid(context));
-		Log.e("列表点击", "列表点击");
-		if (item.getPosition().getStyle() == 7){
-			UriParse.clickSlate(context, new Entry[] { item });}
-		else
+		Log.e("列表点击", "列表点击  " + item.getSlateLink()
+				+ item.getPosition().getStyle());
+		if (item.getPosition().getStyle() == 7) {// 跑马灯
+			UriParse.clickSlate(context, new Entry[] { item });
+		} else
 			UriParse.clickSlate(context, new Entry[] { item, transferArticle },
 					cls);
 	}

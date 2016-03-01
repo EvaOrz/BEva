@@ -16,7 +16,13 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.NinePatch;
+import android.graphics.Paint;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.Bitmap.Config;
+import android.graphics.PorterDuff.Mode;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.NinePatchDrawable;
@@ -829,6 +835,45 @@ public class FinalBitmap {
 			defaultDisplayConfig.setBitmapWidth(defaultWidth);
 
 		}
+	}
+	
+	/**
+	 * 把图片转换成圆形
+	 * 
+	 * @param bitmapimg
+	 * @return
+	 */
+	public static void transforCircleBitmap(Bitmap bitmap, ImageView imageView) {
+		if (bitmap == null)
+			return;
+		int width = bitmap.getWidth();
+		int height = bitmap.getHeight();
+		// 取小的
+		int radius = width > height ? height / 2 : width / 2;
+		Bitmap output = Bitmap.createBitmap(radius * 2, radius * 2,
+				Config.ARGB_8888);
+		Canvas canvas = new Canvas(output);
+
+		Paint paint = new Paint();
+		int left = 0, top = 0;
+		int right = width, bottom = height;
+		if (width > height) {
+			left = width / 2 - radius;
+			right = width / 2 + radius;
+		} else if (width < height) {
+			top = height / 2 - radius;
+			bottom = height / 2 + radius;
+		}
+		Rect src = new Rect(left, top, right, bottom);// 截取原始图片的地方
+		Rect dst = new Rect(0, 0, 2 * radius, 2 * radius);
+
+		paint.setAntiAlias(true);
+		canvas.drawCircle(radius, radius, radius, paint);
+		paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
+
+		canvas.drawBitmap(bitmap, src, dst, paint);
+		
+		imageView.setImageBitmap(bitmap);
 	}
 
 }

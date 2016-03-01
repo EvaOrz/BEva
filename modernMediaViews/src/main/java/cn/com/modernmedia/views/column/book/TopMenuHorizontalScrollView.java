@@ -3,31 +3,37 @@ package cn.com.modernmedia.views.column.book;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.w3c.dom.Text;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
-import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.com.modernmedia.model.TagInfoList.TagInfo;
+import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmedia.util.DataHelper;
 import cn.com.modernmedia.views.R;
 import cn.com.modernmedia.views.ViewsMainActivity;
 import cn.com.modernmedia.views.util.V;
+import cn.com.modernmediaslate.SlateApplication;
 
 /**
  * top_menu view
  * 
  * @author lusiyuan
- *
+ * 
  */
 public class TopMenuHorizontalScrollView extends RelativeLayout {
 
@@ -35,7 +41,7 @@ public class TopMenuHorizontalScrollView extends RelativeLayout {
 	private Context mContext;
 	private HorizontalScrollView scrollView;
 	private LinearLayout layout;
-	private List<TextView> checkSelectView = new ArrayList<TextView>();// 记录栏目列表
+	private List<View> checkSelectView = new ArrayList<View>();// 记录栏目列表
 	/**
 	 * 由于可能是独立栏目，并且绑定在列表上，导致每次切换的时候都还原，所以设置成静态变量
 	 */
@@ -59,8 +65,12 @@ public class TopMenuHorizontalScrollView extends RelativeLayout {
 		view = (RelativeLayout) LayoutInflater.from(mContext).inflate(
 				R.layout.top_menu, null);
 		addView(view);
+		if (ConstData.getAppId() == 20) {// 设置iweekly背景颜色
+			view.setBackgroundColor(Color.parseColor("#323232"));
+		}
 		scrollView = (HorizontalScrollView) view
 				.findViewById(R.id.book_horizantal_scrollview);
+
 		view.findViewById(R.id.subscribe_add).setOnClickListener(
 				new OnClickListener() {
 
@@ -82,28 +92,51 @@ public class TopMenuHorizontalScrollView extends RelativeLayout {
 		checkSelectView.clear();
 
 		layout = new LinearLayout(mContext);
-		layout.setPadding(0, 10, 0, 10);
 		for (int i = 0; i < tagInfos.size(); i++) {
-			final int position = i;
-			final TagInfo tagInfo = tagInfos.get(i);
-			TextView child = new TextView(mContext);
-			child.setText(tagInfo.getColumnProperty().getCname());
-			child.setPadding(25, 10, 25, 10);
-			child.setTextColor(Color.BLACK);
-			child.setTag(tagInfo);
-			child.setOnClickListener(new OnClickListener() {
+			if (!tagInfos.get(i).getTagName().equals("cat_191")) { // 去除视野
+				final int position = i;
+				final TagInfo tagInfo = tagInfos.get(i);
 
-				@Override
-				public void onClick(View v) {
-					clickItem(tagInfo, position);
+				TextView textChild = new TextView(mContext);
+				textChild.setText(tagInfo.getColumnProperty().getCname());
+				textChild.setTextColor(Color.BLACK);
+
+				LinearLayout cLayout = new LinearLayout(mContext);
+				cLayout.setLayoutParams(new LayoutParams(
+						LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT));
+				cLayout.setGravity(Gravity.CENTER_VERTICAL);
+				cLayout.setPadding(20, 0, 0, 0);
+				cLayout.setTag(tagInfo);
+				cLayout.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						clickItem(tagInfo, position);
+					}
+				});
+				if (ConstData.getAppId() == 20) {
+					ImageView imgChild = new ImageView(mContext);
+					imgChild.setLayoutParams(new LayoutParams(60, 60));
+					V.setImageForWeeklyCat(mContext, tagInfo, imgChild);
+					textChild.setPadding(10, 0, 20, 0);
+					textChild.setTextColor(Color.WHITE);
+					cLayout.addView(imgChild);
+				} else {
+					textChild.setGravity(Gravity.CENTER_VERTICAL);
+					cLayout.setPadding(10, 10, 0, 10);
+					textChild.setPadding(15, 0, 15, 0);
+					textChild.setLayoutParams(new LayoutParams(
+							LayoutParams.WRAP_CONTENT,
+							LayoutParams.MATCH_PARENT));
 				}
-			});
-
-			layout.addView(child);
-			checkSelectView.add(child);
+				cLayout.addView(textChild);
+				layout.addView(cLayout);
+				checkSelectView.add(cLayout);
+			}
 		}
 		scrollView.addView(layout);
 		setSelectedItemForChild(tagInfos.get(0).getTagName());
+
 	}
 
 	protected void clickItem(final TagInfo tagInfo, final int position) {
@@ -118,7 +151,6 @@ public class TopMenuHorizontalScrollView extends RelativeLayout {
 
 	private void click(TagInfo tagInfo, int position) {
 		if (mContext instanceof ViewsMainActivity) {
-			// ((ViewsMainActivity) mContext).getScrollView().IndexClick();
 			// 如果点击的是当前显示的cat,不重新 获取数据
 			if (selectPosition == position) {
 				return;
@@ -152,21 +184,32 @@ public class TopMenuHorizontalScrollView extends RelativeLayout {
 			View child = layout.getChildAt(i);
 			if (child.getTag() instanceof TagInfo) {
 
+				// 选中状态
 				if (((TagInfo) child.getTag()).getTagName().equals(currTagName)) {
-					if (DataHelper.columnColorMap.containsKey(currTagName)) {
+					// 商周设置为 栏目颜色
+					if (DataHelper.columnColorMap.containsKey(currTagName)
+							&& ConstData.getAppId() == 1) {
 						int color = DataHelper.columnColorMap.get(currTagName);
-						child.setBackgroundColor(color);
-					}
-					((TextView) child).setTextColor(Color.WHITE);
+						TextView t = (TextView) ((LinearLayout) child)
+								.getChildAt(0);
+						t.setBackgroundColor(color);
+						t.setTextColor(Color.WHITE);
+					} else
+						V.setViewBack(child, "#323232");
 
 					int scrollX = scrollView.getScrollX() - 60;
 					int left = child.getLeft();
 					int leftScreen = left - scrollX;
 					scrollView.smoothScrollBy((leftScreen - screenHalf), 0);
-
 				} else {
-					V.setViewBack(child, "#ffffff");
-					((TextView) child).setTextColor(Color.BLACK);
+					if (ConstData.getAppId() == 1) {
+						TextView t = (TextView) ((LinearLayout) child)
+								.getChildAt(0);
+						V.setViewBack(t, "#ffffff");
+						t.setTextColor(Color.BLACK);
+					} else
+						V.setViewBack(child, "#191919");
+
 				}
 			}
 		}

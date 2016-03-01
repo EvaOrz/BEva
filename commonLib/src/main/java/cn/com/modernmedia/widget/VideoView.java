@@ -548,7 +548,6 @@ public class VideoView extends SurfaceView implements MediaPlayerControl {
 
 	@Override
 	public int getAudioSessionId() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 }

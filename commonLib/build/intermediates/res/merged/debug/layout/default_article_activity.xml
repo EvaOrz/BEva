@@ -35,4 +35,4 @@
         layout="@layout/progress_activity"
         android:visibility="gone" />
 
-</RelativeLayout><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/commonLib/src/main/res/layout/default_article_activity.xml -->
+</RelativeLayout><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/commonLib/src/main/res/layout/default_article_activity.xml -->

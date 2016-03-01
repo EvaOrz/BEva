@@ -6,7 +6,6 @@ import org.json.JSONObject;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.SparseArray;
 import android.webkit.JavascriptInterface;
 

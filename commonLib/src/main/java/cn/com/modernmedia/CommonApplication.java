@@ -51,6 +51,9 @@ public class CommonApplication extends SlateApplication {
 
 	public static Class<?> pushArticleCls;// PushArticleActivity
 
+	public static MusicActivity musicActivity;// 全局电台播放Activity
+	public static MusicService musicService;// 全局电台播放Service
+
 	/**
 	 * 渠道
 	 */

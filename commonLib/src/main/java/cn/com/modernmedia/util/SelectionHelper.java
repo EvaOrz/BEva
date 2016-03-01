@@ -23,12 +23,14 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.text.TextUtils;
+import android.util.Log;
 import cn.com.modernmedia.CommonApplication;
 import cn.com.modernmedia.R;
 import cn.com.modernmedia.api.OperateController;
@@ -42,7 +44,7 @@ import cn.com.modernmediaslate.unit.Tools;
  * 标记日志helper
  * 
  * @author lusiyuan
- *
+ * 
  */
 public class SelectionHelper {
 	/**
@@ -80,7 +82,9 @@ public class SelectionHelper {
 			arrayevent.put(postObject);// 添加
 			if (arrayevent.length() > 39) {// post参数长度限制，50条请求一次接口
 				// writeToFile(context, postObject);
-				sendApi(context);
+				sendApi(context, arrayevent);
+				// 修复3.1.3 日志记录重复上传bug
+				arrayevent = new JSONArray();
 			}
 		} catch (Exception e1) {
 			e1.printStackTrace();
@@ -90,12 +94,14 @@ public class SelectionHelper {
 	/**
 	 * 发送日志 (参数方式)
 	 * 
+	 * 发送前置空列表，返回失败再循环入队列
+	 * 
 	 * @param context
 	 */
-	public void sendApi(Context context) {
+	public void sendApi(Context context, final JSONArray array) {
 		final JSONObject json = new JSONObject();
 		try {
-			json.put("events", arrayevent);
+			json.put("events", array);
 
 			addPostParams(json, "uid", Tools.getUid(context));
 			addPostParams(json, "deviceid", CommonApplication.getMyUUID());
@@ -131,6 +137,7 @@ public class SelectionHelper {
 					List<NameValuePair> formparams = new ArrayList<NameValuePair>();
 					formparams.add(new BasicNameValuePair("data", json
 							.toString()));
+					// Log.e("%%%%%%%%%%%%%%", json.toString());
 					UrlEncodedFormEntity entity = new UrlEncodedFormEntity(
 							formparams, HTTP.UTF_8);
 					httpPost.setEntity(entity);
@@ -143,10 +150,21 @@ public class SelectionHelper {
 						HttpEntity resEntity = response.getEntity();
 						resData = (resEntity == null) ? null : EntityUtils
 								.toString(resEntity, HTTP.UTF_8);
-					}
+					} else
+						for (int i = 0; i < array.length(); i++) {
+							arrayevent.put(array.get(i));
+						}
+
 				} catch (Exception e) {
 					if (e != null && !TextUtils.isEmpty(e.getMessage()))
 						SlatePrintHelper.logE("SELECTION_LOG", e.getMessage());
+					for (int i = 0; i < array.length(); i++) {
+						try {
+							arrayevent.put(array.get(i));
+						} catch (JSONException e1) {
+							e1.printStackTrace();
+						}
+					}
 				} finally {
 					if (httpPost != null)
 						httpPost.abort();

@@ -12,11 +12,11 @@ import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import cn.com.modernmedia.CommonApplication;
 import cn.com.modernmedia.CommonArticleActivity.ArticleType;
 import cn.com.modernmedia.CommonMainActivity;
@@ -72,6 +72,7 @@ public abstract class ViewsMainActivity extends CommonMainActivity {
 	protected NewColumnView columnView;// 栏目列表页
 	private View columnButton, favButton;
 	private FrameLayout userView;
+	public LinearLayout musicMenuContainer;// 音乐播放悬浮窗容器
 	protected UserCenterView userCenterView; // 用户中心页，默认右边页
 	private int currentPage = 0; // 当期处于第几屏
 
@@ -143,6 +144,9 @@ public abstract class ViewsMainActivity extends CommonMainActivity {
 		initProcess();
 		userView = (FrameLayout) findViewById(R.id.main_fav);
 		userView.addView(fetchRightView());
+		/** 电台悬浮窗容器**/
+		musicMenuContainer = (LinearLayout)findViewById(R.id.music_menu_container);
+		
 		columnView = (NewColumnView) findViewById(R.id.main_column);
 		scrollView = (MainHorizontalScrollView) findViewById(R.id.mScrollView);
 		indexView = new IndexView(this);

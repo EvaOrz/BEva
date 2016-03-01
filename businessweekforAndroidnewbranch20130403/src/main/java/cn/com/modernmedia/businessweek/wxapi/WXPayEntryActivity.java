@@ -24,7 +24,7 @@ import com.tencent.mm.sdk.openapi.WXAPIFactory;
  * 微信支付回调activity
  * 
  * @author lusiyuan
- *
+ * 
  */
 public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 

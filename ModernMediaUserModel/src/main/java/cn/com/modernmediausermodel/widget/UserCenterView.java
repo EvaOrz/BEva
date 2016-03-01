@@ -43,8 +43,8 @@ public class UserCenterView extends RelativeLayout implements OnClickListener {
 	private UserOperateController controller;
 	private Context mContext;
 	private User user;
-	private RelativeLayout businessPage, homePage, myCoin, cardFind, myFav,
-			messageLayout, settingLayout;
+	public RelativeLayout businessPage, homePage, myCoin, cardFind, myFav,
+			messageLayout, settingLayout, musicLayout;
 	private RelativeLayout cardInfoLayout;
 	private Button login;
 	private boolean accountHasChecked = false;
@@ -88,6 +88,7 @@ public class UserCenterView extends RelativeLayout implements OnClickListener {
 		followLayout = (LinearLayout) findViewById(R.id.user_center_layout_follow);
 		fansLayout = (LinearLayout) findViewById(R.id.user_center_layout_fans);
 		settingLayout = (RelativeLayout) findViewById(R.id.user_center_layout_setting);
+		musicLayout = (RelativeLayout) findViewById(R.id.user_center_music);
 
 		businessPage.setOnClickListener(this);
 		homePage.setOnClickListener(this);
@@ -102,6 +103,7 @@ public class UserCenterView extends RelativeLayout implements OnClickListener {
 		myCoin.setOnClickListener(this);
 		msgCenter.setOnClickListener(this);
 		settingLayout.setOnClickListener(this);
+		musicLayout.setOnClickListener(this);
 
 		// 如果存在我的金币页面时，通知中心以数字形式存在
 		if (SlateApplication.mConfig.getHas_coin() == 1) {
@@ -253,7 +255,12 @@ public class UserCenterView extends RelativeLayout implements OnClickListener {
 		if (id == R.id.user_center_layout_fav) { // 我的收藏,如果为登录，则显示本地收藏
 			UserPageTransfer.gotoFavoritesActivity(mContext);
 		} else if (id == R.id.user_center_info_avatar) { // 前往用户信息页面
-			UserPageTransfer.gotoUserInfoActivity(mContext, 0, null, null, 0);
+			if (user == null)
+				UserPageTransfer.gotoLoginActivity(mContext,
+						UserPageTransfer.GOTO_HOME_PAGE);
+			else
+				UserPageTransfer.gotoUserInfoActivity(mContext, 0, null, null,
+						0);
 		} else if (id == R.id.user_center_btn_login) {// 点击登录按钮
 			UserPageTransfer.gotoLoginActivity(mContext,
 					UserPageTransfer.GOTO_HOME_PAGE);
@@ -277,6 +284,8 @@ public class UserCenterView extends RelativeLayout implements OnClickListener {
 			UserPageTransfer.gotoSquareActivity(mContext, false);
 		} else if (id == R.id.user_center_layout_setting) {// 设置页面
 			UserPageTransfer.gotoSettingActivity(mContext, false);
+		} else if (id == R.id.user_center_music) {// 临时电台页面
+			UserPageTransfer.gotoMusicActivity(mContext, false);
 		}
 	}
 
@@ -288,6 +297,8 @@ public class UserCenterView extends RelativeLayout implements OnClickListener {
 		((TextView) findViewById(R.id.user_center_text_business_card))
 				.setTextColor(color);
 		((TextView) findViewById(R.id.user_center_text_my_homepage))
+				.setTextColor(color);
+		((TextView) findViewById(R.id.user_center_text_music))
 				.setTextColor(color);
 		((TextView) findViewById(R.id.user_center_text_my_coin))
 				.setTextColor(color);

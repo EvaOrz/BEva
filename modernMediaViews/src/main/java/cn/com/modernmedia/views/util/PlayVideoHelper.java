@@ -1,6 +1,7 @@
 package cn.com.modernmedia.views.util;
 
 import java.util.HashMap;
+
 import net.tsz.afinal.core.AsyncTask;
 import android.content.Context;
 import android.database.CursorJoiner.Result;
@@ -303,6 +304,7 @@ public class PlayVideoHelper {
 		if (flag)
 			return true;
 		else {
+			Log.e("下载视频广告任务", path);
 			AsyncTask<String, Integer, Result> task = new AsyncTask<String, Integer, Result>() {
 
 				@Override

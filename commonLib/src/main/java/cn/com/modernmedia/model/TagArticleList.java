@@ -46,6 +46,24 @@ public class TagArticleList extends Entry {
 	private String endOffset = "";// 最后一个offset
 	private String viewbygroup = "";// 排序
 	private List<String> dateList = new ArrayList<String>();
+	private int isRadio = 0;// 0：默认栏目 1：电台栏目
+	private int type = 0;// 栏目类型：0默认、7链接、11电台、12活动
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
+	}
+
+	public int getIsRadio() {
+		return isRadio;
+	}
+
+	public void setIsRadio(int isRadio) {
+		this.isRadio = isRadio;
+	}
 
 	public TagArticleList copy() {
 		TagArticleList tagArticleList = new TagArticleList();
@@ -55,6 +73,8 @@ public class TagArticleList extends Entry {
 		tagArticleList.setColumnJson(columnJson);
 		tagArticleList.setEndOffset(endOffset);
 		tagArticleList.setViewbygroup(viewbygroup);
+		tagArticleList.setIsRadio(isRadio);
+		tagArticleList.setType(type);
 		tagArticleList.setLink(link);
 		tagArticleList.getImpressionUrlList().addAll(impressionUrlList);
 		tagArticleList.getDateList().addAll(dateList);
@@ -165,6 +185,7 @@ public class TagArticleList extends Entry {
 	public void setProperty(ColumnProperty property) {
 		this.property = property;
 	}
+
 	public String getLink() {
 		return link;
 	}

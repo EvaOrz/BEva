@@ -12,9 +12,9 @@
     <string name="subscribe_save">保存</string>
 
     <!-- 订阅 -->
-    <string name="book_manage">订阅管理</string>
+    <string name="book_manage">管理订阅栏目</string>
     <string name="my_books">我的栏目</string>
     <string name="book_edit">编辑</string>
-    <string name="more_books">更多订阅栏目</string>
+    <string name="more_books">添加栏目</string>
 
 </resources>

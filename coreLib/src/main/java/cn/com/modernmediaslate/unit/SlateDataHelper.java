@@ -12,7 +12,7 @@ import cn.com.modernmediaslate.model.User;
  * 用户数据存储在SharedPreferences
  * 
  * @author lusiyuan
- *
+ * 
  */
 public class SlateDataHelper {
 	public static final String USER_NAME = "username";
@@ -27,8 +27,7 @@ public class SlateDataHelper {
 	public static final String NICKNAME = "nickname";
 	public static final String ISSUELEVEL = "issuelevel";
 	public static final String END_TIME = "end_time";
-	// 是否有未提交订单
-	// public static final String HAVE_ORDER = "have_order";
+	public static final String DESC = "desc";
 
 	private static SharedPreferences mPref;
 
@@ -59,6 +58,7 @@ public class SlateDataHelper {
 		editor.putString(WEIXIN_ID, user.getWeixinId());
 		editor.putString(TOKEN, user.getToken());
 		editor.putString(NICKNAME, user.getNickName());
+		editor.putString(DESC, user.getDesc());
 		editor.commit();
 	}
 
@@ -73,13 +73,14 @@ public class SlateDataHelper {
 		user.setUserName(getPref(context).getString(USER_NAME, ""));
 		user.setPhone(getPref(context).getString(PHONE, ""));
 		user.setEmail(getPref(context).getString(EMAIL, ""));
-		user.setPassword(mPref.getString(PASSWORD, ""));
-		user.setUid(mPref.getString(UID, ""));
-		user.setSinaId(mPref.getString(SINA_ID, ""));
-		user.setQqId(mPref.getString(QQ_ID, ""));
-		user.setWeixinId(mPref.getString(WEIXIN_ID, ""));
-		user.setToken(mPref.getString(TOKEN, ""));
-		user.setNickName(mPref.getString(NICKNAME, ""));
+		user.setPassword(getPref(context).getString(PASSWORD, ""));
+		user.setUid(getPref(context).getString(UID, ""));
+		user.setSinaId(getPref(context).getString(SINA_ID, ""));
+		user.setQqId(getPref(context).getString(QQ_ID, ""));
+		user.setWeixinId(getPref(context).getString(WEIXIN_ID, ""));
+		user.setToken(getPref(context).getString(TOKEN, ""));
+		user.setNickName(getPref(context).getString(NICKNAME, ""));
+		user.setDesc(getPref(context).getString(DESC, ""));
 		user.setAvatar(getAvatarUrl(context, user.getUserName()));
 		if (TextUtils.isEmpty(user.getUid()))
 			return null;
@@ -104,6 +105,7 @@ public class SlateDataHelper {
 		editor.putString(TOKEN, "");
 		editor.putString(NICKNAME, "");
 		editor.putString(ISSUELEVEL, "0");
+		editor.putString(DESC, "");
 		editor.commit();
 	}
 
@@ -203,6 +205,50 @@ public class SlateDataHelper {
 	 */
 	public static long getEndTime(Context context) {
 		return getPref(context).getLong(END_TIME, 0);
+	}
+
+	/**
+	 * 存储用户签名
+	 * 
+	 * @param context
+	 * @param desc
+	 */
+	public static void setDesc(Context context, String desc) {
+		Editor editor = getPref(context).edit();
+		editor.putString(DESC, desc);
+		editor.commit();
+	}
+
+	/**
+	 * 获取用户签名
+	 * 
+	 * @param context
+	 * @return
+	 */
+	public static String getDesc(Context context) {
+		return getPref(context).getString(DESC, "");
+	}
+
+	/**
+	 * 存储用户昵称
+	 * 
+	 * @param context
+	 * @param nickname
+	 */
+	public static void setNickname(Context context, String nickname) {
+		Editor editor = getPref(context).edit();
+		editor.putString(NICKNAME, nickname);
+		editor.commit();
+	}
+
+	/**
+	 * 获取用户昵称
+	 * 
+	 * @param context
+	 * @return
+	 */
+	public static String getNickname(Context context) {
+		return getPref(context).getString(NICKNAME, "");
 	}
 
 	/**

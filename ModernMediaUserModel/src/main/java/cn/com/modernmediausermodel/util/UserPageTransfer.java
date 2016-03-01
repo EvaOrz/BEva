@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import cn.com.modernmedia.MusicActivity;
 import cn.com.modernmediaslate.SlateApplication;
 import cn.com.modernmediaslate.model.User;
 import cn.com.modernmediaslate.unit.FavObservable;
@@ -145,6 +146,14 @@ public class UserPageTransfer {
 	 */
 	public static void gotoSettingActivity(Context context, boolean finish) {
 		transfer(context, SettingActivity.class, null, finish, true);
+	}
+
+	/**
+	 * 跳转至电台页面
+	 * 
+	 */
+	public static void gotoMusicActivity(Context context, boolean finish) {
+		transfer(context, MusicActivity.class, null, finish, false);
 	}
 
 	/**
@@ -355,14 +364,6 @@ public class UserPageTransfer {
 	 */
 	public static void gotoUserInfoActivity(Context context, int from,
 			String content, String password, int gotoPage) {
-		// 检查是否登录过，通过开放平台（如新浪微博、qq等）第一次登录进入信息页面时无需检查
-		if (!isLogin(context) && from != UserInfoActivity.FROM_SINA_LOGIN
-				&& from != UserInfoActivity.FROM_QQ_LOGIN
-				&& from != UserInfoActivity.FROM_WEIXIN_LOGIN
-				&& from != UserInfoActivity.FROM_PHONE_LOGIN) {
-			gotoLoginActivity(context, 0);
-			return;
-		}
 		Bundle bundle = new Bundle();
 		bundle.putInt(UserInfoActivity.KEY_ACTION_FROM, from);
 		if (!TextUtils.isEmpty(content)) {

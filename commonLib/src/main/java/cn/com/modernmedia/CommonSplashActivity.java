@@ -9,14 +9,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.util.Log;
 import cn.com.modernmedia.api.OperateController;
 import cn.com.modernmedia.db.NewFavDb;
 import cn.com.modernmedia.listener.FetchEntryListener;
 import cn.com.modernmedia.model.AdvList;
-import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.model.AdvList.AdvItem;
 import cn.com.modernmedia.model.AdvList.AdvSource;
+import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.model.Down;
 import cn.com.modernmedia.newtag.mainprocess.TagProcessManage;
 import cn.com.modernmedia.newtag.mainprocess.TagProcessManage.SplashCallback;
@@ -69,7 +68,6 @@ public abstract class CommonSplashActivity extends BaseActivity {
 		String action = i_getvalue.getAction();
 		if (Intent.ACTION_VIEW.equals(action)) {
 			Uri uri = i_getvalue.getData();
-			Log.e("网页跳转专用: getIntent().getData()", uri.toString());
 			fromHtmlArticleUri = uri;
 		}
 	}

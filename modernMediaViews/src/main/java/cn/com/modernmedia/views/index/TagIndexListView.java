@@ -751,13 +751,15 @@ public class TagIndexListView implements LoadCallBack, OnScrollListener {
 				|| SlateApplication.mConfig.getNav_hide() == 0 || stopCheckNav) {
 			return;
 		}
-		// TODO 有默认的下拉刷新headview
-		if (firstVisibleItem > 1) {
-			((ViewsMainActivity) mContext)
-					.callNavPadding(-IndexView.BAR_HEIGHT);
-		} else {
-			((ViewsMainActivity) mContext)
-					.callNavPadding(getCurrY() - defaultY);
+		if (mContext instanceof ViewsMainActivity) {
+			// TODO 有默认的下拉刷新headview
+			if (firstVisibleItem > 1) {
+				((ViewsMainActivity) mContext)
+						.callNavPadding(-IndexView.BAR_HEIGHT);
+			} else {
+				((ViewsMainActivity) mContext).callNavPadding(getCurrY()
+						- defaultY);
+			}
 		}
 	}
 

@@ -14,11 +14,11 @@
     <color name="my_coin_green_color">#4cd863</color>
     <color name="my_coin_red_color">#F61D23</color>
     <color name="my_coin_notice_cover_bg">#10FFFFFF</color>
-    <color name="login_btn_register_bg">#E4E4E4</color>
     <color name="login_btn_login_bg">#FB1F25</color>
     <color name="column_head">#c6391e</color>
     <color name="nav_bar_shadow_color">#73000000</color>
     <color name="body_bg">#f6f6f6</color>
     <color name="gray_line">#dbdbdb</color>
+    <color name="yellow">#fdba2d</color>
 
 </resources>

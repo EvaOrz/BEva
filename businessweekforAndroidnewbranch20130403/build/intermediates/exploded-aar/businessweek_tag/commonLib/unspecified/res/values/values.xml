@@ -4,7 +4,14 @@
     <eat-comment/>
     <color name="process_loading_red_ring">#ffb83126</color>
     <color name="process_loading_ring_bg">#ff292929</color>
+    <color name="red">#cd3333</color>
+    <color name="seek_bar_after_thumb">#cdcdcd</color>
+    <color name="seek_bar_before_thumb">#cd3333</color>
+    <color name="seek_bar_thumb_center">#dd3333</color>
+    <color name="seek_bar_thumb_outer_stroke">#ffffff</color>
     <color name="translucent_black">#7f000000</color>
+    <declare-styleable name="CustomTheme"><attr format="reference" name="gifViewStyle"/></declare-styleable>
+    <declare-styleable name="GifView"><attr format="reference" name="gif"/><attr format="boolean" name="paused"/></declare-styleable>
     <!-- From: file:/Users/Eva./Desktop/businessweek_tag/commonLib/src/main/res/values/dimens.xml -->
     <eat-comment/>
     <dimen name="article_bar_height">44dp</dimen>
@@ -52,6 +59,7 @@
     <string name="loading_pre">上一篇</string>
     <string name="more">更多</string>
     <string name="msg_ok">好的</string>
+    <string name="music_title">电台</string>
     <string name="new_issue">新一期杂志到了，是否现在阅读？</string>
     <string name="no_issue_zip">该期杂志没有下载包</string>
     <string name="no_weixin">微信尚未安装！</string>
@@ -122,6 +130,10 @@
 
 
 
+
+
+
+
         -->
     </style>
     <style name="AppTheme" parent="AppBaseTheme">
@@ -139,9 +151,18 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
+    <style name="Play_SeekBar" parent="@android:style/Widget.SeekBar">
+        <item name="android:maxHeight">6.0dip</item>
+        <item name="android:minHeight">6.0dip</item>
+        <item name="android:height">6.0dip</item>
+        <item name="android:progressDrawable">@drawable/layer_list_seekbar_play</item>
+        <item name="android:thumb">@drawable/shape_seekbar_thumb</item>
+        <item name="android:thumbOffset">0dp</item>
+    </style>
     <style name="Theme" parent="android:Theme.Light.NoTitleBar">
         <item name="android:windowAnimationStyle">@style/Animation</item>
     </style>
+    <style name="Widget.GifView" parent="@android:style/Widget"/>
     <style name="webview_pop" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/down_in</item>
         <item name="android:windowExitAnimation">@anim/down_out</item>

@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import cn.com.modernmedia.CommonArticleActivity.ArticleType;
 import cn.com.modernmedia.model.ArticleItem;
-import cn.com.modernmedia.newtag.db.TagIndexDb;
 import cn.com.modernmedia.util.UriParse;
 import cn.com.modernmedia.views.R;
 import cn.com.modernmedia.views.model.Template;

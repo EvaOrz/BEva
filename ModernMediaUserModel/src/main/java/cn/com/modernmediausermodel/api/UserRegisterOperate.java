@@ -13,7 +13,7 @@ import cn.com.modernmediausermodel.util.UserConstData;
  * 注册api
  * 
  * @author lusiyuan
- *
+ * 
  */
 public class UserRegisterOperate extends UserModelBaseOperate {
 
@@ -27,9 +27,11 @@ public class UserRegisterOperate extends UserModelBaseOperate {
 			object.put("username", userName);
 			object.put("password", password);
 			object.put("appid", UserConstData.getInitialAppId() + "");
-
-			object.put("code", code);// 验证码
-			object.put("phone", phone);// 电话号码
+			
+			if (code != null && code.length() > 0)
+				object.put("code", code);// 验证码
+			if (phone != null && phone.length() > 0)
+				object.put("phone", phone);// 电话号码
 			if (nick != null && nick.length() > 0) {
 				object.put("nickname", nick);// nick name
 			}
@@ -47,7 +49,6 @@ public class UserRegisterOperate extends UserModelBaseOperate {
 
 	@Override
 	protected void getIssueLevel() {
-		// TODO Auto-generated method stub
-		
+
 	}
 }

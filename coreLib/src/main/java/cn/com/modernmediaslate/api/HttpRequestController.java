@@ -240,8 +240,14 @@ public class HttpRequestController {
 				MultipartEntity reqEntity = new MultipartEntity();
 				// 上传图片处理
 				if (!TextUtils.isEmpty(imagePath)) {
-					FileBody fileBody = new FileBody(new File(imagePath),
-							"image/png");
+					FileBody fileBody = null;
+					// 适配jpg和png
+					if (imagePath.contains("jpg"))
+						fileBody = new FileBody(new File(imagePath),
+								"image/jpg");
+					else
+						fileBody = new FileBody(new File(imagePath),
+								"image/png");
 					reqEntity.addPart("image", fileBody);
 				}
 				// 参数设置

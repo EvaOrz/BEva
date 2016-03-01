@@ -1,8 +1,10 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:2:1-256:12
+ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:2:1-257:12
 	package
 		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:4:5-46
+		INJECTED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml
+		INJECTED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml
 	android:versionName
 		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:6:5-32
 	xmlns:tools
@@ -18,19 +20,11 @@ ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch2
 MERGED from [businessweek_tag:modernMediaViews:unspecified] /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/modernMediaViews/unspecified/AndroidManifest.xml:7:5-9:41
 MERGED from [businessweek_tag:commonLib:unspecified] /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/AndroidManifest.xml:7:5-9:41
 MERGED from [businessweek_tag:coreLib:unspecified] /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/AndroidManifest.xml:7:5-9:41
-MERGED from [businessweek_tag:modernMediaUserModel:unspecified] /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/AndroidManifest.xml:8:5-11:63
-MERGED from [businessweek_tag:coreLib:unspecified] /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/AndroidManifest.xml:7:5-9:41
+MERGED from [com.android.support:support-v4:20.0.0] /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/AndroidManifest.xml:16:5-42
+MERGED from [businessweek_tag:modernMediaUserModel:unspecified] /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/AndroidManifest.xml:7:5-9:41
 MERGED from [businessweek_tag:commonLib:unspecified] /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/AndroidManifest.xml:7:5-9:41
 MERGED from [businessweek_tag:coreLib:unspecified] /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/AndroidManifest.xml:7:5-9:41
-MERGED from [businessweek_tag:commonLib:unspecified] /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/AndroidManifest.xml:7:5-9:41
-MERGED from [businessweek_tag:coreLib:unspecified] /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/AndroidManifest.xml:7:5-9:41
-MERGED from [businessweek_tag:coreLib:unspecified] /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/AndroidManifest.xml:7:5-9:41
-MERGED from [businessweek_tag:modernMediaUserModel:unspecified] /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/AndroidManifest.xml:8:5-11:63
-MERGED from [businessweek_tag:coreLib:unspecified] /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/AndroidManifest.xml:7:5-9:41
-MERGED from [businessweek_tag:commonLib:unspecified] /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/AndroidManifest.xml:7:5-9:41
-MERGED from [businessweek_tag:coreLib:unspecified] /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/AndroidManifest.xml:7:5-9:41
-	tools:overrideLibrary
-		ADDED from [businessweek_tag:modernMediaUserModel:unspecified] /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/AndroidManifest.xml:11:9-60
+MERGED from [com.android.support:support-v4:20.0.0] /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/AndroidManifest.xml:16:5-42
 	android:targetSdkVersion
 		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:10:9-38
 		INJECTED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml
@@ -102,21 +96,15 @@ ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch2
 	android:name
 		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:30:22-73
 application
-ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:32:5-254:19
-MERGED from [businessweek_tag:modernMediaViews:unspecified] /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/modernMediaViews/unspecified/AndroidManifest.xml:11:5-14:43
+ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:32:5-255:19
+MERGED from [businessweek_tag:modernMediaViews:unspecified] /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/modernMediaViews/unspecified/AndroidManifest.xml:11:5-15:19
 MERGED from [businessweek_tag:commonLib:unspecified] /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/AndroidManifest.xml:11:5-20
 MERGED from [businessweek_tag:coreLib:unspecified] /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/AndroidManifest.xml:11:5-15:19
-MERGED from [businessweek_tag:modernMediaUserModel:unspecified] /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/AndroidManifest.xml:13:5-20
-MERGED from [businessweek_tag:coreLib:unspecified] /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/AndroidManifest.xml:11:5-15:19
+MERGED from [com.android.support:support-v4:20.0.0] /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/AndroidManifest.xml:17:5-19
+MERGED from [businessweek_tag:modernMediaUserModel:unspecified] /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/AndroidManifest.xml:11:5-20
 MERGED from [businessweek_tag:commonLib:unspecified] /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/AndroidManifest.xml:11:5-20
 MERGED from [businessweek_tag:coreLib:unspecified] /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/AndroidManifest.xml:11:5-15:19
-MERGED from [businessweek_tag:commonLib:unspecified] /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/AndroidManifest.xml:11:5-20
-MERGED from [businessweek_tag:coreLib:unspecified] /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/AndroidManifest.xml:11:5-15:19
-MERGED from [businessweek_tag:coreLib:unspecified] /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/AndroidManifest.xml:11:5-15:19
-MERGED from [businessweek_tag:modernMediaUserModel:unspecified] /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/AndroidManifest.xml:13:5-20
-MERGED from [businessweek_tag:coreLib:unspecified] /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/AndroidManifest.xml:11:5-15:19
-MERGED from [businessweek_tag:commonLib:unspecified] /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/AndroidManifest.xml:11:5-20
-MERGED from [businessweek_tag:coreLib:unspecified] /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/AndroidManifest.xml:11:5-15:19
+MERGED from [com.android.support:support-v4:20.0.0] /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/AndroidManifest.xml:17:5-19
 	android:label
 		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:36:9-41
 	android:debuggable
@@ -129,76 +117,74 @@ MERGED from [businessweek_tag:coreLib:unspecified] /Users/Eva./Desktop/businessw
 		ADDED from [businessweek_tag:modernMediaViews:unspecified] /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/modernMediaViews/unspecified/AndroidManifest.xml:12:9-35
 	android:theme
 		ADDED from [businessweek_tag:modernMediaViews:unspecified] /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/modernMediaViews/unspecified/AndroidManifest.xml:14:9-40
-	tools:replace
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:38:9-65
 	android:name
 		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:33:9-69
 activity#cn.com.modernmedia.businessweek.SplashScreenActivity
-ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:39:9-56:20
+ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:38:9-55:20
 	android:screenOrientation
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:41:13-49
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:40:13-49
 	android:theme
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:42:13-72
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:41:13-72
 	android:name
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:40:13-80
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:39:13-80
 intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
-ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:43:13-47:29
+ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:42:13-46:29
 action#android.intent.action.MAIN
-ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:44:17-69
+ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:43:17-69
 	android:name
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:44:25-66
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:43:25-66
 category#android.intent.category.LAUNCHER
-ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:46:17-77
+ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:45:17-77
 	android:name
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:46:27-74
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:45:27-74
 intent-filter#android.intent.action.VIEW+android.intent.category.BROWSABLE+android.intent.category.DEFAULT
-ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:48:13-55:29
+ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:47:13-54:29
 data
-ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:49:17-48
+ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:48:17-48
 	android:scheme
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:49:23-45
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:48:23-45
 action#android.intent.action.VIEW
-ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:51:17-69
+ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:50:17-69
 	android:name
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:51:25-66
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:50:25-66
 category#android.intent.category.DEFAULT
-ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:53:17-76
+ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:52:17-76
 	android:name
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:53:27-73
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:52:27-73
 category#android.intent.category.BROWSABLE
-ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:54:17-78
+ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:53:17-78
 	android:name
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:54:27-75
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:53:27-75
 activity#cn.com.modernmedia.businessweek.wxapi.WXEntryActivity
-ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:57:9-61:64
+ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:56:9-60:64
 	android:launchMode
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:60:13-44
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:59:13-44
 	android:exported
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:59:13-36
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:58:13-36
 	android:theme
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:61:13-61
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:60:13-61
 	android:name
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:58:13-50
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:57:13-50
 activity#cn.com.modernmedia.businessweek.wxapi.WXPayEntryActivity
-ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:62:9-66:64
+ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:61:9-65:64
 	android:launchMode
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:65:13-44
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:64:13-44
 	android:exported
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:64:13-36
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:63:13-36
 	android:theme
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:66:13-61
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:65:13-61
 	android:name
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:63:13-53
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:62:13-53
 activity#cn.com.modernmedia.businessweek.MainActivity
-ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:67:9-71:61
+ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:66:9-71:20
 	android:screenOrientation
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:71:13-49
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:70:13-49
 	android:launchMode
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:70:13-44
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:69:13-44
 	android:exported
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:69:13-36
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:68:13-36
 	android:name
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:68:13-72
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:67:13-72
 activity#cn.com.modernmedia.views.ArticleActivity
 ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:72:9-83:20
 	android:screenOrientation
@@ -336,7 +322,7 @@ ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch2
 	android:name
 		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:152:25-89
 activity#cn.com.modernmedia.VideoPlayerActivity
-ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:157:9-161:72
+ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:157:9-162:20
 	android:label
 		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:160:13-45
 	android:configChanges
@@ -346,125 +332,119 @@ ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch2
 	android:name
 		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:158:13-66
 activity#cn.com.modernmediausermodel.MyCoinUseNoticeActivity
-ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:162:9-164:52
+ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:163:9-165:52
 	android:screenOrientation
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:164:13-49
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:165:13-49
 	android:name
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:163:13-79
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:164:13-79
 activity#cn.com.modernmediausermodel.MyCoinActivity
-ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:165:9-167:52
+ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:166:9-168:52
 	android:screenOrientation
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:167:13-49
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:168:13-49
 	android:name
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:166:13-70
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:167:13-70
 activity#cn.com.modernmediausermodel.ModifyEmailActivity
-ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:168:9-170:52
+ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:169:9-171:52
 	android:screenOrientation
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:170:13-49
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:171:13-49
 	android:name
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:169:13-75
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:170:13-75
 activity#cn.com.modernmediausermodel.SettingActivity
-ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:171:9-174:75
+ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:172:9-175:75
 	android:screenOrientation
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:173:13-49
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:174:13-49
 	android:theme
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:174:13-72
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:175:13-72
 	android:name
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:172:13-71
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:173:13-71
 activity#cn.com.modernmediausermodel.FeedBackActivity
-ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:175:9-177:52
+ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:176:9-178:52
 	android:screenOrientation
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:177:13-49
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:178:13-49
 	android:name
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:176:13-72
-activity#cn.com.modernmediausermodel.BandActivity
-ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:178:9-180:52
-	android:screenOrientation
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:180:13-49
-	android:name
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:179:13-68
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:177:13-72
 activity#cn.com.modernmediausermodel.BandDetailActivity
-ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:181:9-183:52
+ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:179:9-181:52
 	android:screenOrientation
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:183:13-49
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:181:13-49
 	android:name
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:182:13-74
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:180:13-74
 activity#cn.com.modernmediausermodel.TestActivity
-ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:184:9-186:52
+ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:182:9-184:52
 	android:screenOrientation
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:186:13-49
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:184:13-49
 	android:name
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:185:13-68
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:183:13-68
 activity#cn.com.modernmediausermodel.ForgetPwdActivity
-ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:187:9-189:52
+ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:185:9-187:52
 	android:screenOrientation
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:189:13-49
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:187:13-49
 	android:name
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:188:13-73
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:186:13-73
 activity#cn.com.modernmediausermodel.ArticleCardListActivity
-ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:190:9-192:52
+ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:188:9-190:52
 	android:screenOrientation
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:192:13-49
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:190:13-49
 	android:name
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:191:13-79
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:189:13-79
 service#com.parse.PushService
-ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:194:9-57
+ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:192:9-57
 	android:name
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:194:18-54
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:192:18-54
 receiver#com.parse.ParseBroadcastReceiver
-ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:196:9-201:20
+ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:194:9-199:20
 	android:name
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:196:19-66
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:194:19-66
 intent-filter#android.intent.action.BOOT_COMPLETED+android.intent.action.USER_PRESENT
-ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:197:13-200:29
+ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:195:13-198:29
 action#android.intent.action.BOOT_COMPLETED
-ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:198:17-79
+ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:196:17-79
 	android:name
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:198:25-76
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:196:25-76
 action#android.intent.action.USER_PRESENT
-ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:199:17-77
+ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:197:17-77
 	android:name
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:199:25-74
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:197:25-74
 meta-data#UMENG_CHANNEL
-ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:203:9-205:48
+ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:201:9-204:21
 	android:value
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:205:13-35
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:203:13-35
 	android:name
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:204:13-41
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:202:13-41
 activity#com.tencent.tauth.AuthActivity
-ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:207:9-219:20
+ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:206:9-218:20
 	android:launchMode
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:209:13-44
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:208:13-44
 	android:noHistory
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:210:13-37
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:209:13-37
 	android:name
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:208:13-58
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:207:13-58
 activity#com.tencent.connect.common.AssistActivity
-ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:220:9-223:75
+ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:219:9-222:75
 	android:screenOrientation
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:222:13-49
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:221:13-49
 	android:theme
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:223:13-72
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:222:13-72
 	android:name
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:221:13-69
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:220:13-69
 activity#cn.com.modernmedia.pay.PayActivity
-ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:226:9-228:52
+ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:225:9-227:52
 	android:screenOrientation
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:228:13-49
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:227:13-49
 	android:name
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:227:13-62
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:226:13-62
 activity#com.alipay.sdk.app.H5PayActivity
-ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:229:9-233:59
+ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:228:9-233:20
 	android:screenOrientation
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:233:13-47
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:232:13-47
 	android:exported
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:232:13-37
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:231:13-37
 	android:configChanges
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:231:13-74
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:230:13-74
 	android:name
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:230:13-60
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:229:13-60
 activity#com.alipay.sdk.auth.AuthActivity
-ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:234:9-238:59
+ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:234:9-239:20
 	android:screenOrientation
 		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:238:13-47
 	android:exported
@@ -474,28 +454,28 @@ ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch2
 	android:name
 		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:235:13-60
 receiver#cn.com.modernmediausermodel.BroadcastReceiver.PayToLoginReceiver
-ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:240:9-244:20
+ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:241:9-245:20
 	android:name
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:240:19-98
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:241:19-98
 intent-filter#cn.com.modernmediausermodel.LoginActivity
-ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:241:13-243:29
+ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:242:13-244:29
 action#cn.com.modernmediausermodel.LoginActivity
-ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:242:17-84
+ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:243:17-84
 	android:name
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:242:25-81
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:243:25-81
 activity#cn.com.modernmedia.views.column.book.BookActivity
-ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:246:9-249:63
+ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:247:9-250:63
 	android:screenOrientation
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:248:13-49
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:249:13-49
 	android:theme
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:249:13-60
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:250:13-60
 	android:name
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:247:13-77
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:248:13-77
 activity#cn.com.modernmedia.views.column.book.BookColumnActivity
-ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:250:9-253:63
+ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:251:9-254:63
 	android:screenOrientation
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:252:13-49
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:253:13-49
 	android:theme
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:253:13-60
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:254:13-60
 	android:name
-		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:251:13-83
+		ADDED from /Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/AndroidManifest.xml:252:13-83

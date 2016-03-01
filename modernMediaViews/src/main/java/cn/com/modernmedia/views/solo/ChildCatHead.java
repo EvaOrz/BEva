@@ -6,7 +6,6 @@ import java.util.List;
 import android.content.Context;
 import android.graphics.Color;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.FrameLayout.LayoutParams;
@@ -20,10 +19,6 @@ import cn.com.modernmedia.views.model.Template;
 import cn.com.modernmedia.views.xmlparse.XMLParse;
 import cn.com.modernmediaslate.SlateApplication;
 import cn.com.modernmediaslate.unit.ParseUtil;
-import cn.com.modernmediaslate.unit.SlateDataHelper;
-import cn.com.modernmediausermodel.UserApplication;
-import cn.com.modernmediausermodel.listener.AfterLoginListener;
-import cn.com.modernmediausermodel.util.UserPageTransfer;
 
 /**
  * 独立栏目/子栏目导航栏

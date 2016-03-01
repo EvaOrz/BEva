@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import android.graphics.Color;
 import android.text.TextUtils;
 import cn.com.modernmedia.model.ArticleItem;
+import cn.com.modernmedia.model.ArticleItem.Audio;
 import cn.com.modernmedia.model.ArticleItem.IndexProperty;
 import cn.com.modernmedia.model.ArticleItem.PhonePageList;
 import cn.com.modernmedia.model.ArticleItem.Picture;
@@ -139,6 +140,8 @@ public class GetTagArticlesOperate extends BaseIndexAdvOperate {
 		articleList.setProperty(parseColumnProperty(jsonObject
 				.optJSONObject("phoneColumnProperty")));
 		articleList.setViewbygroup(jsonObject.optString("viewbygroup"));
+		articleList.setIsRadio(jsonObject.optInt("isRadio"));
+		articleList.setType(jsonObject.optInt("type"));
 		articleList.setLink(jsonObject.optString("link"));
 		parseArtcle(jsonObject);
 	}
@@ -219,6 +222,7 @@ public class GetTagArticlesOperate extends BaseIndexAdvOperate {
 		item.setCreateuser(obj.optString("createuser"));
 		item.setModifyuser(obj.optString("modifyuser"));
 		item.setSubscribeMerge(TextUtils.equals(limited, "5"));
+		item.setFromtagname(obj.optString("fromtagname"));// iweekly电台栏目新增
 		// 推荐首页title text
 		item.setGroupdisplayname(obj.optString("groupdisplayname"));
 		// 推荐首页title color
@@ -242,6 +246,12 @@ public class GetTagArticlesOperate extends BaseIndexAdvOperate {
 		// 图片位置
 		item.setPosition(parsePosition(obj.optJSONObject("position")));
 		articleList.setEndOffset(item.getOffset());
+
+		// 音频解析
+		JSONArray audioArr = obj.optJSONArray("audio");
+		if (!isNull(audioArr)) {
+			item.setAudioList(parseAudio(audioArr));
+		}
 
 		int position = item.getPosition().getId();
 
@@ -391,6 +401,25 @@ public class GetTagArticlesOperate extends BaseIndexAdvOperate {
 			pictureList.add(picture);
 		}
 		return pictureList;
+	}
+
+	/***
+	 * 解析音频
+	 */
+	private List<Audio> parseAudio(JSONArray array) {
+		List<Audio> audioList = new ArrayList<Audio>();
+		JSONObject object;
+		for (int i = 0; i < array.length(); i++) {
+			object = array.optJSONObject(i);
+			if (isNull(object))
+				continue;
+			Audio audio = new Audio();
+			audio.setUrl(object.optString("url"));
+			audio.setDuration(object.optString("duration"));
+			audio.setSize(object.optInt("size"));
+			audioList.add(audio);
+		}
+		return audioList;
 	}
 
 	/**

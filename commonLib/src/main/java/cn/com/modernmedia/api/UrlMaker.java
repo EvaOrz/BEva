@@ -211,7 +211,7 @@ public class UrlMaker {
 	}
 
 	/**
-	 * 获取栏目列表
+	 * 获取某个栏目的子栏目列表
 	 * 
 	 * @param url
 	 *            subscribelistcol
@@ -234,9 +234,6 @@ public class UrlMaker {
 	public static String addUpdatetime(String url) {
 		String and = url.endsWith("?") ? "" : "&";
 		url += and + "updatetime=" + AppValue.appInfo.getUpdatetime();
-		// return SLATE_URL
-		// +
-		// "/tag/app_1/subscribelistcol?datatype=2&firstColumnHaveChild=1&fetch_all=0&firephp=1";
 		return url;
 	}
 
@@ -498,7 +495,7 @@ public class UrlMaker {
 	 */
 	public static String getBookColumns() {
 		return SLATE_URL + "/tag/app_" + ConstData.getInitialAppId()
-				+ "/subscribelistcol?datatype=" + ConstData.DATA_TYPE
+				+ "/subscribelist?datatype=" + ConstData.DATA_TYPE
 				+ "&firstColumnHaveChild=1&fetch_all=0";
 	}
 

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cn.com.modernmedia.businessweek"
-    android:versionCode="39"
-    android:versionName="3.1.3" >
+    android:versionCode="41"
+    android:versionName="3.2.0" >
 
     <uses-sdk
-        android:minSdkVersion="14"
+        android:minSdkVersion="15"
         android:targetSdkVersion="21" />
 
     <supports-screens
@@ -67,7 +67,8 @@
             android:name="cn.com.modernmedia.businessweek.MainActivity"
             android:exported="true"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
             android:name="cn.com.modernmedia.views.ArticleActivity"
             android:screenOrientation="portrait" >
@@ -157,7 +158,8 @@
             android:name="cn.com.modernmedia.VideoPlayerActivity"
             android:configChanges="keyboardHidden|orientation"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.NoTitleBar" />
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
         <activity
             android:name="cn.com.modernmediausermodel.MyCoinUseNoticeActivity"
             android:screenOrientation="portrait" />
@@ -173,9 +175,6 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name="cn.com.modernmediausermodel.FeedBackActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="cn.com.modernmediausermodel.BandActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="cn.com.modernmediausermodel.BandDetailActivity"
@@ -201,7 +200,8 @@
 
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="track6" />
+            android:value="track6" >
+        </meta-data>
 
         <activity
             android:name="com.tencent.tauth.AuthActivity"
@@ -229,12 +229,14 @@
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
-            android:screenOrientation="behind" />
+            android:screenOrientation="behind" >
+        </activity>
         <activity
             android:name="com.alipay.sdk.auth.AuthActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
-            android:screenOrientation="behind" />
+            android:screenOrientation="behind" >
+        </activity>
         <!-- 启动支付页面Receiver -->
         <receiver android:name="cn.com.modernmediausermodel.BroadcastReceiver.PayToLoginReceiver" >
             <intent-filter>

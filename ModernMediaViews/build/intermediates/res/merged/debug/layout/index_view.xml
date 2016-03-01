@@ -10,36 +10,37 @@
         android:layout_height="fill_parent"
         android:visibility="gone" />
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/index_titleBar"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical" />
 
-    <cn.com.modernmedia.views.column.book.TopMenuHorizontalScrollView
+     <!-- <cn.com.modernmedia.views.column.book.TopMenuHorizontalScrollView
         android:id="@+id/book_menu"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/index_titleBar" />
+        android:layout_below="@id/index_titleBar" />  -->
 
     <FrameLayout
         android:id="@+id/index_contain"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@id/book_menu"
+        android:layout_below="@id/index_titleBar"
         android:orientation="vertical" />
 
     <FrameLayout
         android:id="@+id/index_issuelist"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@id/book_menu"
+        android:layout_below="@id/index_titleBar"
         android:orientation="vertical"
         android:visibility="gone" />
 
     <include
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/book_menu"
+        android:layout_below="@+id/index_titleBar"
         layout="@layout/progress"
         android:visibility="gone" />
 
@@ -51,4 +52,4 @@
         android:orientation="horizontal"
         android:visibility="gone" />
 
-</RelativeLayout><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaViews/src/main/res/layout/index_view.xml -->
+</RelativeLayout><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaViews/src/main/res/layout/index_view.xml -->

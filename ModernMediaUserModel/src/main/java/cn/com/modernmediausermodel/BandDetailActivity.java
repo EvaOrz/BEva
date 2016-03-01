@@ -26,15 +26,15 @@ import cn.com.modernmediausermodel.util.UserTools;
  * 绑定手机号、邮箱、收货地址
  * 
  * @author lusiyuan
- *
+ * 
  */
 public class BandDetailActivity extends SlateBaseActivity implements
 		OnClickListener {
 	private int type;
-	private TextView title;
-	private EditText userName, code, name, phone, city, deAdd, youbian;
-	private Button complete, save, getCode;
-	private LinearLayout bandLayout, addLayout, verifyLayout;// 收货地址layout
+	private TextView title, getCode;
+	private EditText userName, code;
+	private Button complete;
+	private LinearLayout verifyLayout;// 收货地址layout
 	private boolean canGetVerify = true;// 是否可获取验证码
 	private UserOperateController mController;
 	private User user;
@@ -54,43 +54,24 @@ public class BandDetailActivity extends SlateBaseActivity implements
 
 	private void initView() {
 		shakeAnim = AnimationUtils.loadAnimation(this, R.anim.shake);
-		bandLayout = (LinearLayout) findViewById(R.id.layout_band);
-		addLayout = (LinearLayout) findViewById(R.id.layout_shouhuo);
 		verifyLayout = (LinearLayout) findViewById(R.id.layout_verify);
 		title = (TextView) findViewById(R.id.band_title);
 		userName = (EditText) findViewById(R.id.forget_phone);
 		code = (EditText) findViewById(R.id.forget_verify_edit);
-		name = (EditText) findViewById(R.id.name_edit);
-		phone = (EditText) findViewById(R.id.phone_edit);
-		city = (EditText) findViewById(R.id.city_edit);
-		deAdd = (EditText) findViewById(R.id.detail_edit);
-		youbian = (EditText) findViewById(R.id.bian_edit);
 		complete = (Button) findViewById(R.id.forget_complete);
-		save = (Button) findViewById(R.id.band_save);
-		getCode = (Button) findViewById(R.id.forget_get_verify);
+		getCode = (TextView) findViewById(R.id.forget_get_verify);
 
-		if (type == BandActivity.BAND_ADDRESS) {
-			bandLayout.setVisibility(View.GONE);
-			addLayout.setVisibility(View.VISIBLE);
-			title.setText("收货地址");
-
-		} else {
-			bandLayout.setVisibility(View.VISIBLE);
-			addLayout.setVisibility(View.GONE);
-			if (type == BandActivity.BAND_PHONE) {
-				title.setText(R.string.band_phone);
-				userName.setHint(R.string.phone_number);
-
-			} else if (type == BandActivity.BAND_EMAIL) {
-				title.setText(R.string.band_email);
-				userName.setHint("Email");
-				verifyLayout.setVisibility(View.GONE);
-			}
+		if (type == BandAccountOperate.PHONE) {
+			title.setText(R.string.band_phone);
+			userName.setHint(R.string.phone_number);
+		} else if (type == BandAccountOperate.EMAIL) {
+			title.setText(R.string.band_email);
+			userName.setHint("Email");
+			verifyLayout.setVisibility(View.GONE);
 		}
 
 		findViewById(R.id.band_back).setOnClickListener(this);
 		complete.setOnClickListener(this);
-		save.setOnClickListener(this);
 		getCode.setOnClickListener(this);
 		findViewById(R.id.forget_phone_clear).setOnClickListener(this);
 
@@ -102,17 +83,15 @@ public class BandDetailActivity extends SlateBaseActivity implements
 			if (userName != null) {
 				String name = userName.getText().toString();
 				String c = code.getText().toString();
-				if (type == BandActivity.BAND_PHONE
+				if (type == BandAccountOperate.PHONE
 						&& UserTools.checkString(name, userName, shakeAnim)
 						&& UserTools.checkString(c, code, shakeAnim)) {
 					doBand(name, BandAccountOperate.PHONE, c);
-				} else if (type == BandActivity.BAND_EMAIL
+				} else if (type == BandAccountOperate.EMAIL
 						&& UserTools.checkString(name, userName, shakeAnim)) {
-					doBand(name, BandAccountOperate.EMAIL, "");
+					doBand(name, BandAccountOperate.EMAIL, null);
 				}
 			}
-		} else if (v.getId() == R.id.band_save) {
-
 		} else if (v.getId() == R.id.forget_get_verify) {// 获取验证码
 			if (userName != null) {
 				String name = userName.getText().toString();
@@ -159,7 +138,7 @@ public class BandDetailActivity extends SlateBaseActivity implements
 						else
 							return;
 						if (error.getNo() == 0) {
-							
+
 							if (bindType == BandAccountOperate.PHONE) {// 存储绑定信息
 								user.setPhone(c);
 								showToast(R.string.band_succeed);

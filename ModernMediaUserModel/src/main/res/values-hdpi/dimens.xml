@@ -10,7 +10,6 @@
     <!-- 登录页面 -->
     <dimen name="login_image_close_width">20dp</dimen>
     <dimen name="login_image_close_margintop">19dp</dimen>
-    <dimen name="login_image_close_marginright">20dp</dimen>
     <dimen name="login_other_login_desc_marginTop">18dp</dimen>
     <dimen name="login_btn_weibo_width">221dp</dimen>
     <dimen name="login_btn_weibo_height">32dp</dimen>
@@ -27,14 +26,11 @@
     <dimen name="login_psd_edittext_marginTop">7dp</dimen>
     <dimen name="login_btn_margintop">11dp</dimen>
     <dimen name="login_btn_login_marginleft">13dp</dimen>
-    <dimen name="login_btn_width">105dp</dimen>
-    <dimen name="login_btn_height">26dp</dimen>
     <!-- delete -->
     <dimen name="login_desc_marginRight">10dp</dimen>
     <dimen name="login_img_marginTop">38dp</dimen>
     <!-- 用户信息页面 -->
     <dimen name="userinfo_avatar_marginTop">20dp</dimen>
-    <dimen name="userinfo_avatar_size">42dp</dimen>
     <dimen name="userinfo_text_width">124dp</dimen>
     <dimen name="userinfo_textsize">20dp</dimen>
     <dimen name="userinfo_confirm_change_margintop">10dp</dimen>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle" >
+
+    <solid android:color="@color/white_bg" />
+
+    <corners android:radius="@dimen/dp15" />
+
+</shape><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/drawable/white_corner_bg.xml --><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaViews/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/unspecified/res/drawable/white_corner_bg.xml -->

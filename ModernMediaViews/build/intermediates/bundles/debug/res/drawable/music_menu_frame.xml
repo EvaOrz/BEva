@@ -1,0 +1,8 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle" >
+
+    <solid android:color="@color/column_head" />
+
+    <corners android:radius="999dp" />
+
+</shape><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaViews/src/main/res/drawable/music_menu_frame.xml -->

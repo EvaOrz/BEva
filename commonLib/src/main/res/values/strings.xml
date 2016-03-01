@@ -95,4 +95,7 @@
     <string name="pay_success">支付成功。</string>
     <string name="ibloomberg_now_title">即时头条-商业周刊</string>
 
+    <!-- 电台 -->
+    <string name="music_title">电台</string>
+
 </resources>

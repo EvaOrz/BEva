@@ -85,4 +85,44 @@ public class DateFormatTool {
 		return "";
 	}
 
+	/**
+	 * 毫秒数 -- 00:00时间格式转化
+	 * 
+	 * @param time
+	 * @return
+	 */
+	public static String getTime(long time) {
+		StringBuffer sb = new StringBuffer();
+		long timeInSeconds = time / 1000;
+		int hours = (int) timeInSeconds / 3600;
+		if (hours >= 10) {
+			sb.append(hours);
+			sb.append(":");
+
+		} else if (hours > 0 && hours < 10) {
+			sb.append(0).append(hours);
+			sb.append(":");
+		}
+
+		long minutes = (int) ((timeInSeconds % 3600) / 60);
+		if (minutes >= 10) {
+			sb.append(minutes);
+		} else if (minutes > 0 && minutes < 10) {
+			sb.append(0).append(minutes);
+		} else {
+			sb.append("00");
+		}
+		sb.append(":");
+
+		int seconds = (int) (timeInSeconds % 60);
+		if (seconds >= 10) {
+			sb.append(seconds);
+		} else if (seconds > 0 && seconds < 10) {
+			sb.append(0).append(seconds);
+		} else {
+			sb.append("00");
+		}
+		return sb.toString();
+	}
+
 }

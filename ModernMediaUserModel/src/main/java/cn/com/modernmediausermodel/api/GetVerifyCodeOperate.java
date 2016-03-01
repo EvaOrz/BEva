@@ -70,7 +70,6 @@ public class GetVerifyCodeOperate extends SlateBaseOperate {
 
 	@Override
 	protected void saveData(String data) {
-
 	}
 
 	@Override

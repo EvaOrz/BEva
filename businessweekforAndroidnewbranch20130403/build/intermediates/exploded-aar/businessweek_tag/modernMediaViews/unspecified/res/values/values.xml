@@ -26,7 +26,7 @@
     <dimen name="atlas_dot_size">5dp</dimen>
     <dimen name="gallery_detail_content_height">80dp</dimen>
     <dimen name="gallery_detail_link_size">35dp</dimen>
-    <dimen name="index_titlebar_height">79.5dp</dimen>
+    <dimen name="index_titlebar_height">88dp</dimen>
     <dimen name="issue_desc_marginBottom">8dp</dimen>
     <dimen name="issue_pic_marginleft">8dp</dimen>
     <dimen name="issue_pic_marginright">10dp</dimen>
@@ -95,10 +95,10 @@
     <string name="add_column">管理我的主题杂志</string>
     <string name="app_name">ModernMediaViews</string>
     <string name="book_edit">编辑</string>
-    <string name="book_manage">订阅管理</string>
+    <string name="book_manage">管理订阅栏目</string>
     <string name="manage_curr_column">管理栏目</string>
     <string name="manage_other_column">管理主题杂志</string>
-    <string name="more_books">更多订阅栏目</string>
+    <string name="more_books">添加栏目</string>
     <string name="more_cat">更多%1$s</string>
     <string name="my_books">我的栏目</string>
     <string name="select_column_title">管理我的主题杂志</string>

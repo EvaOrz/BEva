@@ -1,16 +1,22 @@
 package cn.com.modernmedia.util;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+
 import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
-
+/**
+ * 支付订单加密处理类
+ * 
+ * @author Eva.
+ * 
+ */
 public class DESCoder {
-	// 密钥
-	// private final static String secretKey = "liuyunqiang@lx100$#365#$";
-	// 向量
-	private final static String iv = "01234567";
 	// 加解密统一使用的编码方式
-	private final static String encoding = "utf-8";
+	// private final static String encoding = "utf-8";
 
 	/**
 	 * 3DES加密
@@ -66,4 +72,31 @@ public class DESCoder {
 		return new String(output);
 	}
 
+	/**
+	 * 秘钥处理
+	 * 
+	 * @return
+	 */
+	private byte[] getKey(String initKey) {
+		byte[] seed = initKey.getBytes();
+		KeyGenerator kg;
+		try {
+			kg = KeyGenerator.getInstance("DES");
+		} catch (NoSuchAlgorithmException e) {
+			return null;
+		}
+		SecureRandom sr;
+		try {
+
+			sr = SecureRandom.getInstance("SHA1PRNG");
+		} catch (NoSuchAlgorithmException e) {
+			return null;
+		}
+		sr.setSeed(seed);
+		kg.init(128, sr);
+		SecretKey sk = kg.generateKey();
+
+		byte[] key = sk.getEncoded();
+		return key;
+	}
 }

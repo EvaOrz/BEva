@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -12,12 +13,16 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
+import android.widget.FrameLayout.LayoutParams;
 import android.widget.ImageView;
 import android.widget.TextView;
 import cn.com.modernmedia.CommonApplication;
 import cn.com.modernmedia.model.TagInfoList.TagInfo;
+import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmedia.util.DataHelper;
 import cn.com.modernmedia.views.R;
+import cn.com.modernmedia.widget.GifView;
+import cn.com.modernmediaslate.SlateApplication;
 import cn.com.modernmediaslate.model.Entry;
 
 /**
@@ -68,22 +73,36 @@ public class GridViewAdapter extends BaseAdapter {
 				.findViewById(R.id.book_item_back_color);
 		viewHolder.title = (TextView) convertView
 				.findViewById(R.id.book_item_title);
+		viewHolder.weeklyTitle = (TextView) convertView
+				.findViewById(R.id.book_item_title_weekly);
 		viewHolder.cover = (ImageView) convertView
 				.findViewById(R.id.book_item_cover);
 		viewHolder.delete = (ImageView) convertView
 				.findViewById(R.id.book_item_check);
 		convertView.setTag(t);
 
+		if (ConstData.getAppId() == 20) {// iweekly
+			viewHolder.weeklyTitle.setVisibility(View.VISIBLE);
+			viewHolder.cover.setLayoutParams(new LayoutParams(180, 180));
+			viewHolder.weeklyTitle.setLayoutParams(new LayoutParams(180, 50,
+					Gravity.BOTTOM));
+			viewHolder.cover
+					.setBackgroundResource(R.drawable.iweekly_book_item_bac);
+		} else {
+			viewHolder.title.setVisibility(View.VISIBLE);
+		}
+
 		// hide时隐藏Text
 		if (pos != hidePosition) {
 			String tagName = t.getColumnProperty().getCname();
+			viewHolder.weeklyTitle.setText(t.getColumnProperty().getCname());
 
 			// 有图初始化图片
 			if (t.getColumnProperty().getBigPicture() != null
-					&& t.getColumnProperty().getBigPicture().size() > 0)
+					&& t.getColumnProperty().getBigPicture().size() > 0) {
 				CommonApplication.finalBitmap.display(viewHolder.cover, t
 						.getColumnProperty().getBigPicture().get(0));
-			else {// 无图初始化背景和tagname
+			} else {// 无图初始化背景和tagname
 				if (DataHelper.columnColorMap.containsKey(tagName))
 					viewHolder.back
 							.setBackgroundColor(DataHelper.columnColorMap
@@ -158,6 +177,7 @@ public class GridViewAdapter extends BaseAdapter {
 	// 通过ViewHolder显示项的内容
 	static class ViewHolder {
 		public TextView title;
+		public TextView weeklyTitle;// iweekly标签名
 		public FrameLayout back;
 		public ImageView cover, delete;
 

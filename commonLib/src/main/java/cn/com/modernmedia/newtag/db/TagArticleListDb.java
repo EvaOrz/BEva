@@ -59,6 +59,7 @@ public class TagArticleListDb extends TagDbListenerImplement {
 
 	private static final String IS_RADIO = "isRadio";// 7
 	private static final String LINK = "link";// 8
+	private static final String TYPE = "type";// 9
 
 	private static final String SPECIAL_TAG = "special_tag";
 
@@ -101,7 +102,9 @@ public class TagArticleListDb extends TagDbListenerImplement {
 
 		helper.addColumn(VIEW_BY_GROUP, "TEXT");
 		helper.addColumn(IS_RADIO, "INTEGER");
+
 		helper.addColumn(LINK, "TEXT");
+		helper.addColumn(TYPE, "INTEGER");
 		helper.addColumn(SPECIAL_TAG, "TEXT");
 
 		db.execSQL(helper.getSql());
@@ -130,8 +133,9 @@ public class TagArticleListDb extends TagDbListenerImplement {
 		String viewbygroup = articleList.getViewbygroup();
 
 		String tagName = articleList.getTagName();
+		int isRadio = articleList.getIsRadio();
+		int type = articleList.getType();
 
-		int isRadio = -1;
 		String link = articleList.getLink();
 
 		SQLiteDatabase db = this.getWritableDatabase();
@@ -144,7 +148,7 @@ public class TagArticleListDb extends TagDbListenerImplement {
 
 				ContentValues cv = createContentValues(appid, columnJson, item,
 
-				viewbygroup, tagName, isRadio, link);
+				viewbygroup, tagName, isRadio, link, type);
 
 				db.insert(TABLE_NAME, null, cv);
 
@@ -195,13 +199,13 @@ public class TagArticleListDb extends TagDbListenerImplement {
 
 		cv.put(VIEW_BY_GROUP, obj[3].toString());
 
-		if (obj.length == 8) {
+		if (obj.length == 9) {
 
-			cv.put(SPECIAL_TAG, obj[7].toString());
+			cv.put(SPECIAL_TAG, obj[8].toString());
 
 		}
-
 		cv.put(IS_RADIO, ParseUtil.stoi(obj[5].toString()));
+		cv.put(TYPE, ParseUtil.stoi(obj[7].toString()));//
 		cv.put(LINK, obj[6].toString());
 
 		return cv;
@@ -268,8 +272,6 @@ public class TagArticleListDb extends TagDbListenerImplement {
 
 					articleList.setViewbygroup(cursor.getString(6));
 					articleList.setLink(cursor.getString(8));
-					// articleList.setIsRadio(cursor.getInt(7));
-
 				}
 
 				String value = cursor.getString(5);
@@ -368,10 +370,10 @@ public class TagArticleListDb extends TagDbListenerImplement {
 
 		String tagName = articleList.getTagName();
 
-		int isRadio = -1;
-		String link = articleList.getLink();
-		// articleList.getIsRadio();
+		int isRadio = articleList.getIsRadio();
+		int type = articleList.getType();
 
+		String link = articleList.getLink();
 		SQLiteDatabase db = this.getWritableDatabase();
 
 		try {
@@ -382,7 +384,8 @@ public class TagArticleListDb extends TagDbListenerImplement {
 
 				ContentValues cv = createContentValues(appid, columnJson, item,
 
-				viewbygroup, tagName, isRadio, link, SUBSCRIBE_TOP_ARTICLE);
+				viewbygroup, tagName, isRadio, link, type,
+						SUBSCRIBE_TOP_ARTICLE);
 
 				db.insert(TABLE_NAME, null, cv);
 

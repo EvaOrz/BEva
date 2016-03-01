@@ -65,7 +65,7 @@ import com.tencent.mm.sdk.openapi.WXAPIFactory;
  * 支付入口页面（商周用）
  * 
  * @author lusiyuan
- *
+ * 
  */
 public class PayActivity extends BaseActivity implements OnClickListener {
 	private ListView products;

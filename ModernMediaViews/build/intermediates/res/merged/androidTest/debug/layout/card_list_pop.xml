@@ -24,4 +24,4 @@
         android:scaleType="fitXY"
         android:src="@drawable/card_item_comment_select" />
 
-</LinearLayout><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/layout/card_list_pop.xml --><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaViews/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/unspecified/res/layout/card_list_pop.xml -->
+</LinearLayout><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/layout/card_list_pop.xml --><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaViews/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/unspecified/res/layout/card_list_pop.xml -->

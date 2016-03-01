@@ -1,20 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/commonLib/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/coreLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/commonLib/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/coreLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <color name="black_bg">#FF000000</color>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/commonLib/src/main/res/values/color.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/commonLib/src/main/res/values/color.xml -->
     <eat-comment/>
     <color name="process_loading_red_ring">#ffb83126</color>
     <color name="process_loading_ring_bg">#ff292929</color>
+    <color name="red">#cd3333</color>
+    <color name="seek_bar_after_thumb">#cdcdcd</color>
+    <color name="seek_bar_before_thumb">#cd3333</color>
+    <color name="seek_bar_thumb_center">#dd3333</color>
+    <color name="seek_bar_thumb_outer_stroke">#ffffff</color>
     <color name="translucent_black">#7f000000</color>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/commonLib/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/coreLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/commonLib/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/coreLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <color name="white_bg">#FFFFFFFF</color>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/commonLib/src/main/res/values/dimens.xml -->
+    <declare-styleable name="CustomTheme"><attr format="reference" name="gifViewStyle"/></declare-styleable>
+    <declare-styleable name="GifView"><attr format="reference" name="gif"/><attr format="boolean" name="paused"/></declare-styleable>
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/commonLib/src/main/res/values/dimens.xml -->
     <eat-comment/>
     <dimen name="article_bar_height">44dp</dimen>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/commonLib/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/coreLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/commonLib/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/coreLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <dimen name="dp1">1dp</dimen>
     <dimen name="dp10">10dp</dimen>
@@ -42,7 +49,7 @@
     <dimen name="head_contentLayout_paddingLeft">30dp</dimen>
     <dimen name="head_lastUpdatedTextView_tSize">11dp</dimen>
     <dimen name="head_tipsTextView_tSize">15dp</dimen>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/commonLib/src/main/res/values/dimens.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/commonLib/src/main/res/values/dimens.xml -->
     <eat-comment/>
     <dimen name="red_ring_size_large">40dp</dimen>
     <dimen name="red_ring_size_medium">35dp</dimen>
@@ -50,7 +57,7 @@
     <dimen name="share_item_margin">10dp</dimen>
     <dimen name="share_item_textsize">15dp</dimen>
     <dimen name="share_list_fade_length">12dp</dimen>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/commonLib/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/coreLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/commonLib/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/coreLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <item name="scale_type" type="id"/>
     <string name="OAUTH_AccessToken_ACCESS">用户授权登录成功</string>
@@ -64,7 +71,7 @@
     <string name="Weibo_Share_Error">微博分享失败</string>
     <string name="Weibo_Share_Repeat">已经分享过了</string>
     <string name="Weibo_Share_Success">微博分享成功</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/commonLib/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/commonLib/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="about">关于</string>
     <string name="add_fav">已收藏</string>
@@ -78,10 +85,10 @@
     <string name="camera">拍照</string>
     <string name="can_not_find_article">对不起，暂时找不到该文章</string>
     <string name="cancel">取消</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/commonLib/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/coreLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/commonLib/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/coreLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="click_to_load">点击加载</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/commonLib/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/commonLib/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="cover_share_message">%1$s - %2$s %3$s --分享来自@iWeekly周末画报 Android 版</string>
     <string name="delete_fav">取消收藏</string>
@@ -107,10 +114,11 @@
     <string name="loading_pre">上一篇</string>
     <string name="more">更多</string>
     <string name="msg_ok">好的</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/commonLib/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/coreLib/unspecified/res/values/values.xml -->
+    <string name="music_title">电台</string>
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/commonLib/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/coreLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="net_error">请检查网络</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/commonLib/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/commonLib/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="new_issue">新一期杂志到了，是否现在阅读？</string>
     <string name="no_issue_zip">该期杂志没有下载包</string>
@@ -120,7 +128,7 @@
     <string name="pay_for_fav">请付费后收藏</string>
     <string name="pay_for_share">请付费后分享</string>
     <string name="pay_success">支付成功。</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/commonLib/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/coreLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/commonLib/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/coreLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="pull_to_loading">正在加载...</string>
     <string name="pull_to_loadmore">上推加载...</string>
@@ -130,7 +138,7 @@
     <string name="pull_to_refresh_tap_label">点击刷新...</string>
     <string name="pull_to_refresh_update_time">上次更新时间:%s</string>
     <string name="pull_to_release">松开加载...</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/commonLib/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/commonLib/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="read_issue">阅读杂志</string>
     <string name="read_issue_error">该期杂志读取失败</string>
@@ -154,12 +162,12 @@
     <string name="share_to_weibo_title">分享到微博</string>
     <string name="share_wp_content">【%1$s】%2$s %3$s</string>
     <string name="sina_weibo">新浪微博</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/commonLib/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/coreLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/commonLib/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/coreLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="sinalogin_check_account">账号不能为空</string>
     <string name="sinalogin_check_pass">密码不能为空</string>
     <string name="sinalogin_check_server">服务器验证中...</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/commonLib/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/commonLib/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="sorry">对不起</string>
     <string name="sure">确定</string>
@@ -175,7 +183,7 @@
     <string name="weixin_info">已经将公众号账号复制到剪贴板，请到微信中粘贴并搜索关注。</string>
     <string name="weixin_register_error">微信注册失败！</string>
     <string name="weixin_version_low">微信版本较低，无法发送到朋友圈，请更新！</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/commonLib/src/main/res/values/styles.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/commonLib/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="Animation">
         <item name="android:activityOpenEnterAnimation">@null</item>
@@ -201,6 +209,10 @@
 
 
 
+
+
+
+
         -->
     </style>
     <style name="AppTheme" parent="AppBaseTheme">
@@ -218,9 +230,18 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
+    <style name="Play_SeekBar" parent="@android:style/Widget.SeekBar">
+        <item name="android:maxHeight">6.0dip</item>
+        <item name="android:minHeight">6.0dip</item>
+        <item name="android:height">6.0dip</item>
+        <item name="android:progressDrawable">@drawable/layer_list_seekbar_play</item>
+        <item name="android:thumb">@drawable/shape_seekbar_thumb</item>
+        <item name="android:thumbOffset">0dp</item>
+    </style>
     <style name="Theme" parent="android:Theme.Light.NoTitleBar">
         <item name="android:windowAnimationStyle">@style/Animation</item>
     </style>
+    <style name="Widget.GifView" parent="@android:style/Widget"/>
     <style name="webview_pop" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/down_in</item>
         <item name="android:windowExitAnimation">@anim/down_out</item>

@@ -6,4 +6,4 @@
     <item android:drawable="@drawable/login_edittext_pressed_bg" android:state_pressed="true"></item>
     <item android:drawable="@drawable/login_edittext_normal_bg" android:state_window_focused="false"/>
 
-</selector><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/drawable/login_edittext_select.xml -->
+</selector><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/drawable/login_edittext_select.xml -->

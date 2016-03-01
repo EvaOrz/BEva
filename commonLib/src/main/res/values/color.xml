@@ -3,7 +3,14 @@
 
     <color name="process_loading_ring_bg">#ff292929</color>
     <color name="process_loading_red_ring">#ffb83126</color>
+    <!-- seekbar -->
+    <color name="seek_bar_before_thumb">#cd3333</color>
+    <color name="seek_bar_after_thumb">#cdcdcd</color>
+    <color name="seek_bar_thumb_center">#dd3333</color>
+    <color name="seek_bar_thumb_outer_stroke">#ffffff</color>
+    <color name="red">#cd3333</color>
 
     <!-- 半透明黑色 -->
     <color name="translucent_black">#7f000000</color>
+
 </resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:drawable="@color/white_bg"
+        android:top="8dp">
+    </item>
+    <!--
+         <item
+        android:bottom="8dp"
+        android:drawable="@color/background_transparent"
+        android:top="0dp"/>
+    -->
+
+</layer-list><!-- From: file:/Users/Eva./Desktop/businessweek_tag/commonLib/src/main/res/drawable/layer_list_seekbar_background2.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/drawable/layer_list_seekbar_background2.xml -->

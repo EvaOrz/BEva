@@ -27,4 +27,4 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="@dimen/issue_pic_marginright" />
 
-</RelativeLayout><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaViews/src/main/res/layout/issue_list_item_lohas.xml --><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaViews/build/intermediates/bundles/debug/res/layout/issue_list_item_lohas.xml -->
+</RelativeLayout><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaViews/src/main/res/layout/issue_list_item_lohas.xml --><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaViews/build/intermediates/bundles/debug/res/layout/issue_list_item_lohas.xml -->

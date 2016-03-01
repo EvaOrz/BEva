@@ -21,4 +21,4 @@
         android:textColor="@color/white_bg"
         android:textSize="@dimen/dp15_textsize" />
 
-</RelativeLayout><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaViews/src/main/res/layout/select_child_column_pager_item.xml -->
+</RelativeLayout><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaViews/src/main/res/layout/select_child_column_pager_item.xml -->

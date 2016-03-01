@@ -41,7 +41,7 @@ public class XMLDataSet extends BaseXMLDataSet {
 	/**
 	 * 设置数据
 	 * 
-	 * @param item
+	 * @param item 
 	 */
 	public void setData(ArticleItem item, int position, ArticleType articleType) {
 		if (map == null || map.isEmpty() || item == null || adapter == null)

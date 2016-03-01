@@ -39,7 +39,6 @@
     <eat-comment/>
     <color name="listitem_des">#8E8E93</color>
     <color name="login_btn_login_bg">#FB1F25</color>
-    <color name="login_btn_register_bg">#E4E4E4</color>
     <color name="login_desc">#676767</color>
     <color name="my_coin_green_color">#4cd863</color>
     <color name="my_coin_notice_color">#808080</color>
@@ -54,6 +53,12 @@
     <eat-comment/>
     <color name="red">#cd3333</color>
     <color name="russet">#ffdd3d14</color>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <color name="seek_bar_after_thumb">#cdcdcd</color>
+    <color name="seek_bar_before_thumb">#cd3333</color>
+    <color name="seek_bar_thumb_center">#dd3333</color>
+    <color name="seek_bar_thumb_outer_stroke">#ffffff</color>
     <!-- From: file:/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
     <eat-comment/>
     <color name="title_bar">#FFFAFAFA</color>
@@ -74,6 +79,11 @@
     <!-- From: file:/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <color name="white_bg">#FFFFFFFF</color>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <color name="yellow">#fdba2d</color>
+    <declare-styleable name="CustomTheme"><attr format="reference" name="gifViewStyle"/></declare-styleable>
+    <declare-styleable name="GifView"><attr format="reference" name="gif"/><attr format="boolean" name="paused"/></declare-styleable>
     <declare-styleable name="RoundAngleImageView"><attr format="dimension" name="roundWidth"/><attr format="dimension" name="roundHeight"/></declare-styleable>
     <!-- From: file:/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/modernMediaViews/unspecified/res/values/values.xml -->
     <eat-comment/>
@@ -120,7 +130,7 @@
     <dimen name="head_tipsTextView_tSize">15dp</dimen>
     <!-- From: file:/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/modernMediaViews/unspecified/res/values/values.xml -->
     <eat-comment/>
-    <dimen name="index_titlebar_height">79.5dp</dimen>
+    <dimen name="index_titlebar_height">88dp</dimen>
     <dimen name="issue_desc_marginBottom">8dp</dimen>
     <dimen name="issue_pic_marginleft">8dp</dimen>
     <dimen name="issue_pic_marginright">10dp</dimen>
@@ -216,9 +226,6 @@
     <!-- From: file:/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="about">关于</string>
-    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
-    <eat-comment/>
-    <string name="account_hint">Email</string>
     <!-- From: file:/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/modernMediaViews/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="add">添加</string>
@@ -256,9 +263,9 @@
     <string name="band_succeed">绑定成功</string>
     <!-- From: file:/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
     <eat-comment/>
-    <string name="band_wait_email">待绑定</string>
     <string name="band_weibo">微博</string>
     <string name="band_weixin">微信</string>
+    <string name="band_yet">未绑定</string>
     <string name="banded">去绑定</string>
     <!-- From: file:/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
@@ -268,7 +275,7 @@
     <!-- From: file:/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/modernMediaViews/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="book_edit">编辑</string>
-    <string name="book_manage">订阅管理</string>
+    <string name="book_manage">管理订阅栏目</string>
     <!-- From: file:/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="camera">拍照</string>
@@ -324,6 +331,7 @@
     <string name="download_later">以后再说</string>
     <!-- From: file:/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
     <eat-comment/>
+    <string name="email">Email</string>
     <string name="email_address_is">你的邮箱地址是</string>
     <!-- From: file:/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
@@ -355,6 +363,8 @@
     <string name="follow_num">%s人关注</string>
     <string name="follow_success">关注成功</string>
     <string name="followed">已关注</string>
+    <string name="forget_password">忘记密码</string>
+    <string name="get_account_error">账号格式错误</string>
     <string name="get_more_coin">获取更多积分</string>
     <string name="get_verify_code">获取验证码</string>
     <string name="goto_shop">确认进入商城</string>
@@ -383,8 +393,7 @@
     <eat-comment/>
     <string name="login">登录</string>
     <string name="login_out">退出登录</string>
-    <string name="login_title_text">请用你的现代移动社区账号登录。</string>
-    <string name="mail_address">Email或者手机号码</string>
+    <string name="mail_address">Email/手机号</string>
     <!-- From: file:/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/modernMediaViews/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="manage_curr_column">管理栏目</string>
@@ -398,7 +407,7 @@
     <string name="message_new_fans">有%s个人关注了你</string>
     <string name="message_no_message">没有未读通知</string>
     <string name="message_user_is_recommended">你成为了推荐用户</string>
-    <string name="moder_media_account_login">或用现代移动社区账号登录</string>
+    <string name="moder_media_account_login">用InNote社区账号登录</string>
     <string name="modify_email">修改邮箱</string>
     <string name="modify_password">请输入您的旧密码和新密码，如果没有设置过密码，旧密码请留空。</string>
     <string name="modify_pwd">修改密码</string>
@@ -407,10 +416,12 @@
     <string name="more">更多</string>
     <!-- From: file:/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/modernMediaViews/unspecified/res/values/values.xml -->
     <eat-comment/>
-    <string name="more_books">更多订阅栏目</string>
+    <string name="more_books">添加栏目</string>
     <string name="more_cat">更多%1$s</string>
     <!-- From: file:/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
     <eat-comment/>
+    <string name="motify_nickname">修改昵称</string>
+    <string name="motify_sign">修改个人签名</string>
     <string name="msg_avatar_get_failed">头像取得失败</string>
     <string name="msg_avatar_upload_failed">头像上传失败</string>
     <string name="msg_avatar_upload_success">头像上传成功</string>
@@ -437,6 +448,9 @@
     <string name="msg_register_failed">注册失败</string>
     <string name="msg_register_success">注册成功</string>
     <string name="msg_your_coin_is_not_enough">你的金币余额不足</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="music_title">电台</string>
     <!-- From: file:/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/modernMediaViews/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="my_books">我的栏目</string>
@@ -449,6 +463,7 @@
     <string name="my_fav">我的收藏</string>
     <string name="my_friends">我的朋友</string>
     <string name="my_homepage">我的首页</string>
+    <string name="my_music">电台</string>
     <!-- From: file:/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="net_error">请检查网络</string>
@@ -462,6 +477,7 @@
     <!-- From: file:/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="new_pwd">新密码</string>
+    <string name="new_register">新用户注册</string>
     <string name="no_article_card">没有该文章的摘要</string>
     <string name="no_fan_tip">你还没有任何人关注</string>
     <string name="no_friend_tip">你还没有关注任何人</string>
@@ -486,6 +502,10 @@
     <string name="old_pwd">旧密码</string>
     <string name="password">密码</string>
     <string name="password_digits">_0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+    <string name="password_safety">密码安全性</string>
+    <string name="password_safety_high">高</string>
+    <string name="password_safety_mid">中</string>
+    <string name="password_safety_weak">弱</string>
     <string name="pay_alread">您已是付费用户。</string>
     <!-- From: file:/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
@@ -519,6 +539,7 @@
     <eat-comment/>
     <string name="recommend_user">推荐用户</string>
     <string name="register">注册</string>
+    <string name="register_title">注册InNote社区账号</string>
     <string name="reset_password">重置密码</string>
     <!-- From: file:/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
@@ -538,7 +559,6 @@
     <string name="send">发送</string>
     <!-- From: file:/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
     <eat-comment/>
-    <string name="set_userinfo_desc">加入现代移动社区，即可在云端保存你的收藏夹，并在现代传播出品的各大app中享受各种用户权益。</string>
     <string name="setting_auto_loop">首页焦点图自动轮播</string>
     <string name="setting_book_preference">会员与订阅</string>
     <string name="setting_book_single">订阅</string>
@@ -591,7 +611,7 @@
     <string name="sinalogin_check_server">服务器验证中...</string>
     <!-- From: file:/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
     <eat-comment/>
-    <string name="some_account_login">你可以用以下账号登录</string>
+    <string name="some_account_login">可以用以下账号登录</string>
     <!-- From: file:/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="sorry">对不起</string>
@@ -611,7 +631,6 @@
     <string name="theme_magazine">主题杂志</string>
     <!-- From: file:/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
     <eat-comment/>
-    <string name="title_hint">用现代移动社区账号登录</string>
     <string name="uncollect_failed">取消收藏失败</string>
     <string name="uncollect_success">取消收藏成功</string>
     <string name="unfollow_failed">取消关注失败</string>
@@ -622,8 +641,11 @@
     <string name="update">软件版本更新</string>
     <!-- From: file:/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
     <eat-comment/>
+    <string name="user_email">电子邮箱</string>
     <string name="user_no_card">你还没记录过笔记</string>
     <string name="user_setting">设置</string>
+    <string name="user_shejiaozhanghao">社交账号</string>
+    <string name="user_sign">个人签名</string>
     <string name="userinfo_desc">您的用户信息如下：</string>
     <string name="userinfo_nickname">昵称</string>
     <string name="userinfo_username">$用户名</string>
@@ -683,13 +705,39 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:backgroundDimEnabled">false</item>
     </style>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <style name="CustomDialog" parent="android:style/Theme.Dialog">
+
+        <!-- 背景颜色及透明程度 -->
+        <item name="android:windowBackground">@color/translucent_black</item>
+        <!-- 是否有标题 -->
+        <!-- <item name="android:windowNoTitle">true</item> -->
+        <!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 是否模糊 -->
+        <item name="android:backgroundDimEnabled">false</item>
+        <!-- 不显示边框 -->
+        <!-- <item name="android:windowFrame">@null</item> -->
+    </style>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
     <style name="NobackDialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
+    <style name="Play_SeekBar" parent="@android:style/Widget.SeekBar">
+        <item name="android:maxHeight">6.0dip</item>
+        <item name="android:minHeight">6.0dip</item>
+        <item name="android:height">6.0dip</item>
+        <item name="android:progressDrawable">@drawable/layer_list_seekbar_play</item>
+        <item name="android:thumb">@drawable/shape_seekbar_thumb</item>
+        <item name="android:thumbOffset">0dp</item>
+    </style>
     <style name="Theme" parent="android:Theme.Light.NoTitleBar">
         <item name="android:windowAnimationStyle">@style/Animation</item>
     </style>
+    <style name="Widget.GifView" parent="@android:style/Widget"/>
     <!-- From: file:/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
     <eat-comment/>
     <style name="card_list_popup_anim" parent="android:Animation">

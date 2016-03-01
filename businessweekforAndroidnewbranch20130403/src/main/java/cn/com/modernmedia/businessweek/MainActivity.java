@@ -1,7 +1,8 @@
 package cn.com.modernmedia.businessweek;
 
 import android.app.Activity;
-import cn.com.modernmedia.util.PushTest;
+import android.util.Log;
+import cn.com.modernmedia.util.DESCoder;
 import cn.com.modernmedia.views.ViewsMainActivity;
 
 /**
@@ -20,11 +21,6 @@ public class MainActivity extends ViewsMainActivity {
 	public void setPulling(boolean isPulling) {
 		scrollView.setPassToUp(isPulling);
 	}
-	
-	@Override
-	protected void onResume() {
-		super.onResume();
-	}
 
 	@Override
 	public String getActivityName() {
@@ -35,5 +31,4 @@ public class MainActivity extends ViewsMainActivity {
 	public Activity getActivity() {
 		return this;
 	}
-
 }

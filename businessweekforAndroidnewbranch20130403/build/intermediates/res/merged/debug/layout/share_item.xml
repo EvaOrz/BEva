@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    android:padding="10dp" >
 
     <ImageView
         android:id="@+id/app_icon"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/share_item_margin"
-        android:layout_marginRight="@dimen/share_item_margin"
         android:contentDescription="@null"
         android:duplicateParentState="true" />
 
@@ -19,6 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_gravity="left|center_vertical"
+        android:layout_marginLeft="10dp"
         android:layout_toRightOf="@id/app_icon"
         android:duplicateParentState="true"
         android:ellipsize="end"

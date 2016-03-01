@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle" >
+    <solid android:color="@color/seek_bar_after_thumb"></solid>
+<size android:height="16dp"/>
+</shape>
+<!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/commonLib/src/main/res/drawable/shape_seek_after_thumb.xml --><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaViews/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/drawable/shape_seek_after_thumb.xml -->

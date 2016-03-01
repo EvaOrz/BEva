@@ -3,10 +3,10 @@ package cn.com.modernmediausermodel;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -36,37 +36,36 @@ import cn.com.modernmediausermodel.util.WeixinLoginUtil;
 import cn.com.modernmediausermodel.util.WeixinLoginUtil.WeixinAuthListener;
 
 /**
- * 默认登录页面
+ * 登录页面
  * 
- * @author ZhuQiao
+ * @author Eva.
  * 
  */
 public class LoginActivity extends SlateBaseActivity implements OnClickListener {
 	private Context mContext;
-	private EditText mAcountEdit, mPasswordEdit;
-	private ImageView mClearImage, mForgetPwdImage, mCloseImage;
-	private Button mRegisterBtn, mLoginBtn;
-	private ImageView mSinaLoginBtn, mQQLoginBtn, mWeixinLoginBtn;
+	private UserOperateController mController;
 	private Animation shakeAnim;
 	private SinaAuth weiboAuth;
-	private String weixinCode;
+	private Button mLoginBtn;
+	private TextView forgetPwd, register;
+	private ImageView mSinaLoginBtn, mQQLoginBtn, mWeixinLoginBtn, mClearImage,
+			mCloseImage;
+	private EditText mAcountEdit, mPasswordEdit;
 	private String shareData = "";// 分享的内容
 	private int gotoPage;// 登录完成需要跳转的页面
 	private boolean shouldFinish = false;// 当直接跳到发笔记页的时候，不会立即执行destory，所以延迟500ms
-	private UserOperateController mController;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mContext = this;
-		mController = UserOperateController.getInstance(mContext);
-		if (checkIsShare()
-				&& SlateDataHelper.getUserLoginInfo(mContext) != null) {
+		mController = UserOperateController.getInstance(this);
+		if (checkIsShare() && SlateDataHelper.getUserLoginInfo(this) != null) {
 			UserPageTransfer.gotoWriteCardActivity(this, shareData, false);
 			shouldFinish = true;
 		}
 
-		initContentView();
+		setContentView(-1);
 		new Handler().postDelayed(new Runnable() {
 
 			@Override
@@ -78,8 +77,69 @@ public class LoginActivity extends SlateBaseActivity implements OnClickListener 
 		}, 500);
 	}
 
-	protected void initContentView() {
-		setContentView(-1);
+	/**
+	 * 设置页面
+	 * 
+	 * @param layoutResID
+	 *            页面layout_id,可传-1，代表使用默认页面
+	 */
+	@Override
+	public void setContentView(int layoutResID) {
+		if (layoutResID == -1) {
+			layoutResID = R.layout.activity_new_login;
+			super.setContentView(layoutResID);
+			init();
+		} else {
+			super.setContentView(layoutResID);
+		}
+	}
+
+	private void init() {
+		shakeAnim = AnimationUtils.loadAnimation(this, R.anim.shake);
+		forgetPwd = (TextView) findViewById(R.id.login_forget_pwd);
+		register = (TextView) findViewById(R.id.login_registers);
+		// 忘记密码 注册设置下划线
+		forgetPwd.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
+		register.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
+		mAcountEdit = (EditText) findViewById(R.id.login_account);
+		mClearImage = (ImageView) findViewById(R.id.login_img_clear);
+		mLoginBtn = (Button) findViewById(R.id.login_btn_login);
+		mSinaLoginBtn = (ImageView) findViewById(R.id.login_btn_sina_login);
+		mQQLoginBtn = (ImageView) findViewById(R.id.login_btn_qq_login);
+		mWeixinLoginBtn = (ImageView) findViewById(R.id.login_btn_weixin_login);
+		mCloseImage = (ImageView) findViewById(R.id.login_img_close);
+
+		mPasswordEdit = (EditText) findViewById(R.id.login_password);
+		if (SlateApplication.APP_ID == 37) {// verycity
+			mAcountEdit.setHint(R.string.email);
+			mQQLoginBtn.setVisibility(View.INVISIBLE);
+		}
+
+		// if (SlateApplication.mConfig.getHas_sina() != 1
+		// && SlateApplication.mConfig.getHas_qq() != 1
+		// && SlateApplication.mConfig.getHas_weixin() != 1) { // 都不存在时，隐藏所有
+		// findViewById(R.id.login_other_desc).setVisibility(View.GONE);
+		// mSinaLoginBtn.setVisibility(View.GONE);
+		// mQQLoginBtn.setVisibility(View.GONE);
+		// mWeixinLoginBtn.setVisibility(View.GONE);
+		// ((TextView) findViewById(R.id.login_desc))
+		// .setText(R.string.login_title_text);
+		// } else if (SlateApplication.mConfig.getHas_weixin() != 1) {// 不用微信登陆
+		// mWeixinLoginBtn.setVisibility(View.GONE);
+		// } else if (SlateApplication.mConfig.getHas_sina() != 1) {// 不用新浪微博登陆
+		// mSinaLoginBtn.setVisibility(View.GONE);
+		// } else if (SlateApplication.mConfig.getHas_qq() != 1) {// 不用QQ登陆
+		// mQQLoginBtn.setVisibility(View.GONE);
+		// }
+
+		mCloseImage.setOnClickListener(this);
+		mClearImage.setOnClickListener(this);
+		forgetPwd.setOnClickListener(this);
+		register.setOnClickListener(this);
+		mLoginBtn.setOnClickListener(this);
+		mSinaLoginBtn.setOnClickListener(this);
+		mQQLoginBtn.setOnClickListener(this);
+		mWeixinLoginBtn.setOnClickListener(this);
 	}
 
 	/**
@@ -107,78 +167,6 @@ public class LoginActivity extends SlateBaseActivity implements OnClickListener 
 		return false;
 	}
 
-	/**
-	 * 设置页面
-	 * 
-	 * @param layoutResID
-	 *            页面layout_id,可传-1，代表使用默认页面
-	 */
-	@Override
-	public void setContentView(int layoutResID) {
-		if (layoutResID == -1) {
-			layoutResID = R.layout.activity_login;
-			super.setContentView(layoutResID);
-			init();
-		} else {
-			super.setContentView(layoutResID);
-		}
-	}
-
-	private void init() {
-		shakeAnim = AnimationUtils.loadAnimation(this, R.anim.shake);
-		mAcountEdit = (EditText) findViewById(R.id.login_account);
-		mPasswordEdit = (EditText) findViewById(R.id.login_password);
-		mClearImage = (ImageView) findViewById(R.id.login_img_clear);
-		mForgetPwdImage = (ImageView) findViewById(R.id.login_img_forget);
-		mCloseImage = (ImageView) findViewById(R.id.login_img_close);
-		mRegisterBtn = (Button) findViewById(R.id.login_btn_register);
-		mLoginBtn = (Button) findViewById(R.id.login_btn_login);
-		mSinaLoginBtn = (ImageView) findViewById(R.id.login_btn_sina_login);
-		mQQLoginBtn = (ImageView) findViewById(R.id.login_btn_qq_login);
-		mWeixinLoginBtn = (ImageView) findViewById(R.id.login_btn_weixin_login);
-
-		if (SlateApplication.APP_ID == 37) {// verycity
-			mAcountEdit.setHint(R.string.account_hint);
-			mQQLoginBtn.setVisibility(View.INVISIBLE);
-		}
-
-		initOpenBtnHeight();
-		if (SlateApplication.mConfig.getHas_sina() != 1
-				&& SlateApplication.mConfig.getHas_qq() != 1
-				&& SlateApplication.mConfig.getHas_weixin() != 1) { // 都不存在时，隐藏所有
-			findViewById(R.id.login_other_desc).setVisibility(View.GONE);
-			mSinaLoginBtn.setVisibility(View.GONE);
-			mQQLoginBtn.setVisibility(View.GONE);
-			mWeixinLoginBtn.setVisibility(View.GONE);
-			((TextView) findViewById(R.id.login_desc))
-					.setText(R.string.login_title_text);
-		} else if (SlateApplication.mConfig.getHas_weixin() != 1) {// 不用微信登陆
-			mWeixinLoginBtn.setVisibility(View.GONE);
-		} else if (SlateApplication.mConfig.getHas_sina() != 1) {// 不用新浪微博登陆
-			mSinaLoginBtn.setVisibility(View.GONE);
-		} else if (SlateApplication.mConfig.getHas_qq() != 1) {// 不用QQ登陆
-			mQQLoginBtn.setVisibility(View.GONE);
-		}
-
-		mCloseImage.setOnClickListener(this);
-		mClearImage.setOnClickListener(this);
-		mForgetPwdImage.setOnClickListener(this);
-		mRegisterBtn.setOnClickListener(this);
-		mLoginBtn.setOnClickListener(this);
-		mSinaLoginBtn.setOnClickListener(this);
-		mQQLoginBtn.setOnClickListener(this);
-		mWeixinLoginBtn.setOnClickListener(this);
-	}
-
-	private void initOpenBtnHeight() {
-		int offset = getResources().getDimensionPixelSize(
-				R.dimen.login_btn_weibo_marginLeft);
-		int height = (SlateApplication.width - 2 * offset) * 64 / 442;
-		mQQLoginBtn.getLayoutParams().height = height;
-		mSinaLoginBtn.getLayoutParams().height = height;
-		mWeixinLoginBtn.getLayoutParams().height = height;
-	}
-
 	@Override
 	public void onClick(View v) {
 		String userName = "";
@@ -190,16 +178,16 @@ public class LoginActivity extends SlateBaseActivity implements OnClickListener 
 			psd = mPasswordEdit.getText().toString();
 		}
 		if (v.getId() == R.id.login_img_clear) {
-			doClear();
-		} else if (v.getId() == R.id.login_img_forget) {
-			if (UserTools.checkString(userName, mAcountEdit, shakeAnim))
-				doForgetPwd(userName);
+			if (mAcountEdit != null)
+				mAcountEdit.setText("");
+		} else if (v.getId() == R.id.login_forget_pwd) {
+			Intent i = new Intent(mContext, ForgetPwdActivity.class);
+			startActivity(i);
 		} else if (v.getId() == R.id.login_img_close) {
-			doClose();
-		} else if (v.getId() == R.id.login_btn_register) {
-			if (UserTools.checkString(userName, mAcountEdit, shakeAnim)
-					&& UserTools.checkString(psd, mPasswordEdit, shakeAnim))
-				doRegister(userName, psd);
+			finish();
+		} else if (v.getId() == R.id.login_registers) {// 注册
+			Intent i = new Intent(mContext, RegisterActivity.class);
+			startActivity(i);
 		} else if (v.getId() == R.id.login_btn_login) {
 			if (UserTools.checkString(userName, mAcountEdit, shakeAnim)
 					&& UserTools.checkString(psd, mPasswordEdit, shakeAnim))
@@ -211,6 +199,7 @@ public class LoginActivity extends SlateBaseActivity implements OnClickListener 
 		} else if (v.getId() == R.id.login_btn_weixin_login) { // 微信登录
 			doWeixinlogin();
 		}
+
 	}
 
 	private void doWeixinlogin() {
@@ -227,6 +216,68 @@ public class LoginActivity extends SlateBaseActivity implements OnClickListener 
 					afterLogin(user);
 					showLoadingDialog(false);
 				}
+			}
+		});
+	}
+
+	/**
+	 * 登录成功
+	 * 
+	 * @param user
+	 */
+	protected void afterLogin(User user) {
+		showLoadingDialog(false);
+		// 返回上一级界面
+		showToast(R.string.msg_login_success);
+		UserCentManager.getInstance(mContext).addLoginCoinCent();
+		UserPageTransfer.afterLogin(this, user, shareData, gotoPage);
+	}
+
+	/**
+	 * 开放平台(新浪微博、QQ等)账号登录
+	 * 
+	 * @param user
+	 *            用户信息
+	 * @param type
+	 *            平台类型,目前0:普通登录；1：新浪微博；2：腾讯qq；3：微信
+	 */
+	public void openLogin(final User user, final int type) {
+		mController.openLogin(user, "", type, new UserFetchEntryListener() {
+
+			@Override
+			public void setData(final Entry entry) {
+				showLoadingDialog(false);
+				String toast = "";
+				if (entry instanceof User) {
+					User mUser = (User) entry;
+					ErrorMsg error = mUser.getError();
+					if (error.getNo() == 0) {
+						SlateDataHelper.saveUserLoginInfo(mContext, mUser);
+						if (type == 1) { // 新浪微博
+							UserDataHelper.saveSinaLoginedName(mContext,
+									mUser.getSinaId(), mUser.getUserName());
+						} else if (type == 2) { // QQ
+							UserDataHelper.saveQqLoginedName(mContext,
+									mUser.getQqId(), mUser.getUserName());
+						} else if (type == 3) {// 微信
+							UserDataHelper.saveWeinxinLoginedName(mContext,
+									mUser.getWeixinId(), mUser.getUserName());
+						}
+						SlateDataHelper.saveAvatarUrl(mContext,
+								mUser.getUserName(), mUser.getAvatar());
+						afterLogin(mUser);
+						return;
+					} else if (error.getNo() == 2041
+							|| (error.getNo() == 1004 && (type != 0))) { // 用户第一次登录时，前往资料页面完善资料
+						UserPageTransfer.gotoUserInfoActivity(mContext, type,
+								null, "", gotoPage);
+						return;
+					} else {
+						toast = error.getDesc();
+					}
+				}
+				showToast(TextUtils.isEmpty(toast) ? getString(R.string.msg_login_fail)
+						: toast);
 			}
 		});
 	}
@@ -302,184 +353,6 @@ public class LoginActivity extends SlateBaseActivity implements OnClickListener 
 		}
 	}
 
-	/**
-	 * 清除用户名
-	 */
-	protected void doClear() {
-		if (mAcountEdit != null)
-			mAcountEdit.setText("");
-	}
-
-	/**
-	 * 忘记密码
-	 * 
-	 * @param userName
-	 */
-	protected void doForgetPwd(final String userName) {
-		if (UserTools.checkIsEmailOrPhone(mContext, userName)) {
-			// 手机号忘记密码 -- 短信验证页面
-			if (UserTools.checkIsPhone(mContext, userName)) {
-				Intent i = new Intent(this, ForgetPwdActivity.class);
-				i.putExtra("phone_number", userName);
-				startActivity(i);
-				// 邮箱忘记密码
-			} else {
-				showLoadingDialog(true);
-				mController.getPassword(userName, null, null,
-						new UserFetchEntryListener() {
-
-							@Override
-							public void setData(final Entry entry) {
-								showLoadingDialog(false);
-								String toast = "";
-								if (entry instanceof User) {
-									User resUser = (User) entry;
-									ErrorMsg error = resUser.getError();
-									if (error.getNo() == 0) { // 发送请求成功
-										String msg = String.format(getString(
-												R.string.msg_find_pwd_success,
-												userName));
-										UserTools
-												.showDialogMsg(
-														mContext,
-														getString(R.string.reset_password),
-														msg);
-										return;
-									} else {
-										toast = error.getDesc();
-									}
-								}
-								showToast(TextUtils.isEmpty(toast) ? getString(R.string.msg_find_pwd_failed)
-										: toast);
-							}
-						});
-			}
-		}
-	}
-
-	/**
-	 * 用户注册
-	 * 
-	 * @param userName
-	 *            用户名称
-	 * @param password
-	 *            密码
-	 */
-	protected void doRegister(final String userName, final String password) {
-		// 检查格式
-		if (UserTools.checkIsEmailOrPhone(mContext, userName)
-				&& UserTools.checkPasswordFormat(mContext, password)) {
-			if (UserTools.checkIsPhone(mContext, userName)) {// 如果是手机号码
-				UserPageTransfer.gotoUserInfoActivity(this,
-						UserInfoActivity.FROM_PHONE_LOGIN, userName, password,
-						gotoPage);
-			} else {
-				showLoadingDialog(true);
-				mController.register(userName, password, "", "", null,
-						new UserFetchEntryListener() {
-
-							@Override
-							public void setData(final Entry entry) {
-								showLoadingDialog(false);
-								String toast = "";
-								if (entry instanceof User) {
-									User user = (User) entry;
-									ErrorMsg error = user.getError();
-									if (error.getNo() == 0) {
-										// 注册成功
-										user.setEmail(userName);
-										user.setPassword(password);
-										user.setLogined(true);
-										// 将相关信息用SharedPreferences存储
-										SlateDataHelper.saveUserLoginInfo(
-												mContext, user);
-										// 返回上一级界面
-										afterRegister(user, shareData);
-										return;
-									} else {
-										toast = error.getDesc();
-									}
-								}
-								showToast(R.string.msg_register_failed);
-							}
-						});
-			}
-		}
-	}
-
-	/**
-	 * 开放平台(新浪微博、QQ等)账号登录
-	 * 
-	 * @param user
-	 *            用户信息
-	 * @param type
-	 *            平台类型,目前0:普通登录；1：新浪微博；2：腾讯qq；3：微信
-	 */
-	public void openLogin(final User user, final int type) {
-		Log.i("LoginActivity weixin listener",
-				"开放平台(新浪微博、QQ等)账号登录mAuthListener");
-		mController.openLogin(user, "", type, new UserFetchEntryListener() {
-
-			@Override
-			public void setData(final Entry entry) {
-				showLoadingDialog(false);
-				String toast = "";
-				if (entry instanceof User) {
-					User mUser = (User) entry;
-					ErrorMsg error = mUser.getError();
-					if (error.getNo() == 0) {
-						SlateDataHelper.saveUserLoginInfo(mContext, mUser);
-						if (type == 1) { // 新浪微博
-							UserDataHelper.saveSinaLoginedName(mContext,
-									mUser.getSinaId(), mUser.getUserName());
-						} else if (type == 2) { // QQ
-							UserDataHelper.saveQqLoginedName(mContext,
-									mUser.getQqId(), mUser.getUserName());
-						} else if (type == 3) {// 微信
-							UserDataHelper.saveWeinxinLoginedName(mContext,
-									mUser.getWeixinId(), mUser.getUserName());
-						}
-						SlateDataHelper.saveAvatarUrl(mContext,
-								mUser.getUserName(), mUser.getAvatar());
-						afterLogin(mUser);
-						return;
-					} else if (error.getNo() == 2041
-							|| (error.getNo() == 1004 && (type != 0))) { // 用户第一次登录时，前往资料页面完善资料
-						int from = 0;
-						if (type == 1) {
-							from = UserInfoActivity.FROM_SINA_LOGIN;
-						} else if (type == 2) {
-							from = UserInfoActivity.FROM_QQ_LOGIN;
-						} else if (type == 3) {
-							from = UserInfoActivity.FROM_WEIXIN_LOGIN;
-						}
-						UserPageTransfer.gotoUserInfoActivity(mContext, from,
-								null, "", gotoPage);
-						return;
-					} else {
-						toast = error.getDesc();
-					}
-				}
-				showToast(TextUtils.isEmpty(toast) ? getString(R.string.msg_login_fail)
-						: toast);
-			}
-		});
-	}
-
-	/**
-	 * 注册成功，默认进入设置用户信息界面
-	 * 
-	 * @param user
-	 * @param content
-	 *            分享内容
-	 */
-	protected void afterRegister(User user, String content) {
-		showToast(R.string.msg_register_success);
-		UserCentManager.getInstance(mContext).addLoginCoinCent();
-		SlateApplication.loginStatusChange = true;
-		UserPageTransfer.gotoUserInfoActivity(this,
-				UserInfoActivity.FROM_REGISTER, content, "", gotoPage);
-	}
 
 	/**
 	 * 用户登录
@@ -533,26 +406,6 @@ public class LoginActivity extends SlateBaseActivity implements OnClickListener 
 		}
 	}
 
-	/**
-	 * 登录成功
-	 * 
-	 * @param user
-	 */
-	protected void afterLogin(User user) {
-		showLoadingDialog(false);
-		// 返回上一级界面
-		showToast(R.string.msg_login_success);
-		UserCentManager.getInstance(mContext).addLoginCoinCent();
-		UserPageTransfer.afterLogin(this, user, shareData, gotoPage);
-	}
-
-	/**
-	 * 返回
-	 */
-	protected void doClose() {
-		finish();
-	}
-
 	@Override
 	public void finish() {
 		if (SlateDataHelper.getUserLoginInfo(this) != null)
@@ -569,7 +422,7 @@ public class LoginActivity extends SlateBaseActivity implements OnClickListener 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-			doClose();
+			finish();
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
@@ -577,12 +430,12 @@ public class LoginActivity extends SlateBaseActivity implements OnClickListener 
 
 	@Override
 	public String getActivityName() {
-		return LoginActivity.class.getName();
+		return null;
 	}
 
 	@Override
 	public Activity getActivity() {
-		return this;
+		return null;
 	}
 
 }

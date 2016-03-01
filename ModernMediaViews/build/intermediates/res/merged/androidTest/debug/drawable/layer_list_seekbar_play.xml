@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@android:id/background"
+        android:drawable="@drawable/shape_seek_after_thumb"/>
+    <item android:id="@android:id/progress">
+        <clip android:drawable="@drawable/shape_seek_before_thumb" />
+    </item>
+
+</layer-list><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/commonLib/src/main/res/drawable/layer_list_seekbar_play.xml --><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaViews/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/drawable/layer_list_seekbar_play.xml -->

@@ -23,7 +23,6 @@ import cn.com.modernmedia.model.AppValue;
 import cn.com.modernmedia.model.TagInfoList;
 import cn.com.modernmedia.model.TagInfoList.TagInfo;
 import cn.com.modernmedia.util.ConstData;
-import cn.com.modernmedia.util.LogHelper;
 import cn.com.modernmedia.views.AboutActivity;
 import cn.com.modernmedia.views.R;
 import cn.com.modernmedia.views.ViewsApplication;
@@ -38,10 +37,6 @@ import cn.com.modernmedia.widget.WebViewPop;
 import cn.com.modernmediaslate.SlateApplication;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.unit.ParseUtil;
-import cn.com.modernmediaslate.unit.SlateDataHelper;
-import cn.com.modernmediausermodel.UserApplication;
-import cn.com.modernmediausermodel.listener.AfterLoginListener;
-import cn.com.modernmediausermodel.util.UserPageTransfer;
 
 /**
  * 栏目列表页

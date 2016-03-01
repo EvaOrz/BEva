@@ -39,5 +39,10 @@ public class FunctionIndexNav {
 	 * 导航栏背景(iweekly使用)
 	 */
 	public static final String NAV_BG = "nav_bg";
-	
+
+	/**
+	 * top_menu(iweekly使用)
+	 */
+	public static final String TOP_MENU = "top_menu";
+
 }

@@ -3,8 +3,8 @@
     package="cn.com.modernmediaslate.test" >
 
     <uses-sdk
-        android:minSdkVersion="10"
-        android:targetSdkVersion="19" />
+        android:minSdkVersion="14"
+        android:targetSdkVersion="17" />
 
     <instrumentation
         android:name="android.test.InstrumentationTestRunner"

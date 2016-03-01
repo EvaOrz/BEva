@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/coreLib/build/intermediates/bundles/debug/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/coreLib/build/intermediates/bundles/debug/res/values/values.xml -->
     <eat-comment/>
     <color name="black_bg">#FF000000</color>
     <color name="white_bg">#FFFFFFFF</color>

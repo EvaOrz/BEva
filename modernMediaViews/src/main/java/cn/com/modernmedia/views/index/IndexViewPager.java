@@ -38,6 +38,7 @@ public class IndexViewPager extends CircularViewPager<TagInfo> implements
 	private Context mContext;
 	private List<TagInfo> catItems = new ArrayList<TagInfo>();// 栏目列表
 	private IndexViewPagerAdapter adapter;
+	private View top_menu;
 
 	public IndexViewPager(Context context) {
 		this(context, null);
@@ -46,6 +47,7 @@ public class IndexViewPager extends CircularViewPager<TagInfo> implements
 	public IndexViewPager(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		mContext = context;
+		this.top_menu = top_menu;
 		init();
 	}
 

@@ -341,6 +341,33 @@ public class TagInfoList extends Entry {
 		private int adapter_id;// 关于、推荐之类(1.关于；2.推荐；3.订阅图片；4.底部padding)
 		private boolean isUriTag;// 是否是通过uri生成的taginfo
 		private boolean isCheck = false; // 选中排序状态
+		private int isRadio = 0;// 1： 电台栏目
+		private int type = 0;// 栏目类型：0默认、7链接、11电台、12活动
+		private int isDelete = 0;// 1：保存订阅列表时，删除该栏目
+
+		public int getIsDelete() {
+			return isDelete;
+		}
+
+		public void setIsDelete(int isDelete) {
+			this.isDelete = isDelete;
+		}
+
+		public int getIsRadio() {
+			return isRadio;
+		}
+
+		public void setIsRadio(int isRadio) {
+			this.isRadio = isRadio;
+		}
+
+		public int getType() {
+			return type;
+		}
+
+		public void setType(int type) {
+			this.type = type;
+		}
 
 		public boolean isCheck() {
 			return isCheck;
@@ -362,7 +389,8 @@ public class TagInfoList extends Entry {
 				String coloumnupdatetime, int group, int enablesubscribe,
 				int defaultsubscribe, int isFix, int hasSubscribe,
 				int tagLevel, String publishTime, AppProperty appProperty,
-				IssueProperty issueProperty, ColumnProperty columnProperty) {
+				IssueProperty issueProperty, ColumnProperty columnProperty,
+				int isRadio, int type) {
 			super();
 			this.appId = appId;
 			this.tagName = tagName;
@@ -381,6 +409,8 @@ public class TagInfoList extends Entry {
 			this.appProperty = appProperty;
 			this.issueProperty = issueProperty;
 			this.columnProperty = columnProperty;
+			this.isRadio = isRadio;
+			this.type = type;
 		}
 
 		public TagInfo copy() {
@@ -388,7 +418,7 @@ public class TagInfoList extends Entry {
 					articleupdatetime, coloumnupdatetime, group,
 					enablesubscribe, defaultsubscribe, isFix, hasSubscribe,
 					tagLevel, publishTime, appProperty, issueProperty,
-					columnProperty);
+					columnProperty, isRadio, type);
 		}
 
 		/**

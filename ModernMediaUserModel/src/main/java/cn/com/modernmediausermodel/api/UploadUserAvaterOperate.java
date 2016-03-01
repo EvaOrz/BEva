@@ -37,10 +37,12 @@ public class UploadUserAvaterOperate extends SlateBaseOperate {
 
 	@Override
 	protected void handler(JSONObject jsonObject) {
-		result.setStatus(jsonObject.optString("status", ""));
-		result.setMsg(jsonObject.optString("msg", ""));
-		result.setImagePath(jsonObject.optString("url", ""));
-		result.setAvatarPath(jsonObject.optString("avatar", ""));
+		if (jsonObject != null) {
+			result.setStatus(jsonObject.optString("status", ""));
+			result.setMsg(jsonObject.optString("msg", ""));
+			result.setImagePath(jsonObject.optString("url", ""));
+			result.setAvatarPath(jsonObject.optString("avatar", ""));
+		}
 	}
 
 	@Override

@@ -37,6 +37,10 @@ public class AppValue {
 	 */
 	public static TagInfoList bookColumnList = new TagInfoList();
 	/**
+	 * 电台列表
+	 */
+	public static TagInfoList musicColumnLIst = new TagInfoList();
+	/**
 	 * uri生成的栏目列表信息
 	 */
 	public static TagInfoList uriTagInfoList = new TagInfoList();

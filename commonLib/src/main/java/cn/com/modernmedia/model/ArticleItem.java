@@ -59,9 +59,12 @@ public class ArticleItem extends Entry {
 	private String subtitle = "";
 	private String createuser = "";
 	private String modifyuser = "";
+	private String fromtagname = "";// 电台页面用来获取来源栏目
+
 	private int advId;
 	private boolean isSubscribeMerge = false;
 	private String parent = "";
+	private List<Audio> audioList = new ArrayList<Audio>();// 音频列表
 
 	// 3.0.0新增参数
 	private String groupdisplayname = "";// 推荐首页用来显示文章item的text
@@ -80,7 +83,8 @@ public class ArticleItem extends Entry {
 			String tagName, String groupname, String apiTag, int bottomResId,
 			DbData dbData, int appid, String subtitle, String createuser,
 			String modifyuser, int advId, boolean isSubscribeMerge,
-			String parent, String groupdisplayname, int groupdisplaycolor) {
+			String parent, String groupdisplayname, int groupdisplaycolor,
+			String fromtagname) {
 		super();
 		this.articleId = articleId;
 		this.updateTime = updateTime;
@@ -117,6 +121,7 @@ public class ArticleItem extends Entry {
 		this.parent = parent;
 		this.groupdisplayname = groupdisplayname;
 		this.groupdisplaycolor = groupdisplaycolor;
+		this.fromtagname = fromtagname;
 	}
 
 	public ArticleItem copy() {
@@ -126,7 +131,7 @@ public class ArticleItem extends Entry {
 				advSource, isAdv, advTracker, inputtime, jsonObject, tagName,
 				groupname, apiTag, bottomResId, dbData, appid, subtitle,
 				createuser, modifyuser, advId, isSubscribeMerge, parent,
-				groupdisplayname, groupdisplaycolor);
+				groupdisplayname, groupdisplaycolor, fromtagname);
 		item.getThumbList().addAll(thumbList);
 		item.getPicList().addAll(picList);
 		item.getPageUrlList().addAll(pageUrlList);
@@ -140,6 +145,22 @@ public class ArticleItem extends Entry {
 
 	public void setArticleId(int articleId) {
 		this.articleId = articleId;
+	}
+
+	public String getFromtagname() {
+		return fromtagname;
+	}
+
+	public void setFromtagname(String fromtagname) {
+		this.fromtagname = fromtagname;
+	}
+
+	public List<Audio> getAudioList() {
+		return audioList;
+	}
+
+	public void setAudioList(List<Audio> audioList) {
+		this.audioList = audioList;
 	}
 
 	public String getTitle() {
@@ -485,8 +506,8 @@ public class ArticleItem extends Entry {
 		 * 对应的模板.0.titlebar(客户端自己加);1小图文字;2.无图文字;3.大图文字;4.广告(客户端自己加);5.跑马灯(
 		 * 客户端自己加);
 		 * 
-		 * 3.0.0 (0.titlebar(客户端自己加); 6.广告模板; 7.跑马灯) 1. 小图; 2. 组图; 3. 大图＋标题+描述;
-		 * 4. 大图＋标题; 5. 横版组图模式(渐变色背景);
+		 * 3.0.0 (0.titlebar(客户端自己加,包括栏目名称或者date显示); 6.广告模板; 7.跑马灯) 1. 小图; 2.
+		 * 组图; 3. 大图＋标题+描述; 4. 大图＋标题; 5. 横版组图模式(渐变色背景);
 		 */
 		private int style = 1;
 		/**
@@ -653,6 +674,45 @@ public class ArticleItem extends Entry {
 
 		public void setVideolink(String videolink) {
 			this.videolink = videolink;
+		}
+
+	}
+
+	/**
+	 * 音频文章model
+	 * 
+	 * @author lusiyuan
+	 *
+	 */
+	public static class Audio extends Entry {
+
+		private static final long serialVersionUID = 1L;
+		public String url = "";
+		public String duration = "";
+		public int size;
+
+		public String getUrl() {
+			return url;
+		}
+
+		public void setUrl(String url) {
+			this.url = url;
+		}
+
+		public String getDuration() {
+			return duration;
+		}
+
+		public void setDuration(String duration) {
+			this.duration = duration;
+		}
+
+		public int getSize() {
+			return size;
+		}
+
+		public void setSize(int size) {
+			this.size = size;
 		}
 
 	}

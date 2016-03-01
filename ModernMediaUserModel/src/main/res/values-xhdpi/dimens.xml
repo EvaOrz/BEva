@@ -3,9 +3,6 @@
 
     <!-- 登录页面 -->
     <dimen name="login_edittext_height">57dp</dimen>
-    <dimen name="userinfo_avatar_size">48dp</dimen>
-    <dimen name="login_btn_width">129dp</dimen>
-    <dimen name="login_btn_height">37dp</dimen>
 
     <!-- 卡片 -->
     <dimen name="bar_height">49.5dp</dimen>
