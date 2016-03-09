@@ -119,8 +119,10 @@ public class TagProcessManage {
 		 * 
 		 * @param pushArticleUrl
 		 *            推送文章地址;如果url不为空，代表需要显示推送文章
+		 * @param level
+		 *            0:免费文章；1：付费文章。
 		 */
-		public void afterParseProcess(String pushArticleUrl);
+		public void afterParseProcess(String pushArticleUrl, int level);
 
 		/**
 		 * 关闭了推送文章页
@@ -143,11 +145,13 @@ public class TagProcessManage {
 		 *            是否是push
 		 * @param pushArticleUrl
 		 *            推送文章地址
+		 * @param level
+		 *            文章付费情况
 		 * @param isAppRunning
 		 *            app是否运行中
 		 */
 		public void onParseMsgAnalyed(boolean isPush, String pushArticleUrl,
-				boolean isAppRunning);
+				int level, boolean isAppRunning);
 	}
 
 	private MainProcessParseCallBack callBack = new MainProcessParseCallBack() {
@@ -212,11 +216,12 @@ public class TagProcessManage {
 	private PushCallback pushCallback = new PushCallback() {
 
 		@Override
-		public void afterParseProcess(String url) {
+		public void afterParseProcess(String url, int level) {
 			// NOTE 标记是否需要显示推送文章
 			pushArticleUrl = url;
 			if (splashCallback != null)
-				splashCallback.onParseMsgAnalyed(true, url, appIsRunning);
+				splashCallback
+						.onParseMsgAnalyed(true, url, level, appIsRunning);
 		}
 
 		@Override
@@ -238,7 +243,7 @@ public class TagProcessManage {
 			// splash
 			printStartLog("from splash start http");
 			if (splashCallback != null)
-				splashCallback.onParseMsgAnalyed(false, "", false);
+				splashCallback.onParseMsgAnalyed(false, "", 0, false);
 		} else {
 			String from = intent.getExtras().getString(
 					GenericConstant.FROM_ACTIVITY);
@@ -289,7 +294,7 @@ public class TagProcessManage {
 	 * @param context
 	 * @param url
 	 */
-	public void showPushArticleActivity(Context context, String url) {
+	public void showPushArticleActivity(Context context, String url, int level) {
 		String _url = TextUtils.isEmpty(url) ? pushArticleUrl : url;
 		if (context == null || TextUtils.isEmpty(_url)
 				|| CommonApplication.pushArticleCls == null)
@@ -305,6 +310,7 @@ public class TagProcessManage {
 
 		Intent intent = new Intent(context, CommonApplication.pushArticleCls);
 		intent.putExtra(TagMainProcessParse.KEY_PUSH_ARTICLE_URL, _url);
+		intent.putExtra(TagMainProcessParse.KEY_PUSH_ARTICLE_LEVEL, level);
 		context.startActivity(intent);
 		((Activity) mContext).overridePendingTransition(R.anim.down_in,
 				R.anim.hold);

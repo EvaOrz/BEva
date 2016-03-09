@@ -58,4 +58,4 @@
         android:layout_height="30dp"
         android:layout_below="@id/card_detail_page_card_content" />
 
-</RelativeLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaUserModel/src/main/res/layout/card_detail_list_head.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/layout/card_detail_list_head.xml -->
+</RelativeLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/ModernMediaUserModel/src/main/res/layout/card_detail_list_head.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/ModernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/layout/card_detail_list_head.xml -->

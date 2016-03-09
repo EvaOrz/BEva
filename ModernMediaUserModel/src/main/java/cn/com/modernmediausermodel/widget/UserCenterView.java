@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmediaslate.SlateApplication;
 import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.model.ErrorMsg;
@@ -89,6 +90,9 @@ public class UserCenterView extends RelativeLayout implements OnClickListener {
 		fansLayout = (LinearLayout) findViewById(R.id.user_center_layout_fans);
 		settingLayout = (RelativeLayout) findViewById(R.id.user_center_layout_setting);
 		musicLayout = (RelativeLayout) findViewById(R.id.user_center_music);
+		if (ConstData.getAppId() == 20) {// iweekly电台栏目
+			musicLayout.setVisibility(View.VISIBLE);
+		}
 
 		businessPage.setOnClickListener(this);
 		homePage.setOnClickListener(this);

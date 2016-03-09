@@ -419,31 +419,31 @@ public class IndexViewPagerItem implements Observer, CheckNavHideListener {
 		}
 		if (template != null && template.getList().getShow_marquee() == 1
 				&& articleList.getTagName().equals("cat_15")) {
-			getMarqueeArticleList(articleList, loadMore);
+			getMarqueeTagIndex(articleList, loadMore);
 		} else {
 			setValueForIndex(articleList, loadMore);
 		}
 	}
 
-	/**
-	 * 获取跑马灯文章列表
-	 */
-	private void getMarqueeArticleList(final TagArticleList articleList,
-			final boolean loadMore) {
-		OperateController.getInstance(mContext).getTagArticles(
-				AppValue.getMarqueeTagInfo(), "", "", null,
-				new FetchEntryListener() {
-
-					@Override
-					public void setData(Entry entry) {
-						if (entry instanceof TagArticleList) {
-							getMarqueeTagIndex(articleList, loadMore);
-						} else {
-							setValueForIndex(articleList, loadMore);
-						}
-					}
-				});
-	}
+	// /**
+	// * 获取跑马灯文章列表
+	// */
+	// private void getMarqueeArticleList(final TagArticleList articleList,
+	// final boolean loadMore) {
+	// OperateController.getInstance(mContext).getTagArticles(
+	// AppValue.getMarqueeTagInfo(), "", "", null,
+	// new FetchEntryListener() {
+	//
+	// @Override
+	// public void setData(Entry entry) {
+	// if (entry instanceof TagArticleList) {
+	// getMarqueeTagIndex(articleList, loadMore);
+	// } else {
+	// setValueForIndex(articleList, loadMore);
+	// }
+	// }
+	// });
+	// }
 
 	/**
 	 * 获取跑马灯栏目首页
@@ -459,8 +459,13 @@ public class IndexViewPagerItem implements Observer, CheckNavHideListener {
 						if (entry instanceof TagArticleList) {
 							TagArticleList index = (TagArticleList) entry;
 							if (ParseUtil.listNotNull(index.getArticleList())) {
+								String outline = "";
+								for (ArticleItem a : index.getArticleList()) {
+									outline = a.getOutline() + "       ";
+								}
 								ArticleItem marqueeItem = index
 										.getArticleList().get(0);
+								marqueeItem.setOutline(outline);// 整合跑马灯内容
 								marqueeItem.setSlateLink(index.getLink());// 跑马灯栏目塞整体外链
 								marqueeItem.getPosition().setStyle(7);
 								if (articleList.getMap().containsKey(3)

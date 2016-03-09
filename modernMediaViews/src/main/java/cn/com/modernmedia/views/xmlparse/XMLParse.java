@@ -42,6 +42,7 @@ import cn.com.modernmedia.views.xmlparse.column.XMLDataSetForColumn;
 import cn.com.modernmedia.views.xmlparse.fav.XMLDataSetForFav;
 import cn.com.modernmedia.views.xmlparse.widget.ButtonParse;
 import cn.com.modernmedia.views.xmlparse.widget.FullScreenVideoViewParse;
+import cn.com.modernmedia.views.xmlparse.widget.GifViewParse;
 import cn.com.modernmedia.views.xmlparse.widget.ImageViewParse;
 import cn.com.modernmedia.views.xmlparse.widget.IndexHeadCircularViewPagerParse;
 import cn.com.modernmedia.views.xmlparse.widget.JianBianViewParse;
@@ -393,6 +394,10 @@ public class XMLParse {
 		} else if (name.equals("JianBianIndexItem")) {
 			// 封装渐变背景
 			view = new JianBianViewParse(mContext, this).creatJianBian(parser,
+					parent);
+		} else if (name.equals("GifView")) {
+			// 封装动图
+			view = new GifViewParse(mContext, this).createGifView(parser,
 					parent);
 		} else if (listener != null) {
 			view = listener.fecthView(name, parser, parent);

@@ -1,7 +1,6 @@
 package net.tsz.afinal.utils;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import android.content.Context;

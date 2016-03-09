@@ -8,12 +8,14 @@ import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.AudioManager.OnAudioFocusChangeListener;
 import android.media.MediaPlayer;
-import android.media.MediaPlayer.OnBufferingUpdateListener;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnInfoListener;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.os.Binder;
+import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
@@ -25,7 +27,7 @@ import cn.com.modernmediaslate.unit.DateFormatTool;
  * 音乐播放service
  * 
  * @author lusiyuan
- *
+ * 
  */
 public class MusicService extends Service {
 	// 全局音乐播放器
@@ -37,16 +39,22 @@ public class MusicService extends Service {
 	public boolean isPlaying = false, isLoop = false;
 	public ArticleItem currentArticleItem;
 
+	private AudioManager mAudioMgr = null;
+
 	// 专辑播放列表数据储存
 	public static List<ArticleItem> datas;
+
+	private boolean isReleased = false;// 未释放
 
 	@Override
 	public IBinder onBind(Intent intent) {
 		CommonApplication.musicService = this;
+
 		if (mediaPlayer != null) {
 			mediaPlayer.release();
 			isPlaying = false;
 			mediaPlayer = null;
+			isReleased = true;
 		}
 		currentArticleItem = (ArticleItem) intent
 				.getSerializableExtra("play_model");
@@ -54,6 +62,75 @@ public class MusicService extends Service {
 			musicPlayBinder.prepare(currentArticleItem.getAudioList().get(0)
 					.getUrl());
 		return musicPlayBinder;
+	}
+
+	/**
+	 * 音频焦点控制器
+	 */
+	private OnAudioFocusChangeListener mAudioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
+		@Override
+		public void onAudioFocusChange(int focusChange) {
+			switch (focusChange) {
+			case AudioManager.AUDIOFOCUS_GAIN:
+				// 获得音频焦点
+				break;
+			case AudioManager.AUDIOFOCUS_LOSS:
+				// 长久的失去音频焦点，释放MediaPlayer
+				if (mediaPlayer != null && isReleased) {
+					mediaPlayer.release();
+					mediaPlayer = null;
+					isReleased = true;
+				}
+				break;
+			case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:
+				// 暂时失去音频焦点，暂停播放等待重新获得音频焦点
+				if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+					mediaPlayer.pause();
+				}
+				break;
+			case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
+				// 失去音频焦点，无需停止播放，降低声音即可
+				// if (mediaPlayer != null && mediaPlayer.isPlaying())
+				// mediaPlayer.setVolume(0.1f, 0.1f);
+				break;
+			}
+		}
+	};
+
+	/**
+	 * 申请焦点
+	 */
+	private void requestAudioFocus() {
+		if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.ECLAIR_MR1) {
+			return;
+		}
+		if (mAudioMgr == null)
+			mAudioMgr = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+		if (mAudioMgr != null) {
+			int volumn = mAudioMgr.getStreamVolume(AudioManager.STREAM_MUSIC);
+			if (volumn == 0)
+				volumn = AudioManager.ADJUST_RAISE * 4;
+			mAudioMgr.setStreamVolume(AudioManager.STREAM_MUSIC, volumn, 0);
+
+			int ret = mAudioMgr.requestAudioFocus(mAudioFocusChangeListener,
+					AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
+			if (ret != AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+			}
+		}
+
+	}
+
+	/**
+	 * 放弃音频焦点
+	 */
+	private void abandonAudioFocus() {
+		if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.ECLAIR_MR1) {
+			return;
+		}
+		if (mAudioMgr != null) {
+			mAudioMgr.abandonAudioFocus(mAudioFocusChangeListener);
+			mAudioMgr = null;
+		}
 	}
 
 	/**
@@ -78,14 +155,15 @@ public class MusicService extends Service {
 		}
 
 		public void prepare(String path) {
+
 			if (mediaPlayer == null && !isPlaying) { // 新播放音频
 				mediaPlayer = new MediaPlayer();
+				isReleased = false;
 			}
+
 			try {
 				mediaPlayer.setDataSource(path);
-				mediaPlayer.prepareAsync();
 				mediaPlayer.setOnPreparedListener(new OnPreparedListener() {
-					@SuppressLint("UseValueOf")
 					@Override
 					public void onPrepared(MediaPlayer mp) {
 						int duration = mp.getDuration();
@@ -98,6 +176,7 @@ public class MusicService extends Service {
 						sendMessage(m);
 					};
 				});
+				mediaPlayer.prepareAsync();
 
 				// mediaPlayer控视频播放完成出发的事件
 				mediaPlayer.setOnCompletionListener(new OnCompletionListener() {
@@ -114,14 +193,6 @@ public class MusicService extends Service {
 						Log.e("setOnCompletionListener", "完成播放");
 					}
 				});
-				mediaPlayer
-						.setOnBufferingUpdateListener(new OnBufferingUpdateListener() {
-
-							@Override
-							public void onBufferingUpdate(MediaPlayer arg0,
-									int arg1) {
-							}
-						});
 				mediaPlayer.setOnInfoListener(new OnInfoListener() {
 
 					@Override
@@ -145,14 +216,15 @@ public class MusicService extends Service {
 		}
 
 		/**
-		 * 开始播放
+		 * 开始播放,申请音频焦点
 		 */
 		public void start() {
-			if (mediaPlayer != null && !mediaPlayer.isPlaying()) {
+			if (mediaPlayer != null && !isPlaying) {
 				mediaPlayer.start();
 				isPlaying = true;
 				notifyActivity();
 				handler.post(runnable);
+				requestAudioFocus();
 			}
 		}
 
@@ -164,6 +236,7 @@ public class MusicService extends Service {
 				mediaPlayer.pause();
 				isPlaying = false;
 				notifyActivity();
+				abandonAudioFocus();
 			}
 		}
 
@@ -174,14 +247,17 @@ public class MusicService extends Service {
 				handler.post(runnable);
 				isPlaying = true;
 				notifyActivity();
+				requestAudioFocus();
 			}
 		}
 
 		public void stop() {
 			if (mediaPlayer != null) {
 				mediaPlayer.release();
+				isReleased = true;
 				mediaPlayer = null;
 				isPlaying = false;
+				abandonAudioFocus();
 			}
 		}
 
@@ -244,19 +320,6 @@ public class MusicService extends Service {
 			}
 		}
 
-		public void reset() {
-			if (mediaPlayer != null) {
-				if (isPlaying) {
-					mediaPlayer.stop();
-				}
-				isPlaying = false;
-				isCompleted = false;
-				mediaPlayer.release();
-				mediaPlayer = new MediaPlayer();
-				cancelNotification();
-			}
-		}
-
 		/**
 		 * 注册回调接口的方法，供外部调用
 		 * 
@@ -270,18 +333,20 @@ public class MusicService extends Service {
 		Handler handler = new Handler();
 		Runnable runnable = new Runnable() {
 			public void run() {
-				// if (mediaPlayer != null && isPlaying)// 如果在播放，屏幕常亮
-				// mediaPlayer.setScreenOnWhilePlaying(true);
 				toUpdateProgress();
 			}
 		};
 
 		private void toUpdateProgress() {
-			if (mediaPlayer != null && isPlaying) {
+			if (mediaPlayer != null && !isReleased && isPlaying) {
 				int progress = mediaPlayer.getCurrentPosition();
 				onProgressListener.OnProgressChangeListener(progress);
 				handler.postDelayed(runnable, 100);
 			}
+		}
+
+		public void setIsChanging() {
+			isReleased = true;
 		}
 
 		/**

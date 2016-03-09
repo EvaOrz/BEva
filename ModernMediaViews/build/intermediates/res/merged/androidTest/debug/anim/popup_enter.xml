@@ -8,4 +8,4 @@
         android:interpolator="@android:anim/linear_interpolator"
         android:toYDelta="0" />
 
-</set><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/anim/popup_enter.xml --><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaViews/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/unspecified/res/anim/popup_enter.xml -->
+</set><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/anim/popup_enter.xml --><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaViews/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/unspecified/res/anim/popup_enter.xml -->

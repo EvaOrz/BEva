@@ -2,10 +2,7 @@ package cn.com.modernmedia.adapter;
 
 import java.util.List;
 
-import net.tsz.afinal.FinalBitmap;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.NinePatchDrawable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,13 +14,12 @@ import cn.com.modernmedia.R;
 import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.widget.GifView;
 import cn.com.modernmediaslate.SlateApplication;
-import cn.com.modernmediaslate.listener.ImageDownloadStateListener;
 
 /**
  * 电台页面adapter
  * 
  * @author lusiyuan
- *
+ * 
  */
 public class MusicItemAdapter extends BaseAdapter {
 
@@ -118,23 +114,7 @@ public class MusicItemAdapter extends BaseAdapter {
 		if (TextUtils.isEmpty(url)) {
 			return;
 		}
-		SlateApplication.finalBitmap.display(url,
-				new ImageDownloadStateListener() {
-
-					@Override
-					public void loading() {
-
-					}
-
-					@Override
-					public void loadOk(Bitmap bitmap, NinePatchDrawable drawable) {
-						FinalBitmap.transforCircleBitmap(bitmap, cover);
-					}
-
-					@Override
-					public void loadError() {
-					}
-				});
+		SlateApplication.finalBitmap.display(cover, url);
 	}
 
 	public static class ViewHolder {

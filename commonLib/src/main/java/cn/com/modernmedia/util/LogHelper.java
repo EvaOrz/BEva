@@ -42,6 +42,7 @@ public class LogHelper {
 	public static final String ANDROID_OPEN_SUBSCRIBE_COLUMN = "android-open-subscribe-column";
 	public static final String ANDROID_SUBSCRIBE_COLUMN = "android-subscribe-column";
 	public static final String ANDROID_SHOW_SUBSCRIBE_COLUMN = "android-show-subscribe-column";
+	public static final String ANDROID_MARQUEE_TOUCH_MORE = "android-marquee-touch-more";
 
 	// test
 	public static final String ANDROID_SHOW_PAGE = "android-show-page";
@@ -567,6 +568,17 @@ public class LogHelper {
 		FlurryAgent.logEvent(ANDROID_SHOW_SUBSCRIBE_COLUMN, map);
 		SelectionHelper.getInstance().add(context,
 				ANDROID_SHOW_SUBSCRIBE_COLUMN, map);
+
+	}
+
+	/**
+	 * 跑马灯点击事件
+	 */
+	public static void marqueeTouchMore(Context context) {
+		Map<String, String> map = setDefaultMap(context, "0", "0");
+		FlurryAgent.logEvent(ANDROID_MARQUEE_TOUCH_MORE, map);
+		SelectionHelper.getInstance().add(context, ANDROID_MARQUEE_TOUCH_MORE,
+				map);
 
 	}
 

@@ -64,4 +64,4 @@
         android:layout_gravity="center_horizontal"
         android:src="@drawable/pay_whole_ad" />
 
-</LinearLayout><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/commonLib/src/main/res/layout/pay_detail_view.xml --><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaViews/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/layout/pay_detail_view.xml -->
+</LinearLayout><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/commonLib/src/main/res/layout/pay_detail_view.xml --><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaViews/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/layout/pay_detail_view.xml -->

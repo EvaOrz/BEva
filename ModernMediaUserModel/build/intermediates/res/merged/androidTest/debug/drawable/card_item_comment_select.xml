@@ -6,4 +6,4 @@
     <item android:drawable="@drawable/cardlist_comment_tapped" android:state_pressed="true"></item>
     <item android:drawable="@drawable/cardlist_comment" android:state_window_focused="false"/>
 
-</selector><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/drawable/card_item_comment_select.xml --><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/bundles/debug/res/drawable/card_item_comment_select.xml -->
+</selector><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/drawable/card_item_comment_select.xml --><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/bundles/debug/res/drawable/card_item_comment_select.xml -->

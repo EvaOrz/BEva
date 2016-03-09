@@ -3,4 +3,4 @@
     <solid android:color="@color/seek_bar_before_thumb"></solid>
 <size android:height="16dp"/>
 </shape>
-<!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/commonLib/src/main/res/drawable/shape_seek_before_thumb.xml --><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/drawable/shape_seek_before_thumb.xml -->
+<!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/commonLib/src/main/res/drawable/shape_seek_before_thumb.xml --><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/drawable/shape_seek_before_thumb.xml -->

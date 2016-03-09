@@ -26,6 +26,7 @@ import cn.com.modernmedia.views.R;
 import cn.com.modernmedia.views.fav.BindFavToUserImplement;
 import cn.com.modernmedia.views.index.adapter.BaseIndexAdapter;
 import cn.com.modernmedia.views.util.V;
+import cn.com.modernmediaslate.SlateApplication;
 import cn.com.modernmediaslate.unit.DateFormatTool;
 import cn.com.modernmediaslate.unit.ParseUtil;
 import cn.com.modernmediaslate.unit.Tools;
@@ -100,6 +101,20 @@ public class BaseXMLDataSet {
 				tp.setFakeBoldText(true); // 推荐首页大图模式已读文章设为加粗字体
 			}
 		}
+	}
+
+	/**
+	 * 商周繁体版付费专享logo
+	 */
+	protected void pay(ArticleItem item) {
+		if (!(map.containsKey(FunctionXML.HK_PAY_IMG) && SlateApplication.APP_ID == 18))
+			return;
+		View view = map.get(FunctionXML.HK_PAY_IMG);
+
+		if (item.getProperty().getLevel() != 1)
+			view.setVisibility(View.GONE);
+		else
+			view.setVisibility(View.VISIBLE);
 	}
 
 	/**
@@ -188,7 +203,7 @@ public class BaseXMLDataSet {
 
 			@Override
 			public void onClick(View v) {
-				V.muteAudio(mContext, !V.isMute, true, true);
+				V.muteAudio(mContext, !V.isMute, true);
 				if (V.isMute) {
 					audio.setImageResource(R.drawable.mute);
 				} else {

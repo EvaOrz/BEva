@@ -80,4 +80,4 @@
         android:layout_below="@+id/user_card_sliding_button"
         android:layout_marginTop="@dimen/list_item_fav_margin_bottom" />
 
-</RelativeLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaUserModel/src/main/res/layout/user_card_list_item.xml -->
+</RelativeLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/ModernMediaUserModel/src/main/res/layout/user_card_list_item.xml -->

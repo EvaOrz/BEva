@@ -103,7 +103,7 @@ public class UserInfoActivity extends SlateBaseActivity implements
 		emailText.setOnClickListener(this);
 		phoneText.setOnClickListener(this);
 		handler.sendEmptyMessage(1);
-		if (mUser == null) 
+		if (mUser == null)
 			return;
 		/**
 		 * 获取绑定信息

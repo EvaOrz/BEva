@@ -14,11 +14,14 @@ import android.widget.TextView;
 import cn.com.modernmedia.CommonApplication;
 import cn.com.modernmedia.CommonArticleActivity.ArticleType;
 import cn.com.modernmedia.model.AdvList.AdvSource;
+import cn.com.modernmedia.model.ArticleItem.Picture;
 import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmedia.views.R;
 import cn.com.modernmedia.views.index.adapter.BaseIndexAdapter;
 import cn.com.modernmedia.views.util.V;
+import cn.com.modernmedia.widget.GifView;
+import cn.com.modernmediaslate.SlateApplication;
 import cn.com.modernmediaslate.unit.DateFormatTool;
 import cn.com.modernmediaslate.unit.ParseUtil;
 
@@ -41,7 +44,7 @@ public class XMLDataSet extends BaseXMLDataSet {
 	/**
 	 * 设置数据
 	 * 
-	 * @param item 
+	 * @param item
 	 */
 	public void setData(ArticleItem item, int position, ArticleType articleType) {
 		if (map == null || map.isEmpty() || item == null || adapter == null)
@@ -56,7 +59,6 @@ public class XMLDataSet extends BaseXMLDataSet {
 				titleBar(item);
 			}
 		}
-		img(item);
 		title(item, adapter);
 		desc(item, position, adapter);
 		adv(item);
@@ -74,6 +76,39 @@ public class XMLDataSet extends BaseXMLDataSet {
 		ninePatch();
 		imageforGroup(item);// 组图模式初始化
 		registerClick(item, articleType);
+		pay(item);
+		String url = "";
+		// 广告
+		if (item.getAdvSource() != null)
+			url = item.getAdvSource().getUrl();
+		// 图
+		if (TextUtils.isEmpty(url)) {
+			List<Picture> list = item.getPicList();
+			if (ParseUtil.listNotNull(list))
+				url = list.get(0).getUrl();
+		}
+		// 动图
+		if (url.endsWith(".gif"))
+			gif(url);
+		else
+			img(item);
+	}
+
+	/**
+	 * 显示动图
+	 * 
+	 * @param item
+	 */
+	private void gif(String url) {
+		if (!ParseUtil.mapContainsKey(map, FunctionXML.GIF_IMG))
+			return;
+		View view = map.get(FunctionXML.GIF_IMG);
+		if (ParseUtil.mapContainsKey(map, FunctionXML.IMAGE))
+			map.get(FunctionXML.IMAGE).setVisibility(View.GONE);
+		view.setVisibility(View.VISIBLE);
+
+		if (view instanceof GifView)
+			CommonApplication.finalBitmap.display(view, url);
 	}
 
 	/**
@@ -155,6 +190,9 @@ public class XMLDataSet extends BaseXMLDataSet {
 		if (!map.containsKey(FunctionXML.IMAGE))
 			return;
 		View view = map.get(FunctionXML.IMAGE);
+		if (ParseUtil.mapContainsKey(map, FunctionXML.GIF_IMG))
+			map.get(FunctionXML.GIF_IMG).setVisibility(View.GONE);
+		view.setVisibility(View.VISIBLE);
 		if (!(view instanceof ImageView))
 			return;
 		ImageView imageView = (ImageView) view;

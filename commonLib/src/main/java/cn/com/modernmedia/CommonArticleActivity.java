@@ -501,7 +501,7 @@ public abstract class CommonArticleActivity extends BaseActivity {
 		if (list.size() > position) {
 			ArticleItem fav = list.get(position);
 			// 判断用户付费身份
-			if (SlateApplication.APP_ID == 1
+			if ((SlateApplication.APP_ID == 1 || SlateApplication.APP_ID == 18)
 					&& fav.getProperty().getLevel() == 1
 					&& !TextUtils.equals("1",
 							SlateDataHelper.getIssueLevel(mContext))) {

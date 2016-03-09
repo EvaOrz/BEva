@@ -110,6 +110,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="cn.com.modernmediausermodel.RegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="cn.com.modernmediausermodel.UserInfoActivity"
             android:screenOrientation="portrait" />
         <activity

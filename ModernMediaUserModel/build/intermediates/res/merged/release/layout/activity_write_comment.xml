@@ -80,4 +80,4 @@
         android:textColor="@color/follow_all"
         android:textSize="@dimen/dp16_textsize" />
 
-</RelativeLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaUserModel/src/main/res/layout/activity_write_comment.xml -->
+</RelativeLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/ModernMediaUserModel/src/main/res/layout/activity_write_comment.xml -->

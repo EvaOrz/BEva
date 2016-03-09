@@ -238,6 +238,7 @@
     <!-- From: file:/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="add_fav">已收藏</string>
+    <string name="adv_im_go">跳出</string>
     <!-- From: file:/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="app_name">商业周刊</string>
@@ -737,6 +738,8 @@
     <style name="Theme" parent="android:Theme.Light.NoTitleBar">
         <item name="android:windowAnimationStyle">@style/Animation</item>
     </style>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
     <style name="Widget.GifView" parent="@android:style/Widget"/>
     <!-- From: file:/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
     <eat-comment/>

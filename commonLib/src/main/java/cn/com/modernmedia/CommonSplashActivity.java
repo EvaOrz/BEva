@@ -55,9 +55,10 @@ public abstract class CommonSplashActivity extends BaseActivity {
 
 					@Override
 					public void onParseMsgAnalyed(boolean isPush,
-							String pushArticleUrl, boolean isAppRunning) {
+							String pushArticleUrl, int level,
+							boolean isAppRunning) {
 						CommonSplashActivity.this.onParseMsgAnalyed(isPush,
-								pushArticleUrl, isAppRunning);
+								pushArticleUrl, level, isAppRunning);
 					}
 
 				});
@@ -76,7 +77,7 @@ public abstract class CommonSplashActivity extends BaseActivity {
 	 * parse消息分析结束
 	 */
 	private void onParseMsgAnalyed(boolean isPush, String pushArticleUrl,
-			boolean isAppRunning) {
+			int level, boolean isAppRunning) {
 		if (!isPush || !isAppRunning) {
 			// NOTE 不是push或者应用不在运行中,那么照常运行
 			// NOTE 如果是push但是应用不在运行,那么之后的cache流程会去验证是否需要弹出push文章
@@ -94,7 +95,7 @@ public abstract class CommonSplashActivity extends BaseActivity {
 		// NOTE 应用运行中并且需要显示push文章
 		setContentView(R.layout.layout_splash_transparent);
 		TagProcessManage.getInstance(this).showPushArticleActivity(this,
-				pushArticleUrl);
+				pushArticleUrl, level);
 		finish();
 	}
 
@@ -207,7 +208,8 @@ public abstract class CommonSplashActivity extends BaseActivity {
 				else if (fromHtmlArticleUri != null)
 					UriParse.clickSlate(CommonSplashActivity.this,
 							fromHtmlArticleUri.toString(),
-							new Entry[] { new ArticleItem() }, null, new Class<?>[0]);
+							new Entry[] { new ArticleItem() }, null,
+							new Class<?>[0]);
 				else
 					gotoMainActivity();
 			}

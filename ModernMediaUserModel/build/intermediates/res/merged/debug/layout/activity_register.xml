@@ -142,6 +142,7 @@
             android:textSize="@dimen/dp14_textsize" />
 
         <TextView
+            android:id="@+id/register_weak"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
@@ -151,6 +152,7 @@
             android:textColor="@color/white_bg" />
 
         <TextView
+            android:id="@+id/register_mid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="1dp"
@@ -160,6 +162,7 @@
             android:textColor="@color/white_bg" />
 
         <TextView
+            android:id="@+id/register_high"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="1dp"
@@ -213,4 +216,4 @@
         android:textColor="@color/white_bg"
         android:textSize="@dimen/dp15_textsize" />
 
-</LinearLayout><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/layout/activity_register.xml -->
+</LinearLayout><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/layout/activity_register.xml -->

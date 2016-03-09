@@ -66,7 +66,6 @@ public class GetUserPermissionOperate extends BaseOperate {
 					SlateDataHelper
 							.setIssueLevel(context, j.getString("level"));
 					SlateDataHelper.setEndTime(context, j.getLong("endTime"));
-					Log.e("getUserPermisson", j.toString());
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

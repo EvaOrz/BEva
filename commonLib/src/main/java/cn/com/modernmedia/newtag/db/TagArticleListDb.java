@@ -199,15 +199,14 @@ public class TagArticleListDb extends TagDbListenerImplement {
 
 		cv.put(VIEW_BY_GROUP, obj[3].toString());
 
+		cv.put(IS_RADIO, ParseUtil.stoi(obj[5].toString()));
+		cv.put(LINK, obj[6].toString());
+		cv.put(TYPE, ParseUtil.stoi(obj[7].toString()));//
 		if (obj.length == 9) {
 
 			cv.put(SPECIAL_TAG, obj[8].toString());
 
 		}
-		cv.put(IS_RADIO, ParseUtil.stoi(obj[5].toString()));
-		cv.put(TYPE, ParseUtil.stoi(obj[7].toString()));//
-		cv.put(LINK, obj[6].toString());
-
 		return cv;
 
 	}

@@ -20,4 +20,4 @@
         android:src="@drawable/network_error"
         android:visibility="gone" />
 
-</RelativeLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/commonLib/src/main/res/layout/progress.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/layout/progress.xml -->
+</RelativeLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/commonLib/src/main/res/layout/progress.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/ModernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/layout/progress.xml -->

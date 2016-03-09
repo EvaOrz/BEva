@@ -16,4 +16,4 @@
         android:layout_height="@dimen/red_ring_size_small" 
         android:layout_centerInParent="true"/>
 
-</RelativeLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/commonLib/src/main/res/layout/loading_image.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/layout/loading_image.xml -->
+</RelativeLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/commonLib/src/main/res/layout/loading_image.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/ModernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/layout/loading_image.xml -->

@@ -10,8 +10,6 @@
     <color name="seek_bar_thumb_center">#dd3333</color>
     <color name="seek_bar_thumb_outer_stroke">#ffffff</color>
     <color name="translucent_black">#7f000000</color>
-    <declare-styleable name="CustomTheme"><attr format="reference" name="gifViewStyle"/></declare-styleable>
-    <declare-styleable name="GifView"><attr format="reference" name="gif"/><attr format="boolean" name="paused"/></declare-styleable>
     <!-- From: file:/Users/Eva./Desktop/businessweek_tag/commonLib/src/main/res/values/dimens.xml -->
     <eat-comment/>
     <dimen name="article_bar_height">44dp</dimen>
@@ -25,6 +23,7 @@
     <eat-comment/>
     <string name="about">关于</string>
     <string name="add_fav">已收藏</string>
+    <string name="adv_im_go">跳出</string>
     <string name="app_name">ModernMediaCommon</string>
     <string name="app_recommend">应用推荐</string>
     <string name="band_email_succeed">邮件已发送，请前往邮箱完成绑定。</string>
@@ -162,7 +161,6 @@
     <style name="Theme" parent="android:Theme.Light.NoTitleBar">
         <item name="android:windowAnimationStyle">@style/Animation</item>
     </style>
-    <style name="Widget.GifView" parent="@android:style/Widget"/>
     <style name="webview_pop" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/down_in</item>
         <item name="android:windowExitAnimation">@anim/down_out</item>

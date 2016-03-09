@@ -49,4 +49,4 @@
         android:listSelector="@color/white_bg" >
     </cn.com.modernmedia.widget.CheckScrollListview>
 
-</RelativeLayout><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/layout/activity_my_coin.xml --><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/bundles/debug/res/layout/activity_my_coin.xml -->
+</RelativeLayout><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/layout/activity_my_coin.xml --><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/bundles/debug/res/layout/activity_my_coin.xml -->

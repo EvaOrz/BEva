@@ -1,8 +1,6 @@
 package cn.com.modernmedia.businessweek;
 
 import android.app.Activity;
-import android.util.Log;
-import cn.com.modernmedia.util.DESCoder;
 import cn.com.modernmedia.views.ViewsMainActivity;
 
 /**

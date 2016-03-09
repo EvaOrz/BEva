@@ -27,6 +27,11 @@ public final class R {
 		public static final int zoom_in = 0x7f040010;
 		public static final int zoom_out = 0x7f040011;
 	}
+	public static final class attr {
+		public static final int gif = 0x7f010001;
+		public static final int gifViewStyle = 0x7f010000;
+		public static final int paused = 0x7f010002;
+	}
 	public static final class color {
 		public static final int black_bg = 0x7f060000;
 		public static final int white_bg = 0x7f060001;
@@ -122,5 +127,13 @@ public final class R {
 		public static final int AppBaseTheme = 0x7f0a0000;
 		public static final int AppTheme = 0x7f0a0001;
 		public static final int NobackDialog = 0x7f0a0002;
+		public static final int Widget_GifView = 0x7f0a0003;
+	}
+	public static final class styleable {
+		public static final int[] CustomTheme = { 0x7f010000 };
+		public static final int CustomTheme_gifViewStyle = 0;
+		public static final int[] GifView = { 0x7f010001, 0x7f010002 };
+		public static final int GifView_gif = 0;
+		public static final int GifView_paused = 1;
 	}
 }

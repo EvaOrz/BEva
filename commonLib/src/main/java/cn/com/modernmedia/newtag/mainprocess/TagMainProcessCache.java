@@ -46,7 +46,7 @@ public class TagMainProcessCache extends BaseTagMainProcess {
 			getAdvList(apiType);
 
 			TagProcessManage.getInstance(mContext).showPushArticleActivity(
-					mContext, "");
+					mContext, "", 0);
 		} else {
 			toEnd(false);
 		}

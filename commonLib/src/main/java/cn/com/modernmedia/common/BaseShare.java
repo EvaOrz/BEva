@@ -104,7 +104,8 @@ public class BaseShare {
 					}
 
 					@Override
-					public void loadOk(Bitmap bitmap, NinePatchDrawable drawable) {
+					public void loadOk(Bitmap bitmap,
+							NinePatchDrawable drawable, byte[] gifByte) {
 						serverBitmap = bitmap;
 						afterFetchBitmap();
 					}

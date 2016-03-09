@@ -17,6 +17,7 @@ import cn.com.modernmedia.util.LogHelper;
 import cn.com.modernmedia.util.WeeklyLogEvent;
 import cn.com.modernmedia.views.R;
 import cn.com.modernmedia.views.util.V;
+import cn.com.modernmedia.widget.GifView;
 import cn.com.modernmedia.widget.LoadingImage;
 import cn.com.modernmediaslate.unit.ParseUtil;
 
@@ -45,7 +46,7 @@ public class XMLDataSetForHeadItem extends BaseXMLDataSet {
 		this.position = position;
 		if (map == null || map.isEmpty() || item == null)
 			return;
-		image(item);
+
 		title(item, null);
 		desc(item, 0, null);
 		video(item);
@@ -59,6 +60,40 @@ public class XMLDataSetForHeadItem extends BaseXMLDataSet {
 		modifyUser(item, 0, null);
 		ninePatch();
 		registerClick(item, articleType);
+		pay(item);
+		String url = "";
+		// 广告
+		if (item.getAdvSource() != null)
+			url = item.getAdvSource().getUrl();
+		// 图
+		if (TextUtils.isEmpty(url)) {
+			List<Picture> list = item.getPicList();
+			if (ParseUtil.listNotNull(list))
+				url = list.get(0).getUrl();
+		}
+		// 动图
+		if (url.endsWith(".gif"))
+			gif(url);
+		else
+			image(url);
+
+	}
+
+	/**
+	 * 显示动图
+	 * 
+	 * @param item
+	 */
+	private void gif(String url) {
+		if (!ParseUtil.mapContainsKey(map, FunctionXML.GIF_IMG))
+			return;
+		View view = map.get(FunctionXML.GIF_IMG);
+		if (ParseUtil.mapContainsKey(map, FunctionXML.IMAGE))
+			map.get(FunctionXML.IMAGE).setVisibility(View.GONE);
+		view.setVisibility(View.VISIBLE);
+
+		if (view instanceof GifView)
+			CommonApplication.finalBitmap.display(view, url);
 	}
 
 	/**
@@ -66,30 +101,18 @@ public class XMLDataSetForHeadItem extends BaseXMLDataSet {
 	 * 
 	 * @param item
 	 */
-	private void image(ArticleItem item) {
+	private void image(String url) {
 		if (!ParseUtil.mapContainsKey(map, FunctionXML.IMAGE))
 			return;
 		View view = map.get(FunctionXML.IMAGE);
+		if (ParseUtil.mapContainsKey(map, FunctionXML.GIF_IMG))
+			map.get(FunctionXML.GIF_IMG).setVisibility(View.GONE);
+		view.setVisibility(View.VISIBLE);
 
-		String url = "";
-		if (item != null) {
-			if (item.getAdvSource() != null) {
-				// 广告
-				url = item.getAdvSource().getUrl();
-			}
-			if (TextUtils.isEmpty(url)) {
-				List<Picture> list = item.getPicList();
-				if (ParseUtil.listNotNull(list)) {
-					url = list.get(0).getUrl();
-				}
-			}
-		}
-
-		if (view instanceof ImageView) {
+		if (view instanceof ImageView)
 			img(url, (ImageView) view);
-		} else if (view instanceof LoadingImage) {
+		else if (view instanceof LoadingImage)
 			img(url, (LoadingImage) view);
-		}
 	}
 
 	private void img(String url, ImageView imageView) {

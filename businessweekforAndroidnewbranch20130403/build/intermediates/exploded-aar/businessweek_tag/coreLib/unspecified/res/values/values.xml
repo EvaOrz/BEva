@@ -4,6 +4,8 @@
     <eat-comment/>
     <color name="black_bg">#FF000000</color>
     <color name="white_bg">#FFFFFFFF</color>
+    <declare-styleable name="CustomTheme"><attr format="reference" name="gifViewStyle"/></declare-styleable>
+    <declare-styleable name="GifView"><attr format="reference" name="gif"/><attr format="boolean" name="paused"/></declare-styleable>
     <!-- From: file:/Users/Eva./Desktop/businessweek_tag/coreLib/src/main/res/values/dimens.xml -->
     <eat-comment/>
     <dimen name="dp1">1dp</dimen>
@@ -85,4 +87,5 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
+    <style name="Widget.GifView" parent="@android:style/Widget"/>
 </resources>

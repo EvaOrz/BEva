@@ -47,7 +47,8 @@
                     android:layout_weight="1"
                     android:ellipsize="end"
                     android:singleLine="true"
-                    android:textColor="@color/black_bg" />
+                    android:textColor="@color/black_bg"
+                    android:textSize="@dimen/dp14_textsize" />
 
                 <cn.com.modernmedia.widget.GifView
                     android:id="@+id/music_item_playing"
@@ -70,7 +71,8 @@
                     android:layout_weight="1"
                     android:ellipsize="end"
                     android:singleLine="true"
-                    android:text="25年的等待，民盟再次迎来压倒性胜利" />
+                    android:textColor="#cccccc"
+                    android:textSize="@dimen/dp12_textsize" />
 
                 <TextView
                     android:id="@+id/music_item_duration"

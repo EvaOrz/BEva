@@ -47,7 +47,8 @@
                     android:layout_weight="1"
                     android:ellipsize="end"
                     android:singleLine="true"
-                    android:textColor="@color/black_bg" />
+                    android:textColor="@color/black_bg"
+                    android:textSize="@dimen/dp14_textsize" />
 
                 <cn.com.modernmedia.widget.GifView
                     android:id="@+id/music_item_playing"
@@ -70,7 +71,8 @@
                     android:layout_weight="1"
                     android:ellipsize="end"
                     android:singleLine="true"
-                    android:text="25年的等待，民盟再次迎来压倒性胜利" />
+                    android:textColor="#cccccc"
+                    android:textSize="@dimen/dp12_textsize" />
 
                 <TextView
                     android:id="@+id/music_item_duration"
@@ -90,4 +92,4 @@
         android:layout_marginRight="10dp"
         android:background="@color/translucent_black" />
 
-</LinearLayout><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/commonLib/src/main/res/layout/item_music.xml --><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/layout/item_music.xml -->
+</LinearLayout><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/commonLib/src/main/res/layout/item_music.xml --><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/layout/item_music.xml -->

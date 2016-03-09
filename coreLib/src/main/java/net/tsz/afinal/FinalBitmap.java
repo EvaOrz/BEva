@@ -15,14 +15,15 @@ import net.tsz.afinal.core.AsyncTask;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Movie;
 import android.graphics.NinePatch;
 import android.graphics.Paint;
+import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
-import android.graphics.Bitmap.Config;
-import android.graphics.PorterDuff.Mode;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.NinePatchDrawable;
@@ -31,6 +32,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
+import cn.com.modernmedia.widget.GifView;
 import cn.com.modernmediaslate.R;
 import cn.com.modernmediaslate.listener.ImageDownloadStateListener;
 import cn.com.modernmediaslate.unit.ImageScaleType;
@@ -320,46 +322,40 @@ public class FinalBitmap {
 		if (displayConfig == null)
 			displayConfig = mConfig.defaultDisplayConfig;
 
-		askListener(listener, 0, null, uri);
+		askListener(listener, 0, null, uri, null);
 
+		// 先判断是否是动图
+		if (imageView instanceof GifView) {
+			final GifLoadAndDisplayTask task = new GifLoadAndDisplayTask(
+					imageView, listener);
+			task.executeOnExecutor(bitmapLoadAndDisplayExecutor, uri);
+			return;
+		}
 		Bitmap bitmap = null;
-
 		if (mImageCache != null) {
 			bitmap = mImageCache.getBitmapFromMemoryCache(uri);
 		}
-		if (bitmap != null) {
+		if (bitmap != null) {// 内存取图成功
 			setBitmapForImage(imageView, bitmap, uri);
-			askListener(listener, 1, bitmap, uri);
-		} else if (checkImageTask(uri, imageView)) {
+			askListener(listener, 1, bitmap, uri, null);
+		} else if (checkImageTask(uri, imageView)) {// 是否有取图线程
 			final BitmapLoadAndDisplayTask task = new BitmapLoadAndDisplayTask(
 					imageView, displayConfig, listener);
-			// 设置默认图片
-			// final AsyncDrawable asyncDrawable = new AsyncDrawable(
-			// mContext.getResources(), displayConfig.getLoadingBitmap(),
-			// task);
-			// if (imageView != null) {
-			// if (imageView instanceof ImageView) {
-			// ((ImageView) imageView).setImageDrawable(asyncDrawable);
-			// } else {
-			// imageView.setBackgroundDrawable(asyncDrawable);
-			// }
-			// }
-
 			task.executeOnExecutor(bitmapLoadAndDisplayExecutor, uri);
 		} else {
-			askListener(listener, 2, null, uri);
+			askListener(listener, 2, null, uri, null);
 		}
 	}
 
 	private void askListener(ImageDownloadStateListener listener, int status,
-			Bitmap bitmap, String uri) {
+			Bitmap bitmap, String uri, byte[] gifByte) {
 		if (listener == null) {
 			return;
 		}
 		if (status == 0) {
 			listener.loading();
 		} else if (status == 1) {
-			listener.loadOk(bitmap, getNinePatchDrawable(bitmap, uri));
+			listener.loadOk(bitmap, getNinePatchDrawable(bitmap, uri), gifByte);
 		} else {
 			listener.loadError();
 		}
@@ -411,13 +407,13 @@ public class FinalBitmap {
 				ninePatchChunk.mPaddings, null);
 	}
 
-	public Bitmap getBitmapFromFile(String key) {
-		if (mBitmapProcess != null) {
-			return mBitmapProcess
-					.getFromDisk(key, mConfig.defaultDisplayConfig);
-		}
-		return null;
-	}
+	// public Bitmap getBitmapFromFile(String key) {
+	// if (mBitmapProcess != null) {
+	// return mBitmapProcess
+	// .getFromDisk(key, mConfig.defaultDisplayConfig);
+	// }
+	// return null;
+	// }
 
 	private HashMap<String, BitmapDisplayConfig> configMap = new HashMap<String, BitmapDisplayConfig>();
 
@@ -467,6 +463,19 @@ public class FinalBitmap {
 	private Bitmap processBitmap(String uri, BitmapDisplayConfig config) {
 		if (mBitmapProcess != null) {
 			return mBitmapProcess.getBitmap(uri, config);
+		}
+		return null;
+	}
+
+	/**
+	 * 网络加载gif
+	 * 
+	 * @param uri
+	 * @return
+	 */
+	private byte[] processGifByte(String uri) {
+		if (mBitmapProcess != null) {
+			return mBitmapProcess.getMovie(uri);
 		}
 		return null;
 	}
@@ -749,13 +758,7 @@ public class FinalBitmap {
 			}
 
 			if (bitmap == null && !isCancelled() && !mExitTasksEarly) {
-				// if (view != null) {
-				// if (getAttachedImageView() != null) {
-				// bitmap = processBitmap(dataString, displayConfig);
-				// }
-				// } else {
 				bitmap = processBitmap(uri, displayConfig);
-				// }
 			}
 
 			if (bitmap != null) {
@@ -769,16 +772,14 @@ public class FinalBitmap {
 		protected void onPostExecute(Bitmap bitmap) {
 			if (isCancelled() || mExitTasksEarly) {
 				bitmap = null;
-				askListener(listener, 2, null, uri);
+				askListener(listener, 2, null, uri, null);
 			}
 
-			// 判断线程和当前的imageview是否是匹配
-			// final View imageView = getAttachedImageView();
 			if (bitmap != null) {
-				askListener(listener, 1, bitmap, uri);
+				askListener(listener, 1, bitmap, uri, null);
 				setBitmapForImage(view, bitmap, uri);
 			} else if (bitmap == null) {
-				askListener(listener, 2, bitmap, uri);
+				askListener(listener, 2, bitmap, uri, null);
 			}
 		}
 
@@ -789,25 +790,6 @@ public class FinalBitmap {
 				mPauseWorkLock.notifyAll();
 			}
 		}
-
-		/**
-		 * 获取线程匹配的imageView,防止出现闪动的现象
-		 * 
-		 * @return
-		 */
-		// private View getAttachedImageView() {
-		// if (imageViewReference == null)
-		// return null;
-		// final View imageView = imageViewReference.get();
-		// final BitmapLoadAndDisplayTask bitmapWorkerTask =
-		// getBitmapTaskFromImageView(imageView);
-		//
-		// if (this == bitmapWorkerTask) {
-		// return imageView;
-		// }
-		//
-		// return null;
-		// }
 	}
 
 	/**
@@ -836,7 +818,7 @@ public class FinalBitmap {
 
 		}
 	}
-	
+
 	/**
 	 * 把图片转换成圆形
 	 * 
@@ -872,8 +854,82 @@ public class FinalBitmap {
 		paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
 
 		canvas.drawBitmap(bitmap, src, dst, paint);
-		
+
 		imageView.setImageBitmap(bitmap);
+	}
+
+	/**
+	 * bitmap下载显示的线程
+	 * 
+	 * @author michael yang
+	 */
+	private class GifLoadAndDisplayTask extends AsyncTask<Object, Void, byte[]> {
+		private String uri;
+		private Object data;
+		@SuppressWarnings("unused")
+		private final WeakReference<View> imageViewReference;
+		private final ImageDownloadStateListener listener;
+		private View view;
+
+		public GifLoadAndDisplayTask(View imageView,
+				ImageDownloadStateListener listener) {
+			this.view = imageView;
+			this.listener = listener;
+			if (imageView != null)
+				imageViewReference = new WeakReference<View>(imageView);
+			else
+				imageViewReference = null;
+		}
+
+		@Override
+		protected byte[] doInBackground(Object... params) {
+			data = params[0];
+			uri = String.valueOf(data);
+			byte[] bitmap = null;
+
+			synchronized (mPauseWorkLock) {
+				while (mPauseWork && !isCancelled()) {
+					try {
+						mPauseWorkLock.wait();
+					} catch (InterruptedException e) {
+					}
+				}
+			}
+			// gif图只做一级文件缓存，暂时没有做内存缓存
+			if (bitmap == null && !isCancelled() && !mExitTasksEarly)
+				bitmap = processGifByte(uri);
+
+			return bitmap;
+		}
+
+		@Override
+		protected void onPostExecute(byte[] bitmap) {
+			if (isCancelled() || mExitTasksEarly) {
+				bitmap = null;
+			}
+
+			if (bitmap != null) {
+				askListener(listener, 1, null, uri, bitmap);
+				if (view == null || bitmap == null || uri == null)
+					return;
+				if (view.getTag() == null
+						|| !view.getTag().toString().equals(uri))
+					return;
+				if (view instanceof GifView) {
+					((GifView) view).setMovie(Movie.decodeByteArray(bitmap, 0,
+							bitmap.length));
+				}
+			} else if (bitmap == null)
+				askListener(listener, 2, null, uri, null);
+		}
+
+		@Override
+		protected void onCancelled(byte[] bitmap) {
+			super.onCancelled(bitmap);
+			synchronized (mPauseWorkLock) {
+				mPauseWorkLock.notifyAll();
+			}
+		}
 	}
 
 }

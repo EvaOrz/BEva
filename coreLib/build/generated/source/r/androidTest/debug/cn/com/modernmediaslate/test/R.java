@@ -29,6 +29,22 @@ public final class R {
         public static final int zoom_out=0x7f040011;
     }
     public static final class attr {
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int gif=0x7f010001;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int gifViewStyle=0x7f010000;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int paused=0x7f010002;
     }
     public static final class color {
         public static final int black_bg=0x7f060000;
@@ -136,5 +152,70 @@ public final class R {
          */
         public static final int AppTheme=0x7f0a0001;
         public static final int NobackDialog=0x7f0a0002;
+        public static final int Widget_GifView=0x7f0a0003;
     }
+    public static final class styleable {
+        /** Attributes that can be used with a CustomTheme.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #CustomTheme_gifViewStyle cn.com.modernmediaslate.test:gifViewStyle}</code></td><td></td></tr>
+           </table>
+           @see #CustomTheme_gifViewStyle
+         */
+        public static final int[] CustomTheme = {
+            0x7f010000
+        };
+        /**
+          <p>This symbol is the offset where the {@link cn.com.modernmediaslate.test.R.attr#gifViewStyle}
+          attribute's value can be found in the {@link #CustomTheme} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name cn.com.modernmediaslate.test:gifViewStyle
+        */
+        public static final int CustomTheme_gifViewStyle = 0;
+        /** Attributes that can be used with a GifView.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #GifView_gif cn.com.modernmediaslate.test:gif}</code></td><td></td></tr>
+           <tr><td><code>{@link #GifView_paused cn.com.modernmediaslate.test:paused}</code></td><td></td></tr>
+           </table>
+           @see #GifView_gif
+           @see #GifView_paused
+         */
+        public static final int[] GifView = {
+            0x7f010001, 0x7f010002
+        };
+        /**
+          <p>This symbol is the offset where the {@link cn.com.modernmediaslate.test.R.attr#gif}
+          attribute's value can be found in the {@link #GifView} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name cn.com.modernmediaslate.test:gif
+        */
+        public static final int GifView_gif = 0;
+        /**
+          <p>This symbol is the offset where the {@link cn.com.modernmediaslate.test.R.attr#paused}
+          attribute's value can be found in the {@link #GifView} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name cn.com.modernmediaslate.test:paused
+        */
+        public static final int GifView_paused = 1;
+    };
 }

@@ -117,4 +117,4 @@
         android:textColor="@color/white_bg"
         android:textSize="@dimen/dp15_textsize" />
 
-</LinearLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaUserModel/src/main/res/layout/band_detail_activity.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/layout/band_detail_activity.xml -->
+</LinearLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/ModernMediaUserModel/src/main/res/layout/band_detail_activity.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/layout/band_detail_activity.xml -->

@@ -120,4 +120,4 @@
         android:textCursorDrawable="@null"
         android:textSize="@dimen/dp15_textsize" />
 
-</RelativeLayout><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/layout/activity_write_card.xml -->
+</RelativeLayout><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/layout/activity_write_card.xml -->

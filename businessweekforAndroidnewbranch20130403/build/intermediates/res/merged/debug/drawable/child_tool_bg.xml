@@ -2,4 +2,4 @@
 <bitmap xmlns:android="http://schemas.android.com/apk/res/android"
     android:src="@drawable/child_tool_cell"
     android:tileMode="repeat" />
-<!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/drawable/child_tool_bg.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/modernMediaViews/unspecified/res/drawable/child_tool_bg.xml -->
+<!-- From: file:/Users/Eva./Desktop/businessweek_tag/ModernMediaViews/src/main/res/drawable/child_tool_bg.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/modernMediaViews/unspecified/res/drawable/child_tool_bg.xml -->

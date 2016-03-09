@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import cn.com.modernmedia.CommonApplication;
 import cn.com.modernmedia.CommonArticleActivity.ArticleType;
@@ -162,7 +163,7 @@ public class BaseIndexAdapter extends CheckScrollAdapter<ArticleItem> {
 	 * @param item
 	 * @param imageView
 	 */
-	public void downImage(ArticleItem item, ImageView image, boolean usePicture) {
+	public void downImage(ArticleItem item, View image, boolean usePicture) {
 		if (usePicture) {
 			if (ParseUtil.listNotNull(item.getPicList()))
 				CommonApplication.finalBitmap.display(image, item.getPicList()

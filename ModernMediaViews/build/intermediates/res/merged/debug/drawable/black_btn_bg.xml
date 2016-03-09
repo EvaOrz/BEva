@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle" >
+
+    <solid android:color="@color/black_bg" />
+
+    <corners android:radius="@dimen/dp10" />
+
+</shape><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/commonLib/src/main/res/drawable/black_btn_bg.xml --><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaViews/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/drawable/black_btn_bg.xml -->

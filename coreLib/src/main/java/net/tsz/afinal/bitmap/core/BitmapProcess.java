@@ -35,12 +35,27 @@ public class BitmapProcess {
 				else
 					return BitmapFactory.decodeByteArray(data, 0, data.length);
 
-				// mCache.addToDiskCache(url, data);
 				ImgFileManager.saveImage(url, data);
 			}
 		}
 
 		return bitmap;
+	}
+
+	/**
+	 * 获取动图byte []
+	 * 
+	 * @param url
+	 * @return
+	 */
+	public byte[] getMovie(String url) {
+		byte[] data = ImgFileManager.getImage(url);
+		if (data == null) {
+			data = mDownloader.download(url);
+			if (data != null && data.length > 0)
+				ImgFileManager.saveImage(url, data);
+		}
+		return data;
 	}
 
 	public Bitmap getFromDisk(String key, BitmapDisplayConfig config) {

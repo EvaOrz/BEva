@@ -140,4 +140,4 @@
         android:textColor="@color/white_bg"
         android:textSize="@dimen/dp15_textsize" />
 
-</LinearLayout><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/layout/activity_forget_pwd.xml --><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/bundles/debug/res/layout/activity_forget_pwd.xml -->
+</LinearLayout><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/layout/activity_forget_pwd.xml --><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/bundles/debug/res/layout/activity_forget_pwd.xml -->

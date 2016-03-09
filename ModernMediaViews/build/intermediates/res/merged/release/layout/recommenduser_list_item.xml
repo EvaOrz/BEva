@@ -47,4 +47,4 @@
         android:padding="@dimen/dp10"
         android:textSize="@dimen/listitem_name_size" />
 
-</RelativeLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaUserModel/src/main/res/layout/recommenduser_list_item.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/layout/recommenduser_list_item.xml -->
+</RelativeLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/ModernMediaUserModel/src/main/res/layout/recommenduser_list_item.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/ModernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/layout/recommenduser_list_item.xml -->

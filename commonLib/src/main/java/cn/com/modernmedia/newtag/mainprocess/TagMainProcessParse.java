@@ -18,6 +18,7 @@ import cn.com.modernmedia.util.UriParse;
  */
 public class TagMainProcessParse extends BaseTagMainProcess {
 	public static final String KEY_PUSH_ARTICLE_URL = "push_article_url";
+	public static final String KEY_PUSH_ARTICLE_LEVEL = "push_article_level";
 
 	public TagMainProcessParse(Context context,
 			MainProcessParseCallBack callBack) {
@@ -34,19 +35,19 @@ public class TagMainProcessParse extends BaseTagMainProcess {
 			return;
 		PushCallback pushCallback = (PushCallback) obj2;
 		if (!(obj1 instanceof Intent)) {
-			pushCallback.afterParseProcess("");
+			pushCallback.afterParseProcess("", 0);
 			return;
 		}
 		Intent intent = (Intent) obj1;
 		if (intent == null || intent.getExtras() == null) {
-			pushCallback.afterParseProcess("");
+			pushCallback.afterParseProcess("", 0);
 			return;
 		}
 		try {
 			parsePushMsg(intent, pushCallback);
 		} catch (Exception e) {
 			e.printStackTrace();
-			pushCallback.afterParseProcess("");
+			pushCallback.afterParseProcess("", 0);
 		}
 	}
 
@@ -54,23 +55,28 @@ public class TagMainProcessParse extends BaseTagMainProcess {
 			throws Exception {
 		String msg = intent.getExtras().getString("com.parse.Data");
 		if (TextUtils.isEmpty(msg)) {
-			pushCallback.afterParseProcess("");
+			pushCallback.afterParseProcess("", 0);
 			return;
 		}
-		// {"alert":"新接口", "na":"1111-11-11","na_tag":"cat_11-10043332"}
+		/*
+		 * {"alert":"新接口",
+		 * "na":"1111-11-11","na_tag":"cat_11-10043332","level":"0"}
+		 */
 		JSONObject json = new JSONObject(msg);
 		String na = json.optString("na_tag", "");
+		int level = Integer.valueOf(json.optString("level"));// ibloomberg3.3新增推送付费文章
 
 		if (!TextUtils.isEmpty(na)) {
 			String[] arr = UriParse.parsePush(na);
 			if (arr != null && arr.length == 2) {
 				// 需要显示推送文章
-				pushCallback.afterParseProcess(UrlMaker.getPushArticle(arr[1]));
+				pushCallback.afterParseProcess(UrlMaker.getPushArticle(arr[1]),
+						level);
 				return;
 			}
 		}
 
-		pushCallback.afterParseProcess("");
+		pushCallback.afterParseProcess("", 0);
 	}
 
 	@Override

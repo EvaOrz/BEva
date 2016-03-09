@@ -12,7 +12,7 @@ import android.graphics.drawable.NinePatchDrawable;
 public interface ImageDownloadStateListener {
 	public void loading();
 
-	public void loadOk(Bitmap bitmap, NinePatchDrawable drawable);
+	public void loadOk(Bitmap bitmap, NinePatchDrawable drawable, byte[] gifByte);
 
 	public void loadError();
 

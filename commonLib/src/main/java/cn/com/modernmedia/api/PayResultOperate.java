@@ -1,5 +1,7 @@
 package cn.com.modernmedia.api;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import org.apache.http.NameValuePair;
@@ -8,6 +10,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import cn.com.modernmediaslate.model.ErrorMsg;
 import cn.com.modernmediaslate.unit.SlateDataHelper;
 
@@ -15,7 +20,7 @@ import cn.com.modernmediaslate.unit.SlateDataHelper;
  * 支付成功后通知服务器端支付结果
  * 
  * @author lusiyuan
- *
+ * 
  */
 public class PayResultOperate extends BaseOperate {
 	private ErrorMsg error;
@@ -41,9 +46,12 @@ public class PayResultOperate extends BaseOperate {
 		try {
 			object.put("uid", SlateDataHelper.getUid(context));
 			object.put("usertoken", SlateDataHelper.getToken(context));
-			object.put("data", data);
+			object.put("clientversion", getClientVersion());
+			object.put("data", URLEncoder.encode(data, "UTF-8"));
 			params.add(new BasicNameValuePair("data", object.toString()));
 		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 	}
@@ -97,6 +105,25 @@ public class PayResultOperate extends BaseOperate {
 	@Override
 	protected String getDefaultFileName() {
 		return null;
+	}
+
+	/**
+	 * 获取客户端版本号
+	 * 
+	 * @return
+	 */
+	private String getClientVersion() {
+		String version = "";
+		// 获取version
+		PackageManager manager = context.getPackageManager();
+		PackageInfo info;
+		try {
+			info = manager.getPackageInfo(context.getPackageName(), 0);
+			version = info.versionName;
+		} catch (NameNotFoundException e1) {
+			e1.printStackTrace();
+		}
+		return version;
 	}
 
 }

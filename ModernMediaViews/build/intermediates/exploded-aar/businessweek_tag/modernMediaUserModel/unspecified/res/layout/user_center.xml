@@ -104,7 +104,8 @@
             <RelativeLayout
                 android:id="@+id/user_center_music"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/user_center_item_height" >
+                android:layout_height="@dimen/user_center_item_height"
+                android:visibility="gone" >
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -130,7 +131,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/user_center_card_text_padding"
                     android:layout_toRightOf="@id/user_center_music_icon"
-                    android:text="@string/my_music"
+                    android:text="iRadio"
                     android:textColor="@color/black_bg"
                     android:textSize="@dimen/dp15" />
             </RelativeLayout>
@@ -319,4 +320,4 @@
         </LinearLayout>
     </ScrollView>
 
-</RelativeLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaUserModel/src/main/res/layout/user_center.xml -->
+</RelativeLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/ModernMediaUserModel/src/main/res/layout/user_center.xml -->

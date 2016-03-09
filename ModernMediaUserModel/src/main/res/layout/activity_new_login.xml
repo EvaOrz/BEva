@@ -133,7 +133,7 @@
             android:layout_centerVertical="true"
             android:contentDescription="@null"
             android:padding="@dimen/dp5"
-            android:src="@drawable/ic_text_field_forget" />
+            android:src="@drawable/ic_text_field_clear" />
     </RelativeLayout>
 
     <Button

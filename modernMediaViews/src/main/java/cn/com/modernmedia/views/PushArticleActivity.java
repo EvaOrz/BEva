@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import cn.com.modernmedia.common.ShareHelper;
 import cn.com.modernmedia.model.ArticleItem;
+import cn.com.modernmedia.model.ArticleItem.IndexProperty;
 import cn.com.modernmedia.model.ArticleItem.PhonePageList;
 import cn.com.modernmedia.newtag.mainprocess.TagMainProcessParse;
 import cn.com.modernmedia.newtag.mainprocess.TagProcessManage;
@@ -53,6 +54,8 @@ public class PushArticleActivity extends ArticleActivity {
 		}
 		String url = getIntent().getExtras().getString(
 				TagMainProcessParse.KEY_PUSH_ARTICLE_URL);
+		int level = getIntent().getExtras().getInt(
+				TagMainProcessParse.KEY_PUSH_ARTICLE_LEVEL, 0);
 		if (TextUtils.isEmpty(url))
 			return;
 
@@ -60,9 +63,12 @@ public class PushArticleActivity extends ArticleActivity {
 		// 文章url
 		PhonePageList phonePageList = new PhonePageList();
 		phonePageList.setUrl(url);
+		// 文章level
+		IndexProperty indexProperty = new IndexProperty();
+		indexProperty.setLevel(level);
+		indexProperty.setType(1);
 		articleItem.getPageUrlList().add(phonePageList);
-		// 文章类型
-		articleItem.getProperty().setType(1);
+		articleItem.setProperty(indexProperty);
 	}
 
 	@Override

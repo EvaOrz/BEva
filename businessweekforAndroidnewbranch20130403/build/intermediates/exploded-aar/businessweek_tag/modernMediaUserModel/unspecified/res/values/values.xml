@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaUserModel/src/main/res/values/color.xml -->
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/ModernMediaUserModel/src/main/res/values/color.xml -->
     <eat-comment/>
     <color name="body_bg">#f6f6f6</color>
     <color name="card_info_num">#FF8F8F8F</color>
@@ -21,7 +21,7 @@
     <color name="user_center_message">#FF0000</color>
     <color name="user_center_num_color">#818181</color>
     <color name="yellow">#fdba2d</color>
-    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaUserModel/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/ModernMediaUserModel/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="add_coin_num">%1$s +%2$s积分</string>
     <string name="app_name">ModernMediaUserModel</string>
@@ -99,7 +99,7 @@
     <string name="modify_pwd">修改密码</string>
     <string name="motify_nickname">修改昵称</string>
     <string name="motify_sign">修改个人签名</string>
-    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaUserModel/src/main/res/values/message.xml -->
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/ModernMediaUserModel/src/main/res/values/message.xml -->
     <eat-comment/>
     <string name="msg_avatar_get_failed">头像取得失败</string>
     <string name="msg_avatar_upload_failed">头像上传失败</string>
@@ -122,7 +122,7 @@
     <string name="msg_register_failed">注册失败</string>
     <string name="msg_register_success">注册成功</string>
     <string name="msg_your_coin_is_not_enough">你的金币余额不足</string>
-    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaUserModel/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/ModernMediaUserModel/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="my_coin">积分商城</string>
     <string name="my_coin_footer_msg">您积累的所有积分在现代社区账号登陆的APP中都可以使用</string>
@@ -200,7 +200,7 @@
     <string name="write_failed">发表评论失败</string>
     <string name="write_some_comments">写几句评论</string>
     <string name="write_success">发表成功</string>
-    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaUserModel/src/main/res/values/styles.xml -->
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/ModernMediaUserModel/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--

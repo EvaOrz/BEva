@@ -10,7 +10,6 @@ import android.text.TextUtils;
 import cn.com.modernmedia.model.AdvList;
 import cn.com.modernmedia.model.AdvList.AdvItem;
 import cn.com.modernmedia.model.AdvList.AdvSource;
-import cn.com.modernmedia.util.AdvTest;
 import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmedia.util.FileManager;
 

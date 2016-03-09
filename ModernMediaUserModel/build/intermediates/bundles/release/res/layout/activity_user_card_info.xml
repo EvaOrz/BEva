@@ -71,4 +71,4 @@
         android:textSize="@dimen/dp13_textsize"
         android:visibility="gone" />
 
-</RelativeLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaUserModel/src/main/res/layout/activity_user_card_info.xml -->
+</RelativeLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/ModernMediaUserModel/src/main/res/layout/activity_user_card_info.xml -->

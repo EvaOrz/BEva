@@ -10,11 +10,11 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/ModernMediaUserModel" />
+            <option value="$PROJECT_DIR$/ModernMediaViews" />
             <option value="$PROJECT_DIR$/businessweekforAndroidnewbranch20130403" />
             <option value="$PROJECT_DIR$/commonLib" />
             <option value="$PROJECT_DIR$/coreLib" />
-            <option value="$PROJECT_DIR$/modernMediaUserModel" />
-            <option value="$PROJECT_DIR$/modernMediaViews" />
           </set>
         </option>
       </GradleProjectSettings>

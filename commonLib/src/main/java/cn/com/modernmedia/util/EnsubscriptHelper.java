@@ -43,7 +43,7 @@ public class EnsubscriptHelper {
 		 */
 		for (TagInfo t : AppValue.ensubscriptColumnList.getList()) {// 循环全部订阅列表
 			if (t.getIsRadio() == 1 || t.getType() == 11) { // 电台栏目
-				AppValue.musicColumnLIst.getList().add(t);
+				AppValue.musicColumnList.getList().add(t);
 			}
 			if (t.getIsFix() == 1)// 固定订阅--》加入用户订阅临时列表
 				AppValue.bookColumnList.getList().add(t);
@@ -93,7 +93,7 @@ public class EnsubscriptHelper {
 		AppValue.ensubscriptColumnList.getChildMap().clear();
 		AppValue.ensubscriptColumnList.getParentList().clear();
 		AppValue.bookColumnList.getList().clear();
-		AppValue.musicColumnLIst.getList().clear();
+		AppValue.musicColumnList.getList().clear();
 		// parentTagInfoList.clear();
 	}
 

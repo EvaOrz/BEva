@@ -22,4 +22,4 @@
         android:textColor="@color/black_bg"
         android:textSize="@dimen/dp15_textsize" />
 
-</RelativeLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/coreLib/src/main/res/layout/user_list_footer.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/res/layout/user_list_footer.xml -->
+</RelativeLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/coreLib/src/main/res/layout/user_list_footer.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/ModernMediaViews/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/res/layout/user_list_footer.xml -->

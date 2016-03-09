@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -21,8 +22,11 @@ import android.widget.ImageView.ScaleType;
 import android.widget.ViewFlipper;
 import cn.com.modernmedia.model.AdvList;
 import cn.com.modernmedia.model.AdvList.AdvItem;
+import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.util.AdvTools;
 import cn.com.modernmedia.util.GenericConstant;
+import cn.com.modernmedia.util.UriParse;
+import cn.com.modernmediaslate.model.Entry;
 import cn.com.modernmediaslate.unit.ParseUtil;
 
 /**
@@ -93,6 +97,30 @@ public class CommonAdvActivity extends BaseActivity {
 	private void init() {
 		imageView = (ImageView) findViewById(R.id.adv_image);
 		flipper = (ViewFlipper) findViewById(R.id.adv_flipper);
+		// 跳出
+		findViewById(R.id.adv_imgo).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				gotoMainActivity();
+			}
+		});
+		// 商周繁体版入版广告点击
+		imageView.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				if (advItem.getSourceList().size() > 0
+						&& advItem.getSourceList().get(0).getLinks().size() > 0) {
+					String link = advItem.getSourceList().get(0).getLinks()
+							.get(0);
+					UriParse.clickSlate(CommonAdvActivity.this, link,
+							new Entry[] { new ArticleItem() }, null,
+							new Class<?>[0]);
+				}
+			}
+		});
+
 		AdvTools.requestImpression(advItem.getTracker().getImpressionUrl());
 		effect = advItem.getEffects();
 		if (TextUtils.isEmpty(effect) || !EFFECT_LIST.contains(effect))

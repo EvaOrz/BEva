@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/coreLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/coreLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <color name="black_bg">#FF000000</color>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/values/color.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/values/color.xml -->
     <eat-comment/>
     <color name="body_bg">#f6f6f6</color>
     <color name="card_info_num">#FF8F8F8F</color>
@@ -19,7 +19,7 @@
     <color name="my_coin_notice_cover_bg">#10FFFFFF</color>
     <color name="my_coin_red_color">#F61D23</color>
     <color name="nav_bar_shadow_color">#73000000</color>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <color name="process_loading_red_ring">#ffb83126</color>
     <color name="process_loading_ring_bg">#ff292929</color>
@@ -28,29 +28,29 @@
     <color name="seek_bar_before_thumb">#cd3333</color>
     <color name="seek_bar_thumb_center">#dd3333</color>
     <color name="seek_bar_thumb_outer_stroke">#ffffff</color>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/values/color.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/values/color.xml -->
     <eat-comment/>
     <color name="title_bar">#FFFAFAFA</color>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <color name="translucent_black">#7f000000</color>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/values/color.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/values/color.xml -->
     <eat-comment/>
     <color name="user_center_dot">#FF0072B8</color>
     <color name="user_center_message">#FF0000</color>
     <color name="user_center_num_color">#818181</color>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/coreLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/coreLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <color name="white_bg">#FFFFFFFF</color>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/values/color.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/values/color.xml -->
     <eat-comment/>
     <color name="yellow">#fdba2d</color>
     <declare-styleable name="CustomTheme"><attr format="reference" name="gifViewStyle"/></declare-styleable>
     <declare-styleable name="GifView"><attr format="reference" name="gif"/><attr format="boolean" name="paused"/></declare-styleable>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <dimen name="article_bar_height">44dp</dimen>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/coreLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/coreLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <dimen name="dp1">1dp</dimen>
     <dimen name="dp10">10dp</dimen>
@@ -78,7 +78,7 @@
     <dimen name="head_contentLayout_paddingLeft">30dp</dimen>
     <dimen name="head_lastUpdatedTextView_tSize">11dp</dimen>
     <dimen name="head_tipsTextView_tSize">15dp</dimen>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <dimen name="red_ring_size_large">40dp</dimen>
     <dimen name="red_ring_size_medium">35dp</dimen>
@@ -86,7 +86,7 @@
     <dimen name="share_item_margin">10dp</dimen>
     <dimen name="share_item_textsize">15dp</dimen>
     <dimen name="share_list_fade_length">12dp</dimen>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/coreLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/coreLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <item name="scale_type" type="id"/>
     <string name="OAUTH_AccessToken_ACCESS">用户授权登录成功</string>
@@ -100,56 +100,57 @@
     <string name="Weibo_Share_Error">微博分享失败</string>
     <string name="Weibo_Share_Repeat">已经分享过了</string>
     <string name="Weibo_Share_Success">微博分享成功</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="about">关于</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="add_coin_num">%1$s +%2$s积分</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="add_fav">已收藏</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/values/strings.xml -->
+    <string name="adv_im_go">跳出</string>
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="app_name">ModernMediaUserModel</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="app_recommend">应用推荐</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="article_card_and_comment">文章摘要与评论</string>
     <string name="back">返回</string>
     <string name="band_account">绑定账号</string>
     <string name="band_address">收货地址</string>
     <string name="band_email">绑定邮箱</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="band_email_succeed">邮件已发送，请前往邮箱完成绑定。</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="band_phone">绑定手机</string>
     <string name="band_qq">QQ</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="band_succeed">绑定成功</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="band_weibo">微博</string>
     <string name="band_weixin">微信</string>
     <string name="band_yet">未绑定</string>
     <string name="banded">去绑定</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="book">订阅</string>
     <string name="book_already">已订阅(到期时间：%1$s)</string>
     <string name="book_already_no_time">已订阅</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="camera">拍照</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="can_not_find_article">对不起，暂时找不到该文章</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="cancel">取消</string>
     <string name="card">笔记</string>
@@ -159,10 +160,10 @@
     <string name="card_name"/>
     <string name="card_not_allow_null_toast">添加的笔记不能为空</string>
     <string name="card_num">%s条笔记</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/coreLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/coreLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="click_to_load">点击加载</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="coin">%1$s 积分</string>
     <string name="collect">收藏</string>
@@ -177,48 +178,48 @@
     <string name="copy_text">复制文字</string>
     <string name="copy_text_success">已复制</string>
     <string name="copy_text_to_clipborad">已复制到剪贴板</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="cover_share_message">%1$s - %2$s %3$s --分享来自@iWeekly周末画报 Android 版</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="create_time">创建于%s</string>
     <string name="delete_card_failed">删除笔记失败</string>
     <string name="delete_card_success">删除笔记成功</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="delete_fav">取消收藏</string>
     <string name="dial_error">您的手机缺少所需的功能模块，无法继续操作。</string>
     <string name="download">下载</string>
     <string name="download_error">下载遇到了错误，已停止</string>
     <string name="download_later">以后再说</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="email">Email</string>
     <string name="email_address_is">你的邮箱地址是</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="enter_content">请输入内容！</string>
     <string name="entry_share_url">阅读全文:\u0020</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="exchange">兑换</string>
     <string name="exchange_failed">兑换失败</string>
     <string name="exchange_success">兑换成功</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="exit_app">再按一次退出应用</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="fans">粉丝</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="fav">收藏夹</string>
     <string name="fav_error">收藏失败</string>
     <string name="fecthing_http">正在更新数据</string>
     <string name="fecthing_ok">更新成功</string>
     <string name="feedback_subject">意见反馈(%1$s_%2$s)</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="follow">关注</string>
     <string name="follow_all">全部关注</string>
@@ -232,27 +233,27 @@
     <string name="get_verify_code">获取验证码</string>
     <string name="goto_shop">确认进入商城</string>
     <string name="has_collected">已收藏</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="hello">你好</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="his_fans">他的粉丝</string>
     <string name="his_friends">他的朋友</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="ibloomberg_now_title">即时头条-商业周刊</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="input_email">请输入你的邮箱地址</string>
     <string name="input_password">请输入你的密码</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="is_lastest">当前已是最新</string>
     <string name="json_error">数据组装错误</string>
     <string name="loading_more">下一篇</string>
     <string name="loading_pre">上一篇</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="login">登录</string>
     <string name="login_out">退出登录</string>
@@ -268,14 +269,14 @@
     <string name="modify_email">修改邮箱</string>
     <string name="modify_password">请输入您的旧密码和新密码，如果没有设置过密码，旧密码请留空。</string>
     <string name="modify_pwd">修改密码</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="more">更多</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="motify_nickname">修改昵称</string>
     <string name="motify_sign">修改个人签名</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/values/message.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/values/message.xml -->
     <eat-comment/>
     <string name="msg_avatar_get_failed">头像取得失败</string>
     <string name="msg_avatar_upload_failed">头像上传失败</string>
@@ -295,18 +296,18 @@
     <string name="msg_modify_failed">修改失败</string>
     <string name="msg_modify_pwd_failed">密码修改失败</string>
     <string name="msg_modify_success">修改成功</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="msg_ok">好的</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/values/message.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/values/message.xml -->
     <eat-comment/>
     <string name="msg_register_failed">注册失败</string>
     <string name="msg_register_success">注册成功</string>
     <string name="msg_your_coin_is_not_enough">你的金币余额不足</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="music_title">电台</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="my_coin">积分商城</string>
     <string name="my_coin_footer_msg">您积累的所有积分在现代社区账号登陆的APP中都可以使用</string>
@@ -316,40 +317,40 @@
     <string name="my_friends">我的朋友</string>
     <string name="my_homepage">我的首页</string>
     <string name="my_music">电台</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/coreLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/coreLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="net_error">请检查网络</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="new_card">新笔记</string>
     <string name="new_comment">新评论</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="new_issue">新一期杂志到了，是否现在阅读？</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="new_pwd">新密码</string>
     <string name="new_register">新用户注册</string>
     <string name="no_article_card">没有该文章的摘要</string>
     <string name="no_fan_tip">你还没有任何人关注</string>
     <string name="no_friend_tip">你还没有关注任何人</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="no_issue_zip">该期杂志没有下载包</string>
     <string name="no_weixin">微信尚未安装！</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="nomal_question">常见问题</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="nomore_data">暂时没有内容</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="notice_content">现代社区积分商城会经常为你推荐新鲜有趣的玩意，大部分虚拟物品都需要通过电子邮件发送给你。\n\n在兑换任何物品之前，请务必确认你注册时是否填写了正确的邮箱地址。现在点击下面的按钮，即可确认邮箱地址。\n\n祝你玩得开心！</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="now">即时</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="old_pwd">旧密码</string>
     <string name="password">密码</string>
@@ -359,17 +360,17 @@
     <string name="password_safety_mid">中</string>
     <string name="password_safety_weak">弱</string>
     <string name="pay_alread">您已是付费用户。</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="pay_for_fav">请付费后收藏</string>
     <string name="pay_for_share">请付费后分享</string>
     <string name="pay_success">支付成功。</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="phone_number">手机号码</string>
     <string name="preference_recommend_subject">[应用推荐]iWeekly·周末画报 for Android</string>
     <string name="preference_recommend_text"><![CDATA[我在使用iWeekly·周末画报，推荐你也<a href=\'https://play.google.com/store/apps/details?id=com.rakutec.android.iweekly\'>下载这款免费的App！</a>]]></string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/coreLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/coreLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="pull_to_loading">正在加载...</string>
     <string name="pull_to_loadmore">上推加载...</string>
@@ -379,32 +380,32 @@
     <string name="pull_to_refresh_tap_label">点击刷新...</string>
     <string name="pull_to_refresh_update_time">上次更新时间:%s</string>
     <string name="pull_to_release">松开加载...</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="qq_login">用QQ账号登录</string>
     <string name="qq_login_failed">QQ账号登录失败</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="read_issue">阅读杂志</string>
     <string name="read_issue_error">该期杂志读取失败</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="recommend_user">推荐用户</string>
     <string name="register">注册</string>
     <string name="register_title">注册InNote社区账号</string>
     <string name="reset_password">重置密码</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="save_picture_fail">图片保存失败,请检查网络</string>
     <string name="save_picture_success">图片已保存</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="search_card">浏览发现</string>
     <string name="select_from_album">从手机相册选择</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="send">发送</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="setting_auto_loop">首页焦点图自动轮播</string>
     <string name="setting_book_preference">会员与订阅</string>
@@ -422,7 +423,7 @@
     <string name="settings_recommend">向朋友推荐本应用</string>
     <string name="settings_version">程序版本</string>
     <string name="share">分享</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="share_by_email">邮件分享</string>
     <string name="share_by_email_title">我在%1$s看到了一篇文章，想要分享给你</string>
@@ -436,50 +437,50 @@
     <string name="share_picture_fail">图片分享失败</string>
     <string name="share_select">分享到...</string>
     <string name="share_to_gallery">保存到相册</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="share_to_weibo">同时分享到：</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="share_to_weibo_title">分享到微博</string>
     <string name="share_wp_content">【%1$s】%2$s %3$s</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="shop_use_notice">积分商城使用须知</string>
     <string name="sina_login">用微博账号登录</string>
     <string name="sina_login_failed">微博登录失败</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="sina_weibo">新浪微博</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/coreLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/coreLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="sinalogin_check_account">账号不能为空</string>
     <string name="sinalogin_check_pass">密码不能为空</string>
     <string name="sinalogin_check_server">服务器验证中...</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="some_account_login">可以用以下账号登录</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="sorry">对不起</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="square">广场</string>
     <string name="sure">确认</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="theme_magazine">主题杂志</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="uncollect_failed">取消收藏失败</string>
     <string name="uncollect_success">取消收藏成功</string>
     <string name="unfollow_failed">取消关注失败</string>
     <string name="unfollow_success">取消关注成功</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="uniq_sina">该账号已被其他现代移动社区账号绑定</string>
     <string name="update">软件版本更新</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="user_email">电子邮箱</string>
     <string name="user_no_card">你还没记录过笔记</string>
@@ -490,7 +491,7 @@
     <string name="userinfo_nickname">昵称</string>
     <string name="userinfo_username">$用户名</string>
     <string name="verify_code">验证码</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="vew_later">稍后再看</string>
     <string name="video_complete">视频已播放完毕</string>
@@ -501,13 +502,13 @@
     <string name="weixin_info">已经将公众号账号复制到剪贴板，请到微信中粘贴并搜索关注。</string>
     <string name="weixin_register_error">微信注册失败！</string>
     <string name="weixin_version_low">微信版本较低，无法发送到朋友圈，请更新！</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="welcom_user">你好，%s!</string>
     <string name="write_failed">发表评论失败</string>
     <string name="write_some_comments">写几句评论</string>
     <string name="write_success">发表成功</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <style name="Animation">
         <item name="android:activityOpenEnterAnimation">@null</item>
@@ -523,7 +524,7 @@
         <item name="android:taskToBackEnterAnimation">@null</item>
         <item name="android:taskToBackExitAnimation">@null</item>
     </style>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/values/styles.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--
@@ -550,7 +551,7 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <style name="ContentOverlay" parent="android:style/Theme.Dialog">
         <item name="android:windowNoTitle">true</item>
@@ -560,7 +561,7 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:backgroundDimEnabled">false</item>
     </style>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/values/styles.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="CustomDialog" parent="android:style/Theme.Dialog">
 
@@ -575,7 +576,7 @@
         <!-- 不显示边框 -->
         <!-- <item name="android:windowFrame">@null</item> -->
     </style>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <style name="NobackDialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowNoTitle">true</item>
@@ -592,8 +593,10 @@
     <style name="Theme" parent="android:Theme.Light.NoTitleBar">
         <item name="android:windowAnimationStyle">@style/Animation</item>
     </style>
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/coreLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
     <style name="Widget.GifView" parent="@android:style/Widget"/>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/src/main/res/values/styles.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="card_list_popup_anim" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/card_list_right_in</item>
@@ -602,7 +605,7 @@
         <item name="android:windowEnterAnimation">@anim/popup_enter</item>
         <item name="android:windowExitAnimation">@anim/popup_exit</item>
     </style>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/commonLib/unspecified/res/values/values.xml -->
+    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <style name="webview_pop" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/down_in</item>

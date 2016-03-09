@@ -15,7 +15,7 @@
     <item name="title_default_color" type="id"/>
     <!-- 标题已读颜色 -->
     <item name="title_readed_color" type="id"/>
-     <!-- 标题默认字体 -->
+    <!-- 标题默认字体 -->
     <item name="title_default_font" type="id"/>
     <!-- 标题已读字体 -->
     <item name="title_readed_font" type="id"/>

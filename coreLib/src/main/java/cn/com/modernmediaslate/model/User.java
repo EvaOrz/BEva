@@ -1,7 +1,5 @@
 package cn.com.modernmediaslate.model;
 
-import cn.com.modernmediaslate.model.Entry;
-import cn.com.modernmediaslate.model.ErrorMsg;
 
 public class User extends Entry {
 	private static final long serialVersionUID = 1L;

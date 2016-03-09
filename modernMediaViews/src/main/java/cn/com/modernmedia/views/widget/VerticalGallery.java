@@ -260,7 +260,7 @@ public class VerticalGallery {
 
 						@Override
 						public void loadOk(Bitmap bitmap,
-								NinePatchDrawable drawable) {
+								NinePatchDrawable drawable, byte[] gifByte) {
 							process.stop();
 							process.setVisibility(View.GONE);
 						}

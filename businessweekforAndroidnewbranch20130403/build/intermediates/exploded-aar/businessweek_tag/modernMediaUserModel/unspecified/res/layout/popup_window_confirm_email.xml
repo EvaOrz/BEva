@@ -82,4 +82,4 @@
         android:textColor="@color/confirm_email_text_color"
         android:textSize="@dimen/dp13_textsize" />
 
-</LinearLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaUserModel/src/main/res/layout/popup_window_confirm_email.xml -->
+</LinearLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/ModernMediaUserModel/src/main/res/layout/popup_window_confirm_email.xml -->

@@ -19,4 +19,4 @@
 
 <decelerateInterpolator xmlns:android="http://schemas.android.com/apk/res/android"
         android:factor="2.5" />
-<!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/coreLib/src/main/res/interpolator/decelerate_quint.xml --><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaViews/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/coreLib/unspecified/res/interpolator/decelerate_quint.xml -->
+<!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/coreLib/src/main/res/interpolator/decelerate_quint.xml --><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaViews/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/coreLib/unspecified/res/interpolator/decelerate_quint.xml -->

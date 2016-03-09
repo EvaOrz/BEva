@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/black_bg" >
+    android:background="@color/white_bg" >
 
     <ImageView
         android:id="@+id/adv_image"
@@ -17,5 +17,21 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/adv_imgo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/black_btn_bg"
+        android:paddingBottom="5dp"
+        android:paddingLeft="13dp"
+        android:paddingRight="13dp"
+        android:paddingTop="5dp"
+        android:text="@string/adv_im_go"
+        android:textColor="@color/white_bg"
+        android:textSize="@dimen/dp13_textsize" />
 
 </RelativeLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/commonLib/src/main/res/layout/adv.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/layout/adv.xml -->

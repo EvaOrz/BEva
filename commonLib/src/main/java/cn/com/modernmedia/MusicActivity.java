@@ -142,6 +142,7 @@ public class MusicActivity extends BaseActivity implements OnClickListener {
 		p.alpha = 1.0f; // 设置本身透明度
 		p.dimAmount = 0.7f; // 设置黑暗度
 		getWindow().setAttributes(p);
+
 	}
 
 	@Override
@@ -187,28 +188,6 @@ public class MusicActivity extends BaseActivity implements OnClickListener {
 				}
 			}
 
-	}
-
-	/**
-	 * 时间字符串 --》 毫秒值
-	 * 
-	 * @param duration
-	 */
-	private int getDuration(String duration) {
-		int result = 0;
-		String[] tt = duration.split(":");
-		if (tt.length == 1) {
-			result = Integer.valueOf(tt[0]) * 1000;
-
-		} else if (tt.length == 2) {
-			result = Integer.valueOf(tt[0]) * 60 * 1000
-					+ Integer.valueOf(tt[1]) * 1000;
-		} else if (tt.length == 3) {
-			result = Integer.valueOf(tt[0]) * 60 * 60 * 1000
-					+ Integer.valueOf(tt[1]) * 60 * 1000
-					+ Integer.valueOf(tt[3]) * 1000;
-		}
-		return result;
 	}
 
 	private void initData() {
@@ -259,8 +238,8 @@ public class MusicActivity extends BaseActivity implements OnClickListener {
 				currentPlayArt = musicPlayBinder.getCurrentArt();// 更新duration
 				if (currentPlayArt.getAudioList() != null
 						&& currentPlayArt.getAudioList().size() > 0) {
-					seekBar.setMax(getDuration(currentPlayArt.getAudioList()
-							.get(0).getDuration()));
+					seekBar.setMax(DateFormatTool.getDuration(currentPlayArt
+							.getAudioList().get(0).getDuration()));
 					wholeTimeBox.setText(currentPlayArt.getAudioList().get(0)
 							.getDuration());
 				}
@@ -349,6 +328,8 @@ public class MusicActivity extends BaseActivity implements OnClickListener {
 	 * 主动换歌
 	 */
 	public void changeMusic(int p) {
+		// if (musicPlayBinder != null)
+		// musicPlayBinder.setIsChanging();
 		currentPos = p;// *****
 		currentPlayArt = articleData.get(p);
 		restartService();
@@ -369,23 +350,7 @@ public class MusicActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void img(String url, final ImageView imageView) {
-		SlateApplication.finalBitmap.display(url,
-				new ImageDownloadStateListener() {
-
-					@Override
-					public void loading() {
-
-					}
-
-					@Override
-					public void loadOk(Bitmap bitmap, NinePatchDrawable drawable) {
-						FinalBitmap.transforCircleBitmap(bitmap, imageView);
-					}
-
-					@Override
-					public void loadError() {
-					}
-				});
+		SlateApplication.finalBitmap.display(imageView, url);
 	}
 
 	/**
@@ -395,13 +360,6 @@ public class MusicActivity extends BaseActivity implements OnClickListener {
 		if (currentPlayArt.getPicList() != null
 				&& currentPlayArt.getPicList().size() > 0)
 			img(currentPlayArt.getPicList().get(0).getUrl(), imgBox);
-		// if (currentPlayArt.getAudioList() != null
-		// && currentPlayArt.getAudioList().size() > 0) {
-		// seekBar.setMax(getDuration(currentPlayArt.getAudioList().get(0)
-		// .getDuration()));
-		// wholeTimeBox.setText(currentPlayArt.getAudioList().get(0)
-		// .getDuration());
-		// }
 
 		currentTitle.setText(currentPlayArt.getTitle());
 	}
@@ -463,7 +421,7 @@ public class MusicActivity extends BaseActivity implements OnClickListener {
 			}
 		});
 
-		tagInfos = AppValue.musicColumnLIst.getList();
+		tagInfos = AppValue.musicColumnList.getList();
 		if (tagInfos == null || tagInfos.size() == 0) {
 			Log.e("AppValue.musicColumnLIst.getList()", "电台数据为空");
 			return false;
@@ -510,7 +468,11 @@ public class MusicActivity extends BaseActivity implements OnClickListener {
 	 */
 	@SuppressWarnings("deprecation")
 	private void clickItem(TagInfo tag, int position, boolean isResume) {
+		if (currentTagIndex != null && currentTagIndex.equals(tag))
+			return;
 		currentTagIndex = tag;
+		if (musicPlayBinder != null && !isResume)
+			musicPlayBinder.stop();// 停止监听seekbar
 		for (int i = 0; i < checkSelectView.size(); i++) {
 			if (i == position)
 				checkSelectView.get(i).setBackgroundDrawable(

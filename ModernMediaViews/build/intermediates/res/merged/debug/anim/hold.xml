@@ -3,4 +3,4 @@
     android:duration="300"
     android:fromXDelta="0"
     android:interpolator="@android:anim/accelerate_interpolator"
-    android:toXDelta="0" /><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/coreLib/src/main/res/anim/hold.xml --><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/modernMediaViews/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-201304031/coreLib/unspecified/res/anim/hold.xml -->
+    android:toXDelta="0" /><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/coreLib/src/main/res/anim/hold.xml --><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaViews/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/coreLib/unspecified/res/anim/hold.xml -->

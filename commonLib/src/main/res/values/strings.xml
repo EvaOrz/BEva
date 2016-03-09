@@ -97,5 +97,6 @@
 
     <!-- 电台 -->
     <string name="music_title">电台</string>
+    <string name="adv_im_go">跳出</string>
 
 </resources>

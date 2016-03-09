@@ -125,4 +125,26 @@ public class DateFormatTool {
 		return sb.toString();
 	}
 
+	/**
+	 * 时间字符串 --》 毫秒值
+	 * 
+	 * @param duration
+	 */
+	public static int getDuration(String duration) {
+		int result = 0;
+		String[] tt = duration.split(":");
+		if (tt.length == 1) {
+			result = Integer.valueOf(tt[0]) * 1000;
+
+		} else if (tt.length == 2) {
+			result = Integer.valueOf(tt[0]) * 60 * 1000
+					+ Integer.valueOf(tt[1]) * 1000;
+		} else if (tt.length == 3) {
+			result = Integer.valueOf(tt[0]) * 60 * 60 * 1000
+					+ Integer.valueOf(tt[1]) * 60 * 1000
+					+ Integer.valueOf(tt[3]) * 1000;
+		}
+		return result;
+	}
+
 }

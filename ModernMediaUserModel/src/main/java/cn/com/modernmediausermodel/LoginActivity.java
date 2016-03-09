@@ -48,7 +48,7 @@ public class LoginActivity extends SlateBaseActivity implements OnClickListener 
 	private SinaAuth weiboAuth;
 	private Button mLoginBtn;
 	private TextView forgetPwd, register;
-	private ImageView mSinaLoginBtn, mQQLoginBtn, mWeixinLoginBtn, mClearImage,
+	private ImageView mSinaLoginBtn, mQQLoginBtn, mWeixinLoginBtn,
 			mCloseImage;
 	private EditText mAcountEdit, mPasswordEdit;
 	private String shareData = "";// 分享的内容
@@ -60,12 +60,12 @@ public class LoginActivity extends SlateBaseActivity implements OnClickListener 
 		super.onCreate(savedInstanceState);
 		mContext = this;
 		mController = UserOperateController.getInstance(this);
+		setContentView(R.layout.activity_new_login);
 		if (checkIsShare() && SlateDataHelper.getUserLoginInfo(this) != null) {
 			UserPageTransfer.gotoWriteCardActivity(this, shareData, false);
 			shouldFinish = true;
 		}
-
-		setContentView(-1);
+		initView();
 		new Handler().postDelayed(new Runnable() {
 
 			@Override
@@ -77,24 +77,7 @@ public class LoginActivity extends SlateBaseActivity implements OnClickListener 
 		}, 500);
 	}
 
-	/**
-	 * 设置页面
-	 * 
-	 * @param layoutResID
-	 *            页面layout_id,可传-1，代表使用默认页面
-	 */
-	@Override
-	public void setContentView(int layoutResID) {
-		if (layoutResID == -1) {
-			layoutResID = R.layout.activity_new_login;
-			super.setContentView(layoutResID);
-			init();
-		} else {
-			super.setContentView(layoutResID);
-		}
-	}
-
-	private void init() {
+	private void initView() {
 		shakeAnim = AnimationUtils.loadAnimation(this, R.anim.shake);
 		forgetPwd = (TextView) findViewById(R.id.login_forget_pwd);
 		register = (TextView) findViewById(R.id.login_registers);
@@ -102,7 +85,6 @@ public class LoginActivity extends SlateBaseActivity implements OnClickListener 
 		forgetPwd.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
 		register.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
 		mAcountEdit = (EditText) findViewById(R.id.login_account);
-		mClearImage = (ImageView) findViewById(R.id.login_img_clear);
 		mLoginBtn = (Button) findViewById(R.id.login_btn_login);
 		mSinaLoginBtn = (ImageView) findViewById(R.id.login_btn_sina_login);
 		mQQLoginBtn = (ImageView) findViewById(R.id.login_btn_qq_login);
@@ -133,7 +115,8 @@ public class LoginActivity extends SlateBaseActivity implements OnClickListener 
 		// }
 
 		mCloseImage.setOnClickListener(this);
-		mClearImage.setOnClickListener(this);
+		findViewById(R.id.login_img_clear).setOnClickListener(this);
+		findViewById(R.id.login_img_forget).setOnClickListener(this);
 		forgetPwd.setOnClickListener(this);
 		register.setOnClickListener(this);
 		mLoginBtn.setOnClickListener(this);
@@ -180,7 +163,10 @@ public class LoginActivity extends SlateBaseActivity implements OnClickListener 
 		if (v.getId() == R.id.login_img_clear) {
 			if (mAcountEdit != null)
 				mAcountEdit.setText("");
-		} else if (v.getId() == R.id.login_forget_pwd) {
+		} else if (v.getId() == R.id.login_img_forget) {
+			if (mPasswordEdit != null)
+				mPasswordEdit.setText("");
+		}else if (v.getId() == R.id.login_forget_pwd) {
 			Intent i = new Intent(mContext, ForgetPwdActivity.class);
 			startActivity(i);
 		} else if (v.getId() == R.id.login_img_close) {

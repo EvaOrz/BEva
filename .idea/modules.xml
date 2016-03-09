@@ -4,11 +4,10 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/businessweek_tag.iml" filepath="$PROJECT_DIR$/businessweek_tag.iml" />
       <module fileurl="file://$PROJECT_DIR$/businessweekforAndroidnewbranch20130403/businessweekforAndroidnewbranch20130403.iml" filepath="$PROJECT_DIR$/businessweekforAndroidnewbranch20130403/businessweekforAndroidnewbranch20130403.iml" />
-      <module fileurl="file://$PROJECT_DIR$/businessweekforAndroidnewbranch20130403/businessweekforAndroidnewbranch20130403.iml" filepath="$PROJECT_DIR$/businessweekforAndroidnewbranch20130403/businessweekforAndroidnewbranch20130403.iml" />
       <module fileurl="file://$PROJECT_DIR$/commonLib/commonLib.iml" filepath="$PROJECT_DIR$/commonLib/commonLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/coreLib/coreLib.iml" filepath="$PROJECT_DIR$/coreLib/coreLib.iml" />
-      <module fileurl="file://$PROJECT_DIR$/modernMediaUserModel/modernMediaUserModel.iml" filepath="$PROJECT_DIR$/modernMediaUserModel/modernMediaUserModel.iml" />
-      <module fileurl="file://$PROJECT_DIR$/modernMediaViews/modernMediaViews.iml" filepath="$PROJECT_DIR$/modernMediaViews/modernMediaViews.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ModernMediaUserModel/modernMediaUserModel.iml" filepath="$PROJECT_DIR$/ModernMediaUserModel/modernMediaUserModel.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ModernMediaViews/modernMediaViews.iml" filepath="$PROJECT_DIR$/ModernMediaViews/modernMediaViews.iml" />
     </modules>
   </component>
 </project>

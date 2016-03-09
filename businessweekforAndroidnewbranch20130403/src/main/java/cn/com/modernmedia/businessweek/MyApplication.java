@@ -1,11 +1,21 @@
 package cn.com.modernmedia.businessweek;
 
+import java.net.URLEncoder;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.net.TrafficStats;
+import android.os.SystemClock;
 import android.util.Log;
+import cn.com.modernmedia.CommonApplication;
 import cn.com.modernmedia.common.WeixinShare;
+import cn.com.modernmedia.pay.PayActivity;
 import cn.com.modernmedia.util.ConstData;
+import cn.com.modernmedia.util.DESCoder;
 import cn.com.modernmedia.util.sina.SinaConstants;
 import cn.com.modernmedia.views.ViewsApplication;
+import cn.com.modernmediaslate.unit.SlateDataHelper;
 import cn.com.modernmediausermodel.util.UserConstData;
 
 import com.parse.Parse;
@@ -65,7 +75,21 @@ public class MyApplication extends ViewsApplication {
 	/**
 	 * 单位M
 	 */
+
+	/**
+	 * 
+	 * partner="2088021523775321"&seller_id="will_wang@modernmedia.com.cn"&
+	 * out_trade_no
+	 * ="102118395754743"&subject="测试的商品"&body="该测试商品的详细描述"&total_fee
+	 * ="0.01"&notify_url
+	 * ="http://notify.msp.hk/notify.htm"&service="mobile.securitypay.pay"
+	 * &payment_type
+	 * ="1"&_input_charset="utf-8"&it_b_pay="30m"&return_url="m.alipay.com"
+	 * &success="true"&sign_type="RSA"&sign=
+	 * "SeboZ5bFmWR/wdNhIn9Vd+ekwYZ20+I6Tu1yxtZZFqj806CJigV8doIGY5udj2z69Ca6h51cX5rd3yjW7+ArW1KCu4R5aUuuPsa11CxRxQZ5CNV0o1lBFu8hjwCyEWdZa7uhEHZjVGX4+beNVj7cUxef7t7v8QAlh/U+LlT+Yso="
+	 * */
 	public void showLiuliang() {
+
 		Log.e("*总接受数据包数*",
 				(TrafficStats.getTotalRxBytes() == TrafficStats.UNSUPPORTED ? 0
 						: TrafficStats.getTotalRxPackets()) + "");
@@ -79,4 +103,5 @@ public class MyApplication extends ViewsApplication {
 				(TrafficStats.getTotalRxBytes() == TrafficStats.UNSUPPORTED ? 0
 						: (TrafficStats.getTotalTxBytes() / 1024 / 1024)) + "");
 	}
+
 }

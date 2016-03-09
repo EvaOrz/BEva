@@ -144,9 +144,9 @@ public abstract class ViewsMainActivity extends CommonMainActivity {
 		initProcess();
 		userView = (FrameLayout) findViewById(R.id.main_fav);
 		userView.addView(fetchRightView());
-		/** 电台悬浮窗容器**/
-		musicMenuContainer = (LinearLayout)findViewById(R.id.music_menu_container);
-		
+		/** 电台悬浮窗容器 **/
+		musicMenuContainer = (LinearLayout) findViewById(R.id.music_menu_container);
+
 		columnView = (NewColumnView) findViewById(R.id.main_column);
 		scrollView = (MainHorizontalScrollView) findViewById(R.id.mScrollView);
 		indexView = new IndexView(this);
@@ -329,8 +329,6 @@ public abstract class ViewsMainActivity extends CommonMainActivity {
 	public void gotoSelectColumnActivity() {
 		Intent intent = new Intent(this, BookActivity.class);
 		startActivityForResult(intent, BOOK_ACTIVITY);
-		// startActivityForResult(new Intent(this, BookActivity.class),
-		// SELECT_COLUMN_REQUEST_CODE);
 	}
 
 	/**
@@ -341,9 +339,6 @@ public abstract class ViewsMainActivity extends CommonMainActivity {
 	public void gotoSelectChildColumnActvity(String tagName) {
 		Intent intent = new Intent(this, BookActivity.class);
 		startActivityForResult(intent, BOOK_ACTIVITY);
-		// intent.putExtra("PARENT", tagName);
-		// intent.putExtra("SINGLE", 1);
-		// startActivityForResult(intent, SELECT_CHILD_COLUMN_REQUEST_CODE);
 	}
 
 	@Override
@@ -474,10 +469,6 @@ public abstract class ViewsMainActivity extends CommonMainActivity {
 	protected void exitApp() {
 		super.exitApp();
 		ViewsApplication.exit();
-		if (audioManager != null) {
-			audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,
-					volumeInApp, 0);
-		}
 	}
 
 }

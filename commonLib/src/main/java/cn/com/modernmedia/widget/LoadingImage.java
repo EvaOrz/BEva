@@ -71,7 +71,7 @@ public class LoadingImage extends RelativeLayout implements
 	}
 
 	@Override
-	public void loadOk(Bitmap bitmap, NinePatchDrawable drawable) {
+	public void loadOk(Bitmap bitmap, NinePatchDrawable drawable, byte[] gifByte) {
 		process.stop();
 		process.setVisibility(View.GONE);
 		if (drawable != null)
@@ -85,5 +85,6 @@ public class LoadingImage extends RelativeLayout implements
 		process.setVisibility(View.VISIBLE);
 		process.start();
 	}
+
 
 }

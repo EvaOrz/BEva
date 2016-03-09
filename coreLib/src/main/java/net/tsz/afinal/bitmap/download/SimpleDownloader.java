@@ -36,7 +36,6 @@ public class SimpleDownloader implements Downloader {
 					return getFromFile(f);
 				}
 			} catch (URISyntaxException e) {
-//				Log.e(TAG, "Error in read from file - " + urlString + " : " + e);
 			}
 		}else{
 			File f = new File(urlString);

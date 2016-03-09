@@ -512,10 +512,8 @@ public class UrlMaker {
 	 * 支付成功后通知server端 aliOrWeixin = "alipay" || "weixin"
 	 */
 	public static String notifyServerPayResult(String aliOrWeixin) {
-		// "http://product.test.bbwc.cn/interface/index.php?m=product&a=addorder_weixin&datatype="
 		return "http://product.bbwc.cn/interface/index.php?m=product&a=addorder_"
 				+ aliOrWeixin + "&datatype=" + ConstData.DATA_TYPE;
-		// + aliOrWeixin + "&datatype=" + ConstData.DATA_TYPE;
 	}
 
 	/**

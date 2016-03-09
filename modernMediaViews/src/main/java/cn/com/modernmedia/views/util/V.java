@@ -67,6 +67,7 @@ public class V {
 	public static final int ID_ERROR = -1;
 	public static final int ID_COLOR = -2;
 	public static final int ID_HTTP = -3;
+	public static final int ID_GIF = -4;
 
 	public static final int RADIUS = 19;
 
@@ -108,13 +109,7 @@ public class V {
 		CardUriParse.getInstance();
 		TransferArticle transferArticle = new TransferArticle(articleType,
 				Tools.getUid(context));
-		Log.e("列表点击", "列表点击  " + item.getSlateLink()
-				+ item.getPosition().getStyle());
-		if (item.getPosition().getStyle() == 7) {// 跑马灯
-			UriParse.clickSlate(context, new Entry[] { item });
-		} else
-			UriParse.clickSlate(context, new Entry[] { item, transferArticle },
-					cls);
+		UriParse.clickSlate(context, new Entry[] { item, transferArticle }, cls);
 	}
 
 	/**
@@ -164,14 +159,8 @@ public class V {
 			SlateApplication.finalBitmap.display(view, pic);
 			return;
 		}
-		if (view instanceof ImageView) {
-			// if (android.os.Build.VERSION.SDK_INT >= 11) {
-			// ((ImageView) view).setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-			//
-			// }
+		if (view instanceof ImageView)
 			((ImageView) view).setImageResource(id);
-		}
-
 		else
 			view.setBackgroundResource(id);
 	}
@@ -198,7 +187,7 @@ public class V {
 
 						@Override
 						public void loadOk(Bitmap bitmap,
-								NinePatchDrawable drawable) {
+								NinePatchDrawable drawable, byte[] gifByte) {
 							if (drawable != null)
 								view.setBackgroundDrawable(drawable);
 							else
@@ -237,7 +226,7 @@ public class V {
 
 						@Override
 						public void loadOk(Bitmap bitmap,
-								NinePatchDrawable drawable) {
+								NinePatchDrawable drawable, byte[] gifByte) {
 							if (drawable != null)
 								listView.setDivider(drawable);
 							else
@@ -645,22 +634,16 @@ public class V {
 	 * @param checkZero
 	 *            是否判断开启声音时声音为0的情况
 	 */
-	public static void muteAudio(Context context, boolean mute, boolean showUI,
-			boolean checkZero) {
+	public static void muteAudio(Context context, boolean mute, boolean showUI) {
 		AudioManager audioManager = (AudioManager) context
 				.getSystemService(Context.AUDIO_SERVICE);
-		if (isMute == mute) {
-			return;
-		}
 		isMute = mute;
-		if (mute) {
-			// audioManager.setStreamMute(AudioManager.STREAM_MUSIC, 0,
-			// AudioManager.FLAG_SHOW_UI);
-			volume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+		if (mute) {// 静音
+			volume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);// 记录
 			audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0,
 					showUI ? AudioManager.FLAG_SHOW_UI : 0);
 		} else {
-			if (checkZero && volume == 0) {
+			if (volume == 0) {
 				volume = AudioManager.ADJUST_RAISE * 5;
 			}
 			audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume,

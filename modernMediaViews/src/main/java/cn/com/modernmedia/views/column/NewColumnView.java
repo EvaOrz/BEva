@@ -125,29 +125,7 @@ public class NewColumnView extends BaseView implements FetchEntryListener {
 
 			@Override
 			public void onClick(View v) {
-				// if (SlateDataHelper.getUserLoginInfo(mContext) == null) {
-				// UserApplication.afterLoginListener = new AfterLoginListener()
-				// {
-				//
-				// @Override
-				// public void doAfterLogin(int flag) {
-				// SlateApplication.loginStatusChange = false;
-				// if (flag ==
-				// ViewsMainActivity.SELECT_COLUMN_LOGIN_REQUEST_CODE) {
-				// ((ViewsMainActivity) mContext)
-				// .getUserSubscript(
-				// "",
-				// ViewsMainActivity.SELECT_COLUMN_LOGIN_REQUEST_CODE);
-				// }
-				// UserApplication.afterLoginListener = null;
-				// }
-				// };
-				// UserPageTransfer.gotoLoginActivity(mContext,
-				// ViewsMainActivity.SELECT_COLUMN_LOGIN_REQUEST_CODE);
-				// } else {
-				// LogHelper.logManageSubscribeClickCount(mContext);
 				((ViewsMainActivity) mContext).gotoSelectColumnActivity();
-				// }
 			}
 		});
 	}

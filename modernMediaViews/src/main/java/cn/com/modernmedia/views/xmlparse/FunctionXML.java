@@ -36,6 +36,10 @@ public class FunctionXML {
 	 */
 	public static final String IMAGE = "image";
 	/**
+	 * 列表动态图片
+	 */
+	public static final String GIF_IMG = "gif_img";
+	/**
 	 * 视频图片
 	 */
 	public static final String VIDEO_IMG = "video_img";
@@ -108,5 +112,9 @@ public class FunctionXML {
 	 * 组图模式：第三张图片
 	 */
 	public static final String IMAGE_3 = "image_3";
+	/**
+	 * 繁体版付费专享标示
+	 */
+	public static final String HK_PAY_IMG = "hk_pay_img";
 
 }

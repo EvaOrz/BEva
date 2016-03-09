@@ -16,6 +16,9 @@ int anim up_in 0x7f04000e
 int anim up_out 0x7f04000f
 int anim zoom_in 0x7f040010
 int anim zoom_out 0x7f040011
+int attr gif 0x7f010001
+int attr gifViewStyle 0x7f010000
+int attr paused 0x7f010002
 int color black_bg 0x7f060000
 int color white_bg 0x7f060001
 int dimen dp1 0x7f070000
@@ -96,3 +99,9 @@ int string sinalogin_check_server 0x7f090018
 int style AppBaseTheme 0x7f0a0000
 int style AppTheme 0x7f0a0001
 int style NobackDialog 0x7f0a0002
+int style Widget_GifView 0x7f0a0003
+int[] styleable CustomTheme { 0x7f010000 }
+int styleable CustomTheme_gifViewStyle 0
+int[] styleable GifView { 0x7f010001, 0x7f010002 }
+int styleable GifView_gif 0
+int styleable GifView_paused 1

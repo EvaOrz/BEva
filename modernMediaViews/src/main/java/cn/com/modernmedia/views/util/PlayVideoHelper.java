@@ -5,10 +5,12 @@ import java.util.HashMap;
 import net.tsz.afinal.core.AsyncTask;
 import android.content.Context;
 import android.database.CursorJoiner.Result;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnErrorListener;
 import android.media.MediaPlayer.OnPreparedListener;
+import android.os.Build;
 import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -17,6 +19,7 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.widget.ImageView;
 import android.widget.VideoView;
+import cn.com.modernmedia.CommonApplication;
 import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.util.DataHelper;
 import cn.com.modernmedia.views.R;
@@ -28,21 +31,69 @@ import cn.com.modernmediaslate.unit.VideoFileManager;
  * 焦点图、列表播放视频帮助类
  * 
  * @author zhuqiao
- *
+ * 
  */
 public class PlayVideoHelper {
 	public static final int IDLE = 0;// 空闲
 	public static final int PLAYING = 1;// 播放中
 	public static final int PAUSING = 2;// 暂停中
 
+	// 音频焦点控制器
+	private AudioManager mAudioMgr = null;
 	private Context mContext;
 	private int state = IDLE;
+	/**
+	 * 音频焦点监听器
+	 */
+	private AudioManager.OnAudioFocusChangeListener mAudioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
+		@Override
+		public void onAudioFocusChange(int focusChange) {
+
+			switch (focusChange) {
+			case AudioManager.AUDIOFOCUS_GAIN:
+				break;
+			case AudioManager.AUDIOFOCUS_LOSS:
+				// 长久的失去音频焦点，释放MediaPlayer
+				stopVideo();
+				break;
+			case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:
+				// 暂时失去音频焦点，暂停播放等待重新获得音频焦点
+				pauseVideo(false);
+				break;
+			case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
+				// 失去音频焦点，无需停止播放，降低声音即可
+				// if (mediaPlayer != null && mediaPlayer.isPlaying())
+				// mediaPlayer.setVolume(0.1f, 0.1f);
+				break;
+			}
+		}
+	};
+
+	/**
+	 * 申请焦点
+	 */
+	private void requestAudioFocus() {
+		if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.ECLAIR_MR1) {
+			return;
+		}
+		if (mAudioMgr == null)
+			mAudioMgr = (AudioManager) mContext
+					.getSystemService(Context.AUDIO_SERVICE);
+		if (mAudioMgr != null) {
+			int ret = mAudioMgr.requestAudioFocus(mAudioFocusChangeListener,
+					AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
+			if (ret != AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+			}
+		}
+
+	}
 
 	private HashMap<String, View> currPlayerMap;// 模板
 	private ArticleItem currPlayerItem;// view对应的数据原型
 
 	public PlayVideoHelper(Context context) {
 		mContext = context;
+
 	}
 
 	public void pauseVideo(boolean goneVideoView) {
@@ -83,6 +134,12 @@ public class PlayVideoHelper {
 	 */
 	public void startVideo(final HashMap<String, View> map,
 			final ArticleItem item) {
+		if (CommonApplication.musicService != null
+				&& CommonApplication.musicService.musicPlayBinder != null
+				&& CommonApplication.musicService.isPlaying) // 有电台播放
+			return;
+		/* 注册音频焦点监听器，主要监听丢失焦点事件 */
+		requestAudioFocus();
 		final VideoView videoView = (VideoView) map.get(FunctionXML.VIDEO_VIEW);
 		videoView.setVisibility(View.VISIBLE);
 		try {
@@ -145,21 +202,13 @@ public class PlayVideoHelper {
 
 				@Override
 				public void onCompletion(MediaPlayer mp) {
-					// boolean i = saveVideo(path);
-					// if (i) {
-					// videoView.setVideoPath(VideoFileManager
-					// .getVideoPath(path));
-					// } else
-					// videoView.setVideoPath(path);
-					// videoView.start();
-					// showSwitch(swith, true);
 				}
 			});
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		// 每次重新开启一个视频的时候，静音
-		V.muteAudio(mContext, true, false, true);
+		// 获得音频焦点
+		V.muteAudio(mContext, true, false);
 
 	}
 
@@ -215,6 +264,10 @@ public class PlayVideoHelper {
 	 * 继续播放
 	 */
 	public void resumeVideo() {
+		if (CommonApplication.musicService != null
+				&& CommonApplication.musicService.musicPlayBinder != null
+				&& CommonApplication.musicService.isPlaying) // 有电台播放
+			return;
 		if (currPlayerMap != null) {
 			VideoView videoView = (VideoView) currPlayerMap
 					.get(FunctionXML.VIDEO_VIEW);
@@ -240,7 +293,8 @@ public class PlayVideoHelper {
 	}
 
 	private void checkAudio(boolean gone) {
-		if (!(currPlayerMap.get(FunctionXML.AUDIO_IMG) instanceof ImageView))
+		if (currPlayerMap == null
+				|| !(currPlayerMap.get(FunctionXML.AUDIO_IMG) instanceof ImageView))
 			return;
 		ImageView audio = (ImageView) currPlayerMap.get(FunctionXML.AUDIO_IMG);
 		if (gone) {
@@ -248,8 +302,10 @@ public class PlayVideoHelper {
 		} else {
 			audio.setVisibility(View.VISIBLE);
 			if (V.isMute) {
+				V.muteAudio(mContext, true, false);
 				audio.setImageResource(R.drawable.mute);
 			} else {
+				V.muteAudio(mContext, false, false);
 				audio.setImageResource(R.drawable.volume);
 			}
 		}

@@ -70,8 +70,8 @@ public class TagIndexDb extends TagDbListenerImplement {
 		helper.addColumn(VALUE, "TEXT");
 		helper.addColumn(VIEW_BY_GROUP, "TEXT");
 		helper.addColumn(IS_RADIO, "INTEGER");
-		helper.addColumn(TYPE, "INTEGER");
 		helper.addColumn(LINK, "TEXT");
+		helper.addColumn(TYPE, "INTEGER");
 		helper.addColumn(SPECIAL_TAG, "TEXT");
 		db.execSQL(helper.getSql());
 	}

@@ -76,7 +76,7 @@
                 android:id="@+id/music_img_box"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/radio_loading"
+                android:src="@drawable/radio_loading"
                 android:scaleType="centerCrop" />
 
             <RelativeLayout
@@ -217,4 +217,4 @@
         android:divider="@null"
         android:scrollbars="none" />
 
-</LinearLayout><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-201304031/commonLib/src/main/res/layout/activity_music.xml -->
+</LinearLayout><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/commonLib/src/main/res/layout/activity_music.xml -->
