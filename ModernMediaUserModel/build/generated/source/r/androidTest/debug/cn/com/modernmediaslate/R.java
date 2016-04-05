@@ -33,8 +33,8 @@ public final class R {
 		public static final int paused = 0x7f010002;
 	}
 	public static final class color {
-		public static final int black_bg = 0x7f080000;
-		public static final int white_bg = 0x7f08001b;
+		public static final int black_bg = 0x7f080001;
+		public static final int white_bg = 0x7f080036;
 	}
 	public static final class dimen {
 		public static final int dp1 = 0x7f070084;
@@ -65,36 +65,36 @@ public final class R {
 		public static final int head_tipsTextView_tSize = 0x7f07009a;
 	}
 	public static final class drawable {
-		public static final int ic_launcher = 0x7f02001c;
-		public static final int ic_pulltoload_arrow = 0x7f02001d;
-		public static final int ic_pulltorefresh_arrow = 0x7f02001e;
-		public static final int pull_to_load_footer_background = 0x7f020059;
-		public static final int pull_to_refresh_header_background = 0x7f02005a;
+		public static final int ic_launcher = 0x7f02001e;
+		public static final int ic_pulltoload_arrow = 0x7f02001f;
+		public static final int ic_pulltorefresh_arrow = 0x7f020020;
+		public static final int pull_to_load_footer_background = 0x7f02005b;
+		public static final int pull_to_refresh_header_background = 0x7f02005c;
 	}
 	public static final class id {
-		public static final int footer_arrowImageView = 0x7f090114;
-		public static final int footer_contain = 0x7f090113;
-		public static final int footer_progressBar = 0x7f090115;
-		public static final int footer_text = 0x7f090116;
-		public static final int head_arrowImageView = 0x7f090118;
-		public static final int head_lastUpdatedTextView = 0x7f09011b;
-		public static final int head_progressBar = 0x7f090119;
-		public static final int head_tipsTextView = 0x7f09011a;
-		public static final int processBar = 0x7f09010c;
-		public static final int pull_head_contain = 0x7f090117;
-		public static final int scale_type = 0x7f090000;
-		public static final int user_footer_progressBar = 0x7f090156;
-		public static final int user_footer_text = 0x7f090157;
+		public static final int footer_arrowImageView = 0x7f090124;
+		public static final int footer_contain = 0x7f090123;
+		public static final int footer_progressBar = 0x7f090125;
+		public static final int footer_text = 0x7f090126;
+		public static final int head_arrowImageView = 0x7f090128;
+		public static final int head_lastUpdatedTextView = 0x7f09012b;
+		public static final int head_progressBar = 0x7f090129;
+		public static final int head_tipsTextView = 0x7f09012a;
+		public static final int processBar = 0x7f09011c;
+		public static final int pull_head_contain = 0x7f090127;
+		public static final int scale_type = 0x7f09000a;
+		public static final int user_footer_progressBar = 0x7f09016a;
+		public static final int user_footer_text = 0x7f09016b;
 	}
 	public static final class interpolator {
 		public static final int decelerate_cubic = 0x7f050000;
 		public static final int decelerate_quint = 0x7f050001;
 	}
 	public static final class layout {
-		public static final int processbar = 0x7f030031;
-		public static final int pull_to_load_footer = 0x7f030034;
-		public static final int pull_to_refresh_header = 0x7f030035;
-		public static final int user_list_footer = 0x7f03003d;
+		public static final int processbar = 0x7f030032;
+		public static final int pull_to_load_footer = 0x7f030035;
+		public static final int pull_to_refresh_header = 0x7f030036;
+		public static final int user_list_footer = 0x7f03003e;
 	}
 	public static final class string {
 		public static final int OAUTH_AccessToken_ACCESS = 0x7f0a0000;
@@ -109,19 +109,19 @@ public final class R {
 		public static final int Weibo_Share_Repeat = 0x7f0a0009;
 		public static final int Weibo_Share_Success = 0x7f0a000a;
 		public static final int app_name = 0x7f0a000f;
-		public static final int click_to_load = 0x7f0a002b;
-		public static final int net_error = 0x7f0a0096;
-		public static final int pull_to_loading = 0x7f0a00b3;
-		public static final int pull_to_loadmore = 0x7f0a00b4;
-		public static final int pull_to_refresh_pull_label = 0x7f0a00b5;
-		public static final int pull_to_refresh_refreshing_label = 0x7f0a00b6;
-		public static final int pull_to_refresh_release_label = 0x7f0a00b7;
-		public static final int pull_to_refresh_tap_label = 0x7f0a00b8;
-		public static final int pull_to_refresh_update_time = 0x7f0a00b9;
-		public static final int pull_to_release = 0x7f0a00ba;
-		public static final int sinalogin_check_account = 0x7f0a00e6;
-		public static final int sinalogin_check_pass = 0x7f0a00e7;
-		public static final int sinalogin_check_server = 0x7f0a00e8;
+		public static final int click_to_load = 0x7f0a0030;
+		public static final int net_error = 0x7f0a00a0;
+		public static final int pull_to_loading = 0x7f0a00c0;
+		public static final int pull_to_loadmore = 0x7f0a00c1;
+		public static final int pull_to_refresh_pull_label = 0x7f0a00c2;
+		public static final int pull_to_refresh_refreshing_label = 0x7f0a00c3;
+		public static final int pull_to_refresh_release_label = 0x7f0a00c4;
+		public static final int pull_to_refresh_tap_label = 0x7f0a00c5;
+		public static final int pull_to_refresh_update_time = 0x7f0a00c6;
+		public static final int pull_to_release = 0x7f0a00c7;
+		public static final int sinalogin_check_account = 0x7f0a00f6;
+		public static final int sinalogin_check_pass = 0x7f0a00f7;
+		public static final int sinalogin_check_server = 0x7f0a00f8;
 	}
 	public static final class style {
 		public static final int AppBaseTheme = 0x7f0b0001;

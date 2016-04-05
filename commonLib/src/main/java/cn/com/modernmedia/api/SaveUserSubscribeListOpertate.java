@@ -36,15 +36,19 @@ public class SaveUserSubscribeListOpertate extends BaseOperate {
 			postObject.put("appid", ConstData.getInitialAppId());
 			postObject.put("token", token);
 			JSONArray columnArray = new JSONArray();
+			String log = "";
 			for (SubscribeColumn column : list) {
 				JSONObject columnObj = new JSONObject();
 				columnObj.put("name", column.getName());
 				columnObj.put("parent", column.getParent());
-				columnObj.put("isdelete",column.getIsDelete());
+				columnObj.put("isdelete", column.getIsDelete());
 				columnArray.put(columnObj);
+				log = log + "**" + column.getName() + "^"
+						+ column.getIsDelete() + "**";
 			}
 			if (!isNull(columnArray)) {
 				postObject.put("col", columnArray);
+				Log.e("保存订阅", log);
 			}
 			nameValuePairs.add(new BasicNameValuePair("data", postObject
 					.toString()));

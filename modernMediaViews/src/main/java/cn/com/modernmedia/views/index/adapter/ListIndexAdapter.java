@@ -2,12 +2,12 @@ package cn.com.modernmedia.views.index.adapter;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import cn.com.modernmedia.CommonArticleActivity.ArticleType;
+import cn.com.modernmedia.CommonMainActivity;
 import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.util.UriParse;
 import cn.com.modernmedia.views.R;
@@ -70,9 +70,7 @@ public class ListIndexAdapter extends BaseIndexAdapter {
 
 				@Override
 				public void onClick(View v) {
-					// V.clickSlate(mContext, item, articleType);
-					UriParse.clickSlate(mContext, new Entry[] { item });
-					Log.e("即时头条点击条状", item.getSlateLink());
+					((CommonMainActivity) mContext).gotoMarquee();
 				}
 			});
 			return holder.getConvertView();

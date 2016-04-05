@@ -39,6 +39,7 @@ public abstract class CommonMainActivity extends BaseFragmentActivity implements
 	protected int pushArticleId = -1;
 	protected MainHorizontalScrollView scrollView;
 	private List<NotifyAdapterListener> listenerList = new ArrayList<NotifyAdapterListener>();
+	public static String liveUrl = "";// 商周直播页url
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +87,11 @@ public abstract class CommonMainActivity extends BaseFragmentActivity implements
 	 * 初始化栏目列表
 	 */
 	protected abstract void setDataForColumn();
+
+	/**
+	 * 栏目列表跳转订阅页面
+	 */
+	public abstract void gotoSelectColumnActivity();
 
 	/**
 	 * 显示首页滑屏view
@@ -137,6 +143,12 @@ public abstract class CommonMainActivity extends BaseFragmentActivity implements
 	 */
 	public void setScrollView(View view) {
 		scrollView.addNeedsScrollView(view);
+	}
+
+	/**
+	 * 跳转直播页
+	 */
+	public void gotoMarquee() {
 	}
 
 	/**
@@ -238,7 +250,8 @@ public abstract class CommonMainActivity extends BaseFragmentActivity implements
 							public void setData(Entry entry) {
 							}
 						});
-			} else// 没有未提交订单，取线上状态
+			} else
+				// 没有未提交订单，取线上状态
 				OperateController.getInstance(this).getUserPermission(this,
 						SlateDataHelper.getToken(this),
 						new FetchEntryListener() {

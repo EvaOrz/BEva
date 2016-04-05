@@ -37,9 +37,10 @@
 
         <TextView
             android:id="@+id/uinfo_nick"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="70dp"
             android:layout_marginLeft="20dp"
+            android:layout_weight="1"
             android:gravity="center_vertical"
             android:textColor="@color/black_bg"
             android:textSize="@dimen/dp16_textsize" />
@@ -89,11 +90,25 @@
 
         <TextView
             android:id="@+id/uinfo_email"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:paddingBottom="5dp"
             android:paddingLeft="20dp"
             android:textColor="@color/black_bg" />
+
+        <TextView
+            android:id="@+id/userinfo_un_valied"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gray_btn_bg"
+            android:paddingBottom="3dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="3dp"
+            android:text="@string/userinfo_valied"
+            android:textColor="@color/white_bg"
+            android:visibility="gone" />
     </LinearLayout>
 
     <View
@@ -201,4 +216,4 @@
             android:textSize="@dimen/dp15_textsize" />
     </LinearLayout>
 
-</LinearLayout><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/layout/activity_userinfo.xml --><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaViews/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/unspecified/res/layout/activity_userinfo.xml -->
+</LinearLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaUserModel/src/main/res/layout/activity_userinfo.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/layout/activity_userinfo.xml -->

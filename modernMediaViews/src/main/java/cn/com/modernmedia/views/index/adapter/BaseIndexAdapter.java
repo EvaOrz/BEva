@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import cn.com.modernmedia.CommonApplication;
 import cn.com.modernmedia.CommonArticleActivity.ArticleType;
 import cn.com.modernmedia.CommonMainActivity;
@@ -85,7 +83,6 @@ public class BaseIndexAdapter extends CheckScrollAdapter<ArticleItem> {
 				}
 				// 3.0.0 6为广告模板
 				if (item.isAdv() && item.getPosition().getStyle() == 6) {
-					Log.e("发现广告", item.getTitle());
 					if (!ParseUtil.mapContainsKey(template.getList().getMap(),
 							6)) {
 						// TODO 如果没有广告模板，那么把它作为普通文章

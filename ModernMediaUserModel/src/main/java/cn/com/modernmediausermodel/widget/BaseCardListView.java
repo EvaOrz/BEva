@@ -55,7 +55,6 @@ public abstract class BaseCardListView {
 		listView.setHeadRes(false, Color.WHITE);
 		userInfoDb = UserInfoDb.getInstance(mContext);
 		adapter = new UserCardListAdapter(mContext);
-		adapter.setIsForUser(isForUser);
 		listView.setAdapter(adapter);
 		loadCacheFirst();
 		listView.setCallBack(new FooterCallBack() {

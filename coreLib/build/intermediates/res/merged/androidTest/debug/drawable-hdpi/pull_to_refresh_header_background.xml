@@ -19,4 +19,4 @@
         android:startColor="#ffffff"
         android:endColor="#EDEDED"
         android:angle="-90" />
-</shape><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/coreLib/src/main/res/drawable-hdpi/pull_to_refresh_header_background.xml --><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/coreLib/build/intermediates/bundles/debug/res/drawable-hdpi/pull_to_refresh_header_background.xml -->
+</shape><!-- From: file:/Users/Eva./Desktop/businessweek_tag/coreLib/src/main/res/drawable-hdpi/pull_to_refresh_header_background.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/coreLib/build/intermediates/bundles/debug/res/drawable-hdpi/pull_to_refresh_header_background.xml -->

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/ModernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values-xhdpi/values-xhdpi.xml -->
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values-xhdpi/values-xhdpi.xml -->
     <eat-comment/>
     <dimen name="bar_height">49.5dp</dimen>
     <dimen name="listitem_avatar_marginleft">53dp</dimen>

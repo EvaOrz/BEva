@@ -246,4 +246,4 @@
         android:textColor="@color/user_center_num_color"
         android:textSize="@dimen/dp12_textsize" />
 
-</LinearLayout><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/layout/activity_setting.xml -->
+</LinearLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaUserModel/src/main/res/layout/activity_setting.xml -->

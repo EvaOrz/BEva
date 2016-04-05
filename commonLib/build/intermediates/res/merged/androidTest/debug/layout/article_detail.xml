@@ -39,4 +39,4 @@
         android:layout_height="fill_parent"
         layout="@layout/progress" />
 
-</RelativeLayout><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/commonLib/src/main/res/layout/article_detail.xml --><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/commonLib/build/intermediates/bundles/debug/res/layout/article_detail.xml -->
+</RelativeLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/commonLib/src/main/res/layout/article_detail.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/commonLib/build/intermediates/bundles/debug/res/layout/article_detail.xml -->

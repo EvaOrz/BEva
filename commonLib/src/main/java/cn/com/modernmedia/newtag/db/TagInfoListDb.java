@@ -27,7 +27,7 @@ import cn.com.modernmediaslate.unit.ParseUtil;
  */
 public class TagInfoListDb extends TagDbListenerImplement {
 	private static final String DATABASE_NAME = "tag_info_list.db";
-	private static final int DATABASE_VERSION = 3;
+	private static final int DATABASE_VERSION = 4;
 	private static final String TABLE_NAME = "tag_info_list";
 
 	// column name
@@ -47,6 +47,7 @@ public class TagInfoListDb extends TagDbListenerImplement {
 	private static final String TAG_TAG_TYPE = "tag_type";// 17
 	private static final String IS_RADIO = "isRadio";// 18
 	private static final String TYPE = "type";// 19
+	private static final String IS_PAY = "ispay";// 20
 
 	private static TagInfoListDb instance = null;
 	private Context mContext;
@@ -90,6 +91,7 @@ public class TagInfoListDb extends TagDbListenerImplement {
 		helper.addColumn(TAG_TAG_TYPE, "INTEGER");
 		helper.addColumn(IS_RADIO, "INTEGER");
 		helper.addColumn(TYPE, "INTEGER");
+		helper.addColumn(IS_PAY, "INTEGER");
 		db.execSQL(helper.getSql());
 	}
 
@@ -151,6 +153,7 @@ public class TagInfoListDb extends TagDbListenerImplement {
 		tagInfo.setColoumnupdatetime(cursor.getString(16));
 		tagInfo.setIsRadio(cursor.getInt(18));
 		tagInfo.setType(cursor.getInt(19));
+		tagInfo.setIsPay(cursor.getInt(20));
 		String columnJson = cursor.getString(11);
 		if (!TextUtils.isEmpty(columnJson)) {
 			try {
@@ -281,6 +284,7 @@ public class TagInfoListDb extends TagDbListenerImplement {
 		cv.put(COLUMN_UPDATETIME, tagInfo.getColoumnupdatetime());
 		cv.put(IS_RADIO, tagInfo.getIsRadio());
 		cv.put(TYPE, tagInfo.getType());
+		cv.put(IS_PAY, tagInfo.getIsPay());
 		if (obj.length > 1 && (obj[1] instanceof TAG_TYPE)) {
 			int type = getType((TAG_TYPE) obj[1]);
 			cv.put(TAG_TAG_TYPE, type);
@@ -355,6 +359,8 @@ public class TagInfoListDb extends TagDbListenerImplement {
 			return 3;
 		} else if (type == TAG_TYPE.CHILD_CAT) {
 			return 4;
+		} else if (type == TAG_TYPE.SPECIAL) {
+			return 5;
 		}
 		return -1;
 	}

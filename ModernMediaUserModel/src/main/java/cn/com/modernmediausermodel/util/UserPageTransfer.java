@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import cn.com.modernmedia.MusicActivity;
+import cn.com.modernmedia.zxing.activity.CaptureActivity;
 import cn.com.modernmediaslate.SlateApplication;
 import cn.com.modernmediaslate.model.User;
 import cn.com.modernmediaslate.unit.FavObservable;
@@ -14,7 +15,6 @@ import cn.com.modernmediaslate.unit.Tools;
 import cn.com.modernmediausermodel.ArticleCardListActivity;
 import cn.com.modernmediausermodel.CardDetailActivity;
 import cn.com.modernmediausermodel.MessageActivity;
-import cn.com.modernmediausermodel.ModifyEmailActivity;
 import cn.com.modernmediausermodel.ModifyPwdActivity;
 import cn.com.modernmediausermodel.MyCoinActivity;
 import cn.com.modernmediausermodel.MyCoinUseNoticeActivity;
@@ -48,6 +48,8 @@ public class UserPageTransfer {
 	public static final int GOTO_HOME_PAGE = 1;// 登录完成进入我的首页
 	public static final int GOTO_MESSAGE = 2;// 登录完成进入通知中心页
 	public static final int GOTO_MY_COIN = 3;// 登录完成进入我的金币页
+	public static final int GOTO_BUSINESS_NOTE = 4;// 登录完成进入商业笔记页
+	public static final int GOTO_MY_FAV = 5;// 登录完成进入我的收藏页
 	public static final int TO_LOGIN_BY_WRITE = 1001;// 填写卡片前登录回来刷新页面
 	public static final int AFTER_WRITE_CARD = 1002;// 填写卡片回来
 	public static final int TO_LOGIN_BY_ARTICLE_CARD = 1003;// 查看文章摘要，未登录状态下进入登录页的请求code
@@ -113,13 +115,16 @@ public class UserPageTransfer {
 	}
 
 	/**
-	 * 跳转至用户资料页面
+	 * 跳转至商业笔记页面
 	 */
 	public static void gotoUserCardInfoActivity(Context context, User user,
 			boolean finish) {
-		Bundle bundle = new Bundle();
-		bundle.putSerializable(UserCardView.KEY_USER, user);
-		transfer(context, UserCardInfoActivity.class, bundle, finish, true);
+		if (isLogin(context)) {
+			Bundle bundle = new Bundle();
+			bundle.putSerializable(UserCardView.KEY_USER, user);
+			transfer(context, UserCardInfoActivity.class, bundle, finish, true);
+		} else
+			gotoLoginActivity(context, GOTO_BUSINESS_NOTE);
 	}
 
 	/**
@@ -157,9 +162,17 @@ public class UserPageTransfer {
 	}
 
 	/**
+	 * 跳转至扫一扫页面
+	 * 
+	 */
+	public static void gotoScanActivity(Context context, boolean finish) {
+		transfer(context, CaptureActivity.class, null, finish, false);
+	}
+
+	/**
 	 * 跳转至消息页
 	 * 
-	 * @param mMessage
+	 * @param msg
 	 */
 	public static void gotoMessageActivity(Context context, Message msg,
 			boolean finish) {
@@ -215,9 +228,13 @@ public class UserPageTransfer {
 	 * 跳转至收藏夹界面
 	 */
 	public static void gotoFavoritesActivity(Context context) {
+		// if (isLogin(context)) {
 		Bundle bundle = new Bundle();
 		if (UserApplication.favActivity != null)
 			transfer(context, UserApplication.favActivity, bundle, false, true);
+		// } else
+		// gotoLoginActivity(context, GOTO_MY_FAV);
+
 	}
 
 	/**
@@ -345,6 +362,11 @@ public class UserPageTransfer {
 			gotoMessageActivity(context, message, true);
 		} else if (gotoPage == GOTO_MY_COIN) {
 			gotoMyCoinActivity(context, true, false);
+		} else if (gotoPage == GOTO_BUSINESS_NOTE) {
+			gotoUserCardInfoActivity(context,
+					SlateDataHelper.getUserLoginInfo(context), false);
+		} else if (gotoPage == GOTO_MY_FAV) {
+			gotoFavoritesActivity(context);
 		} else {
 			return false;
 		}
@@ -391,16 +413,6 @@ public class UserPageTransfer {
 	public static void gotoMyCoinUseNoticeActivity(Context context) {
 		if (isLogin(context))
 			transfer(context, MyCoinUseNoticeActivity.class, null, false, true);
-		else
-			gotoLoginActivity(context, 0);
-	}
-
-	/**
-	 * 跳转到修改邮箱页面
-	 */
-	public static void gotoModifyEmailActivity(Context context) {
-		if (isLogin(context))
-			transfer(context, ModifyEmailActivity.class, null, false, true);
 		else
 			gotoLoginActivity(context, 0);
 	}

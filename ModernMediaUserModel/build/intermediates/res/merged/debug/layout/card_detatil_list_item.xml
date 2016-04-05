@@ -55,4 +55,4 @@
         android:layout_below="@+id/card_detail_comment_content"
         android:layout_marginTop="@dimen/list_item_fav_margin_bottom" />
 
-</RelativeLayout><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/layout/card_detatil_list_item.xml -->
+</RelativeLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaUserModel/src/main/res/layout/card_detatil_list_item.xml -->

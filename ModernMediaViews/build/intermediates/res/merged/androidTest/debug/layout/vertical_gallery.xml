@@ -17,4 +17,4 @@
         android:layout_marginTop="@dimen/index_titlebar_height"
         android:clipChildren="false" />
 
-</LinearLayout><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaViews/src/main/res/layout/vertical_gallery.xml --><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaViews/build/intermediates/bundles/debug/res/layout/vertical_gallery.xml -->
+</LinearLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/layout/vertical_gallery.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/bundles/debug/res/layout/vertical_gallery.xml -->

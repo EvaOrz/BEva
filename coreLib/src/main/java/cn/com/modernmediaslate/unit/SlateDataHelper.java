@@ -140,7 +140,7 @@ public class SlateDataHelper {
 	 * @param userName
 	 * @return
 	 */
-	private static String getAvatarUrl(Context context, String userName) {
+	public static String getAvatarUrl(Context context, String userName) {
 		return getPref(context).getString(userName, "");
 	}
 

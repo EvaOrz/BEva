@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.com.modernmedia.CommonApplication;
+import cn.com.modernmedia.CommonMainActivity;
 import cn.com.modernmedia.listener.FetchEntryListener;
 import cn.com.modernmedia.model.AppValue;
 import cn.com.modernmedia.model.TagInfoList;
@@ -125,7 +126,7 @@ public class NewColumnView extends BaseView implements FetchEntryListener {
 
 			@Override
 			public void onClick(View v) {
-				((ViewsMainActivity) mContext).gotoSelectColumnActivity();
+				((CommonMainActivity) mContext).gotoSelectColumnActivity();
 			}
 		});
 	}

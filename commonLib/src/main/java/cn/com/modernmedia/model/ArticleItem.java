@@ -70,6 +70,17 @@ public class ArticleItem extends Entry {
 	private String groupdisplayname = "";// 推荐首页用来显示文章item的text
 	private int groupdisplaycolor;// 推荐首页用来显示文章item的标题颜色
 
+	// 3.3.0 特刊栏目标示
+	private int isTekan = 0;// 1：特刊文章
+
+	public int getIsTekan() {
+		return isTekan;
+	}
+
+	public void setIsTekan(int isTekan) {
+		this.isTekan = isTekan;
+	}
+
 	public ArticleItem() {
 		super();
 	}
@@ -682,7 +693,7 @@ public class ArticleItem extends Entry {
 	 * 音频文章model
 	 * 
 	 * @author lusiyuan
-	 *
+	 * 
 	 */
 	public static class Audio extends Entry {
 

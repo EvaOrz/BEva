@@ -31,7 +31,7 @@ public class UserCardListAdapter extends CheckScrollAdapter<CardItem> {
 
 	private Context mContext;
 	private Card card;
-	private boolean isForUser = true; // 是否是登录用户资料,默认是
+//	private boolean isForUser = true; // 是否是登录用户资料,默认是
 	private CardListPop pop;
 
 	public UserCardListAdapter(Context context) {
@@ -67,19 +67,19 @@ public class UserCardListAdapter extends CheckScrollAdapter<CardItem> {
 		TextView userName = viewHolder.getView(R.id.item_user_name);
 		TextView time = viewHolder.getView(R.id.time);
 		// 显示某一用户的卡片列表时，不需要显示头像及名称；广场显示则相反
-		if (!isForUser) {
+//		if (!isForUser) {
 			userInfoLayout.setVisibility(View.VISIBLE);
 			UserTools.transforCircleBitmap(mContext,
 					R.drawable.avatar_placeholder, avatar);
-		} else {
-			userInfoLayout.setVisibility(View.GONE);
-		}
+//		} else {
+//			userInfoLayout.setVisibility(View.GONE);
+//		}
 
 		divider.setVisibility(position == 0 ? View.GONE : View.VISIBLE);
 		if (cardItem != null) {
-			if (!isForUser) {
+//			if (!isForUser) {
 				doUserInfoLayout(userName, avatar, time, cardItem);
-			}
+//			}
 			// 笔记
 			if (!TextUtils.isEmpty(cardItem.getContents())) {
 				content.setText(cardItem.getContents());
@@ -140,9 +140,9 @@ public class UserCardListAdapter extends CheckScrollAdapter<CardItem> {
 	 * 
 	 * @param isForUser
 	 */
-	public void setIsForUser(boolean isForUser) {
-		this.isForUser = isForUser;
-	}
+//	public void setIsForUser(boolean isForUser) {
+//		this.isForUser = isForUser;
+//	}
 
 	/**
 	 * 广场需要判断是否登录;可能刚进页面的时候是未登录状态，所以时时获取一下

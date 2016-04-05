@@ -5,4 +5,4 @@
             android:endColor="@android:color/transparent"
             android:radius="2dp"
             android:angle="270"/>
-</shape><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/drawable/nav_bar_shadow.xml --><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/bundles/debug/res/drawable/nav_bar_shadow.xml -->
+</shape><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaUserModel/src/main/res/drawable/nav_bar_shadow.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaUserModel/build/intermediates/bundles/debug/res/drawable/nav_bar_shadow.xml -->

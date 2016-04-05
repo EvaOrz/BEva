@@ -60,6 +60,7 @@ public class GetAdvListOperate extends BaseOperate {
 				advItem.setEndTime(obj.optString("endTime", ""));
 				advItem.setAdvId(obj.optInt("advId", -1));
 				advItem.setAppId(obj.optInt("appId", -1));
+				advItem.setAutoClose(obj.optInt("",0));
 				advItem.setDeviceType(obj.optInt("deviceType", -1));
 				advItem.setAdvType(obj.optInt("advType", -1));
 				advItem.setTagname(obj.optString("tagname", ""));

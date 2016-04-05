@@ -6,4 +6,4 @@
     <item android:drawable="@drawable/cardlist_fav_tapped" android:state_pressed="true"></item>
     <item android:drawable="@drawable/cardlist_fav" android:state_window_focused="false"/>
 
-</selector><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/drawable/card_item_fav_select.xml -->
+</selector><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaUserModel/src/main/res/drawable/card_item_fav_select.xml -->

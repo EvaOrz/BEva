@@ -17,12 +17,11 @@ import android.widget.FrameLayout.LayoutParams;
 import android.widget.ImageView;
 import android.widget.TextView;
 import cn.com.modernmedia.CommonApplication;
+import cn.com.modernmedia.model.AppValue;
 import cn.com.modernmedia.model.TagInfoList.TagInfo;
 import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmedia.util.DataHelper;
 import cn.com.modernmedia.views.R;
-import cn.com.modernmedia.widget.GifView;
-import cn.com.modernmediaslate.SlateApplication;
 import cn.com.modernmediaslate.model.Entry;
 
 /**
@@ -180,6 +179,9 @@ public class GridViewAdapter extends BaseAdapter {
 		public TextView weeklyTitle;// iweekly标签名
 		public FrameLayout back;
 		public ImageView cover, delete;
-
+	}
+	
+	public List<TagInfo> getTagsList(){
+		return tags;
 	}
 }

@@ -2,123 +2,130 @@
 <items version="2" >
 
     <item
-        jar="/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/jars/libs/mta-sdk-1.0.0.jar"
+        jar="/Users/Eva./.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/1.6/596daefa34b9ea58eac9677b23325b7e60eae948/gson-1.6.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="596daefa34b9ea58eac9677b23325b7e60eae948">
+        <dex dex="/Users/Eva./Desktop/businessweek_tag/ibloomberg/build/intermediates/pre-dexed/debug/gson-1.6-b82f75b6b3360e86060762af2704b7cb1045b448.jar" />
+    </item>
+    <item
+        jar="/Users/Eva./Desktop/businessweek_tag/ibloomberg/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/jars/libs/zxing.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="e88c14e6e7daa0fa65172a62b54ee6a16ff4162d">
+        <dex dex="/Users/Eva./Desktop/businessweek_tag/ibloomberg/build/intermediates/pre-dexed/debug/zxing-502df2bb9c4710bf930f9fc188a5606e73a20406.jar" />
+    </item>
+    <item
+        jar="/Users/Eva./Desktop/businessweek_tag/ibloomberg/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/jars/libs/weibosdkcore.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="06e990ea2d7b7ccd30cea6c5367314d7314d9f40">
+        <dex dex="/Users/Eva./Desktop/businessweek_tag/ibloomberg/build/intermediates/pre-dexed/debug/weibosdkcore-08c98a6ebf8ce239e4edda34e7b65e4c607f7a8d.jar" />
+    </item>
+    <item
+        jar="/Users/Eva./Desktop/businessweek_tag/ibloomberg/build/intermediates/exploded-aar/businessweek_tag/modernMediaViews/unspecified/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="4bb65948394619da48720c277cfcf4298ac77f7b">
+        <dex dex="/Users/Eva./Desktop/businessweek_tag/ibloomberg/build/intermediates/pre-dexed/debug/classes-5610d49fe73c24510c3b17894c4a6ae8aff9bd2e.jar" />
+    </item>
+    <item
+        jar="/Users/Eva./Desktop/businessweek_tag/ibloomberg/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/jars/libs/libammsdk.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="47f4993168154fa73377d7470b9f6887d48a8023">
+        <dex dex="/Users/Eva./Desktop/businessweek_tag/ibloomberg/build/intermediates/pre-dexed/debug/libammsdk-c86baa6e9e5a3deb0a48ad5d6f4f8f5bfd60b3b4.jar" />
+    </item>
+    <item
+        jar="/Users/Eva./Desktop/businessweek_tag/ibloomberg/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/jars/libs/FlurryAnalytics_3.3.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="8d24d6cee64bfc688a6a306a6de04dee63b86801">
+        <dex dex="/Users/Eva./Desktop/businessweek_tag/ibloomberg/build/intermediates/pre-dexed/debug/FlurryAnalytics_3.3.0-c80dfce959f4f82f1aa81aac2672d3ab986e0a15.jar" />
+    </item>
+    <item
+        jar="/Users/Eva./Desktop/businessweek_tag/ibloomberg/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/jars/libs/open_sdk.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="73915005d14af2994f235034b9f9832d666a6ec9">
+        <dex dex="/Users/Eva./Desktop/businessweek_tag/ibloomberg/build/intermediates/pre-dexed/debug/open_sdk-4deb05886c6059caeed52823685e48cc239e09ad.jar" />
+    </item>
+    <item
+        jar="/Users/Eva./Desktop/businessweek_tag/ibloomberg/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/jars/libs/mta-sdk-1.0.0.jar"
         jumboMode="false"
         revision="23.0.1"
         sha1="1d1a215c3acd13ef011b8391cab495f7760c2a1d">
-        <dex dex="/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/pre-dexed/debug/mta-sdk-1.0.0-e38987a41f2ca896f2eed69fbf71b8a5275d5061.jar" />
+        <dex dex="/Users/Eva./Desktop/businessweek_tag/ibloomberg/build/intermediates/pre-dexed/debug/mta-sdk-1.0.0-596f3f8025494458837004891f493574f14b6d23.jar" />
+    </item>
+    <item
+        jar="/Users/Eva./Desktop/businessweek_tag/ibloomberg/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="f0942630fd0aae69561d5c77386230de500943eb">
+        <dex dex="/Users/Eva./Desktop/businessweek_tag/ibloomberg/build/intermediates/pre-dexed/debug/classes-0cff997b028cf9d457a58cb821af387d6ebd0530.jar" />
     </item>
     <item
         jar="/Users/Eva./Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/20.0.0/support-annotations-20.0.0.jar"
         jumboMode="false"
         revision="23.0.1"
         sha1="9d9013e9ff35fc3756411e62873c363c70c638fa">
-        <dex dex="/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/pre-dexed/debug/support-annotations-20.0.0-4a22c9f2ad629172585b468479d0c01d689b5f37.jar" />
+        <dex dex="/Users/Eva./Desktop/businessweek_tag/ibloomberg/build/intermediates/pre-dexed/debug/support-annotations-20.0.0-4a22c9f2ad629172585b468479d0c01d689b5f37.jar" />
     </item>
     <item
-        jar="/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/jars/libs/dd-plist.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="f20e82467afa621db623c8e33be18783a57af1c4">
-        <dex dex="/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/pre-dexed/debug/dd-plist-a77f5fb12d5380d4e05479f35cb95f7e4670032f.jar" />
-    </item>
-    <item
-        jar="/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/jars/libs/libammsdk.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="47f4993168154fa73377d7470b9f6887d48a8023">
-        <dex dex="/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/pre-dexed/debug/libammsdk-2dcfad945777ca6062eaa08c0329791d804c380f.jar" />
-    </item>
-    <item
-        jar="/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/jars/libs/umeng-analytics-v5.2.4.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="0f9eccf79ae6006e4346725b09114182dca0c023">
-        <dex dex="/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/pre-dexed/debug/umeng-analytics-v5.2.4-11a77ef61245b08959b97a24ea40a7074662c401.jar" />
-    </item>
-    <item
-        jar="/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/jars/libs/open_sdk.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="73915005d14af2994f235034b9f9832d666a6ec9">
-        <dex dex="/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/pre-dexed/debug/open_sdk-2dbe39864ab421958e86d3b4b979a6c471074915.jar" />
-    </item>
-    <item
-        jar="/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/jars/libs/alipaySDK-20150610.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="5a05e35493f2b4712dda31da3625a4a7459dc088">
-        <dex dex="/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/pre-dexed/debug/alipaySDK-20150610-b9554382dc7dc7ba56c8e9e6eb54c495776f670a.jar" />
-    </item>
-    <item
-        jar="/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/jars/libs/internal_impl-20.0.0.jar"
+        jar="/Users/Eva./Desktop/businessweek_tag/ibloomberg/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/jars/libs/internal_impl-20.0.0.jar"
         jumboMode="false"
         revision="23.0.1"
         sha1="e40b3078e3fbd353c9f44da8df25a8fc0078209d">
-        <dex dex="/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/pre-dexed/debug/internal_impl-20.0.0-880c4e9219a266b7dc9d7bcef0b6546445121405.jar" />
+        <dex dex="/Users/Eva./Desktop/businessweek_tag/ibloomberg/build/intermediates/pre-dexed/debug/internal_impl-20.0.0-464b83f2831a9d495107bc472cd3d1938de8d9f3.jar" />
     </item>
     <item
-        jar="/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/jars/classes.jar"
+        jar="/Users/Eva./Desktop/businessweek_tag/ibloomberg/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/jars/libs/umeng-analytics-v5.2.4.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="1e3c5124ae3f58174d483119dc69caebdb86969e">
-        <dex dex="/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/pre-dexed/debug/classes-ca71bdcddd7d2d81477e73a12c3893e3758200d4.jar" />
+        sha1="0f9eccf79ae6006e4346725b09114182dca0c023">
+        <dex dex="/Users/Eva./Desktop/businessweek_tag/ibloomberg/build/intermediates/pre-dexed/debug/umeng-analytics-v5.2.4-5b9c1f31f5d35fe7c0190547c6ce3af39de8aed1.jar" />
     </item>
     <item
-        jar="/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/jars/classes.jar"
+        jar="/Users/Eva./Desktop/businessweek_tag/ibloomberg/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/jars/classes.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="8694693636ab36910c8100ce527c258ff3ebece0">
-        <dex dex="/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/pre-dexed/debug/classes-965812b84a7b5efd9add48e10a29c479996b2057.jar" />
+        sha1="9b8e8e09feb87dd62e5a943939428c3fd0b73296">
+        <dex dex="/Users/Eva./Desktop/businessweek_tag/ibloomberg/build/intermediates/pre-dexed/debug/classes-048f3dfed85f6ce3dd7ea75407aff8bc41c1979a.jar" />
     </item>
     <item
-        jar="/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/jars/libs/Parse-1.3.5.jar"
+        jar="/Users/Eva./Desktop/businessweek_tag/ibloomberg/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="beee891a6536d2b20fee4a8c59e4335dd3e1ebfe">
+        <dex dex="/Users/Eva./Desktop/businessweek_tag/ibloomberg/build/intermediates/pre-dexed/debug/classes-3a367ed53792b1cf0e9ea708ef1f684d044aa70d.jar" />
+    </item>
+    <item
+        jar="/Users/Eva./Desktop/businessweek_tag/ibloomberg/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/jars/libs/Parse-1.3.5.jar"
         jumboMode="false"
         revision="23.0.1"
         sha1="b77712127b728297e9858005b6da5ba4099a1285">
-        <dex dex="/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/pre-dexed/debug/Parse-1.3.5-14e03ef1ba513b7983c11a5d3e53d4effd1eb70f.jar" />
+        <dex dex="/Users/Eva./Desktop/businessweek_tag/ibloomberg/build/intermediates/pre-dexed/debug/Parse-1.3.5-9c923f728a65dfca7e46615fdb5abf109eba648b.jar" />
     </item>
     <item
-        jar="/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/jars/classes.jar"
+        jar="/Users/Eva./Desktop/businessweek_tag/ibloomberg/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/jars/classes.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="5728e49f7be5cfd6b8f4bf3251316caf52bf4f35">
-        <dex dex="/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/pre-dexed/debug/classes-ddb864aa98c8bc1eca42ba0ec21485184bb7f8ed.jar" />
+        sha1="8694693636ab36910c8100ce527c258ff3ebece0">
+        <dex dex="/Users/Eva./Desktop/businessweek_tag/ibloomberg/build/intermediates/pre-dexed/debug/classes-c5cbc29dac00a795e60561bb59bafc06a3c289f6.jar" />
     </item>
     <item
-        jar="/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/jars/libs/FlurryAnalytics_3.3.0.jar"
+        jar="/Users/Eva./Desktop/businessweek_tag/ibloomberg/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/jars/libs/alipaySDK-20150610.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="8d24d6cee64bfc688a6a306a6de04dee63b86801">
-        <dex dex="/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/pre-dexed/debug/FlurryAnalytics_3.3.0-9bdbc3248feb50bfcf9f50ff34246363e0bd3460.jar" />
+        sha1="5a05e35493f2b4712dda31da3625a4a7459dc088">
+        <dex dex="/Users/Eva./Desktop/businessweek_tag/ibloomberg/build/intermediates/pre-dexed/debug/alipaySDK-20150610-51b16b5e08806ac52612b0ae330f3e34f20a6ec4.jar" />
     </item>
     <item
-        jar="/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/modernMediaViews/unspecified/jars/classes.jar"
+        jar="/Users/Eva./Desktop/businessweek_tag/ibloomberg/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/jars/libs/dd-plist.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="9a28be1e218783a0ea9420f81628bab78a2a863e">
-        <dex dex="/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/pre-dexed/debug/classes-0bbcae2ffd09f55a5f7d08468afe32cb0cabc60d.jar" />
-    </item>
-    <item
-        jar="/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/jars/libs/weibosdkcore.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="06e990ea2d7b7ccd30cea6c5367314d7314d9f40">
-        <dex dex="/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/pre-dexed/debug/weibosdkcore-437bd9b1dd61727de54b4550c756b109ba360ded.jar" />
-    </item>
-    <item
-        jar="/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="93551a366254fdf402762e78b49671a1bcb1770d">
-        <dex dex="/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/pre-dexed/debug/classes-6614631ab9d556247b5f9b2b6d54385a021ee5f7.jar" />
-    </item>
-    <item
-        jar="/Users/Eva./.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/1.6/596daefa34b9ea58eac9677b23325b7e60eae948/gson-1.6.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="596daefa34b9ea58eac9677b23325b7e60eae948">
-        <dex dex="/Users/Eva./Desktop/businessweek_tag/businessweekforAndroidnewbranch20130403/build/intermediates/pre-dexed/debug/gson-1.6-b82f75b6b3360e86060762af2704b7cb1045b448.jar" />
+        sha1="f20e82467afa621db623c8e33be18783a57af1c4">
+        <dex dex="/Users/Eva./Desktop/businessweek_tag/ibloomberg/build/intermediates/pre-dexed/debug/dd-plist-0cbc91e8ef9e20f6451e062812dace0e970f5324.jar" />
     </item>
 
 </items>

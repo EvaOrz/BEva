@@ -55,6 +55,7 @@ public class GetBandStatusOperate extends UserModelBaseOperate {
 			user.setBandWeixin(getBool(jsonObject.optInt("weixin")));
 			user.setBandWeibo(getBool(jsonObject.optInt("weibo")));
 			user.setBandQQ(getBool(jsonObject.optInt("qq")));
+			user.setValEmail(getBool(jsonObject.optInt("valemail")));
 		}
 	}
 

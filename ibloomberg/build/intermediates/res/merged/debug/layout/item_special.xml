@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="110dp"
+        android:layout_height="150dp" >
+
+        <ImageView
+            android:id="@+id/special_item_cover"
+            android:layout_width="100dp"
+            android:layout_height="140dp"
+            android:layout_margin="5dp"
+            android:scaleType="fitXY" />
+
+        <ImageView
+            android:id="@+id/special_pay_logo"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="7dp"
+            android:layout_marginTop="7dp"
+            android:src="@drawable/needmoney_big_pic"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+</LinearLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/ibloomberg/src/main/res/layout/item_special.xml -->

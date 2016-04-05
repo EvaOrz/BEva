@@ -318,7 +318,7 @@ public class TagInfoList extends Entry {
 		// tagName为栏目，获取文章列表时使用该时间戳，以期获得最新的文章列表
 		private String articleupdatetime = "";
 		private String coloumnupdatetime = "";
-		// 1.app类 2.issue类 3.column类 4.独立栏目
+		// 1.app类 2.issue类 3.column类 4.独立栏目 12.特刊
 		private int group = 0;
 		// 是否可以订阅，1代表是，group此时必须为3
 		private int enablesubscribe = 1;
@@ -344,6 +344,15 @@ public class TagInfoList extends Entry {
 		private int isRadio = 0;// 1： 电台栏目
 		private int type = 0;// 栏目类型：0默认、7链接、11电台、12活动
 		private int isDelete = 0;// 1：保存订阅列表时，删除该栏目
+		private int isPay = 0;// 0：免费； 1：付费专享
+
+		public int getIsPay() {
+			return isPay;
+		}
+
+		public void setIsPay(int isPay) {
+			this.isPay = isPay;
+		}
 
 		public int getIsDelete() {
 			return isDelete;

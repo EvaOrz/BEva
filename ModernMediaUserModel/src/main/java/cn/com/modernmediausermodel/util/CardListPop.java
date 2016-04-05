@@ -34,7 +34,7 @@ public class CardListPop {
 	private int width, padding;
 	private BaseAdapter adapter;
 	private Button favBtn;
-	private String uid;
+	private String myUid;// 当前用户
 
 	public CardListPop(Context context, BaseAdapter adapter) {
 		mContext = context;
@@ -88,7 +88,7 @@ public class CardListPop {
 
 					@Override
 					public void onClick(View v) {
-						if (!TextUtils.isEmpty(checkUid())) {
+						if (!TextUtils.isEmpty(checkLogin())) {
 							UserPageTransfer.gotoWriteComment(mContext, -1,
 									item.getId(), true);
 						}
@@ -102,7 +102,7 @@ public class CardListPop {
 	 * 
 	 * @return
 	 */
-	private String checkUid() {
+	private String checkLogin() {
 		User user = SlateDataHelper.getUserLoginInfo(mContext);
 		if (user == null) {
 			UserPageTransfer.gotoLoginActivityRequest(mContext,
@@ -118,13 +118,12 @@ public class CardListPop {
 	 * @param item
 	 */
 	private void addCardFav(final CardItem item) {
-		uid = checkUid();
-		if (TextUtils.isEmpty(uid))
+		myUid = checkLogin();
+		if (TextUtils.isEmpty(myUid) || myUid.equals(item.getUid()))
 			return;
 		Tools.showLoading(mContext, true);
-		UserOperateController.getInstance(mContext).addCardFav(
-				Tools.getUid(mContext), item.getId(),
-				new UserFetchEntryListener() {
+		UserOperateController.getInstance(mContext).addCardFav(myUid,
+				item.getId(), new UserFetchEntryListener() {
 
 					@Override
 					public void setData(Entry entry) {
@@ -152,13 +151,12 @@ public class CardListPop {
 	 * @param cardId
 	 */
 	private void deleteCardFav(final CardItem item) {
-		uid = checkUid();
-		if (TextUtils.isEmpty(uid))
+		myUid = checkLogin();
+		if (TextUtils.isEmpty(myUid) || myUid.equals(item.getUid()))
 			return;
 		Tools.showLoading(mContext, true);
-		UserOperateController.getInstance(mContext).cancelCardFav(
-				Tools.getUid(mContext), item.getId(),
-				new UserFetchEntryListener() {
+		UserOperateController.getInstance(mContext).cancelCardFav(myUid,
+				item.getId(), new UserFetchEntryListener() {
 
 					@Override
 					public void setData(Entry entry) {

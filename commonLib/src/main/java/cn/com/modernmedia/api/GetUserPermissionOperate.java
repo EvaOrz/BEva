@@ -8,7 +8,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
-import android.util.Log;
 import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmedia.util.DESCoder;
 import cn.com.modernmediaslate.model.User;
@@ -32,7 +31,7 @@ public class GetUserPermissionOperate extends BaseOperate {
 		// post 参数设置
 		JSONObject object = new JSONObject();
 		try {
-			String uid = SlateDataHelper.getUid(context);
+//			String uid = SlateDataHelper.getUid(context);
 			object.put("usertoken", token);
 			object.put("appid", ConstData.getInitialAppId());
 		} catch (JSONException e) {

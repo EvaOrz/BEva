@@ -20,8 +20,8 @@ public class WBWebView extends WebView {
 
 	public WBWebView(Context context) {
 		this(context, null);
-		mContext = context;
-		init();
+//		mContext = context;
+//		init();
 	}
 
 	public WBWebView(Context context, AttributeSet attrs) {
@@ -37,16 +37,19 @@ public class WBWebView extends WebView {
 		WebSettings webSettings = getSettings();
 
 		webSettings.setJavaScriptEnabled(true);
+		
 		webSettings.setSaveFormData(false);
 		/** bug fix **/
 		setSaveEnabled(false);
+		webSettings.setDomStorageEnabled(true);
 		webSettings.setSavePassword(false);
 		webSettings.setSupportZoom(false);
 
 		/**
 		 * 自定义UserAgent "Slate"
 		 */
-		webSettings.setUserAgentString( webSettings.getUserAgentString() +"Slate");
+		webSettings.setUserAgentString(webSettings.getUserAgentString()
+				+ "Slate");
 		Log.e("UserAgent", webSettings.getUserAgentString());
 
 		// JS_NAME是自己定义的，供javascript访问的接口
@@ -81,6 +84,16 @@ public class WBWebView extends WebView {
 
 	public WBWebridge getWebridge() {
 		return mWebridge;
+	}
+
+	/**
+	 * 设置上拉页面变白
+	 */
+	@Override
+	public void setVerticalScrollbarOverlay(boolean overlay) {
+		if (overlay) {
+			this.setOverScrollMode(OVER_SCROLL_NEVER);
+		}
 	}
 
 }

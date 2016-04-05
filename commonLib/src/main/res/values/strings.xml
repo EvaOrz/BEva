@@ -86,6 +86,7 @@
 
     <!-- 绑定账号 -->
     <string name="band_succeed">绑定成功</string>
+    <string name="band_failed">绑定出错</string>
     <string name="uniq_sina">该账号已被其他现代移动社区账号绑定</string>
     <string name="band_email_succeed">邮件已发送，请前往邮箱完成绑定。</string>
 
@@ -94,9 +95,15 @@
     <string name="pay_for_share">请付费后分享</string>
     <string name="pay_success">支付成功。</string>
     <string name="ibloomberg_now_title">即时头条-商业周刊</string>
-
     <!-- 电台 -->
     <string name="music_title">电台</string>
     <string name="adv_im_go">跳出</string>
+
+    <!-- 扫一扫 -->
+    <string name="scan">扫一扫</string>
+    <string name="no_photo">没有找到图片</string>
+    <string name="choose_qr_photo">选择二维码图片</string>
+    <string name="no_qrcode">照片中未识别到二维码</string>
+    <string name="unkown_qrcode">无法识别二维码内容</string>
 
 </resources>

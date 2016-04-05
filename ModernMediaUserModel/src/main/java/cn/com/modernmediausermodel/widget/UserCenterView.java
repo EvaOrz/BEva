@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmediaslate.SlateApplication;
 import cn.com.modernmediaslate.model.Entry;
@@ -34,7 +35,6 @@ import cn.com.modernmediausermodel.util.UserTools;
  * 用户中心
  * 
  * @author user
- * 
  */
 public class UserCenterView extends RelativeLayout implements OnClickListener {
 	private ImageView avatar, messageDot;
@@ -45,7 +45,7 @@ public class UserCenterView extends RelativeLayout implements OnClickListener {
 	private Context mContext;
 	private User user;
 	public RelativeLayout businessPage, homePage, myCoin, cardFind, myFav,
-			messageLayout, settingLayout, musicLayout;
+			messageLayout, settingLayout, musicLayout, scanLayout;
 	private RelativeLayout cardInfoLayout;
 	private Button login;
 	private boolean accountHasChecked = false;
@@ -90,6 +90,8 @@ public class UserCenterView extends RelativeLayout implements OnClickListener {
 		fansLayout = (LinearLayout) findViewById(R.id.user_center_layout_fans);
 		settingLayout = (RelativeLayout) findViewById(R.id.user_center_layout_setting);
 		musicLayout = (RelativeLayout) findViewById(R.id.user_center_music);
+		scanLayout = (RelativeLayout) findViewById(R.id.user_center_scan);
+
 		if (ConstData.getAppId() == 20) {// iweekly电台栏目
 			musicLayout.setVisibility(View.VISIBLE);
 		}
@@ -108,6 +110,7 @@ public class UserCenterView extends RelativeLayout implements OnClickListener {
 		msgCenter.setOnClickListener(this);
 		settingLayout.setOnClickListener(this);
 		musicLayout.setOnClickListener(this);
+		scanLayout.setOnClickListener(this);
 
 		// 如果存在我的金币页面时，通知中心以数字形式存在
 		if (SlateApplication.mConfig.getHas_coin() == 1) {
@@ -142,7 +145,6 @@ public class UserCenterView extends RelativeLayout implements OnClickListener {
 	/**
 	 * 获得用户的卡片信息
 	 * 
-	 * @param users
 	 */
 	public void getUserCardInfo() {
 		// showLoading();
@@ -162,7 +164,6 @@ public class UserCenterView extends RelativeLayout implements OnClickListener {
 
 	/**
 	 * 获取消息列表
-	 * 
 	 */
 	public void getMessageList() {
 		controller.getMessageList(Tools.getUid(mContext),
@@ -290,6 +291,8 @@ public class UserCenterView extends RelativeLayout implements OnClickListener {
 			UserPageTransfer.gotoSettingActivity(mContext, false);
 		} else if (id == R.id.user_center_music) {// 临时电台页面
 			UserPageTransfer.gotoMusicActivity(mContext, false);
+		} else if (id == R.id.user_center_scan) {
+			UserPageTransfer.gotoScanActivity(mContext, false);
 		}
 	}
 

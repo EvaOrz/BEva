@@ -53,6 +53,12 @@ public class LogHelper {
 	public static final String ANDROID_SUBSCRIBE_ISSUE_NAME = "android-subscribe-issue-name";
 	public static final String ANDROID_NEXT_ARTICLE_AFTER_PUSH = "android-next_article_after_push";
 
+	// 底部导航点击统计
+	public static final String ANDROID_BOTTOM_NAV_NEWS = "android-bottom-nav-news";
+	public static final String ANDROID_BOTTOM_NAV_LIVE = "android-bottom-nav-live";
+	public static final String ANDROID_BOTTOM_NAV_SPECIAL = "android-bottom-nav-special";
+	public static final String ANDROID_BOTTOM_NAV_MINE = "android-bottom-nav-mine";
+
 	/**
 	 * 打开页面统计
 	 * 
@@ -593,6 +599,46 @@ public class LogHelper {
 				CommonApplication.getMyUUID() + "|" + Tools.getUid(context)
 						+ "|" + articleId + "|" + catId);
 		return map;
+	}
+
+	/**
+	 * 点击底部导航 新闻
+	 */
+	public static void checkBottomNavNews(Context context) {
+		Map<String, String> map = setDefaultMap(context, "0", "0");
+		FlurryAgent.logEvent(ANDROID_BOTTOM_NAV_NEWS, map);
+		SelectionHelper.getInstance()
+				.add(context, ANDROID_BOTTOM_NAV_NEWS, map);
+	}
+
+	/**
+	 * 点击底部导航 直播
+	 */
+	public static void checkBottomNavLive(Context context) {
+		Map<String, String> map = setDefaultMap(context, "0", "0");
+		FlurryAgent.logEvent(ANDROID_BOTTOM_NAV_LIVE, map);
+		SelectionHelper.getInstance()
+				.add(context, ANDROID_BOTTOM_NAV_LIVE, map);
+	}
+
+	/**
+	 * 点击底部导航 特刊
+	 */
+	public static void checkBottomNavSpecial(Context context) {
+		Map<String, String> map = setDefaultMap(context, "0", "0");
+		FlurryAgent.logEvent(ANDROID_BOTTOM_NAV_SPECIAL, map);
+		SelectionHelper.getInstance().add(context, ANDROID_BOTTOM_NAV_SPECIAL,
+				map);
+	}
+
+	/**
+	 * 点击底部导航 我（个人中心）
+	 */
+	public static void checkBottomNavMine(Context context) {
+		Map<String, String> map = setDefaultMap(context, "0", "0");
+		FlurryAgent.logEvent(ANDROID_BOTTOM_NAV_MINE, map);
+		SelectionHelper.getInstance()
+				.add(context, ANDROID_BOTTOM_NAV_MINE, map);
 	}
 
 }

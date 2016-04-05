@@ -182,18 +182,18 @@ public class BookActivity extends BaseActivity implements OnClickListener {
 	private void book() {
 		String log = "";
 		List<SubscribeColumn> cs = new ArrayList<SubscribeColumn>();
-		for (TagInfo tt : AppValue.ensubscriptColumnList.getList()) {// 遍历可订阅列表
-			if (tt.getIsFix() != 1) {// 3.1.4 固定栏目要删除
-				SubscribeColumn sub = new SubscribeColumn(tt.getTagName(),
-						null, 1);
-				for (TagInfo t : myTags) {// 遍历已订阅列表
-					if (TextUtils.equals(tt.getTagName(), t.getTagName())) {// 如果已订阅
-						sub.setIsDelete(0);
-						log += t.getTagName() + ",";
-					}
-				}
+		for (TagInfo t : myAdapter.getTagsList()) {// 遍历已订阅列表
+			if (t.getIsFix() != 1) {// 3.1.4 固定栏目要删除
+				SubscribeColumn sub = new SubscribeColumn(t.getTagName(), null,
+						0);
+				log += t.getTagName() + ",";
 				cs.add(sub);
 			}
+		}
+		for (TagInfo t : allAdapter.getTagsList()) {
+			SubscribeColumn sub = new SubscribeColumn(t.getTagName(), null, 1);
+			log += t.getTagName() + ",";
+			cs.add(sub);
 		}
 
 		LogHelper.subcribeColumn(this, log);// flurry
@@ -227,7 +227,6 @@ public class BookActivity extends BaseActivity implements OnClickListener {
 			Intent i = new Intent(this, LoginActivity.class);
 			startActivity(i);
 		}
-
 	}
 
 	@Override
@@ -276,7 +275,7 @@ public class BookActivity extends BaseActivity implements OnClickListener {
 			if (ischeck) {// 提交订阅
 				book();
 			} else {
-				order.setText("完成");
+				order.setText(R.string.complete);
 				for (int i = 0; i < myTags.size(); i++) {
 					if (myTags.get(i).getIsFix() != 1)
 						myTags.get(i).setCheck(true);

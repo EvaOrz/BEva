@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/name_margin_top"
-        android:textColor="@color/black_bg"
+        android:textColor="@color/white_bg"
         android:textSize="@dimen/dp15_textsize" />
 
     <LinearLayout
@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/card"
-            android:textColor="@color/black_bg"
+            android:textColor="@color/white_bg"
             android:textSize="@dimen/dp11_textsize" />
     </LinearLayout>
 
@@ -60,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/follow"
-            android:textColor="@color/black_bg"
+            android:textColor="@color/white_bg"
             android:textSize="@dimen/dp11_textsize" />
     </LinearLayout>
 
@@ -86,9 +86,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/fans"
-            android:textColor="@color/black_bg"
+            android:textColor="@color/white_bg"
             android:textSize="@dimen/dp11_textsize" />
     </LinearLayout>
 
 </RelativeLayout>
-<!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/layout/user_center_head.xml -->
+<!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaUserModel/src/main/res/layout/user_center_head.xml -->

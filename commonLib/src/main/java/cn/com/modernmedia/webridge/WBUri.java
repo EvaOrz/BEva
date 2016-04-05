@@ -3,6 +3,10 @@ package cn.com.modernmedia.webridge;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.com.modernmedia.model.ArticleItem;
+import cn.com.modernmedia.util.UriParse;
+import cn.com.modernmediaslate.model.Entry;
+
 import android.content.Context;
 import android.net.Uri;
 import android.text.TextUtils;
@@ -12,7 +16,7 @@ import android.util.Log;
  * uri分发机制
  * 
  * @author user
- *
+ * 
  */
 public class WBUri {
 	private Context mContext;
@@ -30,33 +34,29 @@ public class WBUri {
 	}
 
 	/**
-	 * 是否可以打开uri
+	 * 是否可以用slate协议打开uri
 	 * 
 	 * @param uriStr
 	 * @return
 	 */
 	private boolean canOpenURI(String uriStr) {
 		if (TextUtils.isEmpty(uriStr)) {
-			return false;
+			return true;
 		}
 
 		Uri uri = Uri.parse(uriStr);
 		String scheme = uri.getScheme();
 		String path = uri.getPath();
 		if (TextUtils.isEmpty(scheme) || TextUtils.isEmpty(path)) {
-			return false;
-		}
-
-		if (TextUtils.equals(scheme, mListener.scheme())) {
 			return true;
 		}
 
-		if (scheme.startsWith("http")
-				&& path.startsWith("/" + mListener.scheme())) {
-			// NOTE http://www.baidu.com/slate/article/1/2/3
+		if (scheme.equals("slate")) {
+			UriParse.clickSlate(mContext, uriStr,
+					new Entry[] { new ArticleItem() }, null, new Class<?>[0]);
 			return true;
 		}
-
+		Log.e("未能识别的uri  --1 ", uriStr);
 		return false;
 	}
 
@@ -66,9 +66,7 @@ public class WBUri {
 	 * @param uriStr
 	 */
 	public void openURI(String uriStr) {
-		if (!canOpenURI(uriStr)) {
-			mListener.unknownURI(uriStr);
-			Log.e("未能识别的uri  --1 ", uriStr);
+		if (canOpenURI(uriStr)) {
 			return;
 		}
 

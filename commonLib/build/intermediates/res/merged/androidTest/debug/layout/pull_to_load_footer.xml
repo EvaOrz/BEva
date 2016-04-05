@@ -38,4 +38,4 @@
             android:textSize="@dimen/footer_textsize" />
     </RelativeLayout>
 
-</LinearLayout><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/coreLib/src/main/res/layout/pull_to_load_footer.xml --><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/commonLib/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/coreLib/unspecified/res/layout/pull_to_load_footer.xml -->
+</LinearLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/coreLib/src/main/res/layout/pull_to_load_footer.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/commonLib/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/res/layout/pull_to_load_footer.xml -->

@@ -32,7 +32,7 @@ import cn.com.modernmediaslate.unit.Tools;
  * 支持的
  *      打开文章 slate://article/tagname/{tagname}/{articleId}/{page}/
  *      跳转到外部浏览器 slate://web/{http_url}
- *      跳转到内部浏览器 slate://webNoShare/{http_url}
+ *      跳转到内部浏览器 slate://webOnlyClose/{http_url}
  *      打开视频 slate://video/{videoUrl}
  *      跳转拨号页面 slate://tel:/{telNumber}
  *      关注微博，微信 slate://follow/{weibo||weixin}
@@ -559,7 +559,13 @@ public class UriParse {
 	 * @param url
 	 */
 	public static void doLinkWeb(Context context, String link) {
-		new WebViewPop(context, link, R.string.ibloomberg_now_title);
+		if (link.contains("adv")) {
+			// 即时头条点击链接
+			new WebViewPop(context, link, R.string.ibloomberg_now_title);
+		} else
+			// 文章
+			new WebViewPop(context, link, true);
+
 	}
 
 	/**

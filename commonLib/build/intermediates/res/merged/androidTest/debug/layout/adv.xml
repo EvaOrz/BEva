@@ -34,4 +34,4 @@
         android:textColor="@color/white_bg"
         android:textSize="@dimen/dp13_textsize" />
 
-</RelativeLayout><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/commonLib/src/main/res/layout/adv.xml --><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/commonLib/build/intermediates/bundles/debug/res/layout/adv.xml -->
+</RelativeLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/commonLib/src/main/res/layout/adv.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/commonLib/build/intermediates/bundles/debug/res/layout/adv.xml -->

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="dot_color">#FFC0C0C0</color>
+    <color name="dot_active_color">#FF424242</color>
+    
+    <!-- 底部导航文字-->
+    <color name="bottom_text_checked">#ff000000</color>
+    <color name="bottom_text">#858585</color>
+</resources>

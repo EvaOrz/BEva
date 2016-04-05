@@ -9,4 +9,4 @@
         android:interpolator="@android:anim/linear_interpolator"
         android:toXDelta="100%" />
 
-</set><!-- From: file:/Users/Eva./Desktop/businessweek_tag/coreLib/src/main/res/anim/right_out.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/ModernMediaViews/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/res/anim/right_out.xml -->
+</set><!-- From: file:/Users/Eva./Desktop/businessweek_tag/coreLib/src/main/res/anim/right_out.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/res/anim/right_out.xml -->

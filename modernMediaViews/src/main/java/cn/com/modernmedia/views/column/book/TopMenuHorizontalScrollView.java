@@ -3,8 +3,6 @@ package cn.com.modernmedia.views.column.book;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.w3c.dom.Text;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -12,7 +10,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,13 +18,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import cn.com.modernmedia.CommonMainActivity;
 import cn.com.modernmedia.model.TagInfoList.TagInfo;
 import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmedia.util.DataHelper;
 import cn.com.modernmedia.views.R;
 import cn.com.modernmedia.views.ViewsMainActivity;
 import cn.com.modernmedia.views.util.V;
-import cn.com.modernmediaslate.SlateApplication;
 
 /**
  * top_menu view
@@ -37,10 +34,11 @@ import cn.com.modernmediaslate.SlateApplication;
  */
 public class TopMenuHorizontalScrollView extends RelativeLayout {
 
-	private RelativeLayout view;
+	private LinearLayout view;
 	private Context mContext;
 	private HorizontalScrollView scrollView;
 	private LinearLayout layout;
+	private ImageView columnView, addView;
 	private List<View> checkSelectView = new ArrayList<View>();// 记录栏目列表
 	/**
 	 * 由于可能是独立栏目，并且绑定在列表上，导致每次切换的时候都还原，所以设置成静态变量
@@ -62,7 +60,7 @@ public class TopMenuHorizontalScrollView extends RelativeLayout {
 	}
 
 	private void init() {
-		view = (RelativeLayout) LayoutInflater.from(mContext).inflate(
+		view = (LinearLayout) LayoutInflater.from(mContext).inflate(
 				R.layout.top_menu, null);
 		addView(view);
 		if (ConstData.getAppId() == 20) {// 设置iweekly背景颜色
@@ -70,19 +68,41 @@ public class TopMenuHorizontalScrollView extends RelativeLayout {
 		}
 		scrollView = (HorizontalScrollView) view
 				.findViewById(R.id.book_horizantal_scrollview);
+		addView = (ImageView) view.findViewById(R.id.subscribe_add);
+		addView.setOnClickListener(new OnClickListener() {
 
-		view.findViewById(R.id.subscribe_add).setOnClickListener(
-				new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(mContext, BookActivity.class);
+				if (mContext instanceof Activity)
+					((Activity) mContext).startActivityForResult(i,
+							ViewsMainActivity.BOOK_ACTIVITY);
+			}
+		});
+		columnView = (ImageView) view.findViewById(R.id.subscribe_column);
+		columnView.setImageResource(V.getId("top_menu_colunm"));
+		columnView.measure(0, 0);
+		columnView.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				((CommonMainActivity) mContext).getScrollView().clickButton(
+						true);
+			}
+		});
 
-					@Override
-					public void onClick(View v) {
-						Intent i = new Intent(mContext, BookActivity.class);
-						if (mContext instanceof Activity)
-							((Activity) mContext).startActivityForResult(i,
-									ViewsMainActivity.BOOK_ACTIVITY);
-					}
-				});
+	}
 
+	/**
+	 * 侧边栏按钮
+	 * 
+	 * @return
+	 */
+	public View getTopMenuColumnViewButton() {
+		return columnView;
+	}
+
+	public View getTopMenuAddViewButton() {
+		return addView;
 	}
 
 	public void setData(List<TagInfo> tagInfos) {
@@ -102,10 +122,18 @@ public class TopMenuHorizontalScrollView extends RelativeLayout {
 				textChild.setTextColor(Color.BLACK);
 
 				LinearLayout cLayout = new LinearLayout(mContext);
-				cLayout.setLayoutParams(new LayoutParams(
-						LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT));
-				cLayout.setGravity(Gravity.CENTER_VERTICAL);
-				cLayout.setPadding(20, 0, 0, 0);
+				/**
+				 * noMenuBar = 1：top——menu不显示栏目信息
+				 */
+				if (tagInfo.getColumnProperty().getNoMenuBar() == 1) {
+					cLayout.setLayoutParams(new LayoutParams(0, 0));
+				} else {
+					cLayout.setLayoutParams(new LayoutParams(
+							LayoutParams.WRAP_CONTENT,
+							LayoutParams.MATCH_PARENT));
+					cLayout.setGravity(Gravity.CENTER_VERTICAL);
+					cLayout.setPadding(20, 0, 0, 0);
+				}
 				cLayout.setTag(tagInfo);
 				cLayout.setOnClickListener(new OnClickListener() {
 
@@ -123,7 +151,7 @@ public class TopMenuHorizontalScrollView extends RelativeLayout {
 					cLayout.addView(imgChild);
 				} else {
 					textChild.setGravity(Gravity.CENTER_VERTICAL);
-					cLayout.setPadding(10, 10, 0, 10);
+					cLayout.setPadding(10, 20, 0, 20);
 					textChild.setPadding(15, 0, 15, 0);
 					textChild.setLayoutParams(new LayoutParams(
 							LayoutParams.WRAP_CONTENT,
@@ -150,14 +178,14 @@ public class TopMenuHorizontalScrollView extends RelativeLayout {
 	}
 
 	private void click(TagInfo tagInfo, int position) {
-		if (mContext instanceof ViewsMainActivity) {
+		if (mContext instanceof CommonMainActivity) {
 			// 如果点击的是当前显示的cat,不重新 获取数据
 			if (selectPosition == position) {
 				return;
 			}
 			selectPosition = position;
 			V.setIndexTitle(mContext, tagInfo);// 换title
-			((ViewsMainActivity) mContext).clickItemIfPager(
+			((CommonMainActivity) mContext).clickItemIfPager(
 					tagInfo.getTagName(), false);// 换内容
 			setSelectedItemForChild(tagInfo.getTagName());
 		}
@@ -176,9 +204,10 @@ public class TopMenuHorizontalScrollView extends RelativeLayout {
 		if (layout == null || layout.getChildCount() == 0)
 			return;
 		int screenHalf = 0;// 屏幕宽度的一半
-		if (mContext instanceof ViewsMainActivity)
-			screenHalf = ((ViewsMainActivity) mContext).getWindowManager()
-					.getDefaultDisplay().getWidth() / 2;
+		if (mContext instanceof CommonMainActivity)
+			screenHalf = ((CommonMainActivity) mContext).getWindowManager()
+					.getDefaultDisplay().getWidth()
+					/ 2 - 44 * 2 - 20;
 		for (int i = 0; i < layout.getChildCount(); i++) {
 
 			View child = layout.getChildAt(i);
@@ -197,15 +226,16 @@ public class TopMenuHorizontalScrollView extends RelativeLayout {
 					} else
 						V.setViewBack(child, "#323232");
 
-					int scrollX = scrollView.getScrollX() - 60;
+					int scrollX = scrollView.getScrollX();
 					int left = child.getLeft();
-					int leftScreen = left - scrollX;
+					int right = child.getRight();
+					int leftScreen = left - scrollX + (right - left) / 2;
 					scrollView.smoothScrollBy((leftScreen - screenHalf), 0);
 				} else {
 					if (ConstData.getAppId() == 1) {
 						TextView t = (TextView) ((LinearLayout) child)
 								.getChildAt(0);
-						V.setViewBack(t, "#ffffff");
+						V.setViewBack(t, "#fff0f0f0");
 						t.setTextColor(Color.BLACK);
 					} else
 						V.setViewBack(child, "#191919");

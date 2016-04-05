@@ -1,6 +1,5 @@
 package cn.com.modernmediaslate.model;
 
-
 public class User extends Entry {
 	private static final long serialVersionUID = 1L;
 	private String uid = "";
@@ -38,7 +37,6 @@ public class User extends Entry {
 	private String qqId = "";
 	// weixin openid(weixin用户登录时用)
 	private String weixinId = "";
-	
 
 	public String getWeixinId() {
 		return weixinId;
@@ -58,6 +56,16 @@ public class User extends Entry {
 	private boolean isBandWeibo = false;
 	// 绑定qq状态
 	private boolean isBandQQ = false;
+	// 邮箱验证状态
+	private boolean isValEmail = false;
+
+	public boolean isValEmail() {
+		return isValEmail;
+	}
+
+	public void setValEmail(boolean isValEmail) {
+		this.isValEmail = isValEmail;
+	}
 
 	public boolean isBandPhone() {
 		return isBandPhone;

@@ -230,7 +230,8 @@ public abstract class SlateBaseOperate {
 	private void handlerData(boolean isSuccess, String data, boolean fromHttp) {
 		if (isSuccess) {
 			if (TextUtils.isEmpty(data)) {
-				showToast(R.string.net_error);
+				Log.e("********", "网络出错111"+getUrl());
+//				showToast(R.string.net_error);
 			} else {
 				if (data.equals("[]")) {
 					data = "{}";
@@ -238,7 +239,8 @@ public abstract class SlateBaseOperate {
 				try {
 					JSONObject obj = new JSONObject(data);
 					if (isNull(obj)) {
-						showToast(R.string.net_error);
+						Log.e("********", "网络出错222"+getUrl());
+//						showToast(R.string.net_error);
 					} else {
 						handler(obj);
 						saveData(data);
@@ -248,10 +250,12 @@ public abstract class SlateBaseOperate {
 					SlatePrintHelper.print(getUrl()
 							+ ":can not transform to jsonobject");
 					e.printStackTrace();
-					showToast(R.string.net_error);
+					Log.e("********", "网络出错333"+getUrl());
+//					showToast(R.string.net_error);
 				}
 			}
 		} else {
+			Log.e("********", "网络出错444"+getUrl());
 			showToast(R.string.net_error);
 		}
 		if (callBack != null)
@@ -309,7 +313,7 @@ public abstract class SlateBaseOperate {
 		if (cacheIsDb) {
 			if (!success) {
 //				showToast(R.string.net_error);
-				Log.e("********", "网络出错99999");
+				Log.e("********", "网络出错99999"+getUrl());
 			}
 			if (callBack != null) {
 				callBack.callback(success, false);

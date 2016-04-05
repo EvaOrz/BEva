@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
+import cn.com.modernmedia.CommonMainActivity;
 import cn.com.modernmedia.api.OperateController;
 import cn.com.modernmedia.listener.FetchEntryListener;
 import cn.com.modernmedia.listener.WebProcessListener;
@@ -40,6 +41,7 @@ import cn.com.modernmedia.views.widget.VerticalGallery;
 import cn.com.modernmedia.widget.RedProcess;
 import cn.com.modernmediaslate.SlateApplication;
 import cn.com.modernmediaslate.model.Entry;
+import cn.com.modernmediaslate.unit.DateFormatTool;
 import cn.com.modernmediaslate.unit.ParseUtil;
 import cn.com.modernmediaslate.unit.TimeCollectUtil;
 
@@ -425,26 +427,6 @@ public class IndexViewPagerItem implements Observer, CheckNavHideListener {
 		}
 	}
 
-	// /**
-	// * 获取跑马灯文章列表
-	// */
-	// private void getMarqueeArticleList(final TagArticleList articleList,
-	// final boolean loadMore) {
-	// OperateController.getInstance(mContext).getTagArticles(
-	// AppValue.getMarqueeTagInfo(), "", "", null,
-	// new FetchEntryListener() {
-	//
-	// @Override
-	// public void setData(Entry entry) {
-	// if (entry instanceof TagArticleList) {
-	// getMarqueeTagIndex(articleList, loadMore);
-	// } else {
-	// setValueForIndex(articleList, loadMore);
-	// }
-	// }
-	// });
-	// }
-
 	/**
 	 * 获取跑马灯栏目首页
 	 */
@@ -461,13 +443,21 @@ public class IndexViewPagerItem implements Observer, CheckNavHideListener {
 							if (ParseUtil.listNotNull(index.getArticleList())) {
 								String outline = "";
 								for (ArticleItem a : index.getArticleList()) {
-									outline = a.getOutline() + "       ";
+									outline = outline
+											+ DateFormatTool.format(
+													ParseUtil.stol(a
+															.getInputtime()) * 1000L,
+													"hh:mm") +"·"+ a.getTitle()
+											+ "    ";
 								}
 								ArticleItem marqueeItem = index
 										.getArticleList().get(0);
 								marqueeItem.setOutline(outline);// 整合跑马灯内容
-								marqueeItem.setSlateLink(index.getLink());// 跑马灯栏目塞整体外链
 								marqueeItem.getPosition().setStyle(7);
+								// 直播url
+								if (mContext instanceof CommonMainActivity)
+									((CommonMainActivity) mContext).liveUrl = index
+											.getLink();
 								if (articleList.getMap().containsKey(3)
 										&& ParseUtil.listNotNull(articleList
 												.getMap().get(3))) {// ibloomberg临时修复

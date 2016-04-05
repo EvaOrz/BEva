@@ -139,7 +139,8 @@
             <RelativeLayout
                 android:id="@+id/user_center_layout_homepage"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/user_center_item_height" >
+                android:layout_height="@dimen/user_center_item_height"
+                android:visibility="gone" >
 
                 <ImageView
                     android:id="@+id/user_center_divider2"
@@ -157,7 +158,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/user_center_card_magin_left"
                     android:contentDescription="@null"
-                    android:src="@drawable/card" />
+                    android:src="@drawable/shequguangchang" />
 
                 <TextView
                     android:id="@+id/user_center_text_my_homepage"
@@ -172,10 +173,45 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/user_center_scan"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/user_center_item_height" >
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/user_center_card_magin_left"
+                    android:contentDescription="@null"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/list_item_divider" />
+
+                <ImageView
+                    android:id="@+id/user_center_scan_icon"
+                    android:layout_width="@dimen/dp20"
+                    android:layout_height="@dimen/dp20"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/user_center_card_magin_left"
+                    android:contentDescription="@null"
+                    android:src="@drawable/saoyisao2x" />
+
+                <TextView
+                    android:id="@+id/user_center_text_scan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/user_center_card_text_padding"
+                    android:layout_toRightOf="@id/user_center_scan_icon"
+                    android:text="@string/scan"
+                    android:textColor="@color/black_bg"
+                    android:textSize="@dimen/dp15" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:id="@+id/user_center_layout_find"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/user_center_item_height"
-                android:layout_marginLeft="@dimen/user_center_homepage_magin_left" >
+                android:layout_marginLeft="@dimen/user_center_homepage_magin_left"
+                android:visibility="gone" >
 
                 <ImageView
                     android:id="@+id/user_center_divider3"
@@ -238,13 +274,21 @@
                     android:scaleType="fitXY"
                     android:src="@drawable/list_item_divider" />
 
+                <ImageView
+                    android:id="@+id/user_center_coin"
+                    android:layout_width="@dimen/dp20"
+                    android:layout_height="@dimen/dp20"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/user_center_card_magin_left"
+                    android:contentDescription="@null"
+                    android:src="@drawable/coin" />
+
                 <TextView
                     android:id="@+id/user_center_text_my_coin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:drawableLeft="@drawable/user_center_dot"
-                    android:drawablePadding="@dimen/dp10"
+                    android:layout_toRightOf="@id/user_center_coin"
                     android:text="@string/my_coin"
                     android:textColor="@color/black_bg"
                     android:textSize="@dimen/dp15" />
@@ -320,4 +364,4 @@
         </LinearLayout>
     </ScrollView>
 
-</RelativeLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/ModernMediaUserModel/src/main/res/layout/user_center.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/ModernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/layout/user_center.xml -->
+</RelativeLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaUserModel/src/main/res/layout/user_center.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/layout/user_center.xml -->

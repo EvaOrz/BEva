@@ -215,7 +215,7 @@ public class MyCoinUseNoticeView implements CardViewListener {
 				if (dialog != null)
 					dialog.dismiss();
 				// 前往修改邮箱页面
-				UserPageTransfer.gotoModifyEmailActivity(mContext);
+//				UserPageTransfer.gotoModifyEmailActivity(mContext);
 				((MyCoinUseNoticeActivity) mContext).finish();
 			}
 		});

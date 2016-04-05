@@ -71,14 +71,14 @@ public class AtlasAdapter extends PagerAdapter {
 			map.put(url, view);
 			container.addView(view);
 		}
-		view.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				if (onItemClickListener != null)
-					onItemClickListener.onItemClick(v, position);
-			}
-		});
+//		view.setOnClickListener(new OnClickListener() {
+//
+//			@Override
+//			public void onClick(View v) {
+//				if (onItemClickListener != null)
+//					onItemClickListener.onItemClick(v, position);
+//			}
+//		});
 		return view;
 	}
 

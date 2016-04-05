@@ -251,6 +251,9 @@ public class UrlMaker {
 	public static String getTagCatIndex(TagInfo info, String top, String limited) {
 		if (info == null)
 			return "";
+		if (info.getTagName().endsWith("cat_32_zuixin"))// 商周【最新】专用接口
+			return getMarquee();
+
 		String url = SLATE_URL + "/tag/";
 		if (TextUtils.equals(limited, "5")) {
 			url += info.getTagName() + "/";
@@ -262,10 +265,7 @@ public class UrlMaker {
 				url += "/" + merge;
 			}
 		}
-		if (info.getTagName().endsWith("cat_32_zuixin"))// 商周【最新】专用接口
-			url += "/marquee";
-		else
-			url += "/tagindex";
+		url += "/tagindex";
 		if (!TextUtils.isEmpty(top)) {
 			url += "?top=" + top;
 		}
@@ -299,6 +299,9 @@ public class UrlMaker {
 			String limited) {
 		if (info == null)
 			return "";
+		if (info.getTagName().endsWith("cat_32_zuixin"))// 商周【最新】专用接口
+			return getMarquee();
+
 		String url = SLATE_URL + "/tag/";
 		if (TextUtils.equals(limited, "5")) {
 			url += info.getTagName() + "/";
@@ -310,10 +313,7 @@ public class UrlMaker {
 				url += "/" + merge;
 			}
 		}
-		if (info.getTagName().endsWith("cat_32_zuixin"))// 商周【最新】专用接口
-			url += "/marquee";
-		else
-			url += "/articlelist";
+		url += "/articlelist";
 		if (!TextUtils.isEmpty(top)) {
 			url += "?top=" + top;
 		}
@@ -383,6 +383,15 @@ public class UrlMaker {
 	protected static String getArticleDetails(String articleId, int contentType) {
 		String url = SLATE_URL + "/article/" + articleId;
 		return contentType == 2 ? url + "?contenttype=2" : url;
+	}
+
+	/**
+	 * 跑马灯最新接口
+	 * 
+	 * @return
+	 */
+	public static String getMarquee() {
+		return SLATE_URL + "/news/articlelist?datatype=" + ConstData.DATA_TYPE;
 	}
 
 	/**
@@ -525,4 +534,12 @@ public class UrlMaker {
 		return "http://product.bbwc.cn/interface/index.php?m=product&a=listproduct&datatype="
 				+ ConstData.DATA_TYPE;
 	}
+
+	/**
+	 * 特刊列表接口
+	 */
+	public static String getSpecial() {
+		return SLATE_URL + "/tag/topiclist?datatype=" + ConstData.DATA_TYPE;
+	}
+
 }

@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.graphics.Color;
@@ -193,6 +194,17 @@ public class GetTagArticlesOperate extends BaseIndexAdvOperate {
 	public void parseArticleItem(JSONObject obj) {
 		ArticleItem item = new ArticleItem();
 		item.setJsonObject(obj.toString());
+		/**
+		 * 3.3.0版本特刊栏目
+		 */
+		if (tagInfo.getGroup() == 12) {
+			try {
+				obj.put("is_tekan", 1);// 存DB字段
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		item.setIsTekan(obj.optInt("is_tekan"));
 		item.setArticleId(obj.optInt("articleid", -1));
 		item.setTitle(obj.optString("title", ""));
 		item.setDesc(obj.optString("desc", ""));
@@ -307,11 +319,14 @@ public class GetTagArticlesOperate extends BaseIndexAdvOperate {
 	private void setSort(ArticleItem item) {
 		if (item.getPosition().getId() == 1)// 滚动栏
 			return;
-		else if (TextUtils.equals(articleList.getTagName(), "cat_15")
-				&& item.getPosition().getStyle() == 1) {
-			// 【推荐】首页加栏目条:小图模式 style = 1
-			item.setShowTitleBar(true);
-		}
+		/**
+		 * 3.3.0 bac:栏目首页聚合显示栏目条
+		 */
+		// else if (TextUtils.equals(articleList.getTagName(), "cat_15")
+		// && item.getPosition().getStyle() == 1) {
+		// // 【推荐】首页加栏目条:小图模式 style = 1
+		// item.setShowTitleBar(true);
+		// }
 
 		if (TextUtils.equals(articleList.getViewbygroup(),
 				TagArticleList.BY_CATNAME)) {
@@ -319,8 +334,9 @@ public class GetTagArticlesOperate extends BaseIndexAdvOperate {
 			if (item.getPosition().getId() != 3
 					|| TextUtils.isEmpty(item.getGroupname()))
 				return;
-			if (!groupList.contains(item.getGroupname())) {
-				item.setShowTitleBar(true);
+			if (!groupList.contains(item.getGroupname())) {// 即时头条不显示栏目条
+				if (!item.getGroupname().equals("cat_32"))
+					item.setShowTitleBar(true);
 				groupList.add(item.getGroupname());
 				currentSection++;
 				currentPositionInSection = 0;
@@ -331,7 +347,8 @@ public class GetTagArticlesOperate extends BaseIndexAdvOperate {
 			String date = format.format(new Date(ParseUtil.stol(item
 					.getInputtime()) * 1000L));
 			if (!articleList.getDateList().contains(date)) {
-				item.setShowTitleBar(true);
+				if (!item.getGroupname().equals("cat_32"))
+					item.setShowTitleBar(true);
 				articleList.getDateList().add(date);
 			}
 		}

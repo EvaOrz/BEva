@@ -63,9 +63,10 @@ public class WriteNewCardActivity extends SlateBaseActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_write_card);
 		mContext = this;
+		sinaAPI = SinaAPI.getInstance(this);
 		init();
 		initDataFromBundle(getIntent());
-		sinaAPI = SinaAPI.getInstance(this);
+
 	}
 
 	private void initDataFromBundle(Intent intent) {
@@ -114,7 +115,7 @@ public class WriteNewCardActivity extends SlateBaseActivity implements
 		} else {
 			weiboAuth = new SinaAuth(this);
 			User user = SlateDataHelper.getUserLoginInfo(this);
-			if (user != null && !TextUtils.isEmpty(user.getSinaId())) { // 微博登录时同步微博
+			if (user != null && !TextUtils.isEmpty(sinaAPI.getSinaId())) { // 微博绑定状态
 				shareBtn.setImageResource(R.drawable.img_weibo_select);
 				isShareToWeibo = true;
 			}
@@ -124,6 +125,7 @@ public class WriteNewCardActivity extends SlateBaseActivity implements
 				public void onCallBack(boolean isSuccess) {
 					if (isSuccess) {
 						shareBtn.setImageResource(R.drawable.img_weibo_select);
+						isShareToWeibo = true;
 					} else {
 						shareBtn.setImageResource(R.drawable.img_weibo_normal);
 					}
@@ -176,7 +178,7 @@ public class WriteNewCardActivity extends SlateBaseActivity implements
 			if (isShareToWeibo) {
 				shareBtn.setImageResource(R.drawable.img_weibo_normal);
 			} else {
-				if (!weiboAuth.checkIsOAuthed()) {
+				if (!weiboAuth.checkIsOAuthed()) {// 没认证
 					weiboAuth.oAuth();
 				} else {
 					shareBtn.setImageResource(R.drawable.img_weibo_select);
@@ -190,7 +192,7 @@ public class WriteNewCardActivity extends SlateBaseActivity implements
 		CardItem item = new CardItem();
 		item.setUid(Tools.getUid(this));
 		item.setAppId(UserConstData.getInitialAppId());
-		item.setTime(Calendar.getInstance().getTimeInMillis() + "");
+		item.setTime(Calendar.getInstance().getTimeInMillis() / 1000 + "");
 		item.setContents(contentEdit.getText().toString());
 		item.setArticleId(ParseUtil.stoi(articleId));
 
@@ -223,7 +225,7 @@ public class WriteNewCardActivity extends SlateBaseActivity implements
 	}
 
 	private void doAfterAddCard(Entry entry) {
-		if (entry instanceof ErrorMsg) {
+		if (entry != null && entry instanceof ErrorMsg) {
 			ErrorMsg error = (ErrorMsg) entry;
 			if (error.getNo() == 0) {
 				setResult(RESULT_OK);
@@ -238,7 +240,8 @@ public class WriteNewCardActivity extends SlateBaseActivity implements
 				showToast(R.string.card_add_failed_toast);
 				finish();
 			}
-		}
+		} else
+			finish();
 	}
 
 	@Override

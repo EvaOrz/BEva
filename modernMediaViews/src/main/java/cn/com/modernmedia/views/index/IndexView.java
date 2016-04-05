@@ -105,7 +105,6 @@ public class IndexView extends BaseView implements FetchEntryListener {
 		cover.setBackgroundColor(Color.TRANSPARENT);
 		cover.setBackgroundDrawable(null);
 		// top menu
-//		topMenu = (TopMenuHorizontalScrollView) findViewById(R.id.book_menu);
 		topMenu = new TopMenuHorizontalScrollView(mContext);
 
 		initRes();
@@ -324,6 +323,13 @@ public class IndexView extends BaseView implements FetchEntryListener {
 		}
 		baseSoloIndexView.setIntercept(false);
 		return false;
+	}
+	
+	public View getTopMenuColumnViewButton(){
+		return topMenu.getTopMenuColumnViewButton();
+	}
+	public View getTopMenuAddViewButton(){
+		return topMenu.getTopMenuAddViewButton();
 	}
 
 	public void callNavPadding(int padding) {

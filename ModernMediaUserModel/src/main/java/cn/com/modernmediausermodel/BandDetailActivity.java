@@ -1,8 +1,10 @@
 package cn.com.modernmediausermodel;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.text.InputType;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
@@ -30,8 +32,9 @@ import cn.com.modernmediausermodel.util.UserTools;
  */
 public class BandDetailActivity extends SlateBaseActivity implements
 		OnClickListener {
+	public static int BAND_SUCCESS = 22;
 	private int type;
-	private TextView title, getCode;
+	private TextView title, getCode, emailtitle;
 	private EditText userName, code;
 	private Button complete;
 	private LinearLayout verifyLayout;// 收货地址layout
@@ -58,15 +61,21 @@ public class BandDetailActivity extends SlateBaseActivity implements
 		title = (TextView) findViewById(R.id.band_title);
 		userName = (EditText) findViewById(R.id.forget_phone);
 		code = (EditText) findViewById(R.id.forget_verify_edit);
+		emailtitle = (TextView) findViewById(R.id.band_email_tiele);
 		complete = (Button) findViewById(R.id.forget_complete);
 		getCode = (TextView) findViewById(R.id.forget_get_verify);
 
 		if (type == BandAccountOperate.PHONE) {
 			title.setText(R.string.band_phone);
 			userName.setHint(R.string.phone_number);
+			userName.setInputType(InputType.TYPE_CLASS_PHONE);
 		} else if (type == BandAccountOperate.EMAIL) {
 			title.setText(R.string.band_email);
 			userName.setHint("Email");
+			emailtitle.setVisibility(View.VISIBLE);
+			emailtitle.setText(String.format(
+					getString(R.string.band_email_text1), user.getEmail()));
+			userName.setInputType(InputType.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS);
 			verifyLayout.setVisibility(View.GONE);
 		}
 
@@ -138,16 +147,18 @@ public class BandDetailActivity extends SlateBaseActivity implements
 						else
 							return;
 						if (error.getNo() == 0) {
-
 							if (bindType == BandAccountOperate.PHONE) {// 存储绑定信息
 								user.setPhone(c);
+								user.setBandPhone(true);
 								showToast(R.string.band_succeed);
 							} else if (bindType == BandAccountOperate.EMAIL) {
 								user.setEmail(c);
+								user.setBandEmail(true);
 								showToast(R.string.band_email_succeed);
 							}
 							SlateDataHelper.saveUserLoginInfo(
 									BandDetailActivity.this, user);
+							setResult(BAND_SUCCESS);
 							finish();
 						} else {
 							showToast(error.getDesc());

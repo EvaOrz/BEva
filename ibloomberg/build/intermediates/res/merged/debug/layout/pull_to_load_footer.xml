@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/footer_contain"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/pull_to_load_footer_background"
+    android:orientation="horizontal" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/footer_paddingBottom"
+        android:layout_marginTop="@dimen/footer_paddingTop" >
+
+        <ImageView
+            android:id="@+id/footer_arrowImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/head_contentLayout_paddingLeft"
+            android:src="@drawable/ic_pulltoload_arrow" />
+
+        <ProgressBar
+            android:id="@+id/footer_progressBar"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/head_contentLayout_paddingLeft"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/footer_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/pull_to_loadmore"
+            android:textSize="@dimen/footer_textsize" />
+    </RelativeLayout>
+
+</LinearLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/coreLib/src/main/res/layout/pull_to_load_footer.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/ibloomberg/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/res/layout/pull_to_load_footer.xml -->

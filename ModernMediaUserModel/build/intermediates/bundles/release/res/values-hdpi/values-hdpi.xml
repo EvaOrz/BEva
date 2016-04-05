@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/ModernMediaUserModel/src/main/res/values-hdpi/dimens.xml -->
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaUserModel/src/main/res/values-hdpi/dimens.xml -->
     <eat-comment/>
     <dimen name="avatar_magin_top">24dp</dimen>
     <dimen name="avatar_size">69dp</dimen>

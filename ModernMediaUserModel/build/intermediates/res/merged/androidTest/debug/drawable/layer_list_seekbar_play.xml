@@ -8,4 +8,4 @@
         <clip android:drawable="@drawable/shape_seek_before_thumb" />
     </item>
 
-</layer-list><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/commonLib/src/main/res/drawable/layer_list_seekbar_play.xml --><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/commonLib/unspecified/res/drawable/layer_list_seekbar_play.xml -->
+</layer-list><!-- From: file:/Users/Eva./Desktop/businessweek_tag/commonLib/src/main/res/drawable/layer_list_seekbar_play.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaUserModel/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/drawable/layer_list_seekbar_play.xml -->

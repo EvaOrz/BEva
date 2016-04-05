@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.text.TextPaint;
 import android.text.TextUtils;
@@ -19,7 +20,9 @@ import cn.com.modernmedia.CommonArticleActivity.ArticleType;
 import cn.com.modernmedia.db.NewFavDb;
 import cn.com.modernmedia.model.AdvList.AdvSource;
 import cn.com.modernmedia.model.ArticleItem;
+import cn.com.modernmedia.pay.PayActivity;
 import cn.com.modernmedia.util.AdvTools;
+import cn.com.modernmedia.util.DataHelper;
 import cn.com.modernmedia.util.LogHelper;
 import cn.com.modernmedia.util.ModernMediaTools;
 import cn.com.modernmedia.views.R;
@@ -29,6 +32,7 @@ import cn.com.modernmedia.views.util.V;
 import cn.com.modernmediaslate.SlateApplication;
 import cn.com.modernmediaslate.unit.DateFormatTool;
 import cn.com.modernmediaslate.unit.ParseUtil;
+import cn.com.modernmediaslate.unit.SlateDataHelper;
 import cn.com.modernmediaslate.unit.Tools;
 
 /**
@@ -104,10 +108,10 @@ public class BaseXMLDataSet {
 	}
 
 	/**
-	 * 商周繁体版付费专享logo
+	 * 商周付费专享logo
 	 */
 	protected void pay(ArticleItem item) {
-		if (!(map.containsKey(FunctionXML.HK_PAY_IMG) && SlateApplication.APP_ID == 18))
+		if (!map.containsKey(FunctionXML.HK_PAY_IMG))
 			return;
 		View view = map.get(FunctionXML.HK_PAY_IMG);
 
@@ -471,7 +475,14 @@ public class BaseXMLDataSet {
 	 * @param view
 	 */
 	protected void onClick(View view, ArticleItem item, ArticleType articleType) {
-		V.clickSlate(mContext, item, articleType);
+		if (item.getIsTekan() == 1
+				&& SlateApplication.APP_ID == 1
+				&& !TextUtils.equals("1",
+						SlateDataHelper.getIssueLevel(mContext))) {
+			Intent i = new Intent(mContext, PayActivity.class);
+			mContext.startActivity(i);
+		} else
+			V.clickSlate(mContext, item, articleType);
 		AdvTools.requestClick(item);
 		log(item);
 	}

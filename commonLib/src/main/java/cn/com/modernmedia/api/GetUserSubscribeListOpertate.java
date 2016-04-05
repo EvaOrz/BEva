@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.text.TextUtils;
+import android.util.Log;
 import cn.com.modernmedia.model.SubscribeOrderList;
 import cn.com.modernmedia.model.SubscribeOrderList.SubscribeColumn;
 import cn.com.modernmedia.newtag.db.UserSubscribeListDb;
@@ -62,6 +63,7 @@ public class GetUserSubscribeListOpertate extends BaseOperate {
 			column.setName(object.optString("name"));
 			column.setParent(object.optString("parent"));
 			list.add(column);
+			Log.e("订阅列表", column.getName());
 		}
 		return list;
 	}

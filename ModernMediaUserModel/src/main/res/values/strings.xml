@@ -35,6 +35,11 @@
     <string name="complete">完成</string>
     <string name="get_verify_code">获取验证码</string>
     <string name="reset_password">重置密码</string>
+    <string name="modify_success">修改成功</string>
+    <string name="find_back_pwd">找回密码</string>
+    <string name="find_back_pwd1">是否要向 %1$s 发送密码重置邮件</string>
+    <string name="forget_email_text1">邮件已发送</string>
+    <string name="forget_email_text2">如5分钟后仍未收到密码重置邮件，请与我们联系。</string>
 
     <!-- 用户信息 -->
     <string name="userinfo_desc">您的用户信息如下：</string>
@@ -42,9 +47,15 @@
     <string name="modify_pwd">修改密码</string>
     <string name="user_sign">个人签名</string>
     <string name="user_email">电子邮箱</string>
+    <string name="val_email_title">您的邮箱未验证，您可以...</string>
+    <string name="send_email_again">重新发送验证邮件</string>
+    <string name="send_email_done">邮件已发送</string>
+    <string name="change_email">更换邮箱</string>
+    <string name="no_band_cannot_change_pwd">没有绑定邮件或者手机，不能设置密码。</string>
     <string name="motify_sign">修改个人签名</string>
     <string name="motify_nickname">修改昵称</string>
     <string name="login_out">退出登录</string>
+    <string name="userinfo_valied">未验证</string>
     <string name="userinfo_nickname">昵称</string>
     <string name="confirm_change">确认修改</string>
     <string name="password_digits">_0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
@@ -73,7 +84,7 @@
     <string name="unfollow_success">取消关注成功</string>
     <string name="unfollow_failed">取消关注失败</string>
     <!-- 广场 -->
-    <string name="square">广场</string>
+    <string name="square">社区广场</string>
     <!-- 我的首页 -->
     <string name="my_homepage">我的首页</string>
     <!-- 电台 -->
@@ -153,6 +164,7 @@
     <string name="phone_number">手机号码</string>
     <string name="band_phone">绑定手机</string>
     <string name="band_email">绑定邮箱</string>
+    <string name="band_faild">绑定失败</string>
     <string name="band_weibo">微博</string>
     <string name="band_weixin">微信</string>
     <string name="band_qq">QQ</string>
@@ -179,5 +191,8 @@
     <string name="setting_function">功能设置</string>
     <string name="setting_auto_loop">首页焦点图自动轮播</string>
     <string name="setting_wifi_auto_vedio">Wi-Fi下自动播放视频</string>
+
+    <!-- 绑定 -->
+    <string name="band_email_text1">当前绑定邮箱为 %1$s \n\n更换手机邮箱后，下次登录可使用新邮箱登录，同时将无法使用旧邮箱登录</string>
 
 </resources>

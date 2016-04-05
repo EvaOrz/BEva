@@ -20,15 +20,17 @@ import cn.com.modernmediausermodel.util.UserConstData;
  */
 public class AddCardOperate extends SlateBaseOperate {
 	private ErrorMsg error;
-	private ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(); // post参数
+	private ArrayList<NameValuePair> nameValuePairs; // post参数
 
 	public ErrorMsg getError() {
 		return error;
 	}
 
-	protected AddCardOperate(CardItem cardItem) {
+	public AddCardOperate(CardItem cardItem) {
 		this.error = new ErrorMsg();
 		JSONObject postObject = new JSONObject();
+		// post 参数设置
+		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		try {
 			addPostParams(postObject, "uid", cardItem.getUid());
 			addPostParams(postObject, "appid", UserConstData.getInitialAppId()
@@ -38,10 +40,10 @@ public class AddCardOperate extends SlateBaseOperate {
 				addPostParams(postObject, "articleid", cardItem.getArticleId()
 						+ "");
 			addPostParams(postObject, "contents", cardItem.getContents());
-			nameValuePairs.add(new BasicNameValuePair("data", postObject
+			params.add(new BasicNameValuePair("data", postObject
 					.toString()));
+			setPostParams(params);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -52,8 +54,10 @@ public class AddCardOperate extends SlateBaseOperate {
 	 * @param json
 	 *            post数据，中文需要进行UTF-8编码，但是如果其中含有换行符不需要编码
 	 */
-	protected AddCardOperate(String json) {
+	public AddCardOperate(String json) {
+		this.error = new ErrorMsg();
 		nameValuePairs.add(new BasicNameValuePair("data", json));
+		setPostParams(nameValuePairs);
 	}
 
 	@Override
@@ -86,5 +90,9 @@ public class AddCardOperate extends SlateBaseOperate {
 	@Override
 	protected ArrayList<NameValuePair> getPostParams() {
 		return nameValuePairs;
+	}
+
+	protected void setPostParams(ArrayList<NameValuePair> params) {
+		this.nameValuePairs = params;
 	}
 }

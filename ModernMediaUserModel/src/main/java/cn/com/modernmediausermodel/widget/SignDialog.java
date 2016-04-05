@@ -3,7 +3,6 @@ package cn.com.modernmediausermodel.widget;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.text.TextUtils;
@@ -12,8 +11,9 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.TextView;
+import cn.com.modernmediaslate.model.User;
 import cn.com.modernmediaslate.unit.SlateDataHelper;
 import cn.com.modernmediausermodel.R;
 import cn.com.modernmediausermodel.UserInfoActivity;
@@ -41,7 +41,7 @@ public class SignDialog implements OnClickListener {
 	private void init() {
 		mDialog = new Dialog(mContext, R.style.CustomDialog);
 		mDialog.show();
-		mDialog.setCancelable(false);
+		mDialog.setCancelable(true);
 		mDialog.setCanceledOnTouchOutside(false);// 屏蔽dialog外焦点，弹出键盘
 		window = mDialog.getWindow();
 		window.setContentView(R.layout.dialog_motify_sign);
@@ -54,9 +54,11 @@ public class SignDialog implements OnClickListener {
 		if (type == 1) {
 			title.setText(R.string.motify_nickname);
 			edit.setHint(R.string.userinfo_nickname);
+			edit.setText(SlateDataHelper.getNickname(mContext));
 		} else if (type == 2) {
 			title.setText(R.string.motify_sign);
 			edit.setHint(R.string.motify_sign);
+			edit.setText(SlateDataHelper.getDesc(mContext));
 		}
 		window.findViewById(R.id.motify_sign_sure).setOnClickListener(this);
 		window.findViewById(R.id.motify_sign_cancle).setOnClickListener(this);
@@ -95,12 +97,12 @@ public class SignDialog implements OnClickListener {
 		if (v.getId() == R.id.motify_sign_sure) {
 			if (!TextUtils.isEmpty(desc)
 					&& mContext instanceof UserInfoActivity) {
+				User user = SlateDataHelper.getUserLoginInfo(mContext);
 				if (type == 1) // 昵称
-					SlateDataHelper.setNickname(mContext, desc);
+					user.setNickName(desc);
 				else if (type == 2)
-					SlateDataHelper.setDesc(mContext, desc);
-				((UserInfoActivity) mContext).modifyUserInfo(
-						SlateDataHelper.getUserLoginInfo(mContext), "", "");
+					user.setDesc(desc);
+				((UserInfoActivity) mContext).modifyUserInfo(user, "", "");
 
 			}
 		}

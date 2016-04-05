@@ -320,13 +320,13 @@ public class XMLDataSetForColumn extends BaseXMLDataSet {
 							if (clickFirstColumnListener != null)
 								clickFirstColumnListener.click();
 						} else {
-							((ViewsMainActivity) mContext).clickItemIfPager(
+							((CommonMainActivity) mContext).clickItemIfPager(
 									item.getTagName(), false);
 						}
 						return;
 					}
 					if (CommonApplication.mConfig.getIs_index_pager() == 1) {
-						((ViewsMainActivity) mContext).clickItemIfPager(
+						((CommonMainActivity) mContext).clickItemIfPager(
 								item.getTagName(), false);
 					}
 				}

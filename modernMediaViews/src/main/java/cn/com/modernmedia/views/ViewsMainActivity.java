@@ -12,6 +12,7 @@ import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +35,7 @@ import cn.com.modernmedia.newtag.db.TagArticleListDb;
 import cn.com.modernmedia.newtag.db.TagIndexDb;
 import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmedia.util.DataHelper;
+import cn.com.modernmedia.util.EnsubscriptHelper;
 import cn.com.modernmedia.util.PageTransfer;
 import cn.com.modernmedia.views.column.NewColumnView;
 import cn.com.modernmedia.views.column.book.BookActivity;
@@ -112,8 +114,11 @@ public abstract class ViewsMainActivity extends CommonMainActivity {
 			if (TextUtils.isEmpty(uid)
 					|| TextUtils.equals(uid, SlateApplication.UN_UPLOAD_UID))
 				refreshSubscript("", -1);
-			else
+			else {
 				getUserSubscript("", -1);
+				Log.e("获取用户订阅列表", Tools.getUid(this));
+			}
+
 			SlateApplication.loginStatusChange = false;
 		}
 		// 用户中心页数据变化时，刷新页面
@@ -398,7 +403,7 @@ public abstract class ViewsMainActivity extends CommonMainActivity {
 	private void refreshSubscript(String currTag, int code) {
 		TagIndexDb.getInstance(this).clearSubscribeTopArticle();
 		TagArticleListDb.getInstance(this).clearSubscribeTopArticle();
-		// EnsubscriptHelper.addEnsubscriptColumn(this);
+		EnsubscriptHelper.addEnsubscriptColumn(this);
 		setDataForColumn();
 		if (ViewsApplication.columnChangedListener != null)
 			ViewsApplication.columnChangedListener.changed();
@@ -410,11 +415,6 @@ public abstract class ViewsMainActivity extends CommonMainActivity {
 			}
 		}
 
-		// if (code == SELECT_COLUMN_LOGIN_REQUEST_CODE) {
-		// gotoSelectColumnActivity();
-		// } else if (code == SELECT_CHILD_COLUMN_LOGIN_REQUEST_CODE) {
-		// gotoSelectChildColumnActvity(currTag);
-		// }
 	}
 
 	@SuppressLint("NewApi")

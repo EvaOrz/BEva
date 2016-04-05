@@ -3,7 +3,7 @@ package cn.com.modernmediausermodel;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
-import cn.com.modernmediausermodel.webridge.WBWebView;
+import cn.com.modernmedia.webridge.WBWebView;
 
 public class TestActivity extends Activity {
 	private WBWebView wv;

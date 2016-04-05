@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="open_sdk">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/ModernMediaUserModel/libs/open_sdk.jar!/" />
+      <root url="jar://$PROJECT_DIR$/modernMediaUserModel/libs/open_sdk.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

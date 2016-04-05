@@ -92,4 +92,4 @@
         android:textColor="@color/black_bg"
         android:textSize="@dimen/dp13_textsize" />
 
-</RelativeLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/ModernMediaUserModel/src/main/res/layout/activity_card_detail.xml -->
+</RelativeLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaUserModel/src/main/res/layout/activity_card_detail.xml -->

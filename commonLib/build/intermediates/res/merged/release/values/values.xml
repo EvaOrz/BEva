@@ -1,18 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/commonLib/src/main/res/values/color.xml -->
+    <eat-comment/>
+    <color name="bg_color">#EDEDED</color>
     <!-- From: file:/Users/Eva./Desktop/businessweek_tag/commonLib/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <color name="black_bg">#FF000000</color>
     <!-- From: file:/Users/Eva./Desktop/businessweek_tag/commonLib/src/main/res/values/color.xml -->
     <eat-comment/>
+    <color name="contents_text">#ff000000</color>
+    <color name="encode_view">#ffffffff</color>
+    <color name="grgray">#686868</color>
+    <color name="header">#58567D</color>
+    <color name="help_button_view">#ffcccccc</color>
+    <color name="help_view">#ff404040</color>
+    <color name="possible_result_points">#c0ffff00</color>
     <color name="process_loading_red_ring">#ffb83126</color>
     <color name="process_loading_ring_bg">#ff292929</color>
     <color name="red">#cd3333</color>
+    <color name="result_image_border">#ffffffff</color>
+    <color name="result_minor_text">#ffc0c0c0</color>
+    <color name="result_points">#c000ff00</color>
+    <color name="result_text">#ffffffff</color>
+    <color name="result_view">#b0000000</color>
+    <color name="sbc_header_text">#ff808080</color>
+    <color name="sbc_header_view">#ffffffff</color>
+    <color name="sbc_layout_view">#ffffffff</color>
+    <color name="sbc_list_item">#fffff0e0</color>
+    <color name="sbc_page_number_text">#ff000000</color>
+    <color name="sbc_snippet_text">#ff4b4b4b</color>
     <color name="seek_bar_after_thumb">#cdcdcd</color>
     <color name="seek_bar_before_thumb">#cd3333</color>
     <color name="seek_bar_thumb_center">#dd3333</color>
     <color name="seek_bar_thumb_outer_stroke">#ffffff</color>
+    <color name="share_text">#ff000000</color>
+    <color name="share_view">#ffffffff</color>
+    <color name="status_text">#ffffffff</color>
+    <color name="status_view">#50000000</color>
     <color name="translucent_black">#7f000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="viewfinder_frame">#ff000000</color>
+    <color name="viewfinder_laser">#ffff0000</color>
+    <color name="viewfinder_mask">#60000000</color>
     <!-- From: file:/Users/Eva./Desktop/businessweek_tag/commonLib/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <color name="white_bg">#FFFFFFFF</color>
@@ -57,9 +86,27 @@
     <dimen name="share_item_margin">10dp</dimen>
     <dimen name="share_item_textsize">15dp</dimen>
     <dimen name="share_list_fade_length">12dp</dimen>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/commonLib/src/main/res/values/ids.xml -->
+    <eat-comment/>
+    <item name="auto_focus" type="id"/>
+    <item name="decode" type="id"/>
+    <item name="decode_failed" type="id"/>
+    <item name="decode_succeeded" type="id"/>
+    <item name="encode_failed" type="id"/>
+    <item name="encode_succeeded" type="id"/>
+    <item name="launch_product_query" type="id"/>
+    <item name="quit" type="id"/>
+    <item name="restart_preview" type="id"/>
+    <item name="return_scan_result" type="id"/>
     <!-- From: file:/Users/Eva./Desktop/businessweek_tag/commonLib/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <item name="scale_type" type="id"/>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/commonLib/src/main/res/values/ids.xml -->
+    <eat-comment/>
+    <item name="search_book_contents_failed" type="id"/>
+    <item name="search_book_contents_succeeded" type="id"/>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/commonLib/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
     <string name="OAUTH_AccessToken_ACCESS">用户授权登录成功</string>
     <string name="OAUTH_AccessToken_ERROR">用户授权登录失败</string>
     <string name="OAUTH_AccessToken_SXPIRED">授权已过期，请重新授权登录</string>
@@ -79,6 +126,7 @@
     <string name="app_name">ModernMediaCommon</string>
     <string name="app_recommend">应用推荐</string>
     <string name="band_email_succeed">邮件已发送，请前往邮箱完成绑定。</string>
+    <string name="band_failed">绑定出错</string>
     <string name="band_succeed">绑定成功</string>
     <string name="book">订阅</string>
     <string name="book_already">已订阅(到期时间：%1$s)</string>
@@ -86,6 +134,7 @@
     <string name="camera">拍照</string>
     <string name="can_not_find_article">对不起，暂时找不到该文章</string>
     <string name="cancel">取消</string>
+    <string name="choose_qr_photo">选择二维码图片</string>
     <!-- From: file:/Users/Eva./Desktop/businessweek_tag/commonLib/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/res/values/values.xml -->
     <eat-comment/>
     <string name="click_to_load">点击加载</string>
@@ -123,6 +172,8 @@
     <eat-comment/>
     <string name="new_issue">新一期杂志到了，是否现在阅读？</string>
     <string name="no_issue_zip">该期杂志没有下载包</string>
+    <string name="no_photo">没有找到图片</string>
+    <string name="no_qrcode">照片中未识别到二维码</string>
     <string name="no_weixin">微信尚未安装！</string>
     <string name="nomore_data">暂时没有内容</string>
     <string name="now">即时</string>
@@ -146,6 +197,7 @@
     <string name="reset_password">重置密码</string>
     <string name="save_picture_fail">图片保存失败,请检查网络</string>
     <string name="save_picture_success">图片已保存</string>
+    <string name="scan">扫一扫</string>
     <string name="select_from_album">从手机相册选择</string>
     <string name="send">发送</string>
     <string name="share_by_email">邮件分享</string>
@@ -174,6 +226,7 @@
     <string name="sure">确定</string>
     <string name="theme_magazine">主题杂志</string>
     <string name="uniq_sina">该账号已被其他现代移动社区账号绑定</string>
+    <string name="unkown_qrcode">无法识别二维码内容</string>
     <string name="update">软件版本更新</string>
     <string name="vew_later">稍后再看</string>
     <string name="video_complete">视频已播放完毕</string>

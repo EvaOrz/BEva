@@ -1,14 +1,21 @@
 package cn.com.modernmediausermodel;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.Message;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import cn.com.modernmediaslate.SlateBaseActivity;
 import cn.com.modernmediaslate.model.Entry;
@@ -35,6 +42,7 @@ public class ForgetPwdActivity extends SlateBaseActivity implements
 	private boolean canGetVerify = true;// 是否可获取验证码
 	private UserOperateController mController;
 	private Animation shakeAnim;
+	private LinearLayout ifshow;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +58,30 @@ public class ForgetPwdActivity extends SlateBaseActivity implements
 		phoneEdit = (EditText) findViewById(R.id.forget_account);
 		codeEdit = (EditText) findViewById(R.id.forget_verify);
 		passwordEdit = (EditText) findViewById(R.id.forget_password);
+		ifshow = (LinearLayout) findViewById(R.id.forget_ifshow);
 
+		phoneEdit.addTextChangedListener(new TextWatcher() {
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+				if (UserTools.checkIsPhone(ForgetPwdActivity.this, s.toString())) {
+					ifshow.setVisibility(View.VISIBLE);
+				} else
+					ifshow.setVisibility(View.GONE);
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+
+			}
+		});
 		findViewById(R.id.forget_account_clear).setOnClickListener(this);
 		findViewById(R.id.forget_pwd_clear).setOnClickListener(this);
 		findViewById(R.id.forget_confirm).setOnClickListener(this);
@@ -64,9 +95,8 @@ public class ForgetPwdActivity extends SlateBaseActivity implements
 	public void onClick(View v) {
 		String newPass = "", code = "";
 		phoneNum = phoneEdit.getText().toString();
-		code = phoneEdit.getText().toString();
+		code = codeEdit.getText().toString();
 		newPass = passwordEdit.getText().toString();
-
 		if (v.getId() == R.id.forget_close) {// 关闭
 			finish();
 		} else if (v.getId() == R.id.forget_account_clear) {// 清除账号
@@ -74,7 +104,7 @@ public class ForgetPwdActivity extends SlateBaseActivity implements
 		} else if (v.getId() == R.id.forget_pwd_clear) {// 清除密码
 			doClear(passwordEdit);
 		} else if (v.getId() == R.id.forget_confirm) {// 完成
-			doForgetPwd(phoneNum, newPass, code);
+			checkStyle(phoneNum, newPass, code);
 		} else if (v.getId() == R.id.forget_verify_get) {// 获取验证码
 			doGetVerifyCode();
 		}
@@ -119,36 +149,97 @@ public class ForgetPwdActivity extends SlateBaseActivity implements
 	 * @param token
 	 *            用户token
 	 */
-	protected void doForgetPwd(final String userName, final String newPwd,
-			final String code) {
-		if (UserTools.checkString(userName, phoneEdit, shakeAnim)
-				&& UserTools.checkIsPhone(this, userName)
-				&& UserTools.checkString(code, codeEdit, shakeAnim)
-				&& UserTools.checkString(newPwd, passwordEdit, shakeAnim)
-				&& UserTools.checkPasswordFormat(this, newPwd)) {// 判空，判电话格式，判密码格式
-			showLoadingDialog(true);
-			mController.getPassword(userName, code, newPwd,
-					new UserFetchEntryListener() {
+	protected void checkStyle(final String userName, final String newPwd,
+			String code) {
+		/**
+		 * 账号密码不能为空
+		 */
+		if (UserTools.checkString(userName, phoneEdit, shakeAnim)) {
+			/**
+			 * 手机\Email状态
+			 */
+			if (UserTools.checkIsEmailOrPhone(this, userName)) {
+				if (UserTools.checkIsPhone(this, userName)) {
+					if (UserTools.checkString(code, codeEdit, shakeAnim)
+							&& UserTools.checkString(newPwd, passwordEdit,
+									shakeAnim))
+						doForgetPwd(1, userName, newPwd, code);
+				} else {
+					new AlertDialog.Builder(ForgetPwdActivity.this)
+							.setTitle(R.string.find_back_pwd)
+							.setMessage(
+									String.format(
+											getString(R.string.find_back_pwd1),
+											userName))
+							.setNegativeButton(R.string.cancel, null)
+							.setPositiveButton(R.string.sure,
+									new DialogInterface.OnClickListener() {
 
-						@Override
-						public void setData(final Entry entry) {
-							showLoadingDialog(false);
-							String toast = "";
-							if (entry instanceof User) {
-								User resUser = (User) entry;
-								ErrorMsg error = resUser.getError();
-								if (error.getNo() == 0) {// 发送请求成功
-									toast = "修改成功";
-									doLogin(userName, newPwd);
-								} else {
-									toast = error.getDesc();
-								}
-							}
-							showToast(TextUtils.isEmpty(toast) ? getString(R.string.msg_find_pwd_failed)
-									: toast);
-						}
-					});
+										@Override
+										public void onClick(
+												DialogInterface dialog,
+												int which) {
+											doForgetPwd(2, userName, newPwd,
+													null);
+											dialog.dismiss();
+											new AlertDialog.Builder(
+													ForgetPwdActivity.this)
+													.setTitle(
+															R.string.forget_email_text1)
+													.setMessage(
+															R.string.forget_email_text2)
+													.setPositiveButton(
+															R.string.sure,
+															new DialogInterface.OnClickListener() {
+
+																@Override
+																public void onClick(
+																		DialogInterface dialog,
+																		int which) {
+																	dialog.dismiss();
+																}
+															}).show();
+
+										}
+									}).show();
+
+				}
+
+			} else {
+				showToast(R.string.msg_login_email_error);
+			}
 		}
+
+	}
+
+	private void doForgetPwd(final int type, final String userName,
+			final String newPwd, String code) {
+		showLoadingDialog(true);
+		mController.getPassword(userName, code, newPwd,
+				new UserFetchEntryListener() {
+
+					@Override
+					public void setData(final Entry entry) {
+						showLoadingDialog(false);
+						String toast = "";
+						if (entry instanceof User) {
+							User resUser = (User) entry;
+							ErrorMsg error = resUser.getError();
+							if (error.getNo() == 0) {
+								if (type == 1) {// 电话
+									toast = getString(R.string.modify_success);
+									doLogin(userName, newPwd);
+								} else if (type == 2) {// email
+									return;
+								}
+							} else {
+								toast = error.getDesc();
+							}
+						}
+						showToast(TextUtils.isEmpty(toast) ? getString(R.string.msg_find_pwd_failed)
+								: toast);
+					}
+				});
 	}
 
 	/**

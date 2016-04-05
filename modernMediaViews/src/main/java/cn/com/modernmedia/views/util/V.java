@@ -29,6 +29,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import cn.com.modernmedia.CommonApplication;
 import cn.com.modernmedia.CommonArticleActivity.ArticleType;
+import cn.com.modernmedia.CommonMainActivity;
 import cn.com.modernmedia.model.AppValue;
 import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.model.TagInfoList;
@@ -427,7 +428,7 @@ public class V {
 	 * @param entry
 	 */
 	public static void setIndexTitle(Context context, Entry entry) {
-		if (!(context instanceof ViewsMainActivity)) {
+		if (!(context instanceof CommonMainActivity)) {
 			return;
 		}
 		if (entry instanceof TagInfo) {
@@ -442,7 +443,7 @@ public class V {
 				parentTag = tagInfo;
 			}
 			if (ConstData.getAppId() == 37) {// verycity
-				((ViewsMainActivity) context).setIndexTitle(parentTag
+				((CommonMainActivity) context).setIndexTitle(parentTag
 						.getColumnProperty().getCname());
 				return;
 			}
@@ -460,11 +461,11 @@ public class V {
 					}
 					String title = parentTag.getColumnProperty().getCname()
 							+ " · " + childName;
-					((ViewsMainActivity) context).setIndexTitle(title);
+					((CommonMainActivity) context).setIndexTitle(title);
 					return;
 				}
 			}
-			((ViewsMainActivity) context).setIndexTitle(tagInfo
+			((CommonMainActivity) context).setIndexTitle(tagInfo
 					.getColumnProperty().getCname());
 		}
 	}

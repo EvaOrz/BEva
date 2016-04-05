@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/coreLib/src/main/res/values/color.xml -->
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/coreLib/src/main/res/values/color.xml -->
     <eat-comment/>
     <color name="black_bg">#FF000000</color>
     <color name="white_bg">#FFFFFFFF</color>
     <declare-styleable name="CustomTheme"><attr format="reference" name="gifViewStyle"/></declare-styleable>
     <declare-styleable name="GifView"><attr format="reference" name="gif"/><attr format="boolean" name="paused"/></declare-styleable>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/coreLib/src/main/res/values/dimens.xml -->
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/coreLib/src/main/res/values/dimens.xml -->
     <eat-comment/>
     <dimen name="dp1">1dp</dimen>
     <dimen name="dp10">10dp</dimen>
@@ -34,10 +34,10 @@
     <dimen name="head_contentLayout_paddingLeft">30dp</dimen>
     <dimen name="head_lastUpdatedTextView_tSize">11dp</dimen>
     <dimen name="head_tipsTextView_tSize">15dp</dimen>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/coreLib/src/main/res/values/ids.xml -->
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/coreLib/src/main/res/values/ids.xml -->
     <eat-comment/>
     <item name="scale_type" type="id"/>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/coreLib/src/main/res/values/messages.xml -->
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/coreLib/src/main/res/values/messages.xml -->
     <eat-comment/>
     <string name="OAUTH_AccessToken_ACCESS">用户授权登录成功</string>
     <string name="OAUTH_AccessToken_ERROR">用户授权登录失败</string>
@@ -50,7 +50,7 @@
     <string name="Weibo_Share_Error">微博分享失败</string>
     <string name="Weibo_Share_Repeat">已经分享过了</string>
     <string name="Weibo_Share_Success">微博分享成功</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/coreLib/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/coreLib/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="app_name">ModernMediaSlate</string>
     <string name="click_to_load">点击加载</string>
@@ -63,12 +63,12 @@
     <string name="pull_to_refresh_tap_label">点击刷新...</string>
     <string name="pull_to_refresh_update_time">上次更新时间:%s</string>
     <string name="pull_to_release">松开加载...</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/coreLib/src/main/res/values/messages.xml -->
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/coreLib/src/main/res/values/messages.xml -->
     <eat-comment/>
     <string name="sinalogin_check_account">账号不能为空</string>
     <string name="sinalogin_check_pass">密码不能为空</string>
     <string name="sinalogin_check_server">服务器验证中...</string>
-    <!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/coreLib/src/main/res/values/styles.xml -->
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/coreLib/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--

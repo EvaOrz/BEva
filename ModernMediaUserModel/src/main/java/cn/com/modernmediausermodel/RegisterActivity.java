@@ -104,6 +104,7 @@ public class RegisterActivity extends SlateBaseActivity implements
 		findViewById(R.id.register_account_clear).setOnClickListener(this);
 		findViewById(R.id.register_nickname_clear).setOnClickListener(this);
 		findViewById(R.id.register_pwd_clear).setOnClickListener(this);
+		findViewById(R.id.register).setOnClickListener(this);
 	}
 
 	/**

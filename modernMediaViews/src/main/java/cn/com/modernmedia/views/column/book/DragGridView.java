@@ -16,6 +16,12 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import cn.com.modernmedia.model.TagInfoList.TagInfo;
 
+/**
+ * 订阅拖动排序adapter
+ * 
+ * @author Eva.
+ * 
+ */
 public class DragGridView extends GridView {
 	private Context context;
 	private static final int DRAG_IMG_SHOW = 1;

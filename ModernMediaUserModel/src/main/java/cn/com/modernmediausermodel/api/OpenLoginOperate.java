@@ -34,16 +34,20 @@ public class OpenLoginOperate extends UserModelBaseOperate {
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		JSONObject object = new JSONObject();
 		try {
-			addPostParams(object, "username", user.getUserName());
+
 			addPostParams(object, "nickname", user.getNickName());
 			addPostParams(object, "avatar", avatar);
 			if (type == 1) { // 新浪微博
+				addPostParams(object, "username", user.getSinaId());
 				object.put("sinaid", user.getSinaId());
 			} else if (type == 2) { // qq
+				addPostParams(object, "username", user.getQqId());
 				object.put("sinaid", user.getQqId());
 			} else if (type == 3) { // 微信
+				addPostParams(object, "username", user.getWeixinId());
 				object.put("sinaid", user.getWeixinId());
 			} else { // 其他默认普通登录
+				addPostParams(object, "username", user.getUserName());
 				type = 0;
 				object.put("sinaid", user.getUid());
 			}

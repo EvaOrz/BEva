@@ -7,4 +7,4 @@
         android:interpolator="@android:anim/linear_interpolator"
         android:toAlpha="0.0" />
 
-</set><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/coreLib/src/main/res/anim/alpha_in_1s.xml --><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/coreLib/build/intermediates/bundles/debug/res/anim/alpha_in_1s.xml -->
+</set><!-- From: file:/Users/Eva./Desktop/businessweek_tag/coreLib/src/main/res/anim/alpha_in_1s.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/coreLib/build/intermediates/bundles/debug/res/anim/alpha_in_1s.xml -->

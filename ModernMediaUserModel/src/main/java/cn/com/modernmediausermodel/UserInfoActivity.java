@@ -5,6 +5,7 @@ import java.io.File;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -14,10 +15,9 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import cn.com.modernmedia.util.sina.SinaAPI;
@@ -43,10 +43,7 @@ import cn.com.modernmediausermodel.util.UserTools;
 import cn.com.modernmediausermodel.util.WeixinLoginUtil;
 import cn.com.modernmediausermodel.util.WeixinLoginUtil.WeixinAuthListener;
 import cn.com.modernmediausermodel.widget.SignDialog;
-
-import com.alipay.sdk.util.i;
-import com.tencent.tauth.IUiListener;
-import com.tencent.tauth.UiError;
+import cn.com.modernmediausermodel.widget.ValEmailDialog;
 
 /**
  * 用户信息界面
@@ -65,9 +62,12 @@ public class UserInfoActivity extends SlateBaseActivity implements
 	private Context mContext;
 	private UserOperateController mController;
 	private TextView nickName, signText, emailText, phoneText;// 个人签名、电子邮件、手机号码
+	private TextView unvolied;// 邮箱未验证状态栏
 	private ImageView avatar, sina, weixin, qq;
 	private String picturePath;// 头像
 	private User mUser;// 用户信息
+
+	private boolean canMotifyInfo = false;// 取到用户绑定信息之前，不可以修改或者绑定
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -90,11 +90,15 @@ public class UserInfoActivity extends SlateBaseActivity implements
 		weixin = (ImageView) findViewById(R.id.uinfo_btn_weixin_login);
 		qq = (ImageView) findViewById(R.id.uinfo_btn_qq_login);
 		avatar = (ImageView) findViewById(R.id.userinfo_avatar);
+		unvolied = (TextView) findViewById(R.id.userinfo_un_valied);
 
 		sina.setOnClickListener(this);
 		weixin.setOnClickListener(this);
 		qq.setOnClickListener(this);
 		avatar.setOnClickListener(this);
+		afterFetchPicture(SlateDataHelper.getAvatarUrl(this,
+				mUser.getUserName()));
+		unvolied.setOnClickListener(this);
 		findViewById(R.id.uinfo_close).setOnClickListener(this);
 		findViewById(R.id.uinfo_motify_pwd).setOnClickListener(this);
 		findViewById(R.id.uinfo_logout).setOnClickListener(this);
@@ -121,6 +125,7 @@ public class UserInfoActivity extends SlateBaseActivity implements
 							mUser.setBandQQ(u.isBandQQ());
 							mUser.setBandWeibo(u.isBandWeibo());
 							mUser.setBandWeixin(u.isBandWeixin());
+							mUser.setValEmail(u.isValEmail());
 							handler.sendEmptyMessage(0);
 						}
 
@@ -133,20 +138,26 @@ public class UserInfoActivity extends SlateBaseActivity implements
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
 			if (msg.what == 0) {// 绑定信息变更
+				canMotifyInfo = true;
 				if (mUser.isBandQQ())
 					qq.setImageResource(R.drawable.login_qq);
 				if (mUser.isBandWeibo())
 					sina.setImageResource(R.drawable.login_sina);
 				if (mUser.isBandWeixin())
-					sina.setImageResource(R.drawable.login_weixin);
+					weixin.setImageResource(R.drawable.login_weixin);
 				if (mUser.isBandPhone())
 					phoneText.setText(mUser.getPhone());
 				else
 					phoneText.setText(R.string.band_yet);// 未绑定
-				if (mUser.isBandEmail())
+				if (mUser.isBandEmail()) {
 					emailText.setText(mUser.getEmail());
-				else
+					if (mUser.isValEmail())
+						unvolied.setVisibility(View.GONE);
+					else
+						unvolied.setVisibility(View.VISIBLE);// 未验证
+				} else
 					emailText.setText(R.string.band_yet);// 未绑定
+
 			} else if (msg.what == 1) {// 昵称、头像、签名变更
 				signText.setText(SlateDataHelper.getDesc(mContext));
 				nickName.setText(SlateDataHelper.getNickname(mContext));
@@ -171,29 +182,47 @@ public class UserInfoActivity extends SlateBaseActivity implements
 		int id = v.getId();
 		if (id == R.id.uinfo_close)
 			finish();
-		else if (id == R.id.uinfo_motify_pwd) // 修改密码
-			UserPageTransfer.gotoModifyPasswordActivity(this);
-		else if (id == R.id.uinfo_logout) // 登出
+		else if (id == R.id.uinfo_motify_pwd) {// 修改密码
+			if (canMotifyInfo && (mUser.isBandEmail() || mUser.isBandPhone())) {
+				UserPageTransfer.gotoModifyPasswordActivity(this);
+			} else {
+				new AlertDialog.Builder(UserInfoActivity.this)
+						.setMessage(R.string.no_band_cannot_change_pwd)
+						.setPositiveButton(R.string.sure, null).show();
+			}
+		} else if (id == R.id.uinfo_logout) // 登出
 			doLoginOut();
 		else if (id == R.id.userinfo_avatar) // 修改头像
 			doFecthPicture();
 		else if (id == R.id.uinfo_btn_sina_login) { // 新浪绑定
-			if (!mUser.isBandWeibo())
+			Log.e("绑定sina", "*****");
+			if (canMotifyInfo && !mUser.isBandWeibo()) {
 				doSinaBand();
+			}
 		} else if (id == R.id.uinfo_btn_qq_login) { // qq绑定
-			if (!mUser.isBandQQ())
-				doSinaBand();
+			Log.e("绑定qq", "*****");
+			if (canMotifyInfo && !mUser.isBandQQ()) {
+				doQQBand();
+			}
 		} else if (id == R.id.uinfo_btn_weixin_login) { // 微信绑定
-			if (!mUser.isBandWeixin())
+			Log.e("绑定weixin", "*****");
+			if (canMotifyInfo && !mUser.isBandWeixin()) {
 				doWeixinBand();
+			}
 		} else if (id == R.id.uinfo_sign) {// 签名
 			new SignDialog(UserInfoActivity.this, 2);
-		} else if (id == R.id.uinfo_email) {// 绑定邮箱
-			if (!mUser.isBandEmail())
-				gotoBandDetail(BandAccountOperate.EMAIL);
+		} else if (id == R.id.uinfo_email || id == R.id.userinfo_un_valied) {// 绑定邮箱
+			if (canMotifyInfo) {
+				if (!mUser.isValEmail() && !TextUtils.isEmpty(mUser.getEmail())) // 未验证过
+					new ValEmailDialog(this, mUser.getEmail());
+				else
+					gotoBandDetail(BandAccountOperate.EMAIL);
+
+			}
 		} else if (id == R.id.uinfo_phone) {// 绑定手机号码
-			if (!mUser.isBandPhone())
+			if (canMotifyInfo && !mUser.isBandPhone()) {
 				gotoBandDetail(BandAccountOperate.PHONE);
+			}
 		} else if (id == R.id.uinfo_nick) {// 修改昵称
 			new SignDialog(UserInfoActivity.this, 1);
 		}
@@ -214,7 +243,6 @@ public class UserInfoActivity extends SlateBaseActivity implements
 				JSONObject object;
 				try {
 					object = new JSONObject(response);
-					mUser = new User();
 					mUser.setSinaId(object.optString("idstr", "")); // 新浪ID
 					// mUser.setNickName(object.optString("screen_name")); // 昵称
 					// mUser.setUserName(object.optString("name"));
@@ -233,34 +261,17 @@ public class UserInfoActivity extends SlateBaseActivity implements
 		});
 	}
 
-	/**
-	 * 获取QQ用户相关信息
-	 * 
-	 */
-	public void getQqUserInfo() {
-		showLoadingDialog(true);
-		QQLoginUtil.getInstance(mContext).getUserInfo(new IUiListener() {
+	private void doQQBand() {
+		final QQLoginUtil qqLoginUtil = QQLoginUtil.getInstance(mContext);
+		qqLoginUtil.login();
+		qqLoginUtil.setLoginListener(new UserModelAuthListener() {
 
 			@Override
-			public void onError(UiError arg0) {
-				showLoadingDialog(false);
-			}
-
-			@Override
-			public void onComplete(Object arg0) {
-				showLoadingDialog(false);
-				if (arg0 instanceof JSONObject) {
-					mUser = new User();
-					mUser.setQqId(QQLoginUtil.getInstance(mContext).getOpenId());
-					// mUser.setNickName(object.optString("nickname")); // 昵称
-					// mUser.setAvatar(object.optString("figureurl_qq_1"));//
-					// 用户头像地址（小图，40×40像素；'figureurl_qq_2'是100*100像素大图）
+			public void onCallBack(boolean isSuccess) {
+				if (isSuccess && !TextUtils.isEmpty(qqLoginUtil.getOpenId())) {
+					mUser.setSinaId(qqLoginUtil.getOpenId());
+					doBand(qqLoginUtil.getOpenId(), BandAccountOperate.QQ);
 				}
-			}
-
-			@Override
-			public void onCancel() {
-				showLoadingDialog(false);
 			}
 		});
 	}
@@ -275,6 +286,7 @@ public class UserInfoActivity extends SlateBaseActivity implements
 			weiboAuth.oAuth();
 		} else {
 			String sinaId = SinaAPI.getInstance(this).getSinaId();
+			Log.e("已认证sinaId", sinaId);
 			mUser.setSinaId(sinaId);
 			doBand(sinaId, BandAccountOperate.WEIBO);
 		}
@@ -284,6 +296,7 @@ public class UserInfoActivity extends SlateBaseActivity implements
 			public void onCallBack(boolean isSuccess) {
 				String sinaId = SinaAPI.getInstance(UserInfoActivity.this)
 						.getSinaId();
+				Log.e("重新认证sinaId", sinaId);
 				mUser.setSinaId(sinaId);
 				doBand(sinaId, BandAccountOperate.WEIBO);
 			}
@@ -298,7 +311,7 @@ public class UserInfoActivity extends SlateBaseActivity implements
 	 * @param bindType
 	 *            绑定类型
 	 */
-	protected void doBand(final String c, final int bindType) {
+	public void doBand(final String c, final int bindType) {
 		if (mUser == null)
 			return;
 		mController.bandAccount(mUser.getUid(), mUser.getToken(), bindType, c,
@@ -306,19 +319,30 @@ public class UserInfoActivity extends SlateBaseActivity implements
 
 					@Override
 					public void setData(Entry entry) {
-						if (entry == null || ((ErrorMsg) entry).getNo() == 0) {
-							showToast(R.string.band_succeed);
-							// 存储绑定信息
-							if (bindType == BandAccountOperate.WEIBO)
-								mUser.setBandWeibo(true);
-							else if (bindType == BandAccountOperate.WEIXIN)
-								mUser.setBandWeixin(true);
-							handler.sendEmptyMessage(0);
-							SlateDataHelper.saveUserLoginInfo(
-									UserInfoActivity.this, mUser);
+						showLoadingDialog(false);
+						String toast = "";
+						if (entry != null && entry instanceof ErrorMsg) {
+							ErrorMsg e = (ErrorMsg) entry;
+							if (e.getNo() == 0) {
+								toast = getString(R.string.band_succeed);
+								// 存储绑定信息
+								if (bindType == BandAccountOperate.WEIBO)
+									mUser.setBandWeibo(true);
+								else if (bindType == BandAccountOperate.WEIXIN)
+									mUser.setBandWeixin(true);
+								else if (bindType == BandAccountOperate.QQ)
+									mUser.setBandQQ(true);
+								else if (bindType == BandAccountOperate.EMAIL) // 重新发送邮件
+									toast = getString(R.string.send_email_done);
 
-							showLoadingDialog(false);
+								handler.sendEmptyMessage(0);
+								SlateDataHelper.saveUserLoginInfo(
+										UserInfoActivity.this, mUser);
+							} else
+								toast = e.getDesc();
 						}
+						showToast(TextUtils.isEmpty(toast) ? getString(R.string.band_failed)
+								: toast);
 					}
 				});
 	}
@@ -327,11 +351,11 @@ public class UserInfoActivity extends SlateBaseActivity implements
 	 * 
 	 * @param type
 	 */
-	private void gotoBandDetail(int type) {
+	public void gotoBandDetail(int type) {
 		Intent i = new Intent(this, BandDetailActivity.class);
 		i.putExtra("band_type", type);
 		i.putExtra("band_user", mUser);
-		startActivity(i);
+		startActivityForResult(i, BandDetailActivity.BAND_SUCCESS);
 	}
 
 	/**
@@ -461,10 +485,18 @@ public class UserInfoActivity extends SlateBaseActivity implements
 							User resUser = (User) entry;
 							ErrorMsg error = resUser.getError();
 							if (error.getNo() == 0) {
+								SlateDataHelper.setNickname(mContext,
+										resUser.getNickName());
+								SlateDataHelper.setDesc(mContext,
+										resUser.getDesc());
+								mUser.setNickName(resUser.getNickName());
+								mUser.setAvatar(resUser.getAvatar());
+								mUser.setDesc(resUser.getDesc());
 								handler.sendEmptyMessage(1);
 							}// 修改失败
-							else
+							else {
 								showToast(error.getDesc());
+							}
 						}
 
 					}
@@ -477,18 +509,8 @@ public class UserInfoActivity extends SlateBaseActivity implements
 	 * @param user
 	 * @param picUrl
 	 */
-	protected void afterFetchPicture(User user, String picUrl) {
+	protected void afterFetchPicture(String picUrl) {
 		UserTools.setAvatar(this, picUrl, avatar);
-	}
-
-	/**
-	 * 设置头像
-	 * 
-	 * @param bitmap
-	 */
-	protected void setBitmapForAvatar(Bitmap bitmap) {
-		if (avatar != null)
-			UserTools.transforCircleBitmap(bitmap, avatar);
 	}
 
 	@Override
@@ -511,6 +533,12 @@ public class UserInfoActivity extends SlateBaseActivity implements
 						bitmap = null;
 					}
 				}
+			} else if (requestCode == BandDetailActivity.BAND_SUCCESS) {
+				mUser.setEmail(SlateDataHelper.getUserLoginInfo(this)
+						.getEmail());
+				mUser.setPhone(SlateDataHelper.getUserLoginInfo(this)
+						.getPhone());
+				handler.sendEmptyMessage(0);
 			}
 		}
 		super.onActivityResult(requestCode, resultCode, data);

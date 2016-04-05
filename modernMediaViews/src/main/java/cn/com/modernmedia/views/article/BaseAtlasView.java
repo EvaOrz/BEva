@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -91,9 +92,11 @@ public class BaseAtlasView extends CommonAtlasView {
 
 				@Override
 				public void onItemClick(View view, int position) {
-					UriParse.clickSlate(mContext, list.get(position).getUri(),
-							new Entry[] { new ArticleItem() },
-							BaseAtlasView.this);
+					if (!TextUtils.isEmpty(list.get(position).getUri()))
+
+						UriParse.clickSlate(mContext, list.get(position)
+								.getUri(), new Entry[] { new ArticleItem() },
+								BaseAtlasView.this);
 				}
 			});
 			pager.setAdapter(adapter);

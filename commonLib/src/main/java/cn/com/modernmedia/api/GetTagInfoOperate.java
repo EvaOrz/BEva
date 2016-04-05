@@ -40,6 +40,7 @@ public class GetTagInfoOperate extends BaseOperate {
 		, ISSUE_LIST/** 期信息 **/
 		, CHILD_CAT/** 子栏目信息 **/
 		, ALL_CAT/** 全部订阅栏目信息 **/
+		, SPECIAL/** 特刊信息 **/
 		;
 	}
 
@@ -68,6 +69,8 @@ public class GetTagInfoOperate extends BaseOperate {
 			url = UrlMaker.getTagChild(parentTagName, "", group, top, true);
 		} else if (type == TAG_TYPE.ALL_CAT) {
 			url = UrlMaker.getBookColumns();
+		} else if (type == TAG_TYPE.SPECIAL) {
+			url = UrlMaker.getSpecial();
 		}
 		Log.e("rubanliucheng", url);
 
@@ -150,7 +153,8 @@ public class GetTagInfoOperate extends BaseOperate {
 							tagInfo.getTagName()));
 					tagInfo.setIsRadio(object.optInt("isRadio"));
 					tagInfo.setType(object.optInt("type"));
-					
+					tagInfo.setIsPay(object.optInt("ispay"));
+
 					if (tagInfo.getTagLevel() == 1)
 						tagInfoList.getTopLevelList().add(tagInfo.getTagName());
 

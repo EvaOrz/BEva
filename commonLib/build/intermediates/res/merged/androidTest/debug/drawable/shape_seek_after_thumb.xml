@@ -3,4 +3,4 @@
     <solid android:color="@color/seek_bar_after_thumb"></solid>
 <size android:height="16dp"/>
 </shape>
-<!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/commonLib/src/main/res/drawable/shape_seek_after_thumb.xml --><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/commonLib/build/intermediates/bundles/debug/res/drawable/shape_seek_after_thumb.xml -->
+<!-- From: file:/Users/Eva./Desktop/businessweek_tag/commonLib/src/main/res/drawable/shape_seek_after_thumb.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/commonLib/build/intermediates/bundles/debug/res/drawable/shape_seek_after_thumb.xml -->

@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 import cn.com.modernmedia.pay.PayActivity;
+import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmedia.util.DataHelper;
 import cn.com.modernmedia.widget.EvaSwitchBar;
 import cn.com.modernmedia.widget.EvaSwitchBar.OnChangeListener;
@@ -184,9 +185,12 @@ public class SettingActivity extends Activity implements OnClickListener,
 		try {
 			final PackageInfo info = packageManager.getPackageInfo(
 					getPackageName(), PackageManager.GET_META_DATA);
-
-			version.setText(info.applicationInfo.loadLabel(packageManager)
-					+ " " + info.versionName);
+			String versionText = info.applicationInfo.loadLabel(packageManager)
+					+ " " + info.versionName;
+			if (ConstData.IS_DEBUG != 0) {
+				versionText = versionText + "（" + "测试版" + "）";
+			}
+			version.setText(versionText);
 		} catch (PackageManager.NameNotFoundException ignored) {
 		}
 	}

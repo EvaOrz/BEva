@@ -8,4 +8,4 @@
         android:fromYDelta="-100%"
         android:interpolator="@android:anim/linear_interpolator"
         android:toYDelta="0" />
-</set><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/coreLib/src/main/res/anim/up_in.xml --><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/exploded-aar/Businessweek-for-Android-newbranch-20130403/coreLib/unspecified/res/anim/up_in.xml -->
+</set><!-- From: file:/Users/Eva./Desktop/businessweek_tag/coreLib/src/main/res/anim/up_in.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaUserModel/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/res/anim/up_in.xml -->

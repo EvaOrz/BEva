@@ -16,5 +16,6 @@
     <string name="my_books">我的栏目</string>
     <string name="book_edit">编辑</string>
     <string name="more_books">添加栏目</string>
+    <string name="book">订阅</string>
 
 </resources>

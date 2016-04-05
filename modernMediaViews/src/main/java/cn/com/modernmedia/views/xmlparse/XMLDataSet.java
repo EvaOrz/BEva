@@ -14,14 +14,13 @@ import android.widget.TextView;
 import cn.com.modernmedia.CommonApplication;
 import cn.com.modernmedia.CommonArticleActivity.ArticleType;
 import cn.com.modernmedia.model.AdvList.AdvSource;
-import cn.com.modernmedia.model.ArticleItem.Picture;
 import cn.com.modernmedia.model.ArticleItem;
+import cn.com.modernmedia.model.ArticleItem.Picture;
 import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmedia.views.R;
 import cn.com.modernmedia.views.index.adapter.BaseIndexAdapter;
 import cn.com.modernmedia.views.util.V;
 import cn.com.modernmedia.widget.GifView;
-import cn.com.modernmediaslate.SlateApplication;
 import cn.com.modernmediaslate.unit.DateFormatTool;
 import cn.com.modernmediaslate.unit.ParseUtil;
 
@@ -59,6 +58,7 @@ public class XMLDataSet extends BaseXMLDataSet {
 				titleBar(item);
 			}
 		}
+		pay(item);
 		title(item, adapter);
 		desc(item, position, adapter);
 		adv(item);
@@ -76,7 +76,7 @@ public class XMLDataSet extends BaseXMLDataSet {
 		ninePatch();
 		imageforGroup(item);// 组图模式初始化
 		registerClick(item, articleType);
-		pay(item);
+		
 		String url = "";
 		// 广告
 		if (item.getAdvSource() != null)

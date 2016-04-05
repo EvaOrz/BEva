@@ -45,12 +45,18 @@ public class AppValue {
 	 */
 	public static TagInfoList uriTagInfoList = new TagInfoList();
 
+	/**
+	 * 跑马灯外链 -- 记录直播地址
+	 */
+	public static String onlineUrl = "";
+
 	public static void clear() {
 		currentIssueTag = "";
 		appInfo = new AppProperty();
 		defaultColumnList = new TagInfoList();
 		ensubscriptColumnList = new TagInfoList();
 		uriTagInfoList = new TagInfoList();
+		onlineUrl = "";
 	}
 
 	/**
@@ -97,5 +103,5 @@ public class AppValue {
 		tagInfo.setGroup(3);
 		return tagInfo;
 	}
-
+	
 }

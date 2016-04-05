@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item android:drawable="@drawable/cardlist_comment_tapped" android:state_focused="true"></item>
-    <item android:drawable="@drawable/cardlist_comment_tapped" android:state_selected="true"></item>
-    <item android:drawable="@drawable/cardlist_comment_tapped" android:state_pressed="true"></item>
-    <item android:drawable="@drawable/cardlist_comment" android:state_window_focused="false"/>
-
-</selector><!-- From: file:/Users/Eva./Desktop/businessweek_tag/ModernMediaUserModel/src/main/res/drawable/card_item_comment_select.xml -->

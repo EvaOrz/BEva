@@ -427,4 +427,5 @@ public class UrlMaker {
 				+ UserConstData.DATA_TYPE + "/uid/" + uid + "/appid/"
 				+ UserConstData.getInitialAppId() + "/token/" + token;
 	}
+
 }

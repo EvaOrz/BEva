@@ -1,0 +1,112 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <title></title>
+    <style type="text/css">
+        .container{
+            padding-top: 1.6em;
+        }
+        button{
+            margin-bottom: 2em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <button type="button" class="btn btn-info btn-lg btn-block">查询登录状态</button>
+            <button type="button" class="btn btn-info btn-lg btn-block">登录</button>
+            <button type="button" class="btn btn-info btn-lg btn-block">分享</button>
+            <button type="button" class="btn btn-info btn-lg btn-block">绑定手机号码</button>
+            <button type="button" class="btn btn-info btn-lg btn-block">绑定邮箱</button>
+            <button type="button" class="btn btn-info btn-lg btn-block">绑定微博</button>
+            <button type="button" class="btn btn-info btn-lg btn-block">绑定微信</button>
+            <button type="button" class="btn btn-info btn-lg btn-block">绑定QQ</button>
+        </div>
+    </div>
+</div>
+<div id='test'><div>
+<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="webridge.js"></script>
+<script type="text/javascript">
+    var ele = $('button:eq(0)');
+    var checkLogin = function(){
+        webridge.jsToNative('queryLoginStatus','',function(result,err){
+	    if (err) {
+                ele.text('原生方法调用失败');
+            }else{
+		
+		if (result.loginStatus == true){
+		    ele.text(result.user.userName+'已经登录');
+                }else{
+		    ele.text('还没有登录');
+                }
+
+            }
+        });
+    };
+    var login = function(){
+        webridge.jsToNative('login','',function(result,err){
+            if (err) {
+                ele.text('登录调用失败');
+            }else{
+                if (result.loginResult == true){
+                    ele.text(result.user.userName+'登录成功');
+                }else{
+                    ele.text('已经登录了');
+                }
+            }
+        });
+    };
+    var share = function(data){
+        webridge.jsToNative('share',data,function(result,err){
+            if (err) {
+                ele.text('分享调用失败');
+            }else{
+                ele.text('分享成功');
+            }
+        });
+    };
+    var bind = function(data){
+        webridge.jsToNative('bind',data,function(result,err){
+            if (err) {
+                ele.text('绑定调用失败');
+            }else{
+                ele.text('绑定调用成功');
+            }
+        });
+    };
+    $(document).ready(function(){
+        $('button').on('click',function(event){
+            var idx = $('button').index(this);
+            ele = $(this);
+            switch (idx){
+                case 0:
+                    checkLogin();break;
+                case 1:
+                alert("login");
+                    login();break;
+                case 2:
+                    share({"content":"分享内容分享内容","link":"http://www.bbwc.cn","thumb":"http://lorempixel.com/100/100/"})
+                    break;
+                case 3:
+                    bind({type:"mobile"});break;
+                case 4:
+                    bind({type:"email"});break;
+                case 5:
+                    bind({type:"weibo"});break;
+                case 6:
+                    bind({type:"weixin"});break;
+                case 7:
+                    bind({type:"qq"});break;
+            }
+        });
+    });
+</script>
+</body>
+</html>

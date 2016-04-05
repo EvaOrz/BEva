@@ -62,77 +62,84 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:id="@+id/forget_ifshow"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/login_desc_marginLeft"
-        android:layout_marginRight="@dimen/login_desc_marginLeft"
-        android:layout_marginTop="15dp" >
+        android:orientation="vertical"
+        android:visibility="gone" >
 
-        <EditText
-            android:id="@+id/forget_verify"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/login_edittext_select"
-            android:gravity="center_vertical"
-            android:hint="@string/verify_code"
-            android:inputType="textEmailAddress"
-            android:singleLine="true"
-            android:textColor="@color/black_bg"
-            android:textColorHint="@color/login_desc"
-            android:textCursorDrawable="@null"
-            android:textSize="@dimen/dp14_textsize" />
-
-        <TextView
-            android:id="@+id/forget_verify_get"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:background="@color/gray_line"
-            android:contentDescription="@null"
-            android:padding="10dp"
-            android:text="@string/get_verify_code"
-            android:textColor="@color/white_bg" />
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/login_desc_marginLeft"
-        android:layout_marginRight="@dimen/login_desc_marginLeft"
-        android:layout_marginTop="15dp" >
-
-        <EditText
-            android:id="@+id/forget_password"
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/login_edittext_select"
-            android:gravity="center_vertical"
-            android:hint="@string/new_pwd"
-            android:inputType="number"
-            android:singleLine="true"
-            android:textColor="@color/black_bg"
-            android:textColorHint="@color/login_desc"
-            android:textCursorDrawable="@null"
-            android:textSize="@dimen/dp14_textsize" />
+            android:layout_marginLeft="@dimen/login_desc_marginLeft"
+            android:layout_marginRight="@dimen/login_desc_marginLeft"
+            android:layout_marginTop="15dp" >
 
-        <ImageView
-            android:id="@+id/forget_pwd_clear"
-            android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/forget_verify"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/login_edittext_select"
+                android:gravity="center_vertical"
+                android:hint="@string/verify_code"
+                android:inputType="number"
+                android:singleLine="true"
+                android:textColor="@color/black_bg"
+                android:textColorHint="@color/login_desc"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/dp14_textsize" />
+
+            <TextView
+                android:id="@+id/forget_verify_get"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:background="@color/gray_line"
+                android:contentDescription="@null"
+                android:padding="10dp"
+                android:text="@string/get_verify_code"
+                android:textColor="@color/white_bg" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:contentDescription="@null"
-            android:padding="@dimen/dp5"
-            android:src="@drawable/ic_text_field_clear" />
-    </RelativeLayout>
+            android:layout_marginLeft="@dimen/login_desc_marginLeft"
+            android:layout_marginRight="@dimen/login_desc_marginLeft"
+            android:layout_marginTop="15dp" >
 
-    <TextView
+            <EditText
+                android:id="@+id/forget_password"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/login_edittext_select"
+                android:gravity="center_vertical"
+                android:hint="@string/new_pwd"
+                android:singleLine="true"
+                android:textColor="@color/black_bg"
+                android:textColorHint="@color/login_desc"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/dp14_textsize" />
+
+            <ImageView
+                android:id="@+id/forget_pwd_clear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:contentDescription="@null"
+                android:padding="@dimen/dp5"
+                android:src="@drawable/ic_text_field_clear" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <Button
         android:id="@+id/forget_confirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/login_desc_marginLeft"
-        android:background="@color/yellow"
+        android:background="@drawable/yellow_btn_bg"
         android:gravity="center"
         android:paddingBottom="5dp"
         android:paddingTop="5dp"
@@ -140,4 +147,4 @@
         android:textColor="@color/white_bg"
         android:textSize="@dimen/dp15_textsize" />
 
-</LinearLayout><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/src/main/res/layout/activity_forget_pwd.xml --><!-- From: file:/Users/Eva./Desktop/Businessweek-for-Android-newbranch-20130403/modernMediaUserModel/build/intermediates/bundles/debug/res/layout/activity_forget_pwd.xml -->
+</LinearLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaUserModel/src/main/res/layout/activity_forget_pwd.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaUserModel/build/intermediates/bundles/debug/res/layout/activity_forget_pwd.xml -->
