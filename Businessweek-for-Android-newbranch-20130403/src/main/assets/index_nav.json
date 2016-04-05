@@ -1,2 +1,0 @@
-{"data":"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    layout_width=\"fill_parent\"\n    layout_height=\"wrap_content\"\n    orientation=\"vertical\" >\n\n   
-<LinearLayout\n            layout_width=\"fill_parent\"\n            layout_height=\"44dp\"\n            gravity=\"center_vertical\"\n            function=\"top_menu\" />\n<\/LinearLayout>"}
