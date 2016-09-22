@@ -16,6 +16,16 @@
             <option value="$PROJECT_DIR$/modernMediaViews" />
           </set>
         </option>
+        <option name="myModules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/commonLib" />
+            <option value="$PROJECT_DIR$/coreLib" />
+            <option value="$PROJECT_DIR$/ibloomberg" />
+            <option value="$PROJECT_DIR$/modernMediaUserModel" />
+            <option value="$PROJECT_DIR$/modernMediaViews" />
+          </set>
+        </option>
       </GradleProjectSettings>
     </option>
   </component>
