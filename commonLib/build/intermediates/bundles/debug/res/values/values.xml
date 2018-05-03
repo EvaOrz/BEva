@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bg_color">#EDEDED</color>
+    <color name="body_bg">#f6f6f6</color>
+    <color name="btn_cancel_color">#999999</color>
+    <color name="btn_confirm_color">#303F9F</color>
+    <color name="button_normal">#77ffffff</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="contents_text">#ff000000</color>
+    <color name="date_container_color">#f2f7fa</color>
+    <color name="date_pick_color">#33000000</color>
+    <color name="dot_active_color">#FF424242</color>
+    <color name="dot_color">#FFC0C0C0</color>
+    <color name="encode_view">#ffffffff</color>
+    <color name="gray_line">#dbdbdb</color>
+    <color name="grgray">#686868</color>
+    <color name="header">#58567D</color>
+    <color name="help_button_view">#ffcccccc</color>
+    <color name="help_view">#ff404040</color>
+    <color name="my_coin_green_color">#4cd863</color>
+    <color name="possible_result_points">#c0ffff00</color>
+    <color name="process_loading_red_ring">#ffb83126</color>
+    <color name="process_loading_ring_bg">#ff292929</color>
+    <color name="red">#cd3333</color>
+    <color name="result_image_border">#ffffffff</color>
+    <color name="result_minor_text">#ffc0c0c0</color>
+    <color name="result_points">#c000ff00</color>
+    <color name="result_text">#ffffffff</color>
+    <color name="result_view">#b0000000</color>
+    <color name="sbc_header_text">#ff808080</color>
+    <color name="sbc_header_view">#ffffffff</color>
+    <color name="sbc_layout_view">#ffffffff</color>
+    <color name="sbc_list_item">#fffff0e0</color>
+    <color name="sbc_page_number_text">#ff000000</color>
+    <color name="sbc_snippet_text">#ff4b4b4b</color>
+    <color name="seek_bar_after_thumb">#cdcdcd</color>
+    <color name="seek_bar_before_thumb">#cd3333</color>
+    <color name="seek_bar_thumb_center">#dd3333</color>
+    <color name="seek_bar_thumb_outer_stroke">#ffffff</color>
+    <color name="share_text">#ff000000</color>
+    <color name="share_view">#ffffffff</color>
+    <color name="status_text">#ffffffff</color>
+    <color name="status_view">#50000000</color>
+    <color name="title_bar">#FFFAFAFA</color>
+    <color name="translucent_black">#7f000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="viewfinder_frame">#ff000000</color>
+    <color name="viewfinder_laser">#ffff0000</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="vip_mine_pay">#cd9d4c</color>
+    <color name="vip_red">#f10f12</color>
+    <declare-styleable name="CSTImageView"><attr name="scale_type">
+            <flag name="crop" value="0x0040"/>
+            <flag name="inside" value="0x0080"/>
+            <flag name="left" value="0x0001"/>
+            <flag name="top" value="0x0002"/>
+            <flag name="right" value="0x0004"/>
+            <flag name="bottom" value="0x0008"/>
+        </attr></declare-styleable>
+    <declare-styleable name="LoopView"><attr format="color" name="lineColor"/><attr format="color" name="topBottomTextColor"/><attr format="color" name="centerTextColor"/><attr format="dimension" name="textSize"/><attr format="boolean" name="canLoop"/><attr format="integer" name="initPosition"/><attr format="integer" name="drawItemCount"/></declare-styleable>
+    <declare-styleable name="RoundAngleImageView"><attr format="dimension" name="roundWidth"/><attr format="dimension" name="roundHeight"/></declare-styleable>
+    <dimen name="article_bar_height">44dp</dimen>
+    <dimen name="article_gallery_button_height">70dp</dimen>
+    <dimen name="bar_height">44.5dp</dimen>
+    <dimen name="nav_button_margin_left">5.5dp</dimen>
+    <dimen name="red_ring_size_large">40dp</dimen>
+    <dimen name="red_ring_size_medium">35dp</dimen>
+    <dimen name="red_ring_size_small">20dp</dimen>
+    <dimen name="share_item_margin">10dp</dimen>
+    <dimen name="share_item_textsize">15dp</dimen>
+    <dimen name="share_list_fade_length">12dp</dimen>
+    <dimen name="view_height">0.2dp</dimen>
+    <dimen name="vip_dialog_height">33dp</dimen>
+    <dimen name="vip_dialog_total_width">300dp</dimen>
+    <dimen name="vip_dialog_view_height">160dp</dimen>
+    <dimen name="vip_dialog_width">77dp</dimen>
+    <dimen name="vip_height">50dp</dimen>
+    <dimen name="vip_show_width">120dp</dimen>
+    <item name="auto_focus" type="id"/>
+    <item name="decode" type="id"/>
+    <item name="decode_failed" type="id"/>
+    <item name="decode_succeeded" type="id"/>
+    <item name="encode_failed" type="id"/>
+    <item name="encode_succeeded" type="id"/>
+    <item name="launch_product_query" type="id"/>
+    <item name="quit" type="id"/>
+    <item name="restart_preview" type="id"/>
+    <item name="return_scan_result" type="id"/>
+    <item name="search_book_contents_failed" type="id"/>
+    <item name="search_book_contents_succeeded" type="id"/>
+    <string name="about">关于</string>
+    <string name="add_fav">已收藏</string>
+    <string name="adv_im_go">跳出</string>
+    <string name="app_name">ModernMediaCommon</string>
+    <string name="app_recommend">应用推荐</string>
+    <string name="band_email_succeed">邮件已发送，请前往邮箱完成绑定。</string>
+    <string name="band_failed">绑定出错</string>
+    <string name="band_succeed">绑定成功</string>
+    <string name="book">订阅</string>
+    <string name="book_already">已订阅(到期时间：%1$s)</string>
+    <string name="book_already_no_time">已订阅</string>
+    <string name="book_daoqi">已过期(到期时间：%1$s)</string>
+    <string name="camera">拍照</string>
+    <string name="can_not_find_article">对不起，暂时找不到该文章</string>
+    <string name="cancel">取消</string>
+    <string name="choose_qr_photo">选择二维码图片</string>
+    <string name="delete_fav">取消收藏</string>
+    <string name="dial_error">您的手机缺少所需的功能模块，无法继续操作。</string>
+    <string name="download">下载</string>
+    <string name="download_error">下载遇到了错误，已停止</string>
+    <string name="download_later">以后再说</string>
+    <string name="enter_content">请输入内容！</string>
+    <string name="exit_app">再按一次退出应用</string>
+    <string name="fav">收藏夹</string>
+    <string name="fav_error">收藏失败</string>
+    <string name="fecthing_http">正在更新数据</string>
+    <string name="fecthing_ok">更新成功</string>
+    <string name="feed_add_pic">上传图片</string>
+    <string name="feed_commit">提交</string>
+    <string name="follow_failed">微博关注失败</string>
+    <string name="follow_success">微博关注成功</string>
+    <string name="go_info">进入列表</string>
+    <string name="go_view">进入阅读 >></string>
+    <string name="hello">你好</string>
+    <string name="ibloomberg_now_title">即时头条-商业周刊</string>
+    <string name="is_lastest">当前已是最新</string>
+    <string name="json_error">数据组装错误</string>
+    <string name="loading_more">下一篇</string>
+    <string name="loading_pre">上一篇</string>
+    <string name="look_info">查看简介</string>
+    <string name="more">更多</string>
+    <string name="msg_ok">好的</string>
+    <string name="music_title">电台</string>
+    <string name="new_issue">新一期杂志到了，是否现在阅读？</string>
+    <string name="no_books">尚未订购任何内容</string>
+    <string name="no_google_content">當前環境不支持google支付。</string>
+    <string name="no_google_title">提示</string>
+    <string name="no_issue_zip">该期杂志没有下载包</string>
+    <string name="no_photo">没有找到图片</string>
+    <string name="no_qrcode">照片中未识别到二维码</string>
+    <string name="no_recover">没有可恢复的订阅。</string>
+    <string name="no_weixin">微信尚未安装！</string>
+    <string name="nomore_data">暂时没有内容</string>
+    <string name="now">即时</string>
+    <string name="order_make_faild">订单生成失败</string>
+    <string name="pay_for_fav">请付费后收藏</string>
+    <string name="pay_for_share">请付费后分享</string>
+    <string name="pay_help"><u>我已订阅，帮我恢复</u></string>
+    <string name="pay_success">支付成功。</string>
+    <string name="pay_text1">订阅商业周刊</string>
+    <string name="pay_text2">商业周刊数字版，专为移动而生的中文国际商业媒体，订阅读者独享高品质内容</string>
+    <string name="pay_text3">订阅数字版，随时获得商业洞察</string>
+    <string name="pay_zengyue">赠阅码兑换</string>
+    <string name="plz_pay_after_band_phone">您还未绑定手机号码，请前往用户中心绑定后购买。</string>
+    <string name="qq_friend">QQ</string>
+    <string name="read_issue">阅读杂志</string>
+    <string name="read_issue_error">该期杂志读取失败</string>
+    <string name="recover">恢复</string>
+    <string name="recover_faild">恢复失败。</string>
+    <string name="recover_ing">恢复中，请稍候。</string>
+    <string name="recover_success">订阅已恢复。</string>
+    <string name="revert_oder_faild">恢复订单失败。</string>
+    <string name="revert_oder_ok">恢复订单成功。</string>
+    <string name="save_picture_fail">图片保存失败,请检查网络</string>
+    <string name="save_picture_success">图片已保存</string>
+    <string name="scan">扫一扫</string>
+    <string name="scan_tip">将二维码放入框内扫描</string>
+    <string name="select_from_album">从手机相册选择</string>
+    <string name="send">发送</string>
+    <string name="share_by_email">邮件</string>
+    <string name="share_by_email_title">我在%1$s看到了一篇文章，想要分享给你</string>
+    <string name="share_cancle">分享取消</string>
+    <string name="share_faild">分享失败</string>
+    <string name="share_none_component">分享失败,请检查网络</string>
+    <string name="share_picture_fail">图片分享失败</string>
+    <string name="share_seccuss">分享成功</string>
+    <string name="share_to_gallery">保存到相册</string>
+    <string name="share_to_weibo_title">分享到微博</string>
+    <string name="share_wp_content">【%1$s】%2$s %3$s</string>
+    <string name="sina_weibo">新浪微博</string>
+    <string name="sorry">对不起</string>
+    <string name="sure">确定</string>
+    <string name="theme_magazine">主题杂志</string>
+    <string name="uniq_sina">该账号已被其他现代移动社区账号绑定</string>
+    <string name="unkown_qrcode">无法识别二维码内容</string>
+    <string name="update">软件版本更新</string>
+    <string name="update1">检测更新</string>
+    <string name="upload_failed">上传失败</string>
+    <string name="upload_null">上传图片不能为空</string>
+    <string name="upload_num">第</string>
+    <string name="upload_size">张</string>
+    <string name="upload_success">上传成功</string>
+    <string name="vew_later">稍后再看</string>
+    <string name="video_complete">视频已播放完毕</string>
+    <string name="video_error">播放出现了错误，已停止。</string>
+    <string name="view_now">现在阅读</string>
+    <string name="vip_bb">© 2012-2016 商业周刊版权所有</string>
+    <string name="vip_district">城市</string>
+    <string name="vip_industry">行业</string>
+    <string name="vip_name">姓名</string>
+    <string name="vip_show_endtime">有效期至: %1$s</string>
+    <string name="vip_show_id">身份</string>
+    <string name="vip_show_ids">身份ID</string>
+    <string name="vip_show_info">会员名片</string>
+    <string name="vip_show_normal">普通会员</string>
+    <string name="vip_show_vip">VIP会员</string>
+    <string name="weixin_friend">微信好友</string>
+    <string name="weixin_friends">微信朋友圈</string>
+    <string name="weixin_info">已经将公众号账号复制到剪贴板，请到微信中粘贴并搜索关注。</string>
+    <string name="weixin_register_error">微信注册失败！</string>
+    <string name="weixin_version_low">微信版本较低，无法发送到朋友圈，请更新！</string>
+    <string name="youzan_title">Pursuits 智享生活</string>
+    <style name="Animation">
+        <item name="android:activityOpenEnterAnimation">@null</item>
+        <item name="android:activityOpenExitAnimation">@null</item>
+        <item name="android:activityCloseEnterAnimation">@null</item>
+        <item name="android:activityCloseExitAnimation">@null</item>
+        <item name="android:taskOpenEnterAnimation">@null</item>
+        <item name="android:taskOpenExitAnimation">@null</item>
+        <item name="android:taskCloseEnterAnimation">@null</item>
+        <item name="android:taskCloseExitAnimation">@null</item>
+        <item name="android:taskToFrontEnterAnimation">@null</item>
+        <item name="android:taskToFrontExitAnimation">@null</item>
+        <item name="android:taskToBackEnterAnimation">@null</item>
+        <item name="android:taskToBackExitAnimation">@null</item>
+    </style>
+    <style name="AnimationFade">
+        <!-- PopupWindow左右弹出的效果-->
+        <item name="android:windowEnterAnimation">@anim/in_lefttoright</item>
+        <item name="android:windowExitAnimation">@anim/out_righttoleft</item>
+    </style>
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+
+
+
+
+
+
+
+
+
+        -->
+    </style>
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+    <style name="ContentOverlay" parent="android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+    <style name="NobackDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+    <style name="Play_SeekBar" parent="@android:style/Widget.SeekBar">
+        <item name="android:maxHeight">6.0dip</item>
+        <item name="android:minHeight">6.0dip</item>
+        <item name="android:height">6.0dip</item>
+        <item name="android:progressDrawable">@drawable/layer_list_seekbar_play</item>
+        <item name="android:thumb">@drawable/shape_seekbar_thumb</item>
+        <item name="android:thumbOffset">0dp</item>
+    </style>
+    <style name="Theme" parent="android:Theme.Black.NoTitleBar">
+        <item name="android:windowAnimationStyle">@style/Animation</item>
+    </style>
+    <style name="fetch_image_popup_anim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/popup_enter</item>
+        <item name="android:windowExitAnimation">@anim/popup_exit</item>
+    </style>
+    <style name="webview_pop" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/down_in</item>
+        <item name="android:windowExitAnimation">@anim/down_out</item>
+    </style>
+</resources>

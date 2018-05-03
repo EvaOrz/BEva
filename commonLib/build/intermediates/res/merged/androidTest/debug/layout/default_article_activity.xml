@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/default_article_view"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white_bg"
+    android:orientation="vertical" >
+
+    <cn.com.modernmedia.widget.CommonViewPager
+        android:id="@+id/default_article_viewpager"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+
+    <RelativeLayout
+        android:id="@+id/default_article_toolbar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <!--
+         <ImageView
+        android:id="@+id/default_pay_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/pay_bannar_view"
+        android:visibility="gone" />
+    -->
+
+
+    <include
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/default_article_toolbar"
+        layout="@layout/progress_activity"
+        android:visibility="gone" />
+
+</RelativeLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/commonLib/src/main/res/layout/default_article_activity.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/commonLib/build/intermediates/bundles/debug/res/layout/default_article_activity.xml -->

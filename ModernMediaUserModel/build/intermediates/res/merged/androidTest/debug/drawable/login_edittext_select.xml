@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/login_edittext_pressed_bg" android:state_focused="true"></item>
+    <item android:drawable="@drawable/login_edittext_pressed_bg" android:state_selected="true"></item>
+    <item android:drawable="@drawable/login_edittext_pressed_bg" android:state_pressed="true"></item>
+    <item android:drawable="@drawable/login_edittext_normal_bg" android:state_window_focused="false"/>
+
+</selector><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaUserModel/src/main/res/drawable/login_edittext_select.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaUserModel/build/intermediates/bundles/debug/res/drawable/login_edittext_select.xml -->

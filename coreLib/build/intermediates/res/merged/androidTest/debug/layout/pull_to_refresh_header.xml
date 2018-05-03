@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/pull_head_contain"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/pull_to_refresh_header_background"
+    android:orientation="horizontal" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/footer_paddingBottom"
+        android:paddingLeft="@dimen/head_contentLayout_paddingLeft"
+        android:paddingTop="@dimen/footer_paddingTop" >
+
+        <ImageView
+            android:id="@+id/head_arrowImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_pulltorefresh_arrow"
+            android:visibility="invisible" />
+
+        <ProgressBar
+            android:id="@+id/head_progressBar"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/head_tipsTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pull_to_refresh_pull_label"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="@dimen/head_tipsTextView_tSize" />
+
+            <TextView
+                android:id="@+id/head_lastUpdatedTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/head_lastUpdatedTextView_tSize" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/coreLib/src/main/res/layout/pull_to_refresh_header.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/coreLib/build/intermediates/bundles/debug/res/layout/pull_to_refresh_header.xml -->

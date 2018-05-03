@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white_bg" >
+
+    <ImageView
+        android:id="@+id/user_card_info_avatar"
+        android:layout_width="@dimen/user_card_info_avatar_size"
+        android:layout_height="@dimen/user_card_info_avatar_size"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="@dimen/user_card_info_avatar_marginLeft"
+        android:layout_marginTop="@dimen/user_card_info_avatar_marginTop"
+        android:contentDescription="@null"
+        android:scaleType="fitXY"
+        android:src="@drawable/avatar_placeholder" />
+
+    <TextView
+        android:id="@+id/user_card_info_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp15"
+        android:layout_marginTop="@dimen/dp20"
+        android:layout_toRightOf="@id/user_card_info_avatar"
+        android:textColor="@color/black_bg"
+        android:textSize="@dimen/nav_title_size" />
+
+    <RelativeLayout
+        android:id="@+id/user_card_info_user_frame"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/user_card_info_user_name"
+        android:layout_below="@id/user_card_info_user_name"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="@dimen/card_margin_top" >
+
+        <LinearLayout
+            android:id="@+id/card_info_layout_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/card_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/card_info_num"
+                android:textSize="@dimen/dp16_textsize" />
+
+            <TextView
+                android:id="@+id/card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/card_margin_top"
+                android:text="@string/card"
+                android:textColor="@color/black_bg"
+                android:textSize="@dimen/dp11_textsize" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/card_info_layout_follow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/follow_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/card_info_num"
+                android:textSize="@dimen/dp16_textsize" />
+
+            <TextView
+                android:id="@+id/follow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/follow"
+                android:textColor="@color/black_bg"
+                android:textSize="@dimen/dp11_textsize" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/card_info_layout_fans"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/fan_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/card_info_num"
+                android:textSize="@dimen/dp16_textsize" />
+
+            <TextView
+                android:id="@+id/fan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fans"
+                android:textColor="@color/black_bg"
+                android:textSize="@dimen/dp11_textsize" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/user_card_info_user_frame"
+        android:layout_marginTop="@dimen/user_card_info_divider_marginTop"
+        android:contentDescription="@null"
+        android:scaleType="fitXY"
+        android:src="@drawable/list_item_divider" />
+
+</RelativeLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaUserModel/src/main/res/layout/activity_card_info_head.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/layout/activity_card_info_head.xml -->

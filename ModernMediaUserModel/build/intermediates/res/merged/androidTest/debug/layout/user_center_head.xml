@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <TextView
+        android:id="@+id/user_center_info_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/name_margin_top"
+        android:textColor="@color/white_bg"
+        android:textSize="@dimen/dp15_textsize" />
+
+    <LinearLayout
+        android:id="@+id/user_center_layout_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/user_center_info_user_name"
+        android:layout_marginRight="@dimen/user_center_title_num_margin"
+        android:layout_marginTop="@dimen/card_number_margin_top"
+        android:layout_toLeftOf="@+id/user_center_layout_follow"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/user_center_card_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/user_center_num_color"
+            android:textSize="@dimen/dp25_textsize" />
+
+        <TextView
+            android:id="@+id/user_center_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/card"
+            android:textColor="@color/white_bg"
+            android:textSize="@dimen/dp11_textsize" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/user_center_layout_follow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/user_center_layout_card"
+        android:layout_centerInParent="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/user_center_follow_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/user_center_num_color"
+            android:textSize="@dimen/dp25_textsize" />
+
+        <TextView
+            android:id="@+id/user_center_follow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/follow"
+            android:textColor="@color/white_bg"
+            android:textSize="@dimen/dp11_textsize" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/user_center_layout_fans"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/user_center_layout_card"
+        android:layout_marginLeft="@dimen/user_center_title_num_margin"
+        android:layout_toRightOf="@+id/user_center_layout_follow"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/user_center_fan_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/user_center_num_color"
+            android:textSize="@dimen/dp25_textsize" />
+
+        <TextView
+            android:id="@+id/user_center_fan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fans"
+            android:textColor="@color/white_bg"
+            android:textSize="@dimen/dp11_textsize" />
+    </LinearLayout>
+
+</RelativeLayout>
+<!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaUserModel/src/main/res/layout/user_center_head.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaUserModel/build/intermediates/bundles/debug/res/layout/user_center_head.xml -->

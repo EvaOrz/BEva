@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <solid android:color="@color/white_bg" />
+
+</shape>
+<!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/drawable/white_bg.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/ibloomberg/build/intermediates/exploded-aar/businessweek_tag/modernMediaViews/unspecified/res/drawable/white_bg.xml -->

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white_bg" >
+
+    <ProgressBar
+        android:id="@+id/user_footer_progressBar"
+        style="?android:attr/progressBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/head_contentLayout_paddingLeft" />
+
+    <TextView
+        android:id="@+id/user_footer_text"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/footer_height"
+        android:layout_centerInParent="true"
+        android:gravity="center_vertical"
+        android:text="@string/pull_to_loadmore"
+        android:textColor="@color/black_bg"
+        android:textSize="@dimen/dp15_textsize" />
+
+</RelativeLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/coreLib/src/main/res/layout/user_list_footer.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/ibloomberg/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/res/layout/user_list_footer.xml -->

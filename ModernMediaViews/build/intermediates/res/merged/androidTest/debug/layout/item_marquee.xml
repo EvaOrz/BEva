@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <ImageView
+        android:id="@+id/now_text"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp30_textsize"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/now_arrow" />
+
+    <TextView
+        android:id="@+id/marquee_desc"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp30_textsize"
+        android:ellipsize="marquee"
+        android:gravity="center_vertical"
+        android:layout_toLeftOf="@id/now_text"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:scrollHorizontally="true"
+        android:singleLine="true"
+        android:textColor="#ff787878"
+        android:textSize="@dimen/dp12_textsize" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp2"
+        android:layout_below="@+id/marquee_desc"
+        android:background="@drawable/line" />
+
+</RelativeLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/layout/item_marquee.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/bundles/debug/res/layout/item_marquee.xml -->

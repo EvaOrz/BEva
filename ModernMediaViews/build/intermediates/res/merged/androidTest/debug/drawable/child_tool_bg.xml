@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bitmap xmlns:android="http://schemas.android.com/apk/res/android"
+    android:src="@drawable/child_tool_cell"
+    android:tileMode="repeat" />
+<!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/drawable/child_tool_bg.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/bundles/debug/res/drawable/child_tool_bg.xml -->

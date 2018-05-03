@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # OSX
 *.DS_Store
 
@@ -25,11 +26,19 @@ build/
 *.ap_
 
 # Files for the Dalvik VM
+=======
+# built application files
+*.apk
+*.ap_
+
+# files for the dex VM
+>>>>>>> 6c9e2d2e06b7ebc27437d85008517fa59ea008fc
 *.dex
 
 # Java class files
 *.class
 
+<<<<<<< HEAD
 .DS_Store
 .DS_Store?
 
@@ -46,3 +55,18 @@ antLauncher/gen
 
 # Log Files
 *.log
+=======
+# generated files
+bin/
+gen/
+build/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Eclipse project files
+.classpath
+.project
+.metadata
+.idea/
+>>>>>>> 6c9e2d2e06b7ebc27437d85008517fa59ea008fc

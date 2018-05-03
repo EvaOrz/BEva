@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/businessweek_tag.iml" filepath="$PROJECT_DIR$/businessweek_tag.iml" />
+      <module fileurl="file://$PROJECT_DIR$/businessweek_tag1.iml" filepath="$PROJECT_DIR$/businessweek_tag1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/commonLib/commonLib.iml" filepath="$PROJECT_DIR$/commonLib/commonLib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/coreLib/coreLib.iml" filepath="$PROJECT_DIR$/coreLib/coreLib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ibloomberg/ibloomberg.iml" filepath="$PROJECT_DIR$/ibloomberg/ibloomberg.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jiaozivideoplayer/jiaozivideoplayer.iml" filepath="$PROJECT_DIR$/jiaozivideoplayer/jiaozivideoplayer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ModernMediaUserModel/modernMediaUserModel.iml" filepath="$PROJECT_DIR$/ModernMediaUserModel/modernMediaUserModel.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ModernMediaViews/modernMediaViews.iml" filepath="$PROJECT_DIR$/ModernMediaViews/modernMediaViews.iml" />
+      <module fileurl="file://$PROJECT_DIR$/vrlib/vrlib.iml" filepath="$PROJECT_DIR$/vrlib/vrlib.iml" />
+    </modules>
+  </component>
+</project>

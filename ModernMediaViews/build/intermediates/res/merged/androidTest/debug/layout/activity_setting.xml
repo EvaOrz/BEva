@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/body_bg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/bar_height"
+        android:layout_marginBottom="10dp"
+        android:background="@color/title_bar" >
+
+        <ImageView
+            android:id="@+id/setting_back"
+            android:layout_width="@dimen/bar_height"
+            android:layout_height="@dimen/bar_height"
+            android:layout_marginLeft="@dimen/nav_button_margin_left"
+            android:contentDescription="@null"
+            android:scaleType="center"
+            android:src="@drawable/ic_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/user_setting"
+            android:textColor="@color/black_bg"
+            android:textSize="@dimen/nav_title_size" />
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:contentDescription="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/list_item_divider" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:text="@string/setting_book_preference"
+        android:textColor="@color/user_center_num_color"
+        android:textSize="@dimen/dp12_textsize" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:background="@color/gray_line" />
+
+    <!-- <TextView
+        android:id="@+id/setting_band"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_bg"
+        android:padding="10dp"
+        android:text="@string/band_account"
+        android:textColor="@color/black_bg"
+        android:textSize="@dimen/dp14_textsize" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:layout_marginLeft="10dp"
+        android:background="@color/gray_line" /> -->
+
+    <TextView
+        android:id="@+id/setting_book_single"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_bg"
+        android:padding="10dp"
+        android:text="@string/setting_book_single"
+        android:textColor="@color/black_bg"
+        android:textSize="@dimen/dp14_textsize" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:layout_marginLeft="10dp"
+        android:background="@color/gray_line" />
+
+    <TextView
+        android:id="@+id/setting_get_book_single"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_bg"
+        android:padding="10dp"
+        android:text="@string/setting_get_book_single"
+        android:textColor="@color/black_bg"
+        android:textSize="@dimen/dp14_textsize" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:background="@color/gray_line" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:text="@string/setting_function"
+        android:textColor="@color/user_center_num_color"
+        android:textSize="@dimen/dp12_textsize" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:background="@color/gray_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingRight="10dp" >
+
+        <TextView
+            android:id="@+id/setting_auto_loop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="@string/setting_auto_loop"
+            android:textColor="@color/black_bg"
+            android:textSize="@dimen/dp14_textsize" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <cn.com.modernmedia.widget.EvaSwitchBar
+            android:id="@+id/auto_loop_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:layout_marginLeft="10dp"
+        android:background="@color/gray_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingRight="10dp" >
+
+        <TextView
+            android:id="@+id/setting_wifi_auto_vedio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white_bg"
+            android:padding="10dp"
+            android:text="@string/setting_wifi_auto_vedio"
+            android:textColor="@color/black_bg"
+            android:textSize="@dimen/dp14_textsize" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <cn.com.modernmedia.widget.EvaSwitchBar
+            android:id="@+id/wifi_auto_vedio_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:background="@color/gray_line" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:text="@string/settings_about"
+        android:textColor="@color/user_center_num_color"
+        android:textSize="@dimen/dp12_textsize" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:background="@color/gray_line" />
+
+    <TextView
+        android:id="@+id/settings_recommend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_bg"
+        android:padding="10dp"
+        android:text="@string/settings_recommend"
+        android:textColor="@color/black_bg"
+        android:textSize="@dimen/dp14_textsize" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:layout_marginLeft="10dp"
+        android:background="@color/gray_line" />
+
+    <TextView
+        android:id="@+id/nomal_question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_bg"
+        android:padding="10dp"
+        android:text="@string/nomal_question"
+        android:textColor="@color/black_bg"
+        android:textSize="@dimen/dp14_textsize"
+        android:visibility="invisible" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:background="@color/gray_line"
+        android:visibility="invisible" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/setting_version"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:padding="10dp"
+        android:textColor="@color/user_center_num_color"
+        android:textSize="@dimen/dp12_textsize" />
+
+</LinearLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaUserModel/src/main/res/layout/activity_setting.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/layout/activity_setting.xml -->

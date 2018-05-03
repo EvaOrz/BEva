@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fafafa"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/select_column_title_frame"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical" >
+
+        <ImageView
+            android:id="@+id/book_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/book_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/book_manage"
+            android:textColor="@color/black_bg"
+            android:textSize="@dimen/dp18_textsize" />
+
+        <TextView
+            android:id="@+id/orderordelete"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/book_order_bac"
+            android:gravity="center"
+            android:text="@string/book_edit"
+            android:textColor="#cd3333" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/line" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:text="@string/my_books" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/line" />
+
+    <ScrollView
+        android:id="@+id/book_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <!--
+                 <LinearLayout
+                
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" />
+            -->
+
+            <cn.com.modernmedia.views.column.book.DragGridView
+                android:id="@+id/booked_gridview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:numColumns="4" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/line" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/book_bac"
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:text="@string/more_books" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/line" />
+
+            <!--
+                 <LinearLayout
+                android:id="@+id/booking_gridview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" />
+            -->
+
+            <cn.com.modernmedia.views.column.book.DragGridView
+                android:id="@+id/booking_gridview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:numColumns="4" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/layout/activity_new_book.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/bundles/debug/res/layout/activity_new_book.xml -->

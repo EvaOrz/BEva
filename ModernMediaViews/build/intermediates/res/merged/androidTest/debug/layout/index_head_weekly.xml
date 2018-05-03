@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <cn.com.modernmedia.views.widget.WeeklyCircularViewPager
+        android:id="@+id/column_pager"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:tag="centerCrop" />
+
+    <TextView
+        android:id="@+id/column_pager_title_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/column_pager"
+        android:background="@color/weekly_column_head_bg"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:paddingTop="@dimen/dp10"
+        android:paddingBottom="@dimen/dp10"
+        android:paddingLeft="8dp"
+        android:paddingRight="30dp"
+        android:singleLine="true"
+        android:textColor="@color/white_bg"
+        android:textSize="@dimen/dp12_textsize" />
+
+    <RelativeLayout
+        android:id="@+id/weather_view"
+        android:layout_width="@dimen/weather_view_width"
+        android:layout_height="@dimen/weather_view_height"
+        android:layout_alignBottom="@+id/column_pager"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="@dimen/weather_view_margin_bottom"
+        android:visibility="gone" >
+
+        <Button
+            android:id="@+id/open_close"
+            android:layout_width="@dimen/weather_view_width"
+            android:layout_height="@dimen/weather_view_bg_height"
+            android:layout_alignParentBottom="true"
+            android:background="@color/weather_view_bg"
+            android:drawableLeft="@drawable/bg_weather_view_close"
+            android:paddingLeft="@dimen/weather_button_padding_left" />
+
+        <include
+            android:id="@+id/weather_day1"
+            android:layout_width="@dimen/weather_day_width"
+            android:layout_height="@dimen/weather_day_height"
+            android:layout_marginLeft="@dimen/weather_day_margin_left"
+            layout="@layout/weather_item" />
+
+        <include
+            android:id="@+id/weather_day2"
+            android:layout_width="@dimen/weather_day_width"
+            android:layout_height="@dimen/weather_day_height"
+            android:layout_toRightOf="@id/weather_day1"
+            layout="@layout/weather_item" />
+
+        <include
+            android:id="@+id/weather_day3"
+            android:layout_width="@dimen/weather_day_width"
+            android:layout_height="@dimen/weather_day_height"
+            android:layout_toRightOf="@id/weather_day2"
+            layout="@layout/weather_item" />
+
+        <include
+            android:id="@+id/weather_day4"
+            android:layout_width="@dimen/weather_day_width"
+            android:layout_height="@dimen/weather_day_height"
+            android:layout_toRightOf="@id/weather_day3"
+            layout="@layout/weather_item" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/head_default_line"
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/column_pager"
+        android:background="@color/russet" />
+
+    <Button
+        android:id="@+id/head_right_line"
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/column_pager"
+        android:background="@android:color/white" />
+
+    <LinearLayout
+        android:id="@+id/weekly_index_gallery_dot"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:visibility="gone" />
+
+</RelativeLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/layout/index_head_weekly.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/bundles/debug/res/layout/index_head_weekly.xml -->

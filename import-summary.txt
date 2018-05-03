@@ -1,0 +1,153 @@
+ECLIPSE ANDROID PROJECT IMPORT SUMMARY
+======================================
+
+Manifest Merging:
+-----------------
+Your project uses libraries that provide manifests, and your Eclipse
+project did not explicitly turn on manifest merging. In Android Gradle
+projects, manifests are always merged (meaning that contents from your
+libraries' manifests will be merged into the app manifest. If you had
+manually copied contents from library manifests into your app manifest
+you may need to remove these for the app to build correctly.
+
+Ignored Files:
+--------------
+The following files were *not* copied into the new Gradle project; you
+should evaluate whether these are still needed in your project and if
+so manually move them:
+
+From Common-Lib:
+* .gitignore
+* README.md
+* proguard-project.txt
+From Core-Lib:
+* .gitignore
+* proguard-project.txt
+From ModernMediaUserModel:
+* .idea/
+* .idea/.name
+* .idea/ModernMediaUserModel.iml
+* .idea/compiler.xml
+* .idea/copyright/
+* .idea/copyright/profiles_settings.xml
+* .idea/misc.xml
+* .idea/modules.xml
+* .idea/vcs.xml
+* .idea/workspace.xml
+* ic_launcher-web.png
+* proguard-project.txt
+From ModernMediaViews:
+* .DS_Store
+* proguard-project.txt
+From ibloomberg:
+* .DS_Store
+* .gitignore
+* .idea/
+* .idea/.name
+* .idea/Businessweek-for-Android-newbranch-20130403.iml
+* .idea/compiler.xml
+* .idea/copyright/
+* .idea/copyright/profiles_settings.xml
+* .idea/misc.xml
+* .idea/modules.xml
+* .idea/vcs.xml
+* .idea/workspace.xml
+* business_traditional
+* mmm
+* mmm-google
+* proguard-project.txt
+* proguard.cfg
+* proguard/
+* proguard/dump.txt
+* proguard/mapping.txt
+* proguard/seeds.txt
+
+Replaced Jars with Dependencies:
+--------------------------------
+The importer recognized the following .jar files as third party
+libraries and replaced them with Gradle dependencies instead. This has
+the advantage that more explicit version information is known, and the
+libraries can be updated automatically. However, it is possible that
+the .jar file in your project was of an older version than the
+dependency we picked, which could render the project not compileable.
+You can disable the jar replacement in the import wizard and try again:
+
+android-support-v4.jar => com.android.support:support-v4:20.0.0
+gson-1.6.jar => com.google.code.gson:gson:1.6
+
+Potentially Missing Dependency:
+-------------------------------
+When we replaced the following .jar files with a Gradle dependency, we
+inferred the dependency version number from the filename. This
+specific version may not actually be available from the repository.
+If you get a build error stating that the dependency is missing, edit
+the version number to for example "+" to pick up the latest version
+instead. (This may require you to update your code if the library APIs
+have changed.)
+
+gson-1.6.jar => version 1.6 in com.google.code.gson:gson:1.6
+
+Moved Files:
+------------
+Android Gradle projects use a different directory structure than ADT
+Eclipse projects. Here's how the projects were restructured:
+
+In Core-Lib:
+* AndroidManifest.xml => coreLib/src/main/AndroidManifest.xml
+* assets/ => coreLib/src/main/assets
+* libs/FlurryAnalytics_3.3.0.jar => coreLib/libs/FlurryAnalytics_3.3.0.jar
+* libs/Parse-1.3.5.jar => coreLib/libs/Parse-1.3.5.jar
+* libs/dd-plist.jar => coreLib/libs/dd-plist.jar
+* libs/weibosdkcore.jar => coreLib/libs/weibosdkcore.jar
+* lint.xml => coreLib/lint.xml
+* res/ => coreLib/src/main/res/
+* src/ => coreLib/src/main/java/
+In Common-Lib:
+* AndroidManifest.xml => commonLib/src/main/AndroidManifest.xml
+* assets/ => commonLib/src/main/assets
+* libs/alipaySDK-20150610.jar => commonLib/libs/alipaySDK-20150610.jar
+* libs/libammsdk.jar => commonLib/libs/libammsdk.jar
+* libs/umeng-analytics-v5.2.4.jar => commonLib/libs/umeng-analytics-v5.2.4.jar
+* libs/zxing.jar => commonLib/libs/zxing.jar
+* lint.xml => commonLib/lint.xml
+* res/ => commonLib/src/main/res/
+* src/ => commonLib/src/main/java/
+* src/cn/com/modernmedia/.DS_Store => commonLib/src/main/resources/cn/com/modernmedia/.DS_Store
+* src/cn/com/modernmedia/api/GetSoloColumnIndexOperate.java.bk => commonLib/src/main/resources/cn/com/modernmedia/api/GetSoloColumnIndexOperate.java.bk
+* src/cn/com/modernmedia/api/HttpRequestController.java.bk => commonLib/src/main/resources/cn/com/modernmedia/api/HttpRequestController.java.bk
+In ModernMediaUserModel:
+* AndroidManifest.xml => modernMediaUserModel/src/main/AndroidManifest.xml
+* assets/ => modernMediaUserModel/src/main/assets
+* libs/mta-sdk-1.0.0.jar => modernMediaUserModel/libs/mta-sdk-1.0.0.jar
+* libs/open_sdk.jar => modernMediaUserModel/libs/open_sdk.jar
+* lint.xml => modernMediaUserModel/lint.xml
+* res/ => modernMediaUserModel/src/main/res/
+* src/ => modernMediaUserModel/src/main/java/
+In ModernMediaViews:
+* AndroidManifest.xml => modernMediaViews/src/main/AndroidManifest.xml
+* assets/ => modernMediaViews/src/main/assets
+* lint.xml => modernMediaViews/lint.xml
+* res/ => modernMediaViews/src/main/res/
+* src/ => modernMediaViews/src/main/java/
+* src/.DS_Store => modernMediaViews/src/main/resources/.DS_Store
+In ibloomberg:
+* AndroidManifest.xml => ibloomberg/src/main/AndroidManifest.xml
+* assets/ => ibloomberg/src/main/assets/
+* lint.xml => ibloomberg/lint.xml
+* res/ => ibloomberg/src/main/res/
+* src/ => ibloomberg/src/main/java/
+
+Next Steps:
+-----------
+You can now build the project. The Gradle project needs network
+connectivity to download dependencies.
+
+Bugs:
+-----
+If for some reason your project does not build, and you determine that
+it is due to a bug or limitation of the Eclipse to Gradle importer,
+please file a bug at http://b.android.com with category
+Component-Tools.
+
+(This import summary is for your information only, and can be deleted
+after import once you are satisfied with the results.)

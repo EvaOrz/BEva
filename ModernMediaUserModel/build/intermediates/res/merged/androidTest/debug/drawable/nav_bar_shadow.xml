@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+            android:startColor="@color/nav_bar_shadow_color"
+            android:endColor="@android:color/transparent"
+            android:radius="2dp"
+            android:angle="270"/>
+</shape><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaUserModel/src/main/res/drawable/nav_bar_shadow.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaUserModel/build/intermediates/bundles/debug/res/drawable/nav_bar_shadow.xml -->

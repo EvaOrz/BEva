@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/issuelist_item_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/issuelist_bg"
+    android:orientation="horizontal"
+    android:paddingTop="@dimen/lohas_issue_list_item_margin_top" >
+
+    <cn.com.modernmedia.views.index.IssueItemView
+        android:id="@+id/issuelist_rl_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="@dimen/issue_pic_marginleft" />
+
+    <cn.com.modernmedia.views.index.IssueItemView
+        android:id="@+id/issuelist_rl_center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true" />
+
+    <cn.com.modernmedia.views.index.IssueItemView
+        android:id="@+id/issuelist_rl_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/issue_pic_marginright" />
+
+</RelativeLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/layout/issue_list_item_lohas.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/bundles/debug/res/layout/issue_list_item_lohas.xml -->

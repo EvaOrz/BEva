@@ -1,0 +1,857 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <color name="bg_color">#EDEDED</color>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <color name="black_bg">#FF000000</color>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <color name="body_bg">#f6f6f6</color>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/values/color.xml -->
+    <eat-comment/>
+    <color name="book_bac">#f4f4f4</color>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <color name="card_info_num">#FF8F8F8F</color>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/values/color.xml -->
+    <eat-comment/>
+    <color name="child_cat_bg">#FFEB030D</color>
+    <color name="column_head">#c6391e</color>
+    <color name="column_head_bg">#BF000000</color>
+    <color name="column_item_bg">#323232</color>
+    <color name="column_item_text">#cccccc</color>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <color name="confirm_email_text_color">#3A81F4</color>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <color name="contents_text">#ff000000</color>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/values/color.xml -->
+    <eat-comment/>
+    <color name="dot_active_color">#FFBD2531</color>
+    <color name="dot_color">#FFEBEBEB</color>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <color name="encode_view">#ffffffff</color>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <color name="follow_all">#4582D7</color>
+    <color name="gray_line">#dbdbdb</color>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <color name="grgray">#686868</color>
+    <color name="header">#58567D</color>
+    <color name="help_button_view">#ffcccccc</color>
+    <color name="help_view">#ff404040</color>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/values/color.xml -->
+    <eat-comment/>
+    <color name="issuelist_bg">#ffefe8db</color>
+    <color name="issuelist_desc_color">#ff78746e</color>
+    <color name="issuelist_title_color">#ff000000</color>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <color name="listitem_des">#8E8E93</color>
+    <color name="login_btn_login_bg">#FB1F25</color>
+    <color name="login_desc">#676767</color>
+    <color name="my_coin_green_color">#4cd863</color>
+    <color name="my_coin_notice_color">#808080</color>
+    <color name="my_coin_notice_cover_bg">#10FFFFFF</color>
+    <color name="my_coin_red_color">#F61D23</color>
+    <color name="nav_bar_shadow_color">#73000000</color>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <color name="possible_result_points">#c0ffff00</color>
+    <color name="process_loading_red_ring">#ffb83126</color>
+    <color name="process_loading_ring_bg">#ff292929</color>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/values/color.xml -->
+    <eat-comment/>
+    <color name="red">#cd3333</color>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <color name="result_image_border">#ffffffff</color>
+    <color name="result_minor_text">#ffc0c0c0</color>
+    <color name="result_points">#c000ff00</color>
+    <color name="result_text">#ffffffff</color>
+    <color name="result_view">#b0000000</color>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/values/color.xml -->
+    <eat-comment/>
+    <color name="russet">#ffdd3d14</color>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <color name="sbc_header_text">#ff808080</color>
+    <color name="sbc_header_view">#ffffffff</color>
+    <color name="sbc_layout_view">#ffffffff</color>
+    <color name="sbc_list_item">#fffff0e0</color>
+    <color name="sbc_page_number_text">#ff000000</color>
+    <color name="sbc_snippet_text">#ff4b4b4b</color>
+    <color name="seek_bar_after_thumb">#cdcdcd</color>
+    <color name="seek_bar_before_thumb">#cd3333</color>
+    <color name="seek_bar_thumb_center">#dd3333</color>
+    <color name="seek_bar_thumb_outer_stroke">#ffffff</color>
+    <color name="share_text">#ff000000</color>
+    <color name="share_view">#ffffffff</color>
+    <color name="status_text">#ffffffff</color>
+    <color name="status_view">#50000000</color>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <color name="title_bar">#FFFAFAFA</color>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <color name="translucent_black">#7f000000</color>
+    <color name="transparent">#00000000</color>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <color name="user_center_dot">#FF0072B8</color>
+    <color name="user_center_message">#FF0000</color>
+    <color name="user_center_num_color">#818181</color>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <color name="viewfinder_frame">#ff000000</color>
+    <color name="viewfinder_laser">#ffff0000</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/values/color.xml -->
+    <eat-comment/>
+    <color name="weather_day_label">#ffaaaaaa</color>
+    <color name="weather_day_shadow">#4c000000</color>
+    <color name="weather_view_bg">#66000000</color>
+    <color name="weekly_column_head_bg">#BF000000</color>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <color name="white_bg">#FFFFFFFF</color>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <color name="yellow">#fdba2d</color>
+    <declare-styleable name="CustomTheme"><attr format="reference" name="gifViewStyle"/></declare-styleable>
+    <declare-styleable name="GifView"><attr format="reference" name="gif"/><attr format="boolean" name="paused"/></declare-styleable>
+    <declare-styleable name="RoundAngleImageView"><attr format="dimension" name="roundWidth"/><attr format="dimension" name="roundHeight"/></declare-styleable>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/values/dimen.xml -->
+    <eat-comment/>
+    <dimen name="add_column_bg_height">40dp</dimen>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <dimen name="article_bar_height">44dp</dimen>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/values/dimen.xml -->
+    <eat-comment/>
+    <dimen name="atlas_dot_size">5dp</dimen>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <dimen name="dp1">1dp</dimen>
+    <dimen name="dp10">10dp</dimen>
+    <dimen name="dp10_textsize">10dp</dimen>
+    <dimen name="dp11_textsize">11dp</dimen>
+    <dimen name="dp12_textsize">12dp</dimen>
+    <dimen name="dp13_textsize">13dp</dimen>
+    <dimen name="dp14_textsize">14dp</dimen>
+    <dimen name="dp15">15dp</dimen>
+    <dimen name="dp15_textsize">15dp</dimen>
+    <dimen name="dp16_textsize">16dp</dimen>
+    <dimen name="dp17_textsize">17dp</dimen>
+    <dimen name="dp18_textsize">18dp</dimen>
+    <dimen name="dp19_textsize">19dp</dimen>
+    <dimen name="dp2">2dp</dimen>
+    <dimen name="dp20_textsize">20dp</dimen>
+    <dimen name="dp25_textsize">25dp</dimen>
+    <dimen name="dp30_textsize">30dp</dimen>
+    <dimen name="dp5">5dp</dimen>
+    <dimen name="dp8_textsize">8dp</dimen>
+    <dimen name="footer_height">50dp</dimen>
+    <dimen name="footer_paddingBottom">10dp</dimen>
+    <dimen name="footer_paddingTop">10dp</dimen>
+    <dimen name="footer_textsize">15dp</dimen>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/values/dimen.xml -->
+    <eat-comment/>
+    <dimen name="gallery_detail_content_height">80dp</dimen>
+    <dimen name="gallery_detail_link_size">35dp</dimen>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <dimen name="head_contentLayout_paddingLeft">30dp</dimen>
+    <dimen name="head_lastUpdatedTextView_tSize">11dp</dimen>
+    <dimen name="head_tipsTextView_tSize">15dp</dimen>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/values/dimen.xml -->
+    <eat-comment/>
+    <dimen name="index_titlebar_height">44dp</dimen>
+    <dimen name="issue_desc_marginBottom">8dp</dimen>
+    <dimen name="issue_pic_marginleft">8dp</dimen>
+    <dimen name="issue_pic_marginright">10dp</dimen>
+    <dimen name="issue_pic_spacing">16dp</dimen>
+    <dimen name="issue_process_margin">5dp</dimen>
+    <dimen name="issue_process_size">35dp</dimen>
+    <dimen name="issue_title_margintop">7dp</dimen>
+    <dimen name="lohas_index_item_title_bar_height">45dp</dimen>
+    <dimen name="lohas_issue_list_item_margin_top">10dp</dimen>
+    <dimen name="process_size">50dp</dimen>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <dimen name="red_ring_size_large">40dp</dimen>
+    <dimen name="red_ring_size_medium">35dp</dimen>
+    <dimen name="red_ring_size_small">20dp</dimen>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/values/dimen.xml -->
+    <eat-comment/>
+    <dimen name="select_child_column_list_item_img_size">25dp</dimen>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <dimen name="share_item_margin">10dp</dimen>
+    <dimen name="share_item_textsize">15dp</dimen>
+    <dimen name="share_list_fade_length">12dp</dimen>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/values/dimen.xml -->
+    <eat-comment/>
+    <dimen name="subcribe_cloud_height">27dp</dimen>
+    <dimen name="subcribe_cloud_width">49dp</dimen>
+    <dimen name="subcribe_ufo_height">23dp</dimen>
+    <dimen name="subcribe_ufo_marginLeft">44dp</dimen>
+    <dimen name="subcribe_ufo_width">42dp</dimen>
+    <dimen name="weather_button_padding_left">5dp</dimen>
+    <dimen name="weather_day_height">49dp</dimen>
+    <dimen name="weather_day_margin_left">16dp</dimen>
+    <dimen name="weather_day_margin_top">31dp</dimen>
+    <dimen name="weather_day_text_height">20dp</dimen>
+    <dimen name="weather_day_text_width">34dp</dimen>
+    <dimen name="weather_day_width">72dp</dimen>
+    <dimen name="weather_high_margin_right">10dp</dimen>
+    <dimen name="weather_high_margin_top">31dp</dimen>
+    <dimen name="weather_high_text_size">12dp</dimen>
+    <dimen name="weather_high_width">22dp</dimen>
+    <dimen name="weather_icon_height">34dp</dimen>
+    <dimen name="weather_icon_width">34dp</dimen>
+    <dimen name="weather_low_margin_right">10dp</dimen>
+    <dimen name="weather_low_margin_top">13dp</dimen>
+    <dimen name="weather_low_text_size">12dp</dimen>
+    <dimen name="weather_low_width">22dp</dimen>
+    <dimen name="weather_text_size">8dp</dimen>
+    <dimen name="weather_view_bg_height">40dp</dimen>
+    <dimen name="weather_view_height">49dp</dimen>
+    <dimen name="weather_view_margin_bottom">40dp</dimen>
+    <dimen name="weather_view_width">300dp</dimen>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/values/ids.xml -->
+    <eat-comment/>
+    <item name="adapter_article" type="id"/>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <item name="auto_focus" type="id"/>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/values/ids.xml -->
+    <eat-comment/>
+    <item name="click" type="id"/>
+    <item name="date_format" type="id"/>
+    <item name="date_format_language" type="id"/>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <item name="decode" type="id"/>
+    <item name="decode_failed" type="id"/>
+    <item name="decode_succeeded" type="id"/>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/values/ids.xml -->
+    <eat-comment/>
+    <item name="desc_check_scroll" type="id"/>
+    <item name="dot_size" type="id"/>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <item name="encode_failed" type="id"/>
+    <item name="encode_succeeded" type="id"/>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/values/ids.xml -->
+    <eat-comment/>
+    <item name="focus_article" type="id"/>
+    <item name="focus_view" type="id"/>
+    <item name="img_placeholder" type="id"/>
+    <item name="img_placeholder1" type="id"/>
+    <item name="img_placeholder2" type="id"/>
+    <item name="img_placeholder3" type="id"/>
+    <item name="img_use" type="id"/>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <item name="launch_product_query" type="id"/>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/values/ids.xml -->
+    <eat-comment/>
+    <item name="nine_patch_img" type="id"/>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <item name="quit" type="id"/>
+    <item name="restart_preview" type="id"/>
+    <item name="return_scan_result" type="id"/>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <item name="scale_type" type="id"/>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <item name="search_book_contents_failed" type="id"/>
+    <item name="search_book_contents_succeeded" type="id"/>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/values/ids.xml -->
+    <eat-comment/>
+    <item name="select_bg" type="id"/>
+    <item name="select_color" type="id"/>
+    <item name="title_default_color" type="id"/>
+    <item name="title_default_font" type="id"/>
+    <item name="title_readed_color" type="id"/>
+    <item name="title_readed_font" type="id"/>
+    <item name="unselect_bg" type="id"/>
+    <item name="unselect_color" type="id"/>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="OAUTH_AccessToken_ACCESS">用户授权登录成功</string>
+    <string name="OAUTH_AccessToken_ERROR">用户授权登录失败</string>
+    <string name="OAUTH_AccessToken_SXPIRED">授权已过期，请重新授权登录</string>
+    <string name="OAUTH_ERROR">服务器验证失败</string>
+    <string name="OAUTH_RequestToken_ACCESS">第三方应用验证成功</string>
+    <string name="OAUTH_RequestToken_ERROR">第三方应用验证失败</string>
+    <string name="Weibo_Message_LONG">已超出140个字</string>
+    <string name="Weibo_Message_NULL">分享数据不能为空</string>
+    <string name="Weibo_Share_Error">微博分享失败</string>
+    <string name="Weibo_Share_Repeat">已经分享过了</string>
+    <string name="Weibo_Share_Success">微博分享成功</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="about">关于</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="add">添加</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="add_coin_num">%1$s +%2$s积分</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="add_column">管理我的主题杂志</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="add_fav">已收藏</string>
+    <string name="adv_im_go">跳出</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="app_name">ModernMediaViews</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="app_recommend">应用推荐</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="article_card_and_comment">文章摘要与评论</string>
+    <string name="back">返回</string>
+    <string name="band_account">绑定账号</string>
+    <string name="band_address">收货地址</string>
+    <string name="band_email">绑定邮箱</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="band_email_succeed">邮件已发送，请前往邮箱完成绑定。</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="band_email_text1">当前绑定邮箱为 %1$s \n\n更换手机邮箱后，下次登录可使用新邮箱登录，同时将无法使用旧邮箱登录</string>
+    <string name="band_faild">绑定失败</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="band_failed">绑定出错</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="band_phone">绑定手机</string>
+    <string name="band_qq">QQ</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="band_succeed">绑定成功</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="band_weibo">微博</string>
+    <string name="band_weixin">微信</string>
+    <string name="band_yet">未绑定</string>
+    <string name="banded">去绑定</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="book">订阅</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="book_already">已订阅(到期时间：%1$s)</string>
+    <string name="book_already_no_time">已订阅</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="book_edit">编辑</string>
+    <string name="book_manage">管理订阅栏目</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="camera">拍照</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="can_not_find_article">对不起，暂时找不到该文章</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="cancel">取消</string>
+    <string name="card">笔记</string>
+    <string name="card_add_failed_toast">添加笔记失败</string>
+    <string name="card_add_success">添加笔记成功</string>
+    <string name="card_delete_toast">抱歉！该卡片已删除</string>
+    <string name="card_name"/>
+    <string name="card_not_allow_null_toast">添加的笔记不能为空</string>
+    <string name="card_num">%s条笔记</string>
+    <string name="change_email">更换邮箱</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="choose_qr_photo">选择二维码图片</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="click_to_load">点击加载</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="coin">%1$s 积分</string>
+    <string name="collect">收藏</string>
+    <string name="collect_failed">收藏失败</string>
+    <string name="collect_success">收藏成功</string>
+    <string name="comment">评论</string>
+    <string name="comment_delete_toast">抱歉！该评论已删除</string>
+    <string name="comment_not_allow_null_toast">添加的评论不能为空</string>
+    <string name="complete">完成</string>
+    <string name="confirm_change">确认修改</string>
+    <string name="confirm_email">确认邮箱</string>
+    <string name="copy_text">复制文字</string>
+    <string name="copy_text_success">已复制</string>
+    <string name="copy_text_to_clipborad">已复制到剪贴板</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="cover_share_message">%1$s - %2$s %3$s --分享来自@iWeekly周末画报 Android 版</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="create_time">创建于%s</string>
+    <string name="delete_card_failed">删除笔记失败</string>
+    <string name="delete_card_success">删除笔记成功</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="delete_fav">取消收藏</string>
+    <string name="dial_error">您的手机缺少所需的功能模块，无法继续操作。</string>
+    <string name="download">下载</string>
+    <string name="download_error">下载遇到了错误，已停止</string>
+    <string name="download_later">以后再说</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="email">Email</string>
+    <string name="email_address_is">你的邮箱地址是</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="enter_content">请输入内容！</string>
+    <string name="entry_share_url">阅读全文:\u0020</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="exchange">兑换</string>
+    <string name="exchange_failed">兑换失败</string>
+    <string name="exchange_success">兑换成功</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="exit_app">再按一次退出应用</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="fans">粉丝</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="fav">收藏夹</string>
+    <string name="fav_error">收藏失败</string>
+    <string name="fecthing_http">正在更新数据</string>
+    <string name="fecthing_ok">更新成功</string>
+    <string name="feedback_subject">意见反馈(%1$s_%2$s)</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="find_back_pwd">找回密码</string>
+    <string name="find_back_pwd1">是否要向 %1$s 发送密码重置邮件</string>
+    <string name="follow">关注</string>
+    <string name="follow_all">全部关注</string>
+    <string name="follow_failed">关注失败</string>
+    <string name="follow_num">%s人关注</string>
+    <string name="follow_success">关注成功</string>
+    <string name="followed">已关注</string>
+    <string name="forget_email_text1">邮件已发送</string>
+    <string name="forget_email_text2">如5分钟后仍未收到密码重置邮件，请与我们联系。</string>
+    <string name="forget_password">忘记密码</string>
+    <string name="get_account_error">账号格式错误</string>
+    <string name="get_more_coin">获取更多积分</string>
+    <string name="get_verify_code">获取验证码</string>
+    <string name="goto_shop">确认进入商城</string>
+    <string name="has_collected">已收藏</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="hello">你好</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="his_fans">他的粉丝</string>
+    <string name="his_friends">他的朋友</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="ibloomberg_now_title">即时头条-商业周刊</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="input_email">请输入你的邮箱地址</string>
+    <string name="input_password">请输入你的密码</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="is_lastest">当前已是最新</string>
+    <string name="json_error">数据组装错误</string>
+    <string name="loading_more">下一篇</string>
+    <string name="loading_pre">上一篇</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="login">登录</string>
+    <string name="login_out">退出登录</string>
+    <string name="mail_address">Email/手机号</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="manage_curr_column">管理栏目</string>
+    <string name="manage_other_column">管理主题杂志</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="me">我</string>
+    <string name="message_card_is_recommended">笔记「%s」被收入每日精选</string>
+    <string name="message_center">通知中心</string>
+    <string name="message_new_comment">笔记「%1$s」有了%2$s条新评论</string>
+    <string name="message_new_fans">有%s个人关注了你</string>
+    <string name="message_no_message">没有未读通知</string>
+    <string name="message_user_is_recommended">你成为了推荐用户</string>
+    <string name="moder_media_account_login">用InNote社区账号登录</string>
+    <string name="modify_email">修改邮箱</string>
+    <string name="modify_password">请输入您的旧密码和新密码，如果没有设置过密码，旧密码请留空。</string>
+    <string name="modify_pwd">修改密码</string>
+    <string name="modify_success">修改成功</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="more">更多</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="more_books">添加栏目</string>
+    <string name="more_cat">更多%1$s</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="motify_nickname">修改昵称</string>
+    <string name="motify_sign">修改个人签名</string>
+    <string name="msg_avatar_get_failed">头像取得失败</string>
+    <string name="msg_avatar_upload_failed">头像上传失败</string>
+    <string name="msg_avatar_upload_success">头像上传成功</string>
+    <string name="msg_find_pwd_failed">找回密码失败</string>
+    <string name="msg_find_pwd_success">重置密码的邮件已经发送到 %s，如果 5 分钟后仍没有收到邮件，请联系 feedback@modernmedia.com.cn。</string>
+    <string name="msg_get_userinfo_failed">信息取得失败，请重新登录</string>
+    <string name="msg_has_error">出错了</string>
+    <string name="msg_if_exchange">你确定要花费%1$s金币购买%2$s？</string>
+    <string name="msg_login_email_error">无效的邮箱地址或手机号码</string>
+    <string name="msg_login_email_null">请输入邮箱或手机号码</string>
+    <string name="msg_login_error">用户未登录 或 密码错误</string>
+    <string name="msg_login_fail">登录失败</string>
+    <string name="msg_login_pwd_null">请输入密码</string>
+    <string name="msg_login_success">登录成功</string>
+    <string name="msg_modify_email_failed">修改邮箱失败</string>
+    <string name="msg_modify_failed">修改失败</string>
+    <string name="msg_modify_pwd_failed">密码修改失败</string>
+    <string name="msg_modify_success">修改成功</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="msg_ok">好的</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="msg_register_failed">注册失败</string>
+    <string name="msg_register_success">注册成功</string>
+    <string name="msg_your_coin_is_not_enough">你的金币余额不足</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="music_title">电台</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="my_books">我的栏目</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="my_coin">积分商城</string>
+    <string name="my_coin_footer_msg">您积累的所有积分在现代社区账号登陆的APP中都可以使用</string>
+    <string name="my_coin_ok">好的</string>
+    <string name="my_fans">我的粉丝</string>
+    <string name="my_fav">我的收藏</string>
+    <string name="my_friends">我的朋友</string>
+    <string name="my_homepage">我的首页</string>
+    <string name="my_music">电台</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="net_error">请检查网络</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="new_card">新笔记</string>
+    <string name="new_comment">新评论</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="new_issue">新一期杂志到了，是否现在阅读？</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="new_pwd">新密码</string>
+    <string name="new_register">新用户注册</string>
+    <string name="no_article_card">没有该文章的摘要</string>
+    <string name="no_band_cannot_change_pwd">没有绑定邮件或者手机，不能设置密码。</string>
+    <string name="no_fan_tip">你还没有任何人关注</string>
+    <string name="no_friend_tip">你还没有关注任何人</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="no_issue_zip">该期杂志没有下载包</string>
+    <string name="no_photo">没有找到图片</string>
+    <string name="no_qrcode">照片中未识别到二维码</string>
+    <string name="no_weixin">微信尚未安装！</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="nomal_question">常见问题</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="nomore_data">暂时没有内容</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="notice_content">现代社区积分商城会经常为你推荐新鲜有趣的玩意，大部分虚拟物品都需要通过电子邮件发送给你。\n\n在兑换任何物品之前，请务必确认你注册时是否填写了正确的邮箱地址。现在点击下面的按钮，即可确认邮箱地址。\n\n祝你玩得开心！</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="now">即时</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="old_pwd">旧密码</string>
+    <string name="password">密码</string>
+    <string name="password_digits">_0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+    <string name="password_safety">密码安全性</string>
+    <string name="password_safety_high">高</string>
+    <string name="password_safety_mid">中</string>
+    <string name="password_safety_weak">弱</string>
+    <string name="pay_alread">您已是付费用户。</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="pay_for_fav">请付费后收藏</string>
+    <string name="pay_for_share">请付费后分享</string>
+    <string name="pay_success">支付成功。</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="phone_number">手机号码</string>
+    <string name="preference_recommend_subject">[应用推荐]iWeekly·周末画报 for Android</string>
+    <string name="preference_recommend_text"><![CDATA[我在使用iWeekly·周末画报，推荐你也<a href=\'https://play.google.com/store/apps/details?id=com.rakutec.android.iweekly\'>下载这款免费的App！</a>]]></string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="pull_to_loading">正在加载...</string>
+    <string name="pull_to_loadmore">上推加载...</string>
+    <string name="pull_to_refresh_pull_label">下拉刷新...</string>
+    <string name="pull_to_refresh_refreshing_label">正在刷新...</string>
+    <string name="pull_to_refresh_release_label">松开刷新...</string>
+    <string name="pull_to_refresh_tap_label">点击刷新...</string>
+    <string name="pull_to_refresh_update_time">上次更新时间:%s</string>
+    <string name="pull_to_release">松开加载...</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="qq_login">用QQ账号登录</string>
+    <string name="qq_login_failed">QQ账号登录失败</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="read_issue">阅读杂志</string>
+    <string name="read_issue_error">该期杂志读取失败</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="recommend_user">推荐用户</string>
+    <string name="register">注册</string>
+    <string name="register_title">注册InNote社区账号</string>
+    <string name="reset_password">重置密码</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="save_picture_fail">图片保存失败,请检查网络</string>
+    <string name="save_picture_success">图片已保存</string>
+    <string name="scan">扫一扫</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="search_card">浏览发现</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="select_column_title">管理我的主题杂志</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="select_from_album">从手机相册选择</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="send">发送</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="send_email_again">重新发送验证邮件</string>
+    <string name="send_email_done">邮件已发送</string>
+    <string name="setting_auto_loop">首页焦点图自动轮播</string>
+    <string name="setting_book_preference">会员与订阅</string>
+    <string name="setting_book_single">订阅</string>
+    <string name="setting_function">功能设置</string>
+    <string name="setting_get_book_single">获赠订阅</string>
+    <string name="setting_personal_info">个人资料</string>
+    <string name="setting_wifi_auto_vedio">Wi-Fi下自动播放视频</string>
+    <string name="settings_about">关于</string>
+    <string name="settings_clear_cache">清空所有缓存</string>
+    <string name="settings_feedback">意见反馈</string>
+    <string name="settings_general">通用设置</string>
+    <string name="settings_honored">Honored 特别推荐</string>
+    <string name="settings_mark_all_read">全部标记为已读</string>
+    <string name="settings_recommend">向朋友推荐本应用</string>
+    <string name="settings_version">程序版本</string>
+    <string name="share">分享</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="share_by_email">邮件分享</string>
+    <string name="share_by_email_title">我在%1$s看到了一篇文章，想要分享给你</string>
+    <string name="share_email_html">&lt;div style=\"wi&lt;dth:300px;font-size:14px;\">Hi，&lt;br />我在iWeekly·周末画报 for
+        Android中发现了这篇文章，想与你分享:&lt;br />&lt;br />&lt;strong>%1$s&lt;/strong>&lt;br />&lt;br />%2$s&lt;br />&lt;br
+        />=======================&lt;br/>本文来自全球领先的时尚生活方式媒体&lt;br />&lt;strong>iWeekly·周末画报 for Android&lt;/strong>&lt;br/>您可以访问我们的官方网站获取详情
+        &lt;a href=\"http://iweek.ly\">http://iweek.ly&lt;/a>&lt;br/>或在Google Play中直接获取 &lt;a
+        href=\"https://play.google.com/store/apps/details?id=com.rakutec.android.iweekly\">https://play.google.com/store/apps/details?id=com.rakutec.android.iweekly&lt;/a>&lt;/div>
+</string>
+    <string name="share_none_component">分享失败,请检查网络</string>
+    <string name="share_picture_fail">图片分享失败</string>
+    <string name="share_select">分享到...</string>
+    <string name="share_to_gallery">保存到相册</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="share_to_weibo">同时分享到：</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="share_to_weibo_title">分享到微博</string>
+    <string name="share_wp_content">【%1$s】%2$s %3$s</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="shop_use_notice">积分商城使用须知</string>
+    <string name="sina_login">用微博账号登录</string>
+    <string name="sina_login_failed">微博登录失败</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="sina_weibo">新浪微博</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="sinalogin_check_account">账号不能为空</string>
+    <string name="sinalogin_check_pass">密码不能为空</string>
+    <string name="sinalogin_check_server">服务器验证中...</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="some_account_login">可以用以下账号登录</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="sorry">对不起</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="square">社区广场</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="subscribe_save">保存</string>
+    <string name="subscribe_tip_message">您修改了订阅的微杂志，要保存吗？</string>
+    <string name="subscribe_tip_title">微杂志</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="sure">确认</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="theme_magazine">主题杂志</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="uncollect_failed">取消收藏失败</string>
+    <string name="uncollect_success">取消收藏成功</string>
+    <string name="unfollow_failed">取消关注失败</string>
+    <string name="unfollow_success">取消关注成功</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="uniq_sina">该账号已被其他现代移动社区账号绑定</string>
+    <string name="unkown_qrcode">无法识别二维码内容</string>
+    <string name="update">软件版本更新</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="user_email">电子邮箱</string>
+    <string name="user_no_card">你还没记录过笔记</string>
+    <string name="user_setting">设置</string>
+    <string name="user_shejiaozhanghao">社交账号</string>
+    <string name="user_sign">个人签名</string>
+    <string name="userinfo_desc">您的用户信息如下：</string>
+    <string name="userinfo_nickname">昵称</string>
+    <string name="userinfo_username">$用户名</string>
+    <string name="userinfo_valied">未验证</string>
+    <string name="val_email_title">您的邮箱未验证，您可以...</string>
+    <string name="verify_code">验证码</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="vew_later">稍后再看</string>
+    <string name="video_complete">视频已播放完毕</string>
+    <string name="video_error">播放出现了错误，已停止。</string>
+    <string name="view_now">现在阅读</string>
+    <string name="weixin_friend">微信好友</string>
+    <string name="weixin_friends">微信朋友圈</string>
+    <string name="weixin_info">已经将公众号账号复制到剪贴板，请到微信中粘贴并搜索关注。</string>
+    <string name="weixin_register_error">微信注册失败！</string>
+    <string name="weixin_version_low">微信版本较低，无法发送到朋友圈，请更新！</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <string name="welcom_user">你好，%s!</string>
+    <string name="write_failed">发表评论失败</string>
+    <string name="write_some_comments">写几句评论</string>
+    <string name="write_success">发表成功</string>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <style name="Animation">
+        <item name="android:activityOpenEnterAnimation">@null</item>
+        <item name="android:activityOpenExitAnimation">@null</item>
+        <item name="android:activityCloseEnterAnimation">@null</item>
+        <item name="android:activityCloseExitAnimation">@null</item>
+        <item name="android:taskOpenEnterAnimation">@null</item>
+        <item name="android:taskOpenExitAnimation">@null</item>
+        <item name="android:taskCloseEnterAnimation">@null</item>
+        <item name="android:taskCloseExitAnimation">@null</item>
+        <item name="android:taskToFrontEnterAnimation">@null</item>
+        <item name="android:taskToFrontExitAnimation">@null</item>
+        <item name="android:taskToBackEnterAnimation">@null</item>
+        <item name="android:taskToBackExitAnimation">@null</item>
+    </style>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/values/styles.xml -->
+    <eat-comment/>
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <style name="ContentOverlay" parent="android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <style name="CustomDialog" parent="android:style/Theme.Dialog">
+
+        <!-- 背景颜色及透明程度 -->
+        <item name="android:windowBackground">@color/translucent_black</item>
+        <!-- 是否有标题 -->
+        <!-- <item name="android:windowNoTitle">true</item> -->
+        <!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 是否模糊 -->
+        <item name="android:backgroundDimEnabled">false</item>
+        <!-- 不显示边框 -->
+        <!-- <item name="android:windowFrame">@null</item> -->
+    </style>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <style name="NobackDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+    <style name="Play_SeekBar" parent="@android:style/Widget.SeekBar">
+        <item name="android:maxHeight">6.0dip</item>
+        <item name="android:minHeight">6.0dip</item>
+        <item name="android:height">6.0dip</item>
+        <item name="android:progressDrawable">@drawable/layer_list_seekbar_play</item>
+        <item name="android:thumb">@drawable/shape_seekbar_thumb</item>
+        <item name="android:thumbOffset">0dp</item>
+    </style>
+    <style name="Theme" parent="android:Theme.Light.NoTitleBar">
+        <item name="android:windowAnimationStyle">@style/Animation</item>
+    </style>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <style name="Widget.GifView" parent="@android:style/Widget"/>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <style name="card_list_popup_anim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/card_list_right_in</item>
+    </style>
+    <style name="fetch_image_popup_anim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/popup_enter</item>
+        <item name="android:windowExitAnimation">@anim/popup_exit</item>
+    </style>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/build/intermediates/exploded-aar/businessweek_tag/commonLib/unspecified/res/values/values.xml -->
+    <eat-comment/>
+    <style name="webview_pop" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/down_in</item>
+        <item name="android:windowExitAnimation">@anim/down_out</item>
+    </style>
+</resources>

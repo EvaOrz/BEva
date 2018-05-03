@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle" >
+
+    <solid android:color="@color/nav_bar_shadow_color" />
+
+    <corners android:radius="@dimen/dp5" />
+
+</shape><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaUserModel/src/main/res/drawable/gray_btn_bg.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/ibloomberg/build/intermediates/exploded-aar/businessweek_tag/modernMediaUserModel/unspecified/res/drawable/gray_btn_bg.xml -->

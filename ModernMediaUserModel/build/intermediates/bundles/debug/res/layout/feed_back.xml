@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white_bg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/bar_height"
+        android:background="@color/white_bg" >
+
+        <ImageView
+            android:id="@+id/feedback_cancle"
+            android:layout_width="@dimen/bar_height"
+            android:layout_height="@dimen/bar_height"
+            android:layout_marginLeft="@dimen/nav_button_margin_left"
+            android:contentDescription="@null"
+            android:scaleType="center"
+            android:src="@drawable/ic_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/settings_feedback"
+            android:textColor="@color/black_bg"
+            android:textSize="@dimen/nav_title_size" />
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:contentDescription="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/list_item_divider" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/body_bg"
+        android:orientation="vertical"
+        android:padding="15dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_imageview_white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="10dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/feed_from"
+                android:textColor="@color/black_bg"
+                android:textSize="@dimen/dp14_textsize" />
+
+            <EditText
+                android:id="@+id/feedback_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:cursorVisible="true"
+                android:singleLine="true"
+                android:textColor="@color/black_bg"
+                android:textSize="@dimen/dp14_textsize" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/round_imageview_white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="10dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/feed_contect"
+                android:textColor="@color/black_bg"
+                android:textSize="@dimen/dp14_textsize" />
+
+            <EditText
+                android:id="@+id/feedback_contect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:cursorVisible="true"
+                android:singleLine="true"
+                android:hint="@string/mail_address"
+                android:textColor="@color/black_bg"
+                android:textSize="@dimen/dp14_textsize" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/feedback_subject"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/round_imageview_white"
+            android:cursorVisible="true"
+            android:gravity="top"
+            android:hint="@string/feed_text"
+            android:padding="5dp"
+            android:textColor="@color/black_bg"
+            android:textSize="@dimen/dp14_textsize" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/white_bg"
+        android:orientation="horizontal"
+        android:paddingTop="20dp" >
+
+        <FrameLayout
+            android:id="@+id/feed_add_frame_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
+
+            <cn.com.modernmedia.widget.RoundAngleImageView
+                android:id="@+id/feed_add_pic_1"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/gray_line"
+                android:paddingBottom="20dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_add_follow" />
+
+            <TextView
+                android:id="@+id/feed_add_text_1"
+                android:layout_width="79dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="0.5dp"
+                android:background="@color/body_bg"
+                android:gravity="center"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:text="@string/feed_add_pic"
+                android:textColor="@color/black_bg"
+                android:textSize="@dimen/dp11_textsize" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/feed_add_frame_2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
+
+            <cn.com.modernmedia.widget.RoundAngleImageView
+                android:id="@+id/feed_add_pic_2"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/gray_line"
+                android:paddingBottom="20dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_add_follow" />
+
+            <TextView
+                android:id="@+id/feed_add_text_2"
+                android:layout_width="79dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="0.5dp"
+                android:background="@color/body_bg"
+                android:gravity="center"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:text="@string/feed_add_pic"
+                android:textColor="@color/black_bg"
+                android:textSize="@dimen/dp11_textsize" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/feed_add_frame_3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
+
+            <cn.com.modernmedia.widget.RoundAngleImageView
+                android:id="@+id/feed_add_pic_3"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/gray_line"
+                android:paddingBottom="20dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_add_follow" />
+
+            <TextView
+                android:id="@+id/feed_add_text_3"
+                android:layout_width="79dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="0.5dp"
+                android:background="@color/body_bg"
+                android:gravity="center"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:text="@string/feed_add_pic"
+                android:textColor="@color/black_bg"
+                android:textSize="@dimen/dp11_textsize" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/feedback_send"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/login_desc_marginLeft"
+        android:background="@drawable/green_btn_bg"
+        android:text="@string/feed_commit"
+        android:textColor="@color/white_bg"
+        android:textSize="@dimen/dp15_textsize" />
+
+</LinearLayout>

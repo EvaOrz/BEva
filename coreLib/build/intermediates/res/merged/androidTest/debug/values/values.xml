@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/coreLib/build/intermediates/bundles/debug/res/values/values.xml -->
+    <eat-comment/>
+    <color name="black_bg">#FF000000</color>
+    <color name="white_bg">#FFFFFFFF</color>
+    <declare-styleable name="CustomTheme"><attr format="reference" name="gifViewStyle"/></declare-styleable>
+    <declare-styleable name="GifView"><attr format="reference" name="gif"/><attr format="boolean" name="paused"/></declare-styleable>
+    <dimen name="dp1">1dp</dimen>
+    <dimen name="dp10">10dp</dimen>
+    <dimen name="dp10_textsize">10dp</dimen>
+    <dimen name="dp11_textsize">11dp</dimen>
+    <dimen name="dp12_textsize">12dp</dimen>
+    <dimen name="dp13_textsize">13dp</dimen>
+    <dimen name="dp14_textsize">14dp</dimen>
+    <dimen name="dp15">15dp</dimen>
+    <dimen name="dp15_textsize">15dp</dimen>
+    <dimen name="dp16_textsize">16dp</dimen>
+    <dimen name="dp17_textsize">17dp</dimen>
+    <dimen name="dp18_textsize">18dp</dimen>
+    <dimen name="dp19_textsize">19dp</dimen>
+    <dimen name="dp2">2dp</dimen>
+    <dimen name="dp20_textsize">20dp</dimen>
+    <dimen name="dp25_textsize">25dp</dimen>
+    <dimen name="dp30_textsize">30dp</dimen>
+    <dimen name="dp5">5dp</dimen>
+    <dimen name="dp8_textsize">8dp</dimen>
+    <dimen name="footer_height">50dp</dimen>
+    <dimen name="footer_paddingBottom">10dp</dimen>
+    <dimen name="footer_paddingTop">10dp</dimen>
+    <dimen name="footer_textsize">15dp</dimen>
+    <dimen name="head_contentLayout_paddingLeft">30dp</dimen>
+    <dimen name="head_lastUpdatedTextView_tSize">11dp</dimen>
+    <dimen name="head_tipsTextView_tSize">15dp</dimen>
+    <item name="scale_type" type="id"/>
+    <string name="OAUTH_AccessToken_ACCESS">用户授权登录成功</string>
+    <string name="OAUTH_AccessToken_ERROR">用户授权登录失败</string>
+    <string name="OAUTH_AccessToken_SXPIRED">授权已过期，请重新授权登录</string>
+    <string name="OAUTH_ERROR">服务器验证失败</string>
+    <string name="OAUTH_RequestToken_ACCESS">第三方应用验证成功</string>
+    <string name="OAUTH_RequestToken_ERROR">第三方应用验证失败</string>
+    <string name="Weibo_Message_LONG">已超出140个字</string>
+    <string name="Weibo_Message_NULL">分享数据不能为空</string>
+    <string name="Weibo_Share_Error">微博分享失败</string>
+    <string name="Weibo_Share_Repeat">已经分享过了</string>
+    <string name="Weibo_Share_Success">微博分享成功</string>
+    <string name="app_name">ModernMediaSlate</string>
+    <string name="click_to_load">点击加载</string>
+    <string name="net_error">请检查网络</string>
+    <string name="pull_to_loading">正在加载...</string>
+    <string name="pull_to_loadmore">上推加载...</string>
+    <string name="pull_to_refresh_pull_label">下拉刷新...</string>
+    <string name="pull_to_refresh_refreshing_label">正在刷新...</string>
+    <string name="pull_to_refresh_release_label">松开刷新...</string>
+    <string name="pull_to_refresh_tap_label">点击刷新...</string>
+    <string name="pull_to_refresh_update_time">上次更新时间:%s</string>
+    <string name="pull_to_release">松开加载...</string>
+    <string name="sinalogin_check_account">账号不能为空</string>
+    <string name="sinalogin_check_pass">密码不能为空</string>
+    <string name="sinalogin_check_server">服务器验证中...</string>
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+
+
+
+        -->
+    </style>
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+    <style name="NobackDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+    <style name="Widget.GifView" parent="@android:style/Widget"/>
+</resources>
