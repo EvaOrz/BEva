@@ -1,0 +1,693 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/use_center_contain"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/black_bg"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="220dp">
+
+        <ImageView
+            android:id="@+id/user_center_info_avatar"
+            android:layout_width="@dimen/avatar_size"
+            android:layout_height="@dimen/avatar_size"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/avatar_magin_top"
+            android:contentDescription="@null"
+            android:scaleType="fitXY"/>
+
+        <Button
+            android:id="@+id/user_center_btn_login"
+            android:layout_width="@dimen/user_center_btn_login_width"
+            android:layout_height="@dimen/user_center_btn_login_height"
+            android:layout_below="@+id/user_center_info_avatar"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/user_center_btn_login_marginTop"
+            android:background="@drawable/login_bg"
+            android:text="@string/login"
+            android:textColor="@color/white_bg"
+            android:textSize="@dimen/dp15_textsize"/>
+
+        <include
+            android:id="@+id/user_center_card_info"
+            layout="@layout/user_center_head"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/user_center_info_avatar"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
+
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+
+        android:background="@color/body_bg">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view_height"
+                android:contentDescription="@null"
+                android:scaleType="fitXY"
+                android:src="@drawable/list_item_divider"/>
+            <!-- 我的vip -->
+
+            <RelativeLayout
+                android:id="@+id/user_center_layout_vip_mine"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/user_center_item_height"
+                android:layout_marginTop="@dimen/dp15"
+                android:background="@color/white_bg"
+                android:visibility="visible">
+
+                <ImageView
+                    android:id="@+id/user_center_divider0"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/view_height"
+                    android:contentDescription="@null"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/list_item_divider"/>
+
+                <ImageView
+                    android:id="@+id/user_center_vip_icon"
+                    android:layout_width="@dimen/dp20"
+                    android:layout_height="@dimen/dp20"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dp20"
+                    android:contentDescription="@null"
+                    android:src="@drawable/vipicon"/>
+
+                <TextView
+                    android:id="@+id/user_center_text_vip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/user_center_card_text_padding"
+                    android:layout_toRightOf="@+id/user_center_vip_icon"
+                    android:textColor="@color/black_bg"
+                    android:textSize="@dimen/dp15"/>
+
+                <TextView
+                    android:id="@+id/user_center_text_vip_endtime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dp30_textsize"
+                    android:textColor="@color/grgray"
+                    android:textSize="@dimen/dp14_textsize"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dp10"
+                    android:padding="@dimen/dp10"
+                    android:scaleType="center"
+                    android:src="@drawable/index_item_arrow"/>
+            </RelativeLayout>
+
+            <!-- 我的已购 -->
+
+            <RelativeLayout
+                android:id="@+id/user_center_my_ordered"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/user_center_item_height"
+                android:background="@color/white_bg"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/user_center_divider7"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/view_height"
+                    android:layout_marginStart="@dimen/dp20"
+                    android:contentDescription="@null"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/list_item_divider"/>
+
+                <ImageView
+                    android:id="@+id/user_center_order"
+                    android:layout_width="@dimen/dp20"
+                    android:layout_height="@dimen/dp20"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dp20"
+                    android:contentDescription="@null"
+                    android:src="@drawable/my_ordered"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/user_center_card_text_padding"
+                    android:layout_toRightOf="@id/user_center_order"
+                    android:text="@string/my_ordered"
+                    android:textColor="@color/black_bg"
+                    android:textSize="@dimen/dp15"/>
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dp10"
+                    android:padding="@dimen/dp10"
+                    android:scaleType="center"
+                    android:src="@drawable/index_item_arrow"/>
+            </RelativeLayout>
+            <!-- 我的订阅 -->
+
+            <RelativeLayout
+                android:id="@+id/user_center_my_booked"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/user_center_item_height"
+                android:background="@color/white_bg"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/user_center_divider8"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/view_height"
+                    android:layout_marginStart="@dimen/dp20"
+                    android:contentDescription="@null"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/list_item_divider"/>
+
+                <ImageView
+                    android:id="@+id/user_center_book"
+                    android:layout_width="@dimen/dp20"
+                    android:layout_height="@dimen/dp20"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dp20"
+                    android:contentDescription="@null"
+                    android:src="@drawable/my_booked"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/user_center_card_text_padding"
+                    android:layout_toRightOf="@id/user_center_book"
+                    android:text="@string/my_booked"
+                    android:textColor="@color/black_bg"
+                    android:textSize="@dimen/dp15"/>
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dp10"
+                    android:padding="@dimen/dp10"
+                    android:scaleType="center"
+                    android:src="@drawable/index_item_arrow"/>
+            </RelativeLayout>
+
+
+            <!-- 我的理财 -->
+
+            <RelativeLayout
+                android:id="@+id/user_center_my_licai"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/user_center_item_height"
+                android:background="@color/white_bg"
+                android:visibility="gone"
+                >
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/view_height"
+                    android:layout_marginLeft="@dimen/dp20"
+                    android:contentDescription="@null"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/list_item_divider"/>
+
+                <ImageView
+                    android:id="@+id/user_center_licai"
+                    android:layout_width="@dimen/dp20"
+                    android:layout_height="@dimen/dp20"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dp20"
+                    android:contentDescription="@null"
+                    android:src="@drawable/licai"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/user_center_card_text_padding"
+                    android:layout_toRightOf="@id/user_center_licai"
+                    android:text="@string/my_licai"
+                    android:textColor="@color/black_bg"
+                    android:textSize="@dimen/dp15"/>
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dp10"
+                    android:padding="@dimen/dp10"
+                    android:scaleType="center"
+                    android:src="@drawable/index_item_arrow"/>
+            </RelativeLayout>
+
+            <!-- 积分商城 -->
+
+            <RelativeLayout
+                android:id="@+id/user_center_layout_my_coin"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/user_center_item_height"
+                android:background="@color/white_bg">
+
+                <ImageView
+                    android:id="@+id/user_center_divider6"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/view_height"
+                    android:layout_marginStart="@dimen/dp20"
+                    android:contentDescription="@null"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/list_item_divider"/>
+
+                <ImageView
+                    android:id="@+id/user_center_coin"
+                    android:layout_width="@dimen/dp20"
+                    android:layout_height="@dimen/dp20"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dp20"
+                    android:contentDescription="@null"
+                    android:src="@drawable/center_coin"/>
+
+                <TextView
+                    android:id="@+id/user_center_text_my_coin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/user_center_card_text_padding"
+                    android:layout_toRightOf="@id/user_center_coin"
+                    android:text="@string/my_coin"
+                    android:textColor="@color/black_bg"
+                    android:textSize="@dimen/dp15"/>
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dp10"
+                    android:padding="@dimen/dp10"
+                    android:scaleType="center"
+                    android:src="@drawable/index_item_arrow"/>
+            </RelativeLayout>
+            <!--激活兑换码-->
+            <RelativeLayout
+                android:id="@+id/user_center_layout_code"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/user_center_item_height"
+                android:background="@color/white_bg">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/view_height"
+                    android:layout_marginStart="@dimen/dp20"
+                    android:contentDescription="@null"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/list_item_divider"/>
+
+                <ImageView
+                    android:id="@+id/user_center_code_icon"
+                    android:layout_width="@dimen/dp20"
+                    android:layout_height="@dimen/dp20"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dp20"
+                    android:contentDescription="@null"
+                    android:src="@drawable/code"/>
+
+                <TextView
+                    android:id="@+id/user_center_text_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/user_center_card_text_padding"
+                    android:layout_toRightOf="@+id/user_center_code_icon"
+                    android:text="@string/vip_code"
+                    android:textColor="@color/black_bg"
+                    android:textSize="@dimen/dp15"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dp10"
+                    android:padding="@dimen/dp10"
+                    android:scaleType="center"
+                    android:src="@drawable/index_item_arrow"/>
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view_height"
+                android:contentDescription="@null"
+                android:scaleType="fitXY"
+                android:src="@drawable/list_item_divider"/>
+            <!-- 商业笔记 -->
+
+            <RelativeLayout
+                android:id="@+id/user_center_layout_business_card"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/user_center_item_height"
+                android:layout_marginTop="@dimen/dp15"
+                android:background="@color/white_bg">
+
+                <ImageView
+                    android:id="@+id/user_center_divider1"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/view_height"
+                    android:contentDescription="@null"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/list_item_divider"/>
+
+                <ImageView
+                    android:id="@+id/user_center_business_icon"
+                    android:layout_width="@dimen/dp20"
+                    android:layout_height="@dimen/dp20"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dp20"
+                    android:contentDescription="@null"
+                    android:src="@drawable/card"/>
+
+                <TextView
+                    android:id="@+id/user_center_text_business_card"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/user_center_card_text_padding"
+                    android:layout_toRightOf="@+id/user_center_business_icon"
+                    android:text="@string/card_name"
+                    android:textColor="@color/black_bg"
+                    android:textSize="@dimen/dp15"/>
+
+                <ImageView
+                    android:id="@+id/user_center_message_dot"
+                    android:layout_width="@dimen/dp5"
+                    android:layout_height="@dimen/dp5"
+                    android:layout_marginLeft="@dimen/dp10"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:layout_toRightOf="@id/user_center_text_business_card"
+                    android:contentDescription="@null"
+                    android:src="@drawable/user_center_message"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/user_center_message_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp20"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/user_center_message_number_marginRight"
+                    android:background="@drawable/user_center_message"
+                    android:gravity="center"
+                    android:textColor="@color/white_bg"
+                    android:textSize="@dimen/dp14_textsize"
+                    android:visibility="gone"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dp10"
+                    android:padding="@dimen/dp10"
+                    android:scaleType="center"
+                    android:src="@drawable/index_item_arrow"/>
+            </RelativeLayout>
+            <!-- 社区广场 -->
+
+            <RelativeLayout
+                android:id="@+id/user_center_square"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/user_center_item_height"
+                android:background="@color/white_bg">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/view_height"
+                    android:layout_marginStart="@dimen/dp20"
+                    android:contentDescription="@null"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/list_item_divider"/>
+
+                <ImageView
+                    android:id="@+id/user_center_square_icon"
+                    android:layout_width="@dimen/dp20"
+                    android:layout_height="@dimen/dp20"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dp20"
+                    android:contentDescription="@null"
+                    android:src="@drawable/shequguangchang"/>
+
+                <TextView
+                    android:id="@+id/user_center_text_square"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/user_center_card_text_padding"
+                    android:layout_toRightOf="@id/user_center_square_icon"
+                    android:text="@string/square"
+                    android:textColor="@color/black_bg"
+                    android:textSize="@dimen/dp15"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dp10"
+                    android:padding="@dimen/dp10"
+                    android:scaleType="center"
+                    android:src="@drawable/index_item_arrow"/>
+            </RelativeLayout>
+
+            <!-- 我的收藏 -->
+
+            <RelativeLayout
+                android:id="@+id/user_center_layout_fav"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/user_center_item_height"
+                android:background="@color/white_bg">
+
+                <ImageView
+                    android:id="@+id/user_center_divider5"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/view_height"
+                    android:layout_marginStart="@dimen/dp20"
+                    android:contentDescription="@null"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/list_item_divider"/>
+
+                <ImageView
+                    android:id="@+id/user_center_fav_icon"
+                    android:layout_width="@dimen/dp20"
+                    android:layout_height="@dimen/dp20"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dp20"
+                    android:contentDescription="@null"
+                    android:src="@drawable/center_fav"/>
+
+                <TextView
+                    android:id="@+id/user_center_text_fav"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/user_center_card_text_padding"
+                    android:layout_toRightOf="@+id/user_center_fav_icon"
+                    android:text="@string/my_fav"
+                    android:textColor="@color/black_bg"
+                    android:textSize="@dimen/dp15"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dp10"
+                    android:padding="@dimen/dp10"
+                    android:scaleType="center"
+                    android:src="@drawable/index_item_arrow"/>
+            </RelativeLayout>
+
+            <!-- 杂志购买 -->
+
+            <RelativeLayout
+                android:id="@+id/user_center_layout_buy"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/user_center_item_height"
+                android:background="@color/white_bg"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/view_height"
+                    android:layout_marginStart="@dimen/dp20"
+                    android:contentDescription="@null"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/list_item_divider"/>
+
+                <ImageView
+                    android:id="@+id/user_center_buy_icon"
+                    android:layout_width="@dimen/dp20"
+                    android:layout_height="@dimen/dp20"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dp20"
+                    android:contentDescription="@null"
+                    android:src="@drawable/coin"/>
+
+                <TextView
+                    android:id="@+id/user_center_text_buy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/user_center_card_text_padding"
+                    android:layout_toRightOf="@+id/user_center_buy_icon"
+                    android:text="@string/my_buy"
+                    android:textColor="@color/black_bg"
+                    android:textSize="@dimen/dp15"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dp10"
+                    android:padding="@dimen/dp10"
+                    android:scaleType="center"
+                    android:src="@drawable/index_item_arrow"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/user_center_layout_zhannei"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/user_center_item_height"
+                android:background="@color/white_bg">
+
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/view_height"
+                    android:layout_marginStart="@dimen/dp20"
+                    android:contentDescription="@null"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/list_item_divider"/>
+
+                <ImageView
+                    android:id="@+id/user_center_zhannei_icon"
+                    android:layout_width="@dimen/dp20"
+                    android:layout_height="@dimen/dp20"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dp20"
+                    android:contentDescription="@null"
+                    android:src="@drawable/user_center_zhan_icon"/>
+
+                <TextView
+                    android:id="@+id/user_center_text_zhannei"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/user_center_card_text_padding"
+                    android:layout_toRightOf="@+id/user_center_zhannei_icon"
+                    android:text="@string/zhanneixin"
+                    android:textColor="@color/black_bg"
+                    android:textSize="@dimen/dp15"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dp10"
+                    android:padding="@dimen/dp10"
+                    android:scaleType="center"
+                    android:src="@drawable/index_item_arrow"/>
+
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view_height"
+                android:contentDescription="@null"
+                android:scaleType="fitXY"
+                android:src="@drawable/list_item_divider"/>
+
+            <!-- 设置 -->
+
+            <RelativeLayout
+                android:id="@+id/user_center_layout_setting"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/user_center_item_height"
+                android:layout_marginTop="@dimen/dp15"
+                android:background="@color/white_bg">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/view_height"
+                    android:contentDescription="@null"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/list_item_divider"/>
+
+                <ImageView
+                    android:id="@+id/user_center_setting_icon"
+                    android:layout_width="@dimen/dp20"
+                    android:layout_height="@dimen/dp20"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dp20"
+                    android:contentDescription="@null"
+                    android:src="@drawable/user_center_setting_icon"/>
+
+                <TextView
+                    android:id="@+id/user_center_text_setting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/user_center_card_text_padding"
+                    android:layout_toRightOf="@+id/user_center_setting_icon"
+                    android:text="@string/user_setting"
+                    android:textColor="@color/black_bg"
+                    android:textSize="@dimen/dp15"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dp10"
+                    android:padding="@dimen/dp10"
+                    android:scaleType="center"
+                    android:src="@drawable/index_item_arrow"/>
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view_height"
+                android:layout_marginBottom="@dimen/dp10"
+                android:contentDescription="@null"
+                android:scaleType="fitXY"
+                android:src="@drawable/list_item_divider"/>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

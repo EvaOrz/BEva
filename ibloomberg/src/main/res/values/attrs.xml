@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="CSTImageView">
+        <attr name="scale_type">
+            <flag name="crop" value="0x0040" />
+            <flag name="inside" value="0x0080" />
+            <flag name="left" value="0x0001" />
+            <flag name="top" value="0x0002" />
+            <flag name="right" value="0x0004" />
+            <flag name="bottom" value="0x0008" />
+        </attr>
+    </declare-styleable>
+
+</resources>

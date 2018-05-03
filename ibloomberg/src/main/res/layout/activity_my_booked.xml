@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:background="@color/body_bg"
+              android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/bar_height"
+        android:background="@color/title_bar">
+
+        <ImageView
+            android:id="@+id/my_book_back"
+            android:layout_width="@dimen/bar_height"
+            android:layout_height="@dimen/bar_height"
+            android:layout_marginLeft="@dimen/nav_button_margin_left"
+            android:contentDescription="@null"
+            android:scaleType="center"
+            android:src="@drawable/ic_back"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:ellipsize="end"
+            android:lines="1"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="@string/my_booked"
+            android:textColor="@color/black_bg"
+            android:textSize="@dimen/dp18_textsize"/>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:contentDescription="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/list_item_divider"/>
+
+        <TextView
+            android:id="@+id/my_book_recover"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="@string/recover"
+            android:textColor="@color/black_bg"
+            android:textSize="@dimen/dp14_textsize"/>
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/my_book_listiew"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@null"
+        android:listSelector="@android:color/transparent"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:id="@+id/my_book_nomore"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="77dp"
+            android:layout_height="65dp"
+            android:src="@drawable/nobooks"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/no_books"
+            android:textColor="@color/gray_line"
+            android:textSize="@dimen/dp12_textsize"/>
+    </LinearLayout>
+
+</LinearLayout>
+

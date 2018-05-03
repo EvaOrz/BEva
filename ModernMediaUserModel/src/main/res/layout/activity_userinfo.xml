@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/body_bg"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/bar_height"
+        android:layout_marginBottom="10dp"
+        android:background="@color/title_bar">
+
+        <ImageView
+            android:id="@+id/uinfo_close"
+            android:layout_width="@dimen/bar_height"
+            android:layout_height="@dimen/bar_height"
+            android:layout_marginLeft="@dimen/nav_button_margin_left"
+            android:contentDescription="@null"
+            android:scaleType="center"
+            android:src="@drawable/ic_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/userinfo_setting"
+            android:textColor="@color/black_bg"
+            android:textSize="@dimen/nav_title_size" />
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:contentDescription="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/list_item_divider" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp10"
+        android:paddingLeft="@dimen/dp20"
+        android:text="@string/user_info"
+        android:textColor="@color/login_desc"
+        android:textSize="@dimen/dp13_textsize" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_height"
+        android:background="@color/gray_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/dp10"
+        android:paddingLeft="@dimen/dp20"
+        android:paddingRight="@dimen/dp20"
+        android:paddingTop="@dimen/dp10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/dp5"
+            android:text="@string/vip_avatar"
+            android:textColor="@color/login_desc"
+            android:textSize="@dimen/dp15_textsize" />
+
+        <ImageView
+            android:id="@+id/userinfo_avatar"
+            android:layout_width="@dimen/footer_height"
+            android:layout_height="@dimen/footer_height"
+            android:layout_marginLeft="@dimen/footer_height"
+            android:contentDescription="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/avatar_placeholder" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_height"
+        android:layout_marginLeft="@dimen/dp20"
+        android:layout_marginRight="@dimen/dp20"
+        android:background="@color/gray_line"
+        android:paddingTop="@dimen/dp5" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_bg"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/dp10"
+        android:paddingLeft="@dimen/dp20"
+        android:paddingRight="@dimen/dp20"
+        android:paddingTop="@dimen/dp10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp5"
+            android:text="@string/vip_nickname"
+            android:textColor="@color/login_desc"
+            android:textSize="@dimen/dp15_textsize" />
+
+        <TextView
+            android:id="@+id/uinfo_nick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/footer_height"
+            android:gravity="center_vertical"
+            android:textColor="@color/black_bg"
+            android:textSize="@dimen/dp15_textsize" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_height"
+        android:layout_marginLeft="@dimen/dp20"
+        android:layout_marginRight="@dimen/dp20"
+        android:background="@color/gray_line" />
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginTop="@dimen/dp20"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:paddingLeft="@dimen/dp20"-->
+    <!--android:paddingRight="@dimen/dp20">-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:padding="@dimen/dp5"-->
+    <!--android:text="@string/user_sign"-->
+    <!--android:textColor="@color/login_desc"-->
+    <!--android:textSize="@dimen/dp15_textsize" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/uinfo_sign"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:paddingBottom="@dimen/dp5"-->
+    <!--android:paddingLeft="@dimen/dp20"-->
+    <!--android:textColor="@color/black_bg" />-->
+    <!--</LinearLayout>-->
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_height"
+        android:background="@color/gray_line" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp10"
+        android:paddingLeft="@dimen/dp20"
+        android:paddingTop="@dimen/dp10"
+        android:text="@string/user_band"
+        android:textColor="@color/login_desc"
+        android:textSize="@dimen/dp13_textsize" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_height"
+        android:background="@color/gray_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_bg"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/dp10"
+        android:paddingLeft="@dimen/dp20"
+        android:paddingRight="@dimen/dp20"
+        android:paddingTop="@dimen/dp10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp5"
+            android:text="@string/phone_number"
+            android:textColor="@color/login_desc"
+            android:textSize="@dimen/dp15_textsize" />
+
+        <TextView
+            android:id="@+id/uinfo_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/dp5"
+            android:paddingLeft="@dimen/dp20"
+            android:textColor="@color/black_bg" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_height"
+        android:layout_marginLeft="@dimen/dp20"
+        android:layout_marginRight="@dimen/dp20"
+        android:background="@color/gray_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_bg"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/dp10"
+        android:paddingLeft="@dimen/dp20"
+        android:paddingRight="@dimen/dp20"
+        android:paddingTop="@dimen/dp10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp5"
+            android:text="@string/user_email"
+            android:textColor="@color/login_desc"
+            android:textSize="@dimen/dp15_textsize" />
+
+        <TextView
+            android:id="@+id/uinfo_email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingBottom="@dimen/dp5"
+            android:paddingLeft="@dimen/dp20"
+            android:textColor="@color/black_bg" />
+
+        <TextView
+            android:id="@+id/userinfo_un_valied"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gray_btn_bg"
+            android:paddingBottom="@dimen/dp3"
+            android:paddingLeft="@dimen/dp5"
+            android:paddingRight="@dimen/dp5"
+            android:paddingTop="@dimen/dp3"
+            android:text="@string/userinfo_valied"
+            android:textColor="@color/white_bg"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_height"
+        android:layout_marginLeft="@dimen/dp20"
+        android:layout_marginRight="@dimen/dp20"
+        android:background="@color/gray_line" />
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginTop="@dimen/dp20"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:paddingLeft="@dimen/dp20"-->
+    <!--android:paddingRight="@dimen/dp20">-->
+
+    <!--<TextView-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_weight="5"-->
+    <!--android:padding="@dimen/dp5"-->
+    <!--android:text="@string/userinfo_receive"-->
+    <!--android:textColor="@color/login_desc"-->
+    <!--android:textSize="@dimen/dp15_textsize" />-->
+
+    <!--<CheckBox-->
+    <!--android:id="@+id/uinfo_checkbox"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="@drawable/pushemail_selector"-->
+    <!--android:button="@null"-->
+    <!--android:gravity="center_vertical" />-->
+    <!--</LinearLayout>-->
+
+    <!--<View-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/dp1"-->
+    <!--android:background="@color/gray_line" />-->
+
+    <!--<TextView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginTop="@dimen/dp20"-->
+    <!--android:padding="@dimen/dp5"-->
+    <!--android:text="@string/user_shejiaozhanghao"-->
+    <!--android:textColor="@color/login_desc"-->
+    <!--android:textSize="@dimen/dp15_textsize" />-->
+
+    <LinearLayout
+        android:id="@+id/other_login_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_bg"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/dp5"
+        android:paddingLeft="@dimen/dp20"
+        android:paddingTop="@dimen/dp5">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="@dimen/dp5"
+            android:text="@string/user_shejiaozhanghao"
+            android:textColor="@color/login_desc"
+            android:textSize="@dimen/dp15_textsize" />
+
+        <ImageView
+            android:id="@+id/uinfo_btn_sina_login"
+            android:layout_width="@dimen/dp40_text_size"
+            android:layout_height="@dimen/dp40_text_size"
+            android:layout_weight="1"
+            android:src="@drawable/login_sina_gray" />
+
+        <ImageView
+            android:id="@+id/uinfo_btn_weixin_login"
+            android:layout_width="@dimen/dp40_text_size"
+            android:layout_height="@dimen/dp40_text_size"
+            android:layout_weight="1"
+            android:src="@drawable/login_weixin_gray" />
+
+        <ImageView
+            android:id="@+id/uinfo_btn_qq_login"
+            android:layout_width="@dimen/dp40_text_size"
+            android:layout_height="@dimen/dp40_text_size"
+            android:layout_weight="1"
+            android:src="@drawable/login_qq_gray" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_height"
+        android:background="@color/gray_line" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_height"
+        android:layout_marginTop="@dimen/dp15_textsize"
+        android:background="@color/gray_line" />
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="horizontal">-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/uinfo_motify_pwd"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginRight="@dimen/dp5"-->
+    <!--android:layout_weight="1"-->
+    <!--android:background="@drawable/yellow_btn_bg"-->
+    <!--android:gravity="center"-->
+    <!--android:paddingBottom="@dimen/dp8"-->
+    <!--android:paddingTop="@dimen/dp8"-->
+    <!--android:text="@string/modify_pwd"-->
+    <!--android:textColor="@color/white_bg"-->
+    <!--android:textSize="@dimen/dp15_textsize" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/uinfo_logout"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginLeft="5dp"-->
+    <!--android:layout_weight="1"-->
+    <!--android:background="@drawable/gray_btn_bg"-->
+    <!--android:gravity="center"-->
+    <!--android:paddingBottom="8dp"-->
+    <!--android:paddingTop="8dp"-->
+    <!--android:text="@string/login_out"-->
+    <!--android:textColor="@color/white_bg"-->
+    <!--android:textSize="@dimen/dp15_textsize" />-->
+    <!--</LinearLayout>-->
+
+    <RelativeLayout
+        android:id="@+id/uinfo_motify_pwd_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_bg"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/dp10"
+        android:paddingLeft="@dimen/dp20"
+        android:paddingRight="@dimen/dp20"
+        android:paddingTop="@dimen/dp10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp5"
+            android:background="@color/white_bg"
+            android:text="@string/modify_pwd"
+            android:textColor="@color/login_desc"
+            android:textSize="@dimen/dp15_textsize" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/dp10"
+            android:scaleType="center"
+            android:src="@drawable/index_item_arrow" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_height"
+        android:background="@color/gray_line" />
+
+
+</LinearLayout>

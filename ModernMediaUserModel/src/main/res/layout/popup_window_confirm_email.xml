@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white_bg"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/confirm_email_window_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/modify_email_window_title_margin_top"
+        android:text="@string/confirm_email"
+        android:textColor="@color/black_bg"
+        android:textSize="@dimen/dp25_textsize" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp15"
+        android:text="@string/email_address_is"
+        android:textColor="@color/black_bg"
+        android:textSize="@dimen/dp13_textsize" />
+
+    <TextView
+        android:id="@+id/confirm_email_window_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/black_bg"
+        android:textSize="@dimen/dp12_textsize" />
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/modify_email_window_title_margin_top"
+        android:contentDescription="@null"
+        android:scaleType="fitXY"
+        android:src="@drawable/list_item_divider" />
+
+    <TextView
+        android:id="@+id/confirm_email_window_goto_shop"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/modify_email_window_text_height"
+        android:gravity="center"
+        android:text="@string/goto_shop"
+        android:textColor="@color/confirm_email_text_color"
+        android:textSize="@dimen/dp13_textsize" />
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@null"
+        android:scaleType="fitXY"
+        android:src="@drawable/list_item_divider" />
+
+    <TextView
+        android:id="@+id/confirm_email_window_modify_email"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/modify_email_window_text_height"
+        android:gravity="center"
+        android:text="@string/modify_email"
+        android:textColor="@color/confirm_email_text_color"
+        android:textSize="@dimen/dp13_textsize" />
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@null"
+        android:scaleType="fitXY"
+        android:src="@drawable/list_item_divider" />
+
+    <TextView
+        android:id="@+id/confirm_email_window_cancel"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/modify_email_window_text_height"
+        android:gravity="center"
+        android:text="@string/cancel"
+        android:textColor="@color/confirm_email_text_color"
+        android:textSize="@dimen/dp13_textsize" />
+
+</LinearLayout>

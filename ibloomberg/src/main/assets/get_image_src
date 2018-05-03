@@ -1,0 +1,11 @@
+function(){
+ 	var x = ##x; var y = ##y;
+	var scale = screen.width / document.documentElement.clientWidth;
+	x = x / scale;
+	y = y / scale;
+  	var el = document.elementFromPoint(x, y);
+   	if (el.nodeName == 'IMG') {
+		return el.src;
+   	}
+   	return "";
+}()

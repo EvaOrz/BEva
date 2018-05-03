@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_bg"
+    android:orientation="vertical"
+    android:visibility="gone"
+    android:paddingLeft="@dimen/my_coin_title_maigin_left">
+
+    <LinearLayout
+        android:id="@+id/item_coin_rule_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp20"
+            android:gravity="center"
+            android:text="@string/get_more_coin"
+            android:textColor="@color/user_center_head" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/list_item_divider" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/my_coin_item_title_height">
+
+        <TextView
+            android:id="@+id/item_coin_rule_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp10"
+            android:layout_marginTop="@dimen/dp5"
+            android:textColor="@color/user_center_head"
+            android:textSize="@dimen/dp14_textsize" />
+
+        <TextView
+            android:id="@+id/item_coin_rule_cent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/my_coin_item_desc_margin_right"
+            android:layout_marginTop="@dimen/dp5"
+            android:textColor="@color/grgray"
+            android:textSize="@dimen/dp14_textsize" />
+
+        <TextView
+            android:id="@+id/item_coin_rule_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp20"
+            android:layout_marginTop="@dimen/dp5"
+            android:textSize="@dimen/dp14_textsize" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:contentDescription="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/list_item_divider" />
+    </RelativeLayout>
+
+</LinearLayout>

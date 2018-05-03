@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/issue_pic_marginleft">
+
+    <ImageView
+        android:id="@+id/special_column_itemImg"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/iweekly_book_item_bac"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/special_column_itemTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="卡萨丁能收到哦溶解开辟看看看你了可点击付款的开发的时间"
+        android:textSize="16sp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:layout_marginLeft="@dimen/dp5"
+        android:layout_marginRight="@dimen/dp15"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/special_column_itemImg"
+        android:layout_toEndOf="@+id/special_column_itemImg" />
+
+    <TextView
+        android:id="@+id/special_column_itemSubject"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/dp12_textsize"
+        android:text="觉得是假的但是看到类似的数量上看到你但是可能都是"
+        android:maxLines="2"
+        android:layout_marginLeft="@dimen/dp5"
+        android:layout_marginRight="20dp"
+        android:layout_alignBottom="@+id/special_column_itemImg"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/special_column_itemImg"
+        android:layout_toEndOf="@+id/special_column_itemImg" />
+
+    <TextView
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/dp10"
+        android:text=">" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/special_column_itemImg"
+        android:background="@drawable/line"/>
+
+</RelativeLayout>

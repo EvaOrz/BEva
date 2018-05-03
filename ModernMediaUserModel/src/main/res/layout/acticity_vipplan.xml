@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/body_bg">
+
+    <RelativeLayout
+        android:id="@+id/vip_plan_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/article_bar_height"
+        android:background="@color/title_bar">
+
+        <ImageView
+            android:id="@+id/vip_plan_back"
+            android:layout_width="@dimen/article_bar_height"
+            android:layout_height="@dimen/article_bar_height"
+            android:layout_marginLeft="@dimen/dp5"
+            android:contentDescription="@null"
+            android:scaleType="center"
+            android:src="@drawable/ic_back" />
+
+        <TextView
+            android:id="@+id/vip_plan_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/black_bg"
+            android:textSize="@dimen/dp18_textsize" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:contentDescription="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/list_item_divider" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/vip_plan_btn_linear"
+        android:layout_below="@+id/vip_plan_bar"
+        android:fillViewport="true">
+
+        <ListView
+            android:id="@+id/vip_plan_listView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white_bg"
+            android:divider="@null"
+            android:listSelector="@color/transparent" />
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/vip_plan_btn_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white_bg"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/vip_plan_btn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/article_bar_height"
+            android:layout_margin="@dimen/dp15_textsize"
+            android:background="@drawable/vip_black_btn_bg"
+            android:textColor="@color/white_bg"
+            android:textSize="@dimen/dp18_textsize" />
+    </LinearLayout>
+</RelativeLayout>

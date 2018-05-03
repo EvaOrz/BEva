@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/item_coin_good_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/body_bg"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/list_item_divider" />
+
+        <TextView
+            android:id="@+id/item_coin_good_title_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp12_textsize"
+            android:layout_marginTop="@dimen/dp15"
+            android:gravity="left"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/my_coin_title_maigin_left"
+            android:text="@string/exchange_coin"
+            android:textColor="@color/grgray"
+            android:textSize="@dimen/dp14_textsize" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/list_item_divider" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/my_coin_item_title_height"
+        android:paddingLeft="@dimen/my_coin_title_maigin_left">
+
+        <TextView
+            android:id="@+id/item_coin_good_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp10"
+            android:layout_marginTop="@dimen/dp5"
+            android:textColor="@color/black_bg"
+            android:textSize="@dimen/dp14_textsize" />
+
+        <TextView
+            android:id="@+id/item_coin_good_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/my_coin_item_desc_margin_right"
+            android:layout_marginTop="@dimen/dp5"
+            android:textColor="@color/grgray"
+            android:textSize="@dimen/dp14_textsize" />
+
+        <Button
+            android:id="@+id/item_coin_good_exchange_btn"
+            android:layout_width="@dimen/my_coin_item_button_width"
+            android:layout_height="@dimen/my_coin_notice_ok_height"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp10"
+            android:background="@color/user_center_head"
+            android:textColor="@color/white_bg"
+            android:textSize="@dimen/dp14_textsize" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:contentDescription="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/list_item_divider" />
+    </RelativeLayout>
+
+
+</LinearLayout>

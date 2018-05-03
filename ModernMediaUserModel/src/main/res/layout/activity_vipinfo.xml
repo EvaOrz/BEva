@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/body_bg"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/article_bar_height"
+        android:background="@color/title_bar">
+
+        <TextView
+            android:id="@+id/vip_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp10"
+            android:textColor="@color/user_center_head"
+            android:textSize="@dimen/dp15"
+            android:text="@string/cancel" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/vip_mine_notice"
+            android:textColor="@color/user_center_head"
+            android:textSize="@dimen/dp18_textsize" />
+
+        <TextView
+            android:id="@+id/vip_complete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp10"
+            android:text="@string/complete"
+            android:textColor="@color/user_center_head"
+            android:textSize="@dimen/dp15" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:contentDescription="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/list_item_divider" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/info_notice"
+        android:paddingBottom="@dimen/dp5"
+        android:layout_marginStart="@dimen/dp5"
+        android:paddingTop="@dimen/dp5"
+        android:text="@string/vip_info_tips"
+        android:textColor="@color/grgray"
+        android:textSize="@dimen/dp12_textsize" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_height"
+        android:background="@color/gray_line" />
+
+    <LinearLayout
+        android:id="@+id/vip_name_linear"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/vip_height"
+        android:background="@color/white_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingRight="@dimen/dp10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white_bg"
+            android:padding="@dimen/dp10"
+            android:text="@string/vip_name"
+            android:textColor="@color/black_bg"
+            android:textSize="@dimen/dp14_textsize" />
+
+        <EditText
+            android:id="@+id/vip_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white_bg"
+            android:focusable="true"
+            android:hint="@string/vip_name_hint"
+            android:maxLength="20"
+            android:padding="@dimen/dp10"
+            android:singleLine="true"
+            android:textColor="@color/black_bg"
+            android:textSize="@dimen/dp14_textsize" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_height"
+        android:layout_marginStart="@dimen/dp10"
+        android:background="@color/gray_line" />
+
+    <LinearLayout
+        android:id="@+id/vip_sex_linear"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/footer_height"
+        android:background="@color/white_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingRight="@dimen/dp10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white_bg"
+            android:padding="@dimen/dp10"
+            android:text="@string/vip_sex"
+            android:textColor="@color/black_bg"
+            android:textSize="@dimen/dp14_textsize" />
+
+        <TextView
+            android:id="@+id/vip_sex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white_bg"
+            android:hint="@string/vip_sex_hint"
+            android:padding="@dimen/dp10"
+            android:textColor="@color/black_bg"
+            android:textSize="@dimen/dp14_textsize" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_height"
+        android:layout_marginStart="@dimen/dp10"
+        android:background="@color/gray_line" />
+
+    <LinearLayout
+        android:id="@+id/vip_birth_linear"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/footer_height"
+        android:background="@color/white_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingRight="@dimen/dp10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white_bg"
+            android:padding="@dimen/dp10"
+            android:text="@string/vip_birth"
+            android:textColor="@color/black_bg"
+            android:textSize="@dimen/dp14_textsize" />
+
+        <TextView
+            android:id="@+id/vip_birth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white_bg"
+            android:hint="@string/vip_birth_hint"
+            android:padding="@dimen/dp10"
+            android:textColor="@color/black_bg"
+            android:textSize="@dimen/dp14_textsize" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_height"
+        android:layout_marginStart="@dimen/dp10"
+        android:background="@color/gray_line" />
+
+    <LinearLayout
+        android:id="@+id/vip_district_linear"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/footer_height"
+        android:background="@color/white_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingEnd="@dimen/dp10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white_bg"
+            android:padding="@dimen/dp10"
+            android:text="@string/vip_district"
+            android:textColor="@color/black_bg"
+            android:textSize="@dimen/dp14_textsize" />
+
+        <TextView
+            android:id="@+id/vip_district"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white_bg"
+            android:hint="@string/vip_birth_hint"
+            android:padding="@dimen/dp10"
+            android:textColor="@color/black_bg"
+            android:textSize="@dimen/dp14_textsize" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_height"
+        android:background="@color/gray_line" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_height"
+        android:layout_marginTop="@dimen/dp15"
+        android:background="@color/gray_line" />
+
+    <RelativeLayout
+        android:id="@+id/vip_industry_relative"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/footer_height"
+        android:background="@color/white_bg"
+        android:gravity="center_vertical"
+        android:paddingEnd="@dimen/dp10">
+
+        <TextView
+            android:id="@+id/vip_industry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@color/white_bg"
+            android:padding="@dimen/dp10"
+            android:text="@string/vip_industry"
+            android:textColor="@color/black_bg"
+            android:textSize="@dimen/dp14_textsize" />
+
+        <TextView
+            android:id="@+id/vip_industry_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/vip_industry"
+            android:layout_alignTop="@+id/vip_industry"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="50dp"
+            android:background="@color/white_bg"
+            android:hint="@string/vip_industry_hint"
+            android:padding="@dimen/dp10"
+            android:textColor="@color/black_bg"
+            android:textSize="@dimen/dp14_textsize" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/dp10"
+            android:scaleType="center"
+            android:src="@drawable/index_item_arrow" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_height"
+        android:layout_marginStart="@dimen/dp10"
+        android:background="@color/gray_line" />
+
+
+    <LinearLayout
+        android:id="@+id/vip_job_linear"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/footer_height"
+        android:background="@color/white_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingEnd="@dimen/dp10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white_bg"
+            android:padding="@dimen/dp10"
+            android:text="@string/vip_job"
+            android:textColor="@color/black_bg"
+            android:textSize="@dimen/dp14_textsize" />
+
+        <TextView
+            android:id="@+id/vip_job"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white_bg"
+            android:hint="@string/vip_job_hint"
+            android:padding="@dimen/dp10"
+            android:textColor="@color/black_bg"
+            android:textSize="@dimen/dp14_textsize" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_height"
+        android:layout_marginStart="@dimen/dp10"
+        android:background="@color/gray_line" />
+
+    <LinearLayout
+        android:id="@+id/vip_income_linear"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/footer_height"
+        android:background="@color/white_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingEnd="@dimen/dp10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white_bg"
+            android:padding="@dimen/dp10"
+            android:text="@string/vip_income"
+            android:textColor="@color/black_bg"
+            android:textSize="@dimen/dp14_textsize" />
+
+        <TextView
+            android:id="@+id/vip_income"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white_bg"
+            android:hint="@string/vip_income_hint"
+            android:padding="@dimen/dp10"
+            android:textColor="@color/black_bg"
+            android:textSize="@dimen/dp14_textsize" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_height"
+        android:background="@color/gray_line" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_height"
+        android:layout_marginTop="@dimen/dp15"
+        android:background="@color/gray_line" />
+
+    <LinearLayout
+        android:id="@+id/vip_phone_linear"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/footer_height"
+        android:background="@color/white_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingEnd="@dimen/dp10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white_bg"
+            android:padding="@dimen/dp10"
+            android:text="@string/vip_phone"
+            android:textColor="@color/black_bg"
+            android:textSize="@dimen/dp14_textsize" />
+
+        <TextView
+            android:id="@+id/vip_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white_bg"
+            android:hint="@string/vip_phone_hint"
+            android:padding="@dimen/dp10"
+            android:textColor="@color/black_bg"
+            android:textSize="@dimen/dp14_textsize" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_height"
+        android:background="@color/gray_line" />
+
+
+</LinearLayout>

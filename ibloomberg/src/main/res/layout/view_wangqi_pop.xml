@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/wangqi_cancle"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/white_corner_bg"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingBottom="20dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="18dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/vip_notice_tip"
+            android:textColor="@color/black_bg"
+
+            android:textSize="@dimen/dp16_textsize"/>
+
+        <TextView
+            android:id="@+id/wangqi_pop_t"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp15"
+            android:layout_marginTop="15dp"
+            android:text="推荐成为我们的VIP会员，这样您可以享受包含付费内容在内的更多权益。"
+            android:textColor="@color/black_bg"
+            android:textSize="@dimen/dp14_textsize"/>
+
+        <TextView
+            android:id="@+id/chengwei"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/vip_corner_bg"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="成为VIP"
+
+            android:textColor="@color/white_bg"/>
+
+
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="15dp"-->
+        <!--android:layout_marginTop="15dp"-->
+        <!--android:ellipsize="none"-->
+        <!--android:singleLine="true"-->
+        <!--android:text="&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;"-->
+        <!--android:textColor="@color/vip_mine_pay"/>-->
+
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="@dimen/dp15"-->
+        <!--android:text="我只想在这台设备上阅读付费内容。"-->
+        <!--android:textColor="@color/black_bg"-->
+        <!--android:textSize="@dimen/dp14_textsize"/>-->
+
+        <!--<TextView-->
+        <!--android:id="@+id/zhijie"-->
+        <!--android:layout_width="120dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@drawable/black_btn_bg"-->
+        <!--android:gravity="center"-->
+        <!--android:padding="5dp"-->
+        <!--android:text="直接购买"-->
+        <!--android:textColor="@color/white_bg"/>-->
+
+    </LinearLayout>
+
+
+</LinearLayout>

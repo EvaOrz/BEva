@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/dp10">
+
+    <ImageView
+        android:id="@+id/vipup_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@null"
+        android:scaleType="center" />
+
+    <TextView
+        android:id="@+id/vipup_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/vipup_image"
+        android:layout_marginLeft="@dimen/dp10"
+        android:layout_toRightOf="@+id/vipup_image"
+        android:textColor="@color/user_center_head"
+        android:textSize="@dimen/dp14_textsize" />
+
+    <TextView
+        android:id="@+id/vipup_link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/vipup_image"
+        android:layout_marginLeft="@dimen/dp10"
+        android:layout_toRightOf="@+id/vipup_title"
+        android:textColor="@color/user_center_dot"
+        android:textSize="@dimen/dp14_textsize" />
+
+    <TextView
+        android:id="@+id/vipup_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/vipup_title"
+        android:layout_marginLeft="@dimen/dp10"
+        android:layout_marginTop="@dimen/dp5"
+        android:layout_toRightOf="@id/vipup_image"
+        android:textColor="@color/grgray"
+        android:textSize="@dimen/dp12_textsize" />
+</RelativeLayout>

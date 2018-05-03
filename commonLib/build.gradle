@@ -1,0 +1,48 @@
+apply plugin: 'com.android.library'
+
+android {
+    useLibrary 'org.apache.http.legacy'
+    compileSdkVersion 26
+    buildToolsVersion '26.0.2'
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 23
+    }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+}
+
+dependencies {
+    compile project(':coreLib')
+    compile files('libs/alipaySDK-20150610.jar')
+    compile files('libs/libammsdk.jar')
+    compile files('libs/zxing.jar')
+    compile project(':vrlib')
+    compile 'com.squareup.picasso:picasso:2.3.2'
+    compile 'tv.danmaku.ijk.media:ijkplayer-java:0.4.5'
+    compile 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.4.5'
+    compile files('libs/umeng-analytics-v6.0.1.jar')
+    compile files('libs/qiniu-android-sdk-7.2.2.jar')
+    // pdf电子书阅读器
+    compile 'es.voghdev.pdfviewpager:library:1.0.1'
+    // 美团walle读取channel号
+    compile 'com.meituan.android.walle:payload_reader:1.1.1'
+    // qq登录分享
+    compile files('libs/open_sdk_r5793.jar')
+    // 饺子videoview
+    compile project(':jiaozivideoplayer')
+    // 有赞云
+    compile 'com.youzanyun.open.mobile:basic:6.2.0'
+}

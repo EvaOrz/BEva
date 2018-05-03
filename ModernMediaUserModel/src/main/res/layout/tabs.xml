@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="@dimen/userinfo_text_width"
+                android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/tab_img"
+        android:layout_width="@dimen/vip_height"
+        android:layout_height="@dimen/vip_height"
+        android:layout_centerInParent="true"
+        android:contentDescription="@null"
+        android:scaleType="center"
+        android:src="@drawable/vip_level_in"/>
+
+    <ImageView
+        android:id="@+id/tab_circle"
+        android:layout_width="@dimen/vip_height"
+        android:layout_height="@dimen/vip_height"
+        android:layout_centerInParent="true"
+        android:contentDescription="@null"
+        android:padding="@dimen/dp2"
+        android:src="@drawable/vip_circle"/>
+
+    <TextView
+        android:id="@+id/tab_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tab_circle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp15"
+        android:text="点击查看更多"
+        android:textColor="@color/user_center_head"
+        android:textSize="@dimen/dp13_textsize"/>
+
+
+</RelativeLayout>

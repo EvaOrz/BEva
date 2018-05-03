@@ -1,0 +1,615 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+          package="cn.com.modernmedia.businessweek"
+          android:versionCode="81"
+          android:versionName="4.5.4">
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="true"/>
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.READ_LOGS"/>
+    <uses-permission android:name="android.permission.FLASHLIGHT"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.PERMISSION_NAME"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <!-- 网络定位权限-->
+    <!--<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>-->
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_UPDATES"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <!--GPS定位权限-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <!-- 二维码 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+
+    <uses-feature android:name="android.hardware.camera"/>
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
+
+    <!-- JPush -->
+    <permission
+        android:name="cn.com.modernmedia.businessweek.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature"/>
+    <uses-permission android:name="cn.com.modernmedia.businessweek.permission.JPUSH_MESSAGE"/>
+
+    <!-- MiPush -->
+    <permission
+        android:name="cn.com.modernmedia.businessweek.permission.MIPUSH_RECEIVE"
+        android:protectionLevel="signature"/>
+    <uses-permission android:name="cn.com.modernmedia.businessweek.permission.MIPUSH_RECEIVE"/>
+    <!--android:debuggable="true"-->
+    <application
+        android:name="cn.com.modernmedia.businessweek.MyApplication"
+        android:hardwareAccelerated="true"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:supportsRtl="true"
+        tools:ignore="HardcodedDebugMode">
+
+        <activity
+            android:name="cn.com.modernmedia.businessweek.SplashScreenActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+            <intent-filter>
+                <data android:scheme="slate1"/>
+
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+            </intent-filter>
+        </activity>
+        <!--qq login-->
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data android:scheme="tencent1104758116"/>
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            />
+        <!--weixin login-->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTask"
+            />
+        <!--weixin pay-->
+        <activity
+            android:name="cn.com.modernmedia.businessweek.wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTask"
+            />
+        <activity
+            android:name="cn.com.modernmedia.businessweek.MainActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <!--&lt;!&ndash; android:host="lovejjfg.com"&ndash;&gt;-->
+        <!--<activity android:name=".GetSchemeActivity">-->
+        <!--<intent-filter>-->
+        <!--<data-->
+        <!--android:host="lovejjfg.com"-->
+        <!--android:scheme="slate1"-->
+        <!--/>-->
+        <!--<action android:name="android.intent.action.VIEW"/>-->
+        <!--<category android:name="android.intent.category.DEFAULT"/>-->
+        <!--<category android:name="android.intent.category.BROWSABLE"/>-->
+        <!--</intent-filter>-->
+
+        <!--</activity>-->
+
+        <activity
+            android:name="cn.com.modernmedia.views.ArticleActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name="cn.com.modernmedia.views.PushArticleActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.com.modernmedia.views.AboutActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.com.modernmedia.views.FavoritesActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.com.modernmediausermodel.LoginActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan">
+            <!--<intent-filter>-->
+            <!--<category android:name="android.intent.category.DEFAULT"/>-->
+
+            <!--<action android:name="android.intent.action.SEND"/>-->
+
+            <!--<data android:mimeType="text/*"/>-->
+            <!--</intent-filter>-->
+        </activity>
+        <activity
+            android:name="cn.com.modernmediausermodel.RegisterActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.com.modernmediausermodel.UserInfoActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.com.modernmediausermodel.UserNewInfoActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.com.modernmedia.CommonAdvActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.com.modernmediausermodel.ModifyPwdActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.com.modernmediausermodel.RecommendUserActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.com.modernmediausermodel.UserCardInfoActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.com.modernmediausermodel.SquareActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.com.modernmedia.CaifuArticleActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.com.modernmediausermodel.CardDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.com.modernmediausermodel.MyHomePageActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.com.modernmediausermodel.MessageActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.com.modernmediausermodel.WriteCommentActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity
+            android:name="cn.com.modernmediausermodel.WriteNewCardActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize">
+            <!--<intent-filter>-->
+            <!--<action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY"/>-->
+
+            <!--<category android:name="android.intent.category.DEFAULT"/>-->
+            <!--</intent-filter>-->
+        </activity>
+
+        <activity
+            android:name="cn.com.modernmedia.OnlineVideoActivity"
+            android:screenOrientation="landscape"/>
+
+        <activity
+            android:name="cn.com.modernmediausermodel.MyCoinUseNoticeActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.com.modernmediausermodel.ModifyEmailActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.com.modernmediausermodel.SettingActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+        <activity
+            android:name="cn.com.modernmediausermodel.FeedBackActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.com.modernmediausermodel.BandDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.com.modernmediausermodel.TestActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.com.modernmediausermodel.ForgetPwdActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.com.modernmediausermodel.ArticleCardListActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name="cn.com.modernmediausermodel.vip.VipInfoActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.com.modernmediausermodel.vip.MyVipActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.com.modernmediausermodel.vip.TaocanUpActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.com.modernmediausermodel.vip.VipPlanDetailActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name="cn.com.modernmediausermodel.vip.VipOpenActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.com.modernmediausermodel.vip.VipCodeActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.com.modernmediausermodel.vip.VipProductPayActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.com.modernmedia.VipShowInfoActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.com.modernmediausermodel.vip.VipPayResultActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.com.modernmediausermodel.vip.SelectIndustryActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.com.modernmediausermodel.vip.VipUpSuccessActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.com.modernmediausermodel.vip.VipCodeSuccessActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name="cn.com.modernmediausermodel.vip.ChangeEmailActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"/>
+        <activity
+            android:name="com.alipay.sdk.auth.AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"/>
+        <!-- 启动支付页面Receiver -->
+        <receiver android:name="cn.com.modernmedia.views.BroadcastReceiver.PayToLoginReceiver">
+            <intent-filter>
+                <action android:name="cn.com.modernmediausermodel.LoginActivity_nomal"/>
+                <action android:name="cn.com.modernmedia.views.column.book.BookColumnActivity"/>
+                <action android:name="cn.com.modernmediausermodel.ActiveActivity"/>
+                <action android:name="cn.com.modernmediausermodel.BandDetailActivity_nomal"/>
+                <action android:name="cn.com.modernmediausermodel.VipOpenActivity_nomal"/>
+                <action android:name="cn.com.modernmediausermodel.VipOpenActivity"/>
+                <action android:name="cn.com.modernmediausermodel.VipCodeActivity"/>
+                <action android:name="cn.com.modernmediausermodel.VipCodeActivity_nomal"/>
+                <action android:name="cn.com.modernmediausermodel.VipProductPayActivity_nomal"/>
+                <action android:name="cn.com.modernmediausermodel.LoginActivity"/>
+                <action android:name="cn.com.modernmediausermodel.VipPayCallBackActivity"/>
+                <action android:name="cn.com.modernmediausermodel.BandDetailActivity"/>
+                <action android:name="cn.com.modernmediausermodel.vip"/>
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name=".jingxuan.ShangChengReceiver">
+            <intent-filter>
+                <action android:name="cn.com.modernmedia.shangcheng_info"/>
+                <action android:name="cn.com.modernmedia.shangcheng"/>
+                <action android:name="cn.com.modernmedia.businessweek.YouzanGoodActivity"/>
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name="cn.com.modernmedia.views.column.book.BookActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar"/>
+        <activity
+            android:name="cn.com.modernmedia.views.AuthorCenterActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.com.modernmediausermodel.ActiveActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.com.modernmedia.views.column.book.BookColumnActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar"/>
+        <activity
+            android:name="cn.com.modernmedia.zxing.activity.CaptureActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar"/>
+        <activity
+            android:name="cn.com.modernmedia.UploadPicsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar"/>
+        <activity
+            android:name=".MyBookedActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name="cn.com.modernmedia.views.SearchActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.com.modernmedia.views.IssueListActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.com.modernmedia.views.IssueListDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.com.modernmediausermodel.vip.PostUserOrderInfoActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.com.modernmediausermodel.NewCoinActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.com.modernmedia.ArticleGalleryActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.com.modernmedia.AdvActivity"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.com.modernmedia.businessweek.jingxuan.ShangchengListActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"
+            />
+
+        <activity
+            android:name="cn.com.modernmedia.businessweek.jingxuan.ShangchengInfoActivity"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".YouzanGoodActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.com.modernmedia.vrvideo.VRVideoPlayerActivity"
+            android:configChanges="screenSize|orientation"
+            android:label="MDMultiDemoActivity"
+            android:screenOrientation="landscape"/>
+        <activity
+            android:name="cn.com.modernmedia.vrvideo.BitmapPlayerActivity"
+            android:configChanges="screenSize|orientation"
+            android:label="MDMultiDemoActivity"
+            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".PDFActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+        <activity
+            android:name="cn.com.modernmedia.WangqiArticleActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+
+        <!--全局音乐播放service-->
+        <service
+            android:name=".MusicService"
+            android:exported="false">
+            <intent-filter android:priority="1000">
+                <action android:name="ACTION_UPDATE_PROGRESS"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </service>
+        <!--sina-->
+        <activity
+            android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize">
+        </activity>
+        <!--<service-->
+        <!--android:name="com.sina.weibo.sdk.net.DownloadService"-->
+        <!--android:exported="false"/>-->
+
+        <activity
+            android:name="cn.com.modernmedia.WBShareActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            >
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
+
+        <!-- Required SDK核心功能-->
+        <activity
+            android:name="cn.jpush.android.ui.PushActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+            <intent-filter>
+                <action android:name="cn.jpush.android.ui.PushActivity"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="cn.com.modernmedia.businessweek"/>
+            </intent-filter>
+        </activity>
+
+        <!-- Required  SDK核心功能-->
+        <service
+            android:name="cn.jpush.android.service.DownloadService"
+            android:enabled="true"
+            android:exported="false"></service>
+        <service
+            android:name="cn.jpush.android.service.DaemonService"
+            android:enabled="true"
+            android:exported="false"></service>
+
+
+        <!-- Required SDK 核心功能-->
+        <service
+            android:name="cn.jpush.android.service.PushService"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTER"/>
+                <action android:name="cn.jpush.android.intent.REPORT"/>
+                <action android:name="cn.jpush.android.intent.PushService"/>
+                <action android:name="cn.jpush.android.intent.PUSH_TIME"/>
+
+            </intent-filter>
+        </service>
+
+        <!-- Required SDK核心功能-->
+        <receiver
+            android:name="cn.jpush.android.service.PushReceiver"
+            android:enabled="true">
+            <intent-filter android:priority="1000">
+                <action
+                    android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY"/>   <!--Required  显示通知栏 -->
+                <category android:name="cn.com.modernmedia.businessweek"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT"/>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+            <!-- Optional -->
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED"/>
+                <action android:name="android.intent.action.PACKAGE_REMOVED"/>
+
+                <data android:scheme="package"/>
+            </intent-filter>
+
+        </receiver>
+
+        <!-- Required SDK核心功能-->
+        <receiver android:name="cn.jpush.android.service.AlarmReceiver"/>
+
+        <!-- User defined.  For test only  用户自定义的广播接收器-->
+        <receiver
+            android:name="cn.com.modernmedia.push.JPushReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action
+                    android:name="cn.jpush.android.intent.REGISTRATION"/> <!--Required  用户注册SDK的intent-->
+                <action android:name="cn.jpush.android.intent.UNREGISTRATION"/>
+                <action
+                    android:name="cn.jpush.android.intent.MESSAGE_RECEIVED"/> <!--Required  用户接收SDK消息的intent-->
+                <action
+                    android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED"/> <!--Required  用户接收SDK通知栏信息的intent-->
+                <action
+                    android:name="cn.jpush.android.intent.NOTIFICATION_OPENED"/> <!--Required  用户打开自定义通知栏的intent-->
+                <category android:name="cn.com.modernmedia.businessweek"/>
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.xiaomi.push.service.XMJobService"
+            android:enabled="true"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:process=":pushservice"/>
+
+        <service
+            android:name="com.xiaomi.push.service.XMPushService"
+            android:enabled="true"
+            android:process=":pushservice"/>
+
+        <service
+            android:name="com.xiaomi.mipush.sdk.PushMessageHandler"
+            android:enabled="true"
+            android:exported="true"/>
+        <service
+            android:name="com.xiaomi.mipush.sdk.MessageHandleService"
+            android:enabled="true"/>
+
+        <receiver
+            android:name="cn.com.modernmedia.push.MiPushReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.xiaomi.mipush.RECEIVE_MESSAGE"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.xiaomi.mipush.MESSAGE_ARRIVED"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.xiaomi.mipush.ERROR"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.xiaomi.push.service.receivers.NetworkStatusReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.xiaomi.push.service.receivers.PingReceiver"
+            android:exported="false"
+            android:process=":pushservice">
+            <intent-filter>
+                <action android:name="com.xiaomi.push.PING_TIMER"/>
+            </intent-filter>
+        </receiver>
+
+        <!--文章详情页面唤醒登录-->
+        <!--<receiver android:nacn.com.modernmediausermodel.StartLoginReceiveriver">
+            <intent-filter >
+                <action android:name="cn.com.modernmediausermodel.login"/>
+            </intent-filter>
+        </receiver>-->
+
+        <!-- 极光推送 -->
+        <meta-data
+            android:name="JPUSH_CHANNEL"
+            android:value="xiaomi"/>
+        <meta-data
+            android:name="JPUSH_APPKEY"
+            android:value="c5fb54c52440686f571335f9"/>
+
+        <!-- umeng 渠道统计相关 -->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="57871c8de0f55af1e00029cb"/>
+        <meta-data
+            android:name="channel"
+            android:value="bbwc"/>
+
+        <!-- fabric -->
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="728b33032900966851fb1177306119f11e832ca4"/>
+
+        <!-- 阿里百川 -->
+        <meta-data
+            android:name="com.taobao.android.hotfix.APPSECRET"
+            android:value="a9a7cbb20f79bba13788521335c8a4ad"/>
+        <meta-data
+            android:name="com.taobao.android.hotfix.RSASECRET"
+            android:value="MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCcA7ZxJfRiedGkcpUIRFq7vKUwlypwEAxqKrAR2SJWFr5AHThdfb6aOrdni+hV6bYWGY5CMgeKvl64Q1/gMmvIgmxJez+KZlAfreH92Qs1jWeNlwsmmHXsy+tgv4uBPYTgY8Of2qt//O/mXE5MLCq2qhCdd7dLU1Z+Nl5XKp1m8uz8JMaNubsrFh+I9wrsLtwDa8qF2uww794xWx3UF8e9MuSb8zDZP5qvksbhpKKKvaYr2B3Xa3gUKfSRp8UckVCWd4Qii0lKmeHfbzyr7sLYgWZHnOPmVj438pBbrs5wWbXySbbGn43d0hHOzWF7jBSOa54jSy65LZx9lN8YaxuNAgMBAAECggEAE5jDyeKil9wFYUqjPa6YVwyTE09pnTnm1U8XXqaPkZC5xQPmmJe64VSOxQrl3CTHIm+DVv1BxUO0UiDkYhzzPPRk9bXtfUzss4373Q7uQYPJhhd65xYvedcDcdudglZf4m+lmua0tBbpa14c16SUmO0zuRPYijWln6TkpL5NlyipVaoX6r4Z9AwPre+SadyLLf2Bfxoz5t96IFE0IZYwfz5v17CuyeL8GOnXhxlDzjdvpeDZhIkSTlmucP/qnvXcf+iHqT1fZbG6bQ9+2MTWUISGn5xQ+gBPmNj+VNbuDfq6wLtH4vg26utdRqTbfp+0saLnDMWeVsvwvx2CLL3tYQKBgQDw8ogDfZhg7WBEFLdNBYSDlNIM1DE3nTZRrLPKViqaHghiCGh40xlhngLgNZvQTjeOx+rAd4tqnizYwPiU4Nl/Mtv8nuYFITZsKRDiWRXXmtBl5ssLErpE+SXiuPM70cY/XTVn26X5FV+jd/HCiVAk8q2O6385NBifQiahViMrhwKBgQClwtnKIJyanA/NNhNyeXsrEwa5kfO//NsalLiaTxUq9wU4fyAJi7EblzlPYZ9+qSRim2QN2DTso6QksCUAAP1exLnlAKDEsDHyo+YRa9wufsjpXH+6xqHlDsP/DksIJGXpqYp2R8THr78NAHaMLdfSNcDGVYF5vH1+QbRbyryNSwKBgQDPNUOS/OeWM42d/tLEAgK7xbf+IF1THnggNQ1I7GEmuL0s0V5GygQB1wlSF8gvk5RjzbksW6IhxnV60jj0j4l7whk9XskhkDZlPcuvXD1UdWbSu2/RzgEyX7EdEUDcKML8qwPKlTJeyuq8geH/EmdB3xEy34NBhnPGQfVGufT08QKBgDGxU1csJaaYCIitoHDeCFWmc4qoPZmdtRWn5hukf6UMvszsF2+lKCgsUqsAii8Ph+/jw7/+xAb5G9k/0SfKJCsH8O69HHU6mQ6zoeIxIqXxrkt/Rm944snnfkx1PXsoZkEBaZgB9fUjM7QzIlbt21iScsNCmPkkz75M9kPaaGI3AoGAaKPnrTfUYY+M495se0nloyvV7q9KHFqwPqzwiTQsCgroh4abKcS+D7Tv/7miIMpYbdSr08xJ9TJht6r2Roz+2DmnZeoFXFy+RMBdTVMi9NG35SAMO7rpbuTTjXuTS/am/dwkW4TfVoNRAEk4MOhMX7POD9naKmd/573S8FuxJFc="/>
+        <!--适配三星S8-->
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.1"/>
+    </application>
+
+</manifest>

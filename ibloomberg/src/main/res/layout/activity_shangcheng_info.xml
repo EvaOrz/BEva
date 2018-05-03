@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white_bg"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/bar_height"
+        android:background="@color/title_bar">
+
+        <ImageView
+            android:id="@+id/shang_back"
+            android:layout_width="@dimen/bar_height"
+            android:layout_height="@dimen/bar_height"
+            android:layout_marginLeft="@dimen/nav_button_margin_left"
+            android:contentDescription="@null"
+            android:scaleType="center"
+            android:src="@drawable/ic_back"/>
+
+        <TextView
+            android:id="@+id/shang_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:textColor="@color/black_bg"
+            android:textSize="@dimen/dp18_textsize"
+            />
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:contentDescription="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/list_item_divider"/>
+    </RelativeLayout>
+
+    <cn.com.modernmedia.widget.CommonWebView
+        android:id="@+id/shang_info_webview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"/>
+
+    <!--<TextView
+        android:id="@+id/kaitong_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/vip_mine_pay"
+        android:gravity="center"
+        android:visibility="gone"
+        android:padding="10dp"
+        android:text="开通进阶套餐"
+        android:textColor="@color/white_bg"
+        android:textSize="@dimen/dp14_textsize"/>-->
+
+    <LinearLayout
+        android:id="@+id/kaitong_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:id="@+id/kaitong_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/white_bg"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="查看简介"
+            android:textColor="@color/black_bg"
+            android:textSize="@dimen/dp14_textsize"/>
+
+        <TextView
+            android:id="@+id/kaitong_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/vip_mine_pay"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="开通进阶套餐"
+            android:textColor="@color/white_bg"
+            android:textSize="@dimen/dp14_textsize"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ke_price_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:visibility="gone"
+        android:background="@color/body_bg"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:id="@+id/ke_price1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textColor="@color/black_bg"
+            android:textSize="@dimen/dp14_textsize"/>
+        <View
+            android:layout_width="0.5dp"
+            android:background="@color/gray_line"
+            android:layout_height="25dp"/>
+
+        <TextView
+            android:id="@+id/ke_price2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textColor="@color/black_bg"
+            android:textSize="@dimen/dp14_textsize"/>
+
+    </LinearLayout>
+</LinearLayout>

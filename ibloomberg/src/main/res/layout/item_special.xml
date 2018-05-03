@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:gravity="center"
+              android:orientation="vertical"
+              android:paddingBottom="10dp">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/item_wangqi_cover"
+            android:layout_width="100dp"
+            android:layout_height="133dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/zhuanti_xiankuang"
+            android:padding="0.5dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/head_placeholder"/>
+
+        <ImageView
+            android:id="@+id/special_pay_logo"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/needmoney_big_pic"
+            />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/item_wangqi_title"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black_bg"
+        android:textSize="13dp"/>
+
+    <TextView
+        android:id="@+id/item_wangqi_date"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:paddingTop="3dp"
+        android:singleLine="true"
+        android:textColor="@color/grgray"
+        android:textSize="@dimen/dp10_textsize"/>
+
+
+</LinearLayout>

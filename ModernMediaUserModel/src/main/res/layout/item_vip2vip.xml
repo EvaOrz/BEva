@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:descendantFocusability="blocksDescendants"
+                android:padding="@dimen/dp10"
+    >
+
+    <TextView
+        android:id="@+id/vip_2vip_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:textColor="@color/black_bg"
+        android:textSize="@dimen/dp16_textsize"/>
+
+    <TextView
+        android:id="@+id/vip_2vip_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@id/vip_2vip_title"
+        android:textColor="@color/grgray"
+        android:textSize="@dimen/dp14_textsize"/>
+
+
+    <RadioButton
+        android:id="@+id/vip_2vip_radio"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:button="@drawable/vip2vip_selected"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        />
+
+</RelativeLayout>

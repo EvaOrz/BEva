@@ -1,0 +1,5 @@
+include ':coreLib', ':vrlib', ':jiaozivideoplayer'
+include ':commonLib'
+include ':modernMediaUserModel'
+include ':modernMediaViews'
+include ':ibloomberg'

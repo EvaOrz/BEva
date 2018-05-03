@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/body_bg"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/myvip_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/article_bar_height"
+        android:background="@color/title_bar">
+
+        <ImageView
+            android:id="@+id/vip_myvip_back"
+            android:layout_width="@dimen/article_bar_height"
+            android:layout_height="@dimen/article_bar_height"
+            android:layout_marginLeft="@dimen/dp5"
+            android:contentDescription="@null"
+            android:scaleType="center"
+            android:src="@drawable/ic_back"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/vip_mine"
+            android:textColor="@color/black_bg"
+            android:textSize="@dimen/dp18_textsize"/>
+
+        <ImageView
+            android:id="@+id/vip_myvip_notice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp10"
+            android:scaleType="centerInside"
+            android:src="@drawable/vip_notice_web"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:contentDescription="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/list_item_divider"/>
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/myvip_ad_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/myvip_ad_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitXY"
+                    android:visibility="gone"/>
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/myvip_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white_bg"
+                android:gravity="center_vertical"
+                android:paddingTop="@dimen/dp10">
+
+                <ImageView
+                    android:id="@+id/vip_card_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:padding="@dimen/dp10"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/vip_card_bg"/>
+
+
+                <TextView
+                    android:id="@+id/vip_card_first"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp30_textsize"
+                    android:layout_marginTop="@dimen/follow_padding_left"
+                    android:textColor="@color/btn_cancel_color"
+                    android:textSize="@dimen/dp13_textsize"/>
+
+                <TextView
+                    android:id="@+id/vip_card_endtime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/vip_card_first"
+                    android:layout_marginLeft="@dimen/dp30_textsize"
+                    android:textColor="@color/btn_cancel_color"
+                    android:textSize="@dimen/dp13_textsize"/>
+
+                <TextView
+                    android:id="@+id/vip_card_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/footer_height"
+                    android:layout_marginTop="@dimen/dp30_textsize"
+                    android:textColor="@color/btn_cancel_color"
+                    android:textSize="@dimen/dp13_textsize"/>
+
+                <ImageView
+                    android:id="@+id/vip_card_info_img"
+                    android:layout_width="@dimen/footer_height"
+                    android:layout_height="@dimen/footer_height"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/dp30_textsize"
+                    android:layout_marginTop="@dimen/follow_padding_left"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/qr_icon"/>
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:id="@+id/myvip_pay_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/vip_card_img"
+                android:background="@color/white_bg"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/dp10">
+
+                <Button
+                    android:id="@+id/vip_mine_pay"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp40_text_size"
+                    android:layout_weight="1"
+                    android:background="@drawable/vip_mine_pay_btn_bg"
+                    android:text="@string/vip_mine_pay"
+                    android:textColor="@color/white_bg"
+                    android:textSize="@dimen/dp16_textsize"
+                    />
+
+                <Button
+                    android:id="@+id/vip_mine_up"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp40_text_size"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/vip_black_btn_bg"
+                    android:text="@string/taocan_up"
+                    android:textColor="@color/white_bg"
+                    android:textSize="@dimen/dp16_textsize"
+                    android:visibility="gone"
+                    />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/myvip_view2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view_height"
+                android:layout_below="@+id/myvip_pay_btn"
+                android:background="@color/gray_line"/>
+
+
+            <LinearLayout
+                android:id="@+id/vip_right_linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/view_height"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:background="@color/gray_line"/>
+
+                <RelativeLayout
+                    android:id="@+id/vip_fun_relative"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white_bg"
+                    android:paddingBottom="@dimen/dp10"
+                    android:paddingTop="@dimen/dp10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp15"
+                        android:text="@string/vip_fun"
+                        android:textColor="@color/user_center_head"
+                        android:textSize="@dimen/dp14_textsize"/>
+
+                    <TextView
+                        android:id="@+id/myvip_more"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/dp15"
+                        android:layout_marginTop="@dimen/dp2"
+                        android:text="@string/vip_fun_more"
+                        android:textColor="@color/btn_cancel_color"
+                        android:textSize="@dimen/dp13_textsize"/>
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/view_height"
+                    android:background="@color/gray_line"/>
+
+                <GridView
+                    android:id="@+id/myvip_gridview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white_bg"
+                    android:columnWidth="90dp"
+                    android:gravity="center"
+                    android:horizontalSpacing="@dimen/dp10"
+                    android:listSelector="@color/transparent"
+                    android:numColumns="4"
+                    android:paddingBottom="@dimen/dp5"
+                    android:paddingTop="@dimen/dp5"
+                    android:scrollbars="none"
+                    android:stretchMode="columnWidth"
+                    android:verticalSpacing="@dimen/dp10"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/view_height"
+                    android:background="@color/gray_line"/>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/vip_mine_info"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/article_bar_height"
+                android:layout_marginTop="@dimen/dp10"
+                android:background="@color/white_bg">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/view_height"
+                    android:layout_alignParentTop="true"
+                    android:background="@color/gray_line"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="@dimen/dp10"
+                    android:text="@string/vip_mine_notice"
+                    android:textColor="@color/black_bg"
+                    android:textSize="@dimen/dp16_textsize"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:padding="@dimen/dp10"
+                    android:scaleType="center"
+                    android:src="@drawable/index_item_arrow"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/view_height"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/gray_line"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/vip_pass_info"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/article_bar_height"
+                android:layout_marginBottom="@dimen/dp20"
+                android:background="@color/white_bg"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="@dimen/dp10"
+                    android:text="我的Pass卡"
+                    android:textColor="@color/black_bg"
+                    android:textSize="@dimen/dp16_textsize"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:padding="@dimen/dp10"
+                    android:scaleType="center"
+                    android:src="@drawable/index_item_arrow"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/view_height"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/gray_line"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/myvip_phone_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/myvip_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/dp20"
+            android:layout_marginTop="@dimen/dp20"
+            android:textColor="@color/grgray"
+            android:textSize="@dimen/dp13_textsize"/>
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/bar_height"
+    android:background="@color/white_bg"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/search"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/my_coin_item_title_height"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/search_bg"
+        android:gravity="center_vertical" />
+
+</RelativeLayout>

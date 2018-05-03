@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="7dp"
+    >
+
+    <ImageView
+        android:id="@+id/img_popmenu"
+        android:layout_width="5dp"
+        android:layout_height="5dp"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/menu_dot"/>
+
+    <TextView
+        android:id="@+id/title_popmenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="7dp"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/img_popmenu"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textColor="@color/black_bg"
+        android:textSize="@dimen/dp14_textsize"/>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/gray_line"
+        />
+
+</RelativeLayout>

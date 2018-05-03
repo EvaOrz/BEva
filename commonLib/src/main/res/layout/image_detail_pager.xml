@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <cn.com.modernmedia.widget.HackyViewPager
+        android:id="@+id/hacky_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black_bg" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="left|bottom"
+        android:layout_marginBottom="@dimen/dp20_textsize"
+        android:gravity="bottom">
+
+        <TextView
+            android:id="@+id/pager_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp20_textsize"
+            android:background="@android:color/transparent"
+            android:gravity="left"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/dp18_textsize" />
+
+        <TextView
+            android:id="@+id/pager_down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dp20_textsize"
+            android:background="@drawable/xiazai2x"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/pager_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp20_textsize"
+            android:layout_toLeftOf="@id/pager_down"
+            android:background="@drawable/fenxiang2x"
+            android:textColor="@android:color/white" />
+    </RelativeLayout>
+
+</FrameLayout>

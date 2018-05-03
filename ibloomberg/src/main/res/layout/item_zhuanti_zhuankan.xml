@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp"
+    >
+
+    <RelativeLayout
+        android:id="@+id/zhuanti_cover_r"
+        android:layout_width="103dp"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp">
+
+        <ImageView
+            android:id="@+id/zhuanti_cover_bg"
+            android:layout_width="103dp"
+            android:layout_height="137dp"
+            android:background="@drawable/zhuankan_bg"
+            android:scaleType="fitXY"/>
+
+
+        <cn.com.modernmedia.widget.RoundAngleImageView
+            android:id="@+id/zhuankan_cover"
+            android:layout_width="99dp"
+            android:layout_height="132dp"
+            android:layout_marginLeft="2dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/head_placeholder"/>
+
+
+        <ImageView
+            android:id="@+id/zhuanti_cover"
+            android:layout_width="100dp"
+            android:layout_height="133dp"
+            android:background="@drawable/zhuanti_xiankuang"
+            android:padding="0.5dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/head_placeholder"/>
+
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="137dp"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/zhuanti_cover_r"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/zhuanti_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="@color/black_bg"
+            android:textSize="@dimen/dp16_textsize"/>
+
+        <TextView
+            android:id="@+id/zhuanti_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/dp5"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:lines="4"
+            android:textColor="@color/grgray"
+            android:textSize="@dimen/dp14_textsize"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                android:id="@+id/zhuanti_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textColor="@color/grgray"
+                android:textSize="@dimen/dp12_textsize"/>
+
+            <TextView
+                android:id="@+id/zhuanti_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/grgray"
+                android:textSize="@dimen/dp12_textsize"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/zhuanti_down"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/xiazai"/>
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/gray_line"
+        />
+
+</RelativeLayout>

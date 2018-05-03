@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white_bg"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/zhuanti_relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioGroup
+            android:id="@+id/index_special_rg"
+            android:layout_width="240dp"
+            android:layout_height="30dp"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/index_zhuanti"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/special_all"
+                android:button="@null"
+                android:checked="true"
+                android:gravity="center"
+                android:text="@string/zhuanti"
+                android:textColor="@drawable/bottom_special_text_check"
+                android:textSize="14sp"/>
+
+            <RadioButton
+                android:id="@+id/index_wangqi"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/zhuanti_wangqi_selector"
+                android:button="@null"
+                android:gravity="center"
+                android:text="@string/wangqi"
+                android:textColor="@drawable/bottom_special_text_check"
+                android:textSize="14sp"/>
+
+            <RadioButton
+                android:id="@+id/index_zhuankan"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/zhuanti_wangqi_selector"
+                android:button="@null"
+                android:gravity="center"
+                android:text="@string/zhuankan"
+                android:textColor="@drawable/bottom_special_text_check"
+                android:textSize="14sp"/>
+
+            <RadioButton
+                android:id="@+id/index_fm"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/special_vip"
+                android:button="@null"
+                android:gravity="center"
+                android:text="@string/fm"
+                android:textColor="@drawable/bottom_special_text_check"
+                android:textSize="14sp"
+                />
+
+
+        </RadioGroup>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/index_special_rg"
+            android:contentDescription="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/list_item_divider"/>
+
+    </RelativeLayout>
+
+    <!--<cn.com.modernmedia.businessweek.zhuanti.newrefresh.EvaViewPager-->
+    <!--android:id="@+id/index_special_vp"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="@color/white_bg"-->
+    <!--android:padding="10dp"/>-->
+
+    <LinearLayout
+        android:id="@+id/index_special_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white_bg"
+        android:orientation="vertical"
+        />
+
+</LinearLayout>

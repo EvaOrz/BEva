@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/body_bg">
+
+    <RelativeLayout
+        android:id="@+id/order_bar_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/article_bar_height"
+        android:background="@color/title_bar">
+
+        <ImageView
+            android:id="@+id/vip_pay_back"
+            android:layout_width="@dimen/article_bar_height"
+            android:layout_height="@dimen/article_bar_height"
+            android:layout_marginLeft="@dimen/dp5"
+            android:contentDescription="@null"
+            android:scaleType="center"
+            android:src="@drawable/ic_back"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/vip_pay_title"
+            android:textColor="@color/black_bg"
+            android:textSize="@dimen/dp18_textsize"/>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:contentDescription="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/list_item_divider"/>
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/vip_pay_btn_linear"
+        android:layout_below="@+id/order_bar_layout">
+
+        <LinearLayout
+            android:id="@+id/vip_scroll_linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp10"
+                android:background="@color/white_bg"
+                android:gravity="center_vertical"
+                android:paddingRight="@dimen/dp15">
+
+                <TextView
+                    android:id="@+id/vip_pay_name_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:padding="@dimen/dp10"
+                    android:text="@string/vip_pay_name_title"
+                    android:textColor="@color/grgray"
+                    android:textSize="@dimen/dp14_textsize"/>
+
+                <TextView
+                    android:id="@+id/vip_pay_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/vip_pay_name_title"
+                    android:padding="@dimen/dp10"
+                    android:textColor="@color/user_center_head"
+                    android:textSize="@dimen/dp14_textsize"/>
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view_height"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/gray_line"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white_bg"
+                android:gravity="center_vertical"
+                android:paddingRight="@dimen/dp15">
+
+                <TextView
+                    android:id="@+id/vip_pay_time_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:padding="@dimen/dp10"
+                    android:text="@string/vip_pay_time_title"
+                    android:textColor="@color/grgray"
+                    android:textSize="@dimen/dp14_textsize"/>
+
+                <TextView
+                    android:id="@+id/vip_pay_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/vip_pay_time_title"
+                    android:padding="@dimen/dp10"
+                    android:textColor="@color/user_center_head"
+                    android:textSize="@dimen/dp14_textsize"/>
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view_height"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/gray_line"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white_bg"
+                android:gravity="center_vertical"
+                android:paddingRight="@dimen/dp15">
+
+                <TextView
+                    android:id="@+id/vip_pay_money_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:background="@color/white_bg"
+                    android:padding="@dimen/dp10"
+                    android:text="@string/vip_pay_money_title"
+                    android:textColor="@color/grgray"
+                    android:textSize="@dimen/dp14_textsize"/>
+
+                <TextView
+                    android:id="@+id/vip_pay_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/vip_pay_money_title"
+                    android:background="@color/white_bg"
+                    android:padding="@dimen/dp10"
+                    android:textColor="@color/user_center_head"
+                    android:textSize="@dimen/dp14_textsize"/>
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/vip_postcard_relative"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp10"
+                android:background="@color/white_bg"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingRight="@dimen/dp10">
+
+                <TextView
+                    android:id="@+id/vip_product_card"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white_bg"
+                    android:paddingLeft="@dimen/dp10"
+                    android:paddingTop="@dimen/dp10"
+                    android:text="@string/vip_open_card"
+                    android:textColor="@color/user_center_head"
+                    android:textSize="@dimen/dp14_textsize"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/vip_product_card"
+                    android:background="@color/white_bg"
+                    android:paddingBottom="@dimen/dp10"
+                    android:paddingLeft="@dimen/dp10"
+                    android:paddingTop="@dimen/dp5"
+                    android:text="@string/vip_open_card_notice"
+                    android:textColor="@color/grgray"
+                    android:textSize="@dimen/dp12_textsize"/>
+
+                <cn.com.modernmedia.widget.EvaSwitchBar
+                    android:id="@+id/vip_card_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dp10"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/vip_open_postcard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp10"
+                android:background="@color/white_bg"
+                android:gravity="center_vertical">
+
+
+                <TextView
+                    android:id="@+id/vip_pay_detail"
+                    android:layout_width="@dimen/vip_dialog_total_width"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/vip_open_address"
+                    android:padding="@dimen/dp10"
+                    android:textColor="@color/black_bg"
+                    android:textSize="@dimen/dp14_textsize"/>
+
+                <TextView
+                    android:id="@+id/vip_address_detail"
+                    android:layout_width="@dimen/vip_dialog_total_width"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/vip_pay_detail"
+                    android:paddingBottom="@dimen/dp10"
+                    android:paddingLeft="@dimen/dp10"
+                    android:paddingRight="@dimen/dp10"
+                    android:textColor="@color/black_bg"
+                    android:textSize="@dimen/dp14_textsize"
+                    android:visibility="gone"/>
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:paddingBottom="@dimen/dp10"
+                    android:paddingEnd="@dimen/dp20_textsize"
+                    android:paddingStart="@dimen/dp10"
+                    android:paddingTop="@dimen/dp10"
+                    android:scaleType="center"
+                    android:src="@drawable/index_item_arrow"/>
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:id="@+id/vip_html_phone_relative"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp10"
+                android:background="@color/white_bg"
+                android:orientation="vertical"
+
+                android:paddingRight="@dimen/dp10">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white_bg"
+                        android:paddingBottom="@dimen/dp10"
+                        android:paddingStart="@dimen/dp10"
+                        android:paddingTop="@dimen/dp10"
+                        android:text="@string/message_notification"
+                        android:textColor="@color/grgray"
+                        android:textSize="@dimen/dp14_textsize"/>
+
+                    <cn.com.modernmedia.widget.EvaSwitchBar
+                        android:id="@+id/vip_phone_switch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/dp10"/>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/vip_phone_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/view_height"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@color/gray_line"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/dp10">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white_bg"
+                            android:paddingBottom="@dimen/dp10"
+                            android:paddingRight="@dimen/dp10"
+                            android:paddingStart="@dimen/dp10"
+                            android:paddingTop="@dimen/dp5"
+                            android:text="@string/vip_name"
+                            android:textColor="@color/grgray"
+                            android:textSize="@dimen/dp14_textsize"/>
+
+                        <EditText
+                            android:id="@+id/vip_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/dp10"
+                            android:layout_weight="1"
+                            android:background="@drawable/login_edittext_select"
+                            android:hint="@string/message_notification1"
+                            android:textSize="14dp"/>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/view_height"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@color/gray_line"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/dp10">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white_bg"
+                            android:paddingBottom="@dimen/dp10"
+                            android:paddingRight="@dimen/dp10"
+                            android:paddingStart="@dimen/dp10"
+                            android:paddingTop="@dimen/dp5"
+                            android:text="@string/order_phone"
+                            android:textColor="@color/grgray"
+                            android:textSize="@dimen/dp14_textsize"/>
+
+                        <EditText
+                            android:id="@+id/vip_phone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/dp10"
+                            android:layout_marginLeft="@dimen/dp20"
+                            android:layout_weight="1"
+                            android:background="@drawable/login_edittext_select"
+                            android:hint="@string/message_notification2"
+                            android:inputType="phone"
+                            android:textSize="14dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp10"
+                android:text="@string/vip_pay_style"
+                android:textColor="@color/grgray"
+                android:textSize="@dimen/dp14_textsize"/>
+
+
+            <RelativeLayout
+                android:id="@+id/vip_pay_weixin_relative"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white_bg"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/vip_pay_weixin_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@null"
+                    android:padding="@dimen/dp5"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/weixinpay"/>
+
+                <TextView
+                    android:id="@+id/vip_pay_weiixn_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/vip_pay_weixin_img"
+                    android:background="@color/white_bg"
+                    android:padding="@dimen/dp5"
+                    android:text="@string/weixinpay"
+                    android:textColor="@color/user_center_head"
+                    android:textSize="@dimen/dp16_textsize"/>
+
+                <ImageView
+                    android:id="@+id/vip_pay_weixin_recommend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/vip_pay_weiixn_text"
+                    android:contentDescription="@null"
+                    android:padding="@dimen/dp5"
+                    android:scaleType="centerInside"/>
+
+                <RadioButton
+                    android:id="@+id/vip_pay_weixin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:button="@drawable/pay_style_selector"
+                    android:padding="@dimen/dp10"/>
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view_height"
+                android:background="@color/gray_line"/>
+
+            <RelativeLayout
+                android:id="@+id/vip_pay_zhifubao_relative"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white_bg"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/vip_pay_zhifubao_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@null"
+                    android:padding="@dimen/dp5"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/zhifubaopay"/>
+
+                <TextView
+                    android:id="@+id/vip_pay_zhifubao_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/vip_pay_zhifubao_img"
+                    android:background="@color/white_bg"
+                    android:padding="@dimen/dp5"
+                    android:text="@string/zhifubaopay"
+                    android:textColor="@color/user_center_head"
+                    android:textSize="@dimen/dp16_textsize"/>
+
+                <ImageView
+                    android:id="@+id/vip_pay_zhifubao_recommend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/vip_pay_zhifubao_text"
+                    android:contentDescription="@null"
+                    android:padding="@dimen/dp10"
+                    android:scaleType="centerInside"/>
+
+                <RadioButton
+                    android:id="@+id/vip_pay_zhifubao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:button="@drawable/pay_style_selector"
+                    android:padding="@dimen/dp10"/>
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/vip_pay_btn_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/vip_pay_btn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/article_bar_height"
+            android:layout_margin="@dimen/dp15"
+            android:background="@drawable/vip_black_btn_bg"
+            android:text="@string/vip_pay_btn"
+            android:textColor="@color/white_bg"
+            android:textSize="@dimen/dp15_textsize"/>
+    </LinearLayout>
+</RelativeLayout>

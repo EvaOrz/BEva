@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+
+    <Button
+        android:id="@+id/card_item_share"
+        android:layout_width="@dimen/item_comment_num_width"
+        android:layout_height="@dimen/item_comment_num_height"
+        android:background="@drawable/card_item_fav_select"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/item_collect_text_padding_left"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/dp11_textsize" />
+
+    <ImageView
+        android:id="@+id/card_item_comment"
+        android:layout_width="@dimen/item_comment_num_width"
+        android:layout_height="@dimen/item_comment_num_height"
+        android:layout_marginLeft="@dimen/list_item_fav_comment_margin"
+        android:contentDescription="@null"
+        android:scaleType="fitXY"
+        android:src="@drawable/card_item_comment_select" />
+
+</LinearLayout>

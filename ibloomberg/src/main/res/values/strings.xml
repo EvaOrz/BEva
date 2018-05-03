@@ -1,0 +1,33 @@
+<resources>
+
+    <string name="app_name">商业周刊</string>
+    <string name="card_name">商业笔记</string>
+
+    <!-- 底部导航 -->
+    <string name="nav_news">推荐</string>
+    <string name="nav_live">即时</string>
+    <string name="nav_caifu">财富</string>
+    <string name="nav_video">视频</string>
+    <string name="nav_special">精选</string>
+    <string name="nav_mine">我</string>
+    <string name="live_title">24小时直播</string>
+
+    <!-- 特刊 -->
+    <string name="nav_special_all">全部</string>
+    <string name="nav_special_vip">付费专享</string>
+
+    <string name="pager_number">%1$d/%2$d</string>
+    <string name="share_success">分享成功</string>
+
+    <!--专题-->
+    <string name="zhuanti">专题</string>
+    <string name="zhuankan">专刊</string>
+    <string name="kecheng">课程</string>
+    <string name="wangqi">往期</string>
+    <string name="fm">FM</string>
+    <string name="dubao">读数观市</string>
+    <string name="zhuantipian">专题片</string>
+    <string name="look_all">查看全部 >></string>
+
+
+</resources>

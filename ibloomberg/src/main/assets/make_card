@@ -1,0 +1,38 @@
+function(){
+    console.log('111111111111111');
+	var x = ##x; var y = ##y;
+	var scale = screen.width * devicePixelRatio / document.documentElement.clientWidth;
+	console.log("x :" + x);
+	console.log("y :" + y);
+	console.log("逻辑分辨率 :" + devicePixelRatio);
+
+	console.log("宽：" + screen.width + ";高:" + document.documentElement.clientWidth);
+	x = x / scale;
+	y = y / scale;
+
+    console.log('2222222222222');
+	var el = document.elementFromPoint(x, y);
+
+	var sprayIt = function(str){
+	    var content_json = {};
+	    content_json.content = str;
+	    content_json.articleid = articleid;
+	    content_json.catid = catid;
+	    content_json.issueid = issueid;
+	    return JSON.stringify(content_json);
+	};
+	console.log(el);
+	try{
+	if (el.nodeName == "P") {
+		var content = el.innerHTML.replace("\\n","");
+		if (content && content.length > 0) {
+      		return sprayIt(content);
+    	}
+	} else{
+		return "";
+    }
+    }catch(e){
+        console.log(1111);
+        return "抓到异常了";
+    }
+}()

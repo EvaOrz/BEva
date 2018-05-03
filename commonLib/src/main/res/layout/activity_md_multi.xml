@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="cn.com.modernmedia.vrvideo.MD360PlayerActivity">
+
+    <cn.com.modernmedia.vrvideo.TouchFixLinearLayout
+        android:id="@+id/touchFix"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <android.opengl.GLSurfaceView
+            android:id="@+id/surface_view1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <android.opengl.GLSurfaceView
+            android:id="@+id/surface_view2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+    </cn.com.modernmedia.vrvideo.TouchFixLinearLayout>
+
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_margin="10dp"-->
+    <!--android:orientation="horizontal">-->
+
+    <!--<Button-->
+    <!--android:id="@+id/button_interactive_mode_switcher"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="@drawable/selector_button"-->
+    <!--android:padding="5dp"-->
+    <!--android:textColor="#FFFFFF" />-->
+
+    <!--<Button-->
+    <!--android:id="@+id/button_display_mode_switcher"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_marginLeft="10dp"-->
+    <!--android:background="@drawable/selector_button"-->
+    <!--android:padding="5dp"-->
+    <!--android:textColor="#FFFFFF" />-->
+    <!--</LinearLayout>-->
+
+    <RelativeLayout
+        android:id="@+id/vr_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/button_normal"
+        android:paddingBottom="15dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="15dp">
+
+        <ImageView
+            android:id="@+id/vr_play_pause"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/vr_pause"/>
+
+        <SeekBar
+            android:id="@+id/vr_volumn"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/vr_play_pause"
+            android:indeterminate="false"/>
+
+
+        <!--<ImageView-->
+        <!--android:id="@+id/vr_xiaomi"-->
+        <!--android:layout_width="30dp"-->
+        <!--android:layout_height="30dp"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:src="@drawable/vr_xiaomi" />-->
+
+
+        <ImageView
+            android:id="@+id/vr_shuangping"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="30dp"
+            android:paddingLeft="@dimen/dp10"
+            android:src="@drawable/vr_danping"/>
+
+        <ImageView
+            android:id="@+id/vr_zhongli"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="50dp"
+            android:layout_toLeftOf="@id/vr_shuangping"
+            android:paddingLeft="@dimen/dp10"
+            android:src="@drawable/vr_zhongli"/>
+
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
+
+</RelativeLayout>

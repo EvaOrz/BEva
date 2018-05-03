@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="dot_color">#FFC0C0C0</color>
+    <color name="dot_active_color">#FF424242</color>
+    <color name="menu_dot">#cd9d4c</color>
+
+    <!-- 底部导航文字-->
+    <color name="bottom_text_checked">#333333</color>
+    <color name="bottom_text">#858585</color>
+
+    <!-- 特刊文字-->
+    <color name="special_text_checked">#ffffffff</color>
+    <color name="special_text">#ff000000</color>
+
+</resources>

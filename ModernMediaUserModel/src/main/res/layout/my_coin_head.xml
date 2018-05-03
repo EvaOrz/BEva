@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/vip_dialog_view_height"
+    android:background="@android:color/white"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/dp20">
+
+    <TextView
+        android:id="@+id/my_coin_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:drawablePadding="5dp"
+        android:drawableEnd="@drawable/my_coin_coinstack"
+        android:textColor="@color/black_bg"
+        android:textSize="@dimen/dp40_text_size" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp5"
+        android:layout_marginBottom="@dimen/dp20"
+        android:text="@string/mine_coin"
+        android:textColor="@color/grgray"
+        android:textSize="@dimen/dp14_textsize" />
+
+    <ImageView
+        android:id="@+id/my_coin_ad_img"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/my_coin_item_name_width"
+        android:layout_marginTop="@dimen/dp10"
+        android:contentDescription="@null"
+        android:scaleType="centerInside"
+        android:visibility="gone" />
+
+</LinearLayout>

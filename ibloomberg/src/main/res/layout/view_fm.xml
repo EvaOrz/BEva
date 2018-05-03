@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="200dp">
+
+        <ImageView
+            android:id="@+id/music_img_box"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="false"
+            android:scaleType="centerCrop"
+            android:src="@drawable/fm_default"/>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="75dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="5dp"
+            android:background="@color/translucent_black">
+
+
+            <SeekBar
+                android:id="@+id/playseekbar"
+                style="@style/Play_SeekBar"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:background="@drawable/layer_list_seekbar_background2"
+                android:padding="0dp"/>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@id/playseekbar"
+                android:paddingBottom="5dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <TextView
+                    android:id="@+id/music_play_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:text="00:00"
+                    android:textColor="@color/white_bg"
+                    android:textSize="@dimen/dp10_textsize"/>
+
+
+                <TextView
+                    android:id="@+id/music_whole_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:text="00:00"
+                    android:textColor="@color/white_bg"
+                    android:textSize="@dimen/dp10_textsize"/>
+
+
+                <ImageView
+                    android:id="@+id/music_play_pause"
+                    android:layout_width="39dp"
+                    android:layout_height="39dp"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginRight="35dp"
+                    android:src="@drawable/music_pause"/>
+
+                <ImageView
+                    android:id="@+id/music_previous"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/music_play_pause"
+                    android:src="@drawable/music_previous"/>
+
+                <ImageView
+                    android:id="@+id/music_next"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/music_play_pause"
+                    android:src="@drawable/music_next"/>
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <cn.com.modernmedia.widget.newrefresh.PullToRefreshLayout
+        android:id="@+id/refresh_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <!-- header view -->
+        <include
+            layout="@layout/refresh_head"
+            />
+
+        <cn.com.modernmedia.widget.newrefresh.PullableListView
+            android:id="@+id/fm_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@null"
+            android:listSelector="@null"/>
+
+        <!-- footer view -->
+        <include layout="@layout/load_more"/>
+
+
+    </cn.com.modernmedia.widget.newrefresh.PullToRefreshLayout>
+
+
+</LinearLayout>
