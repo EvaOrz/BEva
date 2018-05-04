@@ -13,401 +13,209 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="da393f1d-a3f9-4fc1-8077-dbff3a634ae4" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/build.gradle" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/lint.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/AndroidManifest.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/ActiveActivity.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/ArticleCardListActivity.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/BandDetailActivity.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/CardDetailActivity.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/FeedBackActivity.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/ForgetPwdActivity.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/LoginActivity.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/MessageActivity.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/ModifyEmailActivity.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/ModifyPwdActivity.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/MyCoinUseNoticeActivity.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/MyHomePageActivity.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/NewCoinActivity.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/RecommendUserActivity.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/RegisterActivity.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/SettingActivity.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/SquareActivity.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/StartLoginReceiver.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/TestActivity.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/UserApplication.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/UserCardInfoActivity.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/UserInfoActivity.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/UserNewInfoActivity.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/WriteCommentActivity.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/WriteNewCardActivity.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/adapter/CardDetailListAdapter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/adapter/CardDetailPagerAdapter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/adapter/CheckScrollAdapter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/adapter/MyCoinAdapter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/adapter/RecommendUsersAdapter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/adapter/UserCardListAdapter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/api/AddCardOperate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/api/AddFollowOperate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/api/AddGoodsOrderOperate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/api/AddUserCoinNumberOperate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/api/BandAccountOperate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/api/CardAddCommentOperate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/api/CardBaseOperate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/api/CardFavOperate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/api/DeleteCardOperate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/api/DeleteFollowOperate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/api/FMAddOperate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/api/FeedBackOperate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/api/GetActiveListOperate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/api/GetAppActionRulesOperate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/api/GetBandStatusOperate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/api/GetCardByArticleIdOperate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/api/GetCardCommentsOperate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/api/GetCardDetailOperate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/api/GetGoodsListOperate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/api/GetMessageListOperate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/api/GetRecommendCardOperate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/api/GetRecommendUsersOperate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/api/GetSignOperate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/api/GetUserCardInfoOperate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/api/GetUserCardOperate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/api/GetUserChangeStatusOperate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/api/GetUserInfoOperate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/api/GetUserTimeLineOperate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/api/GetUsersInfoOperate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/api/GetVerifyCodeOperate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/api/ModifyUserInfoOperate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/api/ModifyUserPasswordOperate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/api/NewOpenLoginOperate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/api/UploadUserAvaterOperate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/api/UrlMaker.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/api/UserBaseOperate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/api/UserFindPasswordOperate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/api/UserLoginOperate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/api/UserLoginOutOperate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/api/UserModelBaseOperate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/api/UserOperateController.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/api/UserRegisterOperate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/db/CardListByArtilceIdDb.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/db/MyDBHelper.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/db/RecommendCardDb.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/db/TimelineDb.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/db/UserCardInfoDb.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/db/UserInfoDb.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/db/UserListDb.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/listener/AfterLoginListener.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/listener/CardViewListener.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/listener/LogOutListener.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/listener/UserCentChangeListener.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/listener/UserFetchEntryListener.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/listener/UserInfoChangeListener.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/model/ActionRuleList.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/model/Active.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/model/Card.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/model/Follow.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/model/Goods.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/model/LoginParm.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/model/Message.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/model/MultiComment.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/model/Order.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/model/UploadAvatarResult.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/model/UserCardInfoList.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/model/Users.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/util/CardListPop.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/util/CardUriParse.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/util/CopyTextHelper.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/util/FetchPhotoManager.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/util/NumberFormatHelper.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/util/UserCentManager.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/util/UserConstData.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/util/UserDataHelper.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/util/UserFileManager.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/util/UserObservable.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/util/UserPageTransfer.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/util/UserTools.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/util/WeixinLoginUtil.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/vip/ChangeBirthDialog.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/vip/ChangeDistrictDialog.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/vip/ChangeEmailActivity.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/vip/ChangeIncomeDialog.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/vip/ChangeJobDialog.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/vip/ChangeSexDialog.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/vip/EditAddressOperate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/vip/GetCodeTypeOperate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/vip/GetCodeVipOperate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/vip/GetVipCodeTypeOperate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/vip/GetVipInfoOperate.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/vip/IndustryAdapter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/vip/MyVipActivity.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/vip/MyVipFunAdapter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/vip/PostUserOrderInfoActivity.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/vip/SelectIndustryActivity.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/vip/TaocanUpActivity.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/vip/VipCodeActivity.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/vip/VipCodeSuccessActivity.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/vip/VipFunAdapter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/vip/VipGridView.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/vip/VipIconImg.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/vip/VipInfo.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/vip/VipInfoActivity.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/vip/VipOpenActivity.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/vip/VipPayResultActivity.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/vip/VipPlanDetailActivity.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/vip/VipProductAdapter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/vip/VipProductPayActivity.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/vip/VipUpAdapter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/vip/VipUpSuccessActivity.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/vip/adapters/AbstractWheelAdapter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/vip/adapters/AbstractWheelTextAdapter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/vip/adapters/ArrayWheelAdapter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/vip/adapters/NumericWheelAdapter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/vip/adapters/WheelViewAdapter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/vip/views/ItemsRange.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/vip/views/OnWheelChangedListener.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/vip/views/OnWheelClickedListener.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/vip/views/OnWheelScrollListener.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/vip/views/WheelRecycle.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/vip/views/WheelScroller.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/vip/views/WheelView.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/widget/BaseCardListView.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/widget/CardDetailItemView.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/widget/MessageView.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/widget/MyCoinUseNoticeView.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/widget/MyHomeView.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/widget/OpenLoginPopwindow.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/widget/RecommendUserView.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/widget/SignDialog.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/widget/SquareView.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/widget/UserCardView.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/widget/UserCenterView.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/widget/ValEmailDialog.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/anim/card_list_right_in.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/anim/cycle.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/anim/shake.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/color/radiobuttton_color.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-hdpi/search_key_bg.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-hdpi/search_tag.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-hdpi/tab_unsele12x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-hdpi/tab_unsele2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/active.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/active_ex.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/article_read.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/article_read_ex.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/bg_btn.9.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/bg_text_field.9.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/business_calendar.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/business_calendar_ex.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/card.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/cardlist_comment.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/cardlist_comment_tapped.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/cardlist_fav.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/cardlist_fav_tapped.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/cardlist_share.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/cardlist_share_tapped.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/center_coin.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/center_fav.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/center_setting.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/code.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/coin.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/comment_bg.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/e_book.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/e_book_ex.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/fuxuan12x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/fuxuan2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/gift.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/gift_ex.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/gray.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/ic_add_comment.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/ic_add_follow.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/ic_cancel.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/ic_close_login.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/ic_comment.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/ic_confirm.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/ic_delete.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/ic_fav.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/ic_fav_comment.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/ic_random.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/ic_share.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/ic_text_field_clear.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/ic_write_card.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/img_weibo_normal.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/img_weibo_select.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/info_notice.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/jiantou.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/licai.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/list_item_divider.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/login_close.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/magazine_paper.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/magazine_paper_ex.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/more.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/my_booked.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/my_coin_coinstack.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/my_coin_light.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/my_coin_line.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/my_coin_ship.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/my_coin_ufo.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/my_ordered.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/nav_avatar.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/nav_has_fav.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/nav_un_fav.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/notice1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/notice_gray.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/pass.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/pass_ex.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/password_show.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/password_unshow.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/qr_icon.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/saoyisao2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/search_bg.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/shequguangchang.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/tab_sele12.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/tab_sele2.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/user_center_setting_icon.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/user_center_zhan_icon.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/user_center_zhan_icon1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/vip2vip_1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/vip2vip_2.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/vip_arrow.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/vip_card.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/vip_card_bg.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/vip_card_ex.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/vip_circle.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/vip_interaction.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/vip_interaction_ex.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/vip_level_in.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/vip_level_out.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/vip_line.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/vip_notice_web.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/vip_sign.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/vip_sign_ex.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/vipcode.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/vipicon.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/vippayfail.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/vippaysuccess.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/weixinpay.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/write_comment_bg.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/write_comment_img.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable-xhdpi/zhifubaopay.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable/book_item_title_bac.9.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable/card_item_comment_select.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable/card_item_fav_select.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable/gary_line_corner_bg.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable/gray_btn_bg.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable/green_btn_bg.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable/login_btn_bg.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable/login_qq.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable/login_qq_gray.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable/login_sina.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable/login_sina_gray.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable/login_weixin.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable/login_weixin_gray.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable/login_whole_bg.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable/nav_bar_shadow.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable/openlogin_qq.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable/openlogin_weibo.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable/openlogin_weixin.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable/pushemail_selector.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable/shape_search.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable/tab_selected.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable/tab_selected2.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable/user_center_dot.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable/user_center_message.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable/vip2vip_selected.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable/vip_black_btn_bg.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable/vip_code_edit.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable/vip_mine_pay_btn_bg.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable/vip_notice1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable/vip_notice2.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/drawable/yellow_btn_bg.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/acticity_vipplan.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/activity_active.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/activity_article_cardlist.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/activity_card_detail.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/activity_card_info_head.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/activity_change_email.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/activity_forgetpwd.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/activity_industry.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/activity_login.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/activity_magazinebuy.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/activity_message.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/activity_modify_email.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/activity_my_coin.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/activity_my_coin_notice.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/activity_myvip.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/activity_paycallback.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/activity_recommenduser.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/activity_register.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/activity_setphone.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/activity_setting.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/activity_square.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/activity_tancan_up.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/activity_test_webtonative.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/activity_user_card_info.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/activity_user_center.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/activity_userinfo.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/activity_vip_code_exchange.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/activity_vip_newinfo.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/activity_vipinfo.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/activity_vipopen.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/activity_vipproduct.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/activity_vipproductpay.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/activity_vipup_success.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/activity_vipwebnotice.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/activity_write_card.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/activity_write_comment.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/band_activity.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/band_detail_activity.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/card_comment_popup_window.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/card_detail_list_head.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/card_detail_page_item.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/card_detatil_list_item.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/card_list_pop.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/changeincome.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/dialog_motify_sign.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/dialog_myinfo_changeaddress.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/dialog_myinfo_changebirth.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/dialog_myinfo_changejob.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/dialog_myinfo_changesex.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/dialog_val_email.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/favorites_item.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/feed_back.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/fetch_image_popup.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/industry_item.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/item_birth_year.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/item_my_coin_goods.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/item_my_coin_rule.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/item_vip2vip.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/layout_square_search_head.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/message_list_item.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/modify_pwd_activity.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/my_coin_head.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/my_coin_listview_footer.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/my_coin_new_view.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/myvip_item.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/popup_window_confirm_email.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/popupwindow_myinfo_camera.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/recommenduser_list_item.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/search_history_item.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/searchkey_textview.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/subscribe_one_year.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/tabs.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/user_card_list_item.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/user_center.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/user_center_head.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/view_openlogin_pop.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/vip_item_product.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/vip_qrcode.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/vipnotice_item.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/vipup_item.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/values/attrs.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/values/color.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/values/dimens.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/values/message.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/values/strings.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/values/styles.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ModernMediaUserModel/src/main/res/xml/settings.xml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-hdpi/ic_launcher.png" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-hdpi/ic_launcher.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/bg_entrycell_image.png" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/bg_entrycell_image.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/bg_gallery_title_label.png" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/bg_gallery_title_label.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/bg_weather_view_close.png" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/bg_weather_view_close.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/bg_weather_view_open.png" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/bg_weather_view_open.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/child_tool_cell.9.png" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/child_tool_cell.9.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/ico_gallery_new.png" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/ico_gallery_new.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/ico_video.png" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/ico_video.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/ico_video_large.png" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/ico_video_large.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/index_item_arrow.png" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/index_item_arrow.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/index_item_fav.png" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/index_item_fav.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/index_nav_shadow.png" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/index_nav_shadow.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/line.png" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/line.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/mute.png" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/mute.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/now_arrow.png" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/now_arrow.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/shadow_left.png" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/shadow_left.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/shadow_right.png" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/shadow_right.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/solo_navbar_shadow.png" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/solo_navbar_shadow.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/subscribe_addcolumn_bg.png" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/subscribe_addcolumn_bg.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/subscribe_check.png" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/subscribe_check.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/subscribe_checked.png" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/subscribe_checked.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/subscribe_cloud.png" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/subscribe_cloud.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/subscribe_header.png" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/subscribe_header.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/subscribe_line.png" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/subscribe_line.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/subscribe_row.png" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/subscribe_row.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/subscribe_ufo.png" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/subscribe_ufo.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/volume.png" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable-xhdpi/volume.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable/book.png" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable/book.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable/book_back.png" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable/book_back.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable/book_order_bac.9.png" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable/book_order_bac.9.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable/subcribe_checked.png" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable/subcribe_checked.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/AboutActivity.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/AboutActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/ArticleActivity.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/ArticleActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/FavoritesActivity.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/FavoritesActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/PushArticleActivity.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/PushArticleActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/ViewsApplication.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/ViewsApplication.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/ViewsMainActivity.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/ViewsMainActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/adapter/AtlasAdapter.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/adapter/AtlasAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/adapter/FavAdapter.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/adapter/FavAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/adapter/IndexViewPagerAdapter.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/adapter/IndexViewPagerAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/adapter/IssueListAdapter.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/adapter/IssueListAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/adapter/WeeklyCircularPagerAdapter.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/adapter/WeeklyCircularPagerAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/article/BaseAtlasView.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/article/BaseAtlasView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/column/ColumnAdapter.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/column/ColumnAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/column/NewColumnView.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/column/NewColumnView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/column/book/BookActivity.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/column/book/BookActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/column/book/BookColumnActivity.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/column/book/BookColumnActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/column/book/DragGridView.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/column/book/DragGridView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/column/book/GridViewAdapter.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/column/book/GridViewAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/column/book/TopMenuHorizontalScrollView.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/column/book/TopMenuHorizontalScrollView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/fav/BindFavToUserImplement.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/fav/BindFavToUserImplement.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/fav/FavObserver.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/fav/FavObserver.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/fav/NewFavView.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/fav/NewFavView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/IndexIssueListView.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/IndexIssueListView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/IndexView.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/IndexView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/IndexViewPager.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/IndexViewPager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/IndexViewPagerItem.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/IndexViewPagerItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/IndexViewPagerItemUri.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/IndexViewPagerItemUri.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/IndexWebView.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/IndexWebView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/IssueItemView.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/IssueItemView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/TagIndexListView.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/TagIndexListView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/adapter/BaseIndexAdapter.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/adapter/BaseIndexAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/adapter/GridIndexAdapter.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/adapter/GridIndexAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/adapter/IndexViewHolder.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/adapter/IndexViewHolder.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/adapter/ListIndexAdapter.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/adapter/ListIndexAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/head/AutoScrollHandler.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/head/AutoScrollHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/head/AutoScrollObservable.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/head/AutoScrollObservable.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/head/BaseIndexHeadView.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/head/BaseIndexHeadView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/head/IndexHeadCircularViewPager.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/head/IndexHeadCircularViewPager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/head/IndexHeadPagerAdapter.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/head/IndexHeadPagerAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/head/IndexViewHead.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/head/IndexViewHead.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/listener/ChildCatClickListener.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/listener/ChildCatClickListener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/listener/ColumnChangedListener.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/listener/ColumnChangedListener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/listener/FlowPositionChangedListener.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/listener/FlowPositionChangedListener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/listener/GalleryOnTouchListener.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/listener/GalleryOnTouchListener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/listener/GalleryScrollListener.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/listener/GalleryScrollListener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/listener/LoadCallBack.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/listener/LoadCallBack.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/listener/NotifyLastestChangeListener.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/listener/NotifyLastestChangeListener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/model/IndexListParm.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/model/IndexListParm.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/model/Template.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/model/Template.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/model/TemplateAbout.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/model/TemplateAbout.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/model/TemplateAriticle.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/model/TemplateAriticle.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/model/TemplateAtlas.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/model/TemplateAtlas.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/model/TemplateColumn.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/model/TemplateColumn.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/model/TemplateFav.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/model/TemplateFav.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/model/TemplateIndexNavbar.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/model/TemplateIndexNavbar.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/Brace.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/Brace.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/Calc.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/Calc.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/CalcStack.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/CalcStack.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/Coma.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/Coma.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/Constant.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/Constant.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/CosFunction.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/CosFunction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/CtgFunction.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/CtgFunction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/DivideOperator.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/DivideOperator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/Function.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/Function.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/L_Brace.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/L_Brace.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/Lexer.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/Lexer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/MinusOperator.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/MinusOperator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/MultiplyOperator.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/MultiplyOperator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/Number.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/Number.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/Operator.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/Operator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/PiConstant.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/PiConstant.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/PlusOperator.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/PlusOperator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/PowerOperator.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/PowerOperator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/R_Brace.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/R_Brace.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/SinFunction.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/SinFunction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/TgFunction.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/TgFunction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/Token.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/Token.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/TokenMatcher.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/rpn/TokenMatcher.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/solo/BaseChildCatHead.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/solo/BaseChildCatHead.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/solo/BaseSoloIndexView.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/solo/BaseSoloIndexView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/solo/ChildCatHead.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/solo/ChildCatHead.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/solo/ChildCatItem.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/solo/ChildCatItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/solo/ChildIndexView.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/solo/ChildIndexView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/util/CityLocation.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/util/CityLocation.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/util/DownloadTemplate.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/util/DownloadTemplate.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/util/ParseProperties.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/util/ParseProperties.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/util/V.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/util/V.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/widget/HideNavListView.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/widget/HideNavListView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/widget/JianBianIndexItem.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/widget/JianBianIndexItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/widget/VerticalGallery.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/widget/VerticalGallery.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/widget/VerticalPagerAdapter.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/widget/VerticalPagerAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/widget/VerticalViewPager.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/widget/VerticalViewPager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/widget/WeatherView.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/widget/WeatherView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/widget/WeeklyCircularViewPager.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/widget/WeeklyCircularViewPager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/BaseViewPagerParse.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/BaseViewPagerParse.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/BaseXMLDataSet.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/BaseXMLDataSet.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/FetchCustomViewListener.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/FetchCustomViewListener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/FunctionIndexNav.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/FunctionIndexNav.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/FunctionXML.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/FunctionXML.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/FunctionXMLCatHead.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/FunctionXMLCatHead.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/FunctionXMLHead.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/FunctionXMLHead.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/GenerateViewId.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/GenerateViewId.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/XMLDataSet.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/XMLDataSet.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/XMLDataSetForAbout.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/XMLDataSetForAbout.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/XMLDataSetForCatHead.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/XMLDataSetForCatHead.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/XMLDataSetForGrid.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/XMLDataSetForGrid.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/XMLDataSetForHead.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/XMLDataSetForHead.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/XMLDataSetForHeadItem.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/XMLDataSetForHeadItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/XMLDataSetForIndexNav.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/XMLDataSetForIndexNav.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/XMLDataSetForListHead.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/XMLDataSetForListHead.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/XMLParse.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/XMLParse.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/article/AtlasViewPagerParse.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/article/AtlasViewPagerParse.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/article/FunctionArticle.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/article/FunctionArticle.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/article/FunctionXMLAtlas.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/article/FunctionXMLAtlas.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/article/XMLDataSetForArticle.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/article/XMLDataSetForArticle.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/article/XMLDataSetForAtlas.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/article/XMLDataSetForAtlas.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/article/XMLDataSetForPushArticle.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/article/XMLDataSetForPushArticle.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/column/FunctionColumn.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/column/FunctionColumn.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/column/XMLDataSetForColumn.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/column/XMLDataSetForColumn.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/fav/XMLDataSetForFav.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/fav/XMLDataSetForFav.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/widget/BaseViewParse.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/widget/BaseViewParse.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/widget/ButtonParse.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/widget/ButtonParse.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/widget/ImageViewParse.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/widget/ImageViewParse.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/widget/IndexHeadCircularViewPagerParse.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/widget/IndexHeadCircularViewPagerParse.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/widget/JianBianViewParse.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/widget/JianBianViewParse.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/widget/LinearLayoutParse.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/widget/LinearLayoutParse.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/widget/LoadingImageParse.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/widget/LoadingImageParse.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/widget/RelativeLayoutParse.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/widget/RelativeLayoutParse.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/widget/TextViewParse.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/widget/TextViewParse.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/widget/ViewParse.java" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/widget/ViewParse.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable/book_all_corners.xml" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable/book_all_corners.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable/book_botton_corners.xml" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable/book_botton_corners.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable/book_top_corners.xml" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable/book_top_corners.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable/bt_red_bg.xml" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable/bt_red_bg.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable/child_cat_bg.xml" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable/child_cat_bg.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable/child_tool_bg.xml" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable/child_tool_bg.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable/dot.xml" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable/dot.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable/dot_active.xml" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable/dot_active.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable/subcribe_column_img_bg.xml" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable/subcribe_column_img_bg.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable/white_bg.xml" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/drawable/white_bg.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/activity_book.xml" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/activity_book.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/activity_column_detail_for_book.xml" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/activity_column_detail_for_book.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/activity_new_book.xml" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/activity_new_book.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/atlas.xml" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/atlas.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/fav_view.xml" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/fav_view.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/index_head_weekly.xml" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/index_head_weekly.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/index_issue_list_view.xml" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/index_issue_list_view.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/index_view.xml" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/index_view.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/index_view_pager_item.xml" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/index_view_pager_item.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/index_web_view.xml" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/index_web_view.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/issue_list_item_lohas.xml" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/issue_list_item_lohas.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/issue_list_item_single.xml" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/issue_list_item_single.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/item_book.xml" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/item_book.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/item_marquee.xml" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/item_marquee.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/main_activity.xml" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/main_activity.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/new_column_view.xml" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/new_column_view.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/push_article_activity.xml" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/push_article_activity.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/scroll_left.xml" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/scroll_left.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/scroll_right.xml" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/scroll_right.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/solo_index.xml" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/solo_index.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/solo_view.xml" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/solo_view.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/top_menu.xml" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/top_menu.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/vertical_gallery.xml" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/vertical_gallery.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/vertical_gallery_item.xml" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/vertical_gallery_item.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/weather_item.xml" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/layout/weather_item.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/values/color.xml" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/values/color.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/values/dimen.xml" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/values/dimen.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/values/ids.xml" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/values/ids.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/values/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ModernMediaViews/src/main/res/values/styles.xml" afterPath="$PROJECT_DIR$/ModernMediaViews/src/main/res/values/styles.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
     </list>
     <ignored path="$PROJECT_DIR$/commonLib/build/intermediates/annotations/" />
     <ignored path="$PROJECT_DIR$/commonLib/build/intermediates/attr/" />
@@ -644,9 +452,13 @@
       <file leaf-file-name="ShangchengTabView.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ibloomberg/src/main/java/cn/com/modernmedia/businessweek/jingxuan/ShangchengTabView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="146">
+            <state relative-caret-position="2235">
               <caret line="197" column="0" lean-forward="false" selection-start-line="197" selection-start-column="0" selection-end-line="197" selection-end-column="0" />
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="e#4509#4510#0" expanded="false" />
+                <element signature="e#4552#4553#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -654,11 +466,14 @@
       <file leaf-file-name="ShangchengInfoActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ibloomberg/src/main/java/cn/com/modernmedia/businessweek/jingxuan/ShangchengInfoActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
+            <state relative-caret-position="1995">
               <caret line="160" column="12" lean-forward="false" selection-start-line="160" selection-start-column="12" selection-end-line="160" selection-end-column="12" />
               <folding>
-                <element signature="e#2733#3246#0" expanded="true" />
-                <element signature="e#3245#3246#0" expanded="true" />
+                <element signature="imports" expanded="false" />
+                <element signature="e#9889#9890#0" expanded="false" />
+                <element signature="e#9950#9951#0" expanded="false" />
+                <element signature="e#10001#10002#0" expanded="false" />
+                <element signature="e#10051#10052#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -667,27 +482,28 @@
       <file leaf-file-name="ShangchengListActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ibloomberg/src/main/java/cn/com/modernmedia/businessweek/jingxuan/ShangchengListActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="48">
-              <caret line="165" column="36" lean-forward="false" selection-start-line="165" selection-start-column="36" selection-end-line="165" selection-end-column="36" />
-              <folding>
-                <element signature="e#4301#4801#0" expanded="true" />
-                <element signature="e#4800#4801#0" expanded="true" />
-                <element signature="e#8065#17848#0" expanded="true" />
-                <element signature="e#10141#10158#0" expanded="false" />
-                <element signature="e#10411#10422#0" expanded="false" />
-                <element signature="e#13312#13332#0" expanded="false" />
-                <element signature="e#15035#15051#0" expanded="false" />
-                <element signature="e#17847#17848#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="154">
+              <caret line="286" column="28" lean-forward="false" selection-start-line="286" selection-start-column="28" selection-end-line="286" selection-end-column="28" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+      <file leaf-file-name="settings.gradle" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/settings.gradle">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="13" column="12" lean-forward="false" selection-start-line="13" selection-start-column="12" selection-end-line="13" selection-end-column="12" />
+            <state relative-caret-position="210">
+              <caret line="14" column="12" lean-forward="false" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -696,12 +512,16 @@
       <file leaf-file-name="PayHttpsOperate.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/commonLib/src/main/java/cn/com/modernmedia/pay/newlogic/PayHttpsOperate.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="89">
+            <state relative-caret-position="1200">
               <caret line="149" column="35" lean-forward="false" selection-start-line="149" selection-start-column="35" selection-end-line="149" selection-end-column="35" />
               <folding>
-                <element signature="e#4386#4631#0" expanded="true" />
-                <element signature="e#4630#4631#0" expanded="true" />
-                <element signature="e#26588#26615#0" expanded="false" />
+                <element signature="imports" expanded="false" />
+                <element signature="e#3466#3467#0" expanded="false" />
+                <element signature="e#3500#3501#0" expanded="false" />
+                <element signature="e#27408#27409#0" expanded="false" />
+                <element signature="e#27452#27453#0" expanded="false" />
+                <element signature="e#35213#35214#0" expanded="false" />
+                <element signature="e#35264#35265#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -710,9 +530,21 @@
       <file leaf-file-name="GetShangchengSplashDataOperate.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/commonLib/src/main/java/cn/com/modernmedia/api/GetShangchengSplashDataOperate.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="101">
+            <state relative-caret-position="375">
               <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="e#1825#1826#0" expanded="false" />
+                <element signature="e#1867#1868#0" expanded="false" />
+                <element signature="e#3700#3701#0" expanded="false" />
+                <element signature="e#3727#3728#0" expanded="false" />
+                <element signature="e#3774#3775#0" expanded="false" />
+                <element signature="e#3825#3826#0" expanded="false" />
+                <element signature="e#3897#3898#0" expanded="false" />
+                <element signature="e#3934#3935#0" expanded="false" />
+                <element signature="e#4003#4004#0" expanded="false" />
+                <element signature="e#4047#4048#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -720,9 +552,31 @@
       <file leaf-file-name="SlateBaseOperate.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/coreLib/src/main/java/cn/com/modernmediaslate/api/SlateBaseOperate.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="146">
+            <state relative-caret-position="2520">
               <caret line="205" column="0" lean-forward="false" selection-start-line="205" selection-start-column="0" selection-end-line="205" selection-end-column="0" />
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="e#2242#2243#0" expanded="false" />
+                <element signature="e#2269#2270#0" expanded="false" />
+                <element signature="e#2347#2348#0" expanded="false" />
+                <element signature="e#2374#2375#0" expanded="false" />
+                <element signature="e#2432#2433#0" expanded="false" />
+                <element signature="e#2480#2481#0" expanded="false" />
+                <element signature="e#2585#2586#0" expanded="false" />
+                <element signature="e#2637#2638#0" expanded="false" />
+                <element signature="e#2688#2689#0" expanded="false" />
+                <element signature="e#2730#2731#0" expanded="false" />
+                <element signature="e#9565#9566#0" expanded="false" />
+                <element signature="e#9640#9641#0" expanded="false" />
+                <element signature="e#9993#9994#0" expanded="false" />
+                <element signature="e#10068#10069#0" expanded="false" />
+                <element signature="e#10245#10246#0" expanded="false" />
+                <element signature="e#10286#10287#0" expanded="false" />
+                <element signature="e#10398#10399#0" expanded="false" />
+                <element signature="e#10439#10440#0" expanded="false" />
+                <element signature="e#11083#11084#0" expanded="false" />
+                <element signature="e#11114#11115#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -730,9 +584,11 @@
       <file leaf-file-name="ShangChengReceiver.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ibloomberg/src/main/java/cn/com/modernmedia/businessweek/jingxuan/ShangChengReceiver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="327">
+            <state relative-caret-position="1125">
               <caret line="81" column="0" lean-forward="false" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -742,7 +598,17 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="330">
               <caret line="44" column="0" lean-forward="false" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="e#1966#1967#0" expanded="false" />
+                <element signature="e#2035#2036#0" expanded="false" />
+                <element signature="e#4374#4375#0" expanded="false" />
+                <element signature="e#4414#4415#0" expanded="false" />
+                <element signature="e#5728#5729#0" expanded="false" />
+                <element signature="e#5787#5788#0" expanded="false" />
+                <element signature="e#5838#5839#0" expanded="false" />
+                <element signature="e#5886#5887#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -759,9 +625,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>vipproductpay</find>
-      <find>vipproductpaya</find>
-      <find>vipproductpayact</find>
       <find>vipproductpayactivity</find>
       <find>vipproductpayactivity.</find>
       <find>vipproductpayactivity.cl</find>
@@ -789,6 +652,9 @@
       <find>readus</find>
       <find>readuse</find>
       <find>readuser</find>
+      <find>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</find>
+      <find>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</find>
+      <find>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -7343,7 +7209,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/ibloomberg/src/main/java/cn/com/modernmedia/businessweek/SplashScreenActivity.java" />
         <option value="$PROJECT_DIR$/ibloomberg/src/main/res/layout/main_usercenter_view.xml" />
         <option value="$PROJECT_DIR$/ModernMediaViews/src/main/res/values/ids.xml" />
         <option value="$PROJECT_DIR$/commonLib/src/main/java/cn/com/modernmedia/CommonSplashActivity.java" />
@@ -7394,6 +7259,7 @@
         <option value="$PROJECT_DIR$/coreLib/src/main/java/cn/com/modernmediaslate/unit/SlateDataHelper.java" />
         <option value="$PROJECT_DIR$/ibloomberg/src/main/java/cn/com/modernmedia/businessweek/jingxuan/ShangchengListActivity.java" />
         <option value="$PROJECT_DIR$/ibloomberg/src/main/java/cn/com/modernmedia/businessweek/jingxuan/ShangchengInfoActivity.java" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -7417,9 +7283,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="PackagesPane" />
-      <pane id="AndroidView" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -7432,9 +7297,24 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="businessweek_tag" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="businessweek_tag" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ibloomberg" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
+      <pane id="Scope" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -7578,7 +7458,8 @@
       <option name="DEEP_LINK" value="" />
       <option name="ACTIVITY_CLASS" value="" />
       <method>
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1525355198764" />
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1525401843964" />
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -7625,7 +7506,8 @@
         <option name="ADVANCED_PROFILING_ENABLED" value="false" />
       </Profilers>
       <method>
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1525355198764" />
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1525401843964" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -7657,27 +7539,6 @@
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <method />
-    </configuration>
-    <configuration default="true" type="JUnit" factoryName="JUnit">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
       <method />
     </configuration>
     <configuration default="true" type="JarApplication" factoryName="JAR Application">
@@ -7807,7 +7668,8 @@
       <option name="DEEP_LINK" value="" />
       <option name="ACTIVITY_CLASS" value="" />
       <method>
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1525355198766" />
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1525401843965" />
       </method>
     </configuration>
     <list size="3">
@@ -7866,31 +7728,31 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956383" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24071082" sideWeight="0.5090909" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31284153" sideWeight="0.5177706" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4112022" sideWeight="0.49676898" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3306011" sideWeight="0.4822294" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32956383" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28551912" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28551912" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24071082" sideWeight="0.5090909" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956383" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31284153" sideWeight="0.5177706" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32786885" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.329235" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32786885" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31663975" sideWeight="0.4951535" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4112022" sideWeight="0.49676898" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15347335" sideWeight="0.4909091" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2657512" sideWeight="0.4909091" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3920765" sideWeight="0.4838449" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31825525" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3306011" sideWeight="0.4822294" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956383" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -7898,6 +7760,7 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956383" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956383" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -8035,31 +7898,31 @@
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/ArticleActivity.java</url>
-          <line>212</line>
+          <line>236</line>
           <properties />
           <option name="timeStamp" value="37" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/ArticleActivity.java</url>
-          <line>113</line>
+          <line>156</line>
           <properties />
           <option name="timeStamp" value="38" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/article/XMLDataSetForArticle.java</url>
-          <line>51</line>
+          <line>52</line>
           <properties />
           <option name="timeStamp" value="39" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/XMLParse.java</url>
-          <line>658</line>
+          <line>718</line>
           <properties />
           <option name="timeStamp" value="40" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/BaseXMLDataSet.java</url>
-          <line>477</line>
+          <line>493</line>
           <properties />
           <option name="timeStamp" value="41" />
         </line-breakpoint>
@@ -8263,25 +8126,25 @@
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/IndexView.java</url>
-          <line>134</line>
+          <line>146</line>
           <properties />
           <option name="timeStamp" value="147" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/IndexView.java</url>
-          <line>182</line>
+          <line>202</line>
           <properties />
           <option name="timeStamp" value="148" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/TagIndexListView.java</url>
-          <line>82</line>
+          <line>86</line>
           <properties />
           <option name="timeStamp" value="150" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/IndexView.java</url>
-          <line>348</line>
+          <line>351</line>
           <properties />
           <option name="timeStamp" value="151" />
         </line-breakpoint>
@@ -8293,19 +8156,19 @@
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/XMLDataSetForIndexNav.java</url>
-          <line>133</line>
+          <line>134</line>
           <properties />
           <option name="timeStamp" value="153" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/XMLDataSetForIndexNav.java</url>
-          <line>130</line>
+          <line>131</line>
           <properties />
           <option name="timeStamp" value="154" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/IndexViewPagerItem.java</url>
-          <line>383</line>
+          <line>399</line>
           <properties />
           <option name="timeStamp" value="155" />
         </line-breakpoint>
@@ -8599,7 +8462,7 @@
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/IndexViewPager.java</url>
-          <line>107</line>
+          <line>100</line>
           <properties />
           <option name="timeStamp" value="256" />
         </line-breakpoint>
@@ -8635,7 +8498,7 @@
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/ArticleActivity.java</url>
-          <line>232</line>
+          <line>281</line>
           <properties />
           <option name="timeStamp" value="264" />
         </line-breakpoint>
@@ -8653,7 +8516,7 @@
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/ArticleActivity.java</url>
-          <line>82</line>
+          <line>88</line>
           <properties />
           <option name="timeStamp" value="267" />
         </line-breakpoint>
@@ -8749,49 +8612,49 @@
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/IndexViewPagerItem.java</url>
-          <line>370</line>
+          <line>394</line>
           <properties />
           <option name="timeStamp" value="316" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/TagIndexListView.java</url>
-          <line>206</line>
+          <line>219</line>
           <properties />
           <option name="timeStamp" value="319" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/TagIndexListView.java</url>
-          <line>214</line>
+          <line>230</line>
           <properties />
           <option name="timeStamp" value="320" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/TagIndexListView.java</url>
-          <line>234</line>
+          <line>251</line>
           <properties />
           <option name="timeStamp" value="321" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/TagIndexListView.java</url>
-          <line>236</line>
+          <line>253</line>
           <properties />
           <option name="timeStamp" value="323" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/XMLDataSet.java</url>
-          <line>61</line>
+          <line>64</line>
           <properties />
           <option name="timeStamp" value="332" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/BaseXMLDataSet.java</url>
-          <line>283</line>
+          <line>477</line>
           <properties />
           <option name="timeStamp" value="335" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/XMLDataSet.java</url>
-          <line>57</line>
+          <line>60</line>
           <properties />
           <option name="timeStamp" value="339" />
         </line-breakpoint>
@@ -9229,55 +9092,55 @@
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/IndexView.java</url>
-          <line>123</line>
+          <line>134</line>
           <properties />
           <option name="timeStamp" value="480" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/IndexView.java</url>
-          <line>124</line>
+          <line>135</line>
           <properties />
           <option name="timeStamp" value="481" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/XMLDataSet.java</url>
-          <line>46</line>
+          <line>49</line>
           <properties />
           <option name="timeStamp" value="482" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/XMLDataSet.java</url>
-          <line>45</line>
+          <line>48</line>
           <properties />
           <option name="timeStamp" value="483" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/XMLDataSet.java</url>
-          <line>62</line>
+          <line>65</line>
           <properties />
           <option name="timeStamp" value="484" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/adapter/IndexViewHolder.java</url>
-          <line>46</line>
+          <line>45</line>
           <properties />
           <option name="timeStamp" value="486" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/adapter/ListIndexAdapter.java</url>
-          <line>77</line>
+          <line>79</line>
           <properties />
           <option name="timeStamp" value="487" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/TagIndexListView.java</url>
-          <line>186</line>
+          <line>195</line>
           <properties />
           <option name="timeStamp" value="488" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/adapter/ListIndexAdapter.java</url>
-          <line>51</line>
+          <line>52</line>
           <properties />
           <option name="timeStamp" value="489" />
         </line-breakpoint>
@@ -9289,121 +9152,97 @@
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/adapter/BaseIndexAdapter.java</url>
-          <line>68</line>
+          <line>67</line>
           <properties />
           <option name="timeStamp" value="491" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/TagIndexListView.java</url>
-          <line>385</line>
+          <line>429</line>
           <properties />
           <option name="timeStamp" value="492" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/TagIndexListView.java</url>
-          <line>295</line>
+          <line>338</line>
           <properties />
           <option name="timeStamp" value="494" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/TagIndexListView.java</url>
-          <line>243</line>
+          <line>260</line>
           <properties />
           <option name="timeStamp" value="495" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/TagIndexListView.java</url>
-          <line>238</line>
+          <line>255</line>
           <properties />
           <option name="timeStamp" value="497" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/TagIndexListView.java</url>
-          <line>258</line>
+          <line>303</line>
           <properties />
           <option name="timeStamp" value="498" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/TagIndexListView.java</url>
-          <line>275</line>
+          <line>321</line>
           <properties />
           <option name="timeStamp" value="499" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/TagIndexListView.java</url>
-          <line>336</line>
+          <line>382</line>
           <properties />
           <option name="timeStamp" value="500" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/TagIndexListView.java</url>
-          <line>304</line>
+          <line>358</line>
           <properties />
           <option name="timeStamp" value="501" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/BaseXMLDataSet.java</url>
-          <line>502</line>
-          <properties />
-          <option name="timeStamp" value="502" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/TagIndexListView.java</url>
-          <line>191</line>
+          <line>204</line>
           <properties />
           <option name="timeStamp" value="503" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/IndexView.java</url>
-          <line>189</line>
+          <line>209</line>
           <properties />
           <option name="timeStamp" value="504" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/TagIndexListView.java</url>
-          <line>201</line>
+          <line>214</line>
           <properties />
           <option name="timeStamp" value="505" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/IndexViewPagerItem.java</url>
-          <line>385</line>
-          <properties />
-          <option name="timeStamp" value="506" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/IndexViewPagerItem.java</url>
-          <line>463</line>
+          <line>501</line>
           <properties />
           <option name="timeStamp" value="507" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/IndexViewPagerItem.java</url>
-          <line>421</line>
+          <line>437</line>
           <properties />
           <option name="timeStamp" value="508" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/IndexViewPagerItem.java</url>
-          <line>427</line>
-          <properties />
-          <option name="timeStamp" value="509" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/IndexViewPagerItem.java</url>
-          <line>399</line>
+          <line>408</line>
           <properties />
           <option name="timeStamp" value="510" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/IndexViewPagerItem.java</url>
-          <line>425</line>
-          <properties />
-          <option name="timeStamp" value="511" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/IndexViewPagerItem.java</url>
-          <line>408</line>
+          <line>413</line>
           <properties />
           <option name="timeStamp" value="512" />
         </line-breakpoint>
@@ -9457,7 +9296,7 @@
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/IndexViewPagerItem.java</url>
-          <line>336</line>
+          <line>337</line>
           <properties />
           <option name="timeStamp" value="522" />
         </line-breakpoint>
@@ -9469,31 +9308,31 @@
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/IndexViewPagerItem.java</url>
-          <line>435</line>
+          <line>442</line>
           <properties />
           <option name="timeStamp" value="524" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/TagIndexListView.java</url>
-          <line>266</line>
+          <line>311</line>
           <properties />
           <option name="timeStamp" value="525" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/TagIndexListView.java</url>
-          <line>531</line>
+          <line>590</line>
           <properties />
           <option name="timeStamp" value="526" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/solo/ChildCatItem.java</url>
-          <line>198</line>
+          <line>210</line>
           <properties />
           <option name="timeStamp" value="527" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/solo/ChildCatItem.java</url>
-          <line>272</line>
+          <line>301</line>
           <properties />
           <option name="timeStamp" value="528" />
         </line-breakpoint>
@@ -9613,7 +9452,7 @@
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/IndexViewPagerItem.java</url>
-          <line>439</line>
+          <line>482</line>
           <properties />
           <option name="timeStamp" value="553" />
         </line-breakpoint>
@@ -9631,13 +9470,13 @@
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/TagIndexListView.java</url>
-          <line>247</line>
+          <line>275</line>
           <properties />
           <option name="timeStamp" value="556" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/IndexViewPagerItem.java</url>
-          <line>340</line>
+          <line>341</line>
           <properties />
           <option name="timeStamp" value="557" />
         </line-breakpoint>
@@ -10248,14 +10087,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/xmlparse/XMLDataSet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="137">
-          <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ModernMediaViews/src/main/java/cn/com/modernmedia/views/index/TagIndexListView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="212">
@@ -10360,7 +10191,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="201">
           <caret line="23" column="24" lean-forward="false" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -10368,7 +10198,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="9" column="40" lean-forward="false" selection-start-line="9" selection-start-column="25" selection-end-line="9" selection-end-column="40" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="android-designer2">
@@ -10379,7 +10208,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="104" column="0" lean-forward="false" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -10395,14 +10223,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ModernMediaUserModel/src/main/res/layout/activity_vipproductpay.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-7196">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ibloomberg/src/main/AndroidManifest.xml">
@@ -10420,7 +10247,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="84">
           <caret line="60" column="16" lean-forward="false" selection-start-line="60" selection-start-column="16" selection-end-line="60" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -10436,10 +10262,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="280">
           <caret line="75" column="31" lean-forward="true" selection-start-line="75" selection-start-column="31" selection-end-line="75" selection-end-column="31" />
-          <folding>
-            <element signature="e#2861#2883#0" expanded="true" />
-            <element signature="e#3310#3332#0" expanded="true" />
-          </folding>
         </state>
       </provider>
       <provider editor-type-id="android-designer2">
@@ -10461,7 +10283,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="154">
           <caret line="1122" column="0" lean-forward="false" selection-start-line="1122" selection-start-column="0" selection-end-line="1122" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -10469,7 +10290,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="154">
           <caret line="6522" column="0" lean-forward="false" selection-start-line="6522" selection-start-column="0" selection-end-line="6522" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -10477,7 +10297,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="154">
           <caret line="6909" column="0" lean-forward="false" selection-start-line="6909" selection-start-column="0" selection-end-line="6909" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -10485,7 +10304,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="154">
           <caret line="22" column="20" lean-forward="false" selection-start-line="22" selection-start-column="20" selection-end-line="22" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -10493,7 +10311,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="9" column="16" lean-forward="false" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -10541,22 +10358,17 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="154">
           <caret line="9376" column="16" lean-forward="false" selection-start-line="9376" selection-start-column="16" selection-end-line="9376" selection-end-column="16" />
-          <folding>
-            <element signature="e#376874#376875#0" expanded="false" />
-            <element signature="e#376927#376928#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/commonLib/src/main/res/layout/activity_caifu_article.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="121">
           <caret line="18" column="69" lean-forward="true" selection-start-line="18" selection-start-column="69" selection-end-line="18" selection-end-column="69" />
-          <folding />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ModernMediaUserModel/src/main/java/cn/com/modernmediausermodel/vip/VipProductPayActivity.java">
@@ -10595,7 +10407,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="154">
           <caret line="524" column="36" lean-forward="false" selection-start-line="524" selection-start-column="36" selection-end-line="524" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -10609,12 +10420,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/commonLib/src/main/java/cn/com/modernmedia/pay/newlogic/PayHttpsOperate.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="89">
+        <state relative-caret-position="1200">
           <caret line="149" column="35" lean-forward="false" selection-start-line="149" selection-start-column="35" selection-end-line="149" selection-end-column="35" />
           <folding>
-            <element signature="e#4386#4631#0" expanded="true" />
-            <element signature="e#4630#4631#0" expanded="true" />
-            <element signature="e#26588#26615#0" expanded="false" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#3466#3467#0" expanded="false" />
+            <element signature="e#3500#3501#0" expanded="false" />
+            <element signature="e#27408#27409#0" expanded="false" />
+            <element signature="e#27452#27453#0" expanded="false" />
+            <element signature="e#35213#35214#0" expanded="false" />
+            <element signature="e#35264#35265#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -10632,9 +10447,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ibloomberg/src/main/java/cn/com/modernmedia/businessweek/jingxuan/ShangchengTabView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
+        <state relative-caret-position="2235">
           <caret line="197" column="0" lean-forward="false" selection-start-line="197" selection-start-column="0" selection-end-line="197" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#4509#4510#0" expanded="false" />
+            <element signature="e#4552#4553#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -10658,66 +10477,114 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="44" column="0" lean-forward="false" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#1966#1967#0" expanded="false" />
+            <element signature="e#2035#2036#0" expanded="false" />
+            <element signature="e#4374#4375#0" expanded="false" />
+            <element signature="e#4414#4415#0" expanded="false" />
+            <element signature="e#5728#5729#0" expanded="false" />
+            <element signature="e#5787#5788#0" expanded="false" />
+            <element signature="e#5838#5839#0" expanded="false" />
+            <element signature="e#5886#5887#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ibloomberg/src/main/java/cn/com/modernmedia/businessweek/jingxuan/ShangChengReceiver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
+        <state relative-caret-position="1125">
           <caret line="81" column="0" lean-forward="false" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/commonLib/src/main/java/cn/com/modernmedia/api/GetShangchengSplashDataOperate.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="101">
+        <state relative-caret-position="375">
           <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#1825#1826#0" expanded="false" />
+            <element signature="e#1867#1868#0" expanded="false" />
+            <element signature="e#3700#3701#0" expanded="false" />
+            <element signature="e#3727#3728#0" expanded="false" />
+            <element signature="e#3774#3775#0" expanded="false" />
+            <element signature="e#3825#3826#0" expanded="false" />
+            <element signature="e#3897#3898#0" expanded="false" />
+            <element signature="e#3934#3935#0" expanded="false" />
+            <element signature="e#4003#4004#0" expanded="false" />
+            <element signature="e#4047#4048#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/coreLib/src/main/java/cn/com/modernmediaslate/api/SlateBaseOperate.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
+        <state relative-caret-position="2520">
           <caret line="205" column="0" lean-forward="false" selection-start-line="205" selection-start-column="0" selection-end-line="205" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#2242#2243#0" expanded="false" />
+            <element signature="e#2269#2270#0" expanded="false" />
+            <element signature="e#2347#2348#0" expanded="false" />
+            <element signature="e#2374#2375#0" expanded="false" />
+            <element signature="e#2432#2433#0" expanded="false" />
+            <element signature="e#2480#2481#0" expanded="false" />
+            <element signature="e#2585#2586#0" expanded="false" />
+            <element signature="e#2637#2638#0" expanded="false" />
+            <element signature="e#2688#2689#0" expanded="false" />
+            <element signature="e#2730#2731#0" expanded="false" />
+            <element signature="e#9565#9566#0" expanded="false" />
+            <element signature="e#9640#9641#0" expanded="false" />
+            <element signature="e#9993#9994#0" expanded="false" />
+            <element signature="e#10068#10069#0" expanded="false" />
+            <element signature="e#10245#10246#0" expanded="false" />
+            <element signature="e#10286#10287#0" expanded="false" />
+            <element signature="e#10398#10399#0" expanded="false" />
+            <element signature="e#10439#10440#0" expanded="false" />
+            <element signature="e#11083#11084#0" expanded="false" />
+            <element signature="e#11114#11115#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ibloomberg/src/main/java/cn/com/modernmedia/businessweek/jingxuan/ShangchengInfoActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
+        <state relative-caret-position="1995">
           <caret line="160" column="12" lean-forward="false" selection-start-line="160" selection-start-column="12" selection-end-line="160" selection-end-column="12" />
           <folding>
-            <element signature="e#2733#3246#0" expanded="true" />
-            <element signature="e#3245#3246#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ibloomberg/src/main/java/cn/com/modernmedia/businessweek/jingxuan/ShangchengListActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="165" column="36" lean-forward="false" selection-start-line="165" selection-start-column="36" selection-end-line="165" selection-end-column="36" />
-          <folding>
-            <element signature="e#4301#4801#0" expanded="true" />
-            <element signature="e#4800#4801#0" expanded="true" />
-            <element signature="e#8065#17848#0" expanded="true" />
-            <element signature="e#10141#10158#0" expanded="false" />
-            <element signature="e#10411#10422#0" expanded="false" />
-            <element signature="e#13312#13332#0" expanded="false" />
-            <element signature="e#15035#15051#0" expanded="false" />
-            <element signature="e#17847#17848#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#9889#9890#0" expanded="false" />
+            <element signature="e#9950#9951#0" expanded="false" />
+            <element signature="e#10001#10002#0" expanded="false" />
+            <element signature="e#10051#10052#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="12" lean-forward="false" selection-start-line="13" selection-start-column="12" selection-end-line="13" selection-end-column="12" />
+        <state relative-caret-position="210">
+          <caret line="14" column="12" lean-forward="false" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ibloomberg/src/main/java/cn/com/modernmedia/businessweek/jingxuan/ShangchengListActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="286" column="28" lean-forward="false" selection-start-line="286" selection-start-column="28" selection-end-line="286" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/settings.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
