@@ -174,7 +174,7 @@ public abstract class BaseSelectColumnActivity extends BaseActivity {
 
 	private void showTip(final String parent) {
 		hasShowTip = true;
-		AlertDialog.Builder builder = new Builder(this);
+		Builder builder = new Builder(this);
 		builder.setTitle(R.string.subscribe_tip_title);
 		builder.setMessage(R.string.subscribe_tip_message);
 		builder.setPositiveButton(R.string.subscribe_save,

@@ -53,7 +53,7 @@ public class PullToZoomListView extends ListView implements AbsListView.OnScroll
      */
     public void setmHeaderHeight(int mHeaderHeight) {
         this.mHeaderHeight = mHeaderHeight;
-        AbsListView.LayoutParams lp = new AbsListView.LayoutParams(AbsListView.LayoutParams.FILL_PARENT, mHeaderHeight);
+        LayoutParams lp = new LayoutParams(LayoutParams.FILL_PARENT, mHeaderHeight);
         getHeaderContainer().setLayoutParams(lp);
     }
 
@@ -78,7 +78,7 @@ public class PullToZoomListView extends ListView implements AbsListView.OnScroll
     float mLastMotionY = -1.0F;
     float mLastScale = -1.0F;
     float mMaxScale = -1.0F;
-    private AbsListView.OnScrollListener mOnScrollListener;
+    private OnScrollListener mOnScrollListener;
     private ScalingRunnalable mScalingRunnalable;
     private int mScreenHeight;
     private ImageView mShadow;
@@ -321,14 +321,14 @@ public class PullToZoomListView extends ListView implements AbsListView.OnScroll
 
     public void setHeaderViewSize(int paramInt1, int paramInt2) {
         Object localObject = this.mHeaderContainer.getLayoutParams();
-        if (localObject == null) localObject = new AbsListView.LayoutParams(paramInt1, paramInt2);
+        if (localObject == null) localObject = new LayoutParams(paramInt1, paramInt2);
         ((ViewGroup.LayoutParams) localObject).width = paramInt1;
         ((ViewGroup.LayoutParams) localObject).height = paramInt2;
         this.mHeaderContainer.setLayoutParams((ViewGroup.LayoutParams) localObject);
         this.mHeaderHeight = paramInt2;
     }
 
-    public void setOnScrollListener(AbsListView.OnScrollListener paramOnScrollListener) {
+    public void setOnScrollListener(OnScrollListener paramOnScrollListener) {
         this.mOnScrollListener = paramOnScrollListener;
     }
 
