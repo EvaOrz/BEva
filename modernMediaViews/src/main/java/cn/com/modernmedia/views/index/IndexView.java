@@ -1,7 +1,5 @@
 package cn.com.modernmedia.views.index;
 
-import java.util.Observable;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
@@ -12,11 +10,13 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+
+import java.util.Observable;
+
 import cn.com.modernmedia.CommonMainActivity;
 import cn.com.modernmedia.listener.FetchEntryListener;
 import cn.com.modernmedia.model.TagArticleList;
 import cn.com.modernmedia.model.TagInfoList;
-import cn.com.modernmedia.model.TagInfoList.TagInfo;
 import cn.com.modernmedia.views.R;
 import cn.com.modernmedia.views.column.book.TopMenuHorizontalScrollView;
 import cn.com.modernmedia.views.index.head.BaseIndexHeadView;
@@ -33,320 +33,321 @@ import cn.com.modernmediaslate.model.Entry;
 
 /**
  * 首页(栏目首页)
- * 
+ *
  * @author user
- * 
  */
 public class IndexView extends BaseView implements FetchEntryListener {
-	public static final int LIST = 1;// 普通列表
-	public static final int CHILD = 3;// 子栏目
-	public static final int ISSUE_LIST = 4;// 期刊列表
 
-	public static int BAR_HEIGHT;
-	public static int height;
+    public static final int LIST = 1;// 普通列表
+    public static final int CHILD = 3;// 子栏目
+    public static final int ISSUE_LIST = 4;// 期刊列表
 
-	private Context mContext;
-	private LinearLayout navBar;
-	private FrameLayout contain;
-	private FrameLayout issueListLayout;
-	private LinearLayout cover;
-	private int currTag;
-	private TopMenuHorizontalScrollView topMenu;
+    public static int BAR_HEIGHT;
+    public static int height;
 
-	// child view
-	private TagIndexListView indexListView;
-	private BaseSoloIndexView baseSoloIndexView;
-	private IndexIssueListView issueListView;
+    private Context mContext;
+    private LinearLayout navBar;
+    private FrameLayout contain;
+    private FrameLayout issueListLayout;
+    private LinearLayout cover;
+    private int currTag;
+    private TopMenuHorizontalScrollView topMenu;
 
-	// 可滑动的栏目首页
-	private IndexViewPager indexViewPager;
-	// 首页导航栏模板数据
-	private XMLDataSetForIndexNav dataSetForIndexNav;
+    // child view
+    private TagIndexListView indexListView;
+    private BaseSoloIndexView baseSoloIndexView;
+    private IndexIssueListView issueListView;
 
-	/**
-	 * 通知列表滑动同步
-	 * 
-	 * @author zhuqiao
-	 * 
-	 */
-	public static class NavObservable extends Observable {
+    // 可滑动的栏目首页
+    private IndexViewPager indexViewPager;
+    // 首页导航栏模板数据
+    private XMLDataSetForIndexNav dataSetForIndexNav;
 
-		public void setData() {
-			setChanged();
-			notifyObservers();
-		}
+    /**
+     * 通知列表滑动同步
+     *
+     * @author zhuqiao
+     */
+    public static class NavObservable extends Observable {
 
-	}
+        public void setData() {
+            setChanged();
+            notifyObservers();
+        }
 
-	public IndexView(Context context) {
-		this(context, null);
-	}
+    }
 
-	public IndexView(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		mContext = context;
-		init();
-	}
+    public IndexView(Context context) {
+        this(context, null);
+    }
 
-	@SuppressLint("InflateParams")
-	private void init() {
-		BAR_HEIGHT = mContext.getResources().getDimensionPixelSize(
-				R.dimen.index_titlebar_height);
+    public IndexView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        mContext = context;
+        init();
+    }
 
-		addView(LayoutInflater.from(mContext)
-				.inflate(R.layout.index_view, null), new LayoutParams(
-				LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
-		initProcess();
-		navBar = (LinearLayout) findViewById(R.id.index_titleBar);
-		contain = (FrameLayout) findViewById(R.id.index_contain);
-		issueListLayout = (FrameLayout) findViewById(R.id.index_issuelist);
-		indexViewPager = (IndexViewPager) findViewById(R.id.index_pager);
-		cover = (LinearLayout) findViewById(R.id.index_cover);
-		cover.setBackgroundColor(Color.TRANSPARENT);
-		cover.setBackgroundDrawable(null);
-		// top menu
-		topMenu = new TopMenuHorizontalScrollView(mContext);
+    @SuppressLint("InflateParams")
+    private void init() {
+        BAR_HEIGHT = mContext.getResources().getDimensionPixelSize(
+                R.dimen.index_titlebar_height);
 
-		initRes();
-		if (SlateApplication.mConfig.getNav_hide() == 0
-				&& SlateApplication.mConfig.getAlign_bar() == 0) {
-			((LayoutParams) indexViewPager.getLayoutParams()).topMargin = BAR_HEIGHT;
-		} else {// nav_bar 移动时，top_menu在indexviewpager之上
-			callNavPadding(0);
-		}
-	}
+        addView(LayoutInflater.from(mContext)
+                .inflate(R.layout.index_view, null), new LayoutParams(
+                LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+        initProcess();
+        navBar = (LinearLayout) findViewById(R.id.index_titleBar);
+        contain = (FrameLayout) findViewById(R.id.index_contain);
+        issueListLayout = (FrameLayout) findViewById(R.id.index_issuelist);
+        indexViewPager = (IndexViewPager) findViewById(R.id.index_pager);
+        cover = (LinearLayout) findViewById(R.id.index_cover);
+        cover.setBackgroundColor(Color.TRANSPARENT);
+        cover.setBackgroundDrawable(null);
+        // top menu
+        topMenu = new TopMenuHorizontalScrollView(mContext);
 
-	/**
-	 * top_menu setData
-	 * 
-	 * @param list
-	 */
-	public void setTopMenuData(TagInfoList list) {
-		topMenu.setData(list.getList());
-		dataSetForIndexNav.setTopMenuData(topMenu);
-	}
+        initRes();
+        if (SlateApplication.mConfig.getNav_hide() == 0
+                && SlateApplication.mConfig.getAlign_bar() == 0) {
+            ((LayoutParams) indexViewPager.getLayoutParams()).topMargin = BAR_HEIGHT;
+        } else {// nav_bar 移动时，top_menu在indexviewpager之上
+            callNavPadding(0);
+        }
+    }
 
-	/**
-	 * 初始化导航栏资源
-	 */
-	private void initRes() {
-		TemplateIndexNavbar template = ParseProperties.getInstance(mContext)
-				.parseIndexNav();
-		XMLParse xmlParse = new XMLParse(mContext, null);
-		View view = xmlParse.inflate(template.getData(), null, "");
-		navBar.addView(view);
-//		navBar.addView(topMenu);// 添加topmenu
-		dataSetForIndexNav = xmlParse.getDataSetForIndexNav();
-		dataSetForIndexNav.setData();
-		
-	}
+    /**
+     * top_menu setData
+     *
+     * @param list
+     */
+    public void setTopMenuData(TagInfoList list) {
+        topMenu.setData(list.getList());
+        dataSetForIndexNav.setTopMenuData(topMenu);
+    }
 
-	public View getColumn() {
-		return dataSetForIndexNav.getColumn();
-	}
+    /**
+     * 初始化导航栏资源
+     */
+    private void initRes() {
+        TemplateIndexNavbar template = ParseProperties.getInstance(mContext)
+                .parseIndexNav();
+        XMLParse xmlParse = new XMLParse(mContext, null);
+        View view = xmlParse.inflate(template.getData(), null, "");
+        navBar.addView(view);
+        dataSetForIndexNav = xmlParse.getDataSetForIndexNav();
+        dataSetForIndexNav.setData();
 
-	public View getFav() {
-		return dataSetForIndexNav.getFav();
-	}
+    }
 
-	public View getNav() {
-		return dataSetForIndexNav.getNavBar();
-	}
+    public View getColumn() {
+        return dataSetForIndexNav.getColumn();
+    }
 
-	/**
-	 * 设置首页标题
-	 * 
-	 * @param name
-	 */
-	public void setTitle(String name) {
-		dataSetForIndexNav.setTitle(name);
+    public View getFav() {
+        return dataSetForIndexNav.getFav();
+    }
 
-	}
+    public View getNav() {
+        return dataSetForIndexNav.getNavBar();
+    }
 
-	public void setTopMenuSelect(TagInfo tag) {
-		topMenu.setSelectedItemForChild(tag.getTagName());
-	}
+    /**
+     * 设置首页标题
+     *
+     * @param name
+     */
+    public void setTitle(String name) {
+        dataSetForIndexNav.setTitle(name);
 
-	/**
-	 * 如果显示的是index,就把cover隐藏掉
-	 * 
-	 * @param showIndex
-	 */
-	public void showCover(boolean showIndex) {
-		if (showIndex) {
-			cover.setVisibility(View.GONE);
-		} else {
-			cover.setVisibility(View.VISIBLE);
-		}
-	}
+    }
 
-	@Override
-	public void setData(Entry entry) {
-		if (entry == null)
-			return;
-		((CommonMainActivity) mContext).clearScrollView();
-		// TODO 直接初始化，防止headview添加多次
-		indexListView = new TagIndexListView(mContext);
-		contain.removeAllViews();
-		contain.addView(indexListView.fetchView());
-		issueListLayout.setVisibility(View.GONE);
-		if (entry instanceof TagArticleList)
-			indexListView.setData((TagArticleList) entry, null);
-		currTag = LIST;
+    public void setTopMenuSelect(String tagname) {
+        topMenu.setSelectedItemForChild(tagname);
+    }
 
-		baseSoloIndexView = null;
-		issueListView = null;
-	}
+    /**
+     * 如果显示的是index,就把cover隐藏掉
+     *
+     * @param showIndex
+     */
+    public void showCover(boolean showIndex) {
+        if (showIndex) {
+            cover.setVisibility(View.GONE);
+        } else {
+            cover.setVisibility(View.VISIBLE);
+        }
+    }
 
-	/**
-	 * 设置子栏目catid
-	 * 
-	 * @param childInfoList
-	 */
-	public void setDataForChild(TagInfoList childInfoList) {
-		((CommonMainActivity) mContext).clearScrollView();
-		contain.removeAllViews();
-		baseSoloIndexView = new ChildIndexView(mContext);
-		baseSoloIndexView.setData(childInfoList);
-		contain.addView(baseSoloIndexView.fetchView());
-		currTag = CHILD;
-		issueListLayout.setVisibility(View.GONE);
-		indexListView = null;
-		issueListView = null;
-	}
+    @Override
+    public void setData(Entry entry) {
+        if (entry == null) return;
+        ((CommonMainActivity) mContext).clearScrollView();
+        // TODO 直接初始化，防止headview添加多次
+        indexListView = new TagIndexListView(mContext);
+        contain.removeAllViews();
+        contain.addView(indexListView.fetchView());
+        issueListLayout.setVisibility(View.GONE);
+        if (entry instanceof TagArticleList) indexListView.setData((TagArticleList) entry, null);
+        currTag = LIST;
 
-	/**
-	 * 设置期刊列表
-	 */
-	public void setDataForIssueList() {
-		indexViewPager.setVisibility(View.GONE);
-		contain.setVisibility(View.GONE);
-		issueListLayout.setVisibility(View.VISIBLE);
-		issueListView = new IndexIssueListView(mContext);
-		issueListLayout.addView(issueListView.fetchView());
-		issueListView.setData(null);
-		currTag = ISSUE_LIST;
+        baseSoloIndexView = null;
+        issueListView = null;
+    }
 
-		baseSoloIndexView = null;
-		indexListView = null;
-	}
+    /**
+     * 设置子栏目catid
+     *
+     * @param childInfoList
+     */
+    public void setDataForChild(TagInfoList childInfoList) {
+        ((CommonMainActivity) mContext).clearScrollView();
+        contain.removeAllViews();
+        baseSoloIndexView = new ChildIndexView(mContext);
+        baseSoloIndexView.setData(childInfoList);
+        contain.addView(baseSoloIndexView.fetchView());
+        currTag = CHILD;
+        issueListLayout.setVisibility(View.GONE);
+        indexListView = null;
+        issueListView = null;
+    }
 
-	/**
-	 * 显示首页滑屏view
-	 */
-	public void setDataForIndexPager() {
-		issueListLayout.setVisibility(View.GONE);
-		indexViewPager.setVisibility(View.VISIBLE);
-		indexViewPager.setCatList();
-	}
+    /**
+     * 设置期刊列表
+     */
+    public void setDataForIssueList() {
+        indexViewPager.setVisibility(View.GONE);
+        contain.setVisibility(View.GONE);
+        issueListLayout.setVisibility(View.VISIBLE);
+        issueListView = new IndexIssueListView(mContext);
+        issueListLayout.addView(issueListView.fetchView());
+        issueListView.setData(null);
+        currTag = ISSUE_LIST;
 
-	/**
-	 * 定位首页滑屏
-	 * 
-	 * @param tagName
-	 * @param isUri
-	 *            是否来自uri;如果是，当找不到的时候需要添加这个栏目，否则，显示第一个栏目
-	 */
-	public void checkPositionIfPager(String tagName, boolean isUri) {
-		if (indexViewPager != null) {
-			issueListLayout.setVisibility(View.GONE);
-			indexViewPager.setVisibility(View.VISIBLE);
-			indexViewPager.checkPosition(tagName, isUri);
-		}
-	}
+        baseSoloIndexView = null;
+        indexListView = null;
+    }
 
-	public void stopAuto() {
-		if (indexListView != null
-				&& indexListView.getHeadView() != null) {
-			indexListView.getHeadView().stopRefresh();
-		}
-	}
+    /**
+     * 显示首页滑屏view
+     */
+    public void setDataForIndexPager() {
+        issueListLayout.setVisibility(View.GONE);
+        indexViewPager.setVisibility(View.VISIBLE);
+        indexViewPager.setCatList();
+    }
 
-	public void reStorePullResfresh() {
-		// if (currTag == SOLO && baseSoloIndexView instanceof SoloIndexView) {
-		// ((SoloIndexView) baseSoloIndexView).reStoreRefresh();
-		// }
-	}
+    /**
+     * 定位首页滑屏
+     *
+     * @param tagName
+     * @param isUri   是否来自uri;如果是，当找不到的时候需要添加这个栏目，否则，显示第一个栏目
+     */
+    public void checkPositionIfPager(String tagName, boolean isUri) {
+        if (indexViewPager != null) {
+            issueListLayout.setVisibility(View.GONE);
+            indexViewPager.setVisibility(View.VISIBLE);
+            indexViewPager.checkPosition(tagName, isUri);
+        }
+    }
 
-	/**
-	 * 设置导航栏分割线的透明度(艺术新闻效果)
-	 * 
-	 * @param alpha
-	 */
-	public void setShadowAlpha(int alpha) {
-		// navShadow.setAlpha(alpha);
-		dataSetForIndexNav.setAlpha(alpha);
-	}
+    public void stopAuto() {
+        if (indexListView != null && indexListView.getHeadView() != null) {
+            indexListView.getHeadView().stopRefresh();
+        }
+    }
 
-	@Override
-	protected void reLoad() {
-		if (currTag == ISSUE_LIST && issueListView != null) {
-			issueListView.setData(null);
-		} else if (mContext instanceof CommonMainActivity) {
-			((CommonMainActivity) mContext).reLoadData();
-		}
-	}
+    public void reStorePullResfresh() {
+        // if (currTag == SOLO && baseSoloIndexView instanceof SoloIndexView) {
+        // ((SoloIndexView) baseSoloIndexView).reStoreRefresh();
+        // }
+    }
 
-	@Override
-	public boolean onInterceptTouchEvent(MotionEvent ev) {
-		if (cover.getVisibility() == View.VISIBLE) {
-			((CommonMainActivity) mContext).getScrollView().IndexClick();
-			return true;
-		}
-		if (checkHead(ev, baseSoloIndexView)) {
-			return false;
-		}
-		return super.onInterceptTouchEvent(ev);
-	}
+    /**
+     * 设置导航栏分割线的透明度(艺术新闻效果)
+     *
+     * @param alpha
+     */
+    public void setShadowAlpha(int alpha) {
+        // navShadow.setAlpha(alpha);
+        dataSetForIndexNav.setAlpha(alpha);
+    }
 
-	private boolean checkHead(MotionEvent ev, BaseSoloIndexView soloIndexView) {
-		if (soloIndexView == null) {
-			return false;
-		}
-		BaseIndexHeadView headView = soloIndexView.getHeadView();
-		if (headView != null && soloIndexView.getChildSize() > 1) {
-			Rect rect = new Rect();
-			headView.getGlobalVisibleRect(rect);
-			if (rect.contains((int) ev.getX(), (int) ev.getY())) {
-				soloIndexView.setIntercept(true);
-				return true;
-			}
-		}
-		BaseChildCatHead catHead = soloIndexView.getCatHead();
-		if (catHead != null && catHead.fetchView() != null) {
-			Rect rect = new Rect();
-			catHead.fetchView().getGlobalVisibleRect(rect);
-			if (rect.contains((int) ev.getX(), (int) ev.getY())) {
-				soloIndexView.setIntercept(true);
-				return true;
-			}
-		}
-		baseSoloIndexView.setIntercept(false);
-		return false;
-	}
-	
-	public View getTopMenuColumnViewButton(){
-		return topMenu.getTopMenuColumnViewButton();
-	}
-	public View getTopMenuAddViewButton(){
-		return topMenu.getTopMenuAddViewButton();
-	}
+    @Override
+    protected void reLoad() {
+        if (currTag == ISSUE_LIST && issueListView != null) {
+            issueListView.setData(null);
+        } else if (mContext instanceof CommonMainActivity) {
+            ((CommonMainActivity) mContext).reLoadData();
+        }
+    }
 
-	public void callNavPadding(int padding) {
-		dataSetForIndexNav.callNavPadding(padding);
-	}
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        if (cover.getVisibility() == View.VISIBLE) {
+            ((CommonMainActivity) mContext).getScrollView().IndexClick();
+            return true;
+        }
+        if (checkHead(ev, baseSoloIndexView)) {
+            return false;
+        }
+        return super.onInterceptTouchEvent(ev);
+    }
 
-	public boolean isNavShow() {
-		return dataSetForIndexNav.isNavShow();
-	}
+    private boolean checkHead(MotionEvent ev, BaseSoloIndexView soloIndexView) {
+        if (soloIndexView == null) {
+            return false;
+        }
+        BaseIndexHeadView headView = soloIndexView.getHeadView();
+        if (headView != null && soloIndexView.getChildSize() > 1) {
+            Rect rect = new Rect();
+            headView.getGlobalVisibleRect(rect);
+            if (rect.contains((int) ev.getX(), (int) ev.getY())) {
+                soloIndexView.setIntercept(true);
+                return true;
+            }
+        }
+        BaseChildCatHead catHead = soloIndexView.getCatHead();
+        if (catHead != null && catHead.fetchView() != null) {
+            Rect rect = new Rect();
+            catHead.fetchView().getGlobalVisibleRect(rect);
+            if (rect.contains((int) ev.getX(), (int) ev.getY())) {
+                soloIndexView.setIntercept(true);
+                return true;
+            }
+        }
+        baseSoloIndexView.setIntercept(false);
+        return false;
+    }
 
-	/**
-	 * 栏目内容是网页时，需判断是否是起始栏目内容，若不是，点击返回键时则返回到上一级内容，直至起始栏目内容
-	 * 
-	 * @return
-	 */
-	public boolean doGoBack() {
-		return indexViewPager.getVisibility() == View.VISIBLE
-				&& indexViewPager.doGoBack();
-	}
+    public View getTopMenuColumnViewButton() {
+        return topMenu.getTopMenuColumnViewButton();
+    }
+
+    public View getTopMenuAddViewButton() {
+        return topMenu.getTopMenuAddViewButton();
+    }
+
+    public void callNavPadding(int padding) {
+        dataSetForIndexNav.callNavPadding(padding);
+    }
+
+    public boolean isNavShow() {
+        return dataSetForIndexNav.isNavShow();
+    }
+
+    /**
+     * 栏目内容是网页时，需判断是否是起始栏目内容，若不是，点击返回键时则返回到上一级内容，直至起始栏目内容
+     *
+     * @return
+     */
+    public boolean doGoBack() {
+        return indexViewPager.getVisibility() == View.VISIBLE && indexViewPager.doGoBack();
+    }
+
+    public void doGoTop() {
+        if (indexViewPager != null) {
+            TagIndexListView listView = indexViewPager.getCurrListView();
+            if (listView != null) listView.scrollToTop();
+        }
+    }
 }

@@ -1,19 +1,20 @@
 package cn.com.modernmedia.views.xmlparse.article;
 
-import java.util.HashMap;
-import java.util.List;
-
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import java.util.HashMap;
+import java.util.List;
+
 import cn.com.modernmedia.CommonApplication;
 import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.model.ArticleItem.PhonePageList;
+import cn.com.modernmedia.util.MyAnimate;
 import cn.com.modernmedia.views.R;
-import cn.com.modernmedia.views.util.MyAnimate;
 import cn.com.modernmedia.views.util.V;
 import cn.com.modernmedia.views.xmlparse.BaseXMLDataSet;
 import cn.com.modernmedia.views.xmlparse.FunctionXML;
@@ -59,7 +60,6 @@ public class XMLDataSetForAtlas extends BaseXMLDataSet {
 	/**
 	 * 图片
 	 * 
-	 * @param item
 	 */
 	private void image(String url) {
 		if (!ParseUtil.mapContainsKey(map, FunctionXML.IMAGE))

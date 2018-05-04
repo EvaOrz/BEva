@@ -95,7 +95,7 @@ public class IndexIssueListView implements FetchEntryListener {
 	/**
 	 * 获取往期列表
 	 * 
-	 * @param is
+	 * @param isGetMore
 	 */
 	public void getIssueList(final boolean isGetMore, String top) {
 		status = LOADING;

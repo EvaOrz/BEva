@@ -1,10 +1,5 @@
 package cn.com.modernmedia.views.widget;
 
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.database.DataSetObserver;
@@ -27,7 +22,6 @@ import android.support.v4.view.ViewConfigurationCompat;
 import android.support.v4.view.accessibility.AccessibilityNodeInfoCompat;
 import android.support.v4.widget.EdgeEffectCompat;
 import android.util.AttributeSet;
-import android.util.FloatMath;
 import android.util.Log;
 import android.view.FocusFinder;
 import android.view.Gravity;
@@ -42,6 +36,12 @@ import android.view.ViewParent;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.animation.Interpolator;
 import android.widget.Scroller;
+
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
 import cn.com.modernmedia.views.index.IndexView;
 
 public class VerticalViewPager extends ViewGroup {
@@ -1765,7 +1765,7 @@ public class VerticalViewPager extends ViewGroup {
 			mSeenPositionMin = position;
 		}
 		if (mSeenPositionMax < 0
-				|| FloatMath.ceil(position + offset) > mSeenPositionMax) {
+				|| Math.ceil(position + offset) > mSeenPositionMax) {
 			mSeenPositionMax = position + 1;
 		}
 
@@ -2426,7 +2426,7 @@ public class VerticalViewPager extends ViewGroup {
 	 * Fake drag by an offset in pixels. You must have called
 	 * {@link #beginFakeDrag()} first.
 	 * 
-	 * @param xOffset
+	 * @param yOffset
 	 *            Offset in pixels to drag by.
 	 * @see #beginFakeDrag()
 	 * @see #endFakeDrag()

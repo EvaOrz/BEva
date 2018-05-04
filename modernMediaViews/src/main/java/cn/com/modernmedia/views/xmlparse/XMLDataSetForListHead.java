@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.model.TagInfoList.TagInfo;
+import cn.com.modernmedia.util.ConstData;
 import cn.com.modernmedia.views.util.V;
 import cn.com.modernmediaslate.unit.ParseUtil;
 
@@ -36,6 +37,10 @@ public class XMLDataSetForListHead extends BaseXMLDataSet {
 			name = tagInfo.getColumnProperty().getCname();
 		else
 			name = tagInfo.getColumnProperty().getCname();
+
+		if (ConstData.getAppId() == 37)// verycity catname显示ename + cname
+			name = tagInfo.getColumnProperty().getEname() + " "
+					+ tagInfo.getColumnProperty().getCname();
 		item.setTitle(name);
 		title(item, null);
 		icon(tagInfo);

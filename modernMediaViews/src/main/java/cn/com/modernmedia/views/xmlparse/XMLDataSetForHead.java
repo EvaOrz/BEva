@@ -1,18 +1,19 @@
 package cn.com.modernmedia.views.xmlparse;
 
-import java.util.HashMap;
-import java.util.List;
-
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import java.util.HashMap;
+import java.util.List;
+
 import cn.com.modernmedia.CommonApplication;
 import cn.com.modernmedia.CommonArticleActivity.ArticleType;
 import cn.com.modernmedia.model.ArticleItem;
+import cn.com.modernmedia.util.MyAnimate;
 import cn.com.modernmedia.views.R;
 import cn.com.modernmedia.views.index.head.IndexHeadCircularViewPager;
-import cn.com.modernmedia.views.util.MyAnimate;
 import cn.com.modernmediaslate.unit.ParseUtil;
 
 /**
@@ -52,6 +53,37 @@ public class XMLDataSetForHead extends BaseXMLDataSet {
 		return null;
 	}
 
+
+	public void showHead(){
+		if (map.containsKey(FunctionXML.TITLE)){
+			map.get(FunctionXML.TITLE).setVisibility(View.VISIBLE);
+		}
+		if (map.containsKey(FunctionXML.OUTLINE)){
+			map.get(FunctionXML.OUTLINE).setVisibility(View.VISIBLE);
+		}
+		if (map.containsKey(FunctionXMLHead.DOT)){
+			map.get(FunctionXMLHead.DOT).setVisibility(View.VISIBLE);
+		}
+		if (map.containsKey(FunctionXMLHead.ANIM)){
+			map.get(FunctionXMLHead.ANIM).setVisibility(View.VISIBLE);
+		}
+	}
+
+	public void unShowHead(){
+		if (map.containsKey(FunctionXML.TITLE)){
+			map.get(FunctionXML.TITLE).setVisibility(View.GONE);
+		}
+		if (map.containsKey(FunctionXML.OUTLINE)){
+			map.get(FunctionXML.OUTLINE).setVisibility(View.GONE);
+		}
+		if (map.containsKey(FunctionXMLHead.DOT)){
+			map.get(FunctionXMLHead.DOT).setVisibility(View.GONE);
+		}
+		if (map.containsKey(FunctionXMLHead.ANIM)){
+			map.get(FunctionXMLHead.ANIM).setVisibility(View.GONE);
+		}
+
+	}
 	/**
 	 * 更新内容
 	 * 
@@ -60,7 +92,6 @@ public class XMLDataSetForHead extends BaseXMLDataSet {
 	public void update(ArticleItem item) {
 		title(item, null);
 		desc(item, 0, null);
-		video(item);
 		outline(item, 0, null);
 		tag(item, 0, null);
 		date(item);

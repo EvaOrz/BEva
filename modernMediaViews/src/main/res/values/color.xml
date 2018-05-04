@@ -28,4 +28,8 @@
     <color name="book_bac">#f4f4f4</color>
     <color name="red">#cd3333</color>
 
+    <!--搜索文字-->
+    <color name="result_desc">#A0A1A0</color>
+    <color name="result_clean">#16bff2</color>
+
 </resources>

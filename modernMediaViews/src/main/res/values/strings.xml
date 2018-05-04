@@ -14,8 +14,14 @@
     <!-- 订阅 -->
     <string name="book_manage">管理订阅栏目</string>
     <string name="my_books">我的栏目</string>
+    <string name="share_app">分享APP</string>
     <string name="book_edit">编辑</string>
     <string name="more_books">添加栏目</string>
     <string name="book">订阅</string>
+
+    <!-- 专栏作者 -->
+    <string name="cat_244">专栏</string>
+    <string name="keywords">关键词</string>
+    <string name="issue_date">时间段</string>
 
 </resources>

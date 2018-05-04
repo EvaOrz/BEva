@@ -142,9 +142,9 @@ public class ChildCatHead extends BaseChildCatHead {
 	/**
 	 * 隐藏headview
 	 */
-	public void hideHead() {
-		frame.removeAllViews();
-	}
+//	public void hideHead() {
+//		frame.removeAllViews();
+//	}
 
 	/**
 	 * 显示headview

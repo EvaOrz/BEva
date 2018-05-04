@@ -98,7 +98,6 @@ public class XMLDataSetForIndexNav extends BaseXMLDataSet {
 			title.setVisibility(View.VISIBLE);
 			logo.setVisibility(View.GONE);
 		}
-
 	}
 
 	private boolean navShow = true, maskShow = true;

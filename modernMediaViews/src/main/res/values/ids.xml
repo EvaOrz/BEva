@@ -46,4 +46,5 @@
     <!-- 标记是焦点图view -->
     <item name="focus_view" type="id"/>
 
+
 </resources>

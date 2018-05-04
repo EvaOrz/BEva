@@ -1,15 +1,16 @@
 package cn.com.modernmedia.views.adapter;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import cn.com.modernmedia.CommonApplication;
 import cn.com.modernmedia.adapter.MyPagerAdapter.OnItemClickListener;
 import cn.com.modernmedia.model.ArticleItem.PhonePageList;
@@ -71,14 +72,14 @@ public class AtlasAdapter extends PagerAdapter {
 			map.put(url, view);
 			container.addView(view);
 		}
-//		view.setOnClickListener(new OnClickListener() {
-//
-//			@Override
-//			public void onClick(View v) {
-//				if (onItemClickListener != null)
-//					onItemClickListener.onItemClick(v, position);
-//			}
-//		});
+		view.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				if (onItemClickListener != null)
+					onItemClickListener.onItemClick(v, position);
+			}
+		});
 		return view;
 	}
 

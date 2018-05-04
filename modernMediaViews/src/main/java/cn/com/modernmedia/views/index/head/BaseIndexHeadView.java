@@ -1,185 +1,181 @@
 package cn.com.modernmedia.views.index.head;
 
+import android.content.Context;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import android.content.Context;
-import android.view.View;
-import android.widget.ImageView;
 import cn.com.modernmedia.CommonArticleActivity.ArticleType;
 import cn.com.modernmedia.CommonMainActivity;
-import cn.com.modernmedia.common.ShareHelper;
 import cn.com.modernmedia.listener.NotifyArticleDesListener;
 import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.model.TagInfoList.TagInfo;
 import cn.com.modernmedia.util.AdvTools;
 import cn.com.modernmedia.views.R;
-import cn.com.modernmedia.views.ViewsMainActivity;
 import cn.com.modernmedia.views.model.Template;
 import cn.com.modernmedia.widget.BaseView;
 import cn.com.modernmediaslate.unit.ParseUtil;
 
 /**
  * 首页焦点图
- * 
+ *
  * @author user
- * 
  */
-public abstract class BaseIndexHeadView extends BaseView implements
-		NotifyArticleDesListener {
-	protected Context mContext;
-	protected IndexHeadCircularViewPager viewPager;
-	private List<ImageView> dots = new ArrayList<ImageView>();
-	protected List<ArticleItem> mList = new ArrayList<ArticleItem>();
-	private boolean shouldScroll;// 如果只有一张图，那么不监听滑动
-	protected Template template;
+public abstract class BaseIndexHeadView extends BaseView implements NotifyArticleDesListener {
+    protected Context mContext;
+    protected IndexHeadCircularViewPager viewPager;
+    private List<ImageView> dots = new ArrayList<ImageView>();
+    protected List<ArticleItem> mList = new ArrayList<ArticleItem>();
+    private boolean shouldScroll;// 如果只有一张图，那么不监听滑动
+    protected Template template;
 
-	private AutoScrollHandler handler;
+    protected AutoScrollHandler autoScrollHandler;
 
-	public BaseIndexHeadView(Context context, Template template) {
-		super(context);
-		mContext = context;
-		this.template = template;
-		handler = new AutoScrollHandler(context) {
+    public BaseIndexHeadView(Context context, Template template) {
+        super(context);
+        mContext = context;
+        this.template = template;
+        autoScrollHandler = new AutoScrollHandler(context) {
 
-			@Override
-			public void next() {
-				if (viewPager != null)
-					viewPager.next();
-			}
-		};
-		init();
-		initProperties();
-	}
+            @Override
+            public void next() {
+                if (viewPager != null) viewPager.next();
+            }
 
-	/**
-	 * 初始化资源
-	 */
-	protected abstract void init();
+            @Override
+            public void setShowHead() {
+                showHead();
+            }
 
-	private void initProperties() {
-		if (viewPager != null) {
-			viewPager.setListener(this);
-			viewPager.setTemplate(template);
-		}
-	}
+            @Override
+            public void setunShowHead() {
+                unShowHead();
+            }
+        };
+        init();
+        initProperties();
+    }
 
-	@Override
-	public void updateDes(int position) {
-		if (mList != null && mList.size() > position && mList.size() > 1) {
-			ArticleItem item = mList.get(position);
-			updateTitle(item);
-			for (int i = 0; i < dots.size(); i++) {
-				if (i == position) {
-					dots.get(i).setImageResource(R.drawable.dot_active);
-				} else {
-					dots.get(i).setImageResource(R.drawable.dot);
-				}
-			}
-			AdvTools.requestImpression(item);
-		}
-	}
+    /**
+     */
+    protected abstract void showHead();
 
-	@Override
-	public void updatePage(int state) {
-	}
+    /**
+     */
+    protected abstract void unShowHead();
 
-	/**
-	 * 获取当前list;当是独立栏目时，如果从服务器上返会的list。size为0，而当前headview不为空，那么不删除headview
-	 * 
-	 * @return
-	 */
-	public List<ArticleItem> getDataList() {
-		return mList;
-	}
+    /**
+     * 初始化资源
+     */
+    protected abstract void init();
 
-	public void setData(List<ArticleItem> list, TagInfo tagInfo) {
-		setDataToGallery(list);
-	}
+    private void initProperties() {
+        if (viewPager != null) {
+            viewPager.setListener(this);
+            viewPager.setTemplate(template);
+        }
+    }
 
-	/**
-	 * 
-	 * @param list
-	 * @param isSolo
-	 *            true:更新完的数据，追加在开始添加；false:覆盖本来数据
-	 */
-	protected void setDataToGallery(final List<ArticleItem> list) {
-		if (list == null || viewPager == null)
-			return;
-		viewPager.setArticleType(ArticleType.Default);
-		mList.clear();
-		mList.addAll(list);
-		if (!ParseUtil.listNotNull(mList))
-			return;
-		if (mContext instanceof CommonMainActivity) {
-			if (mList.size() == 0 || mList.size() == 1) {
-				shouldScroll = false;
-			} else {
-				((CommonMainActivity) mContext).setScrollView(this);
-				shouldScroll = true;
-			}
-		}
-		updateTitle(mList.get(0));
-		viewPager.setDataForPager(mList);
-		initDot(mList, dots);
-	}
+    @Override
+    public void updateDes(int position) {
+        if (mList != null && mList.size() > position && mList.size() > 1) {
+            ArticleItem item = mList.get(position);
+            updateTitle(item);
+            for (int i = 0; i < dots.size(); i++) {
+                if (i == position) {
+                    dots.get(i).setImageResource(R.drawable.dot_active);
+                } else {
+                    dots.get(i).setImageResource(R.drawable.dot);
+                }
+            }
+            AdvTools.requestImpression(item);
+        }
+    }
 
-	protected void addOutline(String outline, String outlineImg) {
-	}
+    @Override
+    public void updatePage(int state) {
+    }
 
-	/**
-	 * 分享
-	 */
-	protected void doShare() {
-		if (mContext instanceof ViewsMainActivity) {
-			int position = viewPager.getCurrentItem();
-			if (mList != null && mList.size() > position) {
-				ShareHelper.shareByDefault(mContext, mList.get(position));
-			}
-		}
-	}
+    /**
+     * 获取当前list;当是独立栏目时，如果从服务器上返会的list。size为0，而当前headview不为空，那么不删除headview
+     *
+     * @return
+     */
+    public List<ArticleItem> getDataList() {
+        return mList;
+    }
 
-	/**
-	 * 开始自动切换
-	 */
-	public void startRefresh() {
-		if (viewPager == null || !ParseUtil.listNotNull(mList))
-			return;
-		if (shouldScroll)
-			handler.startChange();
-	}
+    public void setData(List<ArticleItem> list, TagInfo tagInfo) {
+        setDataToGallery(list);
+    }
 
-	/**
-	 * 停止后台自动切换
-	 * 
-	 */
-	public void stopRefresh() {
-		handler.stopChange();
-	}
+    /**
+     * @param list true:更新完的数据，追加在开始添加；false:覆盖本来数据
+     */
+    protected void setDataToGallery(final List<ArticleItem> list) {
+        if (list == null || viewPager == null) return;
+        viewPager.setArticleType(ArticleType.Default);
+        mList.clear();
+        mList.addAll(list);
+        if (!ParseUtil.listNotNull(mList)) return;
+        if (mContext instanceof CommonMainActivity) {
+            if (mList.size() == 0 || mList.size() == 1) {
+                shouldScroll = false;
+            } else {
+                ((CommonMainActivity) mContext).setScrollView(this);
+                shouldScroll = true;
+            }
+        }
+        updateTitle(mList.get(0));
+        viewPager.setDataForPager(mList);
+        initDot(mList, dots);
+    }
 
-	protected void updateTitle(ArticleItem item) {
-	}
+    protected void addOutline(String outline, String outlineImg) {
+    }
 
-	protected void initDot(List<ArticleItem> itemList, List<ImageView> dots) {
-	}
 
-	public View getViewPager() {
-		return viewPager;
-	}
+    /**
+     * 开始自动切换
+     */
+    public void startRefresh() {
+        if (viewPager == null || !ParseUtil.listNotNull(mList)) return;
+        if (shouldScroll) autoScrollHandler.startChange();
+    }
 
-	public boolean isShouldScroll() {
-		return shouldScroll;
-	}
+    /**
+     * 停止后台自动切换
+     */
+    public void stopRefresh() {
+        autoScrollHandler.stopChange();
+    }
 
-	public void dismissHead() {
-		if (viewPager != null) {
-			setPadding(0, -viewPager.getLayoutParams().height, 0, 0);
-			invalidate();
-		}
-	}
+    protected void updateTitle(ArticleItem item) {
+    }
 
-	@Override
-	protected void reLoad() {
-	}
+    protected void initDot(List<ArticleItem> itemList, List<ImageView> dots) {
+    }
+
+    public View getViewPager() {
+        return viewPager;
+    }
+
+    public boolean isShouldScroll() {
+        return shouldScroll;
+    }
+
+    public void dismissHead() {
+        if (viewPager != null) {
+            setPadding(0, -viewPager.getLayoutParams().height, 0, 0);
+            invalidate();
+        }
+    }
+
+    @Override
+    protected void reLoad() {
+    }
 
 }

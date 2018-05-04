@@ -1,10 +1,5 @@
 package cn.com.modernmedia.views.util;
 
-import java.lang.ref.SoftReference;
-import java.lang.reflect.Field;
-import java.util.List;
-import java.util.Map;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -20,13 +15,18 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.NinePatchDrawable;
 import android.media.AudioManager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import java.lang.ref.SoftReference;
+import java.lang.reflect.Field;
+import java.util.List;
+import java.util.Map;
+
 import cn.com.modernmedia.CommonApplication;
 import cn.com.modernmedia.CommonArticleActivity.ArticleType;
 import cn.com.modernmedia.CommonMainActivity;
@@ -253,8 +253,7 @@ public class V {
 			ArticleItem item) {
 		String tagName = item.getGroupname();
 		int color = Color.RED;
-		if (!item.isSubscribeMerge()
-				&& DataHelper.columnColorMap.containsKey(tagName)) {
+		if ( DataHelper.columnColorMap.containsKey(tagName)) {
 			color = DataHelper.columnColorMap.get(tagName);
 		}
 
@@ -379,7 +378,6 @@ public class V {
 	/**
 	 * 为栏目设置默认icon
 	 * 
-	 * @param catId
 	 * @param imageView
 	 */
 	public static void setImageForWeeklyCat(Context context, TagInfo tagInfo,
@@ -496,11 +494,11 @@ public class V {
 					title += " · "
 							+ map.get(tagInfo.getTagName()).get(0)
 									.getColumnProperty().getCname();
-					((ViewsMainActivity) context).setIndexTitle(title);
+					((CommonMainActivity) context).setIndexTitle(title);
 					return true;
 				}
 			}
-			((ViewsMainActivity) context).setIndexTitle(title);
+			((CommonMainActivity) context).setIndexTitle(title);
 			return true;
 		}
 		// TODO 子栏目
@@ -518,7 +516,6 @@ public class V {
 	/**
 	 * 根据type获取首页adapter
 	 * 
-	 * @param type
 	 * @return
 	 */
 	public static BaseIndexAdapter getIndexAdapter(Context context,
@@ -632,7 +629,6 @@ public class V {
 	 *            是否静音
 	 * @param showUI
 	 *            是否显示声音UI
-	 * @param checkZero
 	 *            是否判断开启声音时声音为0的情况
 	 */
 	public static void muteAudio(Context context, boolean mute, boolean showUI) {

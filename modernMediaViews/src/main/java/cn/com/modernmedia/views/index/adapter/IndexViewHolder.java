@@ -1,10 +1,11 @@
 package cn.com.modernmedia.views.index.adapter;
 
-import java.util.List;
-
 import android.content.Context;
 import android.view.View;
 import android.widget.AbsListView;
+
+import java.util.List;
+
 import cn.com.modernmedia.CommonArticleActivity.ArticleType;
 import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.model.TagInfoList.TagInfo;
@@ -67,7 +68,7 @@ public class IndexViewHolder {
 	/**
 	 * 给收藏设置数据
 	 * 
-	 * @param tagInfo
+	 * @param articleItem
 	 */
 	public void setDataForFav(ArticleItem articleItem, int position,
 			FavAdapter adapter) {

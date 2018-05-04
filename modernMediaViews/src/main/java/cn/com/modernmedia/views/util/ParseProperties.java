@@ -1,15 +1,16 @@
 package cn.com.modernmedia.views.util;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import android.content.Context;
+import android.text.TextUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.content.Context;
-import android.text.TextUtils;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 import cn.com.modernmedia.views.model.Template;
 import cn.com.modernmedia.views.model.TemplateAbout;
 import cn.com.modernmedia.views.model.TemplateAriticle;
@@ -353,5 +354,7 @@ public class ParseProperties {
 		}
 		return data;
 	}
+
+
 
 }

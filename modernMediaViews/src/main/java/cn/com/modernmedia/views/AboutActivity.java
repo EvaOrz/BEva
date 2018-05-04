@@ -3,6 +3,9 @@ package cn.com.modernmedia.views;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+
+import com.umeng.analytics.MobclickAgent;
+
 import cn.com.modernmedia.BaseActivity;
 import cn.com.modernmedia.views.model.TemplateAbout;
 import cn.com.modernmedia.views.util.ParseProperties;
@@ -33,6 +36,7 @@ public class AboutActivity extends BaseActivity {
 	@Override
 	protected void onPause() {
 		super.onPause();
+		MobclickAgent.onPause(this);
 		overridePendingTransition(R.anim.hold, R.anim.down_out);
 	}
 
@@ -44,6 +48,10 @@ public class AboutActivity extends BaseActivity {
 	@Override
 	public Activity getActivity() {
 		return this;
+	}
+	public void onResume() {
+		super.onResume();
+		MobclickAgent.onResume(this);
 	}
 
 }
