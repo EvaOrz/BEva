@@ -1,11 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- 从下边移入 -->
-<set xmlns:android="http://schemas.android.com/apk/res/android"
-    android:fillAfter="true" >
-
-    <translate
-        android:duration="300"
-        android:fromYDelta="100%"
-        android:interpolator="@android:anim/linear_interpolator"
-        android:toYDelta="0" />
-</set><!-- From: file:/Users/Eva./Desktop/businessweek_tag/coreLib/src/main/res/anim/down_in.xml --><!-- From: file:/Users/Eva./Desktop/businessweek_tag/ibloomberg/build/intermediates/exploded-aar/businessweek_tag/coreLib/unspecified/res/anim/down_in.xml -->

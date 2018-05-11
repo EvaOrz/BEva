@@ -45,7 +45,7 @@ public abstract class SlateBaseFragmentActivity extends FragmentActivity {
 
 			@Override
 			public void run() {
-				Toast.makeText(SlateBaseFragmentActivity.this, resId,TOAST_LENGTH).show();
+				Toast.makeText(SlateBaseFragmentActivity.this, resId,Toast.LENGTH_SHORT).show();
 			}
 		});
 	}
@@ -56,7 +56,7 @@ public abstract class SlateBaseFragmentActivity extends FragmentActivity {
 			@Override
 			public void run() {
 				Toast.makeText(SlateBaseFragmentActivity.this, res,
-						TOAST_LENGTH).show();
+						Toast.LENGTH_SHORT).show();
 			}
 		});
 	}

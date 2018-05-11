@@ -24,6 +24,7 @@ import cn.com.modernmedia.R;
 import cn.com.modernmedia.VipShowInfoActivity;
 import cn.com.modernmedia.WangqiArticleActivity;
 import cn.com.modernmedia.model.ArticleItem;
+import cn.com.modernmedia.model.ShangchengIndex;
 import cn.com.modernmedia.model.TagInfoList;
 import cn.com.modernmedia.newtag.mainprocess.TagProcessManage;
 import cn.com.modernmedia.util.PageTransfer.TransferArticle;
@@ -835,7 +836,11 @@ public class UriParse {
                 } else if (key.equals(SHANGCHENG.toLowerCase())) {
                     gotoSpecial(context, 3);
                 } else if (key.equals(SHANGCHENGLIST.toLowerCase())) {
-                    goListActivity(context, list.get(1), checkFromSplash);
+                    if (entries != null && entries[0] instanceof ShangchengIndex.ShangchengIndexItem && entries[0] != null) {//我的订阅----进入阅读跳转
+                        goListActivity(context,list.get(1),checkFromSplash,(ShangchengIndex.ShangchengIndexItem)entries[0]);
+                    }else {
+                        goListActivity(context, list.get(1), checkFromSplash);
+                    }
                 } else if (key.equals(SHANGCHENG_INFO.toLowerCase()) || key.equals(CAIFU_ARTICLE_INTRO.toLowerCase())) {
                     goListInfoActivity(context, list.get(1), checkFromSplash);
                 } else if (key.equals(CAIFU_ARTICLE.toLowerCase())) {
@@ -861,7 +866,9 @@ public class UriParse {
                 ModernMediaTools.feedBack(context, null, null);
             } else if (key.equals(STORE)) {
                 ModernMediaTools.assess(context);
-            } else if (key.equals(CAIFU.toLowerCase())) {
+            } else if (key.equals(SHANGCHENG.toLowerCase())){
+                gotoSpecial(context,3);
+            }else if (key.equals(CAIFU.toLowerCase())) {
                 gotoSpecial(context, 2);
             } else if (key.equals(GIFT.toLowerCase())) {//兑换激活码
                 String broadcastIntent = "cn.com.modernmediausermodel.VipCodeActivity_nomal";
@@ -1179,6 +1186,14 @@ public class UriParse {
         Intent i = new Intent(broadcastIntent);
         i.putExtra("is_from_splash", isFromSpa);
         i.putExtra("ShangchengList_type", type);
+        context.sendBroadcast(i);
+    }
+    private static void goListActivity(Context context, String type, boolean isFromSpa, ShangchengIndex.ShangchengIndexItem shangchengIndexItem) {
+        String broadcastIntent = "cn.com.modernmedia.shangcheng";
+        Intent i = new Intent(broadcastIntent);
+        i.putExtra("is_from_splash", isFromSpa);
+        i.putExtra("ShangchengList_type", type);
+        i.putExtra("ShangchengList_info",shangchengIndexItem);
         context.sendBroadcast(i);
     }
 

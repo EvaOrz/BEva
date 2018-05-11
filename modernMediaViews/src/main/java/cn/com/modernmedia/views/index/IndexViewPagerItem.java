@@ -302,7 +302,7 @@ public class IndexViewPagerItem implements Observer, CheckNavHideListener {
                 new FetchEntryListener() {
 
             @Override
-            public void setData(Entry entry) {
+            public void setData(Entry entry) {//合并广告后的数据
                 if (entry instanceof TagArticleList) {
                     TagArticleList articleList = (TagArticleList) entry;
                     if (ParseUtil.listNotNull(articleList.getArticleList())) {

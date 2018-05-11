@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/businessweek_tag.iml" filepath="$PROJECT_DIR$/businessweek_tag.iml" />
-      <module fileurl="file://$PROJECT_DIR$/businessweek_tag1.iml" filepath="$PROJECT_DIR$/businessweek_tag1.iml" />
       <module fileurl="file://$PROJECT_DIR$/commonLib/commonLib.iml" filepath="$PROJECT_DIR$/commonLib/commonLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/coreLib/coreLib.iml" filepath="$PROJECT_DIR$/coreLib/coreLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/ibloomberg/ibloomberg.iml" filepath="$PROJECT_DIR$/ibloomberg/ibloomberg.iml" />

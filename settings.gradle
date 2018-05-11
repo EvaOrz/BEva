@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 include ':coreLib', ':vrlib', ':jiaozivideoplayer'
-=======
-include ':coreLib'
->>>>>>> 6c9e2d2e06b7ebc27437d85008517fa59ea008fc
 include ':commonLib'
 include ':modernMediaUserModel'
 include ':modernMediaViews'

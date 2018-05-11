@@ -72,4 +72,4 @@
         android:textColor="@color/issuelist_desc_color"
         android:textSize="@dimen/dp12_textsize" />
 
-</RelativeLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/layout/issue_list_item_single.xml -->
+</RelativeLayout>

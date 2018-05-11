@@ -48,7 +48,7 @@ public abstract class BaseIndexAdvOperate extends BaseOperate {
 	protected List<AdvItem> articleAdvList = new ArrayList<AdvItem>();
 
 	/**
-	 * 获得需要的广告
+	 * 获得需要的广告//栏目内固定位置广告（焦点图1，列表2）
 	 * 
 	 * @param tagName
 	 *            当前文章所在的期
@@ -89,7 +89,7 @@ public abstract class BaseIndexAdvOperate extends BaseOperate {
 	}
 
 	/**
-	 * 初始化文章广告
+	 * 初始化文章广告//文章间广告
 	 * 
 	 * @param tagName
 	 */
@@ -162,6 +162,7 @@ public abstract class BaseIndexAdvOperate extends BaseOperate {
 				}
 			}
 		}
+		System.out.println("list" + list.toString());
 		return list;
 	}
 
@@ -200,6 +201,7 @@ public abstract class BaseIndexAdvOperate extends BaseOperate {
 				}
 			}
 		}
+		System.out.println("list" + list.toString());
 		return list;
 	}
 
@@ -225,6 +227,7 @@ public abstract class BaseIndexAdvOperate extends BaseOperate {
 				}
 			}
 		}
+		System.out.println("list" + list.toString());
 		return list;
 	}
 
@@ -246,6 +249,7 @@ public abstract class BaseIndexAdvOperate extends BaseOperate {
 				}
 			}
 		}
+		System.out.println("list" + list.toString());
 		return list;
 	}
 

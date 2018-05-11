@@ -23,4 +23,4 @@
         layout="@layout/progress_activity"
         android:visibility="gone" />
 
-</RelativeLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/layout/push_article_activity.xml -->
+</RelativeLayout>

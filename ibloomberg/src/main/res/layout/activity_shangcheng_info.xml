@@ -66,26 +66,26 @@
         >
 
         <TextView
-            android:id="@+id/kaitong_price"
+            android:id="@+id/kaitong_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@color/white_bg"
             android:gravity="center"
             android:padding="10dp"
-            android:text="查看简介"
+            android:text=""
             android:textColor="@color/black_bg"
             android:textSize="@dimen/dp14_textsize"/>
 
         <TextView
-            android:id="@+id/kaitong_text"
+            android:id="@+id/kaitong_price"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@color/vip_mine_pay"
             android:gravity="center"
             android:padding="10dp"
-            android:text="开通进阶套餐"
+            android:text=""
             android:textColor="@color/white_bg"
             android:textSize="@dimen/dp14_textsize"/>
     </LinearLayout>

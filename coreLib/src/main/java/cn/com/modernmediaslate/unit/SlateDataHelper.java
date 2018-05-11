@@ -220,6 +220,7 @@ public class SlateDataHelper {
         editor.putString(OPEN_ID, "");
         editor.putInt(VIPLEVEL, 0);
         editor.putString(BUSINESSWEEK_CRT, "");
+        editor.putString(USER_READ_LEVEL,"");
         editor.commit();
     }
 

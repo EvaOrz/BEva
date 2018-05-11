@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/values/color.xml -->
-    <eat-comment/>
     <color name="book_bac">#f4f4f4</color>
     <color name="child_cat_bg">#FFEB030D</color>
     <color name="column_head">#c6391e</color>
@@ -14,14 +12,13 @@
     <color name="issuelist_desc_color">#ff78746e</color>
     <color name="issuelist_title_color">#ff000000</color>
     <color name="red">#cd3333</color>
+    <color name="result_clean">#16bff2</color>
+    <color name="result_desc">#A0A1A0</color>
     <color name="russet">#ffdd3d14</color>
     <color name="weather_day_label">#ffaaaaaa</color>
     <color name="weather_day_shadow">#4c000000</color>
     <color name="weather_view_bg">#66000000</color>
     <color name="weekly_column_head_bg">#BF000000</color>
-    <declare-styleable name="RoundAngleImageView"><attr format="dimension" name="roundWidth"/><attr format="dimension" name="roundHeight"/></declare-styleable>
-    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/values/dimen.xml -->
-    <eat-comment/>
     <dimen name="add_column_bg_height">40dp</dimen>
     <dimen name="atlas_dot_size">5dp</dimen>
     <dimen name="gallery_detail_content_height">80dp</dimen>
@@ -65,8 +62,6 @@
     <dimen name="weather_view_height">49dp</dimen>
     <dimen name="weather_view_margin_bottom">40dp</dimen>
     <dimen name="weather_view_width">300dp</dimen>
-    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/values/ids.xml -->
-    <eat-comment/>
     <item name="adapter_article" type="id"/>
     <item name="click" type="id"/>
     <item name="date_format" type="id"/>
@@ -89,25 +84,25 @@
     <item name="title_readed_font" type="id"/>
     <item name="unselect_bg" type="id"/>
     <item name="unselect_color" type="id"/>
-    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/values/strings.xml -->
-    <eat-comment/>
     <string name="add">添加</string>
     <string name="add_column">管理我的主题杂志</string>
     <string name="app_name">ModernMediaViews</string>
     <string name="book">订阅</string>
     <string name="book_edit">编辑</string>
     <string name="book_manage">管理订阅栏目</string>
+    <string name="cat_244">专栏</string>
+    <string name="issue_date">时间段</string>
+    <string name="keywords">关键词</string>
     <string name="manage_curr_column">管理栏目</string>
     <string name="manage_other_column">管理主题杂志</string>
     <string name="more_books">添加栏目</string>
     <string name="more_cat">更多%1$s</string>
     <string name="my_books">我的栏目</string>
     <string name="select_column_title">管理我的主题杂志</string>
+    <string name="share_app">分享APP</string>
     <string name="subscribe_save">保存</string>
     <string name="subscribe_tip_message">您修改了订阅的微杂志，要保存吗？</string>
     <string name="subscribe_tip_title">微杂志</string>
-    <!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/values/styles.xml -->
-    <eat-comment/>
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--
             Theme customizations available in newer API levels can go in

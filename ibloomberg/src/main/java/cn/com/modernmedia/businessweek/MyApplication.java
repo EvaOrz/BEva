@@ -29,7 +29,7 @@ public class MyApplication extends ViewsApplication {
 
     // 1--商周简体，18---商周繁体
     public static int APPID = 1;
-    public static int DEBUG = 1;
+    public static int DEBUG = 0;//0线上，1测试，8编辑
 
     public static MusicService musicService;// 全局电台播放Service
 

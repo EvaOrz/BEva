@@ -88,7 +88,7 @@ public class GetTagArticlesOperate extends BaseIndexAdvOperate {
     }
 
     @Override
-    protected void handler(JSONObject jsonObject) {
+    protected void handler(JSONObject jsonObject) {//接口文章列表数据
         JSONArray articletag = jsonObject.optJSONArray("articletag");
         if (isNull(articletag)) return;
         parseArr(articletag);
@@ -122,9 +122,12 @@ public class GetTagArticlesOperate extends BaseIndexAdvOperate {
      * 添加sort超出范围的广告
      */
     private void addLarger() {
-        getListFromMap(1).addAll(getAdvsLargerThisPosition("1"));
-        getListFromMap(2).addAll(getAdvsLargerThisPosition("2"));
-        articleList.getArticleList().addAll(getArticleAdvsLargerThisPosition());
+        List<ArticleItem> advsLargerThisPosition = getAdvsLargerThisPosition("1");
+        getListFromMap(1).addAll(advsLargerThisPosition);
+        List<ArticleItem> advsLargerThisPosition1 = getAdvsLargerThisPosition("2");
+        getListFromMap(2).addAll(advsLargerThisPosition1);
+        List<ArticleItem> articleAdvsLargerThisPosition = getArticleAdvsLargerThisPosition();
+        articleList.getArticleList().addAll(articleAdvsLargerThisPosition);
     }
 
     protected void parseArr(JSONArray arr) {
@@ -313,20 +316,24 @@ public class GetTagArticlesOperate extends BaseIndexAdvOperate {
      */
     private void addDataToList(ArticleItem item, int position) {
         if (position == 1) {
-            getListFromMap(1).addAll(getAdvsMatchThisPosition("1"));
+            List<ArticleItem> advsMatchThisPosition = getAdvsMatchThisPosition("1");
+            getListFromMap(1).addAll(advsMatchThisPosition);
             getListFromMap(1).add(item);
             currentPosition1++;
         } else if (position == 2) {
-            getListFromMap(2).addAll(getAdvsMatchThisPosition("2"));
+            List<ArticleItem> advsMatchThisPosition = getAdvsMatchThisPosition("2");
+            getListFromMap(2).addAll(advsMatchThisPosition);
             getListFromMap(2).add(item);
             currentPosition2++;
         } else if (position == 3) {
-            getListFromMap(3).addAll(getAdvsMatchThisPosition("3"));
+            List<ArticleItem> advsMatchThisPosition = getAdvsMatchThisPosition("3");
+            getListFromMap(3).addAll(advsMatchThisPosition);
             getListFromMap(3).add(item);
             currentPositionInSection++;
         }
         if (item.getProperty().getScrollHidden() == 0) {
-            articleList.getArticleList().addAll(getArticleAdvsMatchThisPosition());
+            List<ArticleItem> articleAdvsMatchThisPosition = getArticleAdvsMatchThisPosition();
+            articleList.getArticleList().addAll(articleAdvsMatchThisPosition);
             currentArticlePosition++;
         }
         articleList.getArticleList().add(item);

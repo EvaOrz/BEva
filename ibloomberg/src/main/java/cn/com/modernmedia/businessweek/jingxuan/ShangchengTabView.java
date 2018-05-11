@@ -74,6 +74,7 @@ public class ShangchengTabView extends BaseView implements View.OnClickListener 
     private ImageView ad2Img;
     private TextView ad2Title, ad2Time;
     private LinearLayout zhuankanLayout, dubaoLayout, fmLayout, zhuantiLayout, kechengLayout;
+    private RelativeLayout specialTitle;
 
 
     public ShangchengTabView(Context context) {
@@ -120,6 +121,7 @@ public class ShangchengTabView extends BaseView implements View.OnClickListener 
     @Override
     public void reLoad() {
         handler.sendEmptyMessage(1);
+        handler.sendEmptyMessage(0);
     }
 
 
@@ -344,7 +346,7 @@ public class ShangchengTabView extends BaseView implements View.OnClickListener 
                         if (fmDatas.size() > i)
                             fmLayout.addView(getFmItem(fmDatas.get(i)), sanPamas);
                     }
-                    if (ParseUtil.listNotNull(zhuantiDatas)) {
+                    if (ParseUtil.listNotNull(zhuantiDatas) && ParseUtil.listNotNull(zhuantiDatas.get(0).getPicList())) {
                         zhuantiLayout.removeAllViews();
                         zhuantiLayout.addView(getZhuantiItem(zhuantiDatas.get(0)));
                     }
@@ -365,8 +367,10 @@ public class ShangchengTabView extends BaseView implements View.OnClickListener 
                     if (headDatas.size() > 0) {
                         headViewPager.setVisibility(View.VISIBLE);
                         headAdapter.notifyDataSetChanged();
+                        specialTitle.setVisibility(GONE);
                     } else {
                         headViewPager.setVisibility(View.GONE);
+                        specialTitle.setVisibility(VISIBLE);
                     }
 
                     break;
@@ -393,6 +397,7 @@ public class ShangchengTabView extends BaseView implements View.OnClickListener 
     private void initView() {
         View view = LayoutInflater.from(context).inflate(R.layout.main_shangcheng_view, null);
         addView(view);
+        specialTitle = view.findViewById(R.id.special_title_rl);
         headViewPager = (ViewPager) view.findViewById(R.id.shang_ad1);
         headAdapter = new ShangHeadAdapter(context, headDatas);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(CommonApplication.width, CommonApplication.width / 2);
@@ -519,12 +524,18 @@ public class ShangchengTabView extends BaseView implements View.OnClickListener 
         ImageView img = view.findViewById(R.id.shang_kecheng_img);
         TextView title = view.findViewById(R.id.shang_kecheng_title);
 
-        if (a.getPicList() != null && a.getPicList().size() > 0) {
+        img.setImageResource(R.drawable.placeholder);
+        if (a.getThumbList() != null && a.getThumbList().size() > 0) {
+            img.setTag(a.getThumbList().get(0).getUrl());
+            img.setId(a.getArticleId());
+            CommonApplication.finalBitmap.display(img, (String) img.getTag());
+        } else if (a.getPicList() != null && a.getPicList().size() > 0) {
             img.setTag(a.getPicList().get(0).getUrl());
             img.setId(a.getArticleId());
             CommonApplication.finalBitmap.display(img, (String) img.getTag());
         }
-        if (a.getProperty().getLevel() == 0 && !SlateDataHelper.getLevelByType(context, 7)) {
+
+        if (a.getProperty().getLevel() == 0 && !SlateDataHelper.getLevelByType(context, 7)) {//富文本
             Drawable bb = context.getResources().getDrawable(R.drawable.shidu);
             bb.setBounds(0, 0, 80, 40);
             ImageSpan imgSpan = new ImageSpan(bb);

@@ -97,6 +97,11 @@ public class ShangchengInfoActivity extends BaseActivity implements View.OnClick
                             if (ParseUtil.listNotNull(shangchengIndexItem.getGoods())) {
                                 kaitongPrice.setText(shangchengIndexItem.getGoods().get(0).getShowPrice());
                                 kaitongPrice.setTag(shangchengIndexItem.getGoods().get(0));
+
+                                if (shangchengIndexItem.getGoods().size() > 1) {
+                                  kaitong.setText(shangchengIndexItem.getGoods().get(1).getShowPrice());
+                                  kaitong.setTag(shangchengIndexItem.getGoods().get(1));
+                                }
                             }
                         }
                     } catch (UnsupportedEncodingException e) {
@@ -139,6 +144,10 @@ public class ShangchengInfoActivity extends BaseActivity implements View.OnClick
             payLayout.setVisibility(View.GONE);
             if (CommonApplication.loginStatusChange) handler.sendEmptyMessage(0);
         } else if (type == 10) {// 课程
+            if (shangchengIndexItem != null && SlateDataHelper.getUserReadLevel(this).contains(shangchengIndexItem.getReadLevel() + "")) {
+                payLayout.setVisibility(View.GONE);
+                return;
+            }
             kaitongLayout.setVisibility(View.GONE);
             if (ParseUtil.listNotNull(shangchengIndexItem.getGoods())) {
                 payLayout.setVisibility(View.VISIBLE);
@@ -166,14 +175,17 @@ public class ShangchengInfoActivity extends BaseActivity implements View.OnClick
             } else {
                 if (shangchengIndexItem != null && ParseUtil.listNotNull(shangchengIndexItem.getGoods())) {
                     kaitongPrice.setText(shangchengIndexItem.getGoods().get(0).getShowPrice());
+                    if (shangchengIndexItem.getGoods().size() > 1) {
+                        kaitong.setText(shangchengIndexItem.getGoods().get(1).getShowPrice());
+                    }
                 }
-                if (SlateDataHelper.getVipLevel(this) == 1) {
+                /*if (SlateDataHelper.getVipLevel(this) == 1) {
                     kaitong.setText("升级VIP进阶套餐");
                 } else if (SlateDataHelper.getVipLevel(this) > 1) {
                     kaitong.setText("查看列表");
                 } else {
                     kaitong.setText("开通VIP进阶套餐");
-                }
+                }*/
             }
         }
 
@@ -197,7 +209,7 @@ public class ShangchengInfoActivity extends BaseActivity implements View.OnClick
                     goPay(good);
                 }
                 break;
-            case R.id.kaitong_text:
+            case R.id.kaitong_price:
                 if (SlateDataHelper.getVipLevel(ShangchengInfoActivity.this) > 1) {// vip2\3 查看列表
                     Intent i = new Intent(ShangchengInfoActivity.this, ShangchengListActivity.class);
                     i.putExtra("ShangchengList_type", type);
@@ -209,10 +221,10 @@ public class ShangchengInfoActivity extends BaseActivity implements View.OnClick
                     UserPageTransfer.gotoShangchengActivity(ShangchengInfoActivity.this, false);
                 }
                 break;
-            case R.id.kaitong_price:
-                if ((type == 7 || type == 8 || type == 6 || type == 9) && kaitongPrice.getTag() != null && kaitongPrice.getTag() instanceof VipGoodList.VipGood) {
+            case R.id.kaitong_text:
+                if ((type == 7 || type == 8 || type == 6 || type == 9) && kaitong.getTag() != null && kaitong.getTag() instanceof VipGoodList.VipGood) {
                     System.out.println(shangchengIndexItem);
-                    VipGoodList.VipGood good = (VipGoodList.VipGood) kaitongPrice.getTag();
+                    VipGoodList.VipGood good = (VipGoodList.VipGood) kaitong.getTag();
                     goPay(good);
                 }
                 break;
