@@ -129,7 +129,7 @@ public class BookColumnActivity extends BaseActivity implements OnClickListener 
         int bHeight = bitmap.getHeight();
 
         int height = getResources().getDisplayMetrics().widthPixels * bHeight / bwidth;
-        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, height);
+        LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, height);
 
         lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         payBanner.setLayoutParams(lp);
