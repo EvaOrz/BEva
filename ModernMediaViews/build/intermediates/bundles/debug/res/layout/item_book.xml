@@ -35,7 +35,7 @@
                 android:textStyle="bold"
                 android:visibility="gone" />
 
-            <cn.com.modernmedia.views.column.book.RoundAngleImageView
+            <cn.com.modernmedia.widget.RoundAngleImageView
                 android:id="@+id/book_item_cover"
                 android:layout_width="70dp"
                 android:layout_height="100dp"
@@ -64,4 +64,4 @@
         </FrameLayout>
     </LinearLayout>
 
-</FrameLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/layout/item_book.xml -->
+</FrameLayout>

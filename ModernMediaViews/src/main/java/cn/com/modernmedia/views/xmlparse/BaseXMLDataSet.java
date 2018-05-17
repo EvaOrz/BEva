@@ -5,10 +5,13 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.ImageSpan;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -102,7 +105,7 @@ public class BaseXMLDataSet {
         } else {
             titleText = sss + item.getTitle();
         }
-        title.setText(titleText);
+//        title.setText(titleText);
         // 即时头条不显示栏目title
         //        if (item.getPosition().getStyle() == 3 && TextUtils.equals(item.getApiTag(), "cat_15")) {
         //            titleText = item.getGroupdisplayname() + " | " + item.getTitle();
@@ -114,10 +117,19 @@ public class BaseXMLDataSet {
             Drawable drawable= title.getContext().getResources().getDrawable(R.drawable.recommend);
             /// 这一步必须要做,否则不会显示.
             drawable.setBounds(0, 0, drawable.getMinimumWidth() * 10/15, drawable.getMinimumHeight() * 10/15);
-            title.setCompoundDrawablePadding(20);
-            title.setCompoundDrawables(drawable,null,null,null);
+            //普通图片
+//            title.setCompoundDrawablePadding(20);
+//            title.setCompoundDrawables(drawable,null,null,null);
+
+            //富文本图片
+            ImageSpan imageSpan = new ImageSpan(drawable);
+            SpannableString spannableString = new SpannableString("ssssssssss  ");
+            spannableString.setSpan(imageSpan,0,10, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            title.setText(spannableString);
+            title.append(titleText);
         }else {
-            title.setCompoundDrawables(null,null,null,null);
+//            title.setCompoundDrawables(null,null,null,null);
+            title.setText(titleText);
         }
         if (adapter == null) return;
         //已读

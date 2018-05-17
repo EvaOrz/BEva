@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white_bg" >
+    android:background="@color/white_bg">
 
     <cn.com.modernmedia.views.index.IndexViewPager
         android:id="@+id/index_pager"
@@ -15,12 +15,6 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" />
-
-     <!-- <cn.com.modernmedia.views.column.book.TopMenuHorizontalScrollView
-        android:id="@+id/book_menu"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/index_titleBar" />  -->
 
     <FrameLayout
         android:id="@+id/index_contain"
@@ -38,10 +32,10 @@
         android:visibility="gone" />
 
     <include
+        layout="@layout/progress"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@+id/index_titleBar"
-        layout="@layout/progress"
         android:visibility="gone" />
 
     <LinearLayout
@@ -52,4 +46,6 @@
         android:orientation="horizontal"
         android:visibility="gone" />
 
-</RelativeLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/layout/index_view.xml -->
+
+
+</RelativeLayout>

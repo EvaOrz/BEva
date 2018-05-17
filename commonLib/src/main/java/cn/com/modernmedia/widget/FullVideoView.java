@@ -38,6 +38,7 @@ import cn.com.modernmedia.model.ArticleItem;
 import cn.com.modernmedia.util.UriParse;
 import cn.com.modernmediaslate.SlateApplication;
 import cn.com.modernmediaslate.model.Entry;
+import cn.com.modernmediaslate.unit.ParseUtil;
 import cn.com.modernmediaslate.unit.SlateDataHelper;
 import cn.jzvd.JZUserActionStandard;
 import cn.jzvd.JZUtils;
@@ -111,9 +112,11 @@ public class FullVideoView extends JZVideoPlayer {
             SlateApplication.finalBitmap.display(thumbImageView, articleItem.getAdvSource().getUrl());
 
         } else {
-            setUp(articleItem.getPicList().get(0).getVideolink(), type, needLevel);
-            thumbImageView.setTag(R.id.scale_type, "centerCrop");
-            SlateApplication.finalBitmap.display(thumbImageView, articleItem.getPicList().get(0).getUrl());
+            if (ParseUtil.listNotNull(articleItem.getPicList())) {
+                setUp(articleItem.getPicList().get(0).getVideolink(), type, needLevel);
+                thumbImageView.setTag(R.id.scale_type, "centerCrop");
+                SlateApplication.finalBitmap.display(thumbImageView, articleItem.getPicList().get(0).getUrl());
+            }
         }
 
     }

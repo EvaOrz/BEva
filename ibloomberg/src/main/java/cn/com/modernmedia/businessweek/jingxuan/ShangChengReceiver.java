@@ -26,10 +26,11 @@ public class ShangChengReceiver extends BroadcastReceiver {
             String type = intent.getStringExtra("ShangchengList_type");
             if (!TextUtils.isEmpty(type)) {
                 Intent i = new Intent(context, ShangchengListActivity.class);
-                i.putExtra("ShangchengList_type", getSenid(type));
+                i.putExtra("ShangchengList_type", getSenidNew(type));
                 i.putExtra("is_from_splash", intent.getBooleanExtra("is_from_splash", true));
                 i.putExtra("ShangchengList_senid", type);
-                i.putExtra("ShangchengList_fm", getSenid(type) == 7 ? 0 : -1);
+                i.putExtra("ShangchengList_fm", getSenidNew(type) == 7 ? 0 : -1);
+                i.putExtra("ShangchengList_info",intent.getSerializableExtra("ShangchengList_info"));
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(i);
             } else {
@@ -77,6 +78,22 @@ public class ShangChengReceiver extends BroadcastReceiver {
         } else if (type.equals("app1_choice_documentaire")) {
             tt = 9;
         } else if (type.equals("caifu_finance_ceri")) {
+            tt = 10;
+        }
+        return tt;
+    }
+
+    private int getSenidNew(String type){
+        int tt = 0;// 6专刊；8读报；7FM；9专题片；10英语课
+        if (type.equals("app1_choice_specialissue_android")) {
+            tt = 6;
+        } else if (type.equals("app1_choice_fm_android")) {
+            tt = 7;
+        } else if (type.equals("app1_choice_readnewspaper_android")) {
+            tt = 8;
+        } else if (type.equals("app1_choice_documentaire_android")) {
+            tt = 9;
+        } else if (type.equals("app1_choice_enteach_android")) {
             tt = 10;
         }
         return tt;

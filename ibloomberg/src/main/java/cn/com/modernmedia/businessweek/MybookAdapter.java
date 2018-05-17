@@ -82,7 +82,8 @@ public class MybookAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 if (!TextUtils.isEmpty(shangchengIndexItem.getProtocolList())) {
-                    UriParse.clickSlate(context, shangchengIndexItem.getProtocolList(), new Entry[]{new ArticleItem()}, null);
+//                    UriParse.clickSlate(context, shangchengIndexItem.getProtocolList(), new Entry[]{new ArticleItem()}, null);
+                    UriParse.clickSlate(context, shangchengIndexItem.getProtocolList(), new Entry[]{shangchengIndexItem}, null);
 
                 }
             }

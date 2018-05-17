@@ -115,6 +115,10 @@ public class UrlMaker {
         return url + str + "/newarticles";
     }
 
+    /**
+     * 获取广告
+     * @return
+     */
     public static String getAdvList() {
         String host = "";
         if (ConstData.IS_DEBUG == 0) {
@@ -131,6 +135,14 @@ public class UrlMaker {
         }
         Log.e("getAdvList()", url);
         return url;
+    }
+
+    /**
+     * 获取第三方广告
+     * @return
+     */
+    public static String getOtherAdvUrl(){
+        return "http://api.htp.hubcloud.com.cn:45600/json/v1/sdk0";
     }
 
     /**

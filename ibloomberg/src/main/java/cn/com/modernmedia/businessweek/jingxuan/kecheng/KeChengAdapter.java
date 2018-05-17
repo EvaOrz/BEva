@@ -68,7 +68,13 @@ public class KeChengAdapter extends BaseAdapter {
         }
         convertView.setTag(viewHolder);
 
-        if (a.getPicList() != null && a.getPicList().size() > 0) {
+        viewHolder.img.setImageResource(R.drawable.placeholder);
+
+        if (a.getThumbList() != null && a.getThumbList().size() > 0){
+            viewHolder.img.setTag(a.getThumbList().get(0).getUrl());
+            viewHolder.img.setId(a.getArticleId());
+            CommonApplication.finalBitmap.display(viewHolder.img,(String) viewHolder.img.getTag());
+        } else if (a.getPicList() != null && a.getPicList().size() > 0) {
             viewHolder.img.setTag(a.getPicList().get(0).getUrl());
             viewHolder.img.setId(a.getArticleId());
             CommonApplication.finalBitmap.display(viewHolder.img, (String) viewHolder.img.getTag());

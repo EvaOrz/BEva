@@ -176,6 +176,9 @@ public class MainActivity extends CommonMainActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (MyApplication.DEBUG != 0) {//非生产环境
+            showToast("渠道号" + CommonApplication.CHANNEL);
+        }
         uploadDeviceInfoForPush();
 
         ViewsApplication.readedArticles = ReadDb.getInstance(this).getAllReadArticle();

@@ -5,6 +5,8 @@ import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.google.gson.Gson;
+
 import org.json.JSONObject;
 
 import java.util.List;
@@ -91,7 +93,7 @@ public class OperateController {
                 @Override
                 public void run() {
                     listener.setData(entry);
-
+                    String s = new Gson().toJson(entry);
                     if (afterCallBack != null) afterCallBack.afterCallBack(entry, fromHttp);
                 }
             });
@@ -149,6 +151,15 @@ public class OperateController {
         GetAdvListOperate operate = new GetAdvListOperate();
         operate.setShowToast(type != FetchApiType.USE_CACHE_ONLY);
         doRequest(operate, operate.getAdvList(), type, listener);
+    }
+
+    /**
+     * 获取第三方广告
+     */
+    public void getOtherAdv(FetchApiType type, FetchEntryListener listener){
+        GetOtherAdvOperate operate = new GetOtherAdvOperate();
+
+        doRequest(operate,operate.getOtherAdvList(),type,listener);
     }
 
     /**

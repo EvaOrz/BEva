@@ -83,14 +83,14 @@ public class NewColumnView extends BaseView implements FetchEntryListener {
         headFrame = (LinearLayout) findViewById(R.id.column_head);
 
         //搜索
-        findViewById(R.id.column_search).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.column_search).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 mContext.startActivity(new Intent(mContext, SearchActivity.class));
             }
         });
         // 扫一扫
-        findViewById(R.id.column_sao).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.column_sao).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 mContext.startActivity(new Intent(mContext, CaptureActivity.class));
@@ -98,7 +98,7 @@ public class NewColumnView extends BaseView implements FetchEntryListener {
         });
 
         // vip
-        findViewById(R.id.column_vip).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.column_vip).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (UserPageTransfer.isLogin(mContext)) {
@@ -110,7 +110,7 @@ public class NewColumnView extends BaseView implements FetchEntryListener {
             }
         });
         // 反馈
-        findViewById(R.id.column_feedback).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.column_feedback).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (UserPageTransfer.isLogin(mContext)) {

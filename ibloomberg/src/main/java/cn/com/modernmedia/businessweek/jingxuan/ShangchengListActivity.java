@@ -155,6 +155,10 @@ public class ShangchengListActivity extends BaseActivity implements View.OnClick
     private void loadStatus() {
         if (type == 10) {// 课程
             kaitongLayout.setVisibility(View.GONE);
+            if (shangchengIndexItem != null && SlateDataHelper.getUserReadLevel(this).contains(shangchengIndexItem.getReadLevel() + "")) {//已购买
+                payLayout.setVisibility(View.GONE);
+                return;
+            }
             if (ParseUtil.listNotNull(shangchengIndexItem.getGoods())) {
                 payLayout.setVisibility(View.VISIBLE);
 //                button2.setBackgroundColor(getResources().getColor(R.color.white_bg));
@@ -179,12 +183,17 @@ public class ShangchengListActivity extends BaseActivity implements View.OnClick
                 if (shangchengIndexItem != null && ParseUtil.listNotNull(shangchengIndexItem.getGoods())) {
                     infoButton.setText(shangchengIndexItem.getGoods().get(0).getShowPrice());
                     infoButton.setTag(shangchengIndexItem.getGoods().get(0));
+
+                    if (shangchengIndexItem.getGoods().size() > 1) {
+                        kaitongButton.setText(shangchengIndexItem.getGoods().get(1).getShowPrice());
+                        kaitongButton.setTag(shangchengIndexItem.getGoods().get(1));
+                    }
                 }
-                if (SlateDataHelper.getVipLevel(this) == 1) {
+                /*if (SlateDataHelper.getVipLevel(this) == 1) {
                     kaitongButton.setText("升级VIP进阶套餐");
                 } else {
                     kaitongButton.setText("开通VIP进阶套餐");
-                }
+                }*/
 
             }
         }
@@ -270,7 +279,9 @@ public class ShangchengListActivity extends BaseActivity implements View.OnClick
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                 if (position == 0) return;
-                                if (datas.get(position - 1).getProperty().getLevel() > 0 && !SlateDataHelper.getLevelByType(ShangchengListActivity.this, 3)) {
+                                int level = datas.get(position - 1).getProperty().getLevel();
+                                boolean levelByType = SlateDataHelper.getLevelByType(ShangchengListActivity.this, 4);//type 由3改为4
+                                if (level > 0 && !levelByType) {
                                     goInfo();
 
                                 } else {
@@ -385,14 +396,14 @@ public class ShangchengListActivity extends BaseActivity implements View.OnClick
             case R.id.shang_back:
                 finish();
                 break;
-            case R.id.kaitong_text:// 开通 || 升级
+            case R.id.kaitong_info:// 查看简介改为单独购买
                 UserPageTransfer.gotoShangchengActivity(ShangchengListActivity.this, false);
                 break;
-            case R.id.kaitong_info:// 查看简介改为单独购买
+            case R.id.kaitong_text:// 开通 || 升级
 //                goInfo();
-                if ((type == 7 || type == 8 || type == 6 || type == 9) && infoButton.getTag() != null && infoButton.getTag() instanceof VipGoodList.VipGood) {
+                if ((type == 7 || type == 8 || type == 6 || type == 9) && kaitongButton.getTag() != null && kaitongButton.getTag() instanceof VipGoodList.VipGood) {
                     System.out.println(shangchengIndexItem);
-                    VipGoodList.VipGood good = (VipGoodList.VipGood) infoButton.getTag();
+                    VipGoodList.VipGood good = (VipGoodList.VipGood) kaitongButton.getTag();
                     goPay(good);
                 }
                 break;

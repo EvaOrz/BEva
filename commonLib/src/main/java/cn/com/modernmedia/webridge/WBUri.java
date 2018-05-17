@@ -46,8 +46,12 @@ public class WBUri {
         Uri uri = Uri.parse(uriStr);
         String scheme = uri.getScheme();
         String path = uri.getPath();
-        if (TextUtils.isEmpty(scheme) || TextUtils.isEmpty(path)) {
-            return false;
+        if (TextUtils.equals("slate://vip",uriStr)) {//如果是"slate://vip"就不判断path是否为空
+
+        }else {
+            if (TextUtils.isEmpty(scheme) || TextUtils.isEmpty(path)) {
+                return false;
+            }
         }
 
         //        if (scheme.equals("slate") || scheme.equals("http") || scheme.equals("https")) {

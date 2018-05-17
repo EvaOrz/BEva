@@ -71,4 +71,11 @@
         android:layout_height="fill_parent"
         android:layout_below="@+id/pager_item_head_frame_divider" />
 
-</RelativeLayout><!-- From: file:/Users/Eva./Desktop/businessweek_tag/modernMediaViews/src/main/res/layout/index_view_pager_item.xml -->
+    <ImageView
+        android:id="@+id/pager_item_imageview"
+        android:layout_width="fill_parent"
+        android:scaleType="centerCrop"
+        android:layout_below="@+id/pager_item_head_frame_divider"
+        android:layout_height="fill_parent"/>
+
+</RelativeLayout>

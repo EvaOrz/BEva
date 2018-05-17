@@ -251,7 +251,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
 
             setting_book_linear.setVisibility(View.GONE);
         } else {// 付费用户，显示已订阅
-            setting_book_linear.setVisibility(View.VISIBLE);
+//            setting_book_linear.setVisibility(View.VISIBLE);//去掉
             long endtime = SlateDataHelper.getEndTimeByType(this, 1);
             if (SlateDataHelper.getLevelByType(this, 1)) {
                 bookStatus.setText(String.format(this.getString(R.string.book_already), Utils.strToDate(endtime)));// 显示到期时间
@@ -330,7 +330,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener, On
     protected void onPause() {
         super.onPause();
         MobclickAgent.onPause(this);
-        overridePendingTransition(R.anim.hold, R.anim.down_out);
+//        overridePendingTransition(R.anim.hold, R.anim.down_out);
     }
 
     @Override

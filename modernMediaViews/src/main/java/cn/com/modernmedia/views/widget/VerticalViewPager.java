@@ -227,7 +227,7 @@ public class VerticalViewPager extends ViewGroup {
 		 *            Value in pixels indicating the offset from position.
 		 */
 		public void onPageScrolled(int position, float positionOffset,
-				int positionOffsetPixels);
+                                   int positionOffsetPixels);
 
 		/**
 		 * This method will be invoked when a new page becomes selected.
@@ -307,7 +307,7 @@ public class VerticalViewPager extends ViewGroup {
 	 */
 	interface OnAdapterChangeListener {
 		public void onAdapterChanged(VerticalPagerAdapter oldAdapter,
-				VerticalPagerAdapter newAdapter);
+                                     VerticalPagerAdapter newAdapter);
 	}
 
 	/**
@@ -1244,7 +1244,7 @@ public class VerticalViewPager extends ViewGroup {
 					+ " position=" + position + "}";
 		}
 
-		public static final Parcelable.Creator<SavedState> CREATOR = ParcelableCompat
+		public static final Creator<SavedState> CREATOR = ParcelableCompat
 				.newCreator(new ParcelableCompatCreatorCallbacks<SavedState>() {
 					@Override
 					public SavedState createFromParcel(Parcel in,
@@ -2939,7 +2939,7 @@ public class VerticalViewPager extends ViewGroup {
 		/**
 		 * Gravity setting for use on decor views only: Where to position the
 		 * view page within the overall ViewPager container; constants are
-		 * defined in {@link android.view.Gravity}.
+		 * defined in {@link Gravity}.
 		 */
 		public int gravity;
 

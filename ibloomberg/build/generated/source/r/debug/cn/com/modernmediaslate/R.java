@@ -83,8 +83,8 @@ public final class R {
         public static final int processBar = 0x7f070250;
         public static final int pull_head_contain = 0x7f07025b;
         public static final int scale_type = 0x7f07028a;
-        public static final int user_footer_progressBar = 0x7f0703be;
-        public static final int user_footer_text = 0x7f0703bf;
+        public static final int user_footer_progressBar = 0x7f0703c0;
+        public static final int user_footer_text = 0x7f0703c1;
     }
     public static final class interpolator {
         public static final int decelerate_cubic = 0x7f090000;
